@@ -27,7 +27,7 @@ jobs:
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 'latest'  # 或指定具体版本，如 '1.6.39'
+          version: '1.11.1'
 
       # 渲染整个项目（Quarto 会自动读取 _quarto.yml）
       - name: Render Quarto Project
