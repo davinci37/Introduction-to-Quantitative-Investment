@@ -4,6 +4,10 @@ on:
   push:
     branches: [main, master]
 
+# 关键：赋予 GITHUB_TOKEN 写入权限
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -11,29 +15,37 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # ---------- 安装 R ----------
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: 'release'
 
-      - name: Install R packages
+      - name: Install R packages (包括 rmarkdown, knitr 等)
         run: |
           install.packages(c("rmarkdown", "knitr"))
         shell: Rscript {0}
 
+      # ---------- 安装 Quarto ----------
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: '1.6.39'
+          version: '1.11.1'   # 或使用 'latest'，但建议固定版本
 
-      # 不需要安装 TinyTeX，因为只输出 HTML
+      # ---------- 安装 TinyTeX（如果项目需要生成 PDF） ----------
+      - name: Install TinyTeX
+        uses: quarto-dev/quarto-actions/install-tinytex@v2
+
+      # ---------- 渲染项目 ----------
       - name: Render Quarto Project
         run: |
-          quarto render --to html --output-dir docs
+          quarto render --output-dir docs
 
+      # ---------- 避免 Jekyll 处理 ----------
       - name: Create .nojekyll file
         run: touch docs/.nojekyll
 
+      # ---------- 部署到 gh-pages ----------
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
