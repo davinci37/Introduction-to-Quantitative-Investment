@@ -29,13 +29,14 @@ jobs:
         with:
           version: '1.11.1'
 
+     - name: Install TinyTeX
+        uses: quarto-dev/quarto-actions/install-tinytex@v2
+        
       # 渲染整个项目（Quarto 会自动读取 _quarto.yml）
       - name: Render Quarto Project
         run: |
           quarto render
 
-      # 若 _quarto.yml 中未设置 output-dir，或想覆盖，可改为：
-      # run: quarto render --output-dir docs
 
       - name: Create .nojekyll file
         run: touch docs/.nojekyll
