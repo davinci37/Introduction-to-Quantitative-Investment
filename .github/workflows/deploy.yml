@@ -1,43 +1,44 @@
-name: Deploy Book
-
+name: Deploy Quarto Book
 
 on:
   push:
     branches: [main, master]
 
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-
+      # 如果 .qmd 文件中有 R 代码块，需要安装 R 环境
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
 
-
-      - name: Setup Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-
-
+      # 如果 .qmd 文件中有 R 包依赖（如 tidyverse, ggplot2 等）
       - name: Install R packages
         run: |
-          install.packages(c("bookdown", "rmarkdown"))
+          install.packages(c("rmarkdown", "knitr"))  # 按需添加其他包
         shell: Rscript {0}
 
+      # 安装 Quarto CLI（核心步骤）
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 'latest'  # 或指定具体版本，如 '1.6.39'
 
-      - name: Build book
+      # 渲染整个项目（Quarto 会自动读取 _quarto.yml）
+      - name: Render Quarto Project
         run: |
-          Rscript -e "bookdown::render_book('index.Rmd', output_dir='docs')"
+          quarto render
 
+      # 若 _quarto.yml 中未设置 output-dir，或想覆盖，可改为：
+      # run: quarto render --output-dir docs
 
       - name: Create .nojekyll file
         run: touch docs/.nojekyll
-
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
