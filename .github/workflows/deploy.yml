@@ -21,7 +21,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          install.packages(c("rmarkdown", "knitr"))
+          install.packages(c("rmarkdown", "knitr","renv"))
         shell: Rscript {0}
 
       - name: Setup Quarto
