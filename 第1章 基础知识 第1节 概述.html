@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-input85fad2512c4e5f0c – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第1章 基础知识 第2节 理论模型.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3d497cff885f6278d37568d0ef0763f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第1节 概述.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第1节 概述.html</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ǰ��</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第1节 概述.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第2节 理论模型.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第3节 两个范式.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p>һ������</p>
+<p>����Ͷ�ʣ�Quantitative Investing�������ö����ķ�������Ͷ���о���ʵ��������Ͷ��ͨ���ռ����������ݣ����ۡ��Ʊ�����۵ȣ���������ѧ��ͳ��ѧ���������̺ͽ��ڹ��̵ȷ������Խ����г������ݽ���ϵͳ���Ķ����ķ����ͽ�ģ��Ѱ���г����ɻ򶨼۴��󣬴Ӷ�����Ͷ�ʡ����׺ͷ��չ�����ʵ��������Ͷ��������������ģ���������㷨����������Ͷ�ʵ�Ŀ��������Ͷ����һ�µģ������ڿ��Ʒ��յ�ǰ���£�ʵ�ֳ����ȶ��ľ�������ͣ��򣩳������档</p>
+<p>������ʷ��չ</p>
+<p>��������Ͷ�ʵ���ʷ��չ����׷�ݵ�1952�꣬Harry Markowitz�������ֵ-����ģ�͡����춨���ִ�Ͷ��������۵Ļ�����1960����ʱ��ʲ�����ģ�ͣ�CAPM����1970��������������ۣ�APT������������һ��Ϊ����Ͷ���ṩ�����ۿ�ܡ�1992 �꣬Eugene F. Fama �� Kenneth R. French ���Fama-French ģ���ǶԴ�ͳ�ʱ��ʲ�����ģ�ͣ�CAPM������չ��</p>
+<p>1971�꣬�Ϳ�������Ͷ�ʹ�˾����ȫ����ֻ������������Ͷ�ʴ���������ʵ����1980��������ż�����������ռ�������Ͷ�ʿ�ʼ���ٷ�չ�����ո��˿Ƽ���˾��Renaissance Technologies����������������˾��̳�����1990������㷨���ס�ͳ�������Ȳ����𽥳��죬���������㷺Ӧ����ָ��Ͷ�ʺͶԳ�������������ģѸ�����š���2000����2008�����Σ��ǰ�ڣ���������Ͷ���ܹ�ģ����4���࣬��������ڡ�</p>
+<p>2008�����Σ�����߸ܸ˵������Գ�����������ش��������Ͷ�ʾ�����ʷ������ģ�Ļس���ϴ�ơ�Σ��������Ͷ��������տ��������𲽻ָ���Ͷ�������������������Եķ��չ�����������ҵ��ʼ�淶����չ������2024�꣬��������Ͷ���г����ֳ�����ģ����͸�ߡ�������ϡ������������١��Ĵ��������ѽ���߶ȳ���׶Ρ�</p>
+<p>��ǰ�����г������ʲ������ˣ�ȫ��ҵ������ģԼ3.3������Ԫ��ռ��������ֵ�ӽ�10%��������ˮ��Bridgewater��1500����Ԫ ��AQRԼ1000����Ԫ ��Renaissance Technologies��Two Sigma��Millennium Management ����500����Ԫ���ڽ��׷��棬������㷨���ף�����Ƶ��ͳ�����������еȣ��ɽ���ռ�����ܳɽ����75%���ҡ���Ƶ��������Ľ������ѳ�����Ƶ���������������</p>
+<p>�й�����Ͷ��������2004�꣬��������ֻ��ļ�������𣬱�־���й�����Ͷ�ʵ���ʽ�𲽡�2010�꣬����300��ָ�ڻ����У���������Ͷ���״ξ߱���Ч�Գ幤�ߣ�����Ϊ���й�����Ͷ��Ԫ�ꡱ��2013����2015�꣬�����������ƽ�չ�ڣ�������ѡ�ɡ��г����Բ��ԡ��������Եȹ㷺Ӧ�á�2015����ֺ󣬼�����ϣ���ָ�ڻ����ޣ�����Ͷ�ʲ����𲽴ӹ�Ʊ�Գ���չ����Ʒ�ڻ�����ծ�ڻ���CTA���ԡ�2020������AI���������������ںϣ�����Ͷ�ʽ������ܻ�ʱ����</p>
+<p>���ڣ��й�����Ͷ���г����ڡ���ģ�������š����Կ��ٵ�������ܳ����ս������Ȳ���չ�ڡ���ļ�ˣ���ļ���������ģ�ϼ�Լ��ǧ�ڣ�����ָ����ǿ���绦��300����֤500����֤1000��ǿ��ռ��ļ������ģ��һ�����ϡ� ˽ļ�ˣ�2025���������ģԼ9000��Ԫ��ͷ��20�һ�����ģ�����ڣ����ж�һ�����һ��ģ��ͻ��500��Ԫ��ǰ10%����������ģռ�ȳ����������������֡�ǿ�ߺ�ǿ������̫ЧӦ��</p>
+<p>���Է��棬2013���Smart Beta������ETF��Ϊ��������������2019 ����ռ����Ͷ�ʹ�ģ�� 1/3����Ƶ/���С�����ƽ�ۡ�CTA ���Ƹ��١�AI �����Ӳ���ȫ�濪�����γɡ��ߡ��С���Ƶ���桱�����廯��֡� ���ѧϰ����Ȼ���Դ�����NLP�����Ƚ������㷺����ѡ�ɡ���ʱ����������ʶ��Ͷ���ִ���Ż�������ͼ�����ÿ���ˮ���罻ý����������Ӧ�����ݵȷǴ�ͳ����Դ�����ڳ��滯��</p>
+<p>Ŀǰ���ڲ��Է��棬��Ƶ/����Ƶ�����������ռ���խ��������϶���ʽ΢���е�Ƶ������ģ�������������������ѴӴ�ͳ���񡢼���������չ������ʦԤ�ڡ��������顢����ͼ��ESG���������ݡ����������ʽҲ���ڡ�����ԡ�����Alpha+CTA����Ʊ����+��Ȩ���Եȣ��Խ��͵�һ����ʧЧ�����ķ��ա��ڼ������棬����ѧϰ��XGBoost��LightGBM��LSTM��Transformer�ȣ��ѹ㷺���������ھ�����Ż��͸�Ƶ���ף�������ģ��Ҳ�õ��˹㷺Ӧ�á� �Խ�GPU/FPGA��Ⱥ�����뼶������롢���ӳٴ�Ͻ��������Ͷ���ΪһЩͷ��˽ļ���ļ������ݡ�</p>
+<p>�����������Ըſ�</p>
+<p>��ǰ����������Ͷ�ʲ��԰��������������¼��ࡣ�����ҽ������ʲ����������߼�������ά����������</p>
+<p>1.��Ʊ����</p>
+<p>��Ʊ�г�������Ͷ�ʵġ���ս������Ҳ������Ͷ�ʲ���������Ϊ�ḻ��Ӧ����Ϊ�����ĺ���������������������˼�붼���ڹ�Ʊ�г��ҵ����ʵ���س�����������Ľ�������ƪ���ͱ�ī��ϵͳ��������Ʊ����Ͷ�ʲ��ԣ�����Ϊ���߳���һ���꾡�ġ���Ʊ����ȫ��ͼ����</p>
+<p>1.1.����ѡ�ɲ���</p>
+<p>������ѡ��ģ������õ�ѡģ�Ϳ�ܡ���ν�����ӡ�����Ӱ���Ʊδ������ġ��͹ۿ���������Ϣ�����ӿ���������ָ�ꡢ����ָ�ꡢ���ָ��ȡ��������ӡ�����ͨ���ض�Ȩ�أ����������ʷ���ݻع���ϣ����ܶ�������ӡ����ۺ�������Ʊ��ֵ��Ԥ�����棬ѡȡԤ��������ߵ�һ���ӹ�Ʊ����ĳ�ַ�ʽ����Ͷ����ϣ��Ի�ȡ�������棨alpha�������˶�����ѡ��ģ�����⣬����˳��sequencial��ѡ�ɷ������ں����½����ص����ۡ�</p>
+<p>��򵥵Ĺ�����ϵķ�ʽ���ǽ�ѡȡͷ����Ʊ��Ȩ������Ʊ��ϡ����ֹ�����ϵķ�ʽ����ê������ָ����׼��Ҳ��������ҵ�ͷ��ı�¶���գ�����һ���Ϊ������ָ���������ַ�ʽ���Ƽ򵥴ֱ�������ѡ��ģ��Ԥ��alpha���ӵ��˼��£���ģ����Ӧ���г������±��ָ��ӳ�ɫ����ע����ʵ�ϣ��󲿷ֿ���ָ������ê���Ķ���һ��ȫ�г���Ʊ��Ȩָ�������ں������ۡ���</p>
+<p>��Ը��ӹ淶�Ͻ��ķ����ǣ���ȷ��Ŀ��ָ�����绦��300ָ���ȣ����ڿ�����ҵ�ͷ��¶���յ�ǰ���£�������Ŀ��ָ����������Ԥ��alpha���Ϊ���Ŀ�꣬��������Ż��㷨��������Ʊ��ϣ�Ҳ�����ϸ������ϵġ�ָ����ǿ����ָ����ǿ�Ǳ��ֶ�Ŀ��ָ�����и��ٵĻ����ϣ�ʵ�ֳ�ԽĿ��ָ����ҵ�����֡�</p>
+<p>Smart Beta��Դ���������ۣ�������ϵͳ�ġ����ڹ���ķ���������ض����ӷ��ճ��ڵĲ��ԡ��ò���ͨ��ѡ��ĳ��ָ����Ϊ��׼ָ����Ȼ��������ȷ���Ĺ�����ѡ��Ʊ�������ڽ��е��֡�Smart Beta����ǿ����ָ�����ƽ��м�Ȩ�Ż���ѡ���Ż����Բ�׽�ض����ӵķ�����ۣ�ʵ�ֳ�Խ��ͳ��ֵ��Ȩָ���ı��֡�</p>
+<p>1.2.�г����Բ��ԣ�Alpha���ԡ������Գ壩</p>
+<p>��Ʊ���Բ��ԣ�ͨ��ͬʱ������Ƚ���Ʊ��ͷ�Ϳ�ͷͷ�磬�Ե����г������ϵͳ�Է��գ�beta�������������Ҫ��Դ�ڹ�Ʊ��Լ�ֵ�ͳ������棨alpha������Ʊ���Բ��Զ�ͷ��ͨ����������ѡ�ɲ��ԣ���ͷ����Ҫʹ�ù�ָ�ڻ�����ȯ�ȹ��߽��жԳ塣���ֲ��Ե�Ŀ����ʵ�־���Alpha���棬�����г����ǻ��µ�ʱ���ܻ�ýϺõ����档</p>
+<p>�г����Բ��Բ���û�з��ա��Գ岻��ȫ����ʣ���г���¶���в�beta������ҵ�ͷ��ƫ�룬���չ�ָ�ڻ�Ҫ���ܵĸ���������������г�������β�����գ��Լ���ȯȯԴ�١����øߣ���һϵ�����⣬ʹ�øò�������һЩ��ս�����ơ�</p>
+<p>1.3.��ʱ�Գ壨�г���ʱ+ѡ�ɲ��ԣ�</p>
+<p>��Ʊ�г���ʱ������ָ�������г�������������۾���ָ�ꡢͶ�����������Ϣ��Ԥ���г���������Ʒ��򣬲��ݴ˽����������ߡ���ѡ�ɲ�������ʱ���Խ����������Ԥ���г�����ʱ������й�Ʊ��ϣ���Ԥ���г��µ�ʱ���ٹ�Ʊ�ֲ֣���Գ壩���Ӷ����Ͷ�����沢��Ч���Ʒ��ա�</p>
+<p>1.4.��ҵ�ֶ��ͷ���ֶ�����</p>
+<p>��ҵ�ֶ����Ե�����ʵ�ַ�ʽ�Ƚ϶ࡣ����Ӧ�ñȽϹ㷺���ǣ����չ�Ʊ������ģ�ͣ���һ����ҵ�Ĺ�Ʊ���ܿ�����һ֧��Ʊ�������ҵΪ�۲ⵥλ�Ķ�����ģ�͡���Ӱ����ҵ����������Ϣ����ת��Ϊ����ҵ���ӡ���ͨ���ض��ļ�Ȩ��ʽ���ܶ����ӣ���ʱ�������϶���ҵ��������ѡȡԤ��������ߵ�������ҵ������Ͷ����ϡ�</p>
+<p>����ֶ���������Ƿ��չ�Ʊ�г���ʱ���ԣ������г�������������۾���ָ�ꡢͶ�����������Ϣ��Ԥ���г��������Ʒ��򣬲��ݴ�ָ��Ͷ�ʡ�ʵ���У�һ����Ҫ�������ֵ���ͳɳ���ֵ��������ʱ��</p>
+<p>���ϵ�ģ�������������Ƕ�ָ����ǿ����չ��������ԣ��ڹ���ָ����ϣ����Զ���ҵ�ͷ�������Ŀ�ĵ�ƫ�뱩¶��</p>
+<p>1.5.��������</p>
+<p>��Խ��ף�ͳ���������ԣ�������ֻ��Ʊ���������״���ͼ۸����Ƹ߶���أ������ǵļ۸�spread����������ƫ��ʱ���磺ƫ��������׼������౻�͹�����ֻ�����ձ��߹�����ֻ���ȴ��۲��ֵ�ع��ƽ�֣�׬ȡ�۲������ľ������档</p>
+<p>�¼��������ԣ���ԡ���ۻ�˾���淢���ش��¼����������¼����ݿ⣬�����¼�Ӱ��������������ͽ�ģ�����¼�����Ϊ�źţ��Թ�Ʊ���ж�ս��ף�׬ȡ�¼����������ļ۸����򲨶����档�Ƚϵ��͵ġ��ش��¼����������Ʊ�Ԥ�����������顢��Ȩ����������ת���¼���</p>
+<p>���ϲ���������Ͷ�ʷ���Ӧ����Խ��٣������о����۲��࣬�ڱ����в���׸����</p>
+<p>2.CTA����</p>
+<p>CTA��Commodity Trading Advisor����Ʒ���׹��ʣ�Ҳ����Ϊ�����ڻ���Managed Futures���������ڻ�����ȨΪͶ�ʽ��ױ�ģ�ͨ�����ۻ������ķ������Լ۸����ơ����޽ṹ�������ʵȽ��ж��˫���ף��Ի�ȡ����������ʲ���������ͳ�ơ�CTA��Ӧ�ò���������Ʒ�ڻ�����������ָ�ڻ�����ծ�ڻ��͹�ָ��Ȩ�ȡ�</p>
+<p>2.1. ���ƺͷ�ת����</p>
+<p>���ƣ����٣�������CTA������Ĳ��ԣ��������ʲ��۸���С����ԡ��򡰶����������ԣ�ͨ������ָ�ꡢ�˲�����������ѧϰ�������ķ�����ʶ���Ѿ��γɵĶ�/��/���������ƣ��������ƽ���Ͷ�ʺͽ��ף����������������ࡢ�µ����������ա�ͬʱ��϶����ķ��չ������λ�������Ի�ȡ�������档</p>
+<p>�������Ƶ���һ����Ǽ�ֵ��ת��</p>
+<p>2.2. ��Ʒ�����ղ���</p>
+<p>���չ�Ʊ������ģ�ͣ����Դ��Ʒ������ģ�͡���Ӱ����Ʒ�ڻ��������Ϣ����ת��Ϊ���������ӡ���ͨ���ض��ļ�Ȩ��ʽ���ܶ����ӣ���ʱ�������϶Զ����Ʒ���򣬹�����Ʒ�Ķ����ϣ��Ի�ȡ�������档���еġ���Ʒ���ӡ�����������Ʒ�ļ۸񡢳ɽ��������޽ṹ���ֲֽṹ����桢��۾��õ���Ϣ��</p>
+<p>��������ƺͷ�ת����Ѻע�ڵ�һ�����ӣ���Ʒ������ģ���ڷ������ϸ��ӳ��죬����ڻ���Ͷ����Ӧ�ø��ӹ㷺��</p>
+<p>2.3.��������Ʒ����</p>
+<p>�ڻ��������ԣ����ò�ͬ�г�����ͬ��Լ��ͬƷ��֮��ļ۸��������ȡ���棬����ͼۺ�Լ�������߼ۺ�Լ��ͬʱ������ֵ���ԡ�������˵����ͨ��������ʷ�۲������жϵ�ǰ���Ʒ��֮��۲�Ĵ�С�����жϼ۲����һ����ֵ��׼��ʱ���н��ף��ȴ��۲�����ƽ�֣������Ĳ�������������������������������������Ʒ�������ȶ������͡�</p>
+<p>��Ȩ�����У���Ȩ˫������ռ��˽ļ��Ȩ���Ե�������������ͨ��ͬʱ������ͬ��Ȩ�۵Ŀ����뿴����Ȩ��׬ȡʱ���ֵ˥����Theta���벨�������е����棬ͬʱ��̬�Գ�Gamma�����Կ���β���س���</p>
+<p>��Ȩ�������������ԣ�������ʷ���ݵ�ͳ�ƺͣ�����ѧģ�Ͳ��㣬��δ�������ʽ���Ԥ�⣬����Ԥ��۸����г��۸�ƫ��ʱ������͹���Ȩ�������߹���Ȩ��ͬʱ������ϵ�Delta���ԡ���Ҫ�������޽ṹ��������ͬ��Ĳ�ͬ�����·ݣ���ƫ����������ͬ����ʱ�䲻ͬ��Ȩ�ۣ������г������ȡ�</p>
+<p>�ڻ���Ȩ�޷����������ԣ�������Ȩ��Լ�Ķ���ƫ�����Ȩ���ڻ����ֻ�֮��Ĺ�ϵ������������������Ȩƽ���������ϳ��ڻ����ԡ���ʽ�����ȡ����޷��������������ޣ�һ����Ϊ�������ԡ�</p>
+<p>��Ȩ��Ȩ���ԣ�ͨ�������ʽ������ʽ��Ȩ�����ನ���ʣ�������ڱ���ʲ��۸񲨶�ʱ��̬����Delta�Գ壬����Gamma Scalping���ԡ�</p>
+<p>���⣬���н������Ȩ�ĸ��ӽ�������Ʒ������ѩ��ṹ����Ʒ����Щ�������ڱ����ڸ�������о���ʵ�����٣�Ϊ����������ߣ�����Դ˲�������������</p>
+<p>3.�ʲ����ò���</p>
+<p>3.1. �����ʲ����ò���</p>
+<p>�г��Ϻܶ౻��Ͷ������Ϊ�������������Գ����������棬����ͼͨ��������ʱ����սʤ�г���������ͨ������ɢ�������ֶΣ����ض��ı������ù�Ʊ��ծȯ���ֽ���ʲ���������ƽ�⣬�Ի���ȶ��ľ������档��ˣ�����ȥȷ������������������Ϊ�˲��Գɹ��Ĺؼ�����������������������δ�����꽫�е����Ĳ�����������ٵ��������Լ��ܷ��ڼ���Σ���л������������˰�������͵��г��ݽ���Ͷ�����Ⱥ����������·����ÿһ�ֶ��ڵ�ʱ�ļ�����������Ϊƫ�õ�Լ���£��������Լ��Ĵ𰸡�</p>
+<p>���鷨��Rule-of-Thumb����40/60��ϣ��� 40% ���ʽ����Ȩ�����ʲ�����Ʊ/��Ʊ����/ETF �ȣ���60% ���ڹ������ʲ���ծȯ/ծȯ����/�ֽ�������ߵȣ���40/60 ����Ǳ����ʲ�������������䡢��̿���ʽ���Ļ�ϲ���֮һ��Ŀǰ�Իᱻ�������Ͻ�FOF���������ơ�����+��������Ϊ�������ࡣ</p>
+<p>��ֵ�C�������Ż���Mean-Variance Optimization, MVO����һ������ѧ���԰ѡ�����C���ա��������������ڸ���Ԥ�����桢Э����ͷ������ϵ���£����Ч����󻯵�Ȩ������������ʵ����ȴ�������/Э�������������ж����ٱ�ʹ�á�</p>
+<p>����ƽ�ۣ�Risk Parity�����Ǽ򵥵ذ��ʽ�ƽ���������ֵ��Ȩ������������е�ÿһ���ʲ����ɡ�ծ����Ʒ����Ͷ�����������յĹ�����ȡ���������Ǯ��ƽ��Edward Qian, 2006��ϵͳ�����������ˮ��ȫ��򡱻����������ѳ�Ϊ���Ͻ�FOF���������ơ�����+���Ȼ����ʽ���������֮һ��</p>
+<p>ȫ�����ԣ�All Weather Strategy������ˮ����Bridgewater����ʼ���𡤴���ŷ��Ray Dalio���� 1996 �������һ���ʲ����ÿ�ܡ���ּ�ڹ���һ��Ͷ����ϣ������κξ��û����¶����Ƚ����С�������ԣ�������۾��û���Ϊ���־���״̬��ͨ�ͳ�Ԥ��/����Ԥ�ڡ�������Ԥ��/����Ԥ�ڣ������������־���״̬�¾������÷��գ��Ӷ�ʵ���˲���������Ԥ�⡢��Ѻע��һ����״̬��Ͷ��Ŀ�꣬ʵ�ִ�Խ���ڵ�Ŀ�ꡣ</p>
+<p>���⣬���ھ�����ȷ��ծ���ڡ�֧���������Ҫ��ġ�������Ŀ����𡱣����ϡ����������ա����ơ�ר��ծ�����ȣ�����������������ʲ����ÿ�ܣ���Ŀ�겨���ʣ�arget Volatility�������������»������Glide Path����Ŀ�������»������Target-Date Glide Path����CPPI���̶�����Ͷ����ϱ��ղ��ԣ���TIPP��ʱ�䲻����Ͷ����ϱ��ղ��ԣ��ȵȣ��ڱ����в���׸����</p>
+<p>3.2. �����ʲ����ò���</p>
+<p>����Ͷ������Ϊ���г�����ʱʱ�̿���Ч���ʲ��۸�ƫ���ֵ�ġ����ᡱ���Ա�ʶ�𡢱���׽��������ǰ�����ڸ��ɺ���ҵ����Ĳ���ģ�����Ӿ۽������ۺͲ������¶��ϣ����ʲ�����ģ�͸������϶��£�Top-down�����Ӻ�����֡���۲��Ի��ں�۾���ѧԭ�����Ժ��ָ�꣨������ͨ�͡����ʡ����ʣ�Ϊ���ӣ��Բ�ͬ�ĺ�۾��û��������жϣ��Թ�Ʊ��ծȯ����Ʒ�ȴ����ʲ��ı��ֽ�����ʱ���Դ�Ϊ���ݵ������ʲ������ñ�����</p>
+<p>����1991�꣬Ϊ�˷���ֵ-����ģ�͵Ĳ���������ȱ�ݣ������г����������Ͷ���ߵ����۹۵��ں�������Fisher Black��Robert Litterman���Black-Littermanģ�ͣ�BLģ�ͣ�����ģ�����г��ʱ���Ȩ��Ϊ��׼����������棬����Ͷ���߶��ض��ʲ����г����Ƶ������ж�����Ϊ�۵�����ں��г��������������۹۵�������Ԥ�������Э������󣬴����ֵ-����ģ�ͣ��������Ȩ�ء��÷��������˶���ʷ���ݵ����������ټ���Ȩ�أ�������Ͷ���߸��������жϵ�����ϡ�</p>
+<p>����ʱ�ӣ�Merrill Lynch Clock�����ھ����������ۣ��á�������ͨ�͡�����ά�ȣ��Ѻ�������г� 4 �����ޣ����ݺ�������������޵����ʲ����ñ�������Ҫ�����£� ˥���ڣ�����������ͨ�ͣ���ծȯ&gt;�ֽ�&gt;��Ʊ&gt;������Ʒ�� �����ڣ�����������ͨ�ͣ�����Ʊ&gt;ծȯ&gt;�ֽ�&gt;������Ʒ�� �����ڣ�����������ͨ�ͣ���������Ʒ&gt;��Ʊ&gt;ծȯ&gt;�ֽ� �����ڣ�����������ͨ�ͣ����ֽ�&gt;������Ʒ&gt;ծȯ&gt;��Ʊ��</p>
+<p>ȫ�����ǿ�Ͳ��ԣ�All-Weather Enhanced���ڡ�ȫ��򡱲��ԵĻ������֮�ϣ��������˶�̬�����������ʱ����ģ�顣ȫ�����ǿ�Ͳ��Զ��г������;����������жϣ������־���״̬��ѡȡ����������ߵ����������ݴ˽����ʲ����ñ����ĵ������ڱ������Ի����Ͻ�һ�����������ȶ��ԡ�</p>
+<p>4.��Ƶ���׺����н���</p>
+<p>��Ƶ���ף�High-Frequency Trading, HFT���������ִ�����Ͷ�ʺͽ�����ϵ�м�Ϊ��Ҫ��һ�����ء�������΢���������뼶�ļ����ٶȣ����̿ڷ�϶�䲶׽�г�΢�۽ṹ�����ݼ��ŵļ۲HFT �漰�ļ���ջ���������ϸ����ܻ������ӡ����ڱ����ڸ�������о���ʵ�����٣�Ϊ����������ߣ�����Դ˲������������������������˽������Ƽ��Ķ���Algorithmic and High-Frequency Trading����Market Microstructure in Practice���Ⱦ���������</p>
+<p>���ϼ��ǹ���������������Ͷ�ʲ��Եļ����С�Ȼ������Ҫ����ǿ�����ǣ���Щ���Ծ��ǹ����Ĵ��ڡ�����ʵ���ʱ��г��У�һ������������Ͷ�ʲ�����ϵ����Χ��һ�������������ҿ�������Ͷ��Ŀ�꣨��������򳬶����棩��������������Խ�������ں���Эͬ���á����ֽ�ϲ��Ǽ򵥵Ĳ��Զ��������Ե��ӣ����ǻ��ڶԲ��Եײ��߼����������ӡ�������Դ������Խṹ���г�������Ӧ�Ե�������⣬������һ����η�������Ϊ���䡢�໥�Գ�Ĳ�����̬ϵͳ�����磬�ɽ����Ƹ��ٲ�����Ϊ������������������ͳ��������׽�г�΢�۽ṹʧ�飬��ͨ����նԳ����Ȩ���Խ���β�����ձ�������������ʲ�����ģ�Ͷ�̬����������Ȩ�أ�����Ӧ��۾������ڵĸ�����</p>
+<p>��Ϊ�ؼ����ǣ���һ��ϵ�����б�����ȫ�桢���ܵķ��չ���ϵͳԼ��֮�¡������Ƿ���Ԥ�㡢�����Թ�����ѹ�����ԡ�����ʧЧԤ������ֹ̬ӯֹ����ƣ�ȷ����ģ��ʧЧ��������¼����г��ṹͻ��ʱ��Ͷ����ϵľ�ֵ�س�ʼ�մ��ڿɿط�Χ�����Ȿ�����������Դ����</p>
+<p>�������ҽ�ϵͳ�Եز�����λ���Ͷ��Ŀ����в���ѡ������ȣ��������Լ�������뻥���Ե���������������������̽����ι���һ���߱�����Ӧ�����ķ����ϵ������Ϊ���߳���һ�������۵�ʵ�����ӹ�������ά����������Ͷ�ʽ��������</p>
+<p>�ġ��������չ����ſ�</p>
+<p>��������գ���Ͷ�������ͬһöӲ�ҵ����棺������Ӳ��������ҫ��ͼ��������׷�𣻷����Ǳ��氵������·��ȴ�������ӡ�������������������ģ�������Ͷ����ͨ��Ͷ�ʻ����õĻر���������Ͷ�ʹ����п������ٵĲ�ȷ���ԣ�����ʧ�Ŀ����ԣ���Ҳ����Ͷ�ʽ��ƫ��Ԥ�ڵĿ����ԡ������Է���Ϊ���ۣ���������������������Ͷ�ʣ�����������ͷ���֮�����Ȩ�⡣���ߵķ��տ��ܴ������ߵ����棬ͬʱҲ���ܴ����ϴ����ʧ�������Ͷ���ߴ�������һζ��׷�����棬���Ǹ���������Ͷ��Ŀ��ͷ���ƫ�ã�ѡ�������Ͷ�ʲ��ԣ��е������ķ��ձ�¶��</p>
+<p>��Ϊ������Ͷ�ʷ�������ϵ�����ڷ��յĶ���������ͷ���������Ͷ�ʵķ������о�����ȱ�ٵ���ɲ��֡��ڷ�����������Ͷ���Ѿ���չ��Ϊһ�׳����������ϵ�ͷ����ۡ����ڷ��յ����������ǻ�����ʷ���ݣ����Ҹ�����ҪԤ�⣬��������Ͷ�ʵ����������յ��������и��ӳ���ȵ�������ϵ�ͷ�����ϵ��</p>
+<p>�������չ����ĺ����������������չ���Ҳ���ǽ����շֽ�Ϊ�������ġ��������ӡ���������з����Ϳ��ơ��������˵������ͨ��ͳ�Ƶķ�������Ͷ����ϵķ����ԡ����ӡ�����ʽ������ʶ�𡢶��塢���������۷������ӡ��г��������ӡ���ҵ�������ӡ���˾�ض��������ӵȣ�����������Щ�����ӡ������������յĹ��ף��Ӷ�ʹͶ�����ܹ���ȷ��ʶ�������Դ�͹������Ʒ��ա�</p>
+<p>�����������۵�ͬ����Դ�ڡ���ֵ-����ģ�͡����˺���ʱ��г�����ģ�ͣ�CAPM���������������ۣ�APT��Ϊ�������������ṩ�˸��ḻ�����ۿ�ܣ�����������Barraģ�����ȳɹ���Ӧ����Ͷ��ʵ����</p>
+<p>Barraģ����һ�ֶ����ӷ���ģ�ͣ�������ѧ��Barr Rosenberg��1974���������������Barra��˾����MSCI�չ�����1975�꣬Barraģ����ʽͶ����Ʒ��ʵ�����ڴ������ϻ���Ͷ����ϵķ����Ż���Ч��������ʹ��ģ������ȵ������ʱ������ƣ�Barraģ�;������ֵ��������������µġ����ӡ�������ֵ����ֵ���ɳ����������ܸ˵ȣ������γ���һ���������ƵĶ����ӿ�ܡ�Ŀǰ��Barraģ���ѳ�Ϊȫ��Ͷ�ʹ����������Ҫ���ߣ��㷺Ӧ�����ʲ�������˾���Գ�������Ͻ���Ȩ����Ȼ�������ģ�Ͳ�������Ͷ����ϵĹ������Ż��������ڷ��տ��ơ���Ч�����Ͳ��Կ�����</p>
+<p>Barraģ�͵��й��汾��CNE6�����й��г�Ҳ�õ��˹㷺Ӧ�ã�����Ͷ���߸��õ�����͹������ա�Barraģ�͵�Ӧ����Ҫ�������¼������棺 1. Ͷ����Ϲ�����ͨ��������ģ�ͷ���Ͷ����ϵķ��պ����棬����Ͷ�����Ż��ʲ����ã����Ͷ����ϵ��Ƚ��ԡ� 2. ���տ��ƣ�ͨ��ʶ���������ͬ�������ӣ����г����ա���ҵ���ա������յȣ�������Ͷ���߸��õع������ա� 3. ��Ч������ͨ������Ͷ����ϵļ�Ч��Դ������Ͷ��������Ͷ�ʲ��Ե���Ч�ԡ� 4. ���Կ�����BARRAģ��Ϊ����Ͷ�����ṩ�˿����Ͳ��������Ӳ��ԵĲο���׼��</p>
+<p>��һ���ȽϾ���ķ���ģ����Fama-French ģ�͡�Fama-French ģ��ͨ�������ؼ�����������Ԥ�ڻر����г����ӣ�����ر�������ģ���ӣ�SMB��С��ģ�����ģ���ͼ�ֵ���ӣ�HML����������ֵ�ȹ�˾�ĳ���ر�����֮�������о���������չΪ������ģ�ͣ�������ӯ����������RMW����Ͷ�ʷ������CMA����Fama-French ģ��ͨ�����������������͹�Ʊ�����ʵ���Դ����Ϊ����Ͷ����ϱ��֡�������������Ӱ�졢����Ͷ����Ϻ�Ԥ��δ���ر���ǿ�󹤾ߡ���ģ���ڽ������򱻹㷺Ӧ����Ͷ����Ϲ��������չ����ͼ�Ч���������</p>
+<p>Barraģ�ͺ�Fama-Frenchģ�Ͷ��ǻ���CAPMģ�͵���չ����ͨ��������������������г����ʲ������ʵ���Դ��������Ͷ����Ϲ��������չ�����ҵ����������о��й㷺��Ӧ�á��������ڷ����ۺ�Ӧ���ϴ����������졣</p>
+<ol type="1">
+<li><p>ģ�͹�������������Fama-Frenchģ��ͨ��ʱ�����лع飬���������г���MKT������ģ��SMB����������ֵ�ȣ�HML�������ӣ�ͨ��������������ȷ�����������ʡ���������������ͨ��ʱ�����лع�õ��ġ�Barraģ��ͨ�������ع飬���û��������������ӯ�ʡ��о��ʵȣ���Ϊ���ӣ�ֱ�Ӽ������ӱ�¶����ͨ���ع�ȷ�����������ʡ�Barraģ�͸�ע�����ӱ�¶��ֱ�Ӽ��㣬���ǹ���Գ���ϡ�</p></li>
+<li><p>���ӱ�¶���������Fama-Frenchģ�͵����ӱ�¶��ͨ��ʱ�����лع�õ��ģ�����HML������ͨ��������ģ��������ֵ�ȵ������ȷ���ġ�Barraģ�͵����ӱ�¶��ֱ�Ӵӻ��������������ӯ�ʡ��о��ʣ�����ó���ͨ����׼����������Ϊ���ӱ�¶��</p></li>
+<li><p>ģ��Ŀ�ģ�Fama-Frenchģ����Ҫ���ڽ����ʲ������ʵ���Դ��ǿ�����Ӷ�����Ľ���������Barraģ�͸����������ӵ������о��������ӵ��ȶ��ԡ�����Եȣ����ڽ�ά������ɸѡ��</p></li>
+</ol>
+<p>��֮��FF3ģ����ʱ�������ϵģ�Barraģ���ǽ����ϵġ��ɴ�����������Ͷ�ʵ��������䷶ʽ�����淶ʽ��ʱ�����з�ʽ����������ʽ������Ͷ�ʵ�Ũ���;��䡣�����һ��ó������½���ϸ���ۡ�</p>
+<p>�塢������Ҫ�ĸ���</p>
+<p>����ʽ������������֮ǰ������Լ������׻����ĺ��ĸ�����һ��ϵͳ�����������ճ������з��֣��г����һЩ��רҵͶ�������������Щ�����Ϊһ̸�����¹��Ͷ���߶�������Ͷ����һЩ��⡣Ϊ�˱�����Щ���������ӣ������ڴ���һ���򵥵ı�����</p>
+<p>1.��Ͷ�ʡ��͡����ס�</p>
+<p>Ͷ�ʣ�Investment��ָ���ʽ����Դ���õ�ĳһ�ʲ�����Ŀ������ͨ�����и��ʲ����δ���������ֽ�����������������ֵ����������ó��������档ʱ���ȴ����յ����ꡣ���������ǡ����ʲ������ļ�ֵ����Ϊ��Ҫ������Դ�������ף�Trading���������ü۸񲨶����Լ۲�Ϊ��Ҫ�����ֶ�������Դ�ڶԶ����г���Ϊ��Ԥ��Ͳ��ġ������ڿɶ������롢�������ܡ����������ǡ����г��۸񲨶�Ϊ��Ҫ������Դ����</p>
+<p>���߲��Ƕ���������ͬһ�г��в�ͬʱ��ά�ȡ���ͬ����ƫ�õ��ʽ�ֹ���ĳһ�ʲ������Ȳ����ֽ������ֲ����۸񲨶����ʲ��ֽ�����ͨ������Ͷ���߳��ж���ȡ���۸񲨶��ɽ������ڶ������ڱ�������������ȡ������������Ͷ��ʵ������Ƚ��ڣ�����Ͷ�ʽ��������߼�ϵͳ��Ϊ��������ģ�ͣ������������г��ź�ת��Ϊ�ж����㷨���ԡ�һ�������������ϵ����ͬʱ�������ߣ��á�Ͷ���͡����ӺͲ��Ի�ȡ���ڷ�����ۣ��á������͡����ӺͲ��Բ�׽�����г���Ч�ԣ��Ӷ�ʵ��������Դ�Ķ�Ԫ���ͷ��շ�ɢ��</p>
+<p>1.������Ͷ�ʡ������������ס��͡��㷨���ס�</p>
+<p>����Ͷ�� (Quantitative Investing)�� ����һ��������ָ���ǽ�����ѧģ�͡�ͳ�Ʒ����ͼ����������ϵͳ�Եع���Ͷ�������ʵ���ض�Ͷ��Ŀ����������̡���������ڡ�Ͷ�ʡ��������ڶ��ʲ����ڼ�ֵ��δ���ֽ�����������۵Ȼ��������ص��жϣ������ʱ��ĳ������á���������ʵ����һͶ�ʾ��߹��̵Ŀ�ѧ�������ɻ������ۡ��������˴����ݴ��������ӷ��֡����Թ���������Ż������չ�����ȫ�����ڡ�</p>
+<p>�������� (Quantitative Trading)�� ��������ڡ����ס�ִ�в��档��ͨ����ע�г�΢�۽ṹ�����ڼ۸���Ϊ�������Ա仯����������ģ��Ѱ�Ҷ��ڵġ�Ƶ�ʽϸߵĽ��׻��ᡣ��ʱ��߶ȿ��Դ����ڵ����ܣ��������Ŀ�������ü۸�Ķ���ʧ����������ǻ����ʲ��ĳ��ڼ�ֵ��</p>
+<p>�㷨���� (Algorithmic Trading)����Ƴ��򻯽��ף�ProgrammaticTrading������Ҫָ����ָ����Զ���ִ�С������Ŀ���ǽ��ͽ��׳ɱ��������г���������ִ��Ч�ʡ������Է���������Ͷ�ʲ��ԣ�Ҳ���Է���������Ͷ�ʲ��ԣ��䱾��������Ȼ�漰Ͷ�ʾ��ߵĲ������̡�</p>
+<p>�������߻�Ϊһ̸�������ǽ�����Ͷ�ʵ�ͬ�ڸ�Ƶ���׻򴿴�ļ������ģ��Ƕ�����Ͷ�ʱ��ʵ��������������������������Ͷ�ʣ��������ڳ��ڼ�ֵ����ġ�Ͷ�ʡ���Ϊ��������Ͳ��ĵġ����ס���Ϊ��</p>
+<p>2.����Ƶ������vs����Ƶ������</p>
+<p>�����������ڲ��Ե�ʱ��߶ȡ��������ȼ�����ʵ�ֵĸ����Բ��졣��Ƶ������High-Frequency Quant, HFT����ע�롢��������΢�뼶���г�΢�۽ṹ����׽�ɶ������������Զ���ʧ��򼫶����г���Ч�Դ�����΢С�۲���������������ӳٵ�ϵͳ����ϸ���ȵ��������ݣ���ͨ�����ӵ��㷨����˲ʱ������ִ�С�������߼���Ԥ��δ��������������ļ۸�켣�����ľ������Ǽ���������ʩ���ٶ����ȶ��ԡ�</p>
+<p>��Ƶ��������Ҫ�ǻ����ա��ܻ���Ƶ���������ݡ����������ݡ���۾������ݵȣ�ʶ������������ϵ����ƻ��ֵƫ�����ע�����ӵľ����߼���������ͳ���Ƚ��ԣ����ľ������������źŵ�Ԥ�������ͷ���ģ�͵ľ�ȷ�ȡ�</p>
+<p>һ����˵�����ߵ��о�����������Ϊ��������ϴ���������̡���ģ����ء�ִ�С������̣�ֻ�ǲ���Ƶ�ʲ�ͬ������vs��Ƶ�����߹�ͬ�����ִ�����Ͷ����ϵ���Ǽ���ջ������߼��Ļ�������Ƶ���������͵����ձ���ͨ���ϸߣ���Ƶ������������ּ�ڻ�ȡ��ۻ������ĳ��ڷ�����ۡ�һ������������Ŷ���������������ϵ����Ƶ������Ϊ����ǰ�غ�����ƽ��������Ƶ������Ϊ�ʲ�����������������棬���߽��ʵ��������Դ�Ķ�Ԫ���뼼����Эͬ��</p>
+<p>3.��T0���ס�</p>
+<p>�ֳơ���T���������ڻ�ת������ָ��һ���������ڣ���ͬһ֤ȯ������Ʒ��������������������Ľ��ף��Ӷ����ֱֲ仯�����㡱������¶��ҹ���յĶ��߲�������Ŀ�����ڲ�׽������ڶ��ݵļ۸񲨶���T0������һ�ֽ���ģʽ�����Ǳ�Ȼ���������۵�T0����Ա��ͨ���۲��̿ڹҵ��仯��K����̬������ֶ������Լ��ؼ���λ���ĵȣ�ƾ����˾����ֱ�����о��ߺͽ��ף�����������ģ�ͻ��㷨����A��T+1�ƶ��£�T0���׶������ڵײֻ����ڡ�ETF������ơ�0����ͨ����ΪͶ����ϵ���ǿ���ߡ���һ������ƵAlpha���Ի����ֲ��ϣ�����T0���׿������Ӷ�����������棬���Ͳ�����س��������������ձ��ʡ�</p>
+<p>4.�������������͡�����Ͷ�ʡ�</p>
+<p>�������Ÿ��������𣺼������������˵����۽����������Ͷ������ϵͳ�Ŀ͹�ʵ֤���������ӽǿ�����������������Ͷ�ʵĹ�ϵ���� �������زĿ⡱�롰��ѧ��֤�빤ҵ���������Ĺ�ϵ����ͳ��������������̬��ָ�ꡢ���ߣ���������һ�׻�����ʷ�۸񡢳ɽ���ͼ����������ģʽʶ���뾭���ƶϵķ����ۡ�����ļ�ֵ����Ϊ�г���Ϊ�ṩ�˴����زġ�����Ͷ�ʿ��Խ���Щ���۵��߼�����ת��Ϊ�ɶ��塢�ɻز�����ӻ��źţ�����ʷ��������֤��ͳ�������ԡ��ȶ��Ժͷ�������������һЩ�õ���֤��ָ������ӻ����뵽����Ͷ�ʵ���ϵ�С���ˣ���������������Ͷ�ʿ���ڣ���һ�Ž������ͼ����������ת��Ϊһ���ض���������Դ��</p>
+<p>5.���������͡����ۡ�</p>
+<p>����������Ͷ�ʵ����ֲ�������֮�֣�������ѧ�뷽���ĸ�����ͬ���Ӿ�����������������������ȫ�г����ṹ��������ģ�����������Ͷ����������ʦ�Ը��幫˾����ҵ�����������ȵ����붨���жϡ��Ӿ��߹�������������ǿ����������һ���ԣ���ȫ�ų�����������Ͷ�����벻�����顢ֱ���������Ե��ۺ�Ȩ�⡣�ӹ�ģ���������������ó�����������Ϣ�����й���ھ�����Ͷ����׷���������ĵ�������⡣</p>
+<p>���������ķ���ͱ߽�</p>
+<p>��������������Ż���������Ͷ�ʵķ��롣����������Ͷ�ʣ����������ϵͳ�Եķ����ۣ��Ӽ����γɡ����ݻ�ȡ����ϴ�����Խ�ģ���ز���飬�����տ��ƺ�Ͷ������Ż�������һ���������ջ�����֤α�Ŀ�ѧ�о����̡����������ض����г����ʲ����������ض�����Ƶ�ʺͲ����߼����������ض������ݺ�ģ�͡����������̹㷺����ͳ��ѧ����������ѧ������ѧϰ���Ż����ۣ��ھ����ݱ����ȶ����ɿ��������ϵ��ͳ�ƹ��ɡ�ֻҪ����ϵͳ�Եġ�����֤����ѧģ��Ϊ���ľ������ݵ�Ͷ�ʹ��̣������ڹ��������Ͷ�ʷ��롣��֮������Ͷ�ʾ���������Ϊ�������Կ�ѧ����Ϊ���ߡ��������߼�Ϊ��ꡢ�Է��տ���Ϊ�߽��Ͷ��ʵ����</p>
+<p>Ҫ���ѵ���ʶ������Ͷ�ʵ����ھ����Ժ������߽磬�ǳ����Ƚ����еĹؼ������ȣ�������������ʷ·��������ģ�͵�����Դ�����ݣ�ȴҲ���������ݡ�����������ȫ��������ʷ��������Ϣ֮�ϣ���������һ����Ҫ���裺��ȥ���ڵ�ͳ�ƹ�����δ���Ի����֡�Ȼ�����г����Ǿ�̬��ϵ����δ֪��δ֪���޷������ݲ�׽������ȫ�����顢��Ե���ξ�䡢���������ͼ�ܷ�ʽת�Ƶȸ���ԭ����ɵ��г������ı仯������ʹ��ʷ��ϵ��Ȼ���ѡ����г��߼�����������ת��ʱ��������ʷ·��������ģ�ͣ�����ʧЧ��</p>
+<p>ģ�ͷ�����͸�ڲ��Կ�����ȫ���̡���������͵���ս�ǹ�����ϡ��ڻز���ͨ�����Ӳ���׷����ʷ���������������ڱ��������ʵ��Ч��ƽӹ����ʧ�ܡ����⣬ͳ�Ƶ�����Բ�������ʵ�������ϵ�������ھ����żȻ������ʵ�ʾ����߼��Ĺ�����һ���г������仯�����ࡰα���ɡ�Ѹ���߽⡣ģ�����������ض��г�������ƣ��������ԡ������ʻ�����߽ṹ����ת��ʱ������Ӧ�Կ��������½����γɡ��������䡱���ա�</p>
+<p>����ЧӦ�����Ż���ѧϰ�����ѧϰģ�͵��ռ������ԵĿɽ������𽥼��������ิ��ģ����ͬ���䣬������߼�����׷�ݣ��ⲻ�������Ϲ������������ѣ�Ҳʹ����ģ������ʱ�����˹���Ԥ������������Ҫ���ǣ��ڼ����г��龳�£��������Կݽߡ��г�������ͣ�ȣ�����ģ�Ϳ�����ѵ��������ȱ�����Ƴ����������޷�Ԥ�ϵ�������Ӧ���Ŵ�ϵͳ�Դ����ԡ�</p>
+<p>�������Ը������׸��ƺʹ�������ʹ���������Ծ��и�ǿ�������Ժ����һ����ԡ�һ��ĳ���Ա���֤�ܹ��������쳬�����棬��������ʽ��ӵ�����������������ģ�¡��������ʴ�ò��Ե�ӯ���ռ䣬ֱ����������ʧ�����֡�����˥���������ڸ߶ȿ��ž������г�����Ϊ���ԡ���ˣ�����Ͷ���߲���������������ԡ�Ѱ���µ��ź���Դ���������ڲ��������뱣����֮������Ȩ�⡣</p>
+<p>����Ͷ�ʵķ��붨����һ���ִ����Ͻ�������չ��Ͷ�ʿ�ѧ����߽���������ָ���ˣ�������Ͷ�ʵġ��ռ��𰸡�������Ч��Ҳ���������ݡ�ģ�ͺͶ�̬�仯���г����������޷���ȫȡ���������㶴���봴����˼ά���ɹ����ִ�Ͷ��ʵ����������ϵͳ�������������������жϵ��л���ϡ������䷶�룬����������������������߽磬���ܹ�������壬ʵ������������Ͷ�ʡ�</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="ǰ��">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">ǰ��</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第1章 基础知识 第2节 理论模型.html" class="pagination-link" aria-label="第1章 基础知识 第2节 理论模型.html">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第2节 理论模型.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
