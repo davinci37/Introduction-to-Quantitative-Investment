@@ -22,4 +22,4 @@ https://davinci37.github.io/Introduction-to-Quantitative-Investment/
 [![CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
 
 ## 作者简介
-王
+davinci37，量化投资从业者。
