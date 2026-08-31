@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-input8563f0ec33882eca – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第1章 基础知识 第9节 编程语言.html" rel="next">
+<link href="./第1章 基础知识 第7节 模型的选择.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3d497cff885f6278d37568d0ef0763f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第8节 风险.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第1节 概述.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第2节 理论模型.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第3节 两个范式.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">第1章 基础知识 第9节 编程语言.html</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p>前文中我们一直在讲模型的预测。但多年的经验和教训，让我总结出一个道理：成功的量化策略，一半来自预测模型的准确性，另一半来自风险模型的约束。”这深刻地揭示了风险管理在量化投资中的核心战略地位。它绝非一个独立的、事后的检查环节，而是与收益预测、组合构建等环节深度耦合、共生共存的有机整体。本节前半部分，我想先通过三种实践中典型的情景，给读者简单呈现风险管理在投资实践中的价值和意义。</p>
+<p>一、三个情景</p>
+<p>在量化投资中，一个历史回测中预测胜率达60%的模型通常被认为是非常优秀的。然而，将预测的胜率转化为稳定的盈利并不容易。模型盈利表现与稳健性高度依赖外部市场环境与内部因子结构。如果单纯关注胜率，忽略了模型风险的认识和约束，忽略模型局的限性和市场环境的变化，可能导致严重错误。我们看以下通过三种情景：</p>
+<p>情景一：波动率环境变化</p>
+<p>不同波动率环境会彻底改变其收益风险特征。在低波环境（如年化波动率5%）下，资产价格波动温和，模型预测的信号可以带来明确但幅度有限的盈利。当市场切换到高波环境（如年化波动率10%），价格波动剧烈，虽然模型单次盈利潜力增大，但模型也可能面临连续多次预测错误，毕竟预测胜率只有60%，预测错误的概率也有40%。高波环境连续几次预测错误带来的回撤，就可以将低波环境长期累积的盈利迅速归零。</p>
+<p>这带给我们的启示是：要有风险控制的策略组成，要根据波动率动态调整仓位控制风险。例如，采用波动率缩放头寸，在低波环境中适度增加风险暴露，在高波环境中收紧风险暴露，将风险暴露控制在一个稳定区间范围内。</p>
+<p>情景二：因子环境变化</p>
+<p>量化模型常依赖于某些特定因子。这些因子在市场多数时间有效，但当市场环境发生变化，因子有效性收到干扰，模型会暂时失效。例如，一个基于盈利增长的选股模型，在流动性突然收紧，市场完全由流动性因子主导的阶段，其选股逻辑可能暂时失效，甚至反转。这并非模型本质失效，而是因子周期性轮动与市场风格偏移所带来的“噪声干扰”。若投资者未能从风险的角度认识到模型的周期性和局限性，或未识别市场环境的转变，可能会将模型误判为失效，从而放弃原本长期有效策略。</p>
+<p>这带给我们的启示是：需建立模型的风险收益归因体系，全面了解模型的风险特性收益；需建立因子监控体系，实时评估市场主导因子与模型暴露因子的匹配度。在不利的市场阶段，可通过降低仓位、引入因子中性化约束，或动态调整因子权重来控制回撤。更重要的是，须在策略设计之初就要考虑多种环境下的稳健性，避免对单一因子过度暴露和过度依赖。</p>
+<p>情景三：市场环境转变</p>
+<p>量化投资者和量化模型索要面临的最严峻的风险来自市场根本逻辑的改变，导致模型依赖的统计规律永久性失效。监管变革、交易制度革新、宏观经济范式转移、全球化结构性断裂等，都可能使过去有效的关联关系瓦解。模型胜率持续失效，且回撤幅度与时间远超历史回测，模型的小幅调整也无法挽回绩效。面对这样的情况，应该尽早放弃旧的模型。</p>
+<p>这带给我们的是：必须设置严格且多维度的失效预警机制和严格的止损机制。对业绩归因进行持续性检测，观察阿尔法衰减是否发生了不可逆趋势。结合市场环境的宏观与微观数据，判断市场是否处于结构性变点；预设止损机制：当回撤超过阈值，或信号噪音比显著恶化时，应暂停策略并启动全面评审。</p>
+<p>小结：</p>
+<p>通过以上情景的呈现和分析，我想读者至少可以初步得出一些结论。首先，生存是第一法则。一个未经充分测试和理解的策略，或风险管理存在漏洞的系统，可能因为一次意料之外的“黑天鹅”事件而在短时间内蒙受毁灭性损失。投资中有一个常被忽视的数字规律：亏损幅度越大，回本所需的盈利幅度呈指数级上升。数学表达是：回本所需涨幅 = 亏损幅度 ÷ (1−亏损幅度)。当亏损10%，你需要盈利11.11%回本；当亏损50%，你需要盈利100%才能回本。这清楚的告诉我们：控制回撤比追求高收益更重要。对于量化投资而言，风险管理的首要目标是确保生存。</p>
+<p>其次，盈亏同源。投资的本质是在承担风险的基础上获取回报。风险是收益的来源，管理风险即是管理收益。量化投资不是追求零风险，而是追求在可接受和可理解的风险暴露下，实现最大化的风险调整后收益。因此，量化风险管理的核心并非简单地“规避”风险，而是主动地、精确地“管理”和“塑造”风险敞口。一个优秀的量化策略，其收益来源往往是承担了某些特定类型的风险。风险管理的目标，就是确保投资组合的风险暴露正确地集中在预期的收益来源上，同时尽可能的剥离或对冲其他不希望承担的风险。要明确的知道你在做什么和你的模型在做什么。</p>
+<p>最后，所有量化模型都是对复杂现实世界的简化和近似，它们都存在“模型风险”。模型可能因为市场结构变化、数据噪音或底层假设失效而表现不及预期，甚至完全失效。这种模型效果的衰减是量化投资的常态。一个强大的风险管理体系，正是对抗模型风险的最后一道，也是最重要的一道“防火墙”。当模型开始失效，持续造成亏损，一个有效的风控系统能够及时介入，限制损失的扩大。这为投资者赢得了宝贵的时间去诊断、修复或替换失效的模型，避免陷入无法挽回的万劫不复。</p>
+<p>一个健全的量化风险管理体系应包含： 1.组合分析：通过配置低相关性的多元因子或策略，分散单一模型或因子短期失效的风险。 2.环境感知：实时监测市场环境，包括波动率、市场风格、因子效应等维度，确定当前市场状态。 3.环境适应：根据市场环境状态，动态调整策略仓位、模型参数和阈值，或切换策略模式。 4.极端环境：回测中要有压力测试，包括历史极端事件与未发生过的理论冲击，确保组合在尾部风险中存活；当极端环境来临，要有相应的预案，并采取相应反应机制。</p>
+<p>总之，风险管理已远远不只是简单的止损与仓位控制。它应贯穿于策略生命周期的每一环节，从理解盈利来源，到抵御周期性干扰，直至识别是否失效。这也正是现代量化投资艺术与科学的交汇点。成熟的量化投资者，不应片面追求更高的预测胜率，而在于构建一个能够识别环境、适应变化并在规律消亡时果断退出的风险管理生态系统。唯有如此，模型背后的统计优势，才能在时间的河流中持续转化为稳健的财富增值。</p>
+<p>二、三个案例</p>
+<p>本节后半部分，我将为读者详细剖析三个经典的风险管理工具案例，作为后续深入探讨的范式。这些范式将作为风险管理的核心内容，在本书后续章节中被反复应用于各类具体投资策略场景。在此先行介绍，旨在为读者搭建起清晰的知识框架，为后续的深度应用做好铺垫。</p>
+<p>案例一：海龟交易系统，基于波动率标准化的风控范式</p>
+<p>1.概述</p>
+<p>海龟交易系统（Turtle Trading System）的传奇故事，将为我们展示了第一种量化风险管理的经典范式：基于波动率标准化的规则化风控。海龟交易系统是一种经典的CTA趋势跟踪策略，其基本逻辑非常朴素：“追随趋势，让利润奔跑，让亏损止步”。它不试图去预测市场的未来，而是通过一套严格的、机械的规则来“管理当下”。其核心风险管理范式在于，确保任何一笔交易、任何一个持仓的风险贡献都在一个标准化的、可控的范围之内。</p>
+<p>海龟交易系统战场主要在流动性好的期货市场，如股指、国债、商品、外汇等。然而，不同期货品种的合约价值、交易规则和价格波动位千差万别。如何在一个包含了原油、黄金、标普500指数和欧洲美元利率等多样化资产的组合中，用一套统一的规则来管理风险？海龟交易系统的风险管理方式会带给我们启示。</p>
+<p>2.核心机制</p>
+<p>海龟交易系统的精髓，不在于其入市信号的精准，在于称为“资金管理”的风险控制模块的精妙。这一模块由三个部分构成：波动性衡量、头寸规模和止损规则。</p>
+<p>2.1.波动性衡量</p>
+<p>海龟系统首先打造了一把能够衡量不同市场“风险”的统一标尺。这把标尺就是N，其计算基于平均真实波幅（Average True Range, ATR）。ATR旨在衡量一个资产在特定时间周期内（海龟通常使用20日）的平均价格波动幅度。</p>
+<p>真实波幅（True Range,TR）的计算：TR=Max[(今日最高价-今日最低价), |今日最高价-昨日收盘价|, |今日最低价-昨日收盘价|]。TR的设计考虑了价格跳空缺口，比简单的日内高低价差更能反映真实波动。 N的计算：为了简洁我们用N表示。N=(19<em>前一日N值+1</em>当前TR)/20。N即是TR指数移动平均即ATR，使得N值能够平滑地反映近期市场波动性的变化。N的价值在于，它将所有不同市场的每日波动“翻译”成了一种通用语言。一个市场的N值大，意味着它最近波动剧烈；N值小，则意味着市场相对平静。</p>
+<p>2.2.头寸规模</p>
+<p>这一步回答了“我应该买/卖多少手？”这个问题。其核心原则是：无论交易哪个品种，一个单位的头寸，其价格波动一个N所带来的账户净值变动，应该是一个固定的、预先设定的金额。海龟设定这个固定的金额应该是账户总净值的1%。因此，头寸单位的计算公式为： 头寸单位(U) = (账户总净值的1%)/(N*每一手价值)</p>
+<p>举例说明： 假设账户净值为1,000,000美元。 交易黄金期货。 假设黄金的合约规格为100盎司/手，N为30美元/盎司. 每一手合约一个N的波动价值=30<em>100=3,000美元。 1%的账户风险=1,000,000</em>1%=10,000美元。 黄金的头寸单位=10,000美元/3,000美元≈3.33手。 交易员会买入3手。</p>
+<p>交易玉米期货： 假设玉米合约规格为5000蒲式耳/手。N为8美分/蒲式耳。 每一手合约一个N的波动价值=0.08*5000=400美元。 1%的账户风险=10,000美元。 玉米的头寸单位=10,000美元/400美元=25手。 交易员会买入3手。</p>
+<p>通过这种方式，虽然黄金和玉米的合约价值、波动性天差地别，但对于这个百万美元的账户来说，无论是买入3手黄金还是25手玉米，它们在系统中的初始“风险权重”是完全相同的。这种基于波动率的头寸调整，自动实现了在高波动市场中轻仓、在低波动市场中重仓的风险平价思想。</p>
+<p>2.3.止损规则</p>
+<p>海龟系统的止损规则与头寸规模紧密挂钩，同样以N为单位。 初始止损：对于任何一个单位的头寸，初始止损点被设置在距离入场价2N的位置。 风险计算：这意味着，任何一笔交易的最大预设亏损被严格限制在账户总净值的2%（1%的头寸风险暴露*2N的止损距离）。这是一个硬性的、不可逾越的纪律。如果价格触及止损点，必须无条件离场。</p>
+<p>动态加仓：海龟系统允许在趋势确认后进行加仓，即金字塔式加仓，通常是在价格顺着有利方向移动0.5N时加一个单位，最多加到4个单位。重要的是，每加一个单位，整个头寸，包括之前的所有单位，的止损点都会相应向上（做多时）或向下（做空时）做出相应的移动，以保护已有利润并继续控制总风险。这种移动止损机制，体现了“让利润奔跑”的思想。</p>
+<p>除了单笔交易的风险管理，海龟系统还包含更高层级的风险规则，以控制整个投资组合的风险： 关联市场限制：限制在高度相关的市场，如同为谷物的玉米和小麦，上的总头寸单位。 总风险暴露限制：限制在单一方向，多头或空头，上的总头寸单位。 账户净值回撤的降仓规则：当账户总净值出现显著回撤时，例如从最高点回撤10%，系统会要求将所有后续交易的头寸规模按比例缩减，例如缩减20%，直到净值创出新高。这是一种应对策略失效或不利市场环境的“降档”机制，旨在保全初始资本。</p>
+<p>3.小结</p>
+<p>海龟交易法则的成功，并不在于其入场信号有多么神奇，而在于其一套极为严苛的、以生存为第一要义的资金管理和风险控制体系。这套体系确保了即使在连续亏损的情况下，交易员也不会爆仓，从而能“活下来”等到属于他们策略的大趋势行情。</p>
+<p>海龟交易系统代表的基于波动率标准化的规则化风控范式，其核心是构建一个不依赖于主观预测、完全程序化的风险控制闭环。它通过将所有资产的风险“标准化”到ATR这个统一的度量衡上，并以此为基础来决定仓位大小和止损距离，从而在看似混沌的多样化市场中建立起一套严密的风险秩序。这种范式的优点在于其简单、普适、稳健和极强的纪律性。它不关心风险的来源是什么，只关心如何量化并控制每一次下注的潜在损失。这种思想深刻地影响了后来的几乎所有CTA策略，甚至整个量化策略体系，是量化投资风险管理的经典。</p>
+<p>案例二：Barra模型，基于因子分解的风险归因与控制范式</p>
+<p>1.概述</p>
+<p>在股票多头、多空或市场中性等截面选股策略中，投资者的任务和目标是：挑选一组股票，跑赢市场基准，获取超额收益。Fama-French模型告诉我们，一个投资组合的表现受到多个风险因子的的共同影响。例如在某段时间，小盘股可能整体跑赢大盘股，成长股可能整体跑输价值股。如果一个投资者的组合恰好重仓了小盘成长股，那么即使他选中的个股本身质地优良，组合也可能因为暴露在这两种不利的风格“逆风”而表现不佳。</p>
+<p>基于因子分解的风险管理范式，其核心思想就是将投资组合的风险与收益进行“分解”，分解到一系列可解释的、相互独立的系统风险（Systemetic Risk）和一个无法被解释的特质风险（Idiosyncratic Risk）。这使得投资者能够清晰地看到，其组合的波动究竟是由哪些因子所驱动的。MSCI Barra是这一范式中最经典、应用最广泛的工具。</p>
+<p>2.核心机制</p>
+<p>Barra模型本质上是一个多因子风险模型。其基本假设是，任何一只股票的超额收益率都可以用一个线性方程来解释： <span class="math inline">\(R_i=Σ(β_ikF_k)+α_i+ε_i\)</span> 其中： <span class="math inline">\(R_i\)</span>是股票i的超额收益率。 <span class="math inline">\(F_k\)</span>是第k个共同风险因子的因子收益率。 <span class="math inline">\(β_ik\)</span>是股票i在第k个风险因子上的暴露度或敏感度。 <span class="math inline">\(α_i\)</span>是股票i的特质超额收益，即无法被所有共同因子解释的部分，通常被视为选股能力的体现。 <span class="math inline">\(ε_i\)</span>是误差项，代表了股票的特质风险。</p>
+<p>通过对市场中所有股票在很长一段时间内的历史数据进行横截面回归，以及将这些分析结果汇总进行时间序列分析，Barra模型可以估算出每个因子的历史收益率序列<span class="math inline">\(F_k\)</span>和所有因子之间的协方差矩阵。同时，模型也为每一只股票计算出其在所有因子上的暴露度<span class="math inline">\(β_ik\)</span>。</p>
+<p>Barra模型定义了丰富且经过严谨验证的风险因子体系。以其经典的中国A股模型（如CNE5、CNE6）为例，这些因子通常包括： 国家因子（CountryFactor）：在全球模型中代表市场整体的波动，即Beta。 行业因子（IndustryFactors）：按照GICS等行业分类标准，定义了数十个行业因子，用以捕捉行业性的景气度变化。 风格因子（StyleFactors）：这是Barra模型最核心的部分，捕捉了驱动股票收益差异的多种横截面特征。这些因子经过了严格的筛选，需满足稳定性、与其他因子的低相关性、能解释收益波动等条件。常见的风格因子包括： 规模（Size）：市值大小。 贝塔（Beta）：对市场波动的敏感度。 动量（Momentum）：近期股价表现的持续性。 价值（Value）：估值水平，常用账面市值比（Book-to-Price）等指标衡量。 成长（Growth）：盈利和销售的增长预期。 杠杆（Leverage）：财务杠杆水平。 流动性（Liquidity）：股票的交易活跃程度。 波动率（Volatility）：历史收益的波动性。</p>
+<p>3.应用</p>
+<p>Barra模型在风险管理上的应用主要体现在以下两个方面：</p>
+<p>3.1.风险归因</p>
+<p>对于一个给定的投资组合，模型可以计算出其整体在每个风险因子上的加权暴露度。例如，一个组合的“市值因子”暴露为-0.8，意味着该组合显著地偏向大盘股；“动量因子”暴露为+1.2，意味着组合重仓了近期表现强势的股票。</p>
+<p>结合因子协方差矩阵，模型可以进一步计算出组合的总风险，并将该风险分解到各个因子来源。例如，通过分析我们可以清楚的知道，“投资组合的年化波动率为18%，其中35%的风险贡献来自于行业偏离，25%来自于对动量因子的暴露，15%来自于对小市值因子的暴露，剩余的25%来自于个股选择的特质风险。”这种清晰的风险归因，使得投资者能够立刻抓住组合风险的主要矛盾。</p>
+<p>3.2.风险预算与组合优化</p>
+<p>在Barra模型的应用语境下，风险预算更多体现为对风险敞口的约束条件。在构建投资组合的优化阶段，投资者可以利用Barra模型提供的信息来设定精细的风险约束。例如：</p>
+<p>因子敞口中性化：如果投资者认为自己的Alpha来源与市值大小无关，只想赚取纯粹的选股收益，他可以在优化器中设定“市值因子暴露度为0”的约束。这样构建出的组合，其表现将不会受到大小盘风格轮动的影响。</p>
+<p>限制特定风险暴露：如果投资者不希望过度暴露在动量因子上（因为动量因子可能发生剧烈反转），他可以设定“动量因子暴露的绝对值小于0.5”的约束。</p>
+<p>控制跟踪误差（TrackingError）：投资者可以设定组合相对于某个基准（如沪深300指数）的跟踪误差上限，例如不超过4%。优化器会在满足此约束的前提下，最大化组合的预期Alpha。</p>
+<p>行业中性：设定组合在每个行业上的权重相对于基准的偏离不超过一定范围（如±1%），以避免承担过多的行业风险。</p>
+<p>4.小结</p>
+<p>Barra模型代表的基于因子分解的风险管理范式，其核心价值在于提供了对投资组合风险的深度洞察和精细化控制。它将模糊的“风险”概念转化为一个由具体因子构成的、可量化、可归因、可管理的框架。通过主动管理因子暴露，投资者可以将精力更纯粹地集中在发掘真正的、与主流风险因子无关的Alpha上，从而构建出风险特征更稳定、收益来源更清晰的投资组合。这种范式在机构投资，尤其是对于管理规模庞大、追求稳健超额收益的基金而言，已成为不可或缺的标准配置。</p>
+<p>案例三：宏观因子模型，基于宏观驱动的风险预算范式</p>
+<p>1.概述</p>
+<p>案例三将我们的视角从个股选择和期货交易提升到最高层面大类资产配置，进行自上而下的风险规划。对于资产配置而言，其核心决策是在股票、债券、房地产、大宗商品等主要资产类别之间分配资本。这种决策的风险管理，更关注的是宏观经济环境的系统性变化对整个投资组合的冲击。例如，通胀超预期上升会对哪类资产有利，对哪类资产不利？经济衰退的到来会如何影响股债的相对表现？</p>
+<p>基于宏观驱动的风险预算的风险管理范式，正是为了回答这些问题。其核心思想是，将投资组合的总风险分解为对少数几个关键宏观经济因子，如经济增长、通货膨胀等的风险因子的暴露，并根据投资者的目标和宏观观点，主动地为这些宏观因子或分配风险权重，或称分配风险预算。这种方法将资产配置的决策从“应该投多少比例到股票”的传统视角，转变为“我愿意承担多少来自经济增长风险”的全新视角。</p>
+<p>2.核心机制</p>
+<p>宏观因子模型也试图解释资产收益的驱动因素，但它关注的不是股票的微观特征，而是宏观经济变量。模型的基本形式为： <span class="math inline">\(R_asset=c+Σ(β_k * F_k,macro)+ε\)</span> 其中： <span class="math inline">\(R_asset\)</span>是某一大类资产（如美国股票指数）的收益率。 <span class="math inline">\(F_k,macro\)</span>是第k个宏观因子的变动。 <span class="math inline">\(β_k\)</span>是该资产对第k个宏观因子变动的敏感度。通常，股票通常对“经济增长”因子有正的β，而长期国债则有负的β。 <span class="math inline">\(c\)</span>是常数项. <span class="math inline">\(ε\)</span>是残差项。</p>
+<p>常见的宏观因子包括： 经济增长（Growth）：通常用工业产出、GDP增速、PMI等指标的意外变动来代理。 通货膨胀（Inflation）：通常用CPI、PPI等指数的意外变动来代理。 真实利率（Real Rates）：反映了货币政策的松紧和资本的实际成本。 信用利差（Credit Spreads）：反映了市场对违约风险的担忧程度和风险偏好。 新兴市场风险（EM Risk）：捕捉与新兴市场相关的特定风险。</p>
+<p>通过历史数据回归，模型可以估算出各大类资产对这些宏观因子的敏感度（β矩阵），以及宏观因子本身的波动率和它们之间的相关性，即宏观因子的协方差矩阵。</p>
+<p>3.应用</p>
+<p>3.1.风险预算</p>
+<p>与传统的固定权重配置（如60/40股债组合）或简单的风险平价（RiskParity，即让每个资产类别对组合的风险贡献相等）不同，风险预算（Risk Budgeting）模型允许投资者根据自己的宏观观点和风险偏好，为不同的宏观风险源设定不同的风险预算。例如，如果预期未来经济将强劲复苏，投资者可以增加对“经济增长”因子的风险预算，模型可能会建议同时增持股票和信用债。具体流程如下：</p>
+<p>1)设定预算：投资者首先决定组合的总风险目标（如年化波动率10%），然后决定这10%的风险应该如何分配。例如，一个看好未来经济增长但担忧通胀的投资者可能会设定如下的风险预算：“我希望组合总风险的50%来自对‘经济增长’因子的暴露，20%来自‘真实利率’因子，10%来自‘通胀’因子，其余20%为非系统性风险。”</p>
+<p>2)求解权重：基于各大类资产的宏观因子敏感度（β矩阵）和宏观因子的协方差矩阵，通过优化算法计算出一组最优的资产权重（股票占多少、债券占多少），使得最终形成的投资组合，其风险结构恰好与预设的风险预算相匹配。</p>
+<p>3.2.因子敞口控制</p>
+<p>一旦组合建立，管理者就可以持续监控其对各个宏观因子的实际暴露情况。如果宏观环境发生变化，或者管理者的观点改变，就可以主动调整组合以控制因子敞口。</p>
+<p>例如，假设组合目前对“通胀”因子有较高的风险暴露。如果新的数据显示通胀压力正在快速累积，超出了此前的预期，管理者可能会认为当前的通胀风险暴露过高。他可以通过模型找到最有效降低通胀风险的交易。比如，减持名义长期国债，增持通胀保值债券（TIPS）或大宗商品。从而在不大幅改变其他宏观风险暴露的前提下，精准地“对冲”掉不希望承担的通胀风险。</p>
+<p>3.3.压力测试</p>
+<p>宏观因子模型是进行压力测试（StressT esting）的天然工具，因为它直接将投资组合与真实的宏观情景联系在一起。管理者可以定义一系列历史或假想的极端宏观情景，然后通过模型来模拟这些情景对投资组合净值的影响。</p>
+<p>1)历史情景模拟：“如果再次发生2008年全球金融危机，我的组合会怎么样？”模型可以将2008年时“经济增长”因子的大幅为负、“信用利差”因子的大幅走阔、“市场波动”因子的大幅飙升等作为输入，然后根据组合对这些因子的敏感度，估算出潜在的最大损失。</p>
+<p>2)假想情景分析：“如果明年出现‘滞胀’（经济停滞、通胀高企），我的组合会如何表现？”管理者可以设定“增长”因子为负，“通胀”因子为正，然后观察组合的模拟表现。</p>
+<p>通过压力测试，投资者可以识别出组合在哪些类型的宏观冲击面前最为脆弱，并据此提前设置对冲策略或调整资产配置，以增强组合的稳健性。</p>
+<p>4.小结</p>
+<p>宏观因子模型代表的基于宏观驱动的风险预算范式，是一种自上而下、着眼于系统性风险的战略性风险管理框架。它帮助长期投资者透过纷繁复杂的资产价格波动，直击背后真正的宏观经济驱动力。通过主动规划和管理对这些宏观风险源的暴露，投资者能够构建出更符合其长期目标、能更好地抵御宏观冲击、并能有效表达其宏观见解的稳健投资组合。</p>
+<p>三、本节总结</p>
+<p>本节通过对三个核心范式的深度剖析，为读者描绘了一幅关于量化风险管理的立体图景。海龟交易系统代表的“波动率标准化”范式，它回答了“我能承受多大损失？”的问题。它通过统一的风险度量和机械的执行规则，在纷乱庞杂的市场中实现了风险的标准化和执行的纪律化。Barra模型代表的“因子分解”范式，它回答了“我的风险从哪里来？”的问题。它通过对风险进行归因，实现了对风险结构的深度洞察和精细化控制。宏观因子模型代表的“宏观风险”范式，它回答了“我希望我的风险暴露在何种宏观主题下？”的问题。它通过自上而下的视角，将资产与宏观经济相联系，实现了对系统性风险的战略规划和主动管理。</p>
+<p>读者不应该孤立的看待三个风险管理范式。一个成熟的、顶尖的量化投资机构，其风险管理体系应而是三大范式的有机融合。例如：顶层使用宏观因子模型进行风险预算，决定其在“全球增长”、“通胀”和“美元强弱”等宏观主题上的总风险敞口。中层在其股票投资组合内部，使用Barra类的模型来精细化管理行业和风格因子的暴露，确保股票组合的风险特征符合顶层宏观策略的要求。底层在其交易执行中，都嵌入了类似海龟系统的、基于ATR的仓位管理和止损模块，以控制每一笔交易的微观风险。</p>
+<p>而且，宏观因子模型也并不局限于资产配置的应用，也可以直接作用在股票行业甚至个股的风险管理。例如，能源、化工、金属等周期类板块与宏观经济周期高度共振；金融板块则很大程度上受到利率波动的影响；地产板块与信贷周期密切相关。另一方面，本书中反复提到的资产配置内容中的风险平价理论，其核心思想与海龟系统的仓位管理的思想是一致的。</p>
+<p>总之，量化投资的圣杯，并不在于找到一个能完美预测市场的模型，而在于构建一个深刻理解风险、能够度量风险、并能根据目标和环境动态调整风险暴露的风险管理系统。正是这个系统，赋予了量化策略穿越牛熊、行稳致远的能力。</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第1章 基础知识 第7节 模型的选择.html" class="pagination-link" aria-label="1. 生成数据 #########">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第1章 基础知识 第9节 编程语言.html" class="pagination-link" aria-label="第1章 基础知识 第9节 编程语言.html">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">第1章 基础知识 第9节 编程语言.html</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

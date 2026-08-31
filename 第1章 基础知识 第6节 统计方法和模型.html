@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>quarto-input802ffa1e6716c408 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第1章 基础知识 第7节 模型的选择.html" rel="next">
+<link href="./第1章 基础知识 第4节 策略研发.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3d497cff885f6278d37568d0ef0763f8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第6节 统计方法和模型.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第1节 概述.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第2节 理论模型.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第3节 两个范式.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">第1章 基础知识 第9节 编程语言.html</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<p>前文中，我们反复强调，量化投资是通过系统性的、基于数学和统计模型的分析，利用计算机技术来制定和执行投资策略的过程。在早期，量化投资主要依赖于经典的统计学方法，如广义线性模型和时间序列分析。这些方法为理解资产价格行为和构建投资策略提供了基础理论框架和实用工具。但随着数据的爆炸式增长和新兴技术的发展，传统模型的局限性越来越突出，这为机器学习模型的崛起创造了契机。机器学习，特别是深度学习，凭借其强大的模式识别和拟合能力，正在重塑量化投资的各个环节。本章将系统性地梳理和回顾量化投资领域中广泛应用的主要的统计方法与机器学习模型。</p>
+<p>一、经典统计学原理和方法</p>
+<p>从本质上讲，早期的量化投资，就是统计学理论在金融市场的实践应用。无论是识别影响资产价格因素、预测市场未来走势，还是构建风险收益最优的投资组合，都离不开统计学提供的框架和工具。虽然机器学习和人工智能技术等新兴技术有着传统统计学无法比拟的强大能力，但在很多场景下其应用受到客观条件的限制（如小样本和低信噪比数据）。因此，经典统计学的思想和工具依然是量化投资重要组成部分，并与新兴技术共同推动着该领域的发展。</p>
+<p>经典统计学的核心使命在于从不确定性中提炼可度量的规律，这与量化投资的需求高度契合。其研究内容主要围绕“描述、推断与分析”展开。描述统计，对观测数据进行系统概括，将原始信息浓缩为可解释的数字特征与可视化图形，是理解数据的第一步；推断统计，基于概率论进行假设检验、参数估计、估计置信区间，从样本推断总体，并量化推断过程中的不确定性；分析统计，通过方差分析、相关分析、回归分析等方法进一步探索变量间的关联与因果关系，为构建模型提供基础。我们在后文对这些内容将逐一回顾。</p>
+<p>1.描述性统计</p>
+<p>描述性统计学的核心任务，是对已观测到的数据集进行系统性的提炼、概括和可视化，将其从无序的原始信息转化为简洁、可理解且具有信息量的数字与图形摘要。其研究主要围绕三个核心维度展开：集中趋势、离散程度和分布形态。集中趋势指标包括：如均值、中位数，告诉我们数据的“平均”位置在哪里；离散程度指标包括：方差、标准差、极差、四分位距等，揭示了数据围绕中心的波动或风险有多大；而分布形态分析包括：如偏度、峰度，刻画了数据分布的形状是否对称，尖峰或者厚尾。</p>
+<p>集中趋势分析用于描述数据的集中位置，常用指标包括： 均值（Mean）：所有数据的总和除以数据个数，是描述数据集中趋势最常用的指标，但易受极端值影响。 中位数（Median）：将数据按顺序排列后位于中间的值，不受极端值影响，适用于偏态分布或存在异常值的数据。</p>
+<p>离散程度分析用于衡量数据的离散程度，常用指标包括： 方差（Variance）：数据点与均值偏差的平方的平均值，反映数据的离散程度，是标准差的平方。 标准差（Standard Deviation）：方差的平方根，反映数据与均值的偏离程度，是衡量离散程度最常用的指标之一。 变异系数（Coefficient of Variation, CV）：标准差与均值的比值，适用于比较不同单位或均值差异较大的数据的离散程度。 极差（Range）：数据最大值与最小值之差，简单直观，但易受极端值影响。 四分位距（Interquartile Range,IQR）：上四分位数（Q3）与下四分位数（Q1）之差的一半，反映中间50%数据的离散程度，对极端值不敏感。</p>
+<p>分布形态分析，常用指标包括： 偏度系数（Skewness）：衡量数据分布不对称性的指标，揭示数据在均值两侧的分布差异，正偏度表示右尾较长而众数集中在左侧，负偏度则相反。 峰度系数（Kurtosis）：描述数据分布尾部厚重程度与尖峰状态的指标，反映极端值出现的概率，高峰度意味着分布比正态分布更尖峭且尾部更厚。</p>
+<p>2.参数估计</p>
+<p>参数估计是统计推断的理论基础。其核心任务是利用样本数据，对未知的总体数据的关键参数进行科学的“估计”，旨在透过样本的表象去探寻更本质的总体规律。其研究内容主要包括：点估计与区间估计。</p>
+<p>点估计旨在构造一个由样本数据确定的统计量，作为总体待估参数的唯一数值近似。其核心在于研究估计量的抽样性质，并通过一定的准则（如无偏性、有效性、均方误差最小或极大似然原理）筛选出最优估计量。例如，样本均值<span class="math inline">\(\bar{X}\)</span>作为总体期望<span class="math inline">\(\mu\)</span>的估计量，在独立同分布条件下具有无偏性与最小方差性。在量化投资中，资产收益率、波动率以及因子模型的系数等，均需通过点估计进行校准，为模型提供具体的输入参数。</p>
+<p>区间估计则进一步考虑了估计的不确定性，其目标是以一定的置信水平（<span class="math inline">\(1-\alpha\)</span>）构造一个随机区间，使得该区间覆盖总体真实参数的概率达到预设要求。该区间通常以点估计为中心，并基于估计量的抽样分布（如正态分布、t分布）或其渐进性质确定误差边际。在量化投资中，区间估计不仅提供参数的可能取值范围，更重要的在于量化了估计风险。</p>
+<p>点估计为区间估计提供中心锚点，区间估计则揭示了点估计的可靠程度。在量化实践中，严谨的模型构建必须同时报告点估计值及其区间估计，以此表达信号与噪声，为投资决策提供兼具指向性与稳健性的统计依据。</p>
+<p>3.假设检验</p>
+<p>假设检验是统计推断的核心方法论之一，其本质是基于概率反证法的统计决策过程。在量化投资领域，它为我们提供了一套严谨的、可量化的框架，用以区分数据中的系统性规律与随机的噪声。</p>
+<p>从学术范式而言，假设检验首先建立一对互斥的假设：原假设（H₀）通常代表一种保守的、待挑战的基准状态；备择假设（H₁）则代表研究者希望证实的发现或理论。检验的逻辑并非直接证明H₁为真，而是基于“在H₀成立的假定下”这一前提，考察当前样本数据出现的可能性。我们计算在H₀下得到当前或更极端样本结果的概率，即p值。若p值小于预先设定的显著性水平（α值，如0.05），则依据“小概率事件在一次试验中实际不发生”的原理，我们拥有足够的统计证据拒绝H₀，从而倾向于接受H₁。此过程中可能犯两类错误：第一类错误（弃真）与第二类错误（取伪），其权衡由α和检验功效共同决定。</p>
+<p>在量化投资中，假设检验贯穿于策略研发与评估的全过程。任何一个宣称有效的量化因子或量化策略，都必须经历各种假设检验的严格审查层层把关。可以说，假设检验是量化投资从“数据挖掘”走向“科学发现”的“裁判员”。</p>
+<p>4.相关分析和回归分析</p>
+<p>相关分析与回归分析是量化投资中探究变量间统计关系的两大核心方法论。</p>
+<p>相关分析用“相关系数”刻画两个或多个随机变量之间线性关联的方向与强度。其核心在于衡量变量变动的协同性，例如资产收益率之间的同向或反向运动。在量化投资中，它是进行因子初筛、资产配置与风险分散化分析的基础工具。</p>
+<p>回归分析通过建立模型，刻画一个或多个解释变量（自变量）对被解释变量（因变量）的条件期望的影响。其核心输出是回归系数，该系数在控制其他变量的情况下，定量解释了“自变量每变动一单位，因变量平均预期变动多少”。在量化领域，从最基本的CAPM模型到复杂的多因子模型，回归分析构成了资产定价、风险暴露度量与绩效归因的骨架。其分析过程严格依赖于一系列统计假设，包括线性、同方差、无多重共线性等，并需通过一系列假设检验（t检验、F检验）来判定各因子或模型的统计显著性。</p>
+<p>在量化投资的研究范式中，相关分析常用于关系的初步探索与可视化，而回归分析则用于关系的定量建模和预测。二者共同构成了从观察市场现象到构建可验证投资模型的完整分析链条，是剥离随机噪声、识别稳健规律的重要工具。</p>
+<p>我们必须严谨地声明其局限性：相关关系和回归分析仅揭示了数据上的统计关联，并确定现实中的因果逻辑。并且，它们只能捕捉线性关系，对非线性结构的解释力有限。</p>
+<p>5.因果推断</p>
+<p>在量化投资中，找到两个变量之间的相关性非常容易，但确定其中是否存在因果关系则非常困难。一个策略在回测中表现优异，可能仅仅是因为它捕捉到了某个偶然的相关性，而非真正的经济规律。</p>
+<p>因果推断代表了一种根本性的研究范式演进。其核心目标是从观测数据中识别并量化变量间具有方向性、机制性、反事实稳定的内在关系，从而超越传统统计方法对相关性与预测性的局限。该框架的核心在于系统性地应对内生性问题，即解释变量与模型误差项之间的相关性，其来源包括遗漏变量、双向因果关系、样本选择偏差及测量误差。例如，观察到的“低波动率股票获得更高风险调整后收益”这一统计现象，可能并非源于低波动特性本身带来的溢价（因果），而是由某个未被观测的稳健性因子（如低流动性）同时驱动了低波动与超额收益（伪相关）。</p>
+<p>现代量化研究依赖于一套严谨的计量经济学设计，以实现可靠的因果识别，主要方法包括：1)自然实验与准实验设计，如利用监管政策突变、指数成分股调整等外生冲击作为“处理”，构建近似随机的处理组与对照组；2)工具变量法，寻找仅通过特定渠道影响被解释变量的工具，以隔离解释变量的外生变异部分；3)双重差分法，通过比较处理组与对照组在事件前后趋势差异来估计因果效应；4)断点回归设计，利用基于连续变量的明确规则阈值进行局部因果推断。这些方法本质上是在非实验性金融数据中，构造或识别一个“近似随机化”的环境，从而将因果效应从混杂因素中剥离出来。</p>
+<p>因果推断为量化策略的构建提供了更多的的逻辑稳定性与经济学基础。它要求研究者从单纯的“数据挖掘”转向“机制解释”，不仅要回答策略“是否有效”，更须论证其“为何有效”的内在经济学原理。一个基于严谨的因果推断过程构建的因子或策略，其克服模型过拟合及适应市场结构变迁的能力会得到本质的提升。</p>
+<p>二、线性模型</p>
+<p>线性模型是量化投资领域中最核心、最基础的工具之一。尽管近年来机器学习与人工智能技术飞速发展，但线性模型凭借其不可替代的优势，至今仍然在资产定价、风险管理、因子构建和策略开发中占据着不可或缺的地位。线性模型的优势，主要源于以下几个核心优势：</p>
+<p>1)理论根基：大量的经典金融理论，如有效市场假说、APT理论和FamaFrench模型，都是建立在线性框架之上的。这使得线性模型不仅是数据拟合的工具，更是检验和应用金融经济理论的桥梁。</p>
+<p>2)可解释性：在投资实践中，理解模型为何做出某个决策甚至比决策本身更重要。线性模型提供了清晰直观的解释。例如，在线性回归中，每个自变量的系数直接量化了该因素对因变量的边际影响，这对于因子归因、风险敞口分析和策略逻辑构建至关重要。</p>
+<p>3)计算高效：线性模型具有解析解或高效的数值解法，能够快速处理大规模数据集。在需要频繁训练和迭代模型的应用场景中，这种效率是至关重要的。</p>
+<p>4)稳定性：线性模型简单的结构使其在面对金融市场固有的高噪声数据时，比复杂的非线性模型更不容易产生过拟合，表现出更强的稳定性。</p>
+<p>5)性能基准：一个新模型是否有效，通常需要与一个简单但稳健的线性模型进行比较。事实证明，许多复杂的模型在经过严格的样本外测试后，表现并不能稳定的超越线性模型。</p>
+<p>深入理解和掌握线性模型，是每一位量化从业者的必备技能。它不仅是构建复杂策略的起点，也是评估和理解市场行为的强大分析工具。本节将系统性地梳理线性模型的理论框架与实践应用，包括简单线性回归、Logistic回归、岭回归（Ridge）、Lasso回归以及弹性网络（ElasticNet）在内的关键模型。</p>
+<p>1.多元线性回归</p>
+<p>1.1.原理</p>
+<p>简单线性回归研究的是单个自变量（X）与因变量（Y）之间的关系，其数学形式为：</p>
+<p><span class="math inline">\(Y=\beta_0+\beta_1X+\epsilon\)</span></p>
+<p>其中： <span class="math inline">\(Y\)</span>是因变量（例如，股票的未来收益率）。 <span class="math inline">\(X\)</span>是自变量（例如，股票的市盈率）。 <span class="math inline">\(\beta_0\)</span>是截距项，表示当<span class="math inline">\(X=0\)</span>时<span class="math inline">\(Y\)</span>的期望值。 <span class="math inline">\(\beta_1\)</span>是斜率系数，表示<span class="math inline">\(X\)</span>每增加一个单位，<span class="math inline">\(Y\)</span>的期望变化量。它是模型的核心，量化了<span class="math inline">\(X\)</span>对<span class="math inline">\(Y\)</span>的影响。 <span class="math inline">\(\epsilon\)</span>是误差项或残差，代表了模型无法解释的部分，包含了所有其他影响<span class="math inline">\(Y\)</span>但未被模型包含的因素以及随机噪声。</p>
+<p>当自变量扩展到多个时，模型就演变为多元线性回归：</p>
+<p><span class="math inline">\(Y=\beta_0+\beta_1X_1+\beta_2X_2+\dots+\beta_pX_p+\epsilon\)</span></p>
+<p>模型的目标是通过样本数据估计出最优的参数<span class="math inline">\(\beta_0,\beta_1,\dots,\beta_p\)</span>。最经典的方法是普通最小二乘法（Ordinary Least Squares，OLS），其目标是最小化所有样本点的实际观测值与模型预测值之间的残差平方和（Sum of Squared Residuals，SSR）。</p>
+<p>OLS依赖于一系列严格的假设： 1）线性关系：自变量与因变量之间存在线性关系； 2）误差项的零均值：<span class="math inline">\(E(\epsilon)=0\)</span>； 3）同方差性（Homoscedasticity）：误差项的方差对于所有自变量的取值都是一个常数，即<span class="math inline">\(Var(\epsilon_i)=\sigma^2\)</span>； 4）无自相关（NoAutocorrelation）：误差项之间相互独立，即<span class="math inline">\(Cov( \epsilon_i, \epsilon_j)=0\)</span> for <span class="math inline">\(i \neq j\)</span>； 5）误差项与自变量不相关：<span class="math inline">\(Cov(X_i,\epsilon_i)=0\)</span>； 6）误差项正态分布：<span class="math inline">\(\epsilon \sim N(0, \sigma^2)\)</span>。</p>
+<p>这些假设在金融数据的建模实践中往往面临严峻的挑战。例如：金融市场中许多关系是非线性的。金融时间序列数据普遍存在异方差性（Heteroscedasticity），最典型的就是“波动率聚集”现象。金融资产的收益率分布通常呈现“尖峰厚尾”（leptokurtosis）的特征，这使得基于正态假设的风险评估可能严重低估尾部风险。在不满足以上假设的情况下，量化研究者需要采用更稳健的方法，例如使用异方差自相关稳健的标准误、引入非线性项、或使用广义最小二乘法（GLS）等解决各种问题。</p>
+<p>1.2.模型评估标准</p>
+<p>线性回归模型的优势还在于一套严谨的评估标准： R²(决定系数)：衡量模型对因变量变异性的解释程度，取值在0到1之间。R²越高，说明模型的拟合优度越好。但在金融数据中，由于信噪比极低，一个较低的R²（例如低于10%）可能已经具有显著的经济价值。 调整后的R²(AdjustedR²)：在R²的基础上，对模型中自变量的数量进行了惩罚。当增加一个对模型解释能力贡献不大的变量时，R²会上升，但调整后的R²可能会下降，这有助于避免模型因变量过多。 F检验(F test)：用于检验整个模型的显著性，即所有自变量作为一个整体是否对因变量有显著的线性影响。 t检验(t test)：用于检验单个回归系数的显著性，即判断某个特定的自变量是否对因变量有统计上显著的影响。 信息准则(AIC/BIC)：赤池信息准则（AIC）和贝叶斯信息准则（BIC）是用于模型比较的指标，它们在衡量模型拟合优度的同时，也对模型的复杂度（参数数量）进行惩罚。在多个候选模型中，通常选择AIC或BIC值较小的模型。 残差分析：通过检验模型残差是否满足白噪声假设（零均值、同方差、无自相关、正态分布），来判断模型是否充分提取了数据中的信息。</p>
+<p>1.3.应用</p>
+<p>CAPM模型是典型的简单线性回归应用。它描述了单个资产的预期超额收益<span class="math inline">\(E(R_i)-R_f\)</span>与市场组合的预期超额收益<span class="math inline">\(E(R_m)-R_f\)</span>之间的线性关系： <span class="math inline">\(E(R_i)-R_f=\alpha_i+\beta_i[E(R_m)R_f]\)</span> 通过对某只股票的历史超额收益与市场组合的历史超额收益进行时间序列回归，可以估计出该股票的<span class="math inline">\(\alpha\)</span>，代表剥离市场风险后的超额收益，以及<span class="math inline">\(\beta\)</span>，代表其系统性风险暴露。一个显著为正的<span class="math inline">\(\alpha\)</span>通常被认为是超额收益的来源。</p>
+<p>FamaFrench三因子模型是多元线性回归的经典应用。它认为股票的超额收益可以由市场风险因子（MKT）、规模因子（SMB）和价值因子（HML）共同解释： <span class="math inline">\(R_{it}-R_{ft}=\alpha_i+\beta_{i,MKT}(R_{mt}-R_{ft})+\beta_{i,SMB}SMB_t+\beta_{i,HML}HML_t+\epsilon_{it}\)</span> 通过回归，可以得到个股或投资组合在各个风格因子上的暴露度，并进行风险归因和业绩评价。</p>
+<p>2.Logistic回归</p>
+<p>2.1.模型原理</p>
+<p>在量化投资中，很多问题是预测一个离散的类别结果。例如，判断当前市场处于“牛市”还是“熊市”状态。对于分类问题，Logistic回归是最经典和常用的工具之一。Logistic回归的核心思想是，首先像线性回归一样，计算出一个线性的预测值<span class="math inline">\(z=\beta_0+\beta_1X_1+\dots+\beta_pX_p\)</span>。然后，通过一个非线性的Sigmoid函数（也称为Logistic函数），将这个连续的<span class="math inline">\(z\)</span>值映射到(0,1)区间，从而得到一个概率的估计值：</p>
+<p><span class="math inline">\(P(Y=1|X)=\sigma(z)=\frac{1}{1+e^{z}}=\frac{1}{1+e^{(\beta_0+\beta_1X_1+\dots+\beta_pX_p)}}\)</span></p>
+<p>这个输出的<span class="math inline">\(P(Y=1|X)\)</span>就可以解释为在给定自变量<span class="math inline">\(X\)</span>的条件下，事件<span class="math inline">\(Y=1\)</span>（例如，股价上涨）发生的概率。通常，我们会设定一个阈值（如0.5），当<span class="math inline">\(P&gt;0.5\)</span>时，预测为类别1；当<span class="math inline">\(P \le 0.5\)</span>时，预测为类别0。</p>
+<p>Logistic回归的参数<span class="math inline">\(\beta\)</span>是通过最大似然估计（Maximum Likelihood Estimation, MLE）求解。其基本思想是，寻找一组参数<span class="math inline">\(\beta\)</span>，使得在这组参数下，我们观测到的样本数据出现的概率（即似然函数）最大。这个优化问题通常没有解析解，需要使用数值优化算法，如梯度下降法（Gradient Descent）或牛顿法等迭代求解。</p>
+<p>2.2.模型评估</p>
+<p>Logistic回归的分类模型评估，有其自己独特的评估体系。对于某一个模型的预测结果，可以计算混淆矩阵（Confusion Matrix）展示了模型预测结果与真实结果的对应关系，包括真正例（TP）、假正例（FP）、真反例（TN）、假反例（FN）。 TP (True Positive)：真正例，正确预测为正类的样本数量。 TN (True Negative)：真负例，正确预测为负类的样本数量。 FP (False Positive)：假正例，错误预测为正类的样本数量。 FN (False Negative)：假负例，错误预测为负类的样本数量。</p>
+<p>以此我们可以计算 准确率（Accuracy）：准确率是指模型预测正确的样本占总样本的比例，<span class="math inline">\((TP+TN)/(TP+FP+TN+FN)\)</span>。 精确率（Precision）：<span class="math inline">\(TP/(TP+FP)\)</span>，衡量所有被预测为正类的样本中，有多少是真正的正类。 召回率（Recall）或灵敏度：<span class="math inline">\(TP/(TP+FN)\)</span>，衡量所有真正的正类样本中，有多少被模型成功预测出来。 F1分数（F1 Score）：精确率和召回率的调和平均数，是综合评价模型性能的指标。 ROC曲线与AUC值：ROC曲线描绘了在不同分类阈值下，真正例率（TPR，即召回率）与假正例率（FPR）之间的关系。曲线下的面积（AUC）是衡量模型整体分类性能的重要指标，AUC值越接近1，模型性能越好。</p>
+<p>2.3.应用</p>
+<p>Logistic回归最常见的应用是预测股价方向问题。简单说，我们可以构建一个模型来预测下一个交易日或周期的股价是上涨还是下跌。 因变量(Y)：定义为二元变量，例如，如果收盘价高于开盘价，则Y=1（上涨），否则Y=0（下跌）。 自变量(X)：可以包括各种技术指标、量价因子、基本面因子以及宏观经济数据等。 模型输出：模型会输出一个上涨的概率。当该概率高于某个设定的阈值时，我们可以产生一个买入信号，反之则产生卖出信号。</p>
+<p>2.4.类别不平衡问题</p>
+<p>在许多应用场景中，我们预测的事件往往是稀有事件，这就导致了严重的类别不平衡（Class Imbalance）问题。例如，在信用违约预测中，违约的样本数量远远少于正常的样本数量。如果直接使用不平衡的数据集训练模型，模型会倾向于将所有样本都预测为多数类（未违约），因为这样做可以在整体准确率上获得很高的分数，但对于我们真正关心的少数类（违约）的预测能力几乎为零。针对这个问题，有多种处理技术： 调整类别权重：在模型训练时，为不同类别的样本赋予不同的权重。例如，在损失函数中增加少数类样本的权重，使得模型在错分少数类样本时受到更大的惩罚。 过采样（Oversampling）：增加少数类样本的数量。最简单的方法是随机复制少数类样本，但更好的方法是SMOTE（Synthetic Minority Oversampling Technique），它通过在少数类样本之间进行插值来生成新的、合成的少数类样本。 欠采样（Undersampling）：减少多数类样本的数量。可以随机地从多数类样本中抽取一部分与少数类样本数量相当的样本进行训练。 调整分类阈值：模型默认的分类阈值是0.5。对于不平衡问题，我们可以根据实际需求（例如，更关注召回率）来调整这个阈值。例如，将阈值降低到0.3，这样模型会更容易将样本预测为正类（少数类）。</p>
+<p>3.Lasso、岭回归与弹性网络</p>
+<p>在处理高维金融数据时，多元线性回归和Logistic回归常面临多重共线性（Multicollinearity）和过拟合（Overfitting）问题。当模型中存在大量预测因子，且这些因子之间高度相关时，OLS估计的系数会变得非常不稳定，使得模型解释性和预测性都大大降低。过多的因子会使模型过于复杂，拟合了训练数据中的噪声，但在样本外数据上表现不佳。正则化（Regularization）技术正是为了解决这些问题而生的。它通过在模型的损失函数中加入一个对模型参数大小的惩罚项，来约束模型的复杂度，从而提高模型的稳定性和泛化能力。</p>
+<p>3.1.岭回归，L2正则化</p>
+<p>岭回归（Ridge Regression）在线性回归的最小二乘损失函数的基础上，增加了一个L2范数惩罚项，即所有回归系数的平方和。其目标函数变为：</p>
+<p><span class="math inline">\(Loss_{Ridge}=\sum_{i=1}^{n}(y_i(\beta_0+\sum_{j=1}^{p}\beta_jx_{ij}))^2+\lambda\sum_{j=1}^{p}\beta_j^2\)</span></p>
+<p><span class="math inline">\(\lambda\geq0\)</span>是一个超参数，称为正则化参数或惩罚系数，用于控制惩罚的强度。<span class="math inline">\(\lambda\)</span>越大，惩罚越强。当<span class="math inline">\(\lambda=0\)</span>时，岭回归退化为普通的OLS回归。当<span class="math inline">\(\lambda \to infty\)</span>时，所有系数<span class="math inline">\(\beta_j\)</span>都将趋近于0。</p>
+<p>岭回归对处理多重共线性问题非常有效。当自变量高度相关时，OLS估计的系数方差会非常大。L2惩罚项的存在可以有效地压缩这些系数的量级，使得估计结果更加稳定。岭回归会将所有变量的系数都向0进行收缩，但不会将任何一个系数精确地压缩到0。这意味着它会保留所有的预测因子，只是降低了它们的影响力。</p>
+<p>3.2.Lasso回归，L1正则化</p>
+<p>Lasso回归(Least Absolute Shrinkageand Selection Operator)与岭回归非常相似，但它使用的是L1范数惩罚项，即所有回归系数的绝对值之和。其目标函数为：</p>
+<p><span class="math inline">\(Loss_{Lasso}=\sum_{i=1}^{n}(y_i(\beta_0+\sum_{j=1}^{p}\beta_jx_{ij}))^2+\lambda\sum_{j=1}^{p}|\beta_j|\)</span></p>
+<p>由于L1惩罚项的几何性质，在优化过程中，它有能力将某些不重要的变量的系数精确地压缩到0。这相当于自动进行了变量筛选，最终得到一个更简洁、更易于解释的稀疏模型（Sparse Model）。Lasso回归可以作为一种强大的因子筛选工具，自动地从庞大的因子库中挑选出对收益预测最有效的一组因子，从而构建一个简约而有效的多因子模型。这对于降低模型复杂度、防止过拟合以及提高模型的可解释性都非常有帮助。</p>
+<p>3.3.弹性网络，L1与L2的融合</p>
+<p>弹性网络（ElasticNet）同时结合岭回归和Lasso回归的优点而提出的。它在损失函数中同时包含了L1和L2两种惩罚项：</p>
+<p><span class="math inline">\(Loss_{ElasticNet}=\sum_{i=1}^{n}(y_i(\beta_0+\sum_{j=1}^{p}\beta_jx_{ij}))^2+\lambda_1\sum_{j=1}^{p}|\beta_j|+\lambda_2\sum_{j=1}^{p}\beta_j^2\)</span></p>
+<p>通常，这个公式会用一个混合参数<span class="math inline">\(\alpha \in[0,1]\)</span>来表示：</p>
+<p><span class="math inline">\(Penalty=\lambda\left(\alpha*\sum_{j=1}^{p}|\beta_j|+(1-\alpha)*\sum_{j=1}^{p}\beta_j^2\right)\)</span></p>
+<p>当<span class="math inline">\(\alpha=1\)</span>时，弹性网络等价于Lasso回归。 当<span class="math inline">\(\alpha=0\)</span>时，弹性网络等价于岭回归。</p>
+<p>弹性网络既能像Lasso一样进行特征选择，产生稀疏解，又能像岭回归一样有效地处理高度相关的变量。在特征数量远大于样本数量（p&gt;&gt;n）的情况下，或者在因子库中存在大量相关因子（例如，同一类风格的多个不同定义的因子）时，弹性网络表现尤为出色和稳健。</p>
+<p>3.4.参数调优</p>
+<p>对于所有正则化模型，诸如正则化参数<span class="math inline">\(\lambda\)</span>，以及弹性网络的<span class="math inline">\(\alpha\)</span>，这些的选择至关重要。这个参数不能通过模型在训练集上的表现来确定。必须通过交叉验证（Cross Validation）来选择最优的超参数。最常用的方法是K折交叉验证（K Fold Cross Validation）。其步骤是： 1.将训练数据随机分成K个子集（或“折”）。 2.进行K次循环。在每次循环中，选择其中一个子集作为验证集，其余K1个子集作为训练集。 3.在一系列候选的<span class="math inline">\(\lambda\)</span>值上训练模型，并在验证集上评估其性能（例如，均方误差MSE）。 4.K次循环结束后，对每个<span class="math inline">\(\lambda\)</span>值，计算其在K个验证集上的平均性能。 5.选择平均性能最好的那个<span class="math inline">\(\lambda\)</span>值作为最终模型的超参数。</p>
+<p>对于金融时间序列数据，也有类似的交叉验证策略，如滚动窗口交叉验证（Rolling Window Cross Validation）或扩展窗口交叉验证（Expanding Window CrossValidation）。</p>
+<p>4.总结</p>
+<p>大量研究和实践表明，在面对非线性问题、高维度数据、高频数据和因子间交互效应时，线性模型的受到限制。此时，非线性模型往往具有优势。然而这种优势并非绝对。在许多中低频的量化策略中，由于数据量相对有限、且信噪比低，结构简单且正则化约束的线性模型，往往会表现更好，稳定性更高，相对更安全。建议将模型与因果推断方法结合起来，将有助于研究者更深刻地理解市场，构建更稳健的策略模型。</p>
+<p>二、支持向量机、树模型和集成学习</p>
+<p>传统统计模型通常依赖于严格的线性关系假设，而金融市场的实际运行规律更多非线性的。机器学习模型为量化投资提供了强大的工具来捕捉这些非线性特征。在深度神经网络模型普遍推广应用以前，我们经常用到的模型主要是支持向量机和各种树模型。</p>
+<p>1.支持向量机</p>
+<p>支持向量机（Support Vector Machine，SVM）核心思想是在特征空间中寻找一个超平面（Hyperplane），使不同类别的样本点有最大化分类间隔（Margin）。间隔是指距离分离超平面最近的样本点（即支持向量，Support Vectors）到该超平面的距离。对于线性不可分的数据，SVM引入了两个关键概念：</p>
+<p>1)软间隔（Soft Margin）：允许一部分样本点被错误分类或落在间隔内部，通过引入一个惩罚参数C来权衡间隔最大化与分类错误的数量。C值越大，对误分类的惩罚越重，模型倾向于选择更小的间隔以保证更高的训练集准确率，但这可能导致过拟合。反之，较小的C值允许更大的间隔和更多的分类错误，泛化能力可能更强。</p>
+<p>2)核（Kernel）：是SVM处理非线性问题的核心武器。其思想是，通过一个非线性映射函数Φ(x)，将原始特征空间的样本点映射到一个更高维甚至无限维的特征空间，使得在原始空间中线性不可分的数据，在新空间中变得线性可分。巧妙之处在于，我们无需知道这个映射函数的具体形式，也无需实际计算高维空间中的坐标，只需定义一个核函数<span class="math inline">\(K(x_i，x_j)=Φ(x_i)·Φ(x_j)\)</span>，它能直接计算出样本点在高维空间中的内积。常用的核函数包括： 线性核（Linear Kernel）:<span class="math inline">\(K(x_i，x_j)=x_i^Tx_j\)</span>，即原始的线性SVM。 多项式核（Polynomial Kernel）:<span class="math inline">\(K(x_i，x_j)=(γx_i^Tx_j+r)^d\)</span>。 高斯径向基函数核（RBF Kernel）:<span class="math inline">\(K(x_i，x_j)=exp(-γ||x_i-x_j||^2)\)</span>，这是最常用也是最强大的核函数之一，能够处理复杂的非线性关系。</p>
+<p>支持向量机的优点在于：在高维空间中表现良好，适合特征维度高于样本数量的场景；对样本量要求不高，适合小规模数据；通过核技巧能有效处理复杂的非线性关系。基于结构风险最小化原则，理论基础扎实；泛化能力较强，不易过拟合。模型决策仅由支持向量决定，计算效率高；决策边界仅由支持向量决定，个别非支持维度的异常点对模型影响较小，对异常值具有良好的稳定性。</p>
+<p>支持向量机的缺点在于：对缺失数据敏感；对于大规模数据集，训练时间和复杂度较高；模型性能高度依赖于核函数的选择以及参数C和<span class="math inline">\(gamma\)</span>的调优；模型本身是一个“黑箱”，解释性不如决策树。</p>
+<p>对SVM进行调优通常涉及使用网格搜索（Grid Search）或随机搜索（Random Search），结合交叉验证来寻找最佳的参数组合。关键参数包括： 核函数：通常从linear和RBF开始尝试。 <span class="math inline">\(C\)</span>：惩罚参数，控制对错误分类的容忍度。一般在<span class="math inline">\(10^-3\)</span>到<span class="math inline">\(10^3\)</span>的对数空间内搜索。 <span class="math inline">\(gamma\)</span>：定义了单个训练样本的影响范围。<span class="math inline">\(gamma\)</span>越大，支持向量的影响范围越小，决策边界会变得更不规则，容易过拟合。通常也在对数空间内搜索。</p>
+<p>2.决策树</p>
+<p>决策树（Decision Tree）是一种模仿人类决策过程的非参数监督学习模型。它通过一系列“if-then-else”规则，将复杂的决策过程可视化为一个树状结构。模型从代表整个数据集的根节点开始，递归地选择一个最优特征进行分裂，将数据划分到不同的子节点中。这个过程持续进行，直到满足某个停止条件，最终的叶子节点代表一个决策结果。</p>
+<p>选择“最优特征”的分裂标准是决策树算法的核心。常用的标准有两种： 1.信息增益（Information Gain）：基于信息熵（Entropy）的概念。熵衡量的是一个系统的不确定性。信息增益指的是，根据某个特征进行分裂后，系统不确定性降低的程度。ID3算法使用信息增益作为标准。 2.基尼不纯度（Gini Impurity）：衡量的是从一个数据集中随机抽取两个样本，其类别标记不一致的概率。基尼不纯度越小，数据集的纯度越高。CART（Classificationand Regression Tree）算法，也是scikit-learn中默认的实现，使用基尼不纯度作为分类树的分裂标准。</p>
+<p>决策树优点在于：模型结果易于理解、解释和可视化；能够处理数值型和类别型数据，对数据预处理的要求较低；能够捕捉特征之间的非线性关系和交互作用；模型构建速度相对较快。</p>
+<p>决策树缺点在于：极易过拟合，决策树倾向于生成过于复杂的树来完美拟合训练数据，导致其在未见数据上表现很差；不稳定性，训练数据微小的变动可能会导致生成一棵完全不同的树；采用的是启发式贪心算法，不能保证找到全局最优解。</p>
+<p>为了对抗过拟合问题，最常用的方法是对决策树进行剪枝（Pruning），包括： 预剪枝（Pre-pruning）：在决策树生长过程中，通过设定一些阈值提前停止分裂。最常用的参数包括： <code>max_depth</code>：树的最大深度。 <code>min_samples_split</code>：一个节点必须包含至少多少样本才能进行分裂。 <code>min_samples_leaf</code>：一个叶子节点必须包含至少多少样本。 后剪枝（Post-pruning）：先生长一棵完整的树，然后自底向上地考察非叶子节点，如果将其替换为叶子节点能提升模型的泛化性能（通常在验证集上衡量），则进行剪枝。</p>
+<p>3.集成学习</p>
+<p>单一模型往往存在局限性。通过构建并结合多个学习器来完成学习任务，以获得比单一学习器更优越的泛化性能，即集成学习（EnsembleLearning）。它体现了“三个臭皮匠，顶个诸葛亮”的哲学。集成学习主要分为两大流派：Bagging和Boosting。</p>
+<p>3.1.Bagging与随机森林（RandomForest）</p>
+<p>Bagging是Bootstrap Aggregating的缩写。其步骤如下： 1.Bootstrap（自助采样）：从原始N个样本的数据集中，进行有放回的随机抽样，抽取N个样本，构成一个新的训练子集。这个过程重复M次，得到M个不同的训练子集。 2.Aggregating（聚合）：在每个训练子集上独立地训练一个基学习器（比如决策树）。对于分类问题，通过投票的方式决定最终结果；对于回归问题，通过平均化得到最终预测值。</p>
+<p>随机森林是Bagging思想的一个杰出扩展。它在Bagging的基础上，进一步引入了特征随机性来降低决策树之间的相关性，从而增强集成的效果。在构建每棵决策树时，当需要选择一个特征进行分裂时，随机森林并不会在所有特征中寻找最优解，而是在一个随机选择的特征子集中进行寻找。</p>
+<p>样本随机性和特征随机性一起，确保了森林中的每棵树都尽可能地不同，使得它们的错误也趋于不相关。根据大数定律，只要基学习器的表现比随机猜测好，聚合大量不相关的错误就会让整体的错误率趋近于零。</p>
+<p>随机森林的优点在于：相比单一决策树，极大地降低了过拟合风险，提高了模型的泛化能力；能够处理高维数据，并且可以输出特征的重要性；对于缺失值不敏感，且对异常值有较好的容忍度；练过程可以高度并行化，效率较高。</p>
+<p>随机森林的缺点在于：模型的可解释性相较于单棵决策树大大降低，成为一个“黑箱”。对于某些噪声较大的数据集，可能会出现过拟合。由于需要存储大量的决策树，模型体积较大。</p>
+<p>参数调优： <span class="math inline">\(n_estimators\)</span>：森林中树的数量。理论上越多越好，但超过一定数量后性能提升会饱和，而计算成本持续增加。通常选择一个足够大的数（如100）逐渐增加，观察模型性能是否稳定。 <span class="math inline">\(max_features\)</span>：在分裂节点时考虑的特征子集的大小。这是控制树之间相关性的关键参数。较小的值会降低相关性但可能削弱单棵树的性能。 <span class="math inline">\(max_depth\)</span>，<span class="math inline">\(min_samples_split\)</span>，<span class="math inline">\(min_samples_leaf\)</span>：这些参数用于控制单棵树的复杂度，与决策树中的作用相同，是防止过拟合的重要手段。</p>
+<p>3.2.Boosting和AdaBoost</p>
+<p>与Bagging并行训练弱学习器不同，Boosting是一种串行的集成方法。它通过迭代的方式，每一轮都根据上一轮学习器的表现来调整数据分布或学习器的权重，使得后续的学习器更加关注那些之前被“学错”的样本。</p>
+<p>AdaBoost（AdaptiveBoosting）是Boosting家族最早也是最著名的算法之一。其核心思想是： 1.初始化权重：为训练集中的每个样本赋予相等的权重。 2.迭代训练：在第<span class="math inline">\(m\)</span>轮，使用当前带有权重的样本集训练一个弱学习器<span class="math inline">\(G_m(x)\)</span>。 3.计算错误率：计算<span class="math inline">\(G_m(x)\)</span>在训练集上的加权错误率。 4.计算学习器权重：根据错误率计算该弱学习器在最终模型中的权重<span class="math inline">\(α_m\)</span>。错误率越低的弱学习器，权重越大。 5.更新样本权重：增加被<span class="math inline">\(G_m(x)\)</span>错误分类的样本的权重，降低被正确分类的样本的权重。这样，下一轮的弱学习器将更加关注这些“错误分类”。 6.组合模型：最终的模型是所有弱学习器的加权和<span class="math inline">\(G(x)=sign(Σα_mG_m(x))\)</span>。</p>
+<p>AdaBoost的优点是：算法实现简单，可以应用在各种基学习器上，分类精度很高。缺点是：对异常值和噪声非常敏感，因为AdaBoost会倾向于在这些点上投入过高的权重，可能导致模型性能下降。</p>
+<p>梯度提升决策树（GradientBoostingDecisionTree，GBDT）是Boosting思想的更一般化和更强大的实现，也是XGBoost等后续模型的基础。它不再像AdaBoost那样通过调整样本权重，而是通过拟合残差来逐步优化模型。</p>
+<p>其核心思想是，假设我们已经有了一个模型<span class="math inline">\(F_{m-1}(x)\)</span>，我们希望找到一个新的模型<span class="math inline">\(h_m(x)\)</span>，使得<span class="math inline">\(F_m(x)=F_{m-1}(x)+h_m(x)\)</span>能够更好地拟合目标<span class="math inline">\(y\)</span>。GBDT巧妙地将这个问题看作是一个函数空间的梯度下降过程。每一轮，我们计算损失函数关于当前模型预测值<span class="math inline">\(F_{m-1}(x)\)</span>的负梯度。对于平方损失函数，这恰好就是残差<span class="math inline">\(y-F_{m-1}(x)\)</span>。然后训练一个新的弱学习器，比如CART回归树，来拟合这个负梯度。这样，每一步都是在损失函数下降最快的方向上进行优化。</p>
+<p>最终的模型是所有弱学习器的加和：<span class="math inline">\(F_M(x)=Σh_m(x)\)</span>。为了防止过拟合，通常会引入一个学习率learningrate或shrinkage <span class="math inline">\(η\)</span>，将每一步的更新缩减为<span class="math inline">\(F_m(x)=F_{m-1}(x)+ηh_m(x)\)</span>。</p>
+<p>4.XGBoost，LightGBM，CatBoost</p>
+<p>XGBoost、LightGBM和CatBoost是对传统GBDT算法的重大改进和工程优化，它们在性能、速度和功能上各有千秋，共同定义了当前结构化数据机器学习的最高水平。而其输出的特征重要性（Feature Importance）指标，在我看来是非常有用的工具，常用于评估各输入因子特征对预测目标的相对贡献度和重要性。</p>
+<p>4.1.XGBoost</p>
+<p>XGBoost（Extreme Gradient Boosting）在问世之初便凭借其在各大机器学习竞赛中的统治级表现而声名鹊起，它不仅仅是一个GBDT的实现，更是一个经过深度优化的、可扩展的系统。</p>
+<p>相比于GBDT，XGBoost改进之处在于： 二阶泰勒展开：传统GBDT在优化损失函数时只用到了一阶导数（梯度），而XGBoost创造性地使用了损失函数的二阶泰勒展开，同时利用了一阶和二阶导数信息。这使得XGBoost能够更精确地找到损失函数下降的方向和步长，收敛速度更快，精度更高。 内置正则化：过拟合是所有复杂模型的天敌。XGBoost在目标函数中直接加入了L1（Lasso）和L2（Ridge）正则化项，惩罚模型的复杂度。这使得模型在学习过程中就内在地对抗过拟合，泛化能力更强。 稀疏感知分裂算法：XGBoost能够自动学习缺失值的处理策略。在分裂节点时，它会分别计算将缺失值划分到左子节点和右子节点的增益，选择增益更大的方向作为缺失值的默认划分方向，从而无需手动填充缺失值。 系统级优化：XGBoost在工程实现上做了大量优化，极大地提升了计算效率。</p>
+<p>XGBoost的调优是一个系统工程。通常先调整控制模型复杂度的参数，再调整降低过拟合的参数。核心参数包括： <span class="math inline">\(eta\)</span>（或<span class="math inline">\(learning_rate\)</span>）：学习率，取值范围0-1，控制每棵树的贡献。较小的值需要更多的树（<span class="math inline">\(n_estimators\)</span>）来拟合，但模型通常更稳健。典型取值：0.01-0.2。 <span class="math inline">\(n_estimators\)</span>：总共迭代的树的数量。 树结构控制参数： <span class="math inline">\(max_depth\)</span>：树的最大深度。值越大，模型越复杂，越容易过拟合。典型取值：3-10。 <span class="math inline">\(min_child_weight\)</span>：子节点中所有样本的二阶导数之和的最小值。用于控制树的生长，值越大，算法越保守。 正则化与采样参数： <span class="math inline">\(gamma\)</span>：节点分裂所需的最小损失降低。值越大，算法越保守。 <span class="math inline">\(subsample\)</span>：训练每棵树时，随机采样的样本比例。防止过拟合。典型取值：0.5-1。 <span class="math inline">\(colsample_bytree\)</span>：训练每棵树时，随机采样的特征比例。防止过拟合。典型取值：0.5-1。 <span class="math inline">\(lambda\)</span>（L2正则）和<span class="math inline">\(alpha\)</span>（L1正则）：正则化惩罚项。</p>
+<p>4.2.LightGBM</p>
+<p>LightGBM（Light Gradient Boosting Machine）其设计哲学是在保证高精度的同时，最大化训练速度和降低内存占用，特别是在处理大规模数据集方面，它带来了革命性的提升。</p>
+<p>相较于XGBoost，LightGBM提出了一系列算法创新： 基于直方图的算法：这是LightGBM速度优势的核心来源。传统的GBDT（包括XGBoost的预排序算法）在分裂节点时需要遍历每个特征的每个取值来计算增益，时间复杂度与<span class="math inline">\(datafeature\)</span>成正比。LightGBM则将连续的浮点型特征离散化为K个整数箱，构建一个宽度为K的直方图。在寻找分裂点时，只需遍历K个箱即可，时间复杂度降为<span class="math inline">\(dataK\)</span>，且<span class="math inline">\(K&lt;&lt;feature\)</span>。这极大地加速了训练过程并减少了内存消耗。 带深度限制的Leaf-wise生长策略：XGBoost默认采用Level-wise按层生长策略，它会同时分裂同一层的所有叶子节点，便于并行但效率不高，因为许多分裂的增益很低。LightGBM则采用Leaf-wise按叶子生长策略，每次都从当前所有叶子中找到分裂增益最大的那个进行分裂。这种策略能以更少的迭代次数达到更高的精度，但需要通过<span class="math inline">\(max_depth\)</span>参数来防止生成过深的树从而导致过拟合。 梯度单边采样（Gradient-based One-Side Sampling，GOSS）：Boosting的核心是拟合梯度。GOSS认为，梯度越大的样本对信息增益的贡献越大。因此，它在训练时保留所有梯度较大的样本，并从梯度较小的样本中进行随机抽样，从而在不怎么损失精度的情况下，显著减少了计算量。 互斥特征捆绑（Exclusive Feature Bundling，EFB）：在高维稀疏数据中，许多特征是互斥的，即它们不会同时取非零值。EFB算法能将这些互斥特征捆绑成一个单一特征，从而在不损失信息的情况下减少特征维度，进一步加速训练。</p>
+<p>LightGBM调优的核心参数包括： <span class="math inline">\(num_leaves\)</span>：一棵树上的最大叶子节点数。这是控制模型复杂度的最主要参数。理论上，<span class="math inline">\(num_leaves\)</span>&lt;=<span class="math inline">\(2^max_depth\)</span>。对于同样深度的树，<span class="math inline">\(num_leaves\)</span>越大，模型越复杂。 <span class="math inline">\(learning_rate\)</span>和<span class="math inline">\(n_estimators\)</span>：与XGBoost类似，需要协同调整。 <span class="math inline">\(max_depth\)</span>：限制树的深度，防止过拟合。 <span class="math inline">\(feature_fraction\)</span>：等价于XGBoost的<span class="math inline">\(colsample_bytree\)</span>和bagging的<span class="math inline">\(subsample\)</span>，通过采样降低模型方差。 <span class="math inline">\(lambda_l1\)</span>和<span class="math inline">\(lambda_l2\)</span>：L1和L2正则化。</p>
+<p>4.3.CatBoost</p>
+<p>CatBoost（CategoricalBoosting）由俄罗斯的搜索巨头Yandex开发，其设计的初衷是为了解决GBDT模型在处理类别特征时遇到的问题和减少参数调优的负担。</p>
+<p>CatBoost算法创新与核心优势在于： 无需独热编码：通过Ordered Target Statistics直接处理类别变量（如股票代码、行业板块、交易所等），避免高基数特征导致的维度灾难，保留原始语义信息。 Ordered Boosting机制：采用排序原则构建无偏梯度估计，有效缓解金融时间序列数据中常见的过拟合问题，提升样本外预测稳定性。 预测精度与鲁棒性良好，表现出与XGBoost和LightGBM相仿的预测性能，尤其在处理非线性交互效应方面。 支持CPU/GPU加速和模型量化，满足实时交易系统的低延迟要求。</p>
+<p>CatBoost的设计目标之一就是减少调优。通常，其默认参数就能取得非常好的效果。核心参数类似lightGBM。</p>
+<p>4.4.特征重要性</p>
+<p>以上三种梯度提升树模型都可以输出特征重要性（Feature Importance）指标。这是非常有用模型解释工具，常用于评估各输入变量（即因子或特征）对预测目标的相对贡献度和重要性。</p>
+<p>特征重要性指标基于以下两种主流计算方法： 分裂贡献度（Gain-based Importance）：特征重要性由该特征在所有树中作为分裂节点时所带来的损失函数减少量（信息增益）的累计值衡量。贡献度越大，表明该特征对提升模型预测精度越关键。 分裂频次（Split-based：Importance）：通过统计特征被选为分裂节点的总次数进行评估，高频特征往往代表其具备较强的区分能力。</p>
+<p>特征重要性指标在量化实践中的应用包括： 因子筛选与降维：识别有效的阿尔法因子，剔除冗余或噪声特征，提升模型的精简程度和泛化能力。 策略可解释性：解析模型依赖的关键驱动力，增强策略逻辑的透明度。 风险监控：检测特征重要性随时间的变化，及时捕捉因子失效或市场状态转换的信号。</p>
+<p>三、深度学习模型</p>
+<p>随着高性能计算软硬件的普及，深度学习（Deep Learning）迅速渗透到了量化投资领域。深度神经网络（Deep Neural Networks, DNNs）凭借其强大的拟合能力、自动特征提取以及处理高维复杂数据的优势，为量化策略的研发提供了全新的视角和强大的工具。限于篇幅，本节仅简单梳理几种核心的深度神经网络架构，包括：多层感知机（MLP）、卷积神经网络（CNN）、长短期记忆网络（LSTM）与门控循环单元（GRU），强化学习（Reinforcement Learning, RL）在量化投资中的应用。</p>
+<p>1.多层感知机(Multilayer Perceptron, MLP)</p>
+<p>1.1.模型原理与架构</p>
+<p>MLP是最基础的深度学习模型之一。其结构由一个输入层、一个或多个隐藏层以及一个输出层组成，层与层之间通过权重完全连接。每个神经元（节点）接收来自前一层所有神经元的带权输入，通过一个非线性激活函数（如ReLU, Sigmoid或Tanh）转换后输出。其数学表达形式可以概括为： <span class="math inline">\(\mathbf{h}_{l+1}=f(\mathbf{W}_l\mathbf{h}_l+\mathbf{b}_l)\)</span> 其中，<span class="math inline">\(\mathbf{h}_l\)</span>是第<span class="math inline">\(l\)</span>层的输出（或输入），<span class="math inline">\(\mathbf{W}_l\)</span>和<span class="math inline">\(\mathbf{b}_l\)</span>分别是第<span class="math inline">\(l\)</span>层的权重矩阵和偏置向量，<span class="math inline">\(f(\cdot)\)</span>是激活函数。通过堆叠多个这样的层，MLP能够近似任何复杂的连续函数，从而捕捉数据中高度非线性的关系[[5]][[6]]。</p>
+<p>1.2.应用</p>
+<p>MLP在量化领域的应用非常广泛，可以看作是传统线性回归和逻辑回归模型的非线性扩展。</p>
+<p>因子挖掘与因子合成：在多因子模型中，传统方法通常假定因子与预期收益之间存在线性关系。MLP可以被用来构建非线性因子模型，输入多个基础因子（如估值、动量、质量等），输出对未来股票收益率的预测。它能够自动学习因子之间的交互效应和非线性关系，从而发现传统模型无法捕捉的Alpha来源。例如，一个因子在特定市场环境下可能与收益率呈正相关，而在另一环境下呈负相关，这种复杂模式是MLP擅长捕捉的。</p>
+<p>市场状态分类：MLP也可以作为一个分类器，用于判断市场的宏观状态，例如预测未来一段时间市场是处于“牛市”、“熊市”还是“震荡市”。输入可以是宏观经济指标、市场情绪指数、波动率指数等，输出则是对应市场状态的概率。</p>
+<p>2.LSTM和GRU</p>
+<p>在金融市场中，资产价格、交易量、宏观数据等都带有明显的时间戳，当前的状态深受历史状态的影响。循环神经网络（Recurrent Neural Network,RNN）及其变体长短期记忆网络(Long Short-Term Memory, LSTM)和门控循环单元(Gated Recurrent Unit, GRU)，正是为处理此类序列数据而设计的。</p>
+<p>2.1.模型原理与架构</p>
+<p>标准RNN在处理长序列时会遇到梯度消失或梯度爆炸的问题。LSTM通过引入一个精巧的内部结构，细胞状态（Cell State）和三个“门”控机制（输入门、遗忘门、输出门），来解决这个问题。</p>
+<p>细胞状态(<span class="math inline">\(C_t\)</span>)：像一条传送带，贯穿整个时间序列。信息可以很容易地在上面流动而保持不变，使得长期记忆得以保存。 遗忘门(<span class="math inline">\(f_t\)</span>)：决定从上一个细胞状态<span class="math inline">\(C_{t-1}\)</span>中丢弃哪些信息。它查看<span class="math inline">\(h_{t-1}\)</span>(前一时刻的隐藏状态)和<span class="math inline">\(x_t\)</span>(当前输入)，输出一个0到1之间的数值，1表示完全保留，0表示完全丢弃。 输入门(<span class="math inline">\(i_t\)</span>)：决定将哪些新信息存入细胞状态。它包含两部分：一个Sigmoid层决定要更新哪些值，一个tanh层创建一个新的候选值向量<span class="math inline">\(\tilde{C}_t\)</span>。 输出门(<span class="math inline">\(o_t\)</span>)：决定从细胞状态中输出什么。输出的信息将基于细胞状态，但会经过一个过滤，并作为当前时刻的隐藏状态<span class="math inline">\(h_t\)</span>。</p>
+<p>LSTM在时刻<span class="math inline">\(t\)</span>的核心数学方程如下： 遗忘门:<span class="math inline">\(f_t=\sigma(W_f\cdot[h_{t-1},x_t]+b_f)\)</span> 输入门:<span class="math inline">\(i_t=\sigma(W_i\cdot[h_{t-1},x_t]+b_i)\)</span> 候选细胞状态:<span class="math inline">\(\tilde{C}_t=\tanh(W_C\cdot[h_{t-1},x_t]+b_C)\)</span> 更新细胞状态:<span class="math inline">\(C_t=f_tC_{t-1}+i_t\tilde{C}_t\)</span> 输出门:<span class="math inline">\(o_t=\sigma(W_o\cdot[h_{t-1},x_t]+b_o)\)</span> 隐藏状态:<span class="math inline">\(h_t=o_t\tanh(C_t)\)</span></p>
+<p>其中<span class="math inline">\(\sigma\)</span>是Sigmoid激活函数，<span class="math inline">\([h_{t-1},x_t]\)</span>表示将前一时刻的隐藏状态和当前输入拼接，W和b是各门的权重和偏置。通过这种设计，LSTM能够选择性地记忆、遗忘和输出信息，从而有效地捕捉金融时间序列中跨越较长时间步的依赖关系。</p>
+<p>GRU是LSTM的一个流行变体，其结构更为简化，计算效率更高。它将LSTM的遗忘门和输入门合并为一个“更新门”，同时还合并了细胞状态和隐藏状态。GRU只有两个门：</p>
+<p>更新门(<span class="math inline">\(z_t\)</span>)：类似于LSTM的遗忘门和输入门的结合，决定了在多大程度上保留过去的信息以及接收新的信息。 重置门(<span class="math inline">\(r_t\)</span>)：决定在计算当前候选隐藏状态时，要忽略多少过去的信息。</p>
+<p>GRU在时刻<span class="math inline">\(t\)</span>的核心数学方程如下[[28]][[29]][[30]]： 重置门:<span class="math inline">\(r_t=\sigma(W_r\cdot[h_{t-1},x_t]+b_r)\)</span> 更新门:<span class="math inline">\(z_t=\sigma(W_z\cdot[h_{t-1},x_t]+b_z)\)</span> 候选隐藏状态:<span class="math inline">\(\tilde{h}_t=\tanh(W_h\cdot[r_th_{t-1},x_t]+b_h)\)</span> 隐藏状态:<span class="math inline">\(h_t=(1-z_t)h_{t-1}+z_t\tilde{h}_t\)</span></p>
+<p>由于参数更少，GRU的训练速度通常比LSTM更快，且在许多任务中能达到与LSTM相近甚至更好的性能，尤其是在数据量不是特别巨大的情况下，其更强的正则化效果有助于防止过拟合。</p>
+<p>2.2.应用</p>
+<p>LSTM和GRU天然契合金融时间序列的分析需求，是量化领域应用最广泛的深度学习模型之一。</p>
+<p>价格与收益预测：这是最直接的应用。通过输入历史的价量数据（OHLCV）、技术指标序列以及其他另类数据序列，LSTM/GRU可以学习价格运动的动态模式，从而预测未来某个时间窗口的价格方向（涨/跌/盘整）或具体的收益率。同样，它们也可以用于预测已实现波动率或GARCH模型中的条件波动率。</p>
+<p>时序因子挖掘：传统量化因子通常是静态或线性组合，而LSTM/GRU的核心优势在于捕捉因子序列中复杂的非线性时序依赖关系，并将这些动态模式转化为对未来横截面收益的预测能力。具体而言，即是将每个股票在某个时间点 t的过去N日数据（或因子）序列视为一个样本，预测其在未来H日的超额收益。</p>
+<p>3.卷积神经网络（CNN）</p>
+<p>CNN最初因在图像识别领域的巨大成功而闻名，其核心优势在于通过卷积核（filters）和池化（pooling）操作，有效提取数据的局部特征和空间层次结构。虽然金融数据不是传统意义上的图像，但通过巧妙的转换，CNN同样能发挥巨大威力。</p>
+<p>3.1.模型原理与架构</p>
+<p>CNN的核心是卷积层。卷积层中的神经元只与输入数据的一个局部区域（感受野）相连。这个局部连接的权重集合就是卷积核。卷积核在整个输入数据范围内滑动，进行卷积运算，从而生成一个特征图（feature map），图中的每个元素代表了输入数据在某个局部区域的特定模式，如边缘、纹理等。池化层跟在卷积层之后，用于降低特征图的空间维度，从而减少参数数量、控制过拟合，并使模型对输入的微小位移不敏感。通过堆叠多个卷积和池化层，CNN能够学习到从低级到高级的特征。</p>
+<p>3.2.应用</p>
+<p>从“技术图表”中学习：我们可以将一段时间内的多变量金融时间序列（如OHLCV价量数据、多个技术指标）排列成一个二维矩阵，类似于一张灰度图片。然后，使用CNN来处理这个“金融图片”，自主学习和识别技术分析中的各种模式，如头肩顶、双底等等，并基于这些模式进行预测。</p>
+<p>4.强化学习</p>
+<p>强化学习（ReinforcementLearning，RL）为量化投资提供了一个全新的视角。传统模型都是静态的。强化学习将投资过程建模为一个序列决策问题，其核心思想是让一个“智能体”（Agent）在与“环境”（Environment）的交互中，通过不断试错来学习最优的决策策略，以最大化累积“奖励”（Reward）。智能体（投资策略）在每个时间步观察市场状态（State，宏微观环境），采取一个行动（Action，如调整持仓），并获得一个奖励（如投资回报），其最终目标是最大化累积的长期奖励。</p>
+<p>以交易问题为例，将其化为RL问题，需要定义以下核心要素： 智能体(Agent)：交易策略本身。它观察市场状态，并决定采取何种行动。 环境(Environment)：金融市场，包括价格、订单簿、交易成本、滑点等。 状态(State,S)：智能体在做决策时所能观测到的所有信息。这可以包括当前的持仓情况、账户资金、历史价量数据、技术指标，甚至是LSTM/CNN模型的预测信号。 动作(Action,A)：智能体可以执行的操作，例如： 离散动作：买入固定数量、卖出固定数量、持仓不动(Buy/Sell/Hold)。 连续动作：买入/卖出总资产的某个百分比。 奖励(Reward,R)：衡量智能体在某个状态下采取某个动作后得到的好坏程度。奖励函数的设计至关重要，直接影响策略的学习方向。它可以是 累积收益，夏普比率或索提诺比率等。 智能体的目标是学习一个策略(Policy,π)，即一个从状态到动作的映射函数<span class="math inline">\(\pi(A|S)\)</span>，使得从初始状态开始，遵循该策略所能获得的期望累积奖励最大化。</p>
+<p>RL框架的强大之处在于其灵活性。我们可以将前述的监督学习预测模型嵌入到RL的状态表示中，构建一个端到端的智能交易系统。一个结合LSTM预测和DRL决策的系统架构可以是这样的： 1.状态表示模块：一部分状态是“原始”市场数据，如最近N期的OHLCV序列、技术指标序列。另一部分状态是来自一个或多个预训练好的预测模型的输出。例如，一个LSTM模型根据历史价格预测未来1期的收益率分布，这个分布（或其期望值和方差）就成为RL智能体状态的一部分。 2.决策模块（DRL智能体）：智能体接收这个增强后的复合状态。基于这个状态，DRL算法（如PPO）的策略网络输出一个交易动作（如做多、做空、平仓或调整仓位大小）。 3.学习与优化：智能体与市场环境（通常是高保真的回测模拟器）交互，执行动作，获得奖励。根据获得的奖励，同时更新Actor和Critic网络，不断优化交易策略。 这种架构的优势在于，它将“预测”和“决策”两个环节有机地结合起来。预测模型为RL智能体提供了对未来的“洞察”，使其能够做出更具前瞻性的决策，而RL框架则负责将这些预测信息转化为最优的、考虑了交易成本和风险的实际交易行为。</p>
+<p>可见，RL框架更加契合投资决策实际过程。在不确定的市场中，根据当前信息不断做出调整，以期实现长期收益最大化。强化学习作为一种强大的序列决策框架，凭借其端到端的学习能力和对动态环境的适应性，正逐步成为推动量化投资范式革新的关键技术。</p>
+<p>5.前沿新兴模型</p>
+<p>5.1.图神经网络(GNN)</p>
+<p>金融市场并非由孤立的资产组成，而是一个复杂的、相互关联的网络。公司之间存在产业链上下游关系、竞争关系、共同持股关系等。GNN是一种专门处理图结构数据的深度学习模型，它能够将这些关系信息显式地纳入建模过程。</p>
+<p>传统的因子挖掘主要关注单个公司的特征。GNN可以聚合一个公司及其关联公司（如供应商、客户）的信息，从而构建更强大的Alpha因子。例如，一个公司的股价异动可能会传递到其产业链下游的公司，GNN可以捕捉这种信息传递并用于预测。GNN可以用于分析系统性风险在金融网络中的传导路径。通过构建公司间的债务或持股网络，可以预测局部冲击（如某公司违约）可能引发的连锁反应。</p>
+<p>5.2.Transformer</p>
+<p>Transformer模型最初为自然语言处理（NLP）设计，其核心是自注意力机制（Self-Attention），能够捕捉序列中任意两个位置之间的依赖关系，而不受它们之间距离的限制]。这解决了RNN/LSTM在处理超长序列时信息传递效率衰减的问题。</p>
+<p>5.3.LLM</p>
+<p>2024以来，以GPT、DeepSeek等为代表的大语言模型（LLM）的发展取得了巨大突破，其在处理和理解海量非结构化文本数据方面的能力，为量化投资开辟了全新的数据来源和策略维度。LLM能够从新闻、财报、社交媒体、电话会议记录中提取更细粒度和更准确的情绪，并识别复杂的金融事件及其对特定公司的影响，而不仅仅是简单的“正面/负面”判断。利用LLM的推理能力来模拟人类研究员的思考过程。通过向LLM提供基础数据和市场知识，让其自主提出投资逻辑、构建因子、生成代码，极大地提高了因子挖掘的效率和创造性。此外，LLM可以作为量化研究员的强大助手，帮助他们快速验证想法、生成代码、解释模型结果，从而缩短研究周期，提升工作效率。</p>
+<p>6.总结</p>
+<p>量化投资的发展趋势将继续由数据、算力和算法这三大支柱驱动。但深度学习正以前所未有的深度和广度重塑量化投资的生态，推动量化投资进入一个更加认知化、关系化和自动化的新纪元。未来的顶尖量化策略，将是一个复杂的混合模型系统：LLM负责从海量的非结构化数据中解读世界，GNN负责梳理资产间的复杂关系网络，LSTM负责理解市场演化的时间脉络；这一切信息都汇入一个强化学习智能体，它在与高保真市场环境的持续博弈中，学习并执行最优的交易决策。</p>
+<p>同时，我们也必须清醒地认识到，金融市场的复杂性、非平稳性和对抗性，决定了量化投资永远是一场认知与风险的赛跑。然而，技术终究是工具，其背后不变的核心依然是对市场深刻的洞察、对风险的敬畏以及在模型构建中对“过拟合”这一永恒敌人的警惕。在日益复杂的市场环境中，只有那些能够将这些强大工具与严谨的科学方法、灵活的金融直觉相结合的投资者，才能在未来的量化浪潮中行稳致远。</p>
+<p>四、其他工具</p>
+<p>1.聚类分析</p>
+<p>聚类分析(Clustering Analysis)作为一种核心的无监督机器学习技术，其本质是在没有预先定义标签的情况下，依据数据对象自身的属性（即特征）来发现其内在的自然分组或结构。在量化投资领域，它被广泛应用于将具有相似行为模式、风险收益特征或基本面属性的金融资产划分到不同的“簇”中，揭示出基于真实市场数据所体现的资产间深层次关联性。</p>
+<p>1.1.原理</p>
+<p>聚类分析的根本目标是最大化“簇内相似性”并最小化“簇间相似性”。为了实现这一目标，需要解决两个核心问题：如何度量相似性，以及采用何种算法进行分组。</p>
+<p>相似性度量(Similarity Measurement)：这是聚类分析的基石。在量化投资中，相似性的定义非常灵活，可以根据策略目标进行选择。 距离度量：最常用的是欧几里得距离，适用于基于资产特征向量（如估值、成长性、盈利能力等基本面因子）的聚类。例如，两只股票在多维因子空间中的欧式距离越近，则认为它们越相似。 相关性度量：在处理资产收益率时间序列时，相关性是更有效的度量。例如，可以使用<code>distance=1-correlation</code>作为距离。两只股票的收益率相关性越高，它们的距离就越近，表明它们在市场波动中倾向于同涨同跌[[16]]。 其他度量：还可以使用更复杂的度量，如动态时间规整（DynamicTimeWarping, DTW），来衡量两个不等长时间序列的相似性，适用于分析不同周期下的价格行为模式。</p>
+<p>主流聚类算法： K-均值聚类(K-Means Clustering)：这是一种基于划分的算法，需要预先指定簇的数量k。算法通过迭代移动簇的质心（均值中心）来最小化每个数据点到其所属簇质心的距离平方和。它计算效率高，适合处理大规模数据集，但对初始质心的选择敏感，且假设簇为球状。 层次聚类(Hierarchical Clustering)：该算法无需预设簇数k，而是构建一个嵌套的簇结构（树状图）。它可以是“自下而上”的，即开始时每个点自成一簇，然后逐步合并最相近的簇；也可以是“自上而下”的。这种方法可以提供更丰富的结构信息，但计算复杂度较高。</p>
+<p>1.2.应用</p>
+<p>聚类分析在量化投资的多个环节都发挥着关键作用，从资产选择到风险管理，其应用非常广泛。</p>
+<p>数据驱动的资产分类与板块构建：传统的行业分类虽然直观，但有时无法准确反映公司的实际业务关联和股价联动性。例如，一家被划分为工业板块的公司可能其主要收入来自软件服务。通过对股票的收益率序列或基本面因子进行聚类，可以构建出数据驱动的“新板块”或“股票组合”。这些聚类结果往往更能揭示真实的风险暴露和收益来源。例如，可能会发现一些不同行业的公司，由于其商业模式都高度依赖于某一特定宏观经济变量，而被聚为一类。</p>
+<p>构建多元化投资组合：多元化是投资的免费午餐。聚类分析为实现有效多元化提供了强大工具。在构建投资组合时，可以通过在每个识别出的簇中选择代表性资产（，来确保组合中的资产来自不同行为模式的群体，从而有效降低组合的内部相关性，分散非系统性风险。</p>
+<p>配对交易与统计套利策略开发：配对交易的核心是找到两只高度相关的股票，并在它们的价格差偏离历史均值时进行套利。聚类分析可以系统性地大规模发现潜在的配对交易目标。通过对一个股票池进行聚类，同一簇内的股票由于具有高度相似性，是开发配对交易或更复杂的多变量统计套利策略（如一篮子股票套利）的理想候选池。</p>
+<p>风险因子识别与风险可视化：通过对大量策略或基金的表现数据进行聚类，可以识别出它们共同的风险暴露。例如，可能会发现一个簇的策略都在某个特定因子上有很高的敞口。这种分析有助于投资者构建更加多元化的策略组合。</p>
+<p>2.主成分分析</p>
+<p>主成分分析（PrincipalComponentAnalysis,PCA）是一种广泛应用的线性降维技术，其核心思想是通过正交变换将一组可能存在相关性的高维变量，转换为一组线性不相关的低维变量，即“主成分”。在量化投资中，它能够穿透纷繁复杂的资产价格波动或海量因子数据的表象，识别出驱动整个市场或特定资产组运动的最主要、最核心的几个“共同因子”。这些主成分不仅极大地简化了数据分析的复杂性，提高了模型的稳健性和计算效率，还为构建统计因子模型、进行风险管理和开发交易策略提供了深刻的洞见。</p>
+<p>2.1.原理</p>
+<p>PCA的数学基础是线性代数中的特征值分解。其目标是找到一个新的坐标系，使得数据在新坐标系下的方差能够被最大程度地解释。基本步骤： 1.数据标准化：由于PCA对变量的尺度敏感，第一步通常是对原始数据（如股票收益率矩阵）进行标准化处理，使其均值为0，标准差为1。 2.计算协方差矩阵：计算标准化后数据矩阵的协方差矩阵。这个矩阵描述了数据集中不同变量之间的线性关系。 3.特征值分解：对协方差矩阵进行特征值分解，得到一系列的特征值（Eigenvalues）和对应的特征向量（Eigenvectors）。 4.选择主成分：每个特征向量代表一个新的坐标轴方向，即一个主成分。与之对应的特征值则表示数据在相应主成分方向上的方差大小。特征值越大，说明该主成分解释了越多的原始数据方差。通常，我们会按照特征值从大到小的顺序排列，并选择前k个能够解释足够比例总方差（如90%）的主成分作为降维后的新特征。 5.数据转换：将原始数据投影到选定的k个特征向量上，得到降维后的新数据集。</p>
+<p>2.2.应用</p>
+<p>PCA的降维和因子提取能力使其在量化投资中应用极为广泛。</p>
+<p>构建统计风险因子模型：PCA可以直接从股票收益率数据中“盲”提取出驱动收益变化的统计因子，而无需预先指定经济学假设。这些提取出的主成分可以作为风险因子，用于构建多因子风险模型，精确度量和管理投资组合的风险暴露。例如，一个投资组合在第一主成分上的暴露度，就反映了它对市场系统性风险的敏感度。</p>
+<p>特征工程与信号增强：在构建基于机器学习的预测模型时，输入的特征因子数量可能非常庞大且存在高度共线性。这不仅增加了计算负担，还容易导致模型过拟合。PCA可以作为一种强大的特征提取工具，将数百个相关的原始因子压缩成少数几个不相关的主成分因子，作为机器学习模型的输入，从而提升模型的预测性能和泛化能力。</p>
+<p>投资组合风险管理：在宏观风险因子框架中，投资者通过PCA识别出投资组合面临的主要风险来源，即前几个主成分，并可以通过对冲或调整权重的方式，来特异性地降低这些风险暴露。例如，如果一个组合在代表利率风险的主成分上有很大的暴露，可以调整组合权重，或做空与该主成分高度相关的资产（如长期国债）、以降低利率风险的暴露。</p>
+<p>3.优化算法</p>
+<p>优化算法贯穿于量化投资中的几乎每一个环节，是量化投资的核心技术和重要基础。它是用于在给定约束下，在众多可行方案中，寻找最优解的数学方法论。无论是构建一个夏普比率最高的投资组合，还是训练一个预测能力最强的机器学习模型，或是寻找一个交易策略的最佳参数组合，其核心都是一个数学优化问题。从最简单的网格寻优，到经典的二次规划，再到启发式算法，优化算法致力于为量化投资的每一个决策环节寻找“最佳答案”。量化投资中用到的优化算法可以大致分为几类：</p>
+<p>3.1.网格寻优（Grid Search）</p>
+<p>在量化投资实践中，网格寻优是最简单却最常用的参数优化方法。其原理是在设定好的多维坐标网格中进行系统性的“穷举”搜索。研究者首先为策略中需要优化的关键参数各自设定一个合理的取值范围和步长，这些参数的所有可能取值组合便构成了一张多维的“网格”。研究者遍历网格中每一组参数组合，并通过历史数据回测来评估其绩效，选择其中表现最优的一组参数作为策略的最终参数。</p>
+<p>3.2.机器学习中的优化算法</p>
+<p>这类算法主要用于训练机器学习模型，通过迭代调整模型参数来最小化一个“损失函数”（Loss Function），该函数衡量了模型预测值与真实值之间的差距。</p>
+<p>梯度下降法(Gradient Descent)及其变体是该领域的核心。随机梯度下降(Stochastic Gradient Descent,SGD)及其改进版本（如Adam,RMSprop）通过计算损失函数对参数的梯度（导数），并沿着梯度的反方向小步更新参数，从而逐步找到损失函数的最小值。它们是训练深度神经网络等复杂模型的标准方法。</p>
+<p>3.3. 凸优化(Convex Optimization)</p>
+<p>当优化问题的目标函数是凸函数，且约束条件定义了一个凸集时，该问题就是凸优化问题。这类问题的完美之处在于，任何局部最优解都是全局最优解，因此可以被高效且可靠地求解。二次规划(Quadratic Programming, QP)是其中的典型代表，它用于最小化（或最大化）一个二次型目标函数，并满足一组线性约束。</p>
+<p>马克维茨的均值-方差投资组合优化就是最经典的QP问题：在给定预期收益下，最小化投资组合的方差。在实践中，投资组合构建远比均值-方差模型复杂，常常需要考虑交易成本、最小持仓、最大持仓、行业中性、换手率限制等复杂约束。凸优化往往都能给出令人满意的答案。</p>
+<p>但当约束之间相互冲突，或有多重优化目标时，问题便变为非凸的混合整数规划问题，凸优化方法便不再适用。此时，进化算法展现出巨大优势。特别是多目标进化算法(Multi-Objective Evolutionary Algorithms, MOEA)，如NSGA-II，能够同时优化多个相互冲突的目标，例如，同时最大化预期收益、最小化风险、最大化夏普比率、并最小化最大回撤。算法的输出不再是一个单一的最优解，而是一个被称为“帕累托前沿(Pareto Front)”的解集，其中每个解都是一种不同的风险-收益权衡，为投资经理提供了丰富的决策选择。大量实证研究表明，NSGA-II等算法在处理带约束的多目标投资组合优化问题时表现出色，其回测结果常常优于传统方法。</p>
+<p>3.4.启发式与进化算法(Heuristicand Evolutionary Algorithms)</p>
+<p>当优化问题非常复杂，例如非凸、非线性、有大量局部最优解，或者包含离散变量和复杂约束时，传统优化算法往往难以求解。启发式算法，特别是受自然选择和遗传学启发的进化算法(Evolutionary Algorithms, EA)，为解决这类难题提供了强大的框架。它们不保证找到绝对的全局最优解，但通常能在合理的时间内找到非常高质量的“满意解”。</p>
+<p>代表算法：遗传算法(Genetic Algorithm, GA)和NSGA-II(Non-dominated Sorting Genetic AlgorithmII)是其中的杰出代表。这些算法维护一个由多个候选解组成的“种群”，通过模拟“选择”、“交叉”和“变异”等进化过程，让种群一代代地向更优的解空间区域进化。</p>
+<p>策略参数优化是进化算法最常见的应用场景。任何量化策略都包含一系列参数。这些参数的选择直接决定了策略的最终表现。进化算法非常适合用于策略的参数寻优。可以将策略的历史回测性能作为“适应度函数”，让遗传算法在巨大的参数空间中自动搜索能够最大化该性能指标的参数组合。</p>
+<p>进化算法还经常用于因子挖掘。其核心任务是从海量、高维的金融数据中，自动发现能够稳定预测未来资产价格走势的有效特征或因子表达式。过程框架一般为：将因子（如一个数学表达式或指标组合）编码为“基因”，通过模拟自然进化中的选择、交叉（重组）和变异等操作，在庞大的可能解空间中进行迭代搜索。算法会依据因子在历史数据上的风险调整后收益、稳健性等绩效指标进行“优胜劣汰”，驱使因子种群不断向更优、更适应市场规律的方向进化，从而高效地发掘出人脑难以直观构建的、非线性且具有经济逻辑的Alpha来源。</p>
+<p>4.其他</p>
+<p>除上述内容外，还有若干重要的统计方法与技术需要读者深入掌握，例如贝叶斯估计（Bayesian estimation）、隐马尔可夫模型（Hidden Markov Model, HMM）、傅里叶变换（Fourier Transform）、经验模态分解（Empirical Mode Decomposition，EMD）、HP滤波（HP Filter）以及凯利公式（Kelly Formula）等。这些方法在量化投资中具有广泛的应用，本书将在后续章节的案例中结合实际场景逐步阐释。鉴于篇幅限制，本章不做展开，建议读者结合后续案例并查阅专业资料进行系统性学习。</p>
+<p>六、建模中的核心概念</p>
+<p>在量化投资的建模实践中，深刻理解并妥善处理以下几个核心概念是构建稳健模型的前提。这些概念贯穿于模型开发、评估与部署的全过程，直接关系到策略能否在实盘策略中取得稳定的成功。</p>
+<p>首先，数据的划分是建模的起点。我们通常将数据分为训练集、验证集和测试集。训练集用于让模型学习数据的内在规律；验证集用于调整超参数和选择模型，间接影响训练过程；而测试集则仅在最终用于无偏评估模型的泛化能力,必须被严格隔离。当数据有限时，交叉验证（如K折交叉验证）成为一种有效的替代方案，它通过多次划分来更充分地利用数据并稳定评估结果，但计算开销较大。需谨记，即便使用交叉验证，一个独立的测试集对于最终评估仍是必不可少的。</p>
+<p>与此紧密相关的概念是样本内与样本外。样本内是指模型构建阶段所使用的历史数据，包括训练集和验证集，用于参数估计和回测；样本外则指模型从未见过的、独立的数据，包括预留的测试集或未来的真实交易期，用于检验模型的真实预测能力。量化策略最危险的陷阱之一，便是在样本内表现卓越却在样本外大幅失效，这通常意味着模型发生了过拟合。导致这种不一致的原因包括过度拟合噪声、参数估计误差、数据量不足以及市场环境的结构性变化。因此，在研发过程中必须始终坚持严格的样本外检验，例如保留部分数据或采用滚动窗口进行前瞻性测试，并对样本内绩效保持审慎的怀疑态度。</p>
+<p>模型的泛化误差可分解为偏差（Bias）、方差（Variance）与不可约误差（Irreducible Error）之和。偏差衡量的是模型对真实数据分布的逼近能力，反映了模型在学习目标函数时的系统性误差。通常，偏差较高的模型过于简单，无法捕捉数据的复杂规律。偏差高表现为模型欠拟合（Underfitting），即模型过于简单，忽略了数据中的重要模式。偏差来源于：模型假设不正确，例如使用线性模型去拟合非线性数据；特征不足；数据预处理不充分。方差描述了模型对训练数据的敏感程度，反映了模型对数据波动的过度拟合程度。方差较高的模型通常过于复杂，过度关注训练数据中的细节甚至噪声，导致泛化能力差。方差高表现为模型过拟合（Overfitting），即模型在训练集上表现优异，但在测试集上误差较高。方差来源于：模型过于复杂，例如使用过深的神经网络拟合小数据集；训练数据不足；包含过多噪声。不可约误差是由数据本身的噪声或随机性引起的，反映了即使我们拥有完美的模型，也无法减少的误差。这种误差与模型无关，不可约误差来源于：数据采集中的噪声；输入特征中遗漏的重要信息；数据分布本身的固有不确定性。机器学习中的核心矛盾即偏差-方差权衡，简单模型往往偏差高、方差低，复杂模型则相反。我们的目标是通过选择适当的模型复杂度，找到总误差最小的平衡点。</p>
+<p>过拟合与欠拟合是量化建模中最核心的问题。过拟合的模型记忆了训练数据中的噪声和偶然模式，在样本外表现急剧下滑，其成因包括模型复杂度过高、数据窥探偏见、回测过拟合以及虚假相关性等。防范过拟合需要多管齐下：严格区分数据、使用交叉验证或滚动窗口验证、采用正则化（如L1/L2惩罚）、早停法、Dropout以及集成学习（如Bagging/Boosting）等技术，并始终遵循奥卡姆剃刀原则，优先选择简洁的模型。相对而言，欠拟合的解决则更为直接，主要通过增加模型复杂度、引入更有信息的特征或降低正则化强度来实现。</p>
+<p>总之，成功的量化建模是一场精密的平衡艺术。它要求我们以严谨的数据划分和样本外检验为框架，以偏差-方差权衡为理论指导，运用各种技术手段主动防范过拟合，从而构建出不仅能在历史数据中自洽，更能在未知市场中保持稳健预测能力的交易策略。</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第1章 基础知识 第4节 策略研发.html" class="pagination-link" aria-label="第1章 基础知识 第4节 策略研发.html">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第1章 基础知识 第7节 模型的选择.html" class="pagination-link" aria-label="1. 生成数据 #########">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
