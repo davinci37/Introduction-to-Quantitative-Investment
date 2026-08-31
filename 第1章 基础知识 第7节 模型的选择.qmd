@@ -181,6 +181,8 @@
 3.通过计算R²和绘制真实值-预测值散点图评估发现，线性回归的拟合效果显著优于两种XGBoost模型，且XGBoost性能并未随树深度增加而提升。
 
 
+```{r}
+
 rm(list=ls())           # 清理工作空间
 library(xgboost)        # 加载包
 options(encoding="GBK") # 设定默认编码格式
@@ -292,10 +294,7 @@ plot(y, xgb2_pred, main = "复杂 XGBoost", xlab = "真实值", ylab = "预测�
 abline(0, 1, col = "red", lwd = 2)
 legend("topleft",legend = paste0("R square = ",round(r2_xgb2,4)))
 
-
-
-
-
+```
 
 
 
@@ -303,22 +302,11 @@ legend("topleft",legend = paste0("R square = ",round(r2_xgb2,4)))
 可见，简单XGBoost和复杂XG boost都能够很好的拟合线性关系，复杂XGboost甚至表现优于简单XGBoost。
 
 
-
-
-
-
 场景2.设定 epsilon <- rnorm(n, mean=0, sd=2)，数据中信息含量17%，线性回归模型、简单XGBoost和复杂XGboost拟合优度。
 线性回顾模型拟合最好，简单XGBoost和复杂XG boost的拟合能力均有所下降，复杂XGboost下降更明显。
 
-
-
-
 场景3.epsilon <- rnorm(n, mean=0, sd=5)，数据中信息含量5%，线性回顾模型、简单XGBoost和复杂XGboost拟合优度。
 线性回顾模型拟合最好，简单XGBoost和复杂XG boost的拟合能力均有所下降，复杂XGboost下降更明显。
-
-
-
-
 
 
 实验结果表明：
