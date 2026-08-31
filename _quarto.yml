@@ -2,14 +2,14 @@ project:
   type: book
 
 book:
-  title: "Introduction-to-Quantitative-Investment"
-  author: "Norah Jones"
+  title: "量化投资导论"
+  author: "王亚菲"
   date: "2026/8/30"
   chapters:
-    - index.qmd
-    - intro.qmd
-    - summary.qmd
-    - references.qmd
+    - 第1章 基础知识 第1节 概述.qmd
+    - 第1章 基础知识 第2节 理论模型.qmd
+    - 第1章 基础知识 第3节 两个范式.qmd
+    - 第1章 基础知识 第4节 策略研发.qmd
 
 bibliography: references.bib
 
