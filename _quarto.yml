@@ -1,5 +1,7 @@
 project:
   type: book
+  execute:
+    eval: false
 
 book:
   title: "量化投资导论"
@@ -24,8 +26,6 @@ format:
     theme:
       - cosmo
       - brand
-    execute:   
-      eval: false
   pdf:
     documentclass: scrreprt
 
