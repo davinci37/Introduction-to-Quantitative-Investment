@@ -5,6 +5,8 @@ book:
   title: "量化投资导论"
   author: "王亚菲"
   date: "2026/8/30"
+  execute:
+   eval: false
   chapters:
     - index.qmd
     - 第1章 基础知识 第1节 概述.qmd
