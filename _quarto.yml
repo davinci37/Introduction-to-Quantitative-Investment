@@ -1,7 +1,8 @@
 project:
   type: book
-  execute:
-    eval: false
+
+execute:
+  eval: false
 
 book:
   title: "量化投资导论"
