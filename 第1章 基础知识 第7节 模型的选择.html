@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; 1. 生成数据 ######### – 量化投资导论</title>
+<title>4&nbsp; 第1章 基础知识 第7节 模型的选择 – 量化投资导论</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -88,7 +123,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第7节 模型的选择.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第7节 模型的选择.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第7节 模型的选择</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -122,49 +157,55 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第1节 概述.html</span></span></a>
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第2节 理论模型.html</span></span></a>
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第3节 两个范式.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第1章 基础知识 第3节 两个范式.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">第1章 基础知识 第4节 策略研发.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第7节 模型的选择</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">第1章 基础知识 第9节 编程语言.html</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">第1章 基础知识 第9节 编程语言.html</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第16章 R 第1节 R语言入门</span></span></a>
   </div>
 </li>
     </ul>
@@ -172,30 +213,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#生成两个随机变量作为自变量" id="toc-生成两个随机变量作为自变量" class="nav-link active" data-scroll-target="#生成两个随机变量作为自变量"><span class="header-section-number">7</span> 生成两个随机变量作为自变量</a></li>
-  <li><a href="#生成残差项" id="toc-生成残差项" class="nav-link" data-scroll-target="#生成残差项"><span class="header-section-number">8</span> 生成残差项</a></li>
-  <li><a href="#建立y-x1-x2-残差的关系" id="toc-建立y-x1-x2-残差的关系" class="nav-link" data-scroll-target="#建立y-x1-x2-残差的关系"><span class="header-section-number">9</span> 建立y = x1 + x2 + 残差的关系</a></li>
-  <li><a href="#合并为数据框" id="toc-合并为数据框" class="nav-link" data-scroll-target="#合并为数据框"><span class="header-section-number">10</span> 合并为数据框</a></li>
-  <li><a href="#查看数据前几行" id="toc-查看数据前几行" class="nav-link" data-scroll-target="#查看数据前几行"><span class="header-section-number">11</span> 查看数据前几行</a></li>
-  <li><a href="#准备xgboost数据格式" id="toc-准备xgboost数据格式" class="nav-link" data-scroll-target="#准备xgboost数据格式"><span class="header-section-number">12</span> 准备xgboost数据格式</a></li>
-  <li><a href="#训练xgboost模型" id="toc-训练xgboost模型" class="nav-link" data-scroll-target="#训练xgboost模型"><span class="header-section-number">13</span> 训练XGBoost模型</a></li>
-  <li><a href="#训练xgboost模型-1" id="toc-训练xgboost模型-1" class="nav-link" data-scroll-target="#训练xgboost模型-1"><span class="header-section-number">14</span> 训练XGBoost模型</a></li>
-  <li><a href="#计算r-square" id="toc-计算r-square" class="nav-link" data-scroll-target="#计算r-square"><span class="header-section-number">15</span> 计算R square</a></li>
-  <li><a href="#可视化真实值vs预测值" id="toc-可视化真实值vs预测值" class="nav-link" data-scroll-target="#可视化真实值vs预测值"><span class="header-section-number">16</span> 可视化真实值vs预测值</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">1. 生成数据 #########</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">第1章 基础知识 第7节 模型的选择</span></h1>
 </div>
 
 
@@ -274,73 +300,124 @@ ul.task-list li input[type="checkbox"] {
 <p>人生的诸多困扰，往往源于我们为其增添了过多的负累。当面临困惑和迷茫，不妨也可以借鉴一下奥卡姆剃刀原则所启示的“如无必要，勿增实体”。将这一哲学智慧应用于生活与事业主动剥离那些繁复的表象与非核心的杂音，直指问题的本质。在工作上，它启示我们摒弃冗余流程与无效社交，聚焦于最关键的任务，用最简洁的路径创造核心价值；在人生规划上，它引导我们审视内心的真实渴望，剃除社会期待与虚荣心强加的目标，专注于真正滋养生命的关系与体验。当你学会放下九成无关紧要的忙碌，剩余的那一成精髓，便足以支撑起你全部的职业成就与人生意义。 五、实验</p>
 <p>本节内容最后，我将呈现给读者一段R代码。该实验旨在对比简单模型（线性回归）与复杂模型（XGBoost）在线性关系数据上的预测性能。代码解释如下：</p>
 <p>1.首先生成20,000个样本的模拟数据，其中因变量y与自变量x1、x2严格遵循线性关系（y = x1 + x2 + ε），并划分为训练集和测试集。 2.随后分别拟合三个模型：普通最小二乘线性回归、树深度为1层的XGBoost（简单版）以及树深度为3层的XGBoost（复杂版），三者均基于训练集学习，并对测试集进行预测。 3.通过计算R²和绘制真实值-预测值散点图评估发现，线性回归的拟合效果显著优于两种XGBoost模型，且XGBoost性能并未随树深度增加而提升。</p>
-<p>rm(list=ls()) # 清理工作空间 library(xgboost) # 加载包 options(encoding=“GBK”) # 设定默认编码格式 set.seed(42) # 设定种子</p>
-<p>n &lt;- 20000 # 样本量</p>
-<section id="生成两个随机变量作为自变量" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> 生成两个随机变量作为自变量</h1>
-<p>x1 &lt;- rnorm(n, mean = 1, sd = 1) x2 &lt;- rnorm(n, mean = 2, sd = 2)</p>
-</section>
-<section id="生成残差项" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> 生成残差项</h1>
-<p>epsilon &lt;- rnorm(n, mean = 0, sd =5)</p>
-</section>
-<section id="建立y-x1-x2-残差的关系" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> 建立y = x1 + x2 + 残差的关系</h1>
-<p>y &lt;- x1 + x2 + epsilon</p>
-</section>
-<section id="合并为数据框" class="level1" data-number="10">
-<h1 data-number="10"><span class="header-section-number">10</span> 合并为数据框</h1>
-<p>data &lt;- data.frame(y = y, x1 = x1, x2 = x2)</p>
-</section>
-<section id="查看数据前几行" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> 查看数据前几行</h1>
-<p>train_data &lt;- data[1:10000,] test_data &lt;- data[10000:20000,]</p>
-<section id="线性回归拟合" class="level9">
-<p class="heading">2. 线性回归拟合</p>
-<p>lm_model &lt;- lm(y ~ x1 + x2, data = train_data) lm_pred &lt;- predict(lm_model, newdata = test_data)</p>
-</section>
-<section id="xgboost-拟合-简单版" class="level9">
-<p class="heading">3. XGBoost 拟合 简单版</p>
-</section>
-</section>
-<section id="准备xgboost数据格式" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> 准备xgboost数据格式</h1>
-<p>dtrain &lt;- xgb.DMatrix(data = as.matrix(train_data[, c(“x1”, “x2”)]), label = train_data$y)</p>
-</section>
-<section id="训练xgboost模型" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> 训练XGBoost模型</h1>
-<p>xgb_model &lt;- xgboost( data = dtrain, nrounds = 100, objective = “reg:squarederror”, verbose = 0, params = list(eta = 0.1, max_depth = 1) # 最大深度设为1层 )</p>
-<p>dttest &lt;- xgb.DMatrix(data = as.matrix(test_data[, c(“x1”, “x2”)])) xgb_pred &lt;- predict(xgb_model, dttest)</p>
-<section id="xgboost拟合-复杂版" class="level9">
-<p class="heading">4. XGBoost拟合 复杂版</p>
-</section>
-</section>
-<section id="训练xgboost模型-1" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> 训练XGBoost模型</h1>
-<p>xgb_model &lt;- xgboost( data = dtrain, nrounds = 100, objective = “reg:squarederror”, verbose = 0, params = list(eta = 0.1, max_depth = 3) # 最大深度设为3层 )</p>
-<p>xgb2_pred &lt;- predict(xgb_model, dttest)</p>
-<section id="结果比较" class="level9">
-<p class="heading">5. 结果比较</p>
-</section>
-</section>
-<section id="计算r-square" class="level1" data-number="15">
-<h1 data-number="15"><span class="header-section-number">15</span> 计算R square</h1>
-<p>y &lt;- test_data$y r2_lm &lt;- cor(y, lm_pred )^2 r2_xgb &lt;- cor(y, xgb_pred )^2 r2_xgb2 &lt;- cor(y, xgb2_pred)^2</p>
-<p>cat(sprintf(“线性回归 R square: %.4f”, r2_lm)) cat(sprintf(“XGBoost R square: %.4f”, r2_xgb)) cat(sprintf(“XGBoost R square: %.4f”, r2_xgb2))</p>
-</section>
-<section id="可视化真实值vs预测值" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> 可视化真实值vs预测值</h1>
-<p>par(mfrow = c(1, 3))</p>
-<p>plot(y, lm_pred, main = “线性回归”, xlab = “真实值”, ylab = “预测值”, pch = 19, col = “blue”) abline(0, 1, col = “red”, lwd = 2) legend(“topleft”,legend = paste0(“R square =”,round(r2_lm,4)))</p>
-<p>plot(y, xgb_pred, main = “简单 XGBoost”, xlab = “真实值”, ylab = “预测值”, pch = 19, col = “green”) abline(0, 1, col = “red”, lwd = 2) legend(“topleft”,legend = paste0(“R square =”,round(r2_xgb,4)))</p>
-<p>plot(y, xgb2_pred, main = “复杂 XGBoost”, xlab = “真实值”, ylab = “预测值”, pch = 19, col = “purple”) abline(0, 1, col = “red”, lwd = 2) legend(“topleft”,legend = paste0(“R square =”,round(r2_xgb2,4)))</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())           <span class="co"># 清理工作空间</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xgboost)        <span class="co"># 加载包</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">encoding=</span><span class="st">"GBK"</span>) <span class="co"># 设定默认编码格式</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)            <span class="co"># 设定种子</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">######### 1. 生成数据 #########</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20000</span>  <span class="co"># 样本量</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成两个随机变量作为自变量</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">2</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成残差项</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span><span class="dv">5</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 建立y = x1 + x2 + 残差的关系</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> epsilon</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并为数据框</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">y =</span> y, <span class="at">x1 =</span> x1, <span class="at">x2 =</span> x2)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看数据前几行</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> data[<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>,]</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>test_data  <span class="ot">&lt;-</span> data[<span class="dv">10000</span><span class="sc">:</span><span class="dv">20000</span>,]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="do">######### 2. 线性回归拟合 #########</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> train_data)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>lm_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm_model, <span class="at">newdata =</span> test_data)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="do">######### 3. XGBoost 拟合 简单版 #########</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 准备xgboost数据格式</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>dtrain <span class="ot">&lt;-</span> <span class="fu">xgb.DMatrix</span>(<span class="at">data =</span> <span class="fu">as.matrix</span>(train_data[, <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>)]), <span class="at">label =</span> train_data<span class="sc">$</span>y)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 训练XGBoost模型</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="ot">&lt;-</span> <span class="fu">xgboost</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dtrain,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrounds =</span> <span class="dv">100</span>,</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="dv">0</span>,</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="at">eta =</span> <span class="fl">0.1</span>, <span class="at">max_depth =</span> <span class="dv">1</span>) <span class="co"># 最大深度设为1层</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>dttest <span class="ot">&lt;-</span> <span class="fu">xgb.DMatrix</span>(<span class="at">data =</span> <span class="fu">as.matrix</span>(test_data[, <span class="fu">c</span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>)]))</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>xgb_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(xgb_model, dttest)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="do">######### 4. XGBoost拟合 复杂版 #########</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 训练XGBoost模型</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="ot">&lt;-</span> <span class="fu">xgboost</span>(</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dtrain,</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrounds =</span> <span class="dv">100</span>,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  <span class="at">objective =</span> <span class="st">"reg:squarederror"</span>,</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="dv">0</span>,</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="fu">list</span>(<span class="at">eta =</span> <span class="fl">0.1</span>, <span class="at">max_depth =</span> <span class="dv">3</span>) <span class="co"># 最大深度设为3层</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>xgb2_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(xgb_model, dttest)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="do">#########  5. 结果比较 #########</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算R square</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> test_data<span class="sc">$</span>y</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>r2_lm   <span class="ot">&lt;-</span> <span class="fu">cor</span>(y, lm_pred  )<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>r2_xgb  <span class="ot">&lt;-</span> <span class="fu">cor</span>(y, xgb_pred )<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>r2_xgb2 <span class="ot">&lt;-</span> <span class="fu">cor</span>(y, xgb2_pred)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"线性回归 R square: %.4f</span><span class="sc">\n</span><span class="st">"</span>, r2_lm))</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"XGBoost R square:  %.4f</span><span class="sc">\n</span><span class="st">"</span>, r2_xgb))</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"XGBoost R square:  %.4f</span><span class="sc">\n</span><span class="st">"</span>, r2_xgb2))</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co"># 可视化真实值vs预测值</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, lm_pred, <span class="at">main =</span> <span class="st">"线性回归"</span>, <span class="at">xlab =</span> <span class="st">"真实值"</span>, <span class="at">ylab =</span> <span class="st">"预测值"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,<span class="at">legend =</span> <span class="fu">paste0</span>(<span class="st">"R square = "</span>,<span class="fu">round</span>(r2_lm,<span class="dv">4</span>)))</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, xgb_pred, <span class="at">main =</span> <span class="st">"简单 XGBoost"</span>, <span class="at">xlab =</span> <span class="st">"真实值"</span>, <span class="at">ylab =</span> <span class="st">"预测值"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,<span class="at">legend =</span> <span class="fu">paste0</span>(<span class="st">"R square = "</span>,<span class="fu">round</span>(r2_xgb,<span class="dv">4</span>)))</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, xgb2_pred, <span class="at">main =</span> <span class="st">"复杂 XGBoost"</span>, <span class="at">xlab =</span> <span class="st">"真实值"</span>, <span class="at">ylab =</span> <span class="st">"预测值"</span>, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">col =</span> <span class="st">"purple"</span>)</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topleft"</span>,<span class="at">legend =</span> <span class="fu">paste0</span>(<span class="st">"R square = "</span>,<span class="fu">round</span>(r2_xgb2,<span class="dv">4</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <p>场景1.设定 epsilon &lt;- rnorm(n, mean=0, sd=1)，数据中信息含量83%，计算线性回顾模型、简单XGBoost和复杂XGboost拟合优度。 可见，简单XGBoost和复杂XG boost都能够很好的拟合线性关系，复杂XGboost甚至表现优于简单XGBoost。</p>
 <p>场景2.设定 epsilon &lt;- rnorm(n, mean=0, sd=2)，数据中信息含量17%，线性回归模型、简单XGBoost和复杂XGboost拟合优度。 线性回顾模型拟合最好，简单XGBoost和复杂XG boost的拟合能力均有所下降，复杂XGboost下降更明显。</p>
 <p>场景3.epsilon &lt;- rnorm(n, mean=0, sd=5)，数据中信息含量5%，线性回顾模型、简单XGBoost和复杂XGboost拟合优度。 线性回顾模型拟合最好，简单XGBoost和复杂XG boost的拟合能力均有所下降，复杂XGboost下降更明显。</p>
 <p>实验结果表明： 1.在高信噪比的数据中，对于具有明确线性结构的数据，简单的线性回归比复杂的集成学习方法更精准高效，适当增加模型的复杂可以提升精准高效。 2.在低信噪比的数据中，对于具有明确线性结构的数据，简单的线性回归比复杂的集成学习方法更精准高效，简单的XGBoost比复杂的XGBoost更精准高效。 3.XGBoost模型的优势主要体现在非线性场景中，线性场景下优势并不准确捕捉数据线性关系，过度增加模型复杂度反而可能降低泛化能力。 4.以上简单线性回归的优势建立在良好的特征工程的基础之上，存在线性关系是线性模型有效的前提。</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -746,12 +823,12 @@ ul.task-list li input[type="checkbox"] {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="pagination-link" aria-label="第1章 基础知识 第6节 统计方法和模型.html">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">第1章 基础知识 第6节 统计方法和模型.html</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./第1章 基础知识 第8节 风险.html" class="pagination-link" aria-label="第1章 基础知识 第8节 风险.html">
-        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">第1章 基础知识 第8节 风险.html</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
