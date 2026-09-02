@@ -1,5 +1,3 @@
 # 前言 {.unnumbered}
 
 这是一本关于量化投资的书。
-
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
