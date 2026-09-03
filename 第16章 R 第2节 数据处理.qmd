@@ -1,0 +1,1267 @@
+
+# 第16章 R 第2节 数据处理 {.unnumbered}
+
+
+## 引言
+
+
+前面章节中，我们反复强调了，数据清洗、转换与分析在整个投资决策流程中的核心地位。从原始数据的获取，到因子的构建，再到回测与归因分析，每一步都离不开对数据结构的深刻理解与高效操作。本文我们将从R语言最基础的数据结构出发，系统性地介绍R在一般数据处理中的应用。
+
+
+## 一、单一维度数据处理
+
+
+R语言中最基本的数据结构是**向量（vector）** ，它是单一维度的数据容器，所有元素必须为同一数据类型。向量是R语言中大多数操作的基石，理解向量的创建与操作是掌握R的第一步。
+
+
+### 1.1 向量的创建与基本操作
+
+
+向量的创建主要通过`c()`函数实现：
+
+
+``` r
+# 创建数值型向量
+numeric_vec <- c(1, 2, 3, 4, 5)
+
+
+# 创建字符型向量
+char_vec <- c("AAPL", "GOOGL", "MSFT")
+
+
+# 创建逻辑型向量
+logical_vec <- c(TRUE, FALSE, TRUE)
+
+
+# 使用序列函数创建
+seq_vec <- 1:10                    # 1到10的整数序列
+seq_by <- seq(0, 1, by = 0.1)     # 从0到1，步长0.1
+seq_len <- seq_len(5)              # 1,2,3,4,5
+
+
+# 重复函数
+rep_vec <- rep(c(1, 2), times = 3)    # 1,2,1,2,1,2
+rep_each <- rep(c(1, 2), each = 3)    # 1,1,1,2,2,2
+```
+
+
+向量的基本属性可通过`length()`、`class()`、`typeof()`等函数查看：
+
+
+``` r
+length(numeric_vec)    # 返回向量长度
+class(char_vec)        # 返回数据类型
+str(numeric_vec)       # 显示向量结构
+```
+
+
+### 1.2 向量索引与筛选
+
+
+R语言向量索引从1开始（这一点与其他多数编程语言不同），支持多种索引方式：
+
+
+``` r
+x <- c(10, 20, 30, 40, 50)
+
+
+# 正整数索引
+x[3]          # 30
+x[c(1, 3, 5)] # 10, 30, 50
+
+
+# 负整数索引（排除）
+x[-2]         # 10, 30, 40, 50
+x[-c(1, 3)]   # 20, 40, 50
+
+
+# 逻辑索引
+x[x > 25]     # 30, 40, 50
+
+
+# 名称索引
+names(x) <- c("a", "b", "c", "d", "e")
+x["c"]        # 30
+```
+
+
+向量的筛选常用条件表达式结合逻辑运算符：
+
+
+``` r
+returns <- c(0.05, -0.02, 0.03, -0.01, 0.08)
+positive_returns <- returns[returns > 0]           # 筛选正收益
+extreme_returns <- returns[abs(returns) > 0.03]    # 筛选绝对值大于3%的收益
+```
+
+
+### 1.3 向量运算与统计
+
+
+R语言的核心优势之一在于**向量化运算**——无需显式循环即可对整个向量执行操作：
+
+
+``` r
+prices <- c(100, 102, 98, 105, 110)
+returns <- diff(prices) / prices[-length(prices)]  # 计算收益率
+log_returns <- diff(log(prices))                   # 对数收益率
+
+
+# 向量与标量的运算
+prices * 1.05    # 所有价格乘以1.05
+prices + 10      # 所有价格加10
+
+
+# 向量与向量的运算（逐元素）
+a <- c(1, 2, 3)
+b <- c(4, 5, 6)
+a + b            # 5, 7, 9
+a * b            # 4, 10, 18
+a %*% b          # 矩阵乘法（点积）：32
+```
+
+
+常用的统计函数：
+
+
+``` r
+x <- c(1, 2, 3, 4, 5, NA, 7)
+
+
+mean(x, na.rm = TRUE)      # 均值：3.667
+sd(x, na.rm = TRUE)        # 标准差：2.16
+median(x, na.rm = TRUE)    # 中位数：4
+quantile(x, na.rm = TRUE)  # 四分位数
+min(x, na.rm = TRUE)       # 最小值
+max(x, na.rm = TRUE)       # 最大值
+sum(x, na.rm = TRUE)       # 求和
+cumsum(x, na.rm = TRUE)    # 累积和
+cumprod(x, na.rm = TRUE)   # 累积乘积
+```
+
+
+### 1.4 去重与排序
+
+
+``` r
+x <- c(3, 1, 4, 1, 5, 9, 2, 6, 5, 3)
+
+
+# 排序
+sort(x)                  # 升序排列
+sort(x, decreasing = TRUE) # 降序排列
+order(x)                 # 返回排序后的索引
+rank(x)                  # 返回每个元素的排名
+
+
+# 去重
+unique(x)                # 返回去重后的值：3,1,4,5,9,2,6
+duplicated(x)            # 标记重复元素
+```
+
+
+`order()`函数在数据处理中极为实用，尤其在需要按某一列排序数据框时：
+
+
+``` r
+# 获取排序索引，用于数据框排序
+idx <- order(returns, decreasing = TRUE)
+sorted_prices <- prices[idx]
+```
+
+
+## 二、二维数据处理
+
+
+二维数据是数据分析中最常见的形式。R语言中，**数据框（data.frame）** 是核心的二维数据结构，每列允许不同的数据类型。**矩阵（matrix）** 则要求所有元素类型一致。
+
+
+### 2.1 数据框的创建与属性
+
+
+``` r
+# 创建数据框
+df <- data.frame(
+  ticker = c("AAPL", "GOOGL", "MSFT", "AMZN"),
+  price = c(175.34, 141.80, 378.91, 145.80),
+  volume = c(58.2, 22.1, 25.3, 35.7),
+  sector = c("Tech", "Tech", "Tech", "Consumer")
+)
+
+
+# 查看数据框属性
+dim(df)          # 维度：4行4列
+nrow(df)         # 行数
+ncol(df)         # 列数
+names(df)        # 列名
+str(df)          # 数据结构
+summary(df)      # 汇总统计
+head(df, 3)      # 查看前3行
+tail(df, 2)      # 查看后2行
+```
+
+
+数据框的创建需注意`stringsAsFactors`参数的设置：
+
+
+``` r
+# 在R 4.0之前，默认将字符转为因子；建议显式控制
+df <- data.frame(
+  x = c("a", "b", "c"),
+  y = 1:3,
+  stringsAsFactors = FALSE
+)
+```
+
+
+R 3.6.3 及更早版本：stringsAsFactors 的默认值为 TRUE。字符型数据会被自动转换为因子。这也是过去很多R代码中，字符型列会显示为因子的原因。
+
+
+R 4.0.0 及之后版本：stringsAsFactors 的默认值为 FALSE。这意味着在使用 data.frame() 或 read.table() 等函数时，字符型数据将默认保持为字符型（character），而不会被自动转换为因子（factor）。
+
+
+### 2.2 数据框的子集提取
+
+
+数据框支持多种子集提取方式：
+
+
+``` r
+# 使用方括号 [行, 列]
+df[1, 2]              # 第1行第2列
+df[1:2, ]             # 第1-2行所有列
+df[, c("price", "volume")]  # 选择price和volume列
+
+
+# 使用$符号按列名提取（返回向量）
+df$price
+
+
+# 使用[[ ]]按列索引或名称提取
+df[["price"]]
+df[[2]]
+
+
+# 使用subset函数
+subset(df, price > 150)                # 筛选价格大于150的行
+subset(df, price > 150, select = c(ticker, price))  # 筛选行并选择列
+```
+
+
+### 2.3 数据框的聚合：cbind、rbind、merge
+
+
+``` r
+# 按列合并（cbind）——要求行数相同
+df1 <- data.frame(id = 1:3, value = c(10, 20, 30))
+df2 <- data.frame(name = c("A", "B", "C"), score = c(85, 90, 95))
+combined_col <- cbind(df1, df2)
+
+
+# 按行合并（rbind）——要求列名和类型一致
+df3 <- data.frame(id = 4:5, value = c(40, 50))
+combined_row <- rbind(df1, df3)
+
+
+# 按键合并（merge）——类似SQL的JOIN操作
+df_a <- data.frame(id = c(1, 2, 3), name = c("A", "B", "C"))
+df_b <- data.frame(id = c(2, 3, 4), score = c(85, 90, 95))
+inner_join <- merge(df_a, df_b, by = "id")           # 内连接
+left_join <- merge(df_a, df_b, by = "id", all.x = TRUE)  # 左连接
+full_join <- merge(df_a, df_b, by = "id", all = TRUE)    # 全连接
+```
+
+
+### 2.4 dplyr包
+
+
+`dplyr`是tidyverse系列中最核心的数据操作包，提供了一套简洁、一致的动词（verbs）用于数据框操作。这些函数可以通过管道操作符`%>%`（或`|>`）串联起来，形成清晰的数据处理流水线。
+
+
+**filter()：按条件筛选行**
+
+
+``` r
+library(dplyr)
+
+
+# 筛选价格大于150的行
+df %>% filter(price > 150)
+
+
+# 多条件筛选
+df %>% filter(price > 150 & sector == "Tech")
+
+
+# 使用%in%进行多值筛选
+df %>% filter(ticker %in% c("AAPL", "MSFT"))
+```
+
+
+**select()：按名称选择列**
+
+
+``` r
+# 选择特定列
+df %>% select(ticker, price)
+
+
+# 排除特定列
+df %>% select(-volume)
+
+
+# 选择以某字符开头的列
+df %>% select(starts_with("p"))
+
+
+# 选择包含某字符的列
+df %>% select(contains("ic"))
+
+
+# 重命名并选择
+df %>% select(ticker, price_usd = price)
+```
+
+
+**arrange()：对行进行排序**
+
+
+``` r
+# 按价格升序排列
+df %>% arrange(price)
+
+
+# 按价格降序排列
+df %>% arrange(desc(price))
+
+
+# 多列排序
+df %>% arrange(sector, desc(price))
+```
+
+
+**mutate()：创建或修改列**
+
+
+``` r
+# 创建新列
+df %>% mutate(
+  price_ratio = price / lag(price),
+  log_price = log(price)
+)
+
+
+# 修改现有列
+df %>% mutate(price = price * 1.05)
+
+
+# 使用ifelse进行条件赋值
+df %>% mutate(
+  category = ifelse(price > 150, "High", "Low")
+)
+```
+
+
+**summarise()：聚合计算，生成摘要统计**
+
+
+``` r
+# 计算全局统计量
+df %>% summarise(
+  avg_price = mean(price, na.rm = TRUE),
+  total_volume = sum(volume, na.rm = TRUE),
+  n_stocks = n()
+)
+
+
+# 结合across()对多列应用相同函数
+df %>% summarise(
+  across(c(price, volume), list(mean = mean, sd = sd), na.rm = TRUE)
+)
+```
+
+
+**group_by()：分组操作**
+
+
+`group_by()`与`summarise()`或`mutate()`结合，实现分组聚合与变换：
+
+
+``` r
+# 按行业分组计算平均价格
+df %>%
+  group_by(sector) %>%
+  summarise(
+    avg_price = mean(price, na.rm = TRUE),
+    count = n()
+  )
+
+
+# 分组后计算组内排名
+df %>%
+  group_by(sector) %>%
+  mutate(
+    rank_in_sector = rank(desc(price))
+  ) %>%
+  ungroup()  # 记得解除分组
+```
+
+
+## 三、多维度数据处理
+
+
+### 1. List（列表）
+
+
+列表（list）是R中最灵活的数据结构，可以容纳不同类型的对象，包括向量、矩阵、数据框乃至其他列表。列表的长度是其组件的个数，而非元素的总数。
+
+
+``` r
+# 创建列表
+my_list <- list(
+  name = "Portfolio",
+  weights = c(0.3, 0.4, 0.3),
+  returns = matrix(rnorm(12), nrow = 4),
+  meta = list(created = "2026-09-01", author = "PM")
+)
+
+
+# 访问列表元素
+my_list$name                     # 使用$访问
+my_list[["weights"]]             # 使用[[]]访问
+my_list[[2]]                     # 使用数字索引
+my_list["name"]                  # 使用[]返回子列表（而非元素）
+
+
+# 列表的常用操作
+names(my_list)                   # 获取组件名称
+length(my_list)                  # 组件个数
+str(my_list)                     # 查看结构
+```
+
+
+### 2. apply函数族
+
+
+`apply`函数族是R语言中处理循环问题的核心工具，针对不同的数据类型和返回值需求，包含了8个功能类似的函数。这些函数避免了显式的`for`循环，使代码更简洁、更高效。
+
+
+**apply()：用于矩阵或数组**
+
+
+``` r
+m <- matrix(1:12, nrow = 3)
+
+
+# 按行计算均值（MARGIN = 1）
+apply(m, 1, mean)    # 每行的均值
+
+
+# 按列计算和（MARGIN = 2）
+apply(m, 2, sum)     # 每列的和
+```
+
+
+**lapply()：用于列表或向量，返回列表**
+
+
+``` r
+# 对列表每个元素应用函数
+lst <- list(a = 1:5, b = 6:10, c = 11:15)
+lapply(lst, mean)    # 返回列表，每个元素是对应组的均值
+
+
+# 对数据框的每一列应用函数（数据框本质上是列表）
+lapply(df, class)    # 返回每列的数据类型
+```
+
+
+**sapply()：lapply的简化版，返回向量或矩阵**
+
+
+``` r
+sapply(lst, mean)    # 返回向量：a b c
+sapply(df, class)    # 返回命名字符向量
+```
+
+
+**vapply()：指定返回值类型的sapply，更安全**
+
+
+``` r
+vapply(lst, mean, numeric(1))  # 明确指定返回值为数值型标量
+```
+
+
+### 3. do.call()与cbind、rbind、merge
+
+
+`do.call()`函数允许将列表中的元素作为参数传递给某个函数。这一特性在批量处理数据时极为高效：
+
+
+``` r
+# 批量合并多个数据框
+df_list <- list(
+  data.frame(id = 1:2, x = c(10, 20)),
+  data.frame(id = 3:4, x = c(30, 40)),
+  data.frame(id = 5:6, x = c(50, 60))
+)
+
+
+# 使用do.call + rbind合并所有数据框
+combined <- do.call(rbind, df_list)  # 等价于rbind(df_list[[1]], df_list[[2]], df_list[[3]])
+
+
+# 批量cbind
+col_list <- list(a = 1:3, b = 4:6, c = 7:9)
+do.call(cbind, col_list)
+
+
+# 批量merge（需保证有共同的键）
+# do.call(merge, list_of_dataframes)
+```
+
+
+`lapply()`与`do.call()`的组合是R语言中处理批量数据任务的经典模式：
+
+
+``` r
+# 批量读取并合并多个CSV文件
+files <- list.files(pattern = "\\.csv$")
+data_list <- lapply(files, read.csv)
+combined_data <- do.call(rbind, data_list)
+```
+
+
+### 4. Array与多维矩阵
+
+
+数组（array）是向量的多维推广，可以具有任意数量的维度：
+
+
+``` r
+# 创建三维数组（2行 × 3列 × 2层）
+arr <- array(1:12, dim = c(2, 3, 2))
+
+
+# 查看维度
+dim(arr)          # 2 3 2
+
+
+# 索引
+arr[1, 2, 1]      # 第1行第2列第1层
+arr[, , 1]        # 第1层所有数据
+```
+
+
+在深度学习和量化投资领域，**多维矩阵**的应用日益重要。数据常为**\[股票数 × 因子数 × 时间窗口\]**三维数组。`abind`包提供了沿任意维度合并数组的功能：
+
+
+``` r
+library(abind)
+
+
+# 沿不同维度合并数组
+a1 <- array(1:6, dim = c(2, 3))
+a2 <- array(7:12, dim = c(2, 3))
+
+
+# 沿行方向合并（增加行）
+abind(a1, a2, along = 1)  # 4行 × 3列
+
+
+# 沿列方向合并（增加列）
+abind(a1, a2, along = 2)  # 2行 × 6列
+
+
+# 沿第三维合并（增加层）
+abind(a1, a2, along = 3)  # 2行 × 3列 × 2层
+```
+
+
+在`torch`等深度学习框架中，多维张量（tensor）是核心数据结构，理解R中的多维数组操作有助于更好地衔接深度学习工作流。
+
+
+## 四、数据结构转换
+
+
+### 1. 宽长数据的转化
+
+
+在数据处理流程中，我们经常需要在不同的数据布局之间进行转换，最常见的就是 **“宽格式”（Wide Format）** 和 **“长格式”（Long Format）** 之间的切换。
+
+
+**宽格式（Wide Format）** ：每个观测单元的信息分布在多个列中。例如，列为`Date`、`StockA_PE`、`StockB_PE`、`StockA_PB`、`StockB_PB`。这种格式直观，便于人工阅读，但难以扩展——增加股票或因子时需要增加列。
+
+
+**长格式（Long Format）** ：每个观测单元的每种度量都独占一行。同样的数据在长格式下为`Date`、`Ticker`、`Metric_Type`、`Value`。例如，一行是`2026-09-01, StockA, PE, 15.2`，下一行是`2026-09-01, StockA, PB, 1.8`。这种格式遵循 **“Tidy Data”（整洁数据）** 原则，更适合数据库存储和大多数统计软件的输入。
+
+
+### 2. tidyr包
+
+
+`tidyr`包作为tidyverse的一员，提供了直观、功能强大的数据重塑工具。自tidyr 1.0.0版本以来，官方推荐使用新一代的`pivot_longer()`和`pivot_wider()`函数。
+
+
+**pivot_longer()：宽格式转长格式**
+
+
+``` r
+library(tidyr)
+
+
+# 示例：宽格式数据
+wide_df <- data.frame(
+  date = as.Date(c("2026-09-01", "2026-09-02")),
+  AAPL_price = c(175.3, 176.8),
+  GOOGL_price = c(141.8, 142.5),
+  AAPL_volume = c(58.2, 62.1),
+  GOOGL_volume = c(22.1, 23.4)
+)
+
+
+# 转换为长格式
+long_df <- wide_df %>%
+  pivot_longer(
+    cols = -date,                    # 除了date列，其余全部变长
+    names_to = c("ticker", ".value"), # 从列名中提取ticker和值类型
+    names_sep = "_"                  # 列名以"_"分隔
+  )
+# 结果：date, ticker, price, volume
+```
+
+
+更一般的用法：
+
+
+``` r
+# 将所有列（除date外）转为两列：key和value
+long_df <- wide_df %>%
+  pivot_longer(
+    cols = -date,
+    names_to = "variable",
+    values_to = "value"
+  )
+```
+
+
+**pivot_wider()：长格式转宽格式**
+
+
+``` r
+# 从长格式转回宽格式
+wide_again <- long_df %>%
+  pivot_wider(
+    names_from = variable,    # 用variable列的值作为新列名
+    values_from = value       # 用value列的值填充
+  )
+```
+
+
+更复杂的场景——从列名中提取多个变量：
+
+
+``` r
+# 假设长格式数据为：date, ticker, metric, value
+long_complex <- data.frame(
+  date = rep(as.Date("2026-09-01"), 4),
+  ticker = rep(c("AAPL", "GOOGL"), each = 2),
+  metric = rep(c("PE", "PB"), 2),
+  value = c(15.2, 1.8, 22.4, 3.1)
+)
+
+
+# 转换为宽格式：每个ticker一行，PE和PB各占一列
+wide_complex <- long_complex %>%
+  pivot_wider(
+    names_from = metric,
+    values_from = value
+  )
+# 结果：date, ticker, PE, PB
+```
+
+
+理解并熟练掌握宽长数据的转换，对于数据清洗、与不同分析工具（如ggplot2可视化、计量模型）的对接至关重要。
+
+
+## 五、文本数据处理
+
+
+文本数据在量化投资中无处不在——从公司财报、新闻公告到研报摘要，无不涉及字符串的处理。R语言提供了Base R和`stringr`包两套字符串处理方案。
+
+
+### 5.1 基础字符串操作
+
+
+Base R提供了基础的文本处理函数：
+
+
+``` r
+# paste() / paste0()：字符串连接
+paste("AAPL", "2026", "Q3", sep = "_")        # "AAPL_2026_Q3"
+paste0("AAPL", "_", "2026")                   # "AAPL_2026"
+paste(c("A", "B", "C"), collapse = ", ")      # "A, B, C"
+
+
+# substr()：提取子字符串
+text <- "Apple Inc."
+substr(text, 1, 5)          # "Apple"
+substr(text, 7, 9)          # "Inc"
+
+
+# nchar()：字符串长度
+nchar("Hello World")        # 11
+
+
+# tolower() / toupper()：大小写转换
+tolower("HELLO")            # "hello"
+toupper("world")            # "WORLD"
+
+
+# strsplit()：字符串分割
+strsplit("AAPL,GOOGL,MSFT", ",")[[1]]  # "AAPL" "GOOGL" "MSFT"
+
+
+trimws()：去除字符串首尾的空白。
+```
+
+
+### 5.2 字符串检测与提取：grep族函数
+
+
+``` r
+texts <- c("AAPL_2026_Q3", "GOOGL_2026_Q3", "MSFT_2026_Q4", "AMZN_2027_Q1")
+
+
+# grep()：返回匹配的索引
+grep("2026", texts)                # 1 2
+grep("Q3", texts, value = TRUE)    # "AAPL_2026_Q3" "GOOGL_2026_Q3"
+
+
+# grepl()：返回逻辑向量
+grepl("2026", texts)               # TRUE TRUE FALSE FALSE
+
+
+# sub()：替换第一个匹配
+sub("Q3", "Q4", "AAPL_2026_Q3")    # "AAPL_2026_Q4"
+
+
+# gsub()：替换所有匹配
+gsub("_", "-", "AAPL_2026_Q3")     # "AAPL-2026-Q3"
+```
+
+
+### 5.3 stringr包
+
+
+`stringr`包提供了一套以`str_`为前缀、命名一致的字符串处理函数，构建于`stringi`之上，提供了快速、正确的字符串操作实现。
+
+
+**str_detect()：检测模式是否存在**
+
+
+``` r
+library(stringr)
+
+
+texts <- c("AAPL_2026_Q3", "GOOGL_2026_Q3", "MSFT_2026_Q4")
+
+
+str_detect(texts, "2026")          # TRUE TRUE TRUE
+str_detect(texts, "Q3")            # TRUE TRUE FALSE
+
+
+# 结合filter使用
+df %>% filter(str_detect(ticker, "^A"))  # 筛选以A开头的股票
+```
+
+
+**str_extract()与str_extract_all()：提取匹配内容**
+
+
+``` r
+texts <- c("PE:15.2, PB:1.8", "PE:22.4, PB:3.1")
+
+
+# 提取第一个匹配
+str_extract(texts, "\\d+\\.\\d+")    # "15.2" "22.4"
+
+
+# 提取所有匹配
+str_extract_all(texts, "\\d+\\.\\d+")
+# [[1]] "15.2" "1.8"
+# [[2]] "22.4" "3.1"
+
+
+# 提取特定模式
+str_extract(texts, "PB:\\d+\\.\\d+") # "PB:1.8" "PB:3.1"
+```
+
+
+**str_split()：字符串分割**
+
+
+``` r
+str_split("AAPL,GOOGL,MSFT", ",")          # 返回列表
+str_split("AAPL,GOOGL,MSFT", ",", simplify = TRUE)  # 返回矩阵
+
+
+# 分割后提取
+str_split_fixed("AAPL_2026_Q3", "_", 3)    # "AAPL" "2026" "Q3"
+```
+
+
+**str_replace()与str_replace_all()：字符串替换**
+
+
+``` r
+str_replace("AAPL_2026_Q3", "Q3", "Q4")          # "AAPL_2026_Q4"
+str_replace_all("AAPL_2026_Q3_2026", "2026", "2027")  # "AAPL_2027_Q3_2027"
+```
+
+
+**其他常用stringr函数**：
+
+
+``` r
+# str_length()：字符串长度
+str_length("Hello")          # 5
+
+
+# str_sub()：提取或替换子串
+str_sub("Apple Inc.", 1, 5)  # "Apple"
+
+
+# str_trim()：去除空白
+str_trim("  Hello World  ")  # "Hello World"
+
+
+# str_pad()：填充字符串
+str_pad("123", width = 5, side = "left", pad = "0")  # "00123"
+
+
+# str_c()：字符串连接（paste的替代）
+str_c("AAPL", "2026", sep = "_")  # "AAPL_2026"
+str_c(c("A", "B", "C"), collapse = ", ")  # "A, B, C"
+```
+
+
+## 六、正则表达式
+
+
+正则表达式（Regular Expression）是一种用于描述文本模式的简洁而灵活的语言。R语言中，大多数`stringr`函数和Base R的文本函数都支持正则表达式。
+
+
+### 6.1 正则表达式核心元字符
+
+
+正则表达式由普通字符和 **“元字符”** 组成，元字符具有特殊含义。
+
+
+**基本元字符**：
+
+
+| 元字符 | 含义                         | 示例                             |
+|--------|------------------------------|----------------------------------|
+| `.`    | 匹配除换行符外的任意单个字符 | `a.c`匹配"abc"、"a1c"            |
+| `\|`   | 或，匹配左右任一模式         | `cat\|dog`匹配"cat"或"dog"       |
+| `^`    | 匹配字符串的开头             | `^AAPL`匹配以"AAPL"开头的字符串  |
+| `$`    | 匹配字符串的结尾             | `Q3$`匹配以"Q3"结尾的字符串      |
+| `\b`   | 匹配单词边界                 | `\bapple\b`匹配独立的单词"apple" |
+
+
+**量词**：
+
+
+| 量词    | 含义                    | 示例                            |
+|---------|-------------------------|---------------------------------|
+| `*`     | 匹配前面的元素0次或多次 | `a*`匹配""、"a"、"aa"           |
+| `+`     | 匹配前面的元素1次或多次 | `a+`匹配"a"、"aa"               |
+| `?`     | 匹配前面的元素0次或1次  | `a?`匹配""或"a"                 |
+| `{n}`   | 精确匹配n次             | `a{3}`匹配"aaa"                 |
+| `{n,}`  | 至少匹配n次             | `a{2,}`匹配"aa"、"aaa"          |
+| `{n,m}` | 匹配n到m次              | `a{2,4}`匹配"aa"、"aaa"、"aaaa" |
+
+
+**字符集（Character Classes）** ：
+
+
+| 语法     | 含义                      | 示例                       |
+|----------|---------------------------|----------------------------|
+| `[abc]`  | 匹配a、b、c中的任意一个   | `[ABC]`匹配"A"、"B"、"C"   |
+| `[a-z]`  | 匹配任意小写字母          | `[A-Za-z]`匹配任意字母     |
+| `[0-9]`  | 匹配任意数字              | `[0-9]+`匹配一个或多个数字 |
+| `[^abc]` | 排除，匹配非a、b、c的字符 | `[^0-9]`匹配非数字字符     |
+
+
+**预定义字符类**：
+
+
+| 语法 | 含义                               | 等价于          |
+|------|------------------------------------|-----------------|
+| `\d` | 任意数字                           | `[0-9]`         |
+| `\w` | 字母、数字或下划线                 | `[a-zA-Z0-9_]`  |
+| `\s` | 空白字符（空格、制表符、换行符等） | —               |
+| `\D` | 非数字                             | `[^0-9]`        |
+| `\W` | 非单词字符                         | `[^a-zA-Z0-9_]` |
+| `\S` | 非空白字符                         | —               |
+
+
+**分组与捕获（Grouping and Capturing）** ：
+
+
+圆括号`()`不仅可以将多个字符组合成一个单元，更重要的是，它可以 **“捕获”** 括号内匹配到的内容，以便后续引用或提取。这是正则表达式最强大的功能之一。
+
+
+``` r
+# 捕获分组示例
+text <- "AAPL_2026_Q3"
+
+
+# 提取股票代码、年份和季度
+str_match(text, "^(\\w+)_(\\d{4})_(Q[1-4])$")
+#      [,1]            [,2]   [,3]   [,4]
+# [1,] "AAPL_2026_Q3"  "AAPL" "2026" "Q3"
+
+
+# 使用捕获组进行替换（反向引用）
+str_replace(text, "^(\\w+)_(\\d{4})_(Q[1-4])$", "\\2-\\3-\\1")
+# "2026-Q3-AAPL"
+```
+
+
+### 6.2 常用正则表达式案例
+
+
+**提取股票代码**：
+
+
+``` r
+texts <- c("AAPL (Apple Inc.)", "GOOGL (Alphabet)", "MSFT (Microsoft)")
+
+
+# 提取括号前的股票代码
+str_extract(texts, "^[A-Z]+")  # "AAPL" "GOOGL" "MSFT"
+```
+
+
+**提取数字（含小数）** ：
+
+
+``` r
+texts <- c("PE:15.2", "PB:1.8", "Price: $175.34")
+
+
+str_extract(texts, "\\d+\\.\\d+")  # "15.2" "1.8" "175.34"
+str_extract(texts, "\\d+")         # "15" "1" "175"
+```
+
+
+**提取邮箱地址**：
+
+
+``` r
+text <- "Contact: john.doe@email.com or jane@company.org"
+str_extract_all(text, "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+# [[1]] "john.doe@email.com" "jane@company.org"
+```
+
+
+**提取日期**：
+
+
+``` r
+texts <- c("Date: 2026-09-01", "Report: 2026/09/01", "2026.09.01")
+
+
+str_extract(texts, "\\d{4}[-/.]\\d{2}[-/.]\\d{2}")
+# "2026-09-01" "2026/09/01" "2026.09.01"
+```
+
+
+**清理文本**：
+
+
+``` r
+# 去除所有非字母数字字符
+text <- "AAPL_2026_Q3!@#"
+str_replace_all(text, "[^a-zA-Z0-9]", "")  # "AAPL2026Q3"
+
+
+# 将多个空格合并为一个
+text <- "Hello    World"
+str_replace_all(text, "\\s+", " ")         # "Hello World"
+```
+
+
+### 6.3 转义字符
+
+
+在R语言的正则表达式中，反斜杠`\`是转义字符，因此要匹配字面的`\`，需要写成`\\`：
+
+
+``` r
+# 匹配字面的点号（.在正则中是元字符）
+str_detect("file.txt", "\\.")          # TRUE
+
+
+# 匹配字面的反斜杠
+str_detect("path\\file", "\\\\")       # TRUE
+
+
+# 匹配数字（\d在R字符串中需要转义为\\d）
+str_detect("123", "\\d+")              # TRUE
+```
+
+
+## 七、datawizard包
+
+
+在量化投研的数据处理流程中，数据清洗与变换占据了大量工作量。`datawizard`包作为`easystats`生态系统的核心组件之一，提供了一个轻量级（无外部依赖）、字符串友好且函数命名高度一致的解决方案。
+
+
+### 7.1 设计哲学与与tidyverse的异同
+
+
+`datawizard`提供了一套与`dplyr`和`tidyr`功能高度相似的数据操作函数集，但有三个关键区别：
+
+
+1.  **统一前缀**：所有数据操作函数均以`data_*`为前缀，便于识别与记忆（如`data_select()`、`data_filter()`、`data_rename()`）。
+2.  **字符串友好**：与tidyverse的非标准评估（NSE）不同，`datawizard`支持字符串形式的列名输入，在编程和函数封装场景中更为便捷。
+3.  **零依赖**：仅依赖`stats`和`utils`（均为Base R自带）以及`insight`包，体积极小，适合作为其他包的底层依赖。
+
+
+### 7.2 数据整理（Data Wrangling）
+
+
+**列的选择、筛选与移除**
+
+
+``` r
+library(datawizard)
+
+
+# 选择列（等价于 dplyr::select()）
+data_select(iris, select = c("Sepal.Length", "Species"))
+data_select(iris, select = starts_with("Sepal"))   # 支持 select-helpers
+data_select(iris, select = -ends_with("Width"))    # 负号表示排除
+
+
+# 筛选行（等价于 dplyr::filter() 或 base::subset()）
+data_filter(mtcars, cyl == 6 & mpg > 20)           # 多条件用 & 连接
+data_match(mtcars, data.frame(vs = 0, am = 1))     # 按另一个数据框匹配
+
+
+# 移除列
+data_remove(iris, select = c("Petal.Length", "Petal.Width"))
+
+
+# 查找列（按模式）
+find_columns(iris, pattern = "Sepal")              # 返回匹配的列名
+get_columns(iris, select = starts_with("Sepal"))   # 直接提取匹配的列数据
+```
+
+
+**列的重命名与重排序**
+
+
+``` r
+# 重命名
+data_rename(iris, c("Sepal.Length" = "Sepal_Len", "Species" = "Class"))
+
+
+# 调整列顺序
+data_relocate(iris, select = "Species", before = 1)   # 将Species移到第一列
+data_reorder(iris, select = c("Species", "Petal.Length", "Sepal.Length"))
+```
+
+
+**长宽数据转换**
+
+
+`data_to_long()`和`data_to_wide()`是`tidyr::pivot_longer()`和`pivot_wider()`的轻量替代：
+
+
+``` r
+# 宽格式转长格式
+df_wide <- data.frame(
+  date = c("2024-01-01", "2024-01-02"),
+  AAPL = c(175, 178),
+  MSFT = c(330, 335)
+)
+df_long <- data_to_long(df_wide,
+                         cols = c("AAPL", "MSFT"),
+                         names_to = "stock",
+                         values_to = "price")
+
+
+# 长格式转宽格式
+df_wide_restored <- data_to_wide(df_long,
+                                  names_from = "stock",
+                                  values_from = "price")
+```
+
+
+**数据合并与旋转**
+
+
+``` r
+# 合并多个数据框（按行或按列）
+data_merge(list(df1, df2, df3), join = "bind")      # 按行合并（rbind）
+data_merge(list(df1, df2), join = "cbind")          # 按列合并
+
+
+# 数据旋转（矩阵转置）
+data_rotate(matrix(1:9, nrow = 3))                  # 行列互换
+```
+
+
+### 7.3 统计变换（Statistical Transformations）
+
+
+这是`datawizard`相较tidyverse最具差异化的功能模块，提供了大量因子分析、回归建模前的变量预处理工具。
+
+
+**标准化与中心化**
+
+
+``` r
+# Z-score标准化（均值为0，标准差为1）
+standardize(mtcars$mpg)
+standardize(mtcars, select = c("mpg", "hp"))        # 仅标准化指定列
+
+
+# 中心化（减去均值）
+center(mtcars$mpg)                                  # 均值中心化
+
+
+# 去均值与分组均值（面板数据固定效应模型的关键操作）
+# demean() 同时计算组内去均值变量和组均值变量，用于建模组间与组内效应
+df_panel <- data.frame(
+  firm = rep(c("A", "B"), each = 3),
+  year = rep(1:3, 2),
+  value = c(10, 12, 11, 20, 22, 21)
+)
+demean(df_panel, select = "value", by = "firm")     # 按firm分组去均值
+```
+
+
+**缩放与归一化**
+
+
+``` r
+# 缩放到指定区间（默认[0, 1]）
+rescale(mtcars$mpg, to = c(0, 100))                 # 缩放到[0, 100]
+
+
+# 秩次变换（将数值转为秩次）
+ranktransform(mtcars$mpg)                           # 转为秩次
+
+
+# 反向编码（反转量表方向）
+reverse(mtcars$mpg)                                 # 最大值变为最小值
+```
+
+
+**异常值处理**
+
+
+``` r
+# Winsorize（缩尾处理）：将极端值替换为指定分位数的值
+winsorize(mtcars$mpg, threshold = 0.05)             # 将两端5%的值缩尾
+
+
+# 滑动窗口变换（时间序列）
+slide(mtcars$mpg, FUN = mean, n = 3)               # 3期移动平均
+```
+
+
+**类型转换**
+
+
+``` r
+# 转为因子（若数据带有标签，自动使用标签作为因子水平）
+to_factor(iris$Species)                            # 转为因子
+
+
+# 转为数值（因子转为数值层级或哑变量）
+to_numeric(iris$Species)                           # 因子转数值
+to_numeric(iris, dummy_factors = TRUE)             # 因子转为哑变量
+```
+
+
+**数据分箱与重编码**
+
+
+``` r
+# 分箱（cut的简化封装）
+categorize(mtcars$mpg, split = 4)                  # 等分为4组
+
+
+# 重编码
+data_recode(mtcars$cyl, recode = list("4" = 1, "6" = 2, "8" = 3))
+```
+
+
+### 7.4 数据属性与描述统计
+
+
+``` r
+# 全面描述统计（含类型、缺失值、唯一值、分位数等）
+data_describe(iris)                                # 返回数据框中所有变量的汇总
+
+
+# 频数表与交叉表
+data_tabulate(iris, select = "Species")            # 频数统计
+data_tabulate(iris, select = c("Species", "Petal.Length"))  # 分组频数
+
+
+# 变异系数（CV = σ/μ）
+coefficient_of_variation(mtcars$mpg)               # 计算变异系数
+```
+
+
+### 7.5 在量化投研工作流中的典型应用
+
+
+`data_wizard`的轻量特性使其特别适合以下场景：
+
+
+``` r
+# 场景1：因子数据标准化（多因子模型中的因子中性化前处理）
+factors <- c("momentum", "value", "size", "volatility")
+factor_data[, factors] <- standardize(factor_data[, factors])
+
+
+# 场景2：面板数据的组内去均值（固定效应模型）
+panel_data <- demean(panel_data,
+                      select = c("return", "beta", "size"),
+                      by = "stock_id")
+
+
+# 场景3：异常值处理与缩尾（防止极端值影响回归结果）
+portfolio_returns <- winsorize(portfolio_returns, threshold = 0.01)
+
+
+# 场景4：快速数据清洗流水线（配合管道）
+library(magrittr)  # 或使用 R 4.1+ 的 |>
+raw_data %>%
+  data_filter(volume > 0) %>%
+  data_rename(c("close_price" = "price")) %>%
+  standardize(select = c("price", "volume")) %>%
+  data_describe()
+```
+
+
+### 7.6 小结
+
+
+`datawizard`的核心价值在于：以极低的依赖成本，提供了覆盖数据整理与统计变换两大领域的完整工具链。对于量化投研而言，其`demean()`、`standardize()`、`winsorize()`等函数直接对应多因子模型中的因子预处理需求；而其`data_to_long()`/`data_to_wide()`则与面板数据的宽长转换无缝衔接。作为`easystats`生态的基石，`datawizard`既是独立的数据处理工具，也是连接`parameters`（模型参数）、`performance`（模型评估）等上游包的数据通道。在追求代码轻量、可维护和可复现的量化工程实践中，`datawizard`提供了Base R与tidyverse之间的第三条路径。
+
+
+## 结语
+
+
+本文系统性地介绍了R语言在一般数据处理中的应用。这些工具构成了R语言数据科学工作流的基石。在实际的量化投资工作中，数据处理的效率和质量直接影响策略开发的成败。掌握上述工具，能够让分析师在面对海量、异构的金融数据时游刃有余。从原始数据的读取与清洗，到因子的计算与组合，再到回测结果的整理与可视化，R语言提供的这套完整的数据处理生态，正是量化投资经理不可或缺的利器。同时，熟练掌握正则表达式将极大提升文本数据处理的效率，在解析财报、新闻等非结构化数据时，正则表达式往往是最高效的解决方案。希望本文能为读者构建系统的R语言数据处理知识体系提供帮助，在实际工作中更加高效地驾驭数据、创造价值。
+
+

@@ -19,6 +19,8 @@ book:
     - 第1章 基础知识 第8节 风险.qmd
     - 第1章 基础知识 第9节 编程语言.qmd
     - 第16章 R 第1节 R语言入门.qmd
+    - 第16章 R 第2节 数据处理.qmd
+    - 第16章 R 第3节 一般统计分析.qmd
 
 bibliography: references.bib
 

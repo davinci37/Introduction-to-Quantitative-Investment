@@ -1,0 +1,823 @@
+# 第16章 R 第3节 一般统计分析 {.unnumbered}
+
+
+## 引言
+
+
+R语言作为一款专为统计计算与图形绘制设计的开源编程语言，自20世纪90年代由Ross Ihaka和Robert Gentleman创建以来，已成为数据科学领域不可或缺的工具。R语言凭借其丰富的统计计算功能、强大的图形绘制能力以及广泛的社区支持，被广泛应用于生物医学、经济学、社会科学等众多领域。本节我们将系统介绍R语言在常用统计分析中的核心方法与应用实践。
+
+
+## 一、数据分布
+
+
+### 1. 分布
+
+
+R语言为各类概率分布提供了统一的函数接口。对任意分布，通常有四类核心函数：密度函数（`dxxx`）、累积分布函数（`pxxx`）、分位数函数（`qxxx`）和随机数生成函数（`rxxx`）。
+
+
+以正态分布为例，四个内置函数分别为：
+
+
+-   `dnorm(x, mean, sd)`：计算概率密度函数值
+-   `pnorm(q, mean, sd)`：计算累积分布函数值
+-   `qnorm(p, mean, sd)`：计算分位数
+-   `rnorm(n, mean, sd)`：生成随机样本
+
+
+``` r
+# 生成1000个均值为0、标准差为1的标准正态分布随机数
+set.seed(123)
+x <- rnorm(1000, mean = 0, sd = 1)
+
+
+# 生成均值为100、标准差为15的正态分布随机数（模拟IQ分布）
+iq_sample <- rnorm(1000, mean = 100, sd = 15)
+```
+
+
+除正态分布外，R还支持均匀分布（`runif`、`dunif`、`punif`、`qunif`）、t分布（`rt`、`dt`、`pt`、`qt`）、卡方分布（`rchisq`、`dchisq`、`pchisq`、`qchisq`）、F分布（`rf`、`df`、`pf`、`qf`）、二项分布（`rbinom`、`dbinom`、`pbinom`、`qbinom`）、泊松分布（`rpois`、`dpois`、`ppois`、`qpois`）等多种分布。
+
+
+### 2. 分布的值与概率
+
+
+通过密度函数和累积分布函数，可以计算特定取值对应的概率密度以及累积概率。
+
+
+``` r
+# 计算IQ=140时的概率密度
+dnorm(140, mean = 100, sd = 15)  # 密度值约为0.00076
+
+
+# 计算IQ ≤ 140的累积概率
+pnorm(140, mean = 100, sd = 15)  # 约为0.996
+
+
+# 计算IQ ≥ 140的概率（上尾概率）
+pnorm(140, mean = 100, sd = 15, lower.tail = FALSE)  # 约为0.0038
+
+
+# 计算第90百分位数
+qnorm(0.90, mean = 100, sd = 15)  # 约为119.2
+```
+
+
+`pnorm`默认计算下尾概率P(X ≤ x)，通过设置`lower.tail = FALSE`可获得上尾概率。分位数函数`qnorm`是累积分布函数的反函数，从概率映射到数值。
+
+
+## 二、描述性统计
+
+
+描述性统计是数据分析的基础，通过对数据的集中趋势、离散程度、分布形态等指标的计算，初步了解数据的整体特征。
+
+
+### 1. 集中趋势
+
+
+集中趋势反映数据中心位置，常用指标包括均值、中位数和众数。
+
+
+``` r
+# 使用mtcars数据集
+data(mtcars)
+x <- mtcars$mpg
+
+
+# 均值
+mean(x)  # 20.09062
+
+
+# 中位数
+median(x)  # 19.2
+
+
+# 截尾均值（去除两端各10%的观测）
+mean(x, trim = 0.1)  # 19.696
+
+
+# 众数（使用table函数）
+table(x)[which.max(table(x))]
+```
+
+
+R基础包中的`mean()`、`median()`等函数可直接计算集中趋势指标。
+
+
+### 2. 离散程度
+
+
+离散程度衡量数据的变异幅度，常用指标包括标准差、方差、极差和四分位距。
+
+
+``` r
+# 标准差
+sd(x)  # 6.026948
+
+
+# 方差
+var(x)  # 36.3241
+
+
+# 极差
+range(x)  # 10.4 33.9
+diff(range(x))  # 23.5
+
+
+# 四分位距
+IQR(x)  # 7.375
+
+
+# 变异系数
+sd(x) / mean(x) * 100  # 30.0%
+```
+
+
+### 3. 峰度和偏度
+
+
+峰度和偏度描述数据分布的形态特征。偏度衡量分布的不对称性，峰度衡量分布的尖峭或扁平程度。R基础包中未直接提供偏度和峰度函数，可通过`e1071`包或`psych`包或自定义函数实现。
+
+
+``` r
+library(e1071)
+
+
+# 偏度：0为对称，正偏表示右尾较长，负偏表示左尾较长
+skewness(data)
+
+
+# 峰度：3（正态分布）为基准，>3为尖峰，<3为平峰
+kurtosis(data)
+```
+
+
+`psych`包的`describe()`函数可返回变量个数、均值、标准差、中位数、截尾均值、绝对中位差、最小值、最大值、极差、偏度、峰度及均值的标准误。
+
+
+``` r
+library(psych)
+
+
+describe(mtcars[, c("mpg", "disp", "hp")])
+```
+
+
+### 4. 分位数
+
+
+在统计分析中，分位数（Quantile）广泛用于描述数据分布形态、识别异常值（如低于1%分位数或高于99%分位数的观测）、计算风险价值（VaR）以及构建因子分层组合。R语言通过 `quantile()` 函数计算样本分位数，核心参数包括 `probs`（指定目标概率向量）和 `type`（提供9种不同的插值算法）。
+
+
+``` r
+# 生成模拟数据：1000个日收益率（均值为0.05%，标准差为2%）
+set.seed(2026)
+returns <- rnorm(1000, mean = 0.0005, sd = 0.02)
+
+
+# 1. 计算常用的尾部与中部概率分位数
+quantiles <- quantile(returns, probs = c(0.01, 0.05, 0.25, 0.50, 0.75, 0.95, 0.99))
+print(quantiles)
+
+
+# 2. 单独提取 5% 分位数（作为 VaR 计算的输入）
+VaR_95 <- -quantile(returns, 0.05)   # 取负转换为正损失
+cat("95%置信度下的日VaR:", round(VaR_95 * 100, 2), "%\n")
+
+
+# 3. 对比不同 type 算法的差异（Type 7 默认 vs Type 3）
+q7 <- quantile(returns, 0.05, type = 7)
+q3 <- quantile(returns, 0.05, type = 3)
+cat("Type 7 =", q7, "\nType 3 =", q3, "\n差值 =", q7 - q3)
+
+
+# 4. 标记低于1%分位数的极端亏损交易日
+threshold <- quantile(returns, 0.01)
+extreme_days <- which(returns < threshold)
+cat("极端亏损交易日数量:", length(extreme_days), "\n")
+```
+
+
+### 5. 整体概览
+
+
+`summary()`函数提供数值型变量的最小值、下四分位数、中位数、上四分位数和最大值。
+
+
+``` r
+summary(mtcars[, c("mpg", "disp", "hp")])
+```
+
+
+对于大型数据集，`summarytools`包提供了更丰富的描述性统计输出，包括均值、标准差、最小值、Q1、中位数、Q3、最大值、MAD、IQR、变异系数、偏度等。
+
+
+## 三、数据可视化
+
+
+数据可视化是探索性数据分析的关键环节。R语言提供了基础绘图系统（graphics包）和高级绘图系统（ggplot2、lattice等）。
+
+
+### 1. 直方图（Histogram）
+
+
+直方图用于展示连续变量的频数分布。
+
+
+``` r
+# 基础绘图系统
+hist(mtcars$mpg,
+     main = "汽车每加仑英里数分布",
+     xlab = "MPG",
+     col = "lightblue",
+     breaks = 10)
+```
+
+
+### 2. 密度曲线（Density Plot）
+
+
+核密度估计曲线可平滑地展示数据分布形态。
+
+
+``` r
+# 在直方图上叠加密度曲线
+hist(mtcars$mpg, freq = FALSE, main = "MPG分布与密度曲线",
+     xlab = "MPG", col = "lightblue")
+lines(density(mtcars$mpg), col = "red", lwd = 2)
+box()
+```
+
+
+### 3. 箱线图（Boxplot）
+
+
+箱线图展示数据的五数概括（最小值、Q1、中位数、Q3、最大值）及异常值。
+
+
+``` r
+# 单变量箱线图
+boxplot(mtcars$mpg, main = "MPG箱线图", ylab = "MPG")
+
+
+# 分组箱线图
+boxplot(mpg ~ cyl, data = mtcars,
+        main = "不同气缸数的MPG分布",
+        xlab = "气缸数", ylab = "MPG",
+        col = c("lightblue", "lightgreen", "lightpink"))
+```
+
+
+### 4. 散点图矩阵（Pair Plot）
+
+
+散点图矩阵用于同时展示多个变量两两之间的关系。
+
+
+``` r
+# 基础绘图系统的pairs函数
+pairs(mtcars[, c("mpg", "disp", "hp", "wt")],
+      main = "散点图矩阵")
+
+
+# 使用GGally包的ggpairs（更丰富的输出）
+library(GGally)
+ggpairs(mtcars[, c("mpg", "disp", "hp", "wt")])
+```
+
+
+基础绘图系统中的`plot()`函数在应用于数据框时会自动调用`pairs()`函数绘制散点图矩阵。
+
+
+## 四、ggplot2
+
+
+ggplot2是R语言中最强大的数据可视化包，由Hadley Wickham基于《图形的语法》理论开发。其核心理念是将绘图与数据分离，按图层叠加构建图形。
+
+
+### 1. 核心思想和基本模板
+
+
+ggplot2将图形抽象为数据（Data）、美学映射（Aesthetics）、几何对象（Geometric Objects）、统计变换（Statistical Transformations）、标度（Scales）、坐标系（Coordinate System）、分面（Facet）和主题（Theme）等基本要素。绘图的基本模板为：
+
+
+``` r
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +
+  <GEOM_FUNCTION>() +
+  <STAT_FUNCTION>() +
+  <SCALE_FUNCTION>() +
+  <COORD_FUNCTION>() +
+  <FACET_FUNCTION>() +
+  <THEME_FUNCTION>()
+```
+
+
+### 2. 几何对象
+
+
+几何对象（geom）定义了图形的视觉类型。常用几何对象包括：
+
+
+``` r
+library(ggplot2)
+
+
+# 散点图
+ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
+
+
+# 折线图
+ggplot(economics, aes(x = date, y = unemploy)) + geom_line()
+
+
+# 柱状图
+ggplot(mtcars, aes(x = factor(cyl))) + geom_bar()
+
+
+# 箱线图
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) + geom_boxplot()
+
+
+# 直方图
+ggplot(mtcars, aes(x = mpg)) + geom_histogram(binwidth = 2)
+
+
+# 密度图
+ggplot(mtcars, aes(x = mpg)) + geom_density()
+```
+
+
+### 3. 标题、注释等
+
+
+通过`labs()`函数添加标题和轴标签，通过`annotate()`函数添加注释。
+
+
+``` r
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(title = "车重与油耗关系",
+       subtitle = "mtcars数据集",
+       x = "车重（千磅）",
+       y = "每加仑英里数",
+       caption = "数据来源：mtcars") +
+  annotate("text", x = 4, y = 30, label = "观察值")
+```
+
+
+### 4. 统计变换
+
+
+统计变换（stat）在绘制前对数据进行汇总计算。
+
+
+``` r
+# 使用stat_summary计算均值和标准误
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
+  stat_summary(fun.data = mean_se, geom = "errorbar", width = 0.2) +
+  stat_summary(fun = mean, geom = "point", size = 3)
+
+
+# 使用stat_smooth添加平滑趋势线
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = TRUE)
+```
+
+
+### 5. 标度
+
+
+标度（scale）控制数据到图形属性的映射细节，如颜色、大小、形状、位置等。
+
+
+``` r
+# 颜色标度
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("red", "blue", "green"),
+                     name = "气缸数")
+
+
+# 连续颜色标度
+ggplot(mtcars, aes(x = wt, y = mpg, color = hp)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "blue", high = "red")
+
+
+# 形状标度
+ggplot(mtcars, aes(x = wt, y = mpg, shape = factor(cyl))) +
+  geom_point(size = 3) +
+  scale_shape_manual(values = c(16, 17, 18))
+```
+
+
+标度函数的命名遵循`scale_` + 图形属性 + `_` + 标度类型的规则。`scale_manual()`系列函数允许手动指定颜色、大小、形状等属性的取值。
+
+
+### 6. 颜色、大小、形状等
+
+
+图形属性（aesthetic attributes）在`aes()`中定义映射。
+
+
+``` r
+# 颜色映射到分类变量
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) + geom_point()
+
+
+# 大小映射到连续变量
+ggplot(mtcars, aes(x = wt, y = mpg, size = hp)) + geom_point()
+
+
+# 形状映射到分类变量
+ggplot(mtcars, aes(x = wt, y = mpg, shape = factor(am))) + geom_point()
+
+
+# 透明度映射
+ggplot(mtcars, aes(x = wt, y = mpg, alpha = hp)) + geom_point()
+
+
+# 组合多个映射
+ggplot(mtcars, aes(x = wt, y = mpg,
+                   color = factor(cyl),
+                   size = hp,
+                   shape = factor(am))) +
+  geom_point()
+```
+
+
+### 7. 分面绘图
+
+
+分面（facet）将绘图窗口划分为若干子窗口，用于展示数据子集的图形。
+
+
+``` r
+# facet_wrap：单个变量的分面
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_wrap(~ cyl, nrow = 1)
+
+
+# facet_grid：两个变量的网格分面
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  facet_grid(am ~ cyl)
+```
+
+
+`facet_wrap()`用于单个维度的分面，`facet_grid()`用于两个维度的网格分面。
+
+
+## 五、经典统计推断
+
+
+### 1. t检验（t-test）
+
+
+t检验用于比较均值差异，包括单样本、独立样本和配对样本t检验。
+
+
+**单样本t检验**：检验样本均值是否与已知总体均值存在显著差异。
+
+
+``` r
+# 单样本t检验：检验mpg均值是否等于20
+t.test(mtcars$mpg, mu = 20)
+
+
+# 输出示例：
+# One Sample t-test
+# data:  mtcars$mpg
+# t = 0.08506, df = 31, p-value = 0.9328
+# alternative hypothesis: true mean is not equal to 20
+# 95 percent confidence interval:
+#  17.91768 22.26357
+# sample estimates:
+# mean of x
+#  20.09062
+```
+
+
+**独立样本t检验**：比较两组独立样本的均值差异。
+
+
+``` r
+# 独立样本t检验：比较自动挡与手动挡的mpg差异
+t.test(mpg ~ am, data = mtcars)
+
+
+# 默认使用Welch校正（不等方差假设）
+# 如需等方差假设，设置var.equal = TRUE
+t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
+```
+
+
+**配对样本t检验**：比较同一组样本在两个条件下的均值差异。
+
+
+``` r
+# 配对样本t检验
+before <- c(120, 130, 125, 140, 135)
+after <- c(115, 125, 120, 130, 128)
+t.test(before, after, paired = TRUE)
+```
+
+
+### 2. 卡方检验（Chi-squared Test）
+
+
+卡方检验用于分类变量的独立性检验和拟合优度检验。
+
+
+**独立性检验**：检验两个分类变量是否独立。
+
+
+``` r
+# 创建列联表
+tbl <- table(mtcars$cyl, mtcars$am)
+tbl
+
+
+# 卡方独立性检验
+chisq.test(tbl)
+
+
+# 对于小样本，可启用模拟p值
+chisq.test(tbl, simulate.p.value = TRUE, B = 10000)
+```
+
+
+**拟合优度检验**：检验观测频数是否与期望频数一致。
+
+
+``` r
+# 拟合优度检验
+observed <- c(23, 25, 30, 24, 20)
+expected <- rep(24.4, 5)  # 均匀分布期望
+chisq.test(observed, p = expected / sum(expected))
+```
+
+
+### 3. 方差分析
+
+
+方差分析（ANOVA）用于比较多个组的均值差异。
+
+
+**单因素方差分析**：
+
+
+``` r
+# 单因素方差分析：比较不同气缸数的mpg差异
+aov_model <- aov(mpg ~ factor(cyl), data = mtcars)
+summary(aov_model)
+
+
+# 输出示例：
+#              Df Sum Sq Mean Sq F value   Pr(>F)    
+# factor(cyl)   2  824.8   412.4   39.70 4.98e-09 ***
+# Residuals    29  301.3    10.4                     
+```
+
+
+**双因素方差分析**：
+
+
+``` r
+# 双因素方差分析：考虑气缸数和变速箱类型的影响
+aov_model2 <- aov(mpg ~ factor(cyl) * factor(am), data = mtcars)
+summary(aov_model2)
+
+
+# 事后检验（Tukey HSD）
+TukeyHSD(aov_model)
+```
+
+
+## 六、相关分析
+
+
+### 1. 相关分析
+
+
+Pearson相关系数衡量两个连续变量之间的线性相关程度。
+
+
+``` r
+# 计算相关系数矩阵
+cor(mtcars[, c("mpg", "disp", "hp", "wt")])
+
+
+# 相关系数显著性检验
+cor.test(mtcars$mpg, mtcars$wt, method = "pearson")
+
+
+# 输出示例：
+# Pearson's product-moment correlation
+# t = -9.559, df = 30, p-value = 1.294e-10
+# cor = -0.8676594
+```
+
+
+### 2. 秩相关
+
+
+当数据不满足正态分布或线性关系假设时，可使用秩相关系数。
+
+
+**Spearman秩相关系数**：基于变量的秩次进行相关分析，属于非参数方法。
+
+
+``` r
+# Spearman秩相关
+cor.test(mtcars$mpg, mtcars$wt, method = "spearman")
+
+
+# 输出示例：
+# Spearman's rank correlation rho
+# S = 10252, p-value = 5.353e-11
+# rho = -0.886422
+```
+
+
+**Kendall秩相关系数**：另一种非参数秩相关方法。
+
+
+``` r
+# Kendall秩相关
+cor.test(mtcars$mpg, mtcars$wt, method = "kendall")
+
+
+# 输出示例：
+# Kendall's rank correlation tau
+# z = -6.1158, p-value = 9.65e-10
+# tau = -0.7278321
+```
+
+
+`cor.test()`函数支持Pearson、Kendall和Spearman三种方法。
+
+
+## 七、回归分析
+
+
+### 1. 线性回归
+
+
+线性回归用于研究一个或多个自变量对因变量的线性影响。
+
+
+``` r
+# 简单线性回归
+lm_model <- lm(mpg ~ wt, data = mtcars)
+summary(lm_model)
+
+
+# 输出示例：
+# Coefficients:
+#             Estimate Std. Error t value Pr(>|t|)    
+# (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
+# wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+# Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446
+# F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+
+
+# 多元线性回归
+lm_model2 <- lm(mpg ~ wt + hp + disp, data = mtcars)
+summary(lm_model2)
+
+
+# 模型诊断图
+par(mfrow = c(2, 2))
+plot(lm_model2)
+```
+
+
+线性回归使用`lm()`函数拟合，`summary()`函数提供回归系数、标准误、t值、p值及R²等关键信息。
+
+
+### 2. 逻辑回归
+
+
+逻辑回归用于二分类因变量的预测。
+
+
+``` r
+# 准备数据：将am（变速箱类型）作为二分类因变量
+# am = 0 自动挡，am = 1 手动挡
+
+
+# 逻辑回归模型
+logit_model <- glm(am ~ wt + hp,
+                   data = mtcars,
+                   family = binomial(link = "logit"))
+summary(logit_model)
+
+
+# 输出示例：
+# Coefficients:
+#             Estimate Std. Error z value Pr(>|z|)  
+# (Intercept)  12.7051     5.6690   2.241   0.0250 *
+# wt           -4.0148     1.7295  -2.321   0.0203 *
+# hp            0.0406     0.0311   1.306   0.1915  
+
+
+# 预测概率
+mtcars$pred_prob <- predict(logit_model, type = "response")
+mtcars$pred_class <- ifelse(mtcars$pred_prob > 0.5, 1, 0)
+
+
+# 混淆矩阵
+table(mtcars$am, mtcars$pred_class)
+```
+
+
+逻辑回归使用`glm()`函数，通过`family = binomial(link = "logit")`指定二项分布族和Logit链接函数。
+
+
+## 八、聚类分析
+
+
+聚类分析是一种无监督学习方法，用于发现数据中的自然分组。
+
+
+### 1. 层次聚类
+
+
+层次聚类通过计算样本间的距离，逐步合并或分裂形成树状结构。
+
+
+``` r
+# 使用iris数据集
+data(iris)
+iris_sub <- iris[, 1:4]  # 提取数值变量
+
+
+# 数据标准化（重要：不同量纲的变量需要标准化）
+iris_scaled <- scale(iris_sub)
+
+
+# 计算距离矩阵（欧氏距离）
+dist_matrix <- dist(iris_scaled, method = "euclidean")
+
+
+# 层次聚类（使用ward.D2方法）
+hc <- hclust(dist_matrix, method = "ward.D2")
+
+
+# 绘制树状图
+plot(hc, main = "层次聚类树状图", xlab = "", sub = "", cex = 0.6)
+
+
+# 切割树状图，分为3类
+clusters <- cutree(hc, k = 3)
+table(clusters, iris$Species)  # 与真实标签对比
+```
+
+
+`hclust()`函数支持多种聚类方法，包括`"complete"`（最长距离法）、`"average"`（平均距离法）、`"ward.D"`和`"ward.D2"`（离差平方和法）等。
+
+
+### 2. K均值聚类
+
+
+K均值聚类将数据划分为K个簇，每个簇以其中心代表。
+
+
+``` r
+# K均值聚类
+set.seed(123)
+kmeans_result <- kmeans(iris_scaled, centers = 3, nstart = 25)
+
+
+# 查看聚类结果
+kmeans_result$cluster
+kmeans_result$centers
+kmeans_result$size
+
+
+# 与真实标签对比
+table(kmeans_result$cluster, iris$Species)
+
+
+# 可视化聚类结果（取前两个主成分）
+pca_result <- prcomp(iris_scaled)
+plot(pca_result$x[, 1:2],
+     col = kmeans_result$cluster,
+     pch = 19,
+     main = "K均值聚类结果（PCA降维）",
+     xlab = "PC1", ylab = "PC2")
+legend("topright", legend = paste("簇", 1:3),
+       col = 1:3, pch = 19)
+```
+
+
+`kmeans()`函数的关键参数包括`centers`（聚类数K）和`nstart`（随机初始中心的重复次数，用于避免局部最优）。
+
+
+## 结语
+
+
+本文系统梳理了R语言在常用统计分析中的核心应用，涵盖数据分布、描述性统计、数据可视化、ggplot2绘图系统、经典统计推断、相关分析、回归分析及聚类分析等模块。在实际应用中，研究者应根据数据类型、研究目标和假设条件，合理选择相应的统计方法与R函数，确保分析过程的严谨性与结论的可靠性。
