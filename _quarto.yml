@@ -21,6 +21,10 @@ book:
     - 第16章 R 第1节 R语言入门.qmd
     - 第16章 R 第2节 数据处理.qmd
     - 第16章 R 第3节 一般统计分析.qmd
+    - 第16章 R 第4节 时间序列分析.qmd
+    - 第16章 R 第5节 金融计算.qmd
+    - 第16章 R 第6节 线性模型.qmd
+
 
 bibliography: references.bib
 
