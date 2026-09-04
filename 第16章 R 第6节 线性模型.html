@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第6节 线性模型 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第5节 金融计算.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第6节 线性模型.html">第16章 R 第6节 线性模型</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一引言" id="toc-一引言" class="nav-link active" data-scroll-target="#一引言">一、引言</a></li>
+  <li><a href="#二一般线性模型" id="toc-二一般线性模型" class="nav-link" data-scroll-target="#二一般线性模型">二、一般线性模型</a>
+  <ul class="collapse">
+  <li><a href="#函数语法与参数" id="toc-函数语法与参数" class="nav-link" data-scroll-target="#函数语法与参数">1. 函数语法与参数</a></li>
+  <li><a href="#公式的符号体系" id="toc-公式的符号体系" class="nav-link" data-scroll-target="#公式的符号体系">2. 公式的符号体系</a></li>
+  <li><a href="#示例" id="toc-示例" class="nav-link" data-scroll-target="#示例">3. 示例</a></li>
+  <li><a href="#模型输出解读与统计推断" id="toc-模型输出解读与统计推断" class="nav-link" data-scroll-target="#模型输出解读与统计推断">4. 模型输出解读与统计推断</a></li>
+  <li><a href="#模型诊断与假设检验" id="toc-模型诊断与假设检验" class="nav-link" data-scroll-target="#模型诊断与假设检验">5. 模型诊断与假设检验</a></li>
+  <li><a href="#模型比较与变量选择" id="toc-模型比较与变量选择" class="nav-link" data-scroll-target="#模型比较与变量选择">6. 模型比较与变量选择</a></li>
+  <li><a href="#预测与区间估计" id="toc-预测与区间估计" class="nav-link" data-scroll-target="#预测与区间估计">7. 预测与区间估计</a></li>
+  </ul></li>
+  <li><a href="#三广义线性模型" id="toc-三广义线性模型" class="nav-link" data-scroll-target="#三广义线性模型">三、广义线性模型</a>
+  <ul class="collapse">
+  <li><a href="#理论框架" id="toc-理论框架" class="nav-link" data-scroll-target="#理论框架">1. 理论框架</a></li>
+  <li><a href="#glm函数详解" id="toc-glm函数详解" class="nav-link" data-scroll-target="#glm函数详解">2. glm()函数详解</a></li>
+  <li><a href="#主要glm类型及应用" id="toc-主要glm类型及应用" class="nav-link" data-scroll-target="#主要glm类型及应用">3. 主要GLM类型及应用</a></li>
+  <li><a href="#模型结果解读" id="toc-模型结果解读" class="nav-link" data-scroll-target="#模型结果解读">4. 模型结果解读</a></li>
+  <li><a href="#模型诊断" id="toc-模型诊断" class="nav-link" data-scroll-target="#模型诊断">5. 模型诊断</a></li>
+  <li><a href="#实战案例信用违约预测" id="toc-实战案例信用违约预测" class="nav-link" data-scroll-target="#实战案例信用违约预测">6. 实战案例：信用违约预测</a></li>
+  </ul></li>
+  <li><a href="#四变量筛选" id="toc-四变量筛选" class="nav-link" data-scroll-target="#四变量筛选">四、变量筛选</a>
+  <ul class="collapse">
+  <li><a href="#引言" id="toc-引言" class="nav-link" data-scroll-target="#引言">1. 引言</a></li>
+  <li><a href="#前进法forward-selection" id="toc-前进法forward-selection" class="nav-link" data-scroll-target="#前进法forward-selection">2. 前进法（Forward Selection）</a></li>
+  <li><a href="#后退法backward-elimination" id="toc-后退法backward-elimination" class="nav-link" data-scroll-target="#后退法backward-elimination">3.后退法（Backward Elimination）</a></li>
+  <li><a href="#r语言实现" id="toc-r语言实现" class="nav-link" data-scroll-target="#r语言实现">4. R语言实现</a></li>
+  <li><a href="#完整实战案例" id="toc-完整实战案例" class="nav-link" data-scroll-target="#完整实战案例">5.完整实战案例</a></li>
+  <li><a href="#方法比较与注意事项" id="toc-方法比较与注意事项" class="nav-link" data-scroll-target="#方法比较与注意事项">6. 方法比较与注意事项</a></li>
+  </ul></li>
+  <li><a href="#五glmnet包" id="toc-五glmnet包" class="nav-link" data-scroll-target="#五glmnet包">五、glmnet包</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1. 概述</a></li>
+  <li><a href="#核心优化问题" id="toc-核心优化问题" class="nav-link" data-scroll-target="#核心优化问题">2. 核心优化问题</a></li>
+  <li><a href="#核心参数详解" id="toc-核心参数详解" class="nav-link" data-scroll-target="#核心参数详解">3. 核心参数详解</a></li>
+  <li><a href="#主要函数" id="toc-主要函数" class="nav-link" data-scroll-target="#主要函数">4.主要函数</a></li>
+  <li><a href="#完整示例" id="toc-完整示例" class="nav-link" data-scroll-target="#完整示例">5. 完整示例</a></li>
+  </ul></li>
+  <li><a href="#六ordinalnet包" id="toc-六ordinalnet包" class="nav-link" data-scroll-target="#六ordinalnet包">六、ordinalNet包</a>
+  <ul class="collapse">
+  <li><a href="#核心特性与模型框架" id="toc-核心特性与模型框架" class="nav-link" data-scroll-target="#核心特性与模型框架">1. 核心特性与模型框架</a></li>
+  <li><a href="#主要函数与参数" id="toc-主要函数与参数" class="nav-link" data-scroll-target="#主要函数与参数">2. 主要函数与参数</a></li>
+  <li><a href="#使用示例" id="toc-使用示例" class="nav-link" data-scroll-target="#使用示例">3. 使用示例</a></li>
+  </ul></li>
+  <li><a href="#七plm包和面板数据" id="toc-七plm包和面板数据" class="nav-link" data-scroll-target="#七plm包和面板数据">七、plm包和<strong>面板数据</strong></a>
+  <ul class="collapse">
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">1. 核心功能</a></li>
+  <li><a href="#支持的模型类型-model-estimation" id="toc-支持的模型类型-model-estimation" class="nav-link" data-scroll-target="#支持的模型类型-model-estimation">2. 支持的模型类型 (Model Estimation)</a></li>
+  <li><a href="#统计检验" id="toc-统计检验" class="nav-link" data-scroll-target="#统计检验">3. 统计检验</a></li>
+  <li><a href="#数据处理" id="toc-数据处理" class="nav-link" data-scroll-target="#数据处理">4. 数据处理</a></li>
+  <li><a href="#使用示例-1" id="toc-使用示例-1" class="nav-link" data-scroll-target="#使用示例-1">5.使用示例</a></li>
+  </ul></li>
+  <li><a href="#八rlm函数和稳健回归" id="toc-八rlm函数和稳健回归" class="nav-link" data-scroll-target="#八rlm函数和稳健回归">八、rlm()函数和稳健回归</a>
+  <ul class="collapse">
+  <li><a href="#核心用法与参数" id="toc-核心用法与参数" class="nav-link" data-scroll-target="#核心用法与参数">1. 核心用法与参数</a></li>
+  <li><a href="#代码示例" id="toc-代码示例" class="nav-link" data-scroll-target="#代码示例">2. 代码示例</a></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项">3. 注意事项</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第6节 线性模型</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一引言" class="level2">
+<h2 class="anchored" data-anchor-id="一引言">一、引言</h2>
+<p>线性模型（Linear Model）是统计学和数据分析中最核心的建模工具之一。无论是探索变量之间的定量关系，还是构建预测系统，线性回归模型都因其简洁性、可解释性和坚实的理论根基而占据不可替代的地位。</p>
+<p>R语言作为数据科学领域的通用语言，为线性模型的构建、诊断、扩展与优化提供了极为完备的工具链。本文将从投资经理的视角出发，系统阐述R语言在线性模型各环节中的应用，涵盖模型设定、参数估计、统计推断、诊断检验、模型选择及高级扩展方法。</p>
+<p>线性模型的基本形式可表示为：</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_p x_{ip} + \varepsilon_i, \quad i = 1, 2, \ldots, n\]</span></p>
+<p>其中，<span class="math inline">\(y_i\)</span>为响应变量（因变量），<span class="math inline">\(x_{i1}, \ldots, x_{ip}\)</span>为预测变量（自变量），<span class="math inline">\(\beta_0\)</span>为截距项，<span class="math inline">\(\beta_1, \ldots, \beta_p\)</span>为回归系数，<span class="math inline">\(\varepsilon_i\)</span>为随机误差项。模型的核心假设包括：线性关系（响应变量与预测变量之间呈线性关系）、误差独立同分布、误差服从均值为零的正态分布、以及同方差性（即误差的方差恒定）。</p>
+<p>在投资分析的实践中，线性模型广泛应用于因子收益预测、资产定价模型、宏观经济变量关系建模以及风险度量等场景。</p>
+</section>
+<section id="二一般线性模型" class="level2">
+<h2 class="anchored" data-anchor-id="二一般线性模型">二、一般线性模型</h2>
+<section id="函数语法与参数" class="level3">
+<h3 class="anchored" data-anchor-id="函数语法与参数">1. 函数语法与参数</h3>
+<p>R语言中拟合线性模型的核心函数是<code>lm()</code>，它属于基础包<code>stats</code>。其基本语法为：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(formula, data, subset, weights, na.action, <span class="at">method =</span> <span class="st">"qr"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">FALSE</span>, <span class="at">qr =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">singular.ok =</span> <span class="cn">TRUE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>, offset, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>各主要参数的含义如下：</p>
+<ul>
+<li><strong>formula</strong>：模型公式的符号描述，形如<code>y ~ x1 + x2</code>，用于指定响应变量与预测变量之间的关系。</li>
+<li><strong>data</strong>：包含模型变量的可选数据框。</li>
+<li><strong>subset</strong>：指定用于拟合的观测子集。</li>
+<li><strong>weights</strong>：权重向量，用于加权最小二乘估计。</li>
+<li><strong>na.action</strong>：指定数据中包含缺失值时的处理方式，默认为<code>na.omit</code>。</li>
+<li><strong>method</strong>：拟合方法，目前仅支持<code>"qr"</code>（QR分解）。</li>
+<li><strong>singular.ok</strong>：逻辑值，控制是否允许奇异拟合。</li>
+</ul>
+</section>
+<section id="公式的符号体系" class="level3">
+<h3 class="anchored" data-anchor-id="公式的符号体系">2. 公式的符号体系</h3>
+<p><code>lm()</code>的公式语法提供了高度灵活的模型规格说明能力：</p>
+<ul>
+<li><code>y ~ x</code>：简单线性回归</li>
+<li><code>y ~ x1 + x2</code>：多元线性回归（加性模型）</li>
+<li><code>y ~ x1:x2</code>：仅包含交互项</li>
+<li><code>y ~ x1 * x2</code>：等价于<code>x1 + x2 + x1:x2</code>，包含主效应和交互效应</li>
+<li><code>y ~ .</code>：使用数据框中除y之外的所有变量作为预测变量</li>
+<li><code>y ~ I(x^2)</code>：在公式中嵌入数学变换</li>
+</ul>
+</section>
+<section id="示例" class="level3">
+<h3 class="anchored" data-anchor-id="示例">3. 示例</h3>
+<section id="简单线性回归" class="level4">
+<h4 class="anchored" data-anchor-id="简单线性回归">3.1. 简单线性回归</h4>
+<p>以下通过身高与体重的示例展示<code>lm()</code>的基本用法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 样本数据</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>height <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">151</span>, <span class="dv">174</span>, <span class="dv">138</span>, <span class="dv">186</span>, <span class="dv">128</span>, <span class="dv">136</span>, <span class="dv">179</span>, <span class="dv">163</span>, <span class="dv">152</span>, <span class="dv">131</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>weight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">63</span>, <span class="dv">81</span>, <span class="dv">56</span>, <span class="dv">91</span>, <span class="dv">47</span>, <span class="dv">57</span>, <span class="dv">76</span>, <span class="dv">72</span>, <span class="dv">62</span>, <span class="dv">48</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合线性模型</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(weight <span class="sc">~</span> height)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>输出结果显示截距为-38.4551，斜率为0.6746，表明身高每增加1个单位，体重平均增加0.6746个单位。</p>
+</section>
+<section id="多元线性回归实战" class="level4">
+<h4 class="anchored" data-anchor-id="多元线性回归实战">3.2. 多元线性回归实战</h4>
+<p>以R内置数据集<code>mtcars</code>为例，建立每加仑里程数（<code>mpg</code>）与发动机排量（<code>disp</code>）、马力（<code>hp</code>）和车重（<code>wt</code>）之间的多元回归模型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>input <span class="ot">&lt;-</span> mtcars[, <span class="fu">c</span>(<span class="st">"mpg"</span>, <span class="st">"disp"</span>, <span class="st">"hp"</span>, <span class="st">"wt"</span>)]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> disp <span class="sc">+</span> hp <span class="sc">+</span> wt, <span class="at">data =</span> input)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>拟合得到的回归方程为：</p>
+<p><span class="math display">\[\hat{y} = 37.1055 - 0.000937 \cdot x_{disp} - 0.03116 \cdot x_{hp} - 3.8009 \cdot x_{wt}\]</span></p>
+<p>该模型可用于对新样本进行预测。例如，对于一辆<code>disp=221</code>、<code>hp=102</code>、<code>wt=2.91</code>的汽车，预测里程为22.71英里/加仑。</p>
+</section>
+</section>
+<section id="模型输出解读与统计推断" class="level3">
+<h3 class="anchored" data-anchor-id="模型输出解读与统计推断">4. 模型输出解读与统计推断</h3>
+<section id="summary函数的输出详解" class="level4">
+<h4 class="anchored" data-anchor-id="summary函数的输出详解">4.1 summary()函数的输出详解</h4>
+<p>对拟合后的模型对象调用<code>summary()</code>，可获得模型的详细统计摘要：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>输出内容主要包括：</p>
+<ol type="1">
+<li><strong>残差统计量</strong>（Residuals）：最小、第一四分位、中位数、第三四分位和最大值，用于初步判断残差分布。</li>
+<li><strong>系数估计表</strong>（Coefficients）：包含每个回归系数的估计值、标准误、t统计量和p值。</li>
+<li><strong>拟合优度</strong>：包括决定系数<span class="math inline">\(R^2\)</span>和调整<span class="math inline">\(R^2\)</span>，用于衡量模型对数据的解释程度。</li>
+<li><strong>模型整体显著性</strong>：F统计量及其p值，检验所有回归系数是否同时为零。</li>
+</ol>
+</section>
+<section id="系数的解释" class="level4">
+<h4 class="anchored" data-anchor-id="系数的解释">4.2 系数的解释</h4>
+<p>在简单线性回归中，截距（Intercept）表示当所有预测变量为零时响应变量的期望值；斜率（Slope）表示预测变量每增加一个单位时响应变量的平均变化量。需要特别注意的是，当预测变量的零值在现实中无意义时，截距的解释应谨慎对待。</p>
+<p>在多元回归中，每个回归系数表示在其他变量保持不变的情况下，该预测变量每变化一个单位对响应变量的边际影响（即偏回归系数）。</p>
+</section>
+</section>
+<section id="模型诊断与假设检验" class="level3">
+<h3 class="anchored" data-anchor-id="模型诊断与假设检验">5. 模型诊断与假设检验</h3>
+<p>线性模型的有效性依赖于若干关键假设。R语言提供了丰富的诊断工具来检验这些假设。</p>
+<section id="残差分析" class="level4">
+<h4 class="anchored" data-anchor-id="残差分析">5.1 残差分析</h4>
+<p>残差分析是模型诊断的核心。基础R通过<code>plot(lm_object)</code>可自动生成四组诊断图：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这四张图分别为： - <strong>残差与拟合值图</strong>：检验线性关系和同方差性 - <strong>正态Q-Q图</strong>：检验残差的正态性 - <strong>尺度-位置图</strong>：检验同方差性 - <strong>残差与杠杆图</strong>：识别强影响点</p>
+</section>
+<section id="假设的统计检验" class="level4">
+<h4 class="anchored" data-anchor-id="假设的统计检验">5.2 假设的统计检验</h4>
+<p>更为严格的诊断可通过专门的统计检验完成：</p>
+<ul>
+<li><strong>线性关系检验</strong>：可通过将连续预测变量视为分类变量的F检验来评估。</li>
+<li><strong>同方差性检验</strong>：Breusch-Pagan检验可用于诊断异方差问题。</li>
+<li><strong>正态性检验</strong>：Shapiro-Wilk检验（样本量&lt;5000时）或Kolmogorov-Smirnov检验（大样本时）用于检验残差正态性。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Breusch-Pagan检验（异方差）</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(model)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 方差膨胀因子（多重共线性）</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk正态性检验</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(model))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="多重共线性诊断" class="level4">
+<h4 class="anchored" data-anchor-id="多重共线性诊断">5.3 多重共线性诊断</h4>
+<p>多重共线性是指预测变量之间存在高度相关性，会导致回归系数估计不稳定、标准误膨胀。方差膨胀因子（VIF）是诊断多重共线性的常用指标。一般认为VIF大于10表明存在严重的多重共线性问题。</p>
+</section>
+<section id="异常值高杠杆点与强影响点识别" class="level4">
+<h4 class="anchored" data-anchor-id="异常值高杠杆点与强影响点识别">5.4 异常值、高杠杆点与强影响点识别</h4>
+<ul>
+<li><strong>离群点</strong>：残差绝对值较大的观测值</li>
+<li><strong>高杠杆点</strong>：预测变量空间中远离中心的观测值，可通过帽子值（hat values）识别</li>
+<li><strong>强影响点</strong>：对回归系数估计产生较大影响的观测值，常用Cook距离度量</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 帽子值（杠杆值）</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hatvalues</span>(model)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cook距离</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cooks.distance</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="模型比较与变量选择" class="level3">
+<h3 class="anchored" data-anchor-id="模型比较与变量选择">6. 模型比较与变量选择</h3>
+<section id="嵌套模型的方差分析比较" class="level4">
+<h4 class="anchored" data-anchor-id="嵌套模型的方差分析比较">6.1 嵌套模型的方差分析比较</h4>
+<p>对于嵌套模型（即一个模型是另一个模型的特殊情况），可使用<code>anova()</code>函数进行F检验，比较模型的拟合优度是否存在显著差异：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt, <span class="at">data =</span> mtcars)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> wt <span class="sc">+</span> hp, <span class="at">data =</span> mtcars)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(model1, model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>该检验通过比较两个模型的残差平方和变化来判断增加变量是否显著改善了模型拟合。</p>
+</section>
+<section id="基于信息准则的变量选择" class="level4">
+<h4 class="anchored" data-anchor-id="基于信息准则的变量选择">6.2 基于信息准则的变量选择</h4>
+<p>AIC（Akaike Information Criterion）和BIC（Bayesian Information Criterion）是变量选择中广泛使用的准则。<code>step()</code>函数可基于AIC进行逐步回归：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 逐步回归（基于AIC）</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>step_model <span class="ot">&lt;-</span> <span class="fu">step</span>(model, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>此外，<code>StepReg</code>包提供了更为系统的逐步回归分析框架，支持AIC、AICc、BIC、Cp、调整<span class="math inline">\(R^2\)</span>等多种选择准则。</p>
+</section>
+</section>
+<section id="预测与区间估计" class="level3">
+<h3 class="anchored" data-anchor-id="预测与区间估计">7. 预测与区间估计</h3>
+<section id="点预测" class="level4">
+<h4 class="anchored" data-anchor-id="点预测">7.1 点预测</h4>
+<p>使用<code>predict()</code>函数可基于拟合模型对新数据进行预测：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">disp =</span> <span class="dv">221</span>, <span class="at">hp =</span> <span class="dv">102</span>, <span class="at">wt =</span> <span class="fl">2.91</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> new_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="置信区间与预测区间" class="level4">
+<h4 class="anchored" data-anchor-id="置信区间与预测区间">7.2 置信区间与预测区间</h4>
+<p><code>predict()</code>函数通过<code>interval</code>参数可同时输出置信区间（均值的区间估计）和预测区间（个体值的区间估计）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 置信区间</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> new_data, <span class="at">interval =</span> <span class="st">"confidence"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 预测区间</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> new_data, <span class="at">interval =</span> <span class="st">"prediction"</span>, <span class="at">level =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>预测区间通常比置信区间更宽，因为它包含了模型误差的额外不确定性。</p>
+<p>R语言为线性模型的完整分析流程提供了系统而强大的工具支持。在投资分析的实务中，熟练掌握这些工具意味着能够更加严谨地进行因子筛选、模型验证、风险预测和策略回测。然而，值得强调的是，任何统计工具的价值都取决于使用者的理论素养和业务理解。模型的构建不应沦为单纯的”数据挖掘”，而应在坚实的经济学或金融学理论指导下，将R语言的分析能力与投资逻辑深度融合，方能在复杂多变的市场环境中做出经得起检验的量化决策。</p>
+</section>
+</section>
+</section>
+<section id="三广义线性模型" class="level2">
+<h2 class="anchored" data-anchor-id="三广义线性模型">三、广义线性模型</h2>
+<section id="理论框架" class="level3">
+<h3 class="anchored" data-anchor-id="理论框架">1. 理论框架</h3>
+<p><strong>广义线性模型（Generalized Linear Model, GLM）</strong>是经典线性回归模型的重要推广。它通过引入连接函数（link function）和允许响应变量服从指数分布族中的任意分布，极大地拓展了线性模型的适用范围。</p>
+<p><strong>GLM由三个核心组件构成：</strong></p>
+<p><strong>随机组件（Random Component）</strong> ：指定响应变量(Y)的条件分布，属于指数分布族。常用分布包括正态分布（Gaussian）、二项分布（Binomial）、泊松分布（Poisson）和伽玛分布（Gamma）等。</p>
+<p><strong>系统组件（Systematic Component）</strong> ：预测变量的线性组合，即：<span class="math inline">\(\eta = \beta\_0 + \beta\_1 x_1 + \cdots + \beta\_p x_p\)</span>。</p>
+<p><strong>连接函数（Link Function）</strong> ：连接随机组件与系统组件的桥梁，将响应变量的期望值<span class="math inline">\(\mu = E(Y)\)</span>与线性预测子<span class="math inline">\(\eta\)</span>联系起来：<span class="math inline">\(g(\mu) = \eta\)</span>。连接函数的选择取决于响应变量的分布特性。</p>
+<p>与普通线性回归相比，GLM的核心优势在于：响应变量不必服从正态分布，也不必满足方差齐性假设。</p>
+</section>
+<section id="glm函数详解" class="level3">
+<h3 class="anchored" data-anchor-id="glm函数详解">2. glm()函数详解</h3>
+<section id="函数语法" class="level4">
+<h4 class="anchored" data-anchor-id="函数语法">2.1 函数语法</h4>
+<p>R语言中构建GLM的核心函数是<code>glm()</code>，其基本语法为：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(formula, <span class="at">family =</span> gaussian, data, weights, subset,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    na.action, start, offset, control, <span class="at">model =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"glm.fit"</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">TRUE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>各主要参数含义如下：</p>
+<ul>
+<li><strong>formula</strong>：模型公式，如<code>y ~ x1 + x2</code></li>
+<li><strong>family</strong>：指定响应变量的分布族和连接函数，是GLM与<code>lm()</code>最核心的区别参数</li>
+<li><strong>data</strong>：包含模型变量的数据框</li>
+<li><strong>weights</strong>：观测权重向量，用于加权似然估计</li>
+<li><strong>subset</strong>：指定用于拟合的观测子集</li>
+<li><strong>na.action</strong>：缺失值处理方式</li>
+<li><strong>start</strong>：迭代优化的初始参数值</li>
+<li><strong>offset</strong>：模型中固定的偏移项</li>
+<li><strong>control</strong>：控制迭代过程参数（如最大迭代次数、收敛阈值）</li>
+</ul>
+</section>
+<section id="family参数详解" class="level4">
+<h4 class="anchored" data-anchor-id="family参数详解">2.2 family参数详解</h4>
+<p><code>family</code>参数是<code>glm()</code>的核心，它通过一个列表对象指定了响应变量的分布族和连接函数。R语言内置的family对象及默认连接函数如下：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 20%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>分布族</th>
+<th>默认连接函数</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gaussian()</code></td>
+<td><code>identity</code></td>
+<td>连续、对称数据（等价于线性回归）</td>
+</tr>
+<tr class="even">
+<td><code>binomial()</code></td>
+<td><code>logit</code></td>
+<td>二分类/比例数据（逻辑斯谛回归）</td>
+</tr>
+<tr class="odd">
+<td><code>poisson()</code></td>
+<td><code>log</code></td>
+<td>计数数据</td>
+</tr>
+<tr class="even">
+<td><code>Gamma()</code></td>
+<td><code>inverse</code></td>
+<td>正连续、右偏数据</td>
+</tr>
+<tr class="odd">
+<td><code>inverse.gaussian()</code></td>
+<td><code>1/mu^2</code></td>
+<td>正连续、高度偏斜数据</td>
+</tr>
+<tr class="even">
+<td><code>quasi()</code></td>
+<td><code>identity</code></td>
+<td>自定义方差-均值关系</td>
+</tr>
+<tr class="odd">
+<td><code>quasibinomial()</code></td>
+<td><code>logit</code></td>
+<td>过度离散的二项数据</td>
+</tr>
+<tr class="even">
+<td><code>quasipoisson()</code></td>
+<td><code>log</code></td>
+<td>过度离散的计数数据</td>
+</tr>
+</tbody>
+</table>
+<p>每种分布族还支持替代连接函数，例如<code>binomial()</code>可选用<code>probit</code>、<code>cauchit</code>、<code>log</code>、<code>cloglog</code>等；<code>poisson()</code>可选用<code>identity</code>、<code>sqrt</code>等。</p>
+<p><strong>规范连接函数（Canonical Link）</strong> 是每个分布族的默认连接函数，具有良好的数学性质。在实践中，除非有特殊的理论依据，通常使用规范连接函数即可。唯一的常见例外是Gamma族，有时会使用<code>link="log"</code>而非默认的<code>inverse</code>。</p>
+</section>
+</section>
+<section id="主要glm类型及应用" class="level3">
+<h3 class="anchored" data-anchor-id="主要glm类型及应用">3. 主要GLM类型及应用</h3>
+<section id="逻辑斯谛回归logistic-regression" class="level5">
+<h5 class="anchored" data-anchor-id="逻辑斯谛回归logistic-regression">3.1 逻辑斯谛回归（Logistic Regression）</h5>
+<p>当响应变量为二分类（如违约/不违约、上涨/下跌）时，使用<code>family = binomial(link = "logit")</code>。逻辑斯谛回归中，连接函数为logit：<span class="math inline">\(\log(\frac{p}{1-p}) = \beta\_0 + \beta\_1 x_1 + \cdots\)</span>。</p>
+<p><strong>标准建模流程</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 二分类逻辑斯谛回归</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>fit_logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> mydata,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_logit)                      <span class="co"># 模型摘要</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit_logit)                      <span class="co"># 回归系数的95%置信区间</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit_logit))                    <span class="co"># 优势比（Odds Ratio）</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">confint</span>(fit_logit))                 <span class="co"># 优势比的置信区间</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_logit, <span class="at">type =</span> <span class="st">"response"</span>)   <span class="co"># 预测概率</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在投资分析中，逻辑斯谛回归广泛应用于信用风险建模（违约概率预测）、市场方向判断（涨跌预测）和事件驱动策略的信号生成。</p>
+<p><strong>关于二项分布响应的三种输入形式</strong>： 1. 二值向量（0/1） 2. 两列矩阵（成功次数/失败次数） 3. 因子变量（两个水平）</p>
+</section>
+<section id="泊松回归poisson-regression" class="level5">
+<h5 class="anchored" data-anchor-id="泊松回归poisson-regression">3.2 泊松回归（Poisson Regression）</h5>
+<p>当响应变量为计数数据（如交易次数、违约次数、索赔次数）时，使用<code>family = poisson(link = "log")</code>。泊松回归中，(() = _0 + _1 x_1 + )，其中()为计数期望值。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 泊松回归</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>fit_poisson <span class="ot">&lt;-</span> <span class="fu">glm</span>(count <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> mydata,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">poisson</span>(<span class="at">link =</span> <span class="st">"log"</span>))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_poisson)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit_poisson))  <span class="co"># 发生率比（Incidence Rate Ratio）</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在精算与风险管理中，泊松回归常用于保险索赔次数建模、操作风险损失事件频率分析等场景。</p>
+</section>
+</section>
+<section id="模型结果解读" class="level3">
+<h3 class="anchored" data-anchor-id="模型结果解读">4. 模型结果解读</h3>
+<p>对GLM对象调用<code>summary()</code>可获得详细的统计摘要：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_logit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>输出内容包括：</p>
+<ol type="1">
+<li><strong>偏差残差（Deviance Residuals）</strong> 的统计量：最小值、四分位数、最大值</li>
+<li><strong>系数估计表</strong>：估计值、标准误、z统计量和p值</li>
+<li><strong>偏差统计量（Deviance）</strong> ：模型的残差偏差和零偏差</li>
+<li><strong>AIC</strong>（Akaike Information Criterion）：用于模型比较</li>
+</ol>
+<p>与线性模型不同，GLM的系数解释依赖于连接函数：</p>
+<ul>
+<li><p><strong>逻辑斯谛回归</strong>：系数取指数后解释为优势比（Odds Ratio）</p></li>
+<li><p><strong>泊松回归</strong>：系数取指数后解释为发生率比（Incidence Rate Ratio）</p></li>
+<li><p><strong>伽玛回归</strong>：系数解释取决于所选的连接函数</p></li>
+</ul>
+<p>嵌套模型的比较可使用<code>anova()</code>函数，对于GLM通常采用卡方检验：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit1, fit2, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="模型诊断" class="level3">
+<h3 class="anchored" data-anchor-id="模型诊断">5. 模型诊断</h3>
+<p>GLM的诊断比线性模型更为复杂。R语言提供了多种诊断工具：</p>
+<section id="残差类型" class="level4">
+<h4 class="anchored" data-anchor-id="残差类型">5.1 残差类型</h4>
+<p>GLM定义了多种残差类型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit, <span class="at">type =</span> <span class="st">"deviance"</span>)   <span class="co"># 偏差残差（默认）</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit, <span class="at">type =</span> <span class="st">"pearson"</span>)    <span class="co"># 皮尔逊残差</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit, <span class="at">type =</span> <span class="st">"working"</span>)    <span class="co"># 工作残差</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(fit, <span class="at">type =</span> <span class="st">"response"</span>)   <span class="co"># 响应残差</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="诊断图" class="level4">
+<h4 class="anchored" data-anchor-id="诊断图">5.2 诊断图</h4>
+<p>基础R的<code>plot()</code>方法对GLM对象仍可产生诊断图，但对于二项数据等特殊情形，解释需谨慎：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_logit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>更先进的诊断可使用第三方包： - <code>performance::check_model()</code>：提供全面的GLM诊断可视化 - <code>DHARMa</code>包：基于模拟的残差诊断，特别适用于GLM</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>simulation_output <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(fit_logit, <span class="at">plot =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="拟合优度" class="level4">
+<h4 class="anchored" data-anchor-id="拟合优度">5.3 拟合优度</h4>
+<p>对于GLM，传统的(R^2)不再适用。常用的替代指标包括： - 偏差（Deviance）的比较 - 实际值与预测值的相关系数：<code>cor(observed, predict(model, type = "response"))</code> - 伪(R^2)（如McFadden’s (R^2)）</p>
+</section>
+</section>
+<section id="实战案例信用违约预测" class="level3">
+<h3 class="anchored" data-anchor-id="实战案例信用违约预测">6. 实战案例：信用违约预测</h3>
+<p>以下通过一个完整的逻辑斯谛回归案例展示GLM在投资领域的应用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 数据准备（模拟数据）</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>default <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.15</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>income <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">50000</span>, <span class="dv">15000</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>debt_ratio <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="fl">0.1</span>, <span class="fl">0.8</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>credit_score <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">700</span>, <span class="dv">50</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(default, income, debt_ratio, credit_score)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 模型拟合</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>fit_default <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> income <span class="sc">+</span> debt_ratio <span class="sc">+</span> credit_score,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> df,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 模型摘要</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_default)</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 优势比解释</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(<span class="fu">coef</span>(fit_default))</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 过度离散检查</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>dispersion <span class="ot">&lt;-</span> <span class="fu">deviance</span>(fit_default) <span class="sc">/</span> <span class="fu">df.residual</span>(fit_default)</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Dispersion ratio:"</span>, <span class="fu">round</span>(dispersion, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 模型预测</span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>new_borrower <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">income =</span> <span class="dv">45000</span>,</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>                           <span class="at">debt_ratio =</span> <span class="fl">0.45</span>,</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>                           <span class="at">credit_score =</span> <span class="dv">680</span>)</span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_default, <span class="at">newdata =</span> new_borrower,</span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>                     <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Predicted default probability:"</span>, <span class="fu">round</span>(pred_prob, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 模型比较（嵌套模型）</span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a>fit_reduced <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> income <span class="sc">+</span> credit_score,</span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> df,</span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>                   <span class="at">family =</span> binomial)</span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(fit_reduced, fit_default, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R语言的<code>glm()</code>函数为广义线性模型提供了统一而强大的实现框架。GLM家族覆盖了投资分析中绝大多数非正态响应变量的建模需求。在实务应用中，模型的选择应基于响应变量的数据特征和业务问题的理论约束。逻辑斯谛回归适用于二分类预测（如违约概率），泊松回归适用于频率建模（如交易次数），伽玛回归适用于严重程度建模（如损失金额）。理解每种分布族的假设及其对推断结论的影响，是构建可靠量化模型的根本前提。</p>
+</section>
+</section>
+<section id="四变量筛选" class="level2">
+<h2 class="anchored" data-anchor-id="四变量筛选">四、变量筛选</h2>
+<section id="引言" class="level3">
+<h3 class="anchored" data-anchor-id="引言">1. 引言</h3>
+<p>变量筛选（Variable Selection）是回归建模中重要的环节。当候选预测变量较多时，并非所有变量都对响应变量具有显著的解释能力。部分变量可能冗余、存在多重共线性，或仅仅是噪声。盲目保留所有变量不仅会降低模型的可解释性，还会导致过拟合，损害模型的泛化能力。</p>
+<p><strong>前进法（Forward Selection）</strong> 和<strong>后退法（Backward Elimination）</strong> 是两类最经典的逐步变量筛选策略。R语言通过<code>stats</code>基础包的<code>step()</code>函数、<code>MASS</code>包的<code>stepAIC()</code>函数以及<code>StepReg</code>等专门包，为这两种方法提供了完善的支持。</p>
+</section>
+<section id="前进法forward-selection" class="level3">
+<h3 class="anchored" data-anchor-id="前进法forward-selection">2. 前进法（Forward Selection）</h3>
+<section id="原理与流程" class="level4">
+<h4 class="anchored" data-anchor-id="原理与流程">2.1 原理与流程</h4>
+<p>前进法从<strong>空模型</strong>（仅包含截距项）开始，逐步向模型中添加变量。每一步中，算法评估所有尚未进入模型的候选变量，选择<strong>使模型拟合优度提升最大</strong>（如AIC下降最多或p值最小）的那个变量加入模型。该过程持续进行，直到<strong>没有新的变量能够显著改善模型</strong>为止。</p>
+<p>前进法的核心逻辑可概括为：</p>
+<ul>
+<li>初始化：模型仅含截距项</li>
+<li>迭代：在每一步中，遍历所有未被选入的变量，逐一尝试加入模型</li>
+<li>选择：选取使某个预定义准则（如AIC、BIC或p值）最优的变量加入</li>
+<li>终止：当无变量能继续改善模型时停止</li>
+</ul>
+</section>
+<section id="前进法的特点" class="level4">
+<h4 class="anchored" data-anchor-id="前进法的特点">2.2 前进法的特点</h4>
+<ul>
+<li><strong>计算效率较高</strong>：相对于后退法，通常需要评估的模型数量较少</li>
+<li><strong>适用于高维数据</strong>：当预测变量数量远多于样本量（<span class="math inline">\(p \gg n\)</span>）时，前进法是少数可行的选择之一</li>
+<li><strong>局限性</strong>：一旦某个变量被加入模型，后续不会被移除（“一步错，步步错”的风险）</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="后退法backward-elimination" class="level3">
+<h3 class="anchored" data-anchor-id="后退法backward-elimination">3.后退法（Backward Elimination）</h3>
+<section id="原理与流程-1" class="level4">
+<h4 class="anchored" data-anchor-id="原理与流程-1">3.1 原理与流程</h4>
+<p>后退法与前进法方向相反，从<strong>全模型</strong>（包含所有候选变量）开始，逐步移除变量。每一步中，算法评估当前模型中的每一个变量，选择<strong>对模型贡献最小</strong>（如移除后AIC下降最多或p值最大）的那个变量予以剔除。该过程持续进行，直到<strong>移除任何变量都会显著损害模型</strong>为止。</p>
+<p>后退法的核心逻辑可概括为：</p>
+<ul>
+<li>初始化：模型包含所有候选变量</li>
+<li>迭代：在每一步中，评估当前模型中的每个变量</li>
+<li>剔除：移除使某个预定义准则最优的变量</li>
+<li>终止：当无变量可被移除时停止</li>
+</ul>
+</section>
+<section id="后退法的特点" class="level4">
+<h4 class="anchored" data-anchor-id="后退法的特点">3.2 后退法的特点</h4>
+<ul>
+<li><strong>考虑了变量间的联合效应</strong>：由于起始于全模型，后退法在每一步都能评估各变量在其他所有变量存在时的贡献</li>
+<li><strong>计算成本较高</strong>：当候选变量数量庞大时，全模型可能无法拟合（特别是在<span class="math inline">\(p &gt; n\)</span>时）</li>
+<li><strong>局限性</strong>：一旦某个变量被移除，后续不会被重新加入</li>
+</ul>
+</section>
+</section>
+<section id="r语言实现" class="level3">
+<h3 class="anchored" data-anchor-id="r语言实现">4. R语言实现</h3>
+<section id="基础函数step" class="level4">
+<h4 class="anchored" data-anchor-id="基础函数step">4.1 基础函数：<code>step()</code></h4>
+<p>R基础包<code>stats</code>中的<code>step()</code>函数是执行前进法和后退法最直接的工具。其核心参数为<code>direction</code>，可取值为<code>"forward"</code>（前进法）、<code>"backward"</code>（后退法）或<code>"both"</code>（逐步法，即前进与后退交替进行）。</p>
+<p><strong>前进法示例</strong>（以<code>mtcars</code>数据集为例，预测<code>mpg</code>）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 前进法：从空模型开始</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mtcars)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>full_formula <span class="ot">&lt;-</span> mpg <span class="sc">~</span> cyl <span class="sc">+</span> disp <span class="sc">+</span> hp <span class="sc">+</span> drat <span class="sc">+</span> wt <span class="sc">+</span> qsec <span class="sc">+</span> vs <span class="sc">+</span> am <span class="sc">+</span> gear <span class="sc">+</span> carb</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>forward_model <span class="ot">&lt;-</span> <span class="fu">step</span>(null_model,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">scope =</span> full_formula,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">direction =</span> <span class="st">"forward"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>scope</code>参数定义了模型搜索的<strong>范围</strong>，即候选变量的全集。若不指定<code>scope</code>，<code>step()</code>默认使用当前模型作为上限。</p>
+<p><strong>后退法示例</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 后退法：从全模型开始</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>backward_model <span class="ot">&lt;-</span> <span class="fu">step</span>(full_model,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="st">"backward"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>当<code>scope</code>参数缺失时，<code>step()</code>的<code>direction</code>默认值为<code>"backward"</code>。</p>
+<p><strong>逐步法（双向筛选）</strong> ：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 逐步法：前进与后退交替</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>stepwise_model <span class="ot">&lt;-</span> <span class="fu">step</span>(full_model,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="st">"both"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在<code>"both"</code>模式下，算法在每一步既考虑添加新变量，也考虑移除已有变量，实现了更灵活的搜索。</p>
+</section>
+<section id="基于bic的筛选" class="level4">
+<h4 class="anchored" data-anchor-id="基于bic的筛选">4.2 基于BIC的筛选</h4>
+<p><code>step()</code>函数默认使用<strong>AIC</strong>（赤池信息准则）作为模型比较的准则。若希望使用<strong>BIC</strong>（贝叶斯信息准则），可通过<code>k = log(n)</code>参数调整惩罚项：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(mtcars)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用BIC进行后退法筛选</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>bic_backward <span class="ot">&lt;-</span> <span class="fu">step</span>(full_model,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">direction =</span> <span class="st">"backward"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">k =</span> <span class="fu">log</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="进阶函数stepaic" class="level4">
+<h4 class="anchored" data-anchor-id="进阶函数stepaic">4.3 进阶函数：<code>stepAIC()</code></h4>
+<p><code>MASS</code>包中的<code>stepAIC()</code>函数功能与<code>step()</code>类似，但在某些场景下提供了更强的鲁棒性：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 前进法</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>forward_aic <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(null_model,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">scope =</span> full_formula,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="st">"forward"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 后退法</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>backward_aic <span class="ot">&lt;-</span> <span class="fu">stepAIC</span>(full_model,</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="st">"backward"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>stepAIC()</code>与<code>step()</code>的主要区别在于其对某些模型类（如广义线性模型）的处理更为稳健。</p>
+</section>
+<section id="综合包stepreg" class="level4">
+<h4 class="anchored" data-anchor-id="综合包stepreg">4.4 综合包：<code>StepReg</code></h4>
+<p><code>StepReg</code>包提供了更为系统化的逐步回归分析框架，支持线性回归、Logistic回归、Cox回归、泊松回归、Gamma回归和负二项回归等多种模型类型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(StepReg)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 前进法（线性回归）</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>result_forward <span class="ot">&lt;-</span> <span class="fu">stepwise</span>(<span class="at">formula =</span> mpg <span class="sc">~</span> .,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">data =</span> mtcars,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">type =</span> <span class="st">"linear"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                           <span class="at">strategy =</span> <span class="st">"forward"</span>,</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>                           <span class="at">metric =</span> <span class="st">"AIC"</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 后退法</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>result_backward <span class="ot">&lt;-</span> <span class="fu">stepwise</span>(<span class="at">formula =</span> mpg <span class="sc">~</span> .,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> mtcars,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>                            <span class="at">type =</span> <span class="st">"linear"</span>,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>                            <span class="at">strategy =</span> <span class="st">"backward"</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>                            <span class="at">metric =</span> <span class="st">"BIC"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>StepReg</code>的优势在于支持多种选择准则（AIC、AICc、BIC、CP、HQ、调整<span class="math inline">\(R^2\)</span>等），并提供了数据分割选项以避免统计推断的无效性问题。</p>
+</section>
+<section id="glm的变量筛选" class="level4">
+<h4 class="anchored" data-anchor-id="glm的变量筛选">4.5 GLM的变量筛选</h4>
+<p>对于广义线性模型（GLM），<code>step()</code>和<code>stepAIC()</code>同样适用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic回归的前进法变量筛选</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>full_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> ., <span class="at">data =</span> credit_data, <span class="at">family =</span> binomial)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>null_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(default <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> credit_data, <span class="at">family =</span> binomial)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>forward_glm <span class="ot">&lt;-</span> <span class="fu">step</span>(null_glm,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">scope =</span> <span class="fu">formula</span>(full_glm),</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">direction =</span> <span class="st">"forward"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>glmtoolbox</code>包中的<code>stepCriterion()</code>函数也为GLM提供了专门的变量筛选功能，支持AIC、BIC、调整<span class="math inline">\(R^2\)</span>、Mallows’ Cp等多种准则。</p>
+</section>
+</section>
+<section id="完整实战案例" class="level3">
+<h3 class="anchored" data-anchor-id="完整实战案例">5.完整实战案例</h3>
+<p>以下通过模拟数据展示前进法与后退法的完整工作流程及结果对比：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 加载数据</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 准备训练集与测试集</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>train_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Boston), <span class="dv">400</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> Boston[train_idx, ]</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> Boston[<span class="sc">-</span>train_idx, ]</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 前进法</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>null_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> train)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>full_formula <span class="ot">&lt;-</span> medv <span class="sc">~</span> crim <span class="sc">+</span> zn <span class="sc">+</span> indus <span class="sc">+</span> chas <span class="sc">+</span> nox <span class="sc">+</span> rm <span class="sc">+</span> age <span class="sc">+</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>                dis <span class="sc">+</span> rad <span class="sc">+</span> tax <span class="sc">+</span> ptratio <span class="sc">+</span> black <span class="sc">+</span> lstat</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>forward_result <span class="ot">&lt;-</span> <span class="fu">step</span>(null_model,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>                       <span class="at">scope =</span> full_formula,</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                       <span class="at">direction =</span> <span class="st">"forward"</span>,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>                       <span class="at">trace =</span> <span class="cn">TRUE</span>)  <span class="co"># trace=TRUE可查看每一步的详细信息</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 后退法</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>full_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(medv <span class="sc">~</span> ., <span class="at">data =</span> train)</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>backward_result <span class="ot">&lt;-</span> <span class="fu">step</span>(full_model,</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>                        <span class="at">direction =</span> <span class="st">"backward"</span>,</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>                        <span class="at">trace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 查看最终选中的变量</span></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"前进法选中的变量:"</span>, <span class="fu">names</span>(<span class="fu">coef</span>(forward_result))[<span class="sc">-</span><span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"后退法选中的变量:"</span>, <span class="fu">names</span>(<span class="fu">coef</span>(backward_result))[<span class="sc">-</span><span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 测试集预测性能比较</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>pred_forward <span class="ot">&lt;-</span> <span class="fu">predict</span>(forward_result, <span class="at">newdata =</span> test)</span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>pred_backward <span class="ot">&lt;-</span> <span class="fu">predict</span>(backward_result, <span class="at">newdata =</span> test)</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>mse_forward <span class="ot">&lt;-</span> <span class="fu">mean</span>((test<span class="sc">$</span>medv <span class="sc">-</span> pred_forward)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>mse_backward <span class="ot">&lt;-</span> <span class="fu">mean</span>((test<span class="sc">$</span>medv <span class="sc">-</span> pred_backward)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"前进法测试集MSE:"</span>, <span class="fu">round</span>(mse_forward, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"后退法测试集MSE:"</span>, <span class="fu">round</span>(mse_backward, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 查看筛选过程的详细信息</span></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(forward_result)</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(backward_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="方法比较与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="方法比较与注意事项">6. 方法比较与注意事项</h3>
+<section id="前进法与后退法的对比" class="level4">
+<h4 class="anchored" data-anchor-id="前进法与后退法的对比">6.1 前进法与后退法的对比</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 40%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>前进法</th>
+<th>后退法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>起始模型</strong></td>
+<td>空模型（仅截距）</td>
+<td>全模型（所有变量）</td>
+</tr>
+<tr class="even">
+<td><strong>适用场景</strong></td>
+<td><span class="math inline">\(p &gt; n\)</span> 或变量数较多</td>
+<td><span class="math inline">\(n &gt; p\)</span> 且全模型可拟合</td>
+</tr>
+<tr class="odd">
+<td><strong>计算量</strong></td>
+<td>通常较小</td>
+<td>通常较大</td>
+</tr>
+<tr class="even">
+<td><strong>变量间交互</strong></td>
+<td>无法在后续步骤中调整已选变量</td>
+<td>每一步都能重新评估所有变量</td>
+</tr>
+<tr class="odd">
+<td><strong>风险</strong></td>
+<td>早期加入的”坏变量”无法移除</td>
+<td>早期移除的”好变量”无法召回</td>
+</tr>
+</tbody>
+</table>
+<p><strong>重要提示</strong>：前进法和后退法<strong>可能不会收敛到同一个最终模型</strong>。在实证分析中，两种方法的结果往往存在差异，这正是它们各自局限性的体现。</p>
+</section>
+<section id="统计学家的提醒" class="level4">
+<h4 class="anchored" data-anchor-id="统计学家的提醒">6.2 <strong>统计学家</strong>的提醒</h4>
+<p>需要特别强调的是，<strong>前进法、后退法和逐步回归在统计学家中并不被普遍推崇</strong>。主要原因包括：</p>
+<ul>
+<li><strong>多重检验问题</strong>：每一步都在进行假设检验，但未对多重比较进行校正，导致<strong>最终模型的p值、标准误和置信区间均失效</strong></li>
+<li><strong>过拟合风险</strong>：在训练集上”精心挑选”的变量，在独立测试集上往往表现不佳</li>
+<li><strong>理论依据缺失</strong>：这些方法是纯粹的数据驱动算法，不依赖于任何坚实的统计理论</li>
+<li><strong>交互项处理不当</strong>：当模型中包含交互项时，这些方法无法保证主效应在交互项之前进入模型</li>
+</ul>
+</section>
+<section id="实践建议" class="level4">
+<h4 class="anchored" data-anchor-id="实践建议">6.3 实践建议</h4>
+<ul>
+<li><strong>交叉验证优于逐步筛选</strong>：建议使用交叉验证选择模型，而非依赖单次逐步筛选的结果</li>
+<li><strong>保留测试集</strong>：始终保留独立的测试集来评估最终模型的泛化能力</li>
+<li><strong>结合领域知识</strong>：变量筛选不应完全自动化，应结合业务或理论背景进行人工判断</li>
+<li><strong>谨慎解读统计量</strong>：经过逐步筛选后得到的p值和置信区间<strong>不具备常规的统计推断效力</strong></li>
+</ul>
+<p>R语言为前进法和后退法提供了从基础到高级的多层次工具支持。<code>step()</code>函数是入门首选，<code>stepAIC()</code>提供了更强的稳健性，而<code>StepReg</code>包则适用于需要系统化模型选择框架的场景。</p>
+<p>然而，工具的有效性取决于使用者的判断。前进法和后退法应被视为<strong>探索性工具</strong>而非<strong>确定性结论</strong>。在实际建模工作中，建议将逐步筛选的结果与交叉验证、领域知识和理论考量相结合，构建真正稳健且可解释的回归模型。</p>
+</section>
+</section>
+</section>
+<section id="五glmnet包" class="level2">
+<h2 class="anchored" data-anchor-id="五glmnet包">五、glmnet包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1. 概述</h3>
+<p><code>glmnet</code>是R语言中用于拟合<strong>带惩罚项（正则化）广义线性模型</strong>的核心包，由Jerome Friedman、Trevor Hastie、Rob Tibshirani等统计学权威学者开发。该包通过<strong>惩罚最大似然估计</strong>（penalized maximum likelihood）求解模型，在正则化参数λ的网格上计算lasso或弹性网络（elastic net）惩罚的正则化路径。</p>
+<p><code>glmnet</code>支持以下模型类型：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>模型类型</th>
+<th>family参数</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>线性回归</td>
+<td><code>"gaussian"</code></td>
+<td>连续型响应变量</td>
+</tr>
+<tr class="even">
+<td>逻辑斯谛回归</td>
+<td><code>"binomial"</code></td>
+<td>二分类响应变量</td>
+</tr>
+<tr class="odd">
+<td>多项逻辑斯谛回归</td>
+<td><code>"multinomial"</code></td>
+<td>多分类响应变量</td>
+</tr>
+<tr class="even">
+<td>泊松回归</td>
+<td><code>"poisson"</code></td>
+<td>计数型响应变量</td>
+</tr>
+<tr class="odd">
+<td>Cox比例风险模型</td>
+<td><code>"cox"</code></td>
+<td>生存分析数据</td>
+</tr>
+<tr class="even">
+<td>多元响应线性回归</td>
+<td><code>"mgaussian"</code></td>
+<td>多个连续响应变量</td>
+</tr>
+<tr class="odd">
+<td>自定义GLM族</td>
+<td>GLM family对象</td>
+<td>任意指数分布族</td>
+</tr>
+</tbody>
+</table>
+<p>该包的算法采用<strong>循环坐标下降法</strong>（cyclical coordinate descent），以路径方式（path-wise fashion）求解，计算效率极高，并能充分利用输入矩阵<code>x</code>的稀疏性。一个重要的实用特性是：由于算法依赖<strong>热启动</strong>（warm starts），拟合<strong>完整的正则化路径通常比计算单个λ值的拟合更快</strong>。</p>
+</section>
+<section id="核心优化问题" class="level3">
+<h3 class="anchored" data-anchor-id="核心优化问题">2. 核心优化问题</h3>
+<p><code>glmnet</code>求解如下优化问题：</p>
+<p><span class="math display">\[
+\min_{\beta_0,\beta} \frac{1}{N} \sum_{i=1}^{N} w_i \cdot l(y_i, \beta_0 + \beta^T x_i) + \lambda \left[ (1-\alpha) \frac{\|\beta\|_2^2}{2} + \alpha \|\beta\|_1 \right]
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li><p><span class="math inline">\(l(y_i, \eta_i)\)</span>为第<span class="math inline">\(i\)</span>个观测的<strong>负对数似然贡献</strong>（高斯情形下为<span class="math inline">\(\frac{1}{2}(y_i-\eta_i)^2\)</span>）</p></li>
+<li><p><span class="math inline">\(\alpha\)</span>为<strong>弹性网络混合参数</strong>，控制L1与L2惩罚的比例</p></li>
+<li><p><span class="math inline">\(\lambda\)</span>为<strong>正则化强度参数</strong>，控制惩罚的整体强度</p></li>
+</ul>
+<p>该公式适用于<strong>预测变量已标准化为单位方差</strong>的情形。</p>
+</section>
+<section id="核心参数详解" class="level3">
+<h3 class="anchored" data-anchor-id="核心参数详解">3. 核心参数详解</h3>
+<section id="模型选择参数" class="level4">
+<h4 class="anchored" data-anchor-id="模型选择参数">3.1 模型选择参数</h4>
+<p><strong><code>alpha</code></strong>：弹性网络混合参数，取值范围<span class="math inline">\(\alpha \in [0,1]\)</span>。</p>
+<ul>
+<li><p><span class="math inline">\(\alpha = 1\)</span>：<strong>LASSO</strong>（L1惩罚，默认值）</p></li>
+<li><p><span class="math inline">\(\alpha = 0\)</span>：<strong>岭回归</strong>（Ridge，L2惩罚）</p></li>
+<li><p><span class="math inline">\(0 &lt; \alpha &lt; 1\)</span>：<strong>弹性网络</strong>（Elastic Net），混合L1与L2惩罚</p></li>
+</ul>
+<p>Lasso倾向于从相关变量中”选其一而舍其余”，而岭回归则将相关变量的系数相互”收缩”；弹性网络混合了这两种特性：当预测变量呈组相关性时，<span class="math inline">\(\alpha=0.5\)</span>倾向于<strong>整组选择或整组剔除</strong>。</p>
+<p><strong><code>family</code></strong>：响应变量的分布族，可选值包括<code>"gaussian"</code>、<code>"binomial"</code>、<code>"multinomial"</code>、<code>"poisson"</code>、<code>"cox"</code>、<code>"mgaussian"</code>。从4.0版本起，<code>family</code>参数也支持<code>stats</code>包中的任意GLM族对象。</p>
+</section>
+<section id="正则化路径参数" class="level4">
+<h4 class="anchored" data-anchor-id="正则化路径参数">3.2 正则化路径参数</h4>
+<p><strong><code>nlambda</code></strong>：λ序列的长度，默认值为<strong>100</strong>。实践中建议保持默认值或更大。</p>
+<p><strong><code>lambda</code></strong>：用户自定义的λ序列。通常不提供此参数，由程序自动构建。<strong>警告</strong>：避免提供单个λ值（交叉验证后的预测应使用<code>predict()</code>方法）；应提供一个<strong>递减的λ序列</strong>，因为<code>glmnet</code>依赖热启动机制加速计算。</p>
+<p><strong><code>lambda.min.ratio</code></strong>：生成λ序列中<strong>最小值与最大值之比</strong>。默认值取决于样本量<span class="math inline">\(nobs\)</span>与变量数<span class="math inline">\(nvars\)</span>的关系：</p>
+<ul>
+<li><p>若<span class="math inline">\(nobs &gt; nvars\)</span>，默认值为<strong>0.0001</strong>（接近零）</p></li>
+<li><p>若<span class="math inline">\(nobs &lt; nvars\)</span>，默认值为<strong>0.01</strong></p></li>
+</ul>
+</section>
+<section id="数据预处理参数" class="level4">
+<h4 class="anchored" data-anchor-id="数据预处理参数">3.3 数据预处理参数</h4>
+<p><strong><code>standardize</code></strong>：逻辑值，指示是否在拟合前对预测变量矩阵<code>x</code>进行标准化（使其具有单位方差），默认值为<code>TRUE</code>。系数始终以<strong>原始尺度</strong>返回。若所有变量已处于相同量纲，可考虑关闭标准化。</p>
+<p><strong><code>intercept</code></strong>：是否拟合截距项，默认<code>TRUE</code>；设为<code>FALSE</code>则强制截距为零。</p>
+</section>
+<section id="收敛控制参数" class="level4">
+<h4 class="anchored" data-anchor-id="收敛控制参数">3.4 收敛控制参数</h4>
+<p><strong><code>thresh</code></strong>：坐标下降的<strong>收敛阈值</strong>。每次内层坐标下降循环持续运行，直到任何系数更新后目标函数的最大变化量小于<code>thresh</code>乘以零偏差（null deviance）。默认值为<strong>1e-7</strong>。</p>
+<p><strong><code>maxit</code></strong>：所有λ值上的<strong>最大数据遍历次数</strong>，默认值为<strong>1e+5</strong>。</p>
+</section>
+<section id="变量选择与约束参数" class="level4">
+<h4 class="anchored" data-anchor-id="变量选择与约束参数">3.5 变量选择与约束参数</h4>
+<p><strong><code>penalty.factor</code></strong>：应用于每个系数的<strong>单独惩罚因子</strong>，是一个与<code>lambda</code>相乘的数值，用于实现差异化的收缩强度。</p>
+<ul>
+<li><p>设为<strong>0</strong>表示该变量<strong>不受惩罚</strong>，始终被纳入模型</p></li>
+<li><p>默认所有变量为<strong>1</strong></p></li>
+<li><p>设为<code>Inf</code>的变量会被转换为<code>exclude</code>（排除）</p></li>
+<li><p>惩罚因子内部会<strong>重新缩放</strong>，使其总和等于变量数<span class="math inline">\(nvars\)</span></p></li>
+</ul>
+<p><strong><code>exclude</code></strong>：要从模型中<strong>排除的变量索引</strong>，默认无。相当于对排除的变量施加无穷大惩罚因子。用户也可提供一个<code>exclude</code>函数。</p>
+<p><strong><code>dfmax</code></strong> / <strong><code>pmax</code></strong>：限制模型中<strong>非零系数的最大数量</strong>（<code>dfmax</code>）或<strong>曾经非零的最大变量数</strong>（<code>pmax</code>）。适用于变量数量极大时只需部分路径的情形。</p>
+<p><strong><code>lower.limits</code></strong> / <strong><code>upper.limits</code></strong>：每个系数的<strong>上下界约束</strong>向量。下界默认<code>-Inf</code>（每个下界必须非正），上界默认<code>Inf</code>。</p>
+</section>
+<section id="观测权重参数" class="level4">
+<h4 class="anchored" data-anchor-id="观测权重参数">3.6 观测权重参数</h4>
+<p><strong><code>weights</code></strong>：观测权重向量，默认每个观测的权重为<strong>1</strong>。<code>glmnet</code>会将权重重新缩放，使其总和等于样本量<span class="math inline">\(N\)</span>。</p>
+<hr>
+</section>
+</section>
+<section id="主要函数" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数">4.主要函数</h3>
+<section id="glmnet核心拟合函数" class="level4">
+<h4 class="anchored" data-anchor-id="glmnet核心拟合函数">4.1 <code>glmnet()</code>：核心拟合函数</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmnet</span>(x, y, <span class="at">family =</span> <span class="fu">c</span>(<span class="st">"gaussian"</span>, <span class="st">"binomial"</span>, <span class="st">"multinomial"</span>, <span class="st">"poisson"</span>, <span class="st">"cox"</span>),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>       weights, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">nlambda =</span> <span class="dv">100</span>, lambda.min.ratio,</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>       lambda, <span class="at">standardize =</span> <span class="cn">TRUE</span>, <span class="at">intercept =</span> <span class="cn">TRUE</span>, <span class="at">thresh =</span> <span class="fl">1e-07</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>       dfmax, pmax, exclude, penalty.factor, lower.limits, upper.limits,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">maxit =</span> <span class="fl">1e+05</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>输入要求</strong>： - <code>x</code>：<strong>数值矩阵</strong>（不能为数据框），每行为一个观测，每列为一个变量 - <code>y</code>：响应变量，其类型取决于<code>family</code></p>
+</section>
+<section id="cv.glmnet交叉验证选择λ" class="level4">
+<h4 class="anchored" data-anchor-id="cv.glmnet交叉验证选择λ">4.2 <code>cv.glmnet()</code>：交叉验证选择λ</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cv.glmnet</span>(x, y, ..., <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">type.measure =</span> <span class="fu">c</span>(<span class="st">"deviance"</span>, <span class="st">"mse"</span>, <span class="st">"mae"</span>, <span class="st">"class"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>通过K折交叉验证自动选择最优λ值。<code>type.measure</code>指定交叉验证的评估指标。</p>
+</section>
+<section id="辅助函数" class="level4">
+<h4 class="anchored" data-anchor-id="辅助函数">4.3 辅助函数</h4>
+<ul>
+<li><code>predict()</code>：基于拟合模型对新数据进行预测</li>
+<li><code>plot()</code>：绘制正则化路径图</li>
+<li><code>coef()</code>：提取指定λ下的回归系数</li>
+<li><code>print()</code>：打印模型摘要</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="完整示例" class="level3">
+<h3 class="anchored" data-anchor-id="完整示例">5. 完整示例</h3>
+<p>以下以波士顿房价数据为例，演示从岭回归到弹性网络的完整流程：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 加载包与数据</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)  <span class="co"># 包含Boston数据集</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Boston)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(Boston[, <span class="sc">-</span><span class="fu">which</span>(<span class="fu">names</span>(Boston) <span class="sc">==</span> <span class="st">"medv"</span>)])</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> Boston<span class="sc">$</span>medv</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 岭回归 (alpha = 0)</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>fit_ridge <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">family =</span> <span class="st">"gaussian"</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_ridge, <span class="at">xvar =</span> <span class="st">"lambda"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 岭回归的系数随λ变化而收缩，但不会归零</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. LASSO (alpha = 1, 默认)</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>fit_lasso <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">family =</span> <span class="st">"gaussian"</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_lasso, <span class="at">xvar =</span> <span class="st">"lambda"</span>, <span class="at">label =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="co"># LASSO的系数会随λ增大而逐个归零，实现变量选择</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 弹性网络 (alpha = 0.5)</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>fit_enet <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">family =</span> <span class="st">"gaussian"</span>)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 交叉验证选择最优λ (以LASSO为例)</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>cv_fit <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">family =</span> <span class="st">"gaussian"</span>,</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>                    <span class="at">nfolds =</span> <span class="dv">10</span>, <span class="at">type.measure =</span> <span class="st">"mse"</span>)</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看最优λ</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cv_fit<span class="sc">$</span>lambda.min)        <span class="co"># 最小MSE对应的λ</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cv_fit<span class="sc">$</span>lambda<span class="fl">.1</span>se)        <span class="co"># 1个标准误法则对应的λ（更稀疏）</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 绘制交叉验证曲线</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_fit)</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 提取最优模型系数</span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>coef_min <span class="ot">&lt;-</span> <span class="fu">coef</span>(cv_fit, <span class="at">s =</span> <span class="st">"lambda.min"</span>)</span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>coef_1se <span class="ot">&lt;-</span> <span class="fu">coef</span>(cv_fit, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 8. 对新数据进行预测</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>new_data <span class="ot">&lt;-</span> x[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]  <span class="co"># 取前5条作为新样本</span></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>pred_min <span class="ot">&lt;-</span> <span class="fu">predict</span>(cv_fit, <span class="at">newx =</span> new_data, <span class="at">s =</span> <span class="st">"lambda.min"</span>)</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>pred_1se <span class="ot">&lt;-</span> <span class="fu">predict</span>(cv_fit, <span class="at">newx =</span> new_data, <span class="at">s =</span> <span class="st">"lambda.1se"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>glmnet</code>包凭借其极高的计算效率、统一的建模框架和灵活的惩罚结构，已成为高维数据建模领域的事实标准工具，在金融资产定价、基因表达数据分析、信用评分建模等场景中得到了广泛应用。</p>
+</section>
+</section>
+<section id="六ordinalnet包" class="level2">
+<h2 class="anchored" data-anchor-id="六ordinalnet包">六、ordinalNet包</h2>
+<p><code>ordinalNet</code> 是一个用于拟合<strong>带弹性网络（Elastic Net）惩罚的序数回归模型</strong>的R包。它通过坐标下降算法进行模型拟合，能够高效地处理具有序数结果变量的数据。其核心方法详见 Wurm, Hanlon, and Rathouz (2021) 的论文。</p>
+<section id="核心特性与模型框架" class="level3">
+<h3 class="anchored" data-anchor-id="核心特性与模型框架">1. 核心特性与模型框架</h3>
+<p><code>ordinalNet</code> 的核心是提出了 <strong>ELMO（elementwise link multinomial-ordinal）</strong> 模型类别。它支持多种模型链接函数和结构，为序数回归提供了极大的灵活性。</p>
+<ul>
+<li><p><strong>支持的模型族 (Family)</strong>：可通过 <code>family</code> 参数指定，包括:</p>
+<ul>
+<li><code>"cumulative"</code>：累积概率模型</li>
+<li><code>"sratio"</code>：停止比模型</li>
+<li><code>"cratio"</code>：连续比模型</li>
+<li><code>"acat"</code>：相邻类别模型</li>
+</ul></li>
+<li><p><strong>支持的链接函数 (Link)</strong>：可通过 <code>link</code> 参数选择，包括 <code>"logit"</code>, <code>"probit"</code>, <code>"cloglog"</code>, <code>"cauchit"</code> 等。</p></li>
+<li><p><strong>三种模型结构 (Parallelism)</strong>：这是 <code>ordinalNet</code> 的一大特色。</p>
+<ul>
+<li><strong>平行模型 (Parallel)</strong>：所有预测变量在各响应类别间共享一套系数，适用于标准的序数数据。这是最简洁的模型。</li>
+<li><strong>非平行模型 (Nonparallel)</strong>：每个响应类别（除基线外）都有自己的系数集，适用于无序类别响应或需要更高灵活性的场景。</li>
+<li><strong>半平行模型 (Semi-parallel)</strong>：允许部分变量平行、部分非平行，是一种折中方案。弹性网络惩罚会将其“收缩”向更简洁的平行模型，在灵活性与简洁性之间取得平衡。</li>
+</ul></li>
+</ul>
+</section>
+<section id="主要函数与参数" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数与参数">2. 主要函数与参数</h3>
+<p><code>ordinalNet</code> 包的核心是 <code>ordinalNet()</code> 函数，其主要参数如下：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>x</code></td>
+<td style="text-align: left;">协变量矩阵。<strong>建议</strong>将分类变量转换为没有基线组的一套指示变量（dummy variables）。</td>
+<td style="text-align: left;">无</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>y</code></td>
+<td style="text-align: left;">响应变量。可以是因子（factor）、有序因子（ordered factor）或代表多项计数的矩阵。</td>
+<td style="text-align: left;">无</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>alpha</code></td>
+<td style="text-align: left;">弹性网络混合参数。<code>alpha=1</code> 为 Lasso 惩罚，<code>alpha=0</code> 为 Ridge 惩罚。</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>family</code></td>
+<td style="text-align: left;">指定模型族，如 <code>"cumulative"</code>。</td>
+<td style="text-align: left;"><code>"cumulative"</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>link</code></td>
+<td style="text-align: left;">指定链接函数，如 <code>"logit"</code>。</td>
+<td style="text-align: left;"><code>"logit"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>parallelTerms</code></td>
+<td style="text-align: left;">逻辑值，<code>TRUE</code> 表示包含平行项。</td>
+<td style="text-align: left;"><code>TRUE</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>nonparallelTerms</code></td>
+<td style="text-align: left;">逻辑值，<code>TRUE</code> 表示包含非平行项。</td>
+<td style="text-align: left;"><code>FALSE</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lambdaVals</code></td>
+<td style="text-align: left;">用户自定义的惩罚参数 λ 序列。</td>
+<td style="text-align: left;"><code>NULL</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>nLambda</code></td>
+<td style="text-align: left;">自动生成 λ 序列的长度。</td>
+<td style="text-align: left;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>lambdaMinRatio</code></td>
+<td style="text-align: left;">λ 序列中最小值与最大值的比率。</td>
+<td style="text-align: left;">0.01</td>
+</tr>
+</tbody>
+</table>
+<p>此外，<code>ordinalNet</code> 还提供了其他有用的函数：</p>
+<ul>
+<li><p><strong><code>ordinalNetTune()</code></strong>：通过K折交叉验证来为 λ 选择合适值。</p></li>
+<li><p><strong><code>ordinalNetCV()</code></strong>：在每折交叉验证内部调优模型，并评估调优后模型的样本外预测性能。</p></li>
+<li><p><strong><code>coef()</code>, <code>predict()</code>, <code>summary()</code></strong> 等，用于提取系数、进行预测和查看模型摘要。</p></li>
+</ul>
+</section>
+<section id="使用示例" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例">3. 使用示例</h3>
+<p>以下是一个使用 <code>ordinalNet</code> 拟合平行累积 Logit 模型（即比例优势模型）的基本示例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ordinalNet)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载示例数据（来自 ordinalgmifs 包）</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(hccframe)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> hccframe<span class="sc">$</span>group</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">subset</span>(hccframe, <span class="at">select =</span> <span class="sc">-</span>group))</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合平行累积 Logit 模型 (比例优势模型)</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">ordinalNet</span>(x, y,</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">"cumulative"</span>,</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">link =</span> <span class="st">"logit"</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">parallelTerms =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nonparallelTerms =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看模型摘要</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取系数（默认选择 AIC 最优的模型）</span></span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit, <span class="at">matrix =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="七plm包和面板数据" class="level2">
+<h2 class="anchored" data-anchor-id="七plm包和面板数据">七、plm包和<strong>面板数据</strong></h2>
+<p><code>plm</code> 是 R 语言中用于<strong>面板数据（Panel Data）</strong>计量经济学分析的核心包。它提供了一套完整且强大的工具集，让线性面板数据模型的估计、检验和推断变得非常直接。</p>
+<section id="核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能">1. 核心功能</h3>
+<p><code>plm</code> 包的功能可以划分为以下几个主要模块：</p>
+<ul>
+<li><strong>模型估计</strong>：提供多种面板数据模型的估计函数。</li>
+<li><strong>统计检验</strong>：包含丰富的模型设定、序列相关、截面相关等检验。</li>
+<li><strong>稳健协方差矩阵</strong>：提供多种异方差和自相关稳健的标准误估计。</li>
+<li><strong>数据处理</strong>：提供专门的面板数据框（<code>pdata.frame</code>）和数据转换函数。</li>
+</ul>
+</section>
+<section id="支持的模型类型-model-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="支持的模型类型-model-estimation">2. 支持的模型类型 (Model Estimation)</h3>
+<p><code>plm</code> 包能估计大量线性面板数据模型，其主要估计函数包括：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 32%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">模型类型</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>plm</code></strong></td>
+<td style="text-align: left;"><strong>核心估计函数</strong></td>
+<td style="text-align: left;">面板数据模型的主力，支持<strong>固定效应 (within)</strong>、<strong>随机效应 (random)</strong>、<strong>组间 (between)</strong>、<strong>一阶差分 (first-difference)</strong> 等。也支持工具变量 (IV) 和 Hausman-Taylor 模型。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pvcm</code></td>
+<td style="text-align: left;">变系数模型</td>
+<td style="text-align: left;">允许不同个体有不同的系数。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pgmm</code></td>
+<td style="text-align: left;">广义矩估计 (GMM)</td>
+<td style="text-align: left;">用于动态面板数据模型。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pggls</code></td>
+<td style="text-align: left;">可行广义最小二乘法 (FGLS)</td>
+<td style="text-align: left;">用于处理面板数据中的异方差或自相关。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pmg</code></td>
+<td style="text-align: left;">均值组 (MG) 估计</td>
+<td style="text-align: left;">用于处理截面相关性的非平稳面板。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pcce</code></td>
+<td style="text-align: left;">共同相关效应 (CCE) 估计</td>
+<td style="text-align: left;">处理存在共同因子的面板数据模型。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>pldv</code></td>
+<td style="text-align: left;">受限因变量模型</td>
+<td style="text-align: left;">用于面板数据中的二元或计数等受限因变量。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="统计检验" class="level3">
+<h3 class="anchored" data-anchor-id="统计检验">3. 统计检验</h3>
+<p><code>plm</code> 提供了全面的检验函数来验证模型假设：</p>
+<ul>
+<li><strong>模型设定检验</strong>：用于判断应该使用混合OLS、固定效应还是随机效应模型。例如 <strong><code>pFtest</code></strong> (F检验)、<strong><code>plmtest</code></strong> (拉格朗日乘子检验)、<strong><code>phtest</code></strong> (Hausman检验)。</li>
+<li><strong>序列相关检验</strong>：检验面板数据模型中的误差项是否存在自相关。</li>
+<li><strong>截面相关检验</strong>：检验不同个体之间的误差项是否相关（<code>pcdtest</code>）。</li>
+<li><strong>面板单位根检验</strong>：检验面板数据序列的平稳性（<code>purtest</code>）。</li>
+<li><strong>面板格兰杰因果检验</strong>：检验变量间的因果关系（<code>pgrangertest</code>）。</li>
+</ul>
+</section>
+<section id="数据处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据处理">4. 数据处理</h3>
+<p><code>plm</code> 提供了专门用于处理面板数据的工具：</p>
+<ul>
+<li><strong><code>pdata.frame</code></strong>：一种增强的数据框，用于存储面板数据，并通过 <code>index</code> 参数明确个体和时间维度。</li>
+<li><strong>数据转换</strong>：提供了 <code>Between()</code>, <code>within()</code>, <code>lag()</code>, <code>lead()</code>, <code>diff()</code> 等函数，方便进行组间、组内变换及滞后、差分操作。</li>
+<li><strong>数据诊断</strong>：<code>is.pbalanced()</code> 检查数据是否平衡，<code>pdim()</code> 查看面板维度等信息。</li>
+</ul>
+</section>
+<section id="使用示例-1" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-1">5.使用示例</h3>
+<p>下面是一个使用 <code>plm</code> 包进行面板数据回归的典型流程：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载包</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"plm"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 加载内置数据集 (Grunfeld, 10家公司的投资数据)</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Grunfeld"</span>, <span class="at">package =</span> <span class="st">"plm"</span>)</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 估计模型</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 混合OLS模型 (Pooled OLS)</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>pool <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> Grunfeld,</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">model =</span> <span class="st">"pooling"</span>)</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 个体固定效应模型 (One-way FE)</span></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> Grunfeld,</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="#cb33-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-21"><a href="#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 随机效应模型 (RE)</span></span>
+<span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>re <span class="ot">&lt;-</span> <span class="fu">plm</span>(inv <span class="sc">~</span> value <span class="sc">+</span> capital, <span class="at">data =</span> Grunfeld,</span>
+<span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"firm"</span>, <span class="st">"year"</span>), <span class="at">model =</span> <span class="st">"random"</span>)</span>
+<span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-25"><a href="#cb33-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-26"><a href="#cb33-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 查看模型结果</span></span>
+<span id="cb33-27"><a href="#cb33-27" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fe)</span>
+<span id="cb33-28"><a href="#cb33-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-29"><a href="#cb33-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-30"><a href="#cb33-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 进行模型选择检验 (Hausman检验)</span></span>
+<span id="cb33-31"><a href="#cb33-31" aria-hidden="true" tabindex="-1"></a><span class="fu">phtest</span>(fe, re)</span>
+<span id="cb33-32"><a href="#cb33-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-33"><a href="#cb33-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-34"><a href="#cb33-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 使用稳健标准误</span></span>
+<span id="cb33-35"><a href="#cb33-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算Arellano稳健标准误</span></span>
+<span id="cb33-36"><a href="#cb33-36" aria-hidden="true" tabindex="-1"></a>robust_se <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fe, <span class="at">method =</span> <span class="st">"arellano"</span>)</span>
+<span id="cb33-37"><a href="#cb33-37" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看带有稳健标准误的系数</span></span>
+<span id="cb33-38"><a href="#cb33-38" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(fe, <span class="at">vcov =</span> robust_se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="八rlm函数和稳健回归" class="level2">
+<h2 class="anchored" data-anchor-id="八rlm函数和稳健回归">八、rlm()函数和稳健回归</h2>
+<p><code>rlm()</code>（Robust Linear Model）函数来自R的<strong>MASS</strong>包，是一种经典的<strong>稳健回归</strong>方法。它的核心思想是为回归找到更稳健的系数估计，自动降低数据中异常值（outliers）的影响。</p>
+<section id="核心用法与参数" class="level3">
+<h3 class="anchored" data-anchor-id="核心用法与参数">1. 核心用法与参数</h3>
+<p><code>rlm()</code>的基本用法与<code>lm()</code>非常相似：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 基本语法</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">rlm</span>(formula, data, ...)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 完整参数（以formula方法为例）</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">rlm</span>(formula, data, weights, ..., subset, na.action,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"MM"</span>, <span class="st">"model.frame"</span>),</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">wt.method =</span> <span class="fu">c</span>(<span class="st">"inv.var"</span>, <span class="st">"case"</span>),</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="cn">TRUE</span>, <span class="at">x.ret =</span> <span class="cn">TRUE</span>, <span class="at">y.ret =</span> <span class="cn">FALSE</span>, <span class="at">contrasts =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>以下是几个关键参数的详细说明：</p>
+<ul>
+<li><strong><code>method</code></strong>: 指定<strong>估计方法</strong>。
+<ul>
+<li><code>"M"</code>（默认）：标准的M估计（M-estimation）。</li>
+<li><code>"MM"</code>：MM估计。具有更高的<strong>抗扰动性（breakdown point）</strong>，能抵抗高达50%的异常值，但计算更复杂。</li>
+</ul></li>
+<li><strong><code>psi</code></strong>: 指定<strong>权重函数（psi函数）</strong>，这是<code>rlm()</code>的核心。MASS包内置了三种常用的psi函数：
+<ul>
+<li><strong><code>psi.huber</code> (默认)</strong>：稳健性适中，保证解的唯一性。</li>
+<li><strong><code>psi.bisquare</code> (Tukey’s biweight)</strong>：对远离中心的异常值权重会降至0，更激进，但可能有多个局部最优解。</li>
+<li><strong><code>psi.hampel</code></strong>：折中方案，在Huber和bisquare之间。</li>
+</ul></li>
+<li><strong><code>scale.est</code></strong>: 指定<strong>误差尺度（残差标准差）的估计方法</strong>。
+<ul>
+<li><code>"MAD"</code>（默认）：使用残差的中位数绝对离差来估计，非常稳健。</li>
+<li><code>"Huber"</code> 或 <code>"proposal 2"</code>：使用Huber提出的提案2方法。</li>
+</ul></li>
+<li><strong><code>init</code></strong>: 指定迭代算法的<strong>初始值</strong>。默认<code>"ls"</code>使用普通最小二乘法（OLS）的结果作为初始值。</li>
+<li><strong><code>maxit</code></strong>: 最大迭代次数，默认为20。</li>
+<li><strong><code>acc</code></strong>: 迭代收敛的精度，默认为<code>1e-4</code>。</li>
+</ul>
+</section>
+<section id="代码示例" class="level3">
+<h3 class="anchored" data-anchor-id="代码示例">2. 代码示例</h3>
+<p>我们用一个包含异常值的数据集来演示<code>rlm()</code>的效果。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载MASS包</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 准备数据：使用MASS包内置的stackloss数据集</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"stackloss"</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(stackloss)</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 拟合一个普通的线性模型 (OLS) 作为对比</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stack.loss <span class="sc">~</span> Air.Flow <span class="sc">+</span> Water.Temp <span class="sc">+</span> Acid.Conc., <span class="at">data =</span> stackloss)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm_model)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 使用 rlm() 拟合稳健回归模型 (默认的M估计 + Huber权重函数)</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>rlm_model_default <span class="ot">&lt;-</span> <span class="fu">rlm</span>(stack.loss <span class="sc">~</span> Air.Flow <span class="sc">+</span> Water.Temp <span class="sc">+</span> Acid.Conc.,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> stackloss)</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_model_default)</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 尝试不同的psi函数 (Tukey's bisquare) 和 MM估计</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>rlm_model_bisquare <span class="ot">&lt;-</span> <span class="fu">rlm</span>(stack.loss <span class="sc">~</span> Air.Flow <span class="sc">+</span> Water.Temp <span class="sc">+</span> Acid.Conc.,</span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> stackloss,</span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>                          <span class="at">psi =</span> psi.bisquare,</span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a>                          <span class="at">method =</span> <span class="st">"MM"</span>)</span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rlm_model_bisquare)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>输出解读</strong>：</p>
+<ul>
+<li><p><code>summary(lm_model)</code>会显示OLS的结果，它可能受到数据中潜在异常值的显著影响。</p></li>
+<li><p><code>summary(rlm_model_default)</code>会显示稳健回归的结果。你会看到系数估计值可能与OLS不同，并且输出中会包含<strong>权重信息</strong>，表明哪些观测值被赋予了较低权重（即被认为是异常值）。</p></li>
+<li><p><code>summary(rlm_model_bisquare)</code>则展示了使用不同psi函数和MM估计的结果，它可能对异常值更加不敏感。</p></li>
+</ul>
+</section>
+<section id="注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项">3. 注意事项</h3>
+<ul>
+<li><strong>应用场景</strong>：当你的数据中存在明显的异常值，且担心它们会过度影响回归结果时，应优先考虑<code>rlm()</code>。</li>
+<li><strong>参数调优</strong>：<code>psi</code>函数的选择及其<strong>调节常数（tuning constants）</strong> 至关重要。例如，<code>psi.bisquare</code>的默认调节常数<code>c = 4.685</code>旨在保证95%的渐近效率。你可以根据对稳健性和效率的权衡进行调整。</li>
+<li><strong>局限性</strong>：<code>rlm()</code>主要对响应变量（Y）中的异常值稳健，但对预测变量（X）中的<strong>高杠杆点（high-leverage points）</strong> 可能不够稳健。对于高杠杆点，可以尝试<code>method = "MM"</code>。</li>
+<li><strong>模型诊断</strong>：建议同时拟合OLS和<code>rlm()</code>模型并比较结果。如果差异很大，说明异常值影响显著，稳健回归的结果更可信。</li>
+</ul>
+<p>总的来说，<code>rlm()</code>是一个强大且易用的工具，能有效应对回归分析中的异常值问题。理解其核心参数（尤其是<code>psi</code>函数和<code>method</code>）是正确使用它的关键。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第5节 金融计算.html" class="pagination-link" aria-label="第16章 R 第5节 金融计算">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第5节 金融计算</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

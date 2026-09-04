@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第5节 金融计算 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第6节 线性模型.html" rel="next">
+<link href="./第16章 R 第4节 时间序列分析.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第5节 金融计算.html">第16章 R 第5节 金融计算</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一ttr包技术指标计算" id="toc-一ttr包技术指标计算" class="nav-link" data-scroll-target="#一ttr包技术指标计算">一、TTR包：技术指标计算</a>
+  <ul class="collapse">
+  <li><a href="#ttr包概述" id="toc-ttr包概述" class="nav-link" data-scroll-target="#ttr包概述">1. TTR包概述</a></li>
+  <li><a href="#ttr包的技术指标" id="toc-ttr包的技术指标" class="nav-link" data-scroll-target="#ttr包的技术指标">2. TTR包的技术指标</a></li>
+  <li><a href="#移动平均类moving-averages" id="toc-移动平均类moving-averages" class="nav-link" data-scroll-target="#移动平均类moving-averages">2.1 移动平均类（Moving Averages）</a></li>
+  <li><a href="#动量与振荡指标类momentum-oscillators" id="toc-动量与振荡指标类momentum-oscillators" class="nav-link" data-scroll-target="#动量与振荡指标类momentum-oscillators">2.2 动量与振荡指标类（Momentum &amp; Oscillators）</a></li>
+  <li><a href="#波动率与通道类volatility-channels" id="toc-波动率与通道类volatility-channels" class="nav-link" data-scroll-target="#波动率与通道类volatility-channels">2.3 波动率与通道类（Volatility &amp; Channels）</a></li>
+  <li><a href="#趋势与方向类trend-direction" id="toc-趋势与方向类trend-direction" class="nav-link" data-scroll-target="#趋势与方向类trend-direction">2.4 趋势与方向类（Trend &amp; Direction）</a></li>
+  <li><a href="#成交量与资金流类volume-money-flow" id="toc-成交量与资金流类volume-money-flow" class="nav-link" data-scroll-target="#成交量与资金流类volume-money-flow">2.5 成交量与资金流类（Volume &amp; Money Flow）</a></li>
+  <li><a href="#应用示例" id="toc-应用示例" class="nav-link" data-scroll-target="#应用示例">3.应用示例</a></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项">4. 注意事项</a></li>
+  </ul></li>
+  <li><a href="#二quantmod包" id="toc-二quantmod包" class="nav-link" data-scroll-target="#二quantmod包">二、quantmod包</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1. 概述</a></li>
+  <li><a href="#核心功能模块" id="toc-核心功能模块" class="nav-link" data-scroll-target="#核心功能模块">2.核心功能模块</a></li>
+  <li><a href="#策略信号生成与回测" id="toc-策略信号生成与回测" class="nav-link" data-scroll-target="#策略信号生成与回测">3. 策略信号生成与回测</a></li>
+  </ul></li>
+  <li><a href="#三performanceanalytics包" id="toc-三performanceanalytics包" class="nav-link" data-scroll-target="#三performanceanalytics包">三、PerformanceAnalytics包</a>
+  <ul class="collapse">
+  <li><a href="#设计哲学" id="toc-设计哲学" class="nav-link" data-scroll-target="#设计哲学">1. 设计哲学</a></li>
+  <li><a href="#核心功能模块详解" id="toc-核心功能模块详解" class="nav-link" data-scroll-target="#核心功能模块详解">2. 核心功能模块详解</a></li>
+  <li><a href="#综合应用示例" id="toc-综合应用示例" class="nav-link" data-scroll-target="#综合应用示例">3. 综合应用示例</a></li>
+  </ul></li>
+  <li><a href="#四rquantlib包" id="toc-四rquantlib包" class="nav-link" data-scroll-target="#四rquantlib包">四、RQuantLib包</a>
+  <ul class="collapse">
+  <li><a href="#概述-1" id="toc-概述-1" class="nav-link" data-scroll-target="#概述-1">1.概述</a></li>
+  <li><a href="#核心功能模块-1" id="toc-核心功能模块-1" class="nav-link" data-scroll-target="#核心功能模块-1">2.核心功能模块</a></li>
+  <li><a href="#应用示例-1" id="toc-应用示例-1" class="nav-link" data-scroll-target="#应用示例-1">3.应用示例</a></li>
+  </ul></li>
+  <li><a href="#五pracma包" id="toc-五pracma包" class="nav-link" data-scroll-target="#五pracma包">五、<strong>pracma</strong>包</a>
+  <ul class="collapse">
+  <li><a href="#概述-2" id="toc-概述-2" class="nav-link" data-scroll-target="#概述-2">1. 概述</a></li>
+  <li><a href="#主要函数分类" id="toc-主要函数分类" class="nav-link" data-scroll-target="#主要函数分类">2.主要函数分类</a></li>
+  <li><a href="#应用示例-2" id="toc-应用示例-2" class="nav-link" data-scroll-target="#应用示例-2">3.应用示例</a></li>
+  </ul></li>
+  <li><a href="#六stats-包的插值函数" id="toc-六stats-包的插值函数" class="nav-link" data-scroll-target="#六stats-包的插值函数">六、<code>stats</code> 包的插值函数</a>
+  <ul class="collapse">
+  <li><a href="#核心差异" id="toc-核心差异" class="nav-link" data-scroll-target="#核心差异">1. 核心差异</a></li>
+  <li><a href="#approx-与-approxfun" id="toc-approx-与-approxfun" class="nav-link" data-scroll-target="#approx-与-approxfun">2. <code>approx()</code> 与 <code>approxfun()</code></a></li>
+  <li><a href="#spline-与-splinefun" id="toc-spline-与-splinefun" class="nav-link" data-scroll-target="#spline-与-splinefun">3. <code>spline()</code> 与 <code>splinefun()</code></a></li>
+  <li><a href="#注意" id="toc-注意" class="nav-link" data-scroll-target="#注意">4. 注意</a></li>
+  </ul></li>
+  <li><a href="#七akima-包" id="toc-七akima-包" class="nav-link" data-scroll-target="#七akima-包"><code>七、akima</code> 包</a>
+  <ul class="collapse">
+  <li><a href="#核心函数" id="toc-核心函数" class="nav-link" data-scroll-target="#核心函数">1. 核心函数</a></li>
+  <li><a href="#应用示例-3" id="toc-应用示例-3" class="nav-link" data-scroll-target="#应用示例-3">2. 应用示例</a></li>
+  <li><a href="#注意事项-1" id="toc-注意事项-1" class="nav-link" data-scroll-target="#注意事项-1">3. 注意事项</a></li>
+  </ul></li>
+  <li><a href="#八interp-包" id="toc-八interp-包" class="nav-link" data-scroll-target="#八interp-包">八、<code>interp</code> 包</a>
+  <ul class="collapse">
+  <li><a href="#网格插值" id="toc-网格插值" class="nav-link" data-scroll-target="#网格插值">1. 网格插值</a></li>
+  <li><a href="#点插值" id="toc-点插值" class="nav-link" data-scroll-target="#点插值">2. 点插值</a></li>
+  <li><a href="#应用示例-4" id="toc-应用示例-4" class="nav-link" data-scroll-target="#应用示例-4">3. 应用示例</a></li>
+  <li><a href="#interp-vs-akima" id="toc-interp-vs-akima" class="nav-link" data-scroll-target="#interp-vs-akima">4. <code>interp</code> vs <code>akima</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第5节 金融计算</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>金融计算是量化投资、金融工程、风险管理和资产定价的核心技术基础。R语言凭借其深厚的统计学基因、丰富的金融计算包生态以及卓越的数据可视化能力，是金融数据分析与建模的首选工具之一。</p>
+<p>量化投资中，比较重要的金融计算场景包括：技术指标计算、策略回测、绩效分析、以及衍生品定价等等。本文，我们将系统介绍R语言在这些金融计算场景中的常用包：TTR、quantmod、PerformanceAnalytics、和RQuantLib。</p>
+</section>
+<section id="一ttr包技术指标计算" class="level2">
+<h2 class="anchored" data-anchor-id="一ttr包技术指标计算">一、TTR包：技术指标计算</h2>
+<section id="ttr包概述" class="level3">
+<h3 class="anchored" data-anchor-id="ttr包概述">1. TTR包概述</h3>
+<p>TTR（Technical Trading Rules）是R语言中技术分析函数最为全面的包之一，提供了超过50种主流技术指标的计算实现，广泛用于系统化交易策略的构建和金融图表的绘制。该包由Joshua Ulrich开发维护，与xts包深度集成，支持对时间序列数据的高效处理。</p>
+<p>TTR包的核心定位是<strong>提供金融市场数据最常用的技术分析函数集合</strong>。它包含<strong>超过50种技术指标</strong>，这些指标广泛用于<strong>系统性交易策略的构建和金融图表的绘制</strong>。此外，该包还提供了<strong>滚动窗口函数的高效实现</strong>以及<strong>多种波动率计算方法</strong>。</p>
+</section>
+<section id="ttr包的技术指标" class="level3">
+<h3 class="anchored" data-anchor-id="ttr包的技术指标">2. TTR包的技术指标</h3>
+<p>TTR包的技术指标可按功能划分为五大类别。以下逐一详述。</p>
+</section>
+<section id="移动平均类moving-averages" class="level3">
+<h3 class="anchored" data-anchor-id="移动平均类moving-averages">2.1 移动平均类（Moving Averages）</h3>
+<p>移动平均是技术分析中最基础的指标类别，TTR包提供了极为丰富的移动平均函数：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>全称</th>
+<th>核心特征</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SMA()</code></td>
+<td>Simple Moving Average</td>
+<td>算术平均，对过去n期观测值等权计算</td>
+</tr>
+<tr class="even">
+<td><code>EMA()</code></td>
+<td>Exponential Moving Average</td>
+<td>指数加权平均，赋予近期数据更高权重</td>
+</tr>
+<tr class="odd">
+<td><code>DEMA()</code></td>
+<td>Double Exponential Moving Average</td>
+<td>双指数移动平均，通过双重平滑减少滞后</td>
+</tr>
+<tr class="even">
+<td><code>WMA()</code></td>
+<td>Weighted Moving Average</td>
+<td>加权移动平均</td>
+</tr>
+<tr class="odd">
+<td><code>EVWMA()</code></td>
+<td>Elastic Volume Weighted Moving Average</td>
+<td>弹性成交量加权移动平均</td>
+</tr>
+<tr class="even">
+<td><code>ZLEMA()</code></td>
+<td>Zero-Lag Exponential Moving Average</td>
+<td>零滞后指数移动平均</td>
+</tr>
+<tr class="odd">
+<td><code>VWAP()</code></td>
+<td>Volume Weighted Average Price</td>
+<td>成交量加权平均价格</td>
+</tr>
+<tr class="even">
+<td><code>VMA()</code></td>
+<td>Variable Moving Average</td>
+<td>可变移动平均</td>
+</tr>
+<tr class="odd">
+<td><code>HMA()</code></td>
+<td>Hull Moving Average</td>
+<td>赫尔移动平均</td>
+</tr>
+<tr class="even">
+<td><code>ALMA()</code></td>
+<td>Arnaud Legoux Moving Average</td>
+<td>阿诺·勒古移动平均</td>
+</tr>
+<tr class="odd">
+<td><code>GMMA()</code></td>
+<td>Guppy Multiple Moving Average</td>
+<td>顾比多重移动平均</td>
+</tr>
+</tbody>
+</table>
+<p>函数调用范式：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TTR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载示例数据（模拟的OHLCV数据，1985-2006年）</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ttrc)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算20期指数移动平均</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ema_20 <span class="ot">&lt;-</span> <span class="fu">EMA</span>(ttrc[,<span class="st">"Close"</span>], <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算20期简单移动平均</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sma_20 <span class="ot">&lt;-</span> <span class="fu">SMA</span>(ttrc[,<span class="st">"Close"</span>], <span class="at">n =</span> <span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="动量与振荡指标类momentum-oscillators" class="level3">
+<h3 class="anchored" data-anchor-id="动量与振荡指标类momentum-oscillators">2.2 动量与振荡指标类（Momentum &amp; Oscillators）</h3>
+<p>此类指标用于衡量价格变动的速度和幅度，是识别趋势强度和潜在反转点的核心工具。</p>
+<p><strong>相对强弱指标（RSI）</strong> ：<code>RSI()</code>是衡量价格变动速度和幅度的经典动量振荡器，取值范围0-100，通常以70/30作为超买/超卖的阈值分界线。</p>
+<p><strong>平滑异同移动平均线（MACD）</strong> ：<code>MACD()</code>由快速EMA、慢速EMA和两者的差值（MACD线）及其信号线组成，是识别趋势方向变化的重要工具。</p>
+<p><strong>随机指标（Stochastics）</strong> ：<code>stoch()</code>和<code>SMI()</code>（Stochastic Momentum Index）用于比较收盘价与一定时期内价格区间的相对位置，%K和%D两条线的交叉产生交易信号。</p>
+<p><strong>其他动量指标</strong>：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>指标名称</th>
+<th>核心用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>CCI()</code></td>
+<td>Commodity Channel Index</td>
+<td>商品通道指数，识别超买超卖</td>
+</tr>
+<tr class="even">
+<td><code>CMO()</code></td>
+<td>Chande Momentum Oscillator</td>
+<td>钱德动量振荡器</td>
+</tr>
+<tr class="odd">
+<td><code>DPO()</code></td>
+<td>De-Trended Price Oscillator</td>
+<td>去趋势价格振荡器，消除长期趋势</td>
+</tr>
+<tr class="even">
+<td><code>TRIX()</code></td>
+<td>Triple Exponential Average</td>
+<td>三重指数平滑平均，过滤微小波动</td>
+</tr>
+<tr class="odd">
+<td><code>KST()</code></td>
+<td>Know Sure Thing</td>
+<td>综合多个时间框架的动量指标</td>
+</tr>
+<tr class="even">
+<td><code>ultimateOscillator()</code></td>
+<td>Ultimate Oscillator</td>
+<td>终极振荡器，捕捉三个不同时间框架的动量</td>
+</tr>
+<tr class="odd">
+<td><code>DVI()</code></td>
+<td>DV Intermediate Oscillator</td>
+<td>DV中级振荡器</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="波动率与通道类volatility-channels" class="level3">
+<h3 class="anchored" data-anchor-id="波动率与通道类volatility-channels">2.3 波动率与通道类（Volatility &amp; Channels）</h3>
+<p>此类指标用于衡量价格波动幅度和构建价格通道。</p>
+<p><strong>布林带（Bollinger Bands）</strong> ：<code>BBands()</code>由John Bollinger创立，是基于移动平均和标准差构建的自适应波动率通道，最常使用HLC序列的典型价格（Typical Price），也可基于单变量价格序列计算。计算公式为：中轨 = n期移动平均，上轨 = 中轨 + k倍标准差，下轨 = 中轨 - k倍标准差。</p>
+<p><strong>唐奇安通道（Donchian Channel）</strong> ：<code>DonchianChannel()</code>基于一定时期内的最高价和最低价构建通道，是海龟交易法则的核心指标。默认参数<code>include.lag=FALSE</code>表示包含当前周期在内的计算，与其他TTR函数保持一致。</p>
+<p><strong>平均真实波幅（ATR）</strong> ：<code>ATR()</code>计算真实波幅（True Range）的Welles Wilder式移动平均，是衡量市场波动性的经典指标。真实波幅定义为以下三者中的最大值：当日最高-最低、当日最高-前日收盘、前日收盘-当日最低。</p>
+<p><strong>其他波动率指标</strong>：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 44%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>指标名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>volatility()</code></td>
+<td>Volatility Estimators</td>
+<td>多种波动率估计器，支持基于收盘价或OHLC的计算</td>
+</tr>
+<tr class="even">
+<td><code>PBands()</code></td>
+<td>Performance Bands</td>
+<td>可进一步平滑和中心化的波动率通道</td>
+</tr>
+<tr class="odd">
+<td><code>chaikinVolatility()</code></td>
+<td>Chaikin Volatility</td>
+<td>Chaikin波动率</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="趋势与方向类trend-direction" class="level3">
+<h3 class="anchored" data-anchor-id="趋势与方向类trend-direction">2.4 趋势与方向类（Trend &amp; Direction）</h3>
+<p>此类指标用于识别和量化市场趋势的方向与强度。</p>
+<p><strong>动向指标（ADX）</strong> ：<code>ADX()</code>（Average Directional Movement Index）是Welles Wilder开发的经典趋势强度指标，由ADX线、+DI（正向方向指标）和-DI（负向方向指标）三部分组成。ADX值高于25通常表示强劲趋势，低于20表示无趋势或盘整市场。</p>
+<p><strong>阿隆指标（Aroon）</strong> ：<code>aroon()</code>用于识别趋势的开始和结束，包含Aroon Up和Aroon Down两条线。</p>
+</section>
+<section id="成交量与资金流类volume-money-flow" class="level3">
+<h3 class="anchored" data-anchor-id="成交量与资金流类volume-money-flow">2.5 成交量与资金流类（Volume &amp; Money Flow）</h3>
+<p>此类指标将成交量信息纳入分析框架，衡量资金的流入流出。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 50%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>指标名称</th>
+<th>核心逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>chaikinAD()</code></td>
+<td>Chaikin Accumulation/Distribution</td>
+<td>Chaikin累积/派发线</td>
+</tr>
+<tr class="even">
+<td><code>CMF()</code></td>
+<td>Chaikin Money Flow</td>
+<td>Chaikin资金流</td>
+</tr>
+<tr class="odd">
+<td><code>CLV()</code></td>
+<td>Close Location Value</td>
+<td>收盘价位置值</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="应用示例" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例">3.应用示例</h3>
+<p>以下通过一个完整的示例，展示TTR包多个指标的综合使用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TTR)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载示例数据</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(ttrc)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取OHLC数据</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>hlc <span class="ot">&lt;-</span> ttrc[, <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"Close"</span>)]</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># === 移动平均 ===</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>sma_20 <span class="ot">&lt;-</span> <span class="fu">SMA</span>(ttrc[,<span class="st">"Close"</span>], <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ema_20 <span class="ot">&lt;-</span> <span class="fu">EMA</span>(ttrc[,<span class="st">"Close"</span>], <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># === 动量指标 ===</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>rsi_14 <span class="ot">&lt;-</span> <span class="fu">RSI</span>(ttrc[,<span class="st">"Close"</span>], <span class="at">n =</span> <span class="dv">14</span>)        <span class="co"># 相对强弱指标</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>macd_result <span class="ot">&lt;-</span> <span class="fu">MACD</span>(ttrc[,<span class="st">"Close"</span>])          <span class="co"># MACD</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>stoch_result <span class="ot">&lt;-</span> <span class="fu">stoch</span>(hlc)                   <span class="co"># 随机指标</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># === 波动率指标 ===</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>bbands_result <span class="ot">&lt;-</span> <span class="fu">BBands</span>(hlc)                 <span class="co"># 布林带</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>atr_result <span class="ot">&lt;-</span> <span class="fu">ATR</span>(hlc, <span class="at">n =</span> <span class="dv">14</span>)               <span class="co"># 平均真实波幅</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># === 趋势指标 ===</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>adx_result <span class="ot">&lt;-</span> <span class="fu">ADX</span>(hlc)                       <span class="co"># 动向指标</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># === 与quantmod集成可视化 ===</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 将数据转换为xts对象</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>xttrc <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">OHLCV</span>(ttrc), ttrc[[<span class="st">"Date"</span>]])</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制K线图并叠加技术指标</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">chartSeries</span>(xttrc, <span class="at">subset =</span> <span class="st">"2006-09/"</span>, <span class="at">theme =</span> <span class="st">"white"</span>)</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="fu">addBBands</span>()    <span class="co"># 叠加布林带</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">addRSI</span>()       <span class="co"># 叠加RSI</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项">4. 注意事项</h3>
+<p><strong>滚动窗口函数的高效实现</strong>：TTR包不仅提供了技术指标函数，还提供了<strong>快速实现通用滚动窗口函数</strong>的能力。例如<code>runCor()</code>可用于评估滚动相关性。</p>
+<p><strong>数据格式要求</strong>：TTR的函数输入对象需可强制转换为xts或matrix格式。对于需要HLC（High-Low-Close）输入的指标（如ATR、ADX、BBands等），必须提供三列数据。</p>
+<p><strong>NA值处理</strong>：技术指标计算中，由于需要一定数量的历史数据才能产生有效值，指标输出的前n-1个观测值通常为NA。用户在使用时应使用<code>na.omit()</code>或类似方法处理。</p>
+<p>在实际量化研究或交易系统开发中，TTR通常与quantmod（数据获取与可视化）、PerformanceAnalytics（绩效评估）等包协同工作，构成从数据到决策的完整链路。</p>
+</section>
+</section>
+<section id="二quantmod包" class="level2">
+<h2 class="anchored" data-anchor-id="二quantmod包">二、quantmod包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1. 概述</h3>
+<p><code>quantmod</code>（Quantitative Financial Modelling Framework）是R语言量化金融生态中的核心包之一，由Jeffrey A. Ryan开发、Joshua M. Ulrich维护，旨在为量化交易者提供一个<strong>快速原型开发环境</strong>，涵盖策略的<strong>开发、测试与部署</strong>全流程。</p>
+<p>其设计哲学正如官方文档所概括的：<code>quantmod</code>是一个具备综合数据管理与可视化工具的快速原型开发环境，量化交易者可以在此快速、清晰地探索和构建交易模型；<code>quantmod</code>不是任何统计方法的替代品，它本身不提供新的建模算法，而是通过封装R语言已有的强大功能，使建模工作更加便捷。</p>
+</section>
+<section id="核心功能模块" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能模块">2.核心功能模块</h3>
+<section id="数据获取" class="level4">
+<h4 class="anchored" data-anchor-id="数据获取">2.1 数据获取</h4>
+<p><code>getSymbols()</code>是quantmod最广为人知的功能。它与多源数据集成，<strong>只需一个函数即可从多种数据源加载金融数据</strong>。支持的数据源包括：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>数据源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yahoo! Finance</td>
+<td>OHLC数据（默认数据源）</td>
+</tr>
+<tr class="even">
+<td>FRED（圣路易斯联储）</td>
+<td>超过11,000个经济时间序列</td>
+</tr>
+<tr class="odd">
+<td>Google Finance</td>
+<td>OHLC数据</td>
+</tr>
+<tr class="even">
+<td>Oanda</td>
+<td>外汇与贵金属数据</td>
+</tr>
+<tr class="odd">
+<td>MySQL数据库</td>
+<td>本地数据存储</td>
+</tr>
+<tr class="even">
+<td>CSV文件</td>
+<td>逗号分隔值文件</td>
+</tr>
+<tr class="odd">
+<td>RData/rda</td>
+<td>R二进制格式</td>
+</tr>
+</tbody>
+</table>
+<p><strong>基本用法</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 从Yahoo Finance获取苹果公司股票数据</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"AAPL"</span>, <span class="at">src =</span> <span class="st">"yahoo"</span>, <span class="at">from =</span> <span class="st">"2020-01-01"</span>, <span class="at">to =</span> <span class="st">"2023-12-31"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 从FRED获取经济数据</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"DEXJPUS"</span>, <span class="at">src =</span> <span class="st">"FRED"</span>)  <span class="co"># 美元兑日元汇率</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 从Oanda获取贵金属数据</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"XPT/USD"</span>, <span class="at">src =</span> <span class="st">"Oanda"</span>) <span class="co"># 铂金价格</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>getSymbols()</code>返回的对象与所请求的<strong>股票代码同名</strong>，自动加载到当前工作空间中。例如：<code>getSymbols("AAPL")</code>会在环境中创建名为<code>AAPL</code>的xts对象。该对象包含Open、High、Low、Close、Volume和Adjusted六列标准OHLCV数据。</p>
+</section>
+<section id="数据管理" class="level4">
+<h4 class="anchored" data-anchor-id="数据管理">2.2 数据管理</h4>
+<p>quantmod提供了完备的OHLC数据处理工具链：</p>
+<p><strong>OHLC数据提取</strong>：通过<code>OHLC()</code>、<code>Op()</code>、<code>Hi()</code>、<code>Lo()</code>、<code>Cl()</code>、<code>Vo()</code>、<code>Ad()</code>等函数，可分别提取开盘价、最高价、最低价、收盘价、成交量和调整收盘价。</p>
+<p><strong>周期收益计算</strong>：<code>periodReturn()</code>函数可根据给定的价格序列计算周期收益，支持日、周、月、季度、年度等不同频率：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算日收益率</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>daily_returns <span class="ot">&lt;-</span> <span class="fu">dailyReturn</span>(AAPL)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算月收益率</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>monthly_returns <span class="ot">&lt;-</span> <span class="fu">monthlyReturn</span>(AAPL)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="可视化" class="level4">
+<h4 class="anchored" data-anchor-id="可视化">2.3 可视化</h4>
+<p><code>chartSeries()</code>是quantmod的金融图表绘制引擎，能够以K线图、柱状图或线图等多种形式可视化金融时间序列。其<strong>核心技术优势</strong>在于：</p>
+<ul>
+<li><strong>自动识别数据格式</strong>：根据输入数据的类型自动选择最合适的图表样式</li>
+<li><strong>技术指标叠加</strong>：与TTR包深度集成，可一键添加各类技术指标</li>
+<li><strong>多配色主题</strong>：支持黑白等多种配色方案</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 基础K线图</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chartSeries</span>(AAPL, <span class="at">theme =</span> <span class="st">"white"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 蜡烛图（多色显示涨跌）</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">candleChart</span>(AAPL, <span class="at">multi.col =</span> <span class="cn">TRUE</span>, <span class="at">theme =</span> <span class="st">"white"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 叠加技术指标</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chartSeries</span>(AAPL)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">addMACD</span>()      <span class="co"># 添加MACD</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">addBBands</span>()    <span class="co"># 添加布林带</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">addRSI</span>()       <span class="co"># 添加RSI</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">addSMA</span>(<span class="dv">20</span>)     <span class="co"># 添加20期简单移动平均</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>quantmod还提供了<code>barChart()</code>和<code>lineChart()</code>等便捷包装函数。</p>
+<p>用户可通过<code>newTA()</code>函数创建自定义技术指标的图表叠加层：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>addFibonacci <span class="ot">&lt;-</span> <span class="fu">newTA</span>(<span class="cf">function</span>(x) <span class="fu">Fibonacci</span>(x, <span class="at">n =</span> <span class="dv">55</span>), <span class="at">on =</span> <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chartSeries</span>(AAPL, <span class="at">TA =</span> <span class="st">"addFibonacci()"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="建模与交易" class="level4">
+<h4 class="anchored" data-anchor-id="建模与交易">2.4 建模与交易</h4>
+<p>quantmod提供了从<strong>模型构建到交易模拟</strong>的完整框架：</p>
+<ul>
+<li><p><strong>模型构建</strong>：<code>buildModel()</code>函数用于构建quantmod模型对象，可指定拟合方法。</p></li>
+<li><p><strong>交易模拟</strong>：<code>tradeModel()</code>是quantmod回测功能的核心函数。给定一个已拟合的模型，<code>tradeModel()</code>计算指定历史时期的交易信号，然后应用指定的交易规则（<code>trade.rule</code>），计算并返回一个<code>tradeLog</code>对象。</p></li>
+</ul>
+<p><strong>应用示例</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 加载包</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 获取数据（以标普500 SPY为例）</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"SPY"</span>, <span class="at">from =</span> <span class="st">"2020-01-01"</span>, <span class="at">to =</span> <span class="st">"2024-12-31"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fu">Cl</span>(SPY)  <span class="co"># 提取收盘价</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 数据预处理与特征工程（创建滞后因子）</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 注意：quantmod的模型框架依赖公式，且数据需为xts类型</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 我们构建一个简单的数据对象：包含当前收益率和前一日的价格水平</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>spy_data <span class="ot">&lt;-</span> SPY</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算当日收益率（作为预测目标）</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>spy_data<span class="sc">$</span>Target <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(<span class="fu">ROC</span>(<span class="fu">Cl</span>(spy_data), <span class="at">n =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">"continuous"</span>))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算前一日收盘价相对于近期均线的偏离度（作为预测因子）</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>spy_data<span class="sc">$</span>Factor <span class="ot">&lt;-</span> <span class="fu">Cl</span>(spy_data) <span class="sc">/</span> <span class="fu">SMA</span>(<span class="fu">Cl</span>(spy_data), <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 移除前期的NA值，确保数据整齐</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>spy_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(spy_data)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 定义模型规范 (specifyModel)</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 公式含义：预测次日（Next）的收盘开盘变化率，由当前因子（Factor）解释</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Next(OpCl()) 表示明日的开盘到收盘的收益率，这里我们直接用 Next(Target) 做演示</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 为了契合 tradeModel 的自动信号逻辑，我们预测下一期的收益率方向。</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">specifyModel</span>(</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Next</span>(Target) <span class="sc">~</span> <span class="fu">Lag</span>(Factor, <span class="dv">1</span>),  <span class="co"># 用前一期的因子预测下一期目标</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> spy_data</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 使用线性回归方法构建模型（在指定的训练集上）</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 这里我们指定 2020-2022 年作为训练集进行拟合</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">&lt;-</span> <span class="fu">buildModel</span>(</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  spec,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"lm"</span>,  <span class="co"># 使用线性回归，也支持"nnet", "rpart", "rf"等</span></span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">training.data =</span> spy_data[<span class="st">"2020-01-01::2022-12-31"</span>]</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看模型摘要</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_fit)</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 使用训练好的模型进行交易模拟回测</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co"># tradeModel 会将模型预测值作为信号强度，当预测值大于 signal.threshold 时开多，</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 小于负阈值时开空（默认信号阈值为 c(0,0)）</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>trade_log <span class="ot">&lt;-</span> <span class="fu">tradeModel</span>(</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>  model_fit,                    <span class="co"># 已拟合的 quantmod 模型对象</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>  <span class="at">signal.threshold =</span> <span class="fu">c</span>(<span class="fl">0.001</span>, <span class="sc">-</span><span class="fl">0.001</span>),  <span class="co"># 预测收益率大于0.001买入，小于-0.001卖出</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  <span class="at">period =</span> <span class="st">"2023-01-01::2024-12-31"</span>,    <span class="co"># 回测期间（样本外）</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">trade.rule =</span> <span class="fu">tradeRule</span>(<span class="at">length =</span> <span class="dv">1</span>)    <span class="co"># 指定交易规则（持有1期）</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 查看回测结果</span></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co"># trade_log 是一个 S3 对象，打印会显示交易记录摘要</span></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(trade_log)</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取交易明细（交易日期、方向、价格等）</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>trades <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(trade_log<span class="sc">@</span>trades)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(trades)</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看收益率曲线（隐含在 tradeLog 中的 equity 曲线）</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以绘制净值曲线</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(trade_log<span class="sc">@</span>equity, <span class="at">main =</span> <span class="st">"Strategy Equity Curve"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>重要提醒</strong>：<br>
+<code>quantmod</code>的建模与交易框架 (<code>buildModel</code>/<code>tradeModel</code>) 是 quantmod 早期的“黑箱”回测封装，目前在业界实际生产中用得较少，它不包含手续费、滑点、止损等高级功能，更适合做简单交易策略的快速演示。</p>
+</section>
+</section>
+<section id="策略信号生成与回测" class="level3">
+<h3 class="anchored" data-anchor-id="策略信号生成与回测">3. 策略信号生成与回测</h3>
+<p>quantmod本身并不提供独立的回测引擎，而是通过与TTR、PerformanceAnalytics等包的协同，构建完整的回测工作流。其核心价值在于提供了统一的数据基础设施和信号生成框架。</p>
+<p>典型的回测流程如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TTR)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 获取数据</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"SPY"</span>, <span class="at">from =</span> <span class="st">"2015-01-01"</span>, <span class="at">to =</span> <span class="st">"2024-12-31"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>price <span class="ot">&lt;-</span> <span class="fu">Cl</span>(SPY)  <span class="co"># 提取收盘价</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 计算技术指标并生成交易信号</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sma_fast <span class="ot">&lt;-</span> <span class="fu">SMA</span>(price, <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>sma_slow <span class="ot">&lt;-</span> <span class="fu">SMA</span>(price, <span class="at">n =</span> <span class="dv">50</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>signal <span class="ot">&lt;-</span> <span class="fu">Lag</span>(<span class="fu">ifelse</span>(sma_fast <span class="sc">&gt;</span> sma_slow, <span class="dv">1</span>, <span class="dv">0</span>))  <span class="co"># 金叉买入，死叉卖出</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 计算策略收益</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> <span class="fu">dailyReturn</span>(SPY)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>strategy_returns <span class="ot">&lt;-</span> returns <span class="sc">*</span> signal</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>strategy_returns <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(strategy_returns)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>quantmod</code>通过<code>Lag()</code>函数实现信号的滞后处理，避免未来信息泄露（look-ahead bias），这是回测中必须遵守的基本原则。</p>
+</section>
+</section>
+<section id="三performanceanalytics包" class="level2">
+<h2 class="anchored" data-anchor-id="三performanceanalytics包">三、PerformanceAnalytics包</h2>
+<p>PerformanceAnalytics 是 R 语言中用于投资组合绩效与风险分析的<strong>核心计量经济学工具包</strong>。该包旨在帮助从业者和研究人员应用学术界的最新研究成果，对<strong>正态和非正态分布</strong>的收益序列进行分析。</p>
+<section id="设计哲学" class="level3">
+<h3 class="anchored" data-anchor-id="设计哲学">1. 设计哲学</h3>
+<p>PerformanceAnalytics 的设计围绕两个核心理念展开：</p>
+<ul>
+<li><p><strong>填补学术与实践的鸿沟</strong>：将过去数十年学术文献中出现的绩效分析和风险度量方法，以 R 函数的形式实现。</p></li>
+<li><p><strong>统一的命名与默认值</strong>：为常用功能提供封装函数（wrappers），并采用金融文献中通用的命名规范和合理的默认参数。</p></li>
+</ul>
+<p>该包主要针对<strong>收益率数据</strong>（而非价格数据）进行优化，几乎所有的函数都支持从年度、月度、日度到分钟/秒级的任何周期数据，无论是规则还是不规则的时间序列。</p>
+</section>
+<section id="核心功能模块详解" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能模块详解">2. 核心功能模块详解</h3>
+<section id="绩效度量performance-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="绩效度量performance-metrics">2.1 绩效度量（Performance Metrics）</h4>
+<p>该包提供了超过<strong>50种</strong>绩效度量指标，涵盖从基础到前沿的各类评估方法。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 44%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>类别</th>
+<th>核心函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>风险调整收益</td>
+<td><code>SharpeRatio()</code>, <code>SortinoRatio()</code>, <code>CalmarRatio()</code>, <code>BurkeRatio()</code></td>
+<td>夏普比率衡量单位总风险下的超额收益；索提诺比率只考虑下行风险；Calmar比率衡量最大回撤下的收益</td>
+</tr>
+<tr class="even">
+<td>超额收益</td>
+<td><code>ActiveReturn()</code>, <code>CAPM.jensenAlpha()</code></td>
+<td>主动收益和Jensen’s Alpha，衡量相对于基准的超额表现</td>
+</tr>
+<tr class="odd">
+<td>捕获比率</td>
+<td><code>CaptureRatios()</code></td>
+<td>衡量投资组合在市场上涨/下跌时对基准的捕获能力</td>
+</tr>
+<tr class="even">
+<td>调整后夏普比率</td>
+<td><code>AdjustedSharpeRatio()</code></td>
+<td>对偏度和峰度进行调整的夏普比率</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="风险度量risk-metrics" class="level4">
+<h4 class="anchored" data-anchor-id="风险度量risk-metrics">2.2 风险度量（Risk Metrics）</h4>
+<p>PerformanceAnalytics 在风险度量方面的最大特色是<strong>同时支持正态分布和非正态分布假设下的风险度量</strong>。</p>
+<section id="在险价值" class="level5">
+<h5 class="anchored" data-anchor-id="在险价值"><strong>2.2.1 在险价值</strong></h5>
+<p>包内提供了多种<strong>在险价值（Value at Risk, VaR）与条件在险价值（Conditional VaR, CVaR）</strong>估算方法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算95%置信水平下的VaR</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VaR</span>(returns, <span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">method =</span> <span class="st">"modified"</span>)   <span class="co"># Cornish-Fisher修正VaR</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">VaR</span>(returns, <span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">method =</span> <span class="st">"gaussian"</span>)   <span class="co"># 正态VaR</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">VaR</span>(returns, <span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">method =</span> <span class="st">"historical"</span>) <span class="co"># 历史模拟VaR</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算条件在险价值（Expected Shortfall）</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ES</span>(returns, <span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">method =</span> <span class="st">"modified"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>其中 <code>method = "modified"</code> 采用 Cornish-Fisher 展开，对收益序列的<strong>偏度（skewness）和峰度（kurtosis）</strong> 进行调整，适用于金融资产常见的尖峰厚尾（leptokurtic）分布特征。</p>
+</section>
+<section id="其他风险度量" class="level5">
+<h5 class="anchored" data-anchor-id="其他风险度量">2.2.2 <strong>其他风险度量</strong></h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>度量指标</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>maxDrawdown()</code></td>
+<td>最大回撤</td>
+<td>历史上从峰值到谷底的最大跌幅</td>
+</tr>
+<tr class="even">
+<td><code>AverageDrawdown()</code></td>
+<td>平均回撤</td>
+<td>所有回撤事件的平均值</td>
+</tr>
+<tr class="odd">
+<td><code>DownsideDeviation()</code></td>
+<td>下行偏差</td>
+<td>仅考虑低于目标回报的波动</td>
+</tr>
+<tr class="even">
+<td><code>CDD()</code> / <code>CDaR()</code></td>
+<td>条件回撤风险</td>
+<td>类似于CVaR，但针对回撤序列</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="可视化分析charts" class="level4">
+<h4 class="anchored" data-anchor-id="可视化分析charts">2.3 可视化分析（Charts）</h4>
+<p>PerformanceAnalytics 提供了丰富的金融图表函数，是投资组合展示的核心工具。</p>
+<section id="综合绩效总结图---charts.performancesummary" class="level5">
+<h5 class="anchored" data-anchor-id="综合绩效总结图---charts.performancesummary">2.3.1 <strong>综合绩效总结图 - <code>charts.PerformanceSummary()</code></strong></h5>
+<p>这是该包<strong>最常用</strong>的综合可视化函数，在一张图中展示三个维度的信息：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(managers)  <span class="co"># 包内置的示例数据集</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制投资组合的绩效总结图</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">charts.PerformanceSummary</span>(managers[, <span class="fu">c</span>(<span class="st">"HAM1"</span>, <span class="st">"SP500 TR"</span>)],</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">main =</span> <span class="st">"策略绩效总结"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>该函数生成的三联图包括： - <strong>上图</strong>：累积财富指数（Wealth Index），展示净值增长曲线 - <strong>中图</strong>：周期收益柱状图（Period Returns），展示各期的收益分布 - <strong>下图</strong>：回撤水下图（Underwater Drawdown Chart），展示回撤的深度与持续时间</p>
+</section>
+<section id="其他核心图表函数" class="level5">
+<h5 class="anchored" data-anchor-id="其他核心图表函数">2.3.2 <strong>其他核心图表函数</strong></h5>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>chart.CumReturns()</code></td>
+<td>累积收益曲线</td>
+</tr>
+<tr class="even">
+<td><code>chart.Drawdown()</code></td>
+<td>回撤曲线</td>
+</tr>
+<tr class="odd">
+<td><code>chart.BarVaR()</code></td>
+<td>柱状图叠加VaR风险线</td>
+</tr>
+<tr class="even">
+<td><code>chart.RiskReturnScatter()</code></td>
+<td>风险-收益散点图，用于多策略比较</td>
+</tr>
+<tr class="odd">
+<td><code>chart.Boxplot()</code></td>
+<td>收益分布的箱线图</td>
+</tr>
+<tr class="even">
+<td><code>chart.Correlation()</code></td>
+<td>相关性热力图</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="表格化汇总tabular-data" class="level4">
+<h4 class="anchored" data-anchor-id="表格化汇总tabular-data">2.4 表格化汇总（Tabular Data）</h4>
+<p>该包提供了大量用于生成<strong>标准化报告表格</strong>的函数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 年化绩效汇总表</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table.AnnualizedReturns</span>(managers[, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>], <span class="at">Rf =</span> <span class="fl">0.04</span><span class="sc">/</span><span class="dv">12</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动周期统计表</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table.TrailingPeriods</span>(managers[, <span class="dv">10</span><span class="sc">:</span><span class="dv">13</span>], <span class="at">periods =</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">24</span>, <span class="dv">36</span>))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义指标表</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table.Arbitrary</span>(returns, <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"VaR"</span>),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">metricsNames =</span> <span class="fu">c</span>(<span class="st">"均值"</span>, <span class="st">"标准差"</span>, <span class="st">"VaR"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>table.Arbitrary()</code> 允许用户传入任意自定义函数列表，生成灵活的统计汇总表。</p>
+</section>
+<section id="滚动窗口分析rolling-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="滚动窗口分析rolling-analysis">2.5 滚动窗口分析（Rolling Analysis）</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动计算绩效指标</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.RollingPerformance</span>(returns, <span class="at">width =</span> <span class="dv">24</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">main =</span> <span class="st">"24个月滚动收益"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="高阶矩与共同矩higher-moments-co-moments" class="level4">
+<h4 class="anchored" data-anchor-id="高阶矩与共同矩higher-moments-co-moments">2.6 高阶矩与共同矩（Higher Moments &amp; Co-Moments）</h4>
+<p>对于非正态分布的分析，该包提供了偏度（skewness）、峰度（kurtosis）以及协偏度（coskewness）、协峰度（cokurtosis）的计算函数。</p>
+</section>
+</section>
+<section id="综合应用示例" class="level3">
+<h3 class="anchored" data-anchor-id="综合应用示例">3. 综合应用示例</h3>
+<p>以下通过一个完整的示例，展示 PerformanceAnalytics 从数据准备到综合报告的全流程：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 获取数据（以SPY为例）</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"SPY"</span>, <span class="at">from =</span> <span class="st">"2015-01-01"</span>, <span class="at">to =</span> <span class="st">"2024-12-31"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>spy_returns <span class="ot">&lt;-</span> <span class="fu">dailyReturn</span>(SPY)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 计算核心绩效指标</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>sharpe <span class="ot">&lt;-</span> <span class="fu">SharpeRatio.annualized</span>(spy_returns, <span class="at">Rf =</span> <span class="dv">0</span>)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>max_dd <span class="ot">&lt;-</span> <span class="fu">maxDrawdown</span>(spy_returns)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>var_95 <span class="ot">&lt;-</span> <span class="fu">VaR</span>(spy_returns, <span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">method =</span> <span class="st">"modified"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 生成综合绩效图表</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">charts.PerformanceSummary</span>(spy_returns,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">main =</span> <span class="st">"SPY 策略绩效总结 (2015-2024)"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 生成标准化报告表格</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="fu">table.AnnualizedReturns</span>(spy_returns, <span class="at">Rf =</span> <span class="fl">0.03</span><span class="sc">/</span><span class="dv">252</span>)</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 滚动风险分析</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.RollingPerformance</span>(spy_returns, <span class="at">width =</span> <span class="dv">252</span>,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>                          <span class="at">main =</span> <span class="st">"SPY 年化滚动收益"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="四rquantlib包" class="level2">
+<h2 class="anchored" data-anchor-id="四rquantlib包">四、RQuantLib包</h2>
+<section id="概述-1" class="level3">
+<h3 class="anchored" data-anchor-id="概述-1">1.概述</h3>
+<p>RQuantLib是R语言与QuantLib之间的桥梁，由Dirk Eddelbuettel于2002年发起开发，旨在将QuantLib的C++高性能计算能力与R的交互式数据分析环境相结合。QuantLib是全球领先的开源量化金融C++库，涵盖金融工程的大部分核心模块，包括各类金融工具的定价引擎、收益率曲线建模、蒙特卡洛与有限差分引擎、PDE求解器以及风险管理等。</p>
+<p>RQuantLib自2002年诞生以来，经过二十余年的持续发展，已成长为R语言量化金融生态中<strong>衍生品定价与固定收益分析的标准工具</strong>。它通过将QuantLib的C++高性能计算能力与R的交互式数据分析环境相结合，为R用户提供了：</p>
+<ul>
+<li><strong>完整的权益类期权定价</strong>：从欧式、美式到障碍、二元等奇异期权</li>
+<li><strong>全面的固定收益工具链</strong>：从贴现曲线构建到多种债券类型的定价</li>
+<li><strong>利率衍生品定价</strong>：百慕大互换期权和仿射互换期权</li>
+<li><strong>实用的日历与假期工具</strong>：支持多市场工作日和假期计算</li>
+</ul>
+<p>包保持活跃维护状态，始终适配QuantLib的最新版本，用户可通过CRAN的二进制包或源码方式安装。对于需要处理衍生品估值、收益率曲线构建或固定收益分析的量化从业者和研究人员而言，RQuantLib提供了从R环境直接调用QuantLib专业能力的便捷通道，是R语言金融计算生态中不可或缺的核心组件。</p>
+</section>
+<section id="核心功能模块-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能模块-1">2.核心功能模块</h3>
+<section id="权益类期权定价" class="level4">
+<h4 class="anchored" data-anchor-id="权益类期权定价">2.1 权益类期权定价</h4>
+<p>RQuantLib最早于2002年从权益类期权定价起步，目前已涵盖从标准期权到奇异期权的完整定价体系。</p>
+<section id="欧式期权european-option" class="level5">
+<h5 class="anchored" data-anchor-id="欧式期权european-option">2.1.1. <strong>欧式期权（European Option）</strong></h5>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RQuantLib)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 欧式看涨期权定价</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">EuropeanOption</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">volatility =</span> <span class="fl">0.20</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 隐含波动率计算</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="fu">EuropeanOptionImpliedVolatility</span>(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fl">11.10</span>,        <span class="co"># 期权市场价格</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="美式期权american-option" class="level5">
+<h5 class="anchored" data-anchor-id="美式期权american-option">2.1.2 <strong>美式期权（American Option）</strong></h5>
+<p>美式期权定价采用有限差分方法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AmericanOption</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">volatility =</span> <span class="fl">0.20</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"CrankNicolson"</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="奇异期权" class="level5">
+<h5 class="anchored" data-anchor-id="奇异期权">2.1.3. <strong>奇异期权</strong></h5>
+<p>RQuantLib支持多种奇异期权定价： - <strong>障碍期权（Barrier Option）</strong> ：<code>BarrierOption()</code> - <strong>二元期权（Binary Option）</strong> ：<code>BinaryOption()</code> - <strong>亚式期权（Asian Option）</strong> - <strong>百慕大式期权（Bermudan Option）</strong></p>
+</section>
+<section id="美式期权隐含波动率" class="level5">
+<h5 class="anchored" data-anchor-id="美式期权隐含波动率">2.1.4. <strong>美式期权隐含波动率</strong></h5>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AmericanOptionImpliedVolatility</span>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fl">12.50</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="固定收益与收益率曲线" class="level4">
+<h4 class="anchored" data-anchor-id="固定收益与收益率曲线">2.2 固定收益与收益率曲线</h4>
+<p>RQuantLib于2005年首次引入固定收益市场支持，经过多年发展，已形成完整的固定收益分析工具链。</p>
+<section id="贴现曲线构建discountcurve" class="level5">
+<h5 class="anchored" data-anchor-id="贴现曲线构建discountcurve">2.2.1 <strong>贴现曲线构建：DiscountCurve</strong></h5>
+<p><code>DiscountCurve()</code>函数根据市场输入数据构建即期利率期限结构。输入数据包括：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 49%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>输入类型</th>
+<th>识别名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>平坦曲线</td>
+<td><code>flat</code></td>
+<td>单一利率（必须为首项）</td>
+</tr>
+<tr class="even">
+<td>存款利率</td>
+<td><code>d1w</code>, <code>d1m</code>, <code>d3m</code>, <code>d6m</code>, <code>d9m</code>, <code>d1y</code></td>
+<td>1周至1年期存款</td>
+</tr>
+<tr class="odd">
+<td>互换利率</td>
+<td><code>s2y</code> ~ <code>s100y</code></td>
+<td>2年至100年互换利率</td>
+</tr>
+<tr class="even">
+<td>期货合约</td>
+<td><code>fut1</code> ~ <code>fut8</code></td>
+<td>前8个IMM日期的3个月期货</td>
+</tr>
+<tr class="odd">
+<td>FRA合约</td>
+<td><code>fra3x6</code>, <code>fra6x9</code>, <code>fra6x12</code></td>
+<td>3x6、6x9、6x12 FRA</td>
+</tr>
+</tbody>
+</table>
+<p>插值方法支持线性（linear）、对数线性（loglinear）和样条（spline）三种。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 构建贴现曲线</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tradeDate =</span> <span class="fu">as.Date</span>(<span class="st">"2024-01-15"</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">settleDate =</span> <span class="fu">as.Date</span>(<span class="st">"2024-01-18"</span>),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">interpWhat =</span> <span class="st">"discount"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">interpHow =</span> <span class="st">"loglinear"</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>tsQuotes <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">d1m =</span> <span class="fl">0.035</span>,   <span class="co"># 1个月存款利率3.5%</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">d3m =</span> <span class="fl">0.038</span>,   <span class="co"># 3个月存款利率3.8%</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">d6m =</span> <span class="fl">0.040</span>,   <span class="co"># 6个月存款利率4.0%</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">s2y =</span> <span class="fl">0.042</span>,   <span class="co"># 2年互换利率4.2%</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">s5y =</span> <span class="fl">0.045</span>,   <span class="co"># 5年互换利率4.5%</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">s10y =</span> <span class="fl">0.048</span>   <span class="co"># 10年互换利率4.8%</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>discount_curve <span class="ot">&lt;-</span> <span class="fu">DiscountCurve</span>(params, tsQuotes, times)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="拟合债券曲线fittedbondcurve" class="level5">
+<h5 class="anchored" data-anchor-id="拟合债券曲线fittedbondcurve">2.2.2 <strong>拟合债券曲线：FittedBondCurve</strong></h5>
+<p>2009年，RQuantLib通过<code>FittedBondCurve()</code>函数扩展了收益率曲线拟合能力，支持三种拟合方法：</p>
+<ul>
+<li><p><strong>ExponentialSplines</strong>：指数样条拟合</p></li>
+<li><p><strong>SimplePolynomial</strong>：简单多项式拟合</p></li>
+<li><p><strong>NelsonSiegel</strong>：Nelson-Siegel模型拟合</p></li>
+</ul>
+<p>该函数返回包含日期、零息利率和贴现因子的数据框，可直接转换为zoo对象用于时间序列分析。</p>
+</section>
+<section id="债券定价" class="level5">
+<h5 class="anchored" data-anchor-id="债券定价">2.2.3 <strong>债券定价</strong></h5>
+<p>RQuantLib支持多种债券类型的定价：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 固定利率债券</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">FixedRateBond</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">bond =</span> <span class="fu">list</span>(<span class="at">settlementDays =</span> <span class="dv">3</span>, <span class="at">maturityDate =</span> <span class="st">"2034-01-15"</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coupon.rate =</span> <span class="fl">0.05</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">schedule =</span> <span class="fu">list</span>(<span class="at">period =</span> <span class="st">"Annual"</span>, <span class="at">calendar =</span> <span class="st">"UnitedStates/GovernmentBond"</span>),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">calc =</span> <span class="fu">list</span>(<span class="at">dayCounter =</span> <span class="st">"Actual360"</span>),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">discountCurve =</span> discount_curve</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 零息债券</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ZeroCouponBond</span>(params, discountCurve)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 浮动利率债券</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="fu">FloatingRateBond</span>(bond, schedule, discountCurve)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>支持的债券类型包括：零息债券（Zero Coupon）、固定利率债券（Fixed Coupon）、浮动利率债券（Floating Rate）、可赎回债券（Callable）、可转换零息债券（Convertible Zero）、可转换固定利率债券（Convertible Fixed Coupon）、可转换浮动利率债券（Convertible Floating Coupon）等。</p>
+<p>定价函数返回净现值（NPV）、净价（Clean Price）、全价（Dirty Price）、应计利息、到期收益率及现金流明细等信息。</p>
+</section>
+</section>
+<section id="日历与假期工具" class="level4">
+<h4 class="anchored" data-anchor-id="日历与假期工具">2.3 日历与假期工具</h4>
+<p>RQuantLib提供了完整的日历和假期计算工具：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断是否为工作日</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isBusinessDay</span>(<span class="st">"UnitedStates/GovernmentBond"</span>, <span class="fu">as.Date</span>(<span class="st">"2024-01-01"</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断是否为假期</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">isHoliday</span>(<span class="st">"UnitedStates/GovernmentBond"</span>, <span class="fu">as.Date</span>(<span class="st">"2024-01-01"</span>))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断是否为周末</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">isWeekend</span>(<span class="fu">as.Date</span>(<span class="st">"2024-01-06"</span>))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 日期向前/向后调整</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">adjust</span>(<span class="st">"UnitedStates/GovernmentBond"</span>, <span class="fu">as.Date</span>(<span class="st">"2024-01-01"</span>), <span class="st">"Following"</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 日期推进</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="fu">advance</span>(<span class="st">"UnitedStates/GovernmentBond"</span>, <span class="fu">as.Date</span>(<span class="st">"2024-01-01"</span>), <span class="dv">10</span>, <span class="st">"Days"</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加自定义假期</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="fu">addHolidays</span>(<span class="st">"UnitedStates/GovernmentBond"</span>, <span class="fu">as.Date</span>(<span class="st">"2024-07-04"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="利率衍生品定价" class="level4">
+<h4 class="anchored" data-anchor-id="利率衍生品定价">2.4 利率衍生品定价</h4>
+<section id="百慕大式互换期权bermudan-swaption" class="level5">
+<h5 class="anchored" data-anchor-id="百慕大式互换期权bermudan-swaption">2.4.1 <strong>百慕大式互换期权（Bermudan Swaption）</strong></h5>
+<p>RQuantLib支持百慕大式互换期权的定价，该期权在互换的每个重置日均可行使：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">BermudanSwaption</span>(params, ts, swaptionMaturities, swapTenors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="仿射互换期权affine-swaption" class="level5">
+<h5 class="anchored" data-anchor-id="仿射互换期权affine-swaption">2.4.2 <strong>仿射互换期权（Affine Swaption）</strong></h5>
+<p><code>AffineSwaption()</code>函数在将所选仿射短期利率模型校准到输入互换期权波动率矩阵后，对互换期权进行定价。支持的定价方法包括：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>模型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>G2Analytic</code></td>
+<td>G2双因子高斯模型（解析公式）</td>
+</tr>
+<tr class="even">
+<td><code>HWAnalytic</code></td>
+<td>Hull-White模型（解析公式）</td>
+</tr>
+<tr class="odd">
+<td><code>HWTree</code></td>
+<td>Hull-White模型（树方法）</td>
+</tr>
+<tr class="even">
+<td><code>BKTree</code></td>
+<td>Black-Karasinski模型（树方法）</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="应用示例-1" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例-1">3.应用示例</h3>
+<p>以下综合示例展示RQuantLib从收益率曲线构建到债券定价和期权定价的完整工作流：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RQuantLib)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># === 1. 构建贴现曲线 ===</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">tradeDate =</span> <span class="fu">as.Date</span>(<span class="st">"2024-01-15"</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">settleDate =</span> <span class="fu">as.Date</span>(<span class="st">"2024-01-18"</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">interpWhat =</span> <span class="st">"discount"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">interpHow =</span> <span class="st">"loglinear"</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>tsQuotes <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">d1m =</span> <span class="fl">0.035</span>, <span class="at">d3m =</span> <span class="fl">0.038</span>, <span class="at">d6m =</span> <span class="fl">0.040</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">s2y =</span> <span class="fl">0.042</span>, <span class="at">s5y =</span> <span class="fl">0.045</span>, <span class="at">s10y =</span> <span class="fl">0.048</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.5</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>discount_curve <span class="ot">&lt;-</span> <span class="fu">DiscountCurve</span>(params, tsQuotes, times)</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看贴现因子和零息利率</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(discount_curve)</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co"># === 2. 固定利率债券定价 ===</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>bond_result <span class="ot">&lt;-</span> <span class="fu">FixedRateBond</span>(</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">bond =</span> <span class="fu">list</span>(<span class="at">settlementDays =</span> <span class="dv">3</span>, <span class="at">maturityDate =</span> <span class="st">"2034-01-15"</span>),</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">coupon.rate =</span> <span class="fl">0.05</span>,</span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">schedule =</span> <span class="fu">list</span>(<span class="at">period =</span> <span class="st">"Annual"</span>, <span class="at">calendar =</span> <span class="st">"UnitedStates/GovernmentBond"</span>),</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">calc =</span> <span class="fu">list</span>(<span class="at">dayCounter =</span> <span class="st">"Actual360"</span>),</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>  <span class="at">discountCurve =</span> discount_curve</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bond_result)</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a><span class="co"># === 3. 欧式期权定价 ===</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>option_result <span class="ot">&lt;-</span> <span class="fu">EuropeanOption</span>(</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span>,</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>  <span class="at">volatility =</span> <span class="fl">0.20</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(option_result)</span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a><span class="co"># === 4. 隐含波动率计算 ===</span></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>implied_vol <span class="ot">&lt;-</span> <span class="fu">EuropeanOptionImpliedVolatility</span>(</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"call"</span>,</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>  <span class="at">value =</span> <span class="fl">11.10</span>,</span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>  <span class="at">underlying =</span> <span class="dv">100</span>,</span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>  <span class="at">strike =</span> <span class="dv">100</span>,</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>  <span class="at">dividendYield =</span> <span class="fl">0.01</span>,</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>  <span class="at">riskFreeRate =</span> <span class="fl">0.03</span>,</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">maturity =</span> <span class="fl">0.5</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(implied_vol)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="五pracma包" class="level2">
+<h2 class="anchored" data-anchor-id="五pracma包">五、<strong>pracma</strong>包</h2>
+<section id="概述-2" class="level3">
+<h3 class="anchored" data-anchor-id="概述-2">1. 概述</h3>
+<p><strong>pracma</strong>（Practical Numerical Math Functions）是R语言中一个功能全面的数值计算扩展包。它提供了大量数值分析、线性代数、数值优化、微分方程、时间序列分析以及特殊数学函数的R语言实现。</p>
+<p>该包的设计理念之一是将函数命名为与MATLAB/Octave相对应的名称，以方便用户从MATLAB迁移到R。截至目前，pracma包含了<strong>超过220个</strong>与MATLAB同名的函数仿真实现。</p>
+<p>包的主要<strong>目标</strong>包括：</p>
+<ul>
+<li><p>为“数值分析”或“科学计算”课程提供R演示脚本</p></li>
+<li><p>使用MATLAB函数命名以简化从MATLAB/Octave向R的移植</p></li>
+<li><p>将R打造为完整的数值计算环境</p></li>
+</ul>
+<hr>
+</section>
+<section id="主要函数分类" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数分类">2.主要函数分类</h3>
+<section id="求根与单变量函数优化" class="level4">
+<h4 class="anchored" data-anchor-id="求根与单变量函数优化">2.1. 求根与单变量函数优化</h4>
+<p>包括牛顿-拉弗森法（Newton-Raphson）、布伦特-德克尔法（Brent-Dekker）、斐波那契搜索（Fibonacci search）、黄金分割搜索（golden ratio search）等。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>bisect()</code></td>
+<td>二分法求根</td>
+</tr>
+<tr class="even">
+<td><code>brentdekker()</code></td>
+<td>Brent-Dekker求根算法</td>
+</tr>
+<tr class="odd">
+<td><code>newton()</code></td>
+<td>牛顿法求根</td>
+</tr>
+<tr class="even">
+<td><code>fibsearch()</code></td>
+<td>斐波那契搜索</td>
+</tr>
+<tr class="odd">
+<td><code>golden_ratio()</code></td>
+<td>黄金分割搜索</td>
+</tr>
+<tr class="even">
+<td><code>fzero()</code></td>
+<td>寻找函数零点（MATLAB风格）</td>
+</tr>
+<tr class="odd">
+<td><code>findmins()</code></td>
+<td>在区间内查找所有局部最小值</td>
+</tr>
+<tr class="even">
+<td><code>findzeros()</code></td>
+<td>查找所有零点</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="多项式处理" class="level4">
+<h4 class="anchored" data-anchor-id="多项式处理">2.2. 多项式处理</h4>
+<p>支持多项式的各种操作，包括求根和多项式拟合，如拉盖尔法（Laguerre）和穆勒法（Muller）。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>poly()</code></td>
+<td>由根构造多项式</td>
+</tr>
+<tr class="even">
+<td><code>compan()</code></td>
+<td>友矩阵（companion matrix）</td>
+</tr>
+<tr class="odd">
+<td><code>roots()</code></td>
+<td>求多项式根</td>
+</tr>
+<tr class="even">
+<td><code>polyfit()</code></td>
+<td>多项式拟合</td>
+</tr>
+<tr class="odd">
+<td><code>charpoly()</code></td>
+<td>特征多项式</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="插值与函数逼近" class="level4">
+<h4 class="anchored" data-anchor-id="插值与函数逼近">2.3. 插值与函数逼近</h4>
+<p>提供重心拉格朗日插值（barycentric Lagrange interpolation）、Padé逼近、有理插值、切比雪夫逼近（Chebyshev approximation）、三角函数逼近等。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>barylag()</code></td>
+<td>重心拉格朗日插值</td>
+</tr>
+<tr class="even">
+<td><code>barylag2d()</code></td>
+<td>二维重心拉格朗日插值</td>
+</tr>
+<tr class="odd">
+<td><code>akimaInterp()</code></td>
+<td>Akima插值</td>
+</tr>
+<tr class="even">
+<td><code>chebApprox()</code></td>
+<td>切比雪夫逼近</td>
+</tr>
+<tr class="odd">
+<td><code>cubicspline()</code></td>
+<td>三次样条插值</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="特殊数学函数" class="level4">
+<h4 class="anchored" data-anchor-id="特殊数学函数">2.4. 特殊数学函数</h4>
+<p>包含弗雷涅尔积分（Fresnel integrals）、黎曼Zeta函数（Riemann’s Zeta）、复Gamma函数、朗伯W函数（Lambert’s W）等。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>erf()</code> / <code>erfc()</code> / <code>erfi()</code></td>
+<td>误差函数及相关函数</td>
+</tr>
+<tr class="even">
+<td><code>fresnelC()</code> / <code>fresnelS()</code></td>
+<td>弗雷涅尔积分</td>
+</tr>
+<tr class="odd">
+<td><code>gammainc()</code></td>
+<td>不完全Gamma函数</td>
+</tr>
+<tr class="even">
+<td><code>expint()</code></td>
+<td>指数积分函数</td>
+</tr>
+<tr class="odd">
+<td><code>bernoulli()</code></td>
+<td>伯努利数</td>
+</tr>
+<tr class="even">
+<td><code>ellipj()</code> / <code>ellipke()</code></td>
+<td>椭圆函数</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="数值微分与积分" class="level4">
+<h4 class="anchored" data-anchor-id="数值微分与积分">2.5. 数值微分与积分</h4>
+<p>支持理查德森外推法（Richardson approach）、复步长导数（complex step derivatives）、自适应辛普森积分（adaptive Simpson）、Lobatto积分、自适应Gauss-Kronrod求积等。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 65%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gradient()</code></td>
+<td>数值梯度</td>
+</tr>
+<tr class="even">
+<td><code>hessian()</code></td>
+<td>数值海森矩阵</td>
+</tr>
+<tr class="odd">
+<td><code>fderiv()</code></td>
+<td>数值微分</td>
+</tr>
+<tr class="even">
+<td><code>integral()</code> / <code>integral2()</code> / <code>integral3()</code></td>
+<td>一维/二维/三维数值积分</td>
+</tr>
+<tr class="odd">
+<td><code>simpson()</code></td>
+<td>辛普森法则</td>
+</tr>
+<tr class="even">
+<td><code>gauss_kronrod()</code></td>
+<td>Gauss-Kronrod求积</td>
+</tr>
+<tr class="odd">
+<td><code>trapz()</code> / <code>cumtrapz()</code></td>
+<td>梯形法则积分</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="常微分方程ode求解器" class="level4">
+<h4 class="anchored" data-anchor-id="常微分方程ode求解器">2.6. 常微分方程（ODE）求解器</h4>
+<p>提供欧拉-休恩法（Euler-Heun）、经典龙格-库塔法（Runge-Kutta）、ode23、亚当斯-巴什福德-莫尔顿预测-校正法（Adams-Bashford-Moulton）等。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>euler_heun()</code></td>
+<td>Euler-Heun方法</td>
+</tr>
+<tr class="even">
+<td><code>ode23()</code></td>
+<td>二阶/三阶龙格-库塔法</td>
+</tr>
+<tr class="odd">
+<td><code>abm3pc()</code></td>
+<td>Adams-Bashford-Moulton三阶预测-校正法</td>
+</tr>
+<tr class="even">
+<td><code>bvp()</code></td>
+<td>边值问题求解</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="线性代数与矩阵运算" class="level4">
+<h4 class="anchored" data-anchor-id="线性代数与矩阵运算">2.7. 线性代数与矩阵运算</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Rank()</code> / <code>mrank()</code></td>
+<td>矩阵秩</td>
+</tr>
+<tr class="even">
+<td><code>nullspace()</code></td>
+<td>零空间（核）</td>
+</tr>
+<tr class="odd">
+<td><code>orth()</code></td>
+<td>正交基</td>
+</tr>
+<tr class="even">
+<td><code>Trace()</code></td>
+<td>矩阵迹</td>
+</tr>
+<tr class="odd">
+<td><code>Diag()</code></td>
+<td>对角矩阵</td>
+</tr>
+<tr class="even">
+<td><code>cond()</code></td>
+<td>条件数</td>
+</tr>
+<tr class="odd">
+<td><code>cross()</code> / <code>dot()</code></td>
+<td>向量叉积/点积</td>
+</tr>
+<tr class="even">
+<td><code>blkdiag()</code></td>
+<td>块对角矩阵</td>
+</tr>
+<tr class="odd">
+<td><code>hankel()</code> / <code>hadamard()</code> / <code>hilb()</code></td>
+<td>特殊矩阵</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="数论函数" class="level4">
+<h4 class="anchored" data-anchor-id="数论函数">2.8. 数论函数</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>primes()</code></td>
+<td>生成素数</td>
+</tr>
+<tr class="even">
+<td><code>factors()</code></td>
+<td>质因数分解</td>
+</tr>
+<tr class="odd">
+<td><code>gcd()</code> / <code>Lcm()</code></td>
+<td>最大公约数/最小公倍数</td>
+</tr>
+<tr class="even">
+<td><code>eulersPhi()</code></td>
+<td>欧拉phi函数</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="时间序列与信号处理" class="level4">
+<h4 class="anchored" data-anchor-id="时间序列与信号处理">2.9. 时间序列与信号处理</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>conv()</code> / <code>deconv()</code></td>
+<td>卷积/解卷积</td>
+</tr>
+<tr class="even">
+<td><code>detrend()</code></td>
+<td>去除（分段）线性趋势</td>
+</tr>
+<tr class="odd">
+<td><code>fftshift()</code> / <code>ifftshift()</code></td>
+<td>傅里叶变换频移</td>
+</tr>
+<tr class="even">
+<td><code>ifft()</code></td>
+<td>逆快速傅里叶变换</td>
+</tr>
+<tr class="odd">
+<td><code>hurstBlock()</code></td>
+<td>Hurst指数估计</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="matlab风格实用函数" class="level4">
+<h4 class="anchored" data-anchor-id="matlab风格实用函数">2.10. MATLAB风格实用函数</h4>
+<p>大量函数与MATLAB同名，便于移植：</p>
+<ul>
+<li><p><strong>三角函数（角度制）</strong>：<code>cosd()</code>、<code>sind()</code>、<code>atand()</code>、<code>acosd()</code>等</p></li>
+<li><p><strong>坐标转换</strong>：<code>cart2pol()</code>、<code>cart2sph()</code>、<code>pol2cart()</code>等</p></li>
+<li><p><strong>数组操作</strong>：<code>accumarray()</code>、<code>bsxfun()</code>、<code>arrayfun()</code>等</p></li>
+<li><p><strong>绘图辅助</strong>：<code>ezplot()</code>、<code>ezpolar()</code>、<code>ezcontour()</code>、<code>ezsurf()</code>等</p></li>
+<li><p><strong>文件与系统</strong>：<code>disp()</code>、<code>fprintf()</code>、<code>figure()</code>、<code>beep()</code>等</p></li>
+</ul>
+</section>
+</section>
+<section id="应用示例-2" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例-2">3.应用示例</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pracma)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例1：求根</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用二分法求方程 x^3 - 2*x - 5 = 0 在[2,3]区间的根</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">-</span> <span class="dv">5</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>root <span class="ot">&lt;-</span> <span class="fu">bisect</span>(f, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(root)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例2：数值积分</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 一维积分</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sin</span>(x) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>result1 <span class="ot">&lt;-</span> <span class="fu">integral</span>(f1, <span class="dv">0</span>, pi)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例3：三维积分</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, z) y<span class="sc">*</span><span class="fu">sin</span>(x) <span class="sc">+</span> z<span class="sc">*</span><span class="fu">cos</span>(x)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>result3 <span class="ot">&lt;-</span> <span class="fu">integral3</span>(f3, <span class="dv">0</span>, pi, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="六stats-包的插值函数" class="level2">
+<h2 class="anchored" data-anchor-id="六stats-包的插值函数">六、<code>stats</code> 包的插值函数</h2>
+<p>对于一些简单的插值任务，通常使用R的基础包 <code>stats</code> 中的四个函数：</p>
+<ul>
+<li><p><code>approx()</code> / <code>approxfun()</code>：进行<strong>线性</strong>或<strong>常数</strong>插值。</p></li>
+<li><p><code>spline()</code> / <code>splinefun()</code>：进行<strong>三次样条</strong>插值。</p></li>
+</ul>
+<p>它们是R语言最轻量、最基础的插值工具，无需安装任何包即可使用。在金融工程中，它们通常用于快速原型验证、简单数据填补或预处理，但在生产级曲线构建中，它们缺少对负利率、对数空间插值或远期利率的专项支持。下面为你详细拆解这四大函数。</p>
+<section id="核心差异" class="level3">
+<h3 class="anchored" data-anchor-id="核心差异">1. 核心差异</h3>
+<p>这两对函数的核心逻辑完全相同，唯一的区别在于<strong>返回值</strong>：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">返回值</th>
+<th style="text-align: left;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>approx()</code> / <code>spline()</code></td>
+<td style="text-align: left;">直接返回一个列表，包含插值后的 <code>x</code> 和 <code>y</code> 数值向量。</td>
+<td style="text-align: left;">一次性使用：只需要拿到具体的插值数值，画个图或填个表。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>approxfun()</code> / <code>splinefun()</code></td>
+<td style="text-align: left;">返回一个R函数对象（闭包），可以反复调用计算任意点的值。</td>
+<td style="text-align: left;">重复调用：需要多次查询不同期限的利率，或作为其他优化函数的输入。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="approx-与-approxfun" class="level3">
+<h3 class="anchored" data-anchor-id="approx-与-approxfun">2. <code>approx()</code> 与 <code>approxfun()</code></h3>
+<p>这是最基础、速度最快的插值方法，默认在数据点之间用直线连接，即线性（或常数）插值。</p>
+<p><strong>核心参数解析</strong>：</p>
+<ul>
+<li><code>x, y</code>：已知的数据点（期限和利率）。</li>
+<li><code>xout</code>：需要插值的目标点（仅在 <code>approx</code> 中有效）。</li>
+<li><strong><code>method</code></strong>：
+<ul>
+<li><code>"linear"</code>（默认）：线性插值。</li>
+<li><code>"constant"</code>：常数插值（阶梯状），通常取左端点值。</li>
+</ul></li>
+<li><strong><code>rule</code></strong>（极其重要）：控制<strong>边界外（外推）</strong>的行为。
+<ul>
+<li><code>rule = 1</code>（默认）：超出范围返回 <code>NA</code>。</li>
+<li><code>rule = 2</code>：超出范围时，<strong>使用最外侧端点的值进行常数外推</strong>（平推）。</li>
+</ul></li>
+<li><strong><code>ties</code></strong>：处理重复 <code>x</code> 值的策略。在金融中，若同一期限有多个报价，常用 <code>ties = "mean"</code>（取均值）或 <code>"ordered"</code>（按顺序取）。</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 模拟期限（年）与即期利率（%）</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>rates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.5</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 一次性插值：获取1.5年和2.5年的利率</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">approx</span>(<span class="at">x =</span> terms, <span class="at">y =</span> rates, <span class="at">xout =</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">2.5</span>))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果会在1.5年处输出 2.55，2.5年处输出 3.0</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 构建插值函数（金融中最常用）</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>rate_fun <span class="ot">&lt;-</span> <span class="fu">approxfun</span>(<span class="at">x =</span> terms, <span class="at">y =</span> rates, <span class="at">rule =</span> <span class="dv">2</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 之后可以像函数一样反复调用</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rate_fun</span>(<span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">4.2</span>, <span class="dv">10</span>)) <span class="co"># 注意：10年超出了范围，由于 rule=2，会取末端值 3.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="spline-与-splinefun" class="level3">
+<h3 class="anchored" data-anchor-id="spline-与-splinefun">3. <code>spline()</code> 与 <code>splinefun()</code></h3>
+<p>三次样条插值，保证曲线在数据点处<strong>一阶、二阶导数连续</strong>，曲线更光滑，在金融中用于生成平滑的收益率曲线。</p>
+<p><strong>核心参数解析（关键区别在于 <code>method</code>）</strong>：</p>
+<ul>
+<li><strong><code>method = "fmm"</code></strong>（默认）：Forsythe-Malkin-Moler 样条。曲线最光滑，但在数据点之间可能会产生<strong>过冲（震荡）</strong>，导致负利率或明显的波浪。</li>
+<li><strong><code>method = "natural"</code></strong>：自然样条。边界二阶导数为0，端点处曲率最小，曲线在两端更平缓。</li>
+<li><strong><code>method = "periodic"</code></strong>：周期样条。适用于季节性数据，金融中不常用。</li>
+<li><strong><code>method = "monoH.FC"</code></strong>（<strong>金融重点</strong>）：<strong>单调三次Hermite样条</strong>。它能保证插值曲线在数据点之间<strong>严格单调</strong>，不会产生无效的震荡。在构建远期利率曲线时，为了防止负远期利率，常首选此方法。</li>
+</ul>
+<p><strong>代码示例</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>rates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">1.2</span>, <span class="fl">1.8</span>, <span class="fl">2.0</span>, <span class="fl">2.1</span>) <span class="co"># 利率先降后升</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 构建默认样条（可能产生轻微过冲）</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>spline_fmm <span class="ot">&lt;-</span> <span class="fu">splinefun</span>(terms, rates, <span class="at">method =</span> <span class="st">"fmm"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 构建单调样条（保证平滑且不产生额外波浪）</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>spline_mono <span class="ot">&lt;-</span> <span class="fu">splinefun</span>(terms, rates, <span class="at">method =</span> <span class="st">"monoH.FC"</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 查询 2.5 年处的利率</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="fu">spline_fmm</span>(<span class="fl">2.5</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">spline_mono</span>(<span class="fl">2.5</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 建议绘图对比，你会看到 fmm 在 1-2 年之间可能出现低于 1.2% 的凹陷，而 mono 则平缓过渡。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="注意" class="level3">
+<h3 class="anchored" data-anchor-id="注意">4. 注意</h3>
+<p>在使用这四个基础函数时，有几个固收领域特有的陷阱需要特别留意：</p>
+<ul>
+<li><strong>外推（Extrapolation）的脆弱性</strong>：
+<ul>
+<li>虽然 <code>rule = 2</code> 可以进行平推，但在长端（如30年）曲线构建中，简单平推会导致定价偏差巨大。生产环境中通常需要结合 <strong>Smith-Wilson</strong> 或 <strong>Nelson-Siegel</strong> 等参数化模型进行外推。</li>
+</ul></li>
+<li><strong>插值标的物的选择</strong>：
+<ul>
+<li>你是对<strong>即期利率（Spot Rate）</strong>、<strong>远期利率（Forward Rate）</strong>，还是<strong>贴现因子（Discount Factor）</strong> 进行插值？</li>
+<li>基础函数默认对 <code>y</code> 进行数学插值。如果直接对贴现因子做线性插值，隐含着远期利率为分段常数；如果直接对利率做样条插值，远期曲线可能会剧烈震荡。<strong>业内更稳健的做法是对贴现因子取对数后再进行样条插值</strong>（<code>spline(log(df) ~ terms)</code>），但 <code>stats</code> 包需要手动操作。</li>
+</ul></li>
+<li><strong>单调性保持</strong>：
+<ul>
+<li>在构建远期利率曲线时，为防止套利，曲线通常被要求为正且单调。<strong>强烈建议在 <code>splinefun</code> 中设置 <code>method = "monoH.FC"</code></strong>，这在基础包中就能提供很好的保障，而无需依赖外部包。</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="七akima-包" class="level2">
+<h2 class="anchored" data-anchor-id="七akima-包"><code>七、akima</code> 包</h2>
+<p><code>akima</code> 包是 R 语言中实现 Akima 插值法的权威工具，尤其擅长处理<strong>二维不规则散点数据</strong>的网格化插值。<code>akima</code> 包的核心，是实现了由 Hiroshi Akima 本人开发的一系列插值算法。它覆盖了从一维到二维、从不规则数据到规则网格数据的多种插值场景。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 71%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">功能维度</th>
+<th style="text-align: left;">具体描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>核心算法</strong></td>
+<td style="text-align: left;">实现 Akima 的<strong>一维</strong> (ACM 433, 697) 和<strong>二维</strong> (ACM 760, 761) 插值方法。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>主要应用</strong></td>
+<td style="text-align: left;">将<strong>不规则分布的散点数据</strong>插值到<strong>规则的网格</strong>上，生成用于可视化的平滑曲面。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>插值类型</strong></td>
+<td style="text-align: left;">支持<strong>线性</strong> (<code>linear=TRUE</code>) 和<strong>样条</strong> (<code>linear=FALSE</code>) 两种插值方式。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>辅助功能</strong></td>
+<td style="text-align: left;">提供针对<strong>规则网格</strong>数据的双三次 (<code>bicubic</code>) 和双线性 (<code>bilinear</code>) 插值。</td>
+</tr>
+</tbody>
+</table>
+<section id="核心函数" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数">1. 核心函数</h3>
+<p>包中的几个核心函数各有侧重，以下是它们的详细说明：</p>
+<section id="interp-二维散点数据网格插值主力函数" class="level4">
+<h4 class="anchored" data-anchor-id="interp-二维散点数据网格插值主力函数">1.1. <code>interp()</code>: 二维散点数据网格插值（主力函数）</h4>
+<p>这是包中使用最频繁的函数，用于将散落的二维点<code>(x, y, z)</code>插值到一个规则的网格上。</p>
+<ul>
+<li><strong>基本用法</strong>: <code>interp(x, y, z, xo, yo, linear, ...)</code></li>
+<li><strong>重要参数</strong>:
+<ul>
+<li><code>x, y, z</code>: 输入数据的坐标和数值向量，长度必须相同，且至少需要4个点。</li>
+<li><code>xo, yo</code>: 定义输出网格的 x 和 y 坐标向量。默认会在数据范围内生成40x40的网格。</li>
+<li><code>linear</code>: <strong>逻辑值</strong>。<code>TRUE</code> (默认) 为线性插值，<code>FALSE</code> 则为平滑的样条插值。</li>
+<li><code>extrap</code>: 逻辑值，是否允许在数据点的<strong>凸包</strong>外进行<strong>外推</strong>。默认为 <code>FALSE</code>。</li>
+<li><code>duplicate</code>: 处理重复数据点的方式，可选 “error”（报错）、“strip”（移除）、“mean”（取均值）等。</li>
+</ul></li>
+<li><strong>返回值</strong>: 一个包含 <code>x</code>, <code>y</code>, <code>z</code> 三个分量的列表，<code>z</code> 是一个矩阵，代表了网格上的插值结果。</li>
+</ul>
+</section>
+<section id="interpp-二维散点数据的点插值" class="level4">
+<h4 class="anchored" data-anchor-id="interpp-二维散点数据的点插值">1.2. <code>interpp()</code>: 二维散点数据的点插值</h4>
+<p>与<code>interp()</code>不同，<code>interpp()</code> 不是生成整个网格，而是直接计算<strong>指定的一系列点</strong>上的插值结果。</p>
+<ul>
+<li><strong>基本用法</strong>: <code>interpp(x, y, z, xo, yo, ...)</code></li>
+<li><strong>适用场景</strong>: 当你只需要少数几个特定位置的插值，而非整个曲面时，此函数更高效。</li>
+</ul>
+</section>
+<section id="aspline-一维-akima-插值" class="level4">
+<h4 class="anchored" data-anchor-id="aspline-一维-akima-插值">1.3. <code>aspline()</code>: 一维 Akima 插值</h4>
+<p>该函数实现了一维的 Akima 插值。</p>
+<ul>
+<li><strong>基本用法</strong>: <code>aspline(x, y, xout, ...)</code></li>
+<li><strong>特点</strong>: 计算效率高，无需解大型方程组。其功能与 <code>pracma</code> 包中的 <code>akimaInterp()</code> 类似。</li>
+</ul>
+</section>
+</section>
+<section id="应用示例-3" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例-3">2. 应用示例</h3>
+<p>下面通过一个完整的例子，展示如何使用 <code>akima</code> 包处理内置数据集并进行可视化。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载包</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("akima")</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(akima)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 加载内置示例数据</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(akima)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看数据结构：这是一个包含 x, y, z 三个分量的列表</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(akima)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 执行样条插值，生成一个更精细的 100x100 网格</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># linear = FALSE 表示使用平滑的样条插值</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>akima.smooth <span class="ot">&lt;-</span> <span class="fu">with</span>(akima, <span class="fu">interp</span>(x, y, z, <span class="at">nx=</span><span class="dv">100</span>, <span class="at">ny=</span><span class="dv">100</span>, <span class="at">linear=</span><span class="cn">FALSE</span>))</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 可视化插值结果</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 image() 绘制热力图，contour() 叠加等高线</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(akima.smooth, <span class="at">main =</span> <span class="st">"Akima 样条插值结果"</span>)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(akima.smooth, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 叠加原始数据点</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(akima, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="注意事项-1" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-1">3. 注意事项</h3>
+<ul>
+<li><strong>许可证限制</strong>：<code>akima</code> 包的核心 Fortran 代码来自 ACM（Association for Computing Machinery），其许可证对商业用途可能有限制。</li>
+<li><strong>现代替代方案 <code>interp</code></strong>：CRAN 上的 <code>interp</code> 包是在自由许可证下<strong>完全重写</strong>的版本，功能与 <code>akima</code> 高度重叠，是更现代的替代选择。</li>
+<li><strong>一维插值替代</strong>：R 基础包中的 <code>spline()</code> 函数或 <code>pracma</code> 包中的 <code>akimaInterp()</code> 函数，也可用于一维插值。</li>
+</ul>
+</section>
+</section>
+<section id="八interp-包" class="level2">
+<h2 class="anchored" data-anchor-id="八interp-包">八、<code>interp</code> 包</h2>
+<p><code>interp</code> 包可以被看作是 <code>akima</code> 包的<strong>自由、开源替代品</strong>。它旨在解决 <code>akima</code> 包因许可证限制而带来的问题，为 R 用户提供了一个功能几乎一致但许可证更宽松的选择。</p>
+<p><code>interp</code> 包的使用方式与 <code>akima</code> 包非常相似，可以轻松过渡。<code>interp</code> 包提供了与 <code>akima</code> 几乎完全相同的功能，同时采用更自由的 GPL 许可证，是更安全、更现代的选择。它提供与 <code>akima</code> 包高度向后兼容的二维插值函数，同时规避了后者的许可证风险。它的主要功能是对<strong>不规则分布的二维散点数据</strong> <code>(x, y, z)</code> 进行插值，生成规则网格上的数据或计算指定点的值。</p>
+<section id="网格插值" class="level3">
+<h3 class="anchored" data-anchor-id="网格插值">1. 网格插值</h3>
+<p>这是最核心的函数，用于将不规则散点数据插值到一个规则的矩形网格上。</p>
+<ul>
+<li><strong>基本用法</strong>： <code>r     interp(x, y, z, xo, yo, method = "linear", ...)</code></li>
+<li><strong>关键参数</strong>：
+<ul>
+<li><code>x, y, z</code>: 输入数据的坐标和数值向量。</li>
+<li><code>xo, yo</code>: 定义输出网格的 x 和 y 坐标向量，默认会在数据范围内生成 40x40 的网格。</li>
+<li><strong><code>method</code></strong>: <strong>这是最重要的新参数</strong>，用于指定插值方法。
+<ul>
+<li><code>"linear"</code>: 默认方法，进行<strong>分段线性插值</strong>，与 <code>akima::interp(..., linear=TRUE)</code> 等效。</li>
+<li><code>"akima"</code>: 进行 <strong>Akima 样条插值</strong>，生成更平滑的曲面，与 <code>akima::interp(..., linear=FALSE)</code> 等效。</li>
+</ul></li>
+<li><code>linear</code>: <strong>这是一个已弃用的参数</strong>，仅用于向后兼容。官方推荐使用新的 <code>method</code> 参数。</li>
+</ul></li>
+</ul>
+</section>
+<section id="点插值" class="level3">
+<h3 class="anchored" data-anchor-id="点插值">2. 点插值</h3>
+<p><code>interp</code> 包将 <code>akima</code> 包中 <code>interpp()</code> 函数的功能整合进了 <code>interp()</code> 函数本身。</p>
+<ul>
+<li><strong>基本用法</strong>：通过设置 <code>output="points"</code> 来实现。 <code>r     interp(x, y, z, xo, yo, output = "points", ...)</code></li>
+<li><strong>注意</strong>：当 <code>output="points"</code> 时，<code>xo</code> 和 <code>yo</code> 需要是相同长度的向量，指定你想要计算插值结果的那些点。</li>
+<li><strong>兼容性</strong>：为方便旧代码，包仍保留了 <code>interpp()</code> 函数，但官方推荐使用新的 <code>interp()</code> 函数。</li>
+</ul>
+</section>
+<section id="应用示例-4" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例-4">3. 应用示例</h3>
+<p>下面通过一个完整的例子，对比 <code>interp</code> 包中两种核心方法的效果。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载包</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("interp")</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interp)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 加载内置示例数据（与akima包的数据集相同）</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(akima)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(akima)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 执行样条插值，生成一个更精细的 100x100 网格</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 method="akima" 获得平滑曲面</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>interp_smooth <span class="ot">&lt;-</span> <span class="fu">with</span>(akima, <span class="fu">interp</span>(x, y, z, <span class="at">nx=</span><span class="dv">100</span>, <span class="at">ny=</span><span class="dv">100</span>, <span class="at">method=</span><span class="st">"akima"</span>))</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 可视化插值结果</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 image() 绘制热力图，contour() 叠加等高线</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="fu">image</span>(interp_smooth, <span class="at">main =</span> <span class="st">"interp 包 (Akima 样条插值)"</span>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="fu">contour</span>(interp_smooth, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 叠加原始数据点</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(akima, <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="interp-vs-akima" class="level3">
+<h3 class="anchored" data-anchor-id="interp-vs-akima">4. <code>interp</code> vs <code>akima</code></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;"><code>interp</code> 包</th>
+<th style="text-align: left;"><code>akima</code> 包</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>许可证</strong></td>
+<td style="text-align: left;"><strong>GPL (&gt;=2)</strong></td>
+<td style="text-align: left;"><strong>ACM 许可证</strong>（限制商业使用）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>核心目标</strong></td>
+<td style="text-align: left;"><strong>完全替代</strong> <code>akima</code> 和 <code>tripack</code></td>
+<td style="text-align: left;">原始算法的权威实现</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>主要函数</strong></td>
+<td style="text-align: left;"><code>interp()</code></td>
+<td style="text-align: left;"><code>interp()</code> 和 <code>interpp()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>插值方法</strong></td>
+<td style="text-align: left;"><code>method="linear"</code> 或 <code>"akima"</code></td>
+<td style="text-align: left;"><code>linear=TRUE</code> 或 <code>FALSE</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>点插值</strong></td>
+<td style="text-align: left;">通过 <code>interp(..., output="points")</code></td>
+<td style="text-align: left;">通过独立的 <code>interpp()</code> 函数</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>向后兼容</strong></td>
+<td style="text-align: left;"><strong>是</strong>，设计为与 <code>akima</code>/<code>tripack</code> 兼容</td>
+<td style="text-align: left;">不适用</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第4节 时间序列分析.html" class="pagination-link" aria-label="第16章 R 第4节 时间序列分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第4节 时间序列分析</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第6节 线性模型.html" class="pagination-link" aria-label="第16章 R 第6节 线性模型">
+        <span class="nav-page-text">第16章 R 第6节 线性模型</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

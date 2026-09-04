@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第4节 时间序列分析 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第5节 金融计算.html" rel="next">
+<link href="./第16章 R 第3节 一般统计分析.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第4节 时间序列分析.html">第16章 R 第4节 时间序列分析</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一时间计算" id="toc-一时间计算" class="nav-link" data-scroll-target="#一时间计算">一、时间计算</a>
+  <ul class="collapse">
+  <li><a href="#timedate包" id="toc-timedate包" class="nav-link" data-scroll-target="#timedate包">1. timeDate包</a></li>
+  <li><a href="#lubridate包" id="toc-lubridate包" class="nav-link" data-scroll-target="#lubridate包">2. lubridate包</a></li>
+  </ul></li>
+  <li><a href="#二时间序列数据结构" id="toc-二时间序列数据结构" class="nav-link" data-scroll-target="#二时间序列数据结构">二、时间序列数据结构</a>
+  <ul class="collapse">
+  <li><a href="#zoozs-ordered-observations" id="toc-zoozs-ordered-observations" class="nav-link" data-scroll-target="#zoozs-ordered-observations">1. zoo（Z’s Ordered Observations）</a></li>
+  <li><a href="#xtsextensible-time-series" id="toc-xtsextensible-time-series" class="nav-link" data-scroll-target="#xtsextensible-time-series">2. xts（eXtensible Time Series）</a></li>
+  <li><a href="#timeseries" id="toc-timeseries" class="nav-link" data-scroll-target="#timeseries">3. timeSeries</a></li>
+  </ul></li>
+  <li><a href="#三时间序列数据计算" id="toc-三时间序列数据计算" class="nav-link" data-scroll-target="#三时间序列数据计算">三、时间序列数据计算</a>
+  <ul class="collapse">
+  <li><a href="#滚动计算" id="toc-滚动计算" class="nav-link" data-scroll-target="#滚动计算">1. 滚动计算</a></li>
+  <li><a href="#缺失值处理" id="toc-缺失值处理" class="nav-link" data-scroll-target="#缺失值处理">2. 缺失值处理</a></li>
+  <li><a href="#提前和滞后" id="toc-提前和滞后" class="nav-link" data-scroll-target="#提前和滞后">3. 提前和滞后</a></li>
+  <li><a href="#合并" id="toc-合并" class="nav-link" data-scroll-target="#合并">4. 合并</a></li>
+  <li><a href="#聚合" id="toc-聚合" class="nav-link" data-scroll-target="#聚合">5. 聚合</a></li>
+  </ul></li>
+  <li><a href="#四统计分析和建模" id="toc-四统计分析和建模" class="nav-link" data-scroll-target="#四统计分析和建模">四、统计分析和建模</a>
+  <ul class="collapse">
+  <li><a href="#arima模型" id="toc-arima模型" class="nav-link" data-scroll-target="#arima模型">1. ARIMA模型</a></li>
+  <li><a href="#平稳检验" id="toc-平稳检验" class="nav-link" data-scroll-target="#平稳检验">2. <strong>平稳</strong>检验</a></li>
+  <li><a href="#协整分析" id="toc-协整分析" class="nav-link" data-scroll-target="#协整分析">3. 协整分析</a></li>
+  <li><a href="#garch族模型" id="toc-garch族模型" class="nav-link" data-scroll-target="#garch族模型">4 GARCH族模型</a></li>
+  <li><a href="#forecast包" id="toc-forecast包" class="nav-link" data-scroll-target="#forecast包">5. <strong>forecast包</strong></a></li>
+  </ul></li>
+  <li><a href="#五平滑和滤波" id="toc-五平滑和滤波" class="nav-link" data-scroll-target="#五平滑和滤波">五、平滑和滤波</a>
+  <ul class="collapse">
+  <li><a href="#ttr包" id="toc-ttr包" class="nav-link" data-scroll-target="#ttr包">1. TTR包</a></li>
+  <li><a href="#hp滤波" id="toc-hp滤波" class="nav-link" data-scroll-target="#hp滤波">2. HP滤波</a></li>
+  <li><a href="#卡尔曼滤波" id="toc-卡尔曼滤波" class="nav-link" data-scroll-target="#卡尔曼滤波">3. 卡尔曼滤波</a></li>
+  </ul></li>
+  <li><a href="#六隐含马可夫模型" id="toc-六隐含马可夫模型" class="nav-link" data-scroll-target="#六隐含马可夫模型">六、隐含马可夫模型</a>
+  <ul class="collapse">
+  <li><a href="#fhmm" id="toc-fhmm" class="nav-link" data-scroll-target="#fhmm">1. <code>fHMM</code></a></li>
+  <li><a href="#depmixs4" id="toc-depmixs4" class="nav-link" data-scroll-target="#depmixs4">2. <code>depmixS4</code></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第4节 时间序列分析</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>时间序列分析是数据科学中最重要且应用最广泛的领域之一。R语言凭借其丰富而强大的生态系统，已经成为时间序列数据处理和分析的首选工具。本文将从时间计算、数据结构、数据处理到统计建模，系统性地介绍R语言在时间序列分析中的核心功能与应用。</p>
+</section>
+<section id="一时间计算" class="level2">
+<h2 class="anchored" data-anchor-id="一时间计算">一、时间计算</h2>
+<p>时间序列分析的基础在于对时间本身的操作与计算。R语言提供了多个专门处理日期和时间的包，其中<code>timeDate</code>和<code>lubridate</code>是最具代表性的两个。</p>
+<section id="timedate包" class="level3">
+<h3 class="anchored" data-anchor-id="timedate包">1. timeDate包</h3>
+<p><code>timeDate</code>包是Rmetrics套件的核心基础组件，专为金融时间序列分析中的日期和时间管理而设计。它通过提供标准、严谨且功能丰富的时间日期对象，为上层的高级金融分析（如<code>timeSeries</code>、<code>fGarch</code>等）奠定了坚实基础。</p>
+<p><strong>核心特性包括：</strong></p>
+<p><strong>遵循国际标准</strong>：<code>timeDate</code>类完全遵循ISO 8601、ANSI C和POSIX标准，确保了时间数据表示的规范性和跨平台的一致性。</p>
+<p><strong>独创的“金融中心”概念</strong>：这是<code>timeDate</code>区别于R中其他时间包的核心特性。它能处理不同时区收集的数据，并允许用户设置一个“金融中心”（如”Zurich”、“NYC”），所有时间戳都会基于此进行转换和显示。这对于处理来自全球不同交易所的金融数据至关重要。</p>
+<p><strong>强大的日历工具</strong>：除了基本的日期时间功能，它还提供了复杂的日历操作，如判断是否为工作日、周末，以及管理公共假日和宗教节日（如复活节）等。</p>
+<p><strong>核心概念：S4类 <code>timeDate</code></strong></p>
+<p><code>timeDate</code>包基于R的S4面向对象系统构建。<strong><code>timeDate</code>类</strong>：其对象包含三个核心槽（slot）：</p>
+<ul>
+<li><code>@Data</code>：以<code>POSIXct</code>格式存储的时间戳。</li>
+<li><code>@format</code>：时间戳的格式。</li>
+<li><code>@FinCenter</code>：该时间戳所属的“金融中心”。</li>
+</ul>
+<p><strong>主要功能与应用包括：</strong></p>
+<section id="创建-timedate-对象" class="level4">
+<h4 class="anchored" data-anchor-id="创建-timedate-对象">1.1. 创建 <code>timeDate</code> 对象</h4>
+<p>包提供了多种创建对象的便捷函数：</p>
+<ul>
+<li><strong><code>timeDate()</code></strong>：从字符向量或其它日期对象创建。</li>
+<li><strong><code>timeSequence()</code></strong>：生成规则的时间序列。</li>
+<li><strong><code>timeCalendar()</code></strong>：从年、月、日等日历元素创建。</li>
+<li><strong><code>Sys.timeDate()</code></strong>：获取当前的系统时间。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timeDate)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 从字符向量创建，默认使用"GMT"时区</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>my_dates <span class="ot">&lt;-</span> <span class="fu">timeDate</span>(<span class="fu">c</span>(<span class="st">"2026-09-03 10:00:00"</span>, <span class="st">"2026-09-04 14:30:00"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_dates)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 设置金融中心为"Zurich"（苏黎世）</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>my_dates_zurich <span class="ot">&lt;-</span> <span class="fu">timeDate</span>(<span class="fu">c</span>(<span class="st">"2026-09-03 10:00:00"</span>, <span class="st">"2026-09-04 14:30:00"</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">zone =</span> <span class="st">"Zurich"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_dates_zurich)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 生成一个日期序列</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>my_sequence <span class="ot">&lt;-</span> <span class="fu">timeSequence</span>(<span class="at">from =</span> <span class="st">"2026-09-01"</span>, <span class="at">to =</span> <span class="st">"2026-09-10"</span>, <span class="at">by =</span> <span class="st">"day"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_sequence)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 从日历元素创建</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>my_calendar <span class="ot">&lt;-</span> <span class="fu">timeCalendar</span>(<span class="at">year =</span> <span class="dv">2026</span>, <span class="at">month =</span> <span class="dv">9</span>, <span class="at">day =</span> <span class="dv">3</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_calendar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="与时区和金融中心协同工作" class="level4">
+<h4 class="anchored" data-anchor-id="与时区和金融中心协同工作">1.2. 与时区和“金融中心”协同工作</h4>
+<p>这是<code>timeDate</code>最独特的功能。通过设置全局或局部的金融中心，可以轻松地在不同时区间转换时间。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看默认的金融中心（通常为"GMT"）</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getRmetricsOptions</span>(<span class="st">"myFinCenter"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置全局金融中心为纽约</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">setRmetricsOptions</span>(<span class="at">myFinCenter =</span> <span class="st">"America/New_York"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个时间戳，并指定其原始时区为"GMT"，但显示时会根据全局设置转换</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ts_ny <span class="ot">&lt;-</span> <span class="fu">timeDate</span>(<span class="st">"2026-09-03 14:00:00"</span>, <span class="at">zone =</span> <span class="st">"GMT"</span>, <span class="at">FinCenter =</span> <span class="st">"America/New_York"</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ts_ny)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="复杂的日期计算与日历操作" class="level4">
+<h4 class="anchored" data-anchor-id="复杂的日期计算与日历操作">1.3. 复杂的日期计算与日历操作</h4>
+<p><code>timeDate</code>提供了丰富的函数用于日期计算和判断。</p>
+<p><strong>日期计算</strong>：支持日期的加减、排序、取整（<code>round</code>）、去重（<code>unique</code>）等。</p>
+<p><strong>工作日与假日判断</strong>：这是金融分析中的高频操作。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个日期向量</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>my_dates <span class="ot">&lt;-</span> <span class="fu">timeDate</span>(<span class="fu">c</span>(<span class="st">"2026-09-03"</span>, <span class="st">"2026-09-04"</span>, <span class="st">"2026-09-05"</span>, <span class="st">"2026-09-06"</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断是否为周末</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">isWeekend</span>(my_dates)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断是否为工作日（周一至周五）</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">isWeekday</span>(my_dates)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取特定年份的复活节日期</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">easter</span>(<span class="dv">2026</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>包中还内置了多个主要金融中心的假日日历（如纽约证券交易所NYSE），可以方便地判断某天是否为交易日：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 判断日期是否为纽约证券交易所的交易日</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">isBizday</span>(my_dates, <span class="at">holidays =</span> <span class="fu">holidayNYSE</span>(<span class="dv">2026</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>timeDate</code>包函数可快速计算给定日期所在月份或季度的<strong>第一天和最后一天</strong>，特别适合在金融时间序列中生成日历边界，比如月度/季度报表的起止日期。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timeDate)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 给定日期</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>my_date <span class="ot">&lt;-</span> <span class="st">"2026-09-03"</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 月份第一天/最后一天</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">timeFirstDayInMonth</span>(my_date)   <span class="co"># "2026-09-01"</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">timeLastDayInMonth</span>(my_date)    <span class="co"># "2026-09-30"</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 季度第一天/最后一天</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">timeFirstDayInQuarter</span>(my_date) <span class="co"># "2026-07-01"（第三季度）</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="fu">timeLastDayInQuarter</span>(my_date)  <span class="co"># "2026-09-30"</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 支持向量化操作</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"2026-09-03"</span>, <span class="st">"2026-02-15"</span>, <span class="st">"2026-12-01"</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">timeLastDayInMonth</span>(dates)      <span class="co"># "2026-09-30" "2026-02-28" "2026-12-31"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="lubridate包" class="level3">
+<h3 class="anchored" data-anchor-id="lubridate包">2. lubridate包</h3>
+<p><code>lubridate</code> 是 R 语言中处理日期和时间（date-time）数据的核心包之一，也是 <strong>tidyverse</strong> 生态系统的重要成员。它旨在解决基础 R 中日期时间处理“通常不直观，且会随对象类型变化而改变”的痛点，提供了一套 <strong>“一致且易于记忆的语法”</strong> ，让处理日期变得“简单又有趣”。</p>
+<section id="智能解析" class="level4">
+<h4 class="anchored" data-anchor-id="智能解析">2.1. 智能解析</h4>
+<p><code>lubridate</code> 提供了一系列以 <code>y</code> (年)、<code>m</code> (月)、<code>d</code> (日)、<code>h</code> (时)、<code>m</code> (分)、<code>s</code> (秒) 顺序命名的解析函数，函数名即数据的排列顺序，省去了记忆复杂的 <code>format</code> 参数。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 解析日期</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2026-09-03"</span>)        <span class="co"># "2026-09-03"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"September 3, 2026"</span>) <span class="co"># "2026-09-03"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"03/09/2026"</span>)        <span class="co"># "2026-09-03"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 解析日期时间</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2026-09-03 14:30:00"</span>) <span class="co"># "2026-09-03 14:30:00 UTC"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy_hms</span>(<span class="st">"09/03/2026 2:30 PM"</span>)  <span class="co"># "2026-09-03 14:30:00 UTC"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>对于未知格式，可使用 <code>guess_formats()</code> 进行试探。</p>
+</section>
+<section id="提取与修改组件" class="level4">
+<h4 class="anchored" data-anchor-id="提取与修改组件">2.2. 提取与修改组件</h4>
+<p>使用与组件同名的函数即可提取或修改日期的各个部分。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2026-09-03 14:30:00"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取组件</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(dt)   <span class="co"># 2026</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(dt)  <span class="co"># 9</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">mday</span>(dt)   <span class="co"># 3 (一个月中的第几天)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(dt, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>) <span class="co"># "星期四" (带标签的星期几)</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hour</span>(dt)   <span class="co"># 14</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">minute</span>(dt) <span class="co"># 30</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">second</span>(dt) <span class="co"># 0</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 修改组件 (在原始对象上直接修改)</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(dt) <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>dt <span class="co"># "2026-12-03 14:30:00 UTC"</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 向量化操作也完全支持</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="fu">c</span>(<span class="st">"2026-09-01"</span>, <span class="st">"2026-09-02"</span>, <span class="st">"2026-09-03"</span>))</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="fu">wday</span>(dates, <span class="at">label =</span> <span class="cn">TRUE</span>) <span class="co"># "周二" "周三" "周四"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="时区处理" class="level4">
+<h4 class="anchored" data-anchor-id="时区处理">2.3. 时区处理</h4>
+<p><code>lubridate</code> 提供了两个核心函数来处理时区。 * <strong><code>with_tz()</code></strong>：<strong>更改显示时区</strong>，将时间从当前时区转换到目标时区。 * <strong><code>force_tz()</code></strong>：<strong>强制更改时区属性</strong>，而不改变底层时刻，适用于纠正错误时区标签。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2026-09-03 14:30:00"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>time</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "2026-09-03 14:30:00 UTC"</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 转换到纽约时区显示 (时间发生相应变化)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">with_tz</span>(time, <span class="st">"America/New_York"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "2026-09-03 10:30:00 EDT"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 强制将时区改为纽约 (时间戳本身不变，只是标签变了)</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">force_tz</span>(time, <span class="st">"America/New_York"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "2026-09-03 14:30:00 EDT"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="时间跨度" class="level4">
+<h4 class="anchored" data-anchor-id="时间跨度">2.4. 时间跨度</h4>
+<p>这是 <code>lubridate</code> 最强大的设计之一，它将时间跨度（timespan）分为三类，以应对不同的计算场景。</p>
+<p><strong>Periods (时期)</strong>：<strong>关注“时钟时间”</strong>。它按“人类单位”（年、月、日等）进行计算。加减月份时会自动处理月份天数不同的问题。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>jan31 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2026-01-31"</span>)     jan31 <span class="sc">+</span> <span class="fu">months</span>(<span class="dv">1</span>) <span class="co"># "2026-02-28" (自动滚到2月最后一天)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Durations (时长)</strong>：<strong>关注“物理时间”</strong>。它总是以<strong>秒</strong>为单位进行精确计算。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>jan31 <span class="sc">+</span> <span class="fu">ddays</span>(<span class="dv">1</span>) <span class="co"># "2026-02-01" (固定增加86400秒)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Intervals (区间)</strong>：由<strong>两个具体的日期时间</strong>界定。它是最精确的表示，可安全地转换为 <code>Period</code> 或 <code>Duration</code>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2026-01-01 00:00:00"</span>)    </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>end <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2026-01-02 12:00:00"</span>)     </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>span <span class="ot">&lt;-</span> start <span class="sc">%--%</span> end <span class="co"># 创建一个区间     </span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">as.duration</span>(span) <span class="co"># "129600s (~1.5 days)"    </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">as.period</span>(span)  <span class="co"># "1d 12H 0M 0S"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="日期时间运算" class="level4">
+<h4 class="anchored" data-anchor-id="日期时间运算">2.5. 日期时间运算</h4>
+<p>为解决“1月31日加1个月”这类问题，<code>lubridate</code> 提供了 <strong><code>%m+%</code></strong> 和 <strong><code>%m-%</code></strong> 运算符，它们会智能地将不存在的日期滚动到该月的最后一天。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>jan31 <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2026-01-31"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>jan31 <span class="sc">%m+%</span> <span class="fu">months</span>(<span class="dv">1</span>) <span class="co"># "2026-02-28"</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>jan31 <span class="sc">%m-%</span>% <span class="fu">months</span>(<span class="dv">1</span>) <span class="co"># "2025-12-31"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="舍入与回滚" class="level4">
+<h4 class="anchored" data-anchor-id="舍入与回滚">2.6. 舍入与回滚</h4>
+<ul>
+<li><strong>舍入</strong>：<code>round_date()</code>, <code>floor_date()</code>, <code>ceiling_date()</code> 可将日期时间舍入到指定单位（如 <code>week</code>, <code>month</code>）。</li>
+<li><strong>回滚</strong>：<code>rollback()</code> 可将日期回滚到上个月的最后一天。</li>
+</ul>
+</section>
+<section id="总结" class="level4">
+<h4 class="anchored" data-anchor-id="总结">2.7. 总结</h4>
+<p><code>lubridate</code> 通过其<strong>直观的解析函数</strong>、<strong>一致的组件访问接口</strong>以及<strong>精确的时间跨度模型</strong>，极大地降低了 R 语言中日期时间处理的复杂度，让分析师能更专注于问题本身而非数据格式的细节。</p>
+<p>与<code>timeDate</code>的严谨和标准化不同，<code>lubridate</code>的设计哲学是<strong>易用性和直观性</strong>。作为tidyverse生态系统的核心成员之一，<code>lubridate</code>使得日期时间的处理变得更加直观和愉悦。</p>
+</section>
+</section>
+</section>
+<section id="二时间序列数据结构" class="level2">
+<h2 class="anchored" data-anchor-id="二时间序列数据结构">二、时间序列数据结构</h2>
+<p>R语言中有多种用于存储时间序列数据的结构，其中<code>zoo</code>、<code>xts</code>和<code>timeSeries</code>是最为重要的三个。</p>
+<section id="zoozs-ordered-observations" class="level3">
+<h3 class="anchored" data-anchor-id="zoozs-ordered-observations">1. zoo（Z’s Ordered Observations）</h3>
+<p><code>zoo</code>包提供了S3类<code>zoo</code>，是R语言中处理<strong>规则和不规则时间序列</strong>的基础设施。<code>zoo</code>的核心设计理念是创建一个通用的、完全有序的索引观测值容器。</p>
+<p><code>zoo</code>对象的特点：</p>
+<ul>
+<li><strong>灵活的索引类型</strong>：索引可以是<code>Date</code>、<code>POSIXct</code>、<code>chron</code>、<code>yearmon</code>、<code>yearqtr</code>等任意有序类型</li>
+<li><strong>数据存储灵活</strong>：核心数据可以是数值向量、矩阵，甚至任意类的对象</li>
+<li><strong>支持规则和不规则序列</strong>：这是<code>zoo</code>相对于基础<code>ts</code>类的最大优势</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建规则时间序列</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>z_regular <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">order.by =</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">by =</span> <span class="st">"day"</span>, <span class="at">length.out =</span> <span class="dv">10</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建不规则时间序列</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>dates_irregular <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2026-01-01"</span>, <span class="st">"2026-01-03"</span>, <span class="st">"2026-01-07"</span>, <span class="st">"2026-01-15"</span>))</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>z_irregular <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>), <span class="at">order.by =</span> dates_irregular)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看索引和时间频率</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">index</span>(z_irregular)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="fu">frequency</span>(z_irregular)  <span class="co"># 不规则序列返回1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>zoo</code>包还提供了大量与基础R统计函数兼容的方法，如<code>plot()</code>、<code>summary()</code>、<code>merge()</code>、<code>aggregate()</code>等。</p>
+</section>
+<section id="xtsextensible-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="xtsextensible-time-series">2. xts（eXtensible Time Series）</h3>
+<p><code>xts</code>包在<code>zoo</code>的基础上进行了扩展，提供了更强大、更高效的时间序列处理能力。<code>xts</code>继承了<code>zoo</code>的所有方法，并增加了许多针对时间序列的优化和扩展功能。</p>
+<p><code>xts</code>的核心优势：</p>
+<ul>
+<li><strong>C级优化</strong>：许多核心操作在C语言级别实现，性能卓越</li>
+<li><strong>统一的时间处理</strong>：提供对R中多种时间数据类的统一处理接口</li>
+<li><strong>丰富的索引操作</strong>：支持按日期范围、按时间点等灵活的子集提取</li>
+<li><strong>原生格式信息保留</strong>：最大化保留数据的格式信息</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建xts对象</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">order.by =</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">by =</span> <span class="st">"day"</span>, <span class="at">length.out =</span> <span class="dv">10</span>))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 按日期范围提取子集</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>x[<span class="st">"2026-01-03/2026-01-07"</span>]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 按年份/月份提取</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>x[<span class="st">"2026-01"</span>]  <span class="co"># 提取2026年1月所有数据</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 滞后操作</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="fu">lag</span>(x, <span class="at">k =</span> <span class="dv">1</span>)  <span class="co"># 滞后1期</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 差分操作</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>xts</code>与<code>zoo</code>的高度兼容性意味着大多数<code>zoo</code>函数可以直接用于<code>xts</code>对象，这使得从<code>zoo</code>迁移到<code>xts</code>几乎零成本。</p>
+</section>
+<section id="timeseries" class="level3">
+<h3 class="anchored" data-anchor-id="timeseries">3. timeSeries</h3>
+<p><code>timeSeries</code>是Rmetrics套件中的S4类时间序列对象，特别<strong>针对金融数据分析</strong>而设计。</p>
+<p><code>timeSeries</code>的特点：</p>
+<ul>
+<li><strong>S4类系统</strong>：采用严格的面向对象设计</li>
+<li><strong>金融数据专用</strong>：提供了大量金融时间序列分析所需的专门方法</li>
+<li><strong>丰富的工具集</strong>：包括缩放、排序、子集提取、数学运算和统计函数等</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(timeSeries)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建timeSeries对象</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ts <span class="ot">&lt;-</span> <span class="fu">timeSeries</span>(<span class="at">data =</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">charvec =</span> <span class="fu">as.character</span>(<span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">by =</span> <span class="st">"day"</span>, <span class="at">length.out =</span> <span class="dv">50</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在实际应用中，三者各有侧重：<code>zoo</code>是通用基础，<code>xts</code>是性能优化版，<code>timeSeries</code>则专注于金融分析场景。</p>
+</section>
+</section>
+<section id="三时间序列数据计算" class="level2">
+<h2 class="anchored" data-anchor-id="三时间序列数据计算">三、时间序列数据计算</h2>
+<section id="滚动计算" class="level3">
+<h3 class="anchored" data-anchor-id="滚动计算">1. 滚动计算</h3>
+<p>在R的时间序列分析中，滚动计算（Rolling/Running Window Calculation）是一种核心操作，用于在数据的一个固定大小的滑动窗口上反复应用某个函数。`zoo`包提供了最通用和灵活的框架，而`timeSeries`包则在此基础上提供了针对其对象结构的封装。</p>
+<p><code>zoo</code>包提供了两种主要的滚动计算函数：通用的<code>rollapply()</code>和针对特定统计量优化的专用函数。</p>
+<p><code>rollapply()</code>是<code>zoo</code>包中最核心、最通用的滚动计算函数。你可以将<strong>任何</strong>R函数应用到滚动窗口上，这使其无比灵活。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>, <span class="fu">as.Date</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动均值（窗口宽度为3）</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(z, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动标准差</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(z, <span class="at">width =</span> <span class="dv">5</span>, <span class="at">FUN =</span> sd)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 非重叠分组计算（by参数控制步长）</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(z, <span class="at">width =</span> <span class="dv">3</span>, <span class="at">FUN =</span> mean, <span class="at">by =</span> <span class="dv">3</span>)  <span class="co"># 每3个一组计算均值</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动回归</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(z, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">coef</span>(<span class="fu">lm</span>(x <span class="sc">~</span> <span class="fu">index</span>(x))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>对于均值、最大值、中位数和求和这四种最常见的滚动操作，<code>zoo</code>提供了专门的函数。它们和<code>rollapply()</code>功能类似，但<strong>针对特定操作进行了速度优化</strong>，在处理大型数据时效率更高。</p>
+<p>以<code>rollmean</code>为例，基本语法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollmean</span>(x, k, <span class="at">fill =</span> <span class="cf">if</span> (na.pad) <span class="cn">NA</span>, <span class="at">na.pad =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>), ...)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rollmax</span>(x, k, ...)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">rollmedian</span>(x, k, ...) <span class="co"># 注意：k必须为奇数</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rollsum</span>(x, k, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>重要区别与注意事项</strong>：</p>
+<ul>
+<li><p><strong>性能</strong>：这些专用函数比使用<code>rollapply(x, k, mean)</code>要<strong>快得多</strong>。</p></li>
+<li><p><strong><code>NA</code>值处理</strong>：<code>rollmean</code>和<code>rollsum</code>的<strong>默认方法不处理输入数据中包含的<code>NA</code>值</strong>。如果数据中有<code>NA</code>，应使用<code>rollapply(x, k, mean, na.rm = TRUE)</code>。</p></li>
+<li><p><strong><code>rollapply</code>的智能优化</strong>：当<code>FUN = mean</code>且满足一定条件时，<code>rollapply</code>会自动调用优化版的<code>rollmean</code>来提速。</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rollmean vs rollapply</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>xm <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 这两行代码效果相同，但rollapply会自动使用更快的rollmean方法</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(xm, <span class="dv">3</span>, mean)                 <span class="co"># 会使用rollmean优化</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rollapply</span>(xm, <span class="dv">3</span>, <span class="cf">function</span>(x) <span class="fu">mean</span>(x)) <span class="co"># 不会使用rollmean优化</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>timeSeries</code>包也提供了滚动计算功能，其底层代码实际上<strong>直接借鉴并封装自<code>zoo</code>包</strong>。<strong>主要函数包括</strong>：</p>
+<p><code>rollStats()</code>: 最通用的函数，允许通过<code>FUN</code>参数指定任意函数。</p>
+<p><code>rollMean()</code>, <code>rollMin()</code>, <code>rollMax()</code>, <code>rollMedian()</code>: 分别计算滚动均值、最小值、最大值和中位数。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rollStats</span>(x, k, <span class="at">FUN =</span> mean, <span class="at">na.pad =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>), ...)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rollMean</span>(x, k, <span class="at">na.pad =</span> <span class="cn">FALSE</span>, <span class="at">align =</span> <span class="fu">c</span>(<span class="st">"center"</span>, <span class="st">"left"</span>, <span class="st">"right"</span>), ...)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># rollMin, rollMax, rollMedian 用法类似</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>函数对比总结</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;"><code>rollapply()</code></th>
+<th style="text-align: left;"><code>rollmean</code>等</th>
+<th style="text-align: left;"><code>timeSeries</code> 函数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>通用性</strong></td>
+<td style="text-align: left;"><strong>最高</strong>，可应用任何R函数</td>
+<td style="text-align: left;"><strong>低</strong>，仅限特定统计量</td>
+<td style="text-align: left;"><strong>中等</strong>，<code>rollStats()</code>通用，其他专用</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>性能</strong></td>
+<td style="text-align: left;">较慢，特别是自定义函数</td>
+<td style="text-align: left;"><strong>非常快</strong>，经过优化</td>
+<td style="text-align: left;">与<code>zoo</code>函数性能相当</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>适用对象</strong></td>
+<td style="text-align: left;"><code>zoo</code>, <code>ts</code>, 向量, 矩阵</td>
+<td style="text-align: left;"><code>zoo</code>, <code>ts</code></td>
+<td style="text-align: left;"><code>timeSeries</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>NA</code>值处理</strong></td>
+<td style="text-align: left;">通过<code>...</code>传递给<code>FUN</code></td>
+<td style="text-align: left;"><code>rollmean/rollsum</code>默认<strong>不处理</strong><code>NA</code></td>
+<td style="text-align: left;">通过<code>...</code>传递给<code>FUN</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>核心特点</strong></td>
+<td style="text-align: left;">功能强大，极其灵活</td>
+<td style="text-align: left;">为常用操作提供高速通道</td>
+<td style="text-align: left;">为<code>timeSeries</code>对象提供便捷封装</td>
+</tr>
+</tbody>
+</table>
+<p>实践中，一般首选<code>zoo</code>专用函数。当你的需求是计算滚动均值、和、最大值或中位数时，应优先使用<code>rollmean()</code>、<code>rollsum()</code>等专用函数，以获得最佳性能。 复杂计算用<code>rollapply()</code>。当需要计算滚动标准差、相关系数、自定义回归等专用函数无法实现的操作时，<code>rollapply()</code>是唯一且强大的选择。如果你的数据本身就是<code>timeSeries</code>对象，为了保持代码风格一致或简化操作，可以直接使用<code>timeSeries</code>包提供的<code>rollMean()</code>等函数。</p>
+</section>
+<section id="缺失值处理" class="level3">
+<h3 class="anchored" data-anchor-id="缺失值处理">2. 缺失值处理</h3>
+<p>时间序列数据中缺失值极为常见，<code>zoo</code>包提供了多种缺失值填充方法：</p>
+<p><strong>前向填充（Last Observation Carried Forward）</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="cn">NA</span>, <span class="dv">3</span>, <span class="cn">NA</span>, <span class="dv">5</span>), <span class="fu">as.Date</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 用最后一个非缺失值填充NA</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">na.locf</span>(z)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果：1, 1, 3, 3, 5</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 从末尾向前填充</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="fu">na.locf</span>(z, <span class="at">fromLast =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果：1, 3, 3, 5, 5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>线性插值</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 线性插值</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">na.approx</span>(z)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果：1, 2, 3, 4, 5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>样条插值</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 样条插值</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">na.spline</span>(z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>na.locf()</code>、<code>na.approx()</code>和<code>na.spline()</code>分别适用于不同的场景：前向填充适用于金融数据中“价格不变”的假设；线性插值适用于趋势较为平滑的序列；样条插值则适用于需要更平滑拟合的情况。</p>
+</section>
+<section id="提前和滞后" class="level3">
+<h3 class="anchored" data-anchor-id="提前和滞后">3. 提前和滞后</h3>
+<p>时间序列分析中，滞后（lag）和提前（lead）操作是构建预测模型的基础。</p>
+<p><strong>zoo包和xts包的操作</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="fu">as.Date</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 滞后1期（将序列向后移动，即t期的值对应原序列t-1期的值）</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lag</span>(z, <span class="at">k =</span> <span class="dv">1</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 提前1期（将序列向前移动，即t期的值对应原序列t+1期的值）</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lag</span>(z, <span class="at">k =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>dplyr包的lag和lead</strong>：</p>
+<p>对于数据框中的时间序列数据，<code>dplyr</code>包的<code>lag()</code>和<code>lead()</code>函数分别用于<strong>将向量滞后（向后移动）和提前（向前移动）指定的位置数</strong>。在数据框内创建时间序列的滞后/领先变量，且默认按行顺序操作，不依赖时间索引。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 滞后1期</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">lag</span>(value, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 提前1期</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">lead</span>(value, <span class="at">n =</span> <span class="dv">1</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">lag</span>(value, <span class="at">n =</span> <span class="sc">-</span><span class="dv">1</span>) <span class="co"># t提示错误</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Error in `dplyr::lag()`:</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ! `n` must be positive.</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Run `rlang::last_trace()` to see where the error occurred.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="合并" class="level3">
+<h3 class="anchored" data-anchor-id="合并">4. 合并</h3>
+<p>基于时间索引的合并是时间序列数据整合的核心操作。</p>
+<p><strong>zoo的合并</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2026-01-01"</span>, <span class="st">"2026-01-02"</span>, <span class="st">"2026-01-03"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"2026-01-04"</span>, <span class="st">"2026-01-05"</span>)))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2026-01-01"</span>, <span class="st">"2026-01-03"</span>, <span class="st">"2026-01-05"</span>)))</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并（默认外连接，缺失值填充NA）</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(z1, z2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>xts的合并</strong>：</p>
+<p><code>xts</code>的<code>merge()</code>方法在<code>zoo</code>的基础上进行了C级优化，性能更高。<code>xts</code>还支持类似数据库的join操作：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>) <span class="sc">+</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">12</span>, <span class="fu">as.Date</span>(<span class="st">"2026-01-01"</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>))</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 内连接（仅保留时间索引匹配的行）</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(x, y, <span class="at">join =</span> <span class="st">"inner"</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 左连接</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(x, y, <span class="at">join =</span> <span class="st">"left"</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 外连接（默认）</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">merge</span>(x, y, <span class="at">join =</span> <span class="st">"outer"</span>)  <span class="co"># 等同于 merge(x, y)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="聚合" class="level3">
+<h3 class="anchored" data-anchor-id="聚合">5. 聚合</h3>
+<p>聚合（aggregation）是将高频数据转换为低频数据的过程，是时间序列分析中的常见需求。</p>
+<p><strong>zoo</strong>的<code>aggregate()</code>方法将序列按照更粗的索引网格分割，对每个子集应用汇总函数，然后返回缩减后的<code>zoo</code>对象。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建日度数据</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>z_daily <span class="ot">&lt;-</span> <span class="fu">zoo</span>(<span class="fu">rnorm</span>(<span class="dv">365</span>),</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">order.by =</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2025-01-01"</span>),</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">by =</span> <span class="st">"day"</span>, <span class="at">length.out =</span> <span class="dv">365</span>))</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 按月聚合（计算月均值）</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>z_monthly <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(z_daily, <span class="at">by =</span> as.yearmon, <span class="at">FUN =</span> mean)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 按季度聚合</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>z_quarterly <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(z_daily, <span class="at">by =</span> as.yearqtr, <span class="at">FUN =</span> sum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>对于<code>xts</code>对象，可以利用<code>period.apply()</code>或<code>apply.daily()</code>、<code>apply.monthly()</code>等系列函数进行聚合：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="fu">rnorm</span>(<span class="dv">365</span>), <span class="at">order.by =</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">"2025-01-01"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">by =</span> <span class="st">"day"</span>, <span class="at">length.out =</span> <span class="dv">365</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 按月聚合</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.monthly</span>(x, <span class="at">FUN =</span> mean)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 按周聚合</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="fu">apply.weekly</span>(x, <span class="at">FUN =</span> sum)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 自定义周期聚合</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>ep <span class="ot">&lt;-</span> <span class="fu">endpoints</span>(x, <span class="at">on =</span> <span class="st">"months"</span>)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">period.apply</span>(x, <span class="at">INDEX =</span> ep, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="四统计分析和建模" class="level2">
+<h2 class="anchored" data-anchor-id="四统计分析和建模">四、统计分析和建模</h2>
+<section id="arima模型" class="level3">
+<h3 class="anchored" data-anchor-id="arima模型">1. ARIMA模型</h3>
+<p><code>stats::arima()</code> 是 R 语言基础包 <code>stats</code> 中用于拟合<strong>单变量</strong>（univariate）时间序列 ARIMA 模型的核心函数。其基本语法如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arima</span>(x, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L),</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>L, <span class="dv">0</span>L, <span class="dv">0</span>L), <span class="at">period =</span> <span class="cn">NA</span>),</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xreg =</span> <span class="cn">NULL</span>, <span class="at">include.mean =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">transform.pars =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">fixed =</span> <span class="cn">NULL</span>, <span class="at">init =</span> <span class="cn">NULL</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"CSS-ML"</span>, <span class="st">"ML"</span>, <span class="st">"CSS"</span>),</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>      ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong><code>x</code></strong>: 一个单变量时间序列。</li>
+<li><strong><code>order</code></strong>: 一个长度为3的数值向量 <code>(p, d, q)</code>，分别指定模型的<strong>自回归(AR)阶数</strong>、<strong>差分阶数</strong>和<strong>移动平均(MA)阶数</strong>。</li>
+<li><strong><code>seasonal</code></strong>: 一个列表，用于指定<strong>季节性ARIMA</strong>（SARIMA）模型。它包含两个组件：
+<ul>
+<li><code>order</code>: 长度为3的向量 <code>(P, D, Q)</code>，含义与 <code>order</code> 类似，但作用于季节性部分。</li>
+<li><code>period</code>: 季节性周期。默认值为 <code>frequency(x)</code>。</li>
+</ul></li>
+<li><strong><code>xreg</code></strong>: 可选的<strong>外部回归变量</strong>（向量或矩阵），用于构建带有ARIMA误差的回归模型。</li>
+<li><strong><code>include.mean</code></strong>: 逻辑值，控制是否包含均值/截距项。</li>
+<li><strong><code>method</code></strong>: 拟合方法，可选 <code>"CSS-ML"</code>（默认，先条件最小二乘后最大似然）、<code>"ML"</code>（最大似然）或 <code>"CSS"</code>（条件最小二乘）。</li>
+</ul>
+<p>功能与特点</p>
+<ul>
+<li><p><strong>处理缺失值</strong>：与较旧的 <code>arima0</code> 函数不同，<code>arima()</code> 能<strong>精确处理差分后模型中的缺失值</strong>。</p></li>
+<li><p><strong>包含外部变量</strong>：通过 <code>xreg</code> 参数，可以轻松构建<strong>带有ARIMA误差的回归模型</strong>（即 <code>arimax</code> 模型）。</p></li>
+<li><p><strong>参数固定</strong>：通过 <code>fixed</code> 参数，可以固定模型中某些系数为特定值，只估计其他系数。</p></li>
+<li><p><strong>参数变换</strong>：<code>transform.pars = TRUE</code>（默认）会对AR参数进行变换，以确保其始终落在<strong>平稳性区域内</strong>。</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合一个 ARIMA(1,1,1) 模型</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">arima</span>(AirPassengers, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合一个带有季节性的 SARIMA(0,1,1)(0,1,1)₁₂ 模型</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>fit_sarima <span class="ot">&lt;-</span> <span class="fu">arima</span>(<span class="fu">log</span>(AirPassengers),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">period =</span> <span class="dv">12</span>))</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_sarima)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>作为补充，<code>forecast</code>包的<code>Arima()</code>函数在<code>stats::arima()</code>基础上进行了改进，提供了更友好的接口和更丰富的输出。主要区别在于：<code>forecast::Arima()</code> 允许在模型包含差分时，通过 <code>include.drift</code> 参数包含一个<strong>漂移项</strong>（线性趋势）。<code>forecast::Arima()</code> 提供了 Box-Cox 变换等额外功能。</p>
+</section>
+<section id="平稳检验" class="level3">
+<h3 class="anchored" data-anchor-id="平稳检验">2. <strong>平稳</strong>检验</h3>
+<p><strong>ADF检验</strong>（Augmented Dickey-Fuller Test，增广迪基-福勒检验）是时间序列分析中用于判断序列是否<strong>平稳</strong>（即是否存在<strong>单位根</strong>）的一种统计检验方法。<code>tseries::adf.test()</code> 函数，是最常用、最简便的ADF检验函数之一。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)     </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(x, <span class="at">alternative =</span> <span class="fu">c</span>(<span class="st">"stationary"</span>, <span class="st">"explosive"</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">k =</span> <span class="fu">trunc</span>((<span class="fu">length</span>(x)<span class="sc">-</span><span class="dv">1</span>)<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>其中： <code>x</code>：数值型向量或时间序列。 <code>alternative</code>：备择假设，默认为 <code>"stationary"</code>（平稳）。 <code>k</code>：计算检验统计量时使用的滞后阶数，默认值是一个基于数据长度的建议上限。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 对平稳序列进行检验</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(x)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 对非平稳（单位根）序列进行检验</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">diffinv</span>(x)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong><code>urca</code></strong> 是一个用于时间序列分析的 R 语言包，专注于执行单位根检验和协整分析。它是进行计量经济学分析，特别是处理金融、经济等时间序列数据的重要工具。其核心功能包括：</p>
+<ul>
+<li><strong>单位根检验</strong>：用于检测时间序列数据是否平稳（即是否存在单位根）。主要函数包括：
+<ul>
+<li><code>ur.df()</code>: 执行<strong>增广迪基-福勒 (Augmented Dickey-Fuller, ADF) 检验</strong>。</li>
+<li><code>ur.pp()</code>: 执行<strong>菲利普斯-佩龙 (Phillips-Perron) 检验</strong>。</li>
+<li><code>ur.kpss()</code>: 执行<strong>KPSS 检验</strong>，其原假设与ADF检验相反，为序列平稳。</li>
+</ul></li>
+<li><strong>协整检验</strong>：用于分析多个非平稳时间序列之间是否存在长期稳定的均衡关系。
+<ul>
+<li><code>ca.jo()</code>: 执行<strong>约翰森 (Johansen) 协整检验</strong>。</li>
+</ul></li>
+</ul>
+<p>以下是一个使用 <code>ur.df()</code> 函数进行ADF单位根检验的简单示例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设你的时间序列数据为 y</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co"># type: 指定模型形式</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   - "none": 无常数项和趋势项</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   - "drift": 有常数项</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   - "trend": 有常数项和趋势项</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co"># lags: 指定滞后阶数</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># selectlags: 可用 "AIC" 或 "BIC" 自动选择最优滞后阶数</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例：包含常数项和趋势项，最大滞后阶数设为3</span></span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>test_result <span class="ot">&lt;-</span> <span class="fu">ur.df</span>(y, <span class="at">type =</span> <span class="st">"trend"</span>, <span class="at">lags =</span> <span class="dv">3</span>, <span class="at">selectlags =</span> <span class="st">"AIC"</span>)</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(test_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="协整分析" class="level3">
+<h3 class="anchored" data-anchor-id="协整分析">3. 协整分析</h3>
+<p>协整（Cointegration）分析用于检验多个非平稳时间序列之间是否存在长期稳定的均衡关系。<code>urca</code> 和 <code>tseries</code> 都是R语言中执行协整检验的核心包，但它们在方法论和功能侧重上有显著不同。简单来说：<code>tseries</code> 提供了一个基于残差的<strong>Phillips-Ouliaris (PO) 检验</strong>；而 <code>urca</code> 功能更全面，既提供了基于残差的PO检验，也提供了基于向量自回归 (VAR) 模型的Johansen 检验。后者是更为现代和主流的方法。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># urca包提供更完整的协整分析框架</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(urca)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ca.jo</span>()  <span class="co"># Johansen协整检验</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ca.po</span>()  <span class="co"># Phillips-Ouliaris协整检验</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用tseries包的po.test进行协整检验</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="fu">po.test</span>(x)  <span class="co"># x为包含多个时间序列的矩阵</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>urca</code> 包（Unit Root and Cointegration Tests）提供了单位根和协整检验的完整工具集，其核心优势在于 Johansen 检验。</p>
+<section id="johansen-检验ca.jo-函数" class="level4">
+<h4 class="anchored" data-anchor-id="johansen-检验ca.jo-函数">3.1. Johansen 检验：<code>ca.jo()</code> 函数</h4>
+<p>这是 <code>urca</code> 包最核心的函数，用于检验多个时间序列之间是否存在长期稳定的线性关系。</p>
+<ul>
+<li><p><strong>核心参数</strong>：</p>
+<ul>
+<li><code>x</code>：待检验的数据矩阵。</li>
+<li><code>type</code>：检验统计量类型，可选择 <code>"eigen"</code>（最大特征值检验）或 <code>"trace"</code>（迹检验）。</li>
+<li><code>ecdet</code>：协整方程中确定性部分的形式，如 <code>"none"</code>（无）、<code>"const"</code>（有常数项）或 <code>"trend"</code>（有趋势项）。</li>
+<li><code>K</code>：VAR模型的滞后阶数。</li>
+<li><code>spec</code>：指定VECM（向量误差修正模型）的形式，<code>"longrun"</code> 或 <code>"transitory"</code>。</li>
+<li><code>season</code> 和 <code>dumvar</code>：用于包含季节虚拟变量或其他外生变量。</li>
+</ul></li>
+<li><p><strong>结果解读</strong>： 运行 <code>summary(ca.jo(...))</code> 后，主要关注 <strong><code>teststat</code></strong>（检验统计量）和 <strong><code>cval</code></strong>（临界值）。通过比较它们，可以判断在给定显著性水平下应拒绝多少个协整向量（即协整秩 r）的原假设。</p></li>
+</ul>
+</section>
+<section id="phillips-ouliaris-检验ca.po-函数" class="level4">
+<h4 class="anchored" data-anchor-id="phillips-ouliaris-检验ca.po-函数">3.2. Phillips-Ouliaris 检验：<code>ca.po()</code> 函数</h4>
+<p>与 <code>tseries</code> 包中的 <code>po.test()</code> 功能相同，但作为 <code>urca</code> 包的一部分，提供了更一致的输出格式和类结构。</p>
+<ul>
+<li><strong>核心参数</strong>：
+<ul>
+<li><code>z</code>：数据矩阵。</li>
+<li><code>demean</code>：是否包含截距项。</li>
+<li><code>lag</code>：用于方差-协方差修正的滞后阶数选择（<code>"short"</code> 或 <code>"long"</code>）。</li>
+<li><code>type</code>：检验统计量类型，<code>"Pu"</code> 或 <code>"Pz"</code>。</li>
+</ul></li>
+</ul>
+</section>
+<section id="简洁的经典协整检验tseriespo.test函数" class="level4">
+<h4 class="anchored" data-anchor-id="简洁的经典协整检验tseriespo.test函数">3.3.简洁的经典协整检验：<code>tseries::po.test()</code>函数</h4>
+<p><code>tseries</code> 包主要通过 <code>po.test()</code> 函数提供 Phillips-Ouliaris 协整检验。</p>
+<ul>
+<li><strong>核心函数</strong>：<code>po.test(x, demean = TRUE, lshort = TRUE)</code>
+<ul>
+<li><strong>原假设</strong>：<code>x</code> <strong>不存在</strong>协整关系。</li>
+<li><strong>参数</strong>：
+<ul>
+<li><code>x</code>：一个矩阵或多变量时间序列。</li>
+<li><code>demean</code>：逻辑值，是否在协整回归中包含截距项。</li>
+<li><code>lshort</code>：逻辑值，用于控制计算残差方差时使用的截断滞后参数。</li>
+</ul></li>
+<li><strong>原理</strong>：该函数通过对 <code>x</code> 的第一列对剩余列进行回归，然后对回归残差进行单位根检验（Phillips-Perron 类型），来判断是否存在协整关系。</li>
+</ul></li>
+<li><strong>局限性</strong>：<code>po.test()</code> 一次最多只能处理<strong>六个变量</strong>，且其结果不如 Johansen 检验稳健和全面。</li>
+</ul>
+<p>对于严谨的学术研究或复杂的实证分析，强烈推荐使用 <code>urca</code> 包。其 <code>ca.jo()</code> 函数提供的 Johansen 检验是行业标准，功能强大且结果可靠。对于快速、初步的探索性分析，或仅需使用经典的 PO 检验时，<code>tseries</code> 包的 <code>po.test()</code> 是一个简洁的选择。</p>
+</section>
+</section>
+<section id="garch族模型" class="level3">
+<h3 class="anchored" data-anchor-id="garch族模型">4 GARCH族模型</h3>
+<p>金融时间序列通常表现出<strong>波动率聚集（volatility clustering）</strong>现象，<strong>广义自回归条件异方差（GARCH）模型</strong>是刻画这一特征的标准工具。在R语言中，实现GARCH族模型最主流、最强大的工具是 <strong><code>rugarch</code></strong> 包，此外 <strong><code>fGarch</code></strong> 和 <strong><code>tseries</code></strong> 包等也提供了相关功能。</p>
+<section id="rugarch-包" class="level4">
+<h4 class="anchored" data-anchor-id="rugarch-包">4.1. <code>rugarch</code> 包</h4>
+<p><code>rugarch</code> 是R中实现单变量GARCH模型的事实标准，支持 <strong>sGARCH、eGARCH、gjrGARCH、apARCH、iGARCH、FIGARCH</strong> 等数十种变体。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rugarch)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 模型设定（specification）</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">ugarchspec</span>(</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance.model =</span> <span class="fu">list</span>(</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">model =</span> <span class="st">"sGARCH"</span>,        <span class="co"># 标准GARCH，可换为 "eGARCH", "gjrGARCH" 等</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">garchOrder =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)     <span class="co"># ARCH阶=1, GARCH阶=1</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean.model =</span> <span class="fu">list</span>(</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">armaOrder =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),     <span class="co"># 均值方程：常数均值（无ARMA项）</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">include.mean =</span> <span class="cn">TRUE</span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">distribution.model =</span> <span class="st">"norm"</span>  <span class="co"># 误差分布："norm", "std", "ged", "snorm"等</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 模型拟合</span></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(dmbp)  <span class="co"># 示例数据</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">ugarchfit</span>(<span class="at">spec =</span> spec, <span class="at">data =</span> dmbp[, <span class="dv">1</span>])</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 查看结果</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a>fit                      <span class="co"># 简要输出</span></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(fit)                <span class="co"># 提取系数</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="fu">sigma</span>(fit)               <span class="co"># 提取条件标准差序列</span></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sigma</span>(fit))         <span class="co"># 查看前几项</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 预测</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a>forecast <span class="ot">&lt;-</span> <span class="fu">ugarchforecast</span>(fit, <span class="at">n.ahead =</span> <span class="dv">10</span>)</span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>forecast</span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a><span class="co"># 更多模型选项</span></span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-37"><a href="#cb35-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="co"># EGARCH(1,1) 模型,可捕捉杠杆效应</span></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a>spec_egarch <span class="ot">&lt;-</span> <span class="fu">ugarchspec</span>(</span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance.model =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">"eGARCH"</span>, <span class="at">garchOrder =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)),</span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">distribution.model =</span> <span class="st">"std"</span>   <span class="co"># 使用学生t分布</span></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>fit_egarch <span class="ot">&lt;-</span> <span class="fu">ugarchfit</span>(spec_egarch, data)</span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a><span class="co"># GJR-GARCH(1,1) 模型</span></span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a>spec_gjr <span class="ot">&lt;-</span> <span class="fu">ugarchspec</span>(</span>
+<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">variance.model =</span> <span class="fu">list</span>(<span class="at">model =</span> <span class="st">"gjrGARCH"</span>, <span class="at">garchOrder =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)),</span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">distribution.model =</span> <span class="st">"ged"</span>   <span class="co"># 广义误差分布</span></span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a>fit_gjr <span class="ot">&lt;-</span> <span class="fu">ugarchfit</span>(spec_gjr, data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="fgarch-包" class="level4">
+<h4 class="anchored" data-anchor-id="fgarch-包">4.2. <code>fGarch</code> 包</h4>
+<p><code>fGarch</code> 是<strong>Rmetrics</strong>体系的一部分，<code>garchFit()</code> 函数语法直观，支持Normal、Student-t、GED及其偏态版本，还支持 <strong>APARCH</strong> 模型（涵盖GJR、T-ARCH等作为特例）。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fGarch)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取数据（以IBM日收益率为例）</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># da &lt;- read.table("d-ibm-0110.txt", header = TRUE)</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co"># xt &lt;- -log(da$return + 1)  # 负对数收益率</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合 GARCH(1,1) 模型（正态分布）</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>fit_norm <span class="ot">&lt;-</span> <span class="fu">garchFit</span>(<span class="sc">~</span> <span class="fu">garch</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">data =</span> xt, <span class="at">trace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>fit_norm</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合 GARCH(1,1) 模型（学生t分布）</span></span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>fit_t <span class="ot">&lt;-</span> <span class="fu">garchFit</span>(<span class="sc">~</span> <span class="fu">garch</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">data =</span> xt, <span class="at">trace =</span> <span class="cn">FALSE</span>, <span class="at">cond.dist =</span> <span class="st">"std"</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>fit_t</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 预测</span></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit_t, <span class="dv">3</span>)</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a>Title<span class="sc">:</span> GARCH Modelling</span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span> <span class="fu">garchFit</span>(<span class="at">formula =</span> <span class="sc">~</span><span class="fu">garch</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="at">data =</span> xt, <span class="at">cond.dist =</span> <span class="st">"std"</span>)</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="fu">Coefficient</span>(s)<span class="sc">:</span></span>
+<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a>      mu     omega    alpha1     beta1     shape</span>
+<span id="cb36-30"><a href="#cb36-30" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span><span class="fl">4.11e-04</span>  <span class="fl">1.92e-06</span>  <span class="fl">6.45e-02</span>  <span class="fl">9.29e-01</span>  <span class="fl">5.75e+00</span></span>
+<span id="cb36-31"><a href="#cb36-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a>Log Likelihood<span class="sc">:</span> <span class="fl">7218.69</span></span>
+<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成 GARCH(1,1) 模拟数据</span></span>
+<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a>garch_spec <span class="ot">&lt;-</span> <span class="fu">garchSpec</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">omega =</span> <span class="fl">1e-6</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">beta =</span> <span class="fl">0.6</span>))</span>
+<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">garchSim</span>(garch_spec, <span class="at">n =</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tseries-包" class="level4">
+<h4 class="anchored" data-anchor-id="tseries-包">4.3. <code>tseries</code> 包</h4>
+<p><code>tseries</code> 包的 <code>garch()</code> 函数功能相对基础，适合快速验证。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(EuStockMarkets)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>dax <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="fu">log</span>(EuStockMarkets))[, <span class="st">"DAX"</span>]   <span class="co"># 计算DAX对数收益率</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合 GARCH(1,1)</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>dax_garch <span class="ot">&lt;-</span> <span class="fu">garch</span>(dax, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dax_garch)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 拟合 ARCH(3) 模型</span></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>arch_fit <span class="ot">&lt;-</span> <span class="fu">garch</span>(residuals, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="rmgarch包" class="level4">
+<h4 class="anchored" data-anchor-id="rmgarch包">4.4. <strong>rmgarch包</strong></h4>
+<p>如果需要同时建模多个资产的波动率及它们之间的动态相关性，可使用<strong><code>rmgarch</code></strong>包实现 DCC-GARCH、BEKK-GARCH 等多元模型。</p>
+<p><code>rmgarch</code>提供了多元GARCH模型的实现，包括DCC（动态条件相关）、GO-GARCH和Copula-GARCH等模型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rmgarch)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># DCC-GARCH模型示例</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fu">dccspec</span>(<span class="at">uspec =</span> <span class="fu">multispec</span>(<span class="fu">replicate</span>(<span class="dv">2</span>, <span class="fu">ugarchspec</span>())),</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">dccOrder =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">dccfit</span>(spec, <span class="at">data =</span> returns_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="forecast包" class="level3">
+<h3 class="anchored" data-anchor-id="forecast包">5. <strong>forecast包</strong></h3>
+<p><code>forecast</code> 包是 R 语言中最主流的时间序列预测工具之一。它提供了一套完整且自动化的解决方案，用于<strong>分析、建模和预测单变量（univariate）时间序列数据</strong>。</p>
+<p><strong>核心功能包括：</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">功能类别</th>
+<th style="text-align: left;">核心函数</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>自动化建模</strong></td>
+<td style="text-align: left;"><code>auto.arima()</code></td>
+<td style="text-align: left;">自动搜索并拟合最优的ARIMA模型，根据AIC、AICc或BIC等准则进行选择。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>指数平滑</strong></td>
+<td style="text-align: left;"><code>ets()</code></td>
+<td style="text-align: left;">实现指数平滑状态空间模型，自动选择最优的误差、趋势和季节性组合。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>高级时间序列</strong></td>
+<td style="text-align: left;"><code>tbats()</code></td>
+<td style="text-align: left;">拟合TBATS模型，专门用于处理具有复杂季节性的时间序列（如多个季节周期）。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>时间序列分解</strong></td>
+<td style="text-align: left;"><code>stlf()</code>、<code>stlm()</code></td>
+<td style="text-align: left;">基于STL（Seasonal-Trend decomposition using Loess）分解进行预测。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>基础预测</strong></td>
+<td style="text-align: left;"><code>naive()</code>、<code>snaive()</code>、<code>rwf()</code>、<code>meanf()</code></td>
+<td style="text-align: left;">提供朴素法、季节性朴素法、随机游走、均值等基准预测方法。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>其他模型</strong></td>
+<td style="text-align: left;"><code>arfima()</code></td>
+<td style="text-align: left;">拟合分数阶差分ARIMA（ARFIMA）模型。</td>
+</tr>
+</tbody>
+</table>
+<p><code>forecast</code> 包的典型工作流是：<strong>拟合模型 -&gt; 生成预测 -&gt; 可视化结果</strong>。以下是一些核心函数的用法示例：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># 用于 autoplot() 绘图</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ETS (指数平滑) 模型</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>USAccDeaths <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ets</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 自动 ARIMA 模型</span></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>WWWusage <span class="sc">|&gt;</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">auto.arima</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>(<span class="at">h =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span>   <span class="co"># h 参数指定预测期数</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. TBATS 模型 (适用于复杂季节性)</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>taylor <span class="sc">|&gt;</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbats</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">forecast</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>auto.arima()</code> 和 <code>ets()</code> 等函数能自动完成模型选择和参数优化，大大降低了预测的门槛，让用户无需深入掌握每个模型的数学细节也能获得不错的预测结果。</p>
+<p><code>forecast</code> 包依赖于 <code>urca</code> 包。例如，<code>auto.arima()</code> 函数在进行模型选择时，会默认使用<code>urca</code> 包 KPSS 检验来确定时间序列是否需要差分。</p>
+<p><code>fable</code> 是 Tidyverse 生态系统中的预测包，实现了许多与 <code>forecast</code> 相同的模型。<code>forecast</code> 基于基础 R 语法，而 <code>fable</code> 采用 Tidyverse 风格。两者可以互为补充。</p>
+<p><strong>官方文档</strong>：CRAN 上的包索引页 <a href="https://cloud.r-project.org/web/packages/forecast/index.html" class="uri">https://cloud.r-project.org/web/packages/forecast/index.html</a></p>
+<p><strong>在线教材</strong>：由包作者撰写的免费教科书《Forecasting: Principles and Practice》 <a href="http://OTexts.org/fpp2/" class="uri">http://OTexts.org/fpp2/</a></p>
+</section>
+</section>
+<section id="五平滑和滤波" class="level2">
+<h2 class="anchored" data-anchor-id="五平滑和滤波">五、平滑和滤波</h2>
+<section id="ttr包" class="level3">
+<h3 class="anchored" data-anchor-id="ttr包">1. TTR包</h3>
+<p><code>TTR</code>（Technical Trading Rules）包是R中金融技术分析的核心包，提供了非常丰富的平滑函数。这些函数大多数是基于<strong>移动平均</strong>思想设计的，主要用于处理价格、成交量等金融时间序列数据。</p>
+<p><code>TTR</code>包提供了多种移动平均函数，它们的核心参数通常包括： * <code>x</code>: 待平滑的时间序列数据。 * <code>n</code>: 移动平均的窗口期数。以下是主要的移动平均函数及其特点：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">全称 / 核心特点</th>
+<th style="text-align: left;">简要说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>SMA()</code></td>
+<td style="text-align: left;">Simple Moving Average (简单移动平均)</td>
+<td style="text-align: left;">计算过去<code>n</code>个观测值的算术平均值。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>EMA()</code></td>
+<td style="text-align: left;">Exponential Moving Average (指数移动平均)</td>
+<td style="text-align: left;">赋予近期数据更高权重的指数加权平均值。可通过<code>wilder</code>参数调整衰减方式。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>WMA()</code></td>
+<td style="text-align: left;">Weighted Moving Average (加权移动平均)</td>
+<td style="text-align: left;">通过<code>wts</code>参数自定义权重，权重可为线性或其他形式。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>DEMA()</code></td>
+<td style="text-align: left;">Double Exponential Moving Average (双指数移动平均)</td>
+<td style="text-align: left;">通过<code>DEMA = (1+v)*EMA(x) - EMA(EMA(x))*v</code>公式，旨在减少滞后。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>HMA()</code></td>
+<td style="text-align: left;">Hull Moving Average (赫尔移动平均)</td>
+<td style="text-align: left;">通过加权平均的差值计算，响应速度非常快，几乎消除了滞后。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>VWAP()</code> / <code>VWMA()</code></td>
+<td style="text-align: left;">Volume-Weighted Average Price (成交量加权平均价格)</td>
+<td style="text-align: left;">计算成交量加权的平均价格，常用于衡量交易效率。</td>
+</tr>
+</tbody>
+</table>
+<p><code>TTR</code>包还提供了一系列高性能的滚动窗口计算函数，如<code>runMean</code>（滚动均值）、<code>runMedian</code>（滚动中位数）、<code>runSD</code>（滚动标准差）等，这些也是实现数据平滑的常用工具。</p>
+</section>
+<section id="hp滤波" class="level3">
+<h3 class="anchored" data-anchor-id="hp滤波">2. HP滤波</h3>
+<p>在R中实现HP（Hodrick-Prescott）滤波，主要有以下几个包和函数：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">包名</th>
+<th style="text-align: left;">核心函数</th>
+<th style="text-align: left;">特点与适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>hpfilter</code></strong></td>
+<td style="text-align: left;"><code>hp1()</code> (单边), <code>hp2()</code> (双边)</td>
+<td style="text-align: left;">专门为HP滤波设计，功能专注。<code>hp1()</code>基于<strong>卡尔曼滤波</strong>，适用于需要实时更新的场景（如巴塞尔III协议中的信贷缺口计算）。 <code>hp2()</code>使用<strong>稀疏矩阵</strong>，处理大数据集时效率更高。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>mFilter</code></strong></td>
+<td style="text-align: left;"><code>hpfilter()</code></td>
+<td style="text-align: left;">多功能滤波包，集成了HP、BK、CF等多种滤波器。适合需要对比多种滤波方法的研究场景。注意：此函数实现的是<strong>双边</strong>HP滤波。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>mhpfilter</code></strong></td>
+<td style="text-align: left;"><code>hp_filter()</code></td>
+<td style="text-align: left;">提供<strong>标准HP滤波</strong>，特点是能通过<strong>广义交叉验证（GCV）自动选择最优平滑参数λ</strong>。若不确定λ值，此包可提供数据驱动的选择建议。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>jumps</code></strong></td>
+<td style="text-align: left;"><code>hpfj()</code>, <code>auto_hpfj()</code></td>
+<td style="text-align: left;">HP滤波的扩展版本，允许趋势中包含<strong>自动识别的跳跃或断点</strong>。适用于处理存在结构性突变的经济时间序列。</td>
+</tr>
+</tbody>
+</table>
+<section id="使用-hpfilter-包" class="level4">
+<h4 class="anchored" data-anchor-id="使用-hpfilter-包">2.1. 使用 <code>hpfilter</code> 包</h4>
+<p>这是最专门的实现，安装和用法如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"hpfilter"</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hpfilter)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例：假设 y 是你的时间序列数据（向量或数据框）</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用双边HP滤波，lambda=1600（季度数据常用值）</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>yt <span class="ot">&lt;-</span> <span class="fu">hp2</span>(y, <span class="at">lambda =</span> <span class="dv">1600</span>)  <span class="co"># 提取趋势项</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>yc <span class="ot">&lt;-</span> y <span class="sc">-</span> yt                 <span class="co"># 计算周期项（残差）</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>对于单边滤波，只需将 <code>hp2</code> 替换为 <code>hp1</code> 即可。<code>lambda</code>参数的常用取值是：年度数据100，季度数据1600，月度数据14400。</p>
+</section>
+<section id="使用-mfilter-包" class="level4">
+<h4 class="anchored" data-anchor-id="使用-mfilter-包">2.2. 使用 <code>mFilter</code> 包</h4>
+<p>这个包提供了一个统一的接口，适合快速上手：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mFilter"</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mFilter)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 对时间序列对象应用HP滤波</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">mFilter</span>(y, <span class="at">filter =</span> <span class="st">"HP"</span>, <span class="at">lambda =</span> <span class="dv">1600</span>)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">fitted</span>(result)   <span class="co"># 趋势成分</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>cycle <span class="ot">&lt;-</span> <span class="fu">residuals</span>(result) <span class="co"># 周期成分</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>mFilter</code>包的输入数据<code>y</code>最好是<code>ts</code>（时间序列）对象。</p>
+</section>
+<section id="使用-mhpfilter-包" class="level4">
+<h4 class="anchored" data-anchor-id="使用-mhpfilter-包">2.3. 使用 <code>mhpfilter</code> 包</h4>
+<p>如果希望自动选择<code>lambda</code>，可以使用这个包：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mhpfilter"</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mhpfilter)</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用默认lambda=1600进行分解</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">hp_filter</span>(y, <span class="at">lambda =</span> <span class="dv">1600</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 结果会以data.table格式返回，包含原始数据、趋势和周期项</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>此外，<code>mhpfilter</code>包还提供了<code>mhp_filter()</code>函数，可通过GCV自动选择最优的<code>lambda</code>值。</p>
+</section>
+</section>
+<section id="卡尔曼滤波" class="level3">
+<h3 class="anchored" data-anchor-id="卡尔曼滤波">3. 卡尔曼滤波</h3>
+<p>在R中实现卡尔曼滤波（Kalman Filter）的包和函数同样非常丰富。其中，<strong><code>KFAS</code></strong> 和 <strong><code>dlm</code></strong> 是两个最核心、功能最全面的选择。</p>
+<section id="kfas-包" class="level4">
+<h4 class="anchored" data-anchor-id="kfas-包">3.1. <code>KFAS</code> 包</h4>
+<p><strong>功能最全面、最强大</strong>。支持指数族分布（如泊松、二项式）的状态空间模型。采用<strong>精确扩散初始化</strong>处理非平稳序列，计算效率高。适合需要处理复杂模型（如非高斯数据）的研究场景。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"KFAS"</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(KFAS)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义一个简单的局部水平模型 (Local Level Model)</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 观测方程: y_t = mu_t + eps_t, eps_t ~ N(0, H)</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 状态方程: mu_{t+1} = mu_t + eta_t, eta_t ~ N(0, Q)</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">SSModel</span>(y <span class="sc">~</span> <span class="fu">SSMtrend</span>(<span class="at">degree =</span> <span class="dv">1</span>, <span class="at">Q =</span> <span class="fu">matrix</span>(<span class="cn">NA</span>)), <span class="at">H =</span> <span class="fu">matrix</span>(<span class="cn">NA</span>))</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 注意：这里的 y 是你的时间序列数据（向量或矩阵）</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 KFS 函数进行卡尔曼滤波和平滑</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过 updatefn 和 method 参数可以估计模型中的未知参数 (H 和 Q)</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">KFS</span>(model, <span class="at">filtering =</span> <span class="st">"state"</span>, <span class="at">smoothing =</span> <span class="st">"state"</span>)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取结果</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">fitted</span>(fit)   <span class="co"># 状态（趋势）的滤波值</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit) <span class="co"># 残差</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="dlm-包" class="level4">
+<h4 class="anchored" data-anchor-id="dlm-包">3.2. <code>dlm</code> 包</h4>
+<p><strong>最经典、最易上手</strong>的入门之选，专注于<strong>正态线性</strong>状态空间模型。提供了从模型构建、滤波(<code>dlmFilter</code>)到平滑(<code>dlmSmooth</code>)、参数估计（<code>dlmMLE</code>）和贝叶斯分析的一整套工具。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dlm"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dlm)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 构建一个简单的局部水平模型</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 观测方程: y_t = mu_t + v_t, v_t ~ N(0, V)</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 状态方程: mu_t = mu_{t-1} + w_t, w_t ~ N(0, W)</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>buildModel <span class="ot">&lt;-</span> <span class="cf">function</span>(params) {</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dlmModPoly</span>(<span class="at">order =</span> <span class="dv">1</span>, <span class="at">dV =</span> <span class="fu">exp</span>(params[<span class="dv">1</span>]), <span class="at">dW =</span> <span class="fu">exp</span>(params[<span class="dv">2</span>]))</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设 y 是你的时间序列数据 (ts 对象)</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 dlmMLE 估计模型参数 (V 和 W)</span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">dlmMLE</span>(y, <span class="at">parm =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">build =</span> buildModel)</span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">buildModel</span>(fit<span class="sc">$</span>par)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 进行卡尔曼滤波和平滑</span></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>filtered <span class="ot">&lt;-</span> <span class="fu">dlmFilter</span>(y, mod)</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>smoothed <span class="ot">&lt;-</span> <span class="fu">dlmSmooth</span>(filtered)</span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取结果</span></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>trend_filtered <span class="ot">&lt;-</span> filtered<span class="sc">$</span>m[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># 状态的滤波值</span></span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>trend_smoothed <span class="ot">&lt;-</span> smoothed<span class="sc">$</span>s[<span class="sc">-</span><span class="dv">1</span>] <span class="co"># 状态的平滑值</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="fkf-包" class="level4">
+<h4 class="anchored" data-anchor-id="fkf-包">3.3. <code>FKF</code> 包</h4>
+<p><strong>追求极致速度</strong>。完全用C语言编写，并调用BLAS/LAPACK线性代数库。<code>FKF.SP</code>是其升级版，采用<strong>序贯处理（Sequential Processing）</strong> 进一步提升效率。适合处理高维、大规模数据集。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载包</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"FKF"</span>)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FKF)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义状态空间模型的各个矩阵</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 详细参数含义请参考文档，此处仅为示意</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>a0 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">1</span>)  <span class="co"># 初始状态</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>P0 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">100</span>, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="co"># 初始状态协方差</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>)            <span class="co"># 状态方程截距</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>ct <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>)            <span class="co"># 观测方程截距</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>Tt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>)            <span class="co"># 状态转移矩阵</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>Zt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>)            <span class="co"># 观测矩阵</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>HHt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>)           <span class="co"># 状态方程误差协方差</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>GGt <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span>)           <span class="co"># 观测方程误差协方差</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>yt <span class="ot">&lt;-</span> <span class="fu">t</span>(y)                 <span class="co"># 观测数据，需转换为矩阵，每一列是一个时间点</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行快速卡尔曼滤波</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>fkf_obj <span class="ot">&lt;-</span> <span class="fu">fkf</span>(a0, P0, dt, ct, Tt, Zt, HHt, GGt, yt)</span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看滤波结果</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>filtered_state <span class="ot">&lt;-</span> fkf_obj<span class="sc">$</span>att <span class="co"># 状态的滤波值</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="kalmanfilter包" class="level4">
+<h4 class="anchored" data-anchor-id="kalmanfilter包">3.4. kalmanfilter包</h4>
+<p>基于Rcpp和RcppArmadillo实现，特点在于能轻松处理缺失值和外生变量（解释变量），并支持时变参数。</p>
+<p><strong>实践建议：</strong></p>
+<ul>
+<li><p>功能全面、处理复杂模型，首选 KFAS。它功能最强大，能处理非高斯模型。</p></li>
+<li><p>入门学习、快速上手，推荐 dlm。它是经典的“教科书”级实现，语法清晰，文档丰富。</p></li>
+<li><p>处理超大规模数据，考虑 FKF 或 FKF.SP。它们的C语言后端提供了卓越的计算性能。</p></li>
+<li><p>数据预处理复杂，含缺失值/外生变量。kalmanfilter 提供了便捷的解决方案。</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="六隐含马可夫模型" class="level2">
+<h2 class="anchored" data-anchor-id="六隐含马可夫模型">六、隐含马可夫模型</h2>
+<p>在金融与投资领域，R语言主要通过<code>fHMM</code>和<code>depmixS4</code>这两个核心包来处理隐马尔可夫模型（HMM）。其中 <strong><code>fHMM</code></strong> 是专门为金融数据分析而设计的首选。</p>
+<section id="fhmm" class="level3">
+<h3 class="anchored" data-anchor-id="fhmm">1. <code>fHMM</code></h3>
+<p><code>fHMM</code> (Fitting Hidden Markov Models to Financial Data) 是专门为分析和识别金融市场“状态”或“制度”（regimes）而开发的R包。</p>
+<p>核心功能：</p>
+<ul>
+<li><strong>市场制度检测</strong>：能识别时间序列数据中的不同市场状态，如“牛市”、“熊市”或“震荡市”。</li>
+<li><strong>层级模型支持</strong>：支持层级隐马尔可夫模型（HHMM），可同时分析不同频率的数据（如日线和月线）。</li>
+<li><strong>完整工作流</strong>：提供从数据下载、模型定义、参数估计、状态解码到预测的完整工具链。</li>
+</ul>
+<p>典型工作流如下：</p>
+<ol type="1">
+<li><p><strong>设置与控制 (<code>set_controls</code>)</strong>：定义模型参数，如状态数(<code>states</code>)、状态依赖分布(<code>sdds</code>)等。</p></li>
+<li><p><strong>数据准备 (<code>prepare_data</code>)</strong>：将原始数据转换为模型所需的格式。</p></li>
+<li><p><strong>模型拟合 (<code>fit_model</code>)</strong>：执行模型参数的最大似然估计。</p></li>
+<li><p><strong>状态解码 (<code>decode_states</code>)</strong>：使用Viterbi算法推断每个时间点最可能的状态。</p></li>
+<li><p><strong>结果分析 (<code>summary</code>, <code>plot</code>)</strong>：查看模型摘要、参数估计和状态概率等。</p></li>
+<li><p><strong>模型预测 (<code>predict</code>)</strong>：基于当前状态，对未来观测值进行预测。</p></li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fHMM"</span>)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 基本工作流示例 (以德国DAX指数为例)</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fHMM)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 下载数据</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>dax <span class="ot">&lt;-</span> <span class="fu">download_data</span>(<span class="at">symbol =</span> <span class="st">"^GDAXI"</span>)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 设置模型参数 (例如：3个状态，t分布)</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">set_controls</span>(</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">states =</span> <span class="dv">3</span>,</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">sdds =</span> <span class="st">"t"</span>,</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> dax,</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">date_column =</span> <span class="st">"Date"</span>,</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data_column =</span> <span class="st">"Close"</span>,</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">logreturns =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="st">"2000-01-01"</span>,</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">to =</span> <span class="st">"2022-12-31"</span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 准备数据</span></span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">prepare_data</span>(controls)</span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 拟合模型</span></span>
+<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">fit_model</span>(data)</span>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 解码隐藏状态 (使用Viterbi算法)</span></span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">decode_states</span>(model)</span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 查看结果</span></span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="depmixs4" class="level3">
+<h3 class="anchored" data-anchor-id="depmixs4">2. <code>depmixS4</code></h3>
+<p>在进行专业的金融制度识别与分析，首选 <strong><code>fHMM</code></strong> 包。若需要进行<strong>更通用、定制化的HMM研究</strong>，<strong><code>depmixS4</code></strong> 包是更加强大的基础工具。它是一个应用广泛的HMM框架，支持多种数据分布，可用于金融时间序列分析。</p>
+<p><strong><code>fHMM</code></strong> 包和<strong><code>depmixS4</code></strong> 包的对比</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;"><code>fHMM</code></th>
+<th style="text-align: left;"><code>depmixS4</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>主要定位</strong></td>
+<td style="text-align: left;"><strong>专为金融数据设计</strong>，是领域专用包。</td>
+<td style="text-align: left;"><strong>通用HMM框架</strong>，功能全面灵活。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>核心功能</strong></td>
+<td style="text-align: left;">拟合（分层）HMM，专注于识别<strong>金融市场制度</strong>（如牛市/熊市）。</td>
+<td style="text-align: left;">拟合带协变量的HMM，支持多种分布和混合模型。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>特色亮点</strong></td>
+<td style="text-align: left;">支持<strong>分层HMM</strong>，可同时分析不同时间尺度（如日频和月频）的数据。</td>
+<td style="text-align: left;">灵活性极高，可自定义转移矩阵、响应分布等。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>安装方式</strong></td>
+<td style="text-align: left;"><code>install.packages("fHMM")</code></td>
+<td style="text-align: left;"><code>install.packages("depmixS4")</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>学术参考</strong></td>
+<td style="text-align: left;">Oelschläger &amp; Adam (2021); Oelschläger et al.&nbsp;(2024)</td>
+<td style="text-align: left;">Visser &amp; Speekenbrink (2010)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>实践建议：</strong></p>
+<p>两个包为将隐马尔可夫模型应用于量化金融研究和实践提供了坚实的基础。进行专业的金融制度识别与分析，如<strong>识别市场状态（如牛熊市）</strong> 或进行<strong>分层建模</strong>，<code>fHMM</code>是首选。进行更通用、定制化的HMM研究，depmixS4 包是强大的基础工具。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第3节 一般统计分析.html" class="pagination-link" aria-label="第16章 R 第3节 一般统计分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第3节 一般统计分析</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第5节 金融计算.html" class="pagination-link" aria-label="第16章 R 第5节 金融计算">
+        <span class="nav-page-text">第16章 R 第5节 金融计算</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
