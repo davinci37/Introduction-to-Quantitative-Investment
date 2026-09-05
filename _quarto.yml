@@ -10,6 +10,7 @@ book:
   date: "2026/8/30"
   chapters:
     - index.qmd
+    - 第0章 前言1qmd
     - 第0章 前言2.qmd
     - 第1章 基础知识 第1节 概述.qmd
     - 第1章 基础知识 第2节 理论模型.qmd
