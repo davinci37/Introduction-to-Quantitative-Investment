@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第10章 投资系统和投资工程 第1节 投资的“工程化” – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第1节 R语言入门.html" rel="next">
+<link href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html">第10章 投资系统和投资工程 第1节 投资的“工程化”</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一投资系统的战略定位" id="toc-一投资系统的战略定位" class="nav-link" data-scroll-target="#一投资系统的战略定位">一、投资系统的战略定位</a>
+  <ul class="collapse">
+  <li><a href="#确定收益风险目标" id="toc-确定收益风险目标" class="nav-link" data-scroll-target="#确定收益风险目标">1.确定收益风险目标</a></li>
+  <li><a href="#目标分解与量化" id="toc-目标分解与量化" class="nav-link" data-scroll-target="#目标分解与量化">2.目标分解与量化</a></li>
+  </ul></li>
+  <li><a href="#二投资系统的模块化与工作流" id="toc-二投资系统的模块化与工作流" class="nav-link" data-scroll-target="#二投资系统的模块化与工作流">二、投资系统的模块化与工作流</a>
+  <ul class="collapse">
+  <li><a href="#模块一资产池" id="toc-模块一资产池" class="nav-link" data-scroll-target="#模块一资产池">模块一：资产池</a></li>
+  <li><a href="#模块二策略池" id="toc-模块二策略池" class="nav-link" data-scroll-target="#模块二策略池">模块二：策略池</a></li>
+  <li><a href="#模块三风险控制模块" id="toc-模块三风险控制模块" class="nav-link" data-scroll-target="#模块三风险控制模块">模块三：风险控制模块</a></li>
+  <li><a href="#模块四反馈与迭代循环" id="toc-模块四反馈与迭代循环" class="nav-link" data-scroll-target="#模块四反馈与迭代循环">模块四：反馈与迭代循环</a></li>
+  </ul></li>
+  <li><a href="#三结论" id="toc-三结论" class="nav-link" data-scroll-target="#三结论">三、结论</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第10章 投资系统和投资工程 第1节 投资的“工程化”</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>在当代金融市场，传统的、依赖个人直觉与经验的投资“手艺”正面临深刻的变革。一种更为系统化、科学化的方法论“投资工程”已成为顶尖机构投资者和投资团队的核心竞争力。此处的“工程”是一种方法论上的借喻，其精髓在于将投资视为一个可以系统化设计、量化建模、结构化实现并进行严格风险管理的复杂系统。</p>
+<p>正如金融工程的先驱约翰·芬纳蒂所定义，工程思维的核心在于将基础金融工具（如股票、债券、期权）视为“零部件”，通过拆分与组合来设计和实施创新的解决方案。同理，“投资工程”则是将这种思维应用于投资管理的全过程。它旨在将投资理念转化为一套清晰、可重复、可验证的投资流程或算法，从而剥离情绪和运气成分，追求投资过程与结果的纪律性、可复制性和规模效应，即“投资系统”。本文，我们将深入剖析构建一个现代化投资系统所需的核心组件、关键流程以及前沿实践。</p>
+</section>
+<section id="一投资系统的战略定位" class="level2">
+<h2 class="anchored" data-anchor-id="一投资系统的战略定位">一、投资系统的战略定位</h2>
+<p>构建一个成功的投资系统，首要任务是明确其顶层设计，即战略定位。这决定了系统的目标函数和约束条件，是一切后续技术实现的基础。</p>
+<section id="确定收益风险目标" class="level3">
+<h3 class="anchored" data-anchor-id="确定收益风险目标">1.确定收益风险目标</h3>
+<p>投资系统的构建始于一个明确的目标。这个目标通常围绕收益和风险两个维度展开，主要可以分为两大类：</p>
+<p><strong>以收益为第一目标，用最小风险预算实现这一目标。</strong>这类系统通常追求的是超越市场的超额收益，即相对收益。其核心目标是战胜一个特定的市场基准，如沪深300指数或标普500。该系统的风险管理重点在于控制“跟踪误差”（Tracking Risk），即投资组合表现与基准表现的偏离度，而对于绝对回撤的容忍度相对更高。这类系统的收益主要来源于投资者Alpha的管理能力。</p>
+<p><strong>以风险为第一目标，基于此风险获取最大收益。</strong>这类系统追求的是绝对收益，目标是在任何市场环境下（牛市或熊市）都获取正的回报。其风险管理重点强调对“总风险”（Total Risk）的严格控制，对于绝对回撤的容忍度低。这类系统追求策略的多样性，通常综合使用多种策略，包括股债配置策略、市场中性策略、商品CTA、以及各种对冲工具（如股指期货空头）等。这类系统的收益一方面来源于Alpha管理，更多的是强调对于市场系统性风险Beta的管理能力。</p>
+</section>
+<section id="目标分解与量化" class="level3">
+<h3 class="anchored" data-anchor-id="目标分解与量化">2.目标分解与量化</h3>
+<p>一旦战略定位确立，就需要将其“工程化”，即分解为一系列可量化、可执行、可监控的具体指标。例如，一个旨在实现“年化8%稳健收益”的绝对收益系统，其目标可以被精准分解为：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">指标</th>
+<th style="text-align: left;">目标阈值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">年化收益率</td>
+<td style="text-align: left;">≥8%</td>
+<td style="text-align: left;">核心盈利能力指标</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">最大回撤</td>
+<td style="text-align: left;">≤15-20%</td>
+<td style="text-align: left;">风险控制的底线，决定了投资者的容忍度</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">年化波动率</td>
+<td style="text-align: left;">≤10%</td>
+<td style="text-align: left;">衡量收益的稳定性，波动越低体验越好</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">夏普比率</td>
+<td style="text-align: left;">≥1.0</td>
+<td style="text-align: left;">核心的风险调整后收益指标，越高越好</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">VaR（风险价值）</td>
+<td style="text-align: left;">≤1%NAV</td>
+<td style="text-align: left;">在99%置信度下，单日最大可能亏损不超过1%</td>
+</tr>
+</tbody>
+</table>
+<p>这些指标共同构成了投资系统的“设计蓝图”，后续的所有组件都将围绕实现这一系列约束条件下的目标而构建。</p>
+</section>
+</section>
+<section id="二投资系统的模块化与工作流" class="level2">
+<h2 class="anchored" data-anchor-id="二投资系统的模块化与工作流">二、投资系统的模块化与工作流</h2>
+<p>一个完整的投资系统如同一个精密的引擎，由多个相互关联、协同工作的组件构成。我们可以将其解构为从输入到输出的完整链条，并辅以持续的反馈机制。</p>
+<section id="模块一资产池" class="level3">
+<h3 class="anchored" data-anchor-id="模块一资产池">模块一：资产池</h3>
+<p>投资的起点是确定可以投资的范围，即<strong>“资产池”</strong>ndefined。一个高质量、多元化的资产池是成功投资的基础。资产池构建原则是：低相关性配置和高流动性筛选。低相关性旨在通过跨资产类别（如股票、债券、商品、REITs）实现风险分散。高流动性则确保策略在需要时可以低</p>
+<p>以追求年化8%收益、回撤控制在10%以内的绝对收益系统为例，一个典型的战略资产配置框架可能如下： 固定收益类（50%-60%）：作为组合的“压舱石”，提供稳定票息收入。主要配置国债、高评级信用债ETF等。 权益增强类（20%-30%）：作为收益的主要引擎。主要配置宽基指数，并通过多因子模型进行增强，或采用市场中性策略剥离Beta。 商品和另类资产（10%-20%）：提供与传统股债低相关的收益来源，主要配置如公募REITs、黄金ETF、管理期货（CTA）策略等。 现金与对冲头寸（5%-10%）：保持流动性，并为潜在的对冲操作（如持有股指期货空头）预留资金。</p>
+</section>
+<section id="模块二策略池" class="level3">
+<h3 class="anchored" data-anchor-id="模块二策略池">模块二：策略池</h3>
+<p>一个成熟的策略池应是多策略、多频段、多逻辑的协同网络，能够适应不同的市场环境，实现收益来源的多元化。依据其在系统中的作用，我们可以将策略池划分为三大功能模块：配置型策略、增强型策略和保护型策略。</p>
+<section id="配置型策略获取beta收益" class="level4">
+<h4 class="anchored" data-anchor-id="配置型策略获取beta收益">1.配置型策略，获取Beta收益</h4>
+<p>这类策略是投资系统的基石，以较低的成本和较高的确定性获取市场平均回报，即Beta。它们通常容量大、换手率低，是组合长期收益的主要来源。</p>
+<ul>
+<li><p><strong>战略资产配置（SAA）：</strong>这是系统的顶层设计。基于投资者的长期收益目标和风险约束，如本系统的年化8%，回撤10%，确定各类资产（股、债、商品、现金）的长期目标权重。其核心逻辑是均值回归和风险溢价，通过定期的再平衡纪律来实现“高抛低吸”。例如，当权益类资产大涨导致其占比超过目标上限时，系统会触发卖出信号，将资金转移至低配的债券或现金。</p></li>
+<li><p><strong>核心-卫星指数化投资：</strong>在权益内部，将大部分仓位配置于宽基指数，如沪深300、标普500，获取市场基准收益。同时，设定少数卫星仓位用于捕捉特定主题或风格的超额收益如红利低波、科技龙头。其决策逻辑更多基于宏观周期阶段和估值判断。</p></li>
+<li><p><strong>被动债券阶梯策略：</strong>构建一个到期日错落的国债或高等级信用债组合，如3年、5年、10年期债券ETF组合。通过持有到期和滚动再投资，获取确定的票息和资本利得。其逻辑非常清晰：收益率曲线形态和到期时间。</p></li>
+</ul>
+</section>
+<section id="增强型策略创造alpha收益" class="level4">
+<h4 class="anchored" data-anchor-id="增强型策略创造alpha收益">2.增强型策略，创造Alpha收益</h4>
+<p>这类策略是是策略池中最活跃，也是最体现投研能力的部分，旨在通过主动判断和模型，在Beta收益的基础上努力获取超额收益。它们通常换手率更高，以期组合在不同市场风格下跑赢基准。</p>
+<ul>
+<li><p><strong>多因子选股策略：</strong>是权益增强的核心。策略通过模型汇总多个维度因子的选股效果，旨在构建能持续获取稳定超额收益，并有效分散单一风格风险的投资组合。</p></li>
+<li><p><strong>行业轮动策略：</strong>基于行业景气度、资金流向和动量效应，在不同行业与风格之间进行切换。例如，当利率下行、风险偏好提升时，信号倾向于科技成长；当利率上行、通胀走高时，信号则转向上游资源和金融。该策略与多因子选股形成互补，从不同维度捕捉超额收益。</p></li>
+<li><p><strong>风格择时策略：</strong>是多因子策略的重要延伸，重点探讨因子在大盘/小盘、价值/成长等风格维度上的切换。核心思想是，不同市场环境下特定风格或因子表现各异，通过识别当前市场风格所处阶段，动态调整因子暴露，从而提升策略有效性。</p></li>
+<li><p><strong>资产择时与战术配置（TAA）：</strong>在SAA的长期中枢上下，进行中短期的主动偏离。策略对市场状态和趋势进行择，并为不同的市场环境预设最优的资产配置权重。例如，当全是市场进入明显上升趋势时，系统会适度超配权益资产；反之则降低权益仓位或增配防御资产。</p></li>
+<li><p><strong>市场中性策略：</strong>市场中性策略通过构建多头与空头（如持有股指期货空头）对冲掉系统性风险（Beta），剥离市场波动，纯粹获取选股Alpha收益。</p></li>
+<li><p><strong>债券策略：</strong>债券策略同样可以量化。债券量化策略通常围绕久期管理、信用利差、收益率曲线等维度展开，与权益类策略相关性较低，为组合提供稳定票息与低波动收益来源。</p></li>
+<li><p><strong>商品CTA略：</strong>作为另类资产的增强，主要投资于黄金、原油、有色等商品期货。其信号可以来自时间序列动量（捕捉品种自身的上涨或下跌趋势）和跨品种截面动量（做多强势品种，做空弱势品种）。这为系统提供了与股债市场低相关的、绝对的Alpha来源。</p></li>
+</ul>
+</section>
+<section id="保护型策略控制和应对风险" class="level4">
+<h4 class="anchored" data-anchor-id="保护型策略控制和应对风险">3.保护型策略，控制和应对风险</h4>
+<p>这类策略不以创造正收益为首要目标，其核心价值在于管理尾部风险和降低组合波动，确保系统在极端市场环境下能够生存，并守住目标回撤的底线。</p>
+<ul>
+<li><p>风险平价与波动率控制策略：是一种动态调整仓位的算法。其信号是资产当前的实现波动率。当市场波动率急剧上升时，通常意味着恐慌和不确定性，系统会按比例缩减所有风险资产的敞口，将组合总波动率锚定在预设目标以内。</p></li>
+<li><p>黑天鹅保护策略：一种纯防守型策略。其信号是期权的隐含波动率偏斜，以及远期价外期权的价格。策略持续、小成本地买入极度价外、剩余期限较长的股指认沽期权。在平稳市场中，这部分头寸的亏损是可控的保险费；一旦市场出现-3个标准差以上的暴跌，这部分头寸将产生巨额收益，为组合提供强大的对冲保护，使其回撤远低于市场。</p></li>
+<li><p>相关性突变监测策略：信号来源于资产间滚动相关系数的实时监测。该策略不直接产生交易，而是作为风控阀。当监测到股票与债券出现罕见的同时下跌，正相关性急剧上升；或股票与避险货币和黄金等走势趋同时，都将自动触发警报，降低杠杆或增配现金，以防止在“资产配置失效”的极端环境中遭受损失。</p></li>
+</ul>
+</section>
+<section id="策略池的动态管理" class="level4">
+<h4 class="anchored" data-anchor-id="策略池的动态管理">4.策略池的动态管理</h4>
+<p>策略池的丰富程度与低相关性直接决定了系统实现收益目标的能力。理想状态下，各类策略之间的相关性应尽量低，如CTA与传统股债相关性低、市场中性剥离Beta、套利类波动小胜率高，从而实现多个独立收益来源的叠加，在整体上兼顾收益与回撤控制，实现收益和回撤目标。</p>
+<p>每个策略都需要配套完善的信号生成、仓位管理、风险监控、与再平衡机制，并在历史数据上进行回测、在实盘中进行持续迭代改进，形成从开发、验证、到上线的完整闭环。</p>
+<p>一个优秀的策略池是动态更新的，而非一成不变的。系统需建立策略绩效归因机制，定期评估各策略的夏普比率、胜率、盈亏比和最大回撤。当某一策略连续失效，归因分析认为并非市场风格切换导致，而是策略逻辑本身衰减甚至失效时，应果断将其移入“观察区”，并从储备策略中引入候选者进行替换，保证策略池持续具备对市场的适应性。</p>
+</section>
+</section>
+<section id="模块三风险控制模块" class="level3">
+<h3 class="anchored" data-anchor-id="模块三风险控制模块">模块三：风险控制模块</h3>
+<p>将风险控制贯穿投资全流程，本质上是将风险管理从“被动止损”升级为“主动创造确定性”的闭环生态系统。这个闭环由事前、事中、事后三大模块构成，它们并非简单的线性流程，而是相互紧密衔接的链条。</p>
+<section id="事前风控" class="level4">
+<h4 class="anchored" data-anchor-id="事前风控">1.事前风控</h4>
+<p>事前风控核心在于“将不确定性转化为可量化的概率约束”。它发生在资金下注之前，侧重于模型的鲁棒性与组合的先天抗脆弱性。</p>
+<ul>
+<li><p><strong>风险预算与因子暴露约束：</strong>基于风险模型，严格设定组合在风格因子和行业因子上的暴露阈值。这不是追求“零暴露”，而是追求“主动风险”的性价比。</p></li>
+<li><p><strong>极端情景压力测试：</strong>利用蒙特卡洛模拟或历史极端行情，如1987年股灾、2008年金融危机、2020年疫情熔断，重构协方差矩阵。重点考察组合在“相关性破裂”时的表现，即在流动性枯竭时，所有低相关性资产突然同涨同跌，提前做好做压力储备。</p></li>
+<li><p><strong>流动性成本建模：</strong>事前根据持仓标的的日均成交量和买卖盘口深度，动态计算持仓容量上限。确保在极端冲击下，组合的清仓冲击成本不超过预设的最大回撤容忍度。</p></li>
+</ul>
+</section>
+<section id="事中风控" class="level4">
+<h4 class="anchored" data-anchor-id="事中风控">2.事中风控</h4>
+<p>事中风控核心在于“实时监测市场微观结构的变化，并动态重平衡”。它不是僵化的止损指令，而是具有自适应能力的反馈机制。</p>
+<ul>
+<li><p><strong>波动率驱动的动态调仓：</strong>利用实时计算的已实现波动率与隐含波动率，动态调整总杠杆倍数。当市场实际波动率超过模型预设的“舒适区”上限时，事中风控模块会自动线性或非线性地降低总风险敞口，即“波动率风险管理”，从根源上防止黑天鹅风险。</p></li>
+<li><p><strong>交易执行层面的防差错机制：</strong>设置各种软风控和硬风控，例如，单笔委托量不得超过过去5分钟成交量的30%；撤单次数超限、单策略日亏损达2%时自动暂停该策略。这种机制用于隔离由于数据源错乱或模型信号突变导致的“乌龙指”风险。</p></li>
+<li><p><strong>实时损益与希腊字母监控：</strong>针对高频或衍生品策略，实时监控Delta、Gamma、Vega等希腊值的偏离度。一旦实际持仓的希腊值偏离理论组合超阈值（如Delta偏离超±5%），系统立即触发动态对冲指令，而非等待收盘调整。</p></li>
+</ul>
+</section>
+<section id="事后风控" class="level4">
+<h4 class="anchored" data-anchor-id="事后风控">3.事后风控</h4>
+<p>事后风控是量化系统持续迭代的引擎，核心在于“剥离噪音，精准归因，将经验沉淀为先验”。它发生在交易日结束后，侧重于策略的适应性评估。</p>
+<ul>
+<li><p><strong>多维度业绩归因：</strong>利用风险模型，精确拆解当期收益来源。必须区分清楚：赚的钱是来自选股能力（Alpha），还是来自风格因子暴露（Beta），亦或是纯粹的运气（残差）。如果发现收益过度依赖某个意外暴露的因子（如小市值因子），事后必须强制修正先验约束矩阵。</p></li>
+<li><p><strong>回测过拟合与策略衰减检验：</strong>定期进行样本外滚动检验，计算策略的夏普比率衰减速度。如果实盘夏普较回测夏普衰减超过预定百分比，事后风控会触发策略降权机制，动态降低该子策略在母基金中的资金分配权重。</p></li>
+<li><p><strong>黑天鹅事件的事后复盘：</strong>针对日内触发的止损记录或极端滑点，进行微观结构分析。检查是流动性瞬间枯竭所致，还是对手方高频报单策略变动所致。将其作为“情景库”补充进事前压力测试集，确保下一次极端行情来临时，系统已具备该风险的“免疫记忆”。</p></li>
+</ul>
+<p>成熟的量化风控体系，是事前（先验约束）→ 事中（实时矫正）→ 事后（后验反馈）形成的增强学习闭环系统。事后归因得出的新的经验和教训会反哺给事中的监控阈值；事中监测到的市场新状态会反向更新事前优化器的约束条件。如此动态循环，投资系统才能在非稳态的金融市场中获得长期稳健的收益。</p>
+</section>
+</section>
+<section id="模块四反馈与迭代循环" class="level3">
+<h3 class="anchored" data-anchor-id="模块四反馈与迭代循环">模块四：反馈与迭代循环</h3>
+<p>一个真正稳健的投资系统绝非静态的规则集合，而是一个具备自省能力、自适应能力和进化能力的有机体。反馈与迭代循环正是这一有机体的“学习回路”，它将实盘运行产生的海量数据、绩效结果与市场新信息，转化为系统下一次决策的先验知识与优化参数。该模块通过数据层→分析层→决策层→执行层→再反馈的闭环架构，确保系统在非稳态市场中持续保持竞争力。</p>
+<section id="数据与记录" class="level4">
+<h4 class="anchored" data-anchor-id="数据与记录">1.数据与记录</h4>
+<p>迭代的质量取决于数据的粒度与完整性。系统需建立多维度、时间戳精确到毫秒级的运行数据库。</p>
+<ul>
+<li><p><strong>交易流水日志：</strong>完整记录每笔委托、成交、撤单、滑点、手续费及资金占用情况，为事后成本核算提供原始依据。</p></li>
+<li><p><strong>信号与持仓快照：</strong>定期（如每日收盘或每个调仓周期）保存各子策略的信号值、目标权重、实际权重及偏离度，便于追溯决策与实际执行间的偏差。</p></li>
+<li><p><strong>市场微观结构数据：</strong>同步存储对应时间窗口的行情Tick数据、订单簿深度、成交量分布及波动率曲面（针对期权），以分析滑点与流动性成本来源。</p></li>
+<li><p><strong>系统状态监控：</strong>记录服务器延迟、API连接稳定性、计算资源使用率等基础设施指标，排除技术因素对策略表现的干扰。</p></li>
+</ul>
+</section>
+<section id="绩效归因与诊断" class="level4">
+<h4 class="anchored" data-anchor-id="绩效归因与诊断">2.绩效归因与诊断</h4>
+<p>定期生成的绩效归因报告是反馈循环的起点，但需进一步深化为多层次诊断体系。</p>
+<ul>
+<li><p><strong>收益分解归因：</strong>SAA与TAA的择时贡献分别几何？是否在正确的宏观阶段超配了正确的资产？多因子模型内各因子的边际贡献如何？是否有因子出现收益衰减甚至反转？</p></li>
+<li><p><strong>风险分解归因：</strong>计算组合的总VaR、CVaR，并拆解至各策略与因子层面，识别当前风险的主要贡献者。跟踪各策略的最大回撤、回撤时长及恢复速度，判断回撤性质是市场系统性或者策略自身失效。计算信息比率、胜率及盈亏比的时间序列，检验超额收益是否稳定，或是否存在“阿尔法衰减”迹象。实时更新各子策略收益率的滚动相关系数矩阵。若两策略历史低相关，但近期相关性显著上升，则可能意味着收益来源趋同，需重新评估分散化效果。</p></li>
+</ul>
+</section>
+<section id="策略迭代与淘汰机制" class="level4">
+<h4 class="anchored" data-anchor-id="策略迭代与淘汰机制">3.策略迭代与淘汰机制</h4>
+<p>基于诊断结果，启动对策略池的动态管理流程。该流程遵循“三区制”管理：</p>
+<ul>
+<li><p><strong>正常运行区：</strong>策略各项指标（夏普、胜率、回撤、相关性）均在预设容忍区间内，维持既有权重。</p></li>
+<li><p><strong>预警观察区：</strong>策略连续1~3个月表现低于基准，或回撤接近警戒线。系统自动触发深度分析。要区分是市场风格切换（临时性） 还是策略逻辑衰减（永久性）。前者通过TAA或因子择时进行临时性降权；后者则启动备选策略的准备工作。</p></li>
+<li><p><strong>触发替换区：</strong>若观察期内策略的实盘夏普低于回测夏普的50%以上，或归因分析确认Alpha已转为负值且无明确宏观解释，则果断将其剔除，同时从储备策略库中选取已通过样本外验证的候选策略，经过回填模拟与平滑过渡后上线。</p></li>
+</ul>
+</section>
+<section id="风险参数自适应校准" class="level4">
+<h4 class="anchored" data-anchor-id="风险参数自适应校准">4.风险参数自适应校准</h4>
+<p>风险参数并非固定不变，而应成为市场状态的函数。反馈循环为此提供了实时更新的依据。</p>
+<ul>
+<li><p><strong>波动率锚定调整：</strong>根据过去20日实现波动率的百分位，动态调整总杠杆倍数与单策略风险预算。例如，当VIX指数从历史中位数升至75分位以上时，系统自动将风险资产总敞口从100%线性压缩至70%。</p></li>
+<li><p><strong>相关性崩溃预警阈值更新：</strong>利用每日滚动相关性矩阵，当股债相关系数从负值跃升至+0.3以上时，事中风控模块的“相关性突变监测”触发阀值自动下调，更敏感地启动防御性减仓。</p></li>
+<li><p><strong>流动性弹性系数修正：</strong>根据过去一个月各品种的平均买卖价差与日成交量，动态更新持仓容量上限，确保冲击成本始终控制在最大回撤容忍度的1/3以内。</p></li>
+</ul>
+</section>
+<section id="回测框架的持续进化" class="level4">
+<h4 class="anchored" data-anchor-id="回测框架的持续进化">5.回测框架的持续进化</h4>
+<p>迭代循环必须包含对回测方法论自身的反思，避免“过度优化陷阱”。</p>
+<ul>
+<li><p><strong>滚动窗口检验：</strong>每个季度重新运行策略在不同时间窗口（如3年、5年、10年）上的滚动回测，观察参数稳定性。若最优参数随时间漂移明显，则改为采用贝叶斯时变参数模型。</p></li>
+<li><p><strong>样本外衰减监控：</strong>绘制实盘累计净值与回测净值之间的“收益缺口”曲线。当缺口持续扩大且超过预设容忍带时，判定策略发生结构性衰减，强制启动归因与替换流程。</p></li>
+<li><p><strong>对抗性测试：</strong>从历史行情库中随机抽取极端市场的情景片段，对策略进行压力模拟，检验其在未见过的尾部事件下的鲁棒性，并将结果纳入事前约束条件。</p></li>
+</ul>
+</section>
+<section id="组织学习与知识沉淀层" class="level4">
+<h4 class="anchored" data-anchor-id="组织学习与知识沉淀层">6.组织学习与知识沉淀层</h4>
+<p>反馈循环不仅是算法的优化，更是团队认知的积累。</p>
+<ul>
+<li><p><strong>案例库建设：</strong>定期整理策略失效案例和极端行情应对复盘分析，详细记录每次重大回撤或亏损的触发条件、信号表现、执行偏差及事后改进措施，形成机构化的案例库。</p></li>
+<li><p><strong>定期策略评审会：</strong>定期召开由投研、风控、交易三方参与的复盘会议，对归因报告中的异常值进行集体研判，最终形成调整决议，并以书面形式更新至系统配置文档。</p></li>
+</ul>
+</section>
+<section id="闭环落地" class="level4">
+<h4 class="anchored" data-anchor-id="闭环落地">7.闭环落地</h4>
+<p>为确保迭代决策能够高效转化为实际动作，系统应建立半自动化的执行管道：</p>
+<ul>
+<li><p><strong>参数更新指令：</strong>经审批通过的策略权重调整、风险阈值修改、因子暴露约束变更，由系统自动生成参数配置文件，经二次校验后推送至交易执行引擎。</p></li>
+<li><p><strong>回测与实盘的双轨并行：</strong>任何候选策略在正式上线前，需经历至少3个月模拟交易，期间记录其模拟绩效与实盘策略进行对比，确认无意外衰减后方可切换。</p></li>
+<li><p><strong>迭代日志全链路追溯：</strong>每次迭代的决策依据、数据来源、审批人、执行时间均被完整记录，形成可审计、可回溯的版本历史，为未来的归因提供依据。</p></li>
+</ul>
+<p>通过上述多维度的反馈与迭代循环，投资系统得以将每一次市场波动、每一次策略失效、每一次风险事件都转化为自身成长的养分。它不再是机械地执行预设规则，而是持续进化的智能决策体，能够在不确定性中辨识信号与噪音，在非线性市场中保持韧性与适应性，最终实现对长期投资目标的稳健追逐。</p>
+</section>
+</section>
+</section>
+<section id="三结论" class="level2">
+<h2 class="anchored" data-anchor-id="三结论">三、结论</h2>
+<p>现代投资系统是一项复杂的“工程”。它视投资为一门以目标为导向、数据为基础、系统为载体的科学，它追求投资过程的纪律性、可复制性和规模效应，而非依赖个人直觉的艺术。</p>
+<p>它始于明确的战略定位，通过模块化的方式，将资产池、策略池、组合优化器、风险控制体系和反馈循环这五大核心组件有机地整合在一起。其构建过程，是告别纯粹的直觉与定性判断，全面拥抱定量化、结构化、系统化的科学过程。</p>
+<p>这个系统需要不断的扩展其深度和广度，将投资科学与技术注入投资决策的每一个细节。只有不断的学习和迭代，才能为投资者在充满不确定性的市场中，提供一条更具纪律性、更可持续的的路径。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="pagination-link" aria-label="第9章 风险控制 第5节 风险模型的局限性及其应对">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第1节 R语言入门.html" class="pagination-link" aria-label="第16章 R 第1节 R语言入门">
+        <span class="nav-page-text">第16章 R 第1节 R语言入门</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
