@@ -29,7 +29,9 @@ https://github.com/davinci37/Introduction-to-Quantitative-Investment/
 
 ## 许可证
 
-本书采用 **CC BY 4.0** 协议授权。代码采用 **MIT** 协议授权。
+本书采用 **CC BY 4.0** 协议授权。
+
+代码采用 **MIT** 协议授权。
 
 你可以自由的：复制、分发、修改、甚至商业使用本作品。
 
