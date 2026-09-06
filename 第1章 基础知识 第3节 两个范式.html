@@ -324,7 +324,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#范式一截面范式多因子选股" id="toc-范式一截面范式多因子选股" class="nav-link" data-scroll-target="#范式一截面范式多因子选股">范式一、截面范式：多因子选股</a></li>
   <li><a href="#范式二时间序列范式多因子择时" id="toc-范式二时间序列范式多因子择时" class="nav-link" data-scroll-target="#范式二时间序列范式多因子择时">范式二、时间序列范式：多因子择时</a></li>
-  <li><a href="#第三步数据处理与因子处理-1" id="toc-第三步数据处理与因子处理-1" class="nav-link" data-scroll-target="#第三步数据处理与因子处理-1">第三步：数据处理与因子处理</a></li>
   </ul></li>
   <li><a href="#五范式对比" id="toc-五范式对比" class="nav-link" data-scroll-target="#五范式对比">五、范式对比</a></li>
   <li><a href="#六两个范式的分层架构" id="toc-六两个范式的分层架构" class="nav-link" data-scroll-target="#六两个范式的分层架构">六、两个范式的分层架构</a></li>
@@ -445,10 +444,8 @@ window.Quarto = {
 <li><p>在每一个时间截面t，我们进行一次横截面回归。在这次回归中，因变量是该时间截面t上所有N个资产的收益率<span class="math inline">\(R_{i,t}\)</span>，而自变量则是这些资产在之前已经估计好的因子暴露度<span class="math inline">\(\hat{\beta}_i\)</span>。对于任意时间截面t，数学表达： <span class="math inline">\(R_{i,t}=\lambda_{0,t}+\lambda_{mkt,t}\hat{\beta}_{i,mkt}+\lambda_{smb,t}\hat{\beta}_{i,smb}+\lambda_{hml,t}\hat{\beta}_{i,hml}+u_{i,t}\)</span></p></li>
 <li><p>回归得到的系数<span class="math inline">\(\hat{\lambda}_{k,t}\)</span>就是因子<span class="math inline">\(k\)</span>在时间截面t的风险溢价的估计。在T个时间点上重复上述横截面回归，我们得到T个关于每个因子风险溢价的估计值序列<span class="math inline">\(\{\hat{\lambda}_{k,1},\hat{\lambda}_{k,2},...,\hat{\lambda}_{k,T}\}\)</span>。继而，我们可以进行以下的估计和检验：</p>
 <ul>
-<li><strong>平均风险溢价：</strong>最终的因子风险溢价估计值，是这个时间序列的均值：</li>
-</ul>
-<pre><code>$\bar{\lambda}_k=\frac{1}{T}\sum_{t=1}^{T}\hat{\lambda}_{k,t}$</code></pre>
-<ul>
+<li><p><strong>平均风险溢价：</strong>最终的因子风险溢价估计值，是这个时间序列的均值：</p>
+<p><span class="math inline">\(\bar{\lambda}_k=\frac{1}{T}\sum_{t=1}^{T}\hat{\lambda}_{k,t}\)</span></p></li>
 <li><p><strong>显著性检验：</strong>该因子的风险溢价是否在统计上显著不为零？我们可以通过计算该时间序列的标准误来进行t检验：</p>
 <p><span class="math inline">\(t(\bar{\lambda}_k)=\frac{\bar{\lambda}_k}{SE(\bar{\lambda}_k)}=\frac{\bar{\lambda}_k}{\sigma(\hat{\lambda}_k)/\sqrt{T}}\)</span></p></li>
 </ul></li>
@@ -550,8 +547,8 @@ window.Quarto = {
 <li><p>短期战术层：在宏观判断的基础上，通过市场自身的价格动量，寻找更精确的入场和风控时机。</p></li>
 </ul>
 </section>
-<section id="第二部因子选择" class="level4">
-<h4 class="anchored" data-anchor-id="第二部因子选择">第二部：因子选择</h4>
+<section id="第二步因子选择" class="level4">
+<h4 class="anchored" data-anchor-id="第二步因子选择">第二步：因子选择</h4>
 <p>各因子的定义、逻辑和信号方向如下表所示：</p>
 <ul>
 <li><p>宏观长期因子包括：</p>
@@ -568,9 +565,8 @@ window.Quarto = {
 </ul></li>
 </ul>
 </section>
-</section>
-<section id="第三步数据处理与因子处理-1" class="level3">
-<h3 class="anchored" data-anchor-id="第三步数据处理与因子处理-1">第三步：数据处理与因子处理</h3>
+<section id="第三步数据处理与因子处理-1" class="level4">
+<h4 class="anchored" data-anchor-id="第三步数据处理与因子处理-1">第三步：数据处理与因子处理</h4>
 <ul>
 <li><p>数据获取：宏观数据来自国家统计局、央行网站；价格数据来自Wind。</p></li>
 <li><p>数据处理与信号标准化：</p>
@@ -580,6 +576,7 @@ window.Quarto = {
 <li><p>方向对齐：确保所有因子值越大，对应看多信号越强，反向因子乘以-1。</p></li>
 </ul></li>
 </ul>
+</section>
 <section id="第四步因子合成与综合信号生成" class="level4">
 <h4 class="anchored" data-anchor-id="第四步因子合成与综合信号生成">第四步：因子合成与综合信号生成</h4>
 <ul>
@@ -675,10 +672,10 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="六两个范式的分层架构">六、两个范式的分层架构</h2>
 <p>两个范式策略分别从截面选股和时序择时两个维度提供收益。我们可以通过构建“宏观择时+微观选股”，“自上而下”（Top-down）的分层架构投资体系，使得两个策略有效互补，起到“1+1&gt;2”的效果。</p>
 <p>分层架构的核心在于将宏观择时与微观选股进行顺序决策与有机结合。其运作流程是：</p>
-<ul>
+<ol type="1">
 <li><p>每月初，首先运行时间序列范式的择时模型，综合宏观与价格信号生成一个连续的择时评分，并将其映射为具体的仓位比例（例如0%、50%、100%），以此决定整个组合对股票市场的总体市场风险暴露。</p></li>
 <li><p>随后，在既定的仓位限制内，启动截面范式的选股模型，从全市场筛选出综合因子得分最高的前100只股票以特定权重进行配置。</p></li>
-</ul>
+</ol>
 <p>这种架构清晰地区分了“投多少”和“投什么”两个问题：择时层负责管理系统性风险，旨在规避重大下跌；选股层则负责创造超额收益，旨在市场上涨或平稳时跑赢基准。通过月度再平衡将两层信号同步，该模式实现了风险控制的纪律性与收益增强的主动性相结合，是一种逻辑清晰、易于归因且实战性强的组合方法。</p>
 <p>这种自上而下的分层架构，清晰的分离了宏观判断与微观选择，便于收益归因，符合主流机构投资者的投资决策逻辑和流程。在后续章节中，我们将以此为基础展开，详细阐述如何基于截面与时间序列两大核心范式，通过不同的数据和模型填充，衍生出各种功能实现的策略模块。最终，我们将展示如何通过系统化的架构，将这些策略模块灵活组合，构建出能够精准实现特定投资目标的策略组合。</p>
 
