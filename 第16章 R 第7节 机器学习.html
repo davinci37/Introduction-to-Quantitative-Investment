@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; 第16章 R 第7节 机器学习{.unnumbered} – 量化投资导论</title>
+<title>第16章 R 第7节 机器学习 – 量化投资导论</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -122,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第7节 机器学习.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第7节 机器学习{.unnumbered}</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第7节 机器学习.html">第16章 R 第7节 机器学习</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第7节 机器学习{.unnumbered}</span></span></a>
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
   </div>
 </li>
     </ul>
@@ -313,99 +313,99 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言"><span class="header-section-number">1.1</span> 前言</a>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
   <ul class="collapse">
-  <li><a href="#统一模型框架" id="toc-统一模型框架" class="nav-link" data-scroll-target="#统一模型框架"><span class="header-section-number">1.1.1</span> 1.统一模型框架</a></li>
-  <li><a href="#专用算法包" id="toc-专用算法包" class="nav-link" data-scroll-target="#专用算法包"><span class="header-section-number">1.1.2</span> 2.专用算法包</a></li>
-  <li><a href="#总结与建议" id="toc-总结与建议" class="nav-link" data-scroll-target="#总结与建议"><span class="header-section-number">1.1.3</span> 3.总结与建议</a></li>
+  <li><a href="#统一模型框架" id="toc-统一模型框架" class="nav-link" data-scroll-target="#统一模型框架">1.统一模型框架</a></li>
+  <li><a href="#专用算法包" id="toc-专用算法包" class="nav-link" data-scroll-target="#专用算法包">2.专用算法包</a></li>
+  <li><a href="#总结与建议" id="toc-总结与建议" class="nav-link" data-scroll-target="#总结与建议">3.总结与建议</a></li>
   </ul></li>
-  <li><a href="#一rpart包" id="toc-一rpart包" class="nav-link" data-scroll-target="#一rpart包"><span class="header-section-number">1.2</span> 一、rpart包</a>
+  <li><a href="#一rpart包" id="toc-一rpart包" class="nav-link" data-scroll-target="#一rpart包">一、rpart包</a>
   <ul class="collapse">
-  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述"><span class="header-section-number">1.2.1</span> 1.概述</a></li>
-  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能"><span class="header-section-number">1.2.2</span> 2.核心功能</a></li>
-  <li><a href="#核心函数rpart" id="toc-核心函数rpart" class="nav-link" data-scroll-target="#核心函数rpart"><span class="header-section-number">1.2.3</span> 3.核心函数：<code>rpart()</code></a></li>
-  <li><a href="#完整使用示例" id="toc-完整使用示例" class="nav-link" data-scroll-target="#完整使用示例"><span class="header-section-number">1.2.4</span> 4.完整使用示例</a></li>
-  <li><a href="#输出对象" id="toc-输出对象" class="nav-link" data-scroll-target="#输出对象"><span class="header-section-number">1.2.5</span> 5.输出对象</a></li>
-  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项"><span class="header-section-number">1.2.6</span> 6.注意事项</a></li>
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1.概述</a></li>
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">2.核心功能</a></li>
+  <li><a href="#核心函数rpart" id="toc-核心函数rpart" class="nav-link" data-scroll-target="#核心函数rpart">3.核心函数：<code>rpart()</code></a></li>
+  <li><a href="#完整使用示例" id="toc-完整使用示例" class="nav-link" data-scroll-target="#完整使用示例">4.完整使用示例</a></li>
+  <li><a href="#输出对象" id="toc-输出对象" class="nav-link" data-scroll-target="#输出对象">5.输出对象</a></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项">6.注意事项</a></li>
   </ul></li>
-  <li><a href="#二random-forest包" id="toc-二random-forest包" class="nav-link" data-scroll-target="#二random-forest包"><span class="header-section-number">1.3</span> 二、Random Forest包</a>
+  <li><a href="#二random-forest包" id="toc-二random-forest包" class="nav-link" data-scroll-target="#二random-forest包">二、Random Forest包</a>
   <ul class="collapse">
-  <li><a href="#概述-1" id="toc-概述-1" class="nav-link" data-scroll-target="#概述-1"><span class="header-section-number">1.3.1</span> 1.概述</a></li>
-  <li><a href="#核心功能-1" id="toc-核心功能-1" class="nav-link" data-scroll-target="#核心功能-1"><span class="header-section-number">1.3.2</span> 2.核心功能</a></li>
-  <li><a href="#核心函数randomforest" id="toc-核心函数randomforest" class="nav-link" data-scroll-target="#核心函数randomforest"><span class="header-section-number">1.3.3</span> 3.核心函数：<code>randomForest()</code></a></li>
-  <li><a href="#实用辅助函数" id="toc-实用辅助函数" class="nav-link" data-scroll-target="#实用辅助函数"><span class="header-section-number">1.3.4</span> 4.实用辅助函数</a></li>
-  <li><a href="#使用示例" id="toc-使用示例" class="nav-link" data-scroll-target="#使用示例"><span class="header-section-number">1.3.5</span> 5.使用示例</a></li>
-  <li><a href="#分类以iris数据集为例" id="toc-分类以iris数据集为例" class="nav-link" data-scroll-target="#分类以iris数据集为例"><span class="header-section-number">1.3.6</span> 5.1.分类（以<code>iris</code>数据集为例）</a></li>
-  <li><a href="#回归示例" id="toc-回归示例" class="nav-link" data-scroll-target="#回归示例"><span class="header-section-number">1.3.7</span> 5.2.回归示例</a></li>
-  <li><a href="#无监督模式" id="toc-无监督模式" class="nav-link" data-scroll-target="#无监督模式"><span class="header-section-number">1.3.8</span> 5.3.无监督模式</a></li>
-  <li><a href="#注意事项与技巧" id="toc-注意事项与技巧" class="nav-link" data-scroll-target="#注意事项与技巧"><span class="header-section-number">1.3.9</span> 6.注意事项与技巧</a></li>
+  <li><a href="#概述-1" id="toc-概述-1" class="nav-link" data-scroll-target="#概述-1">1.概述</a></li>
+  <li><a href="#核心功能-1" id="toc-核心功能-1" class="nav-link" data-scroll-target="#核心功能-1">2.核心功能</a></li>
+  <li><a href="#核心函数randomforest" id="toc-核心函数randomforest" class="nav-link" data-scroll-target="#核心函数randomforest">3.核心函数：<code>randomForest()</code></a></li>
+  <li><a href="#实用辅助函数" id="toc-实用辅助函数" class="nav-link" data-scroll-target="#实用辅助函数">4.实用辅助函数</a></li>
+  <li><a href="#使用示例" id="toc-使用示例" class="nav-link" data-scroll-target="#使用示例">5.使用示例</a></li>
+  <li><a href="#分类以iris数据集为例" id="toc-分类以iris数据集为例" class="nav-link" data-scroll-target="#分类以iris数据集为例">5.1.分类（以<code>iris</code>数据集为例）</a></li>
+  <li><a href="#回归示例" id="toc-回归示例" class="nav-link" data-scroll-target="#回归示例">5.2.回归示例</a></li>
+  <li><a href="#无监督模式" id="toc-无监督模式" class="nav-link" data-scroll-target="#无监督模式">5.3.无监督模式</a></li>
+  <li><a href="#注意事项与技巧" id="toc-注意事项与技巧" class="nav-link" data-scroll-target="#注意事项与技巧">6.注意事项与技巧</a></li>
   </ul></li>
-  <li><a href="#三ranger" id="toc-三ranger" class="nav-link" data-scroll-target="#三ranger"><span class="header-section-number">1.4</span> 三、ranger</a>
+  <li><a href="#三ranger" id="toc-三ranger" class="nav-link" data-scroll-target="#三ranger">三、ranger</a>
   <ul class="collapse">
-  <li><a href="#概述-2" id="toc-概述-2" class="nav-link" data-scroll-target="#概述-2"><span class="header-section-number">1.4.1</span> 1.概述</a></li>
-  <li><a href="#核心特点" id="toc-核心特点" class="nav-link" data-scroll-target="#核心特点"><span class="header-section-number">1.4.2</span> 2.核心特点</a></li>
-  <li><a href="#主要功能" id="toc-主要功能" class="nav-link" data-scroll-target="#主要功能"><span class="header-section-number">1.4.3</span> 3.主要功能</a></li>
-  <li><a href="#核心参数" id="toc-核心参数" class="nav-link" data-scroll-target="#核心参数"><span class="header-section-number">1.4.4</span> 4.核心参数</a></li>
-  <li><a href="#与randomforest的对比" id="toc-与randomforest的对比" class="nav-link" data-scroll-target="#与randomforest的对比"><span class="header-section-number">1.4.5</span> 5.与<code>randomForest</code>的对比</a></li>
-  <li><a href="#使用示例-1" id="toc-使用示例-1" class="nav-link" data-scroll-target="#使用示例-1"><span class="header-section-number">1.4.6</span> 6.使用示例</a></li>
-  <li><a href="#注意事项-1" id="toc-注意事项-1" class="nav-link" data-scroll-target="#注意事项-1"><span class="header-section-number">1.4.7</span> 7.注意事项</a></li>
+  <li><a href="#概述-2" id="toc-概述-2" class="nav-link" data-scroll-target="#概述-2">1.概述</a></li>
+  <li><a href="#核心特点" id="toc-核心特点" class="nav-link" data-scroll-target="#核心特点">2.核心特点</a></li>
+  <li><a href="#主要功能" id="toc-主要功能" class="nav-link" data-scroll-target="#主要功能">3.主要功能</a></li>
+  <li><a href="#核心参数" id="toc-核心参数" class="nav-link" data-scroll-target="#核心参数">4.核心参数</a></li>
+  <li><a href="#与randomforest的对比" id="toc-与randomforest的对比" class="nav-link" data-scroll-target="#与randomforest的对比">5.与<code>randomForest</code>的对比</a></li>
+  <li><a href="#使用示例-1" id="toc-使用示例-1" class="nav-link" data-scroll-target="#使用示例-1">6.使用示例</a></li>
+  <li><a href="#注意事项-1" id="toc-注意事项-1" class="nav-link" data-scroll-target="#注意事项-1">7.注意事项</a></li>
   </ul></li>
-  <li><a href="#四xgboost包" id="toc-四xgboost包" class="nav-link" data-scroll-target="#四xgboost包"><span class="header-section-number">1.5</span> 四、xgboost包</a>
+  <li><a href="#四xgboost包" id="toc-四xgboost包" class="nav-link" data-scroll-target="#四xgboost包">四、xgboost包</a>
   <ul class="collapse">
-  <li><a href="#概述-3" id="toc-概述-3" class="nav-link" data-scroll-target="#概述-3"><span class="header-section-number">1.5.1</span> 1.概述</a></li>
-  <li><a href="#核心特点-1" id="toc-核心特点-1" class="nav-link" data-scroll-target="#核心特点-1"><span class="header-section-number">1.5.2</span> 2.核心特点</a></li>
-  <li><a href="#主要函数" id="toc-主要函数" class="nav-link" data-scroll-target="#主要函数"><span class="header-section-number">1.5.3</span> 3.主要函数</a></li>
-  <li><a href="#核心参数-1" id="toc-核心参数-1" class="nav-link" data-scroll-target="#核心参数-1"><span class="header-section-number">1.5.4</span> 4.核心参数</a></li>
+  <li><a href="#概述-3" id="toc-概述-3" class="nav-link" data-scroll-target="#概述-3">1.概述</a></li>
+  <li><a href="#核心特点-1" id="toc-核心特点-1" class="nav-link" data-scroll-target="#核心特点-1">2.核心特点</a></li>
+  <li><a href="#主要函数" id="toc-主要函数" class="nav-link" data-scroll-target="#主要函数">3.主要函数</a></li>
+  <li><a href="#核心参数-1" id="toc-核心参数-1" class="nav-link" data-scroll-target="#核心参数-1">4.核心参数</a></li>
   </ul></li>
-  <li><a href="#使用示例-2" id="toc-使用示例-2" class="nav-link" data-scroll-target="#使用示例-2"><span class="header-section-number">1.6</span> 5.使用示例</a></li>
-  <li><a href="#高级功能" id="toc-高级功能" class="nav-link" data-scroll-target="#高级功能"><span class="header-section-number">1.7</span> 6.高级功能</a></li>
-  <li><a href="#与其他包的对比" id="toc-与其他包的对比" class="nav-link" data-scroll-target="#与其他包的对比"><span class="header-section-number">1.8</span> 7.与其他包的对比</a></li>
-  <li><a href="#五lightgbm" id="toc-五lightgbm" class="nav-link" data-scroll-target="#五lightgbm"><span class="header-section-number">1.9</span> 五、lightgbm</a>
+  <li><a href="#使用示例-2" id="toc-使用示例-2" class="nav-link" data-scroll-target="#使用示例-2">5.使用示例</a></li>
+  <li><a href="#高级功能" id="toc-高级功能" class="nav-link" data-scroll-target="#高级功能">6.高级功能</a></li>
+  <li><a href="#与其他包的对比" id="toc-与其他包的对比" class="nav-link" data-scroll-target="#与其他包的对比">7.与其他包的对比</a></li>
+  <li><a href="#五lightgbm" id="toc-五lightgbm" class="nav-link" data-scroll-target="#五lightgbm">五、lightgbm</a>
   <ul class="collapse">
-  <li><a href="#概述-4" id="toc-概述-4" class="nav-link" data-scroll-target="#概述-4"><span class="header-section-number">1.9.1</span> 1.概述</a></li>
-  <li><a href="#核心特点-2" id="toc-核心特点-2" class="nav-link" data-scroll-target="#核心特点-2"><span class="header-section-number">1.9.2</span> 2.核心特点</a></li>
-  <li><a href="#主要函数与接口" id="toc-主要函数与接口" class="nav-link" data-scroll-target="#主要函数与接口"><span class="header-section-number">1.9.3</span> 3.主要函数与接口</a></li>
-  <li><a href="#关键辅助函数" id="toc-关键辅助函数" class="nav-link" data-scroll-target="#关键辅助函数"><span class="header-section-number">1.9.4</span> 4.关键辅助函数</a></li>
-  <li><a href="#参数" id="toc-参数" class="nav-link" data-scroll-target="#参数"><span class="header-section-number">1.9.5</span> 5.参数</a></li>
-  <li><a href="#使用示例-3" id="toc-使用示例-3" class="nav-link" data-scroll-target="#使用示例-3"><span class="header-section-number">1.9.6</span> 6.使用示例</a></li>
-  <li><a href="#与其他包的对比-1" id="toc-与其他包的对比-1" class="nav-link" data-scroll-target="#与其他包的对比-1"><span class="header-section-number">1.9.7</span> 7.与其他包的对比</a></li>
-  <li><a href="#注意事项与技巧-1" id="toc-注意事项与技巧-1" class="nav-link" data-scroll-target="#注意事项与技巧-1"><span class="header-section-number">1.9.8</span> 8.注意事项与技巧</a></li>
+  <li><a href="#概述-4" id="toc-概述-4" class="nav-link" data-scroll-target="#概述-4">1.概述</a></li>
+  <li><a href="#核心特点-2" id="toc-核心特点-2" class="nav-link" data-scroll-target="#核心特点-2">2.核心特点</a></li>
+  <li><a href="#主要函数与接口" id="toc-主要函数与接口" class="nav-link" data-scroll-target="#主要函数与接口">3.主要函数与接口</a></li>
+  <li><a href="#关键辅助函数" id="toc-关键辅助函数" class="nav-link" data-scroll-target="#关键辅助函数">4.关键辅助函数</a></li>
+  <li><a href="#参数" id="toc-参数" class="nav-link" data-scroll-target="#参数">5.参数</a></li>
+  <li><a href="#使用示例-3" id="toc-使用示例-3" class="nav-link" data-scroll-target="#使用示例-3">6.使用示例</a></li>
+  <li><a href="#与其他包的对比-1" id="toc-与其他包的对比-1" class="nav-link" data-scroll-target="#与其他包的对比-1">7.与其他包的对比</a></li>
+  <li><a href="#注意事项与技巧-1" id="toc-注意事项与技巧-1" class="nav-link" data-scroll-target="#注意事项与技巧-1">8.注意事项与技巧</a></li>
   </ul></li>
-  <li><a href="#六e1071包" id="toc-六e1071包" class="nav-link" data-scroll-target="#六e1071包"><span class="header-section-number">1.10</span> 六、e1071包</a>
+  <li><a href="#六e1071包" id="toc-六e1071包" class="nav-link" data-scroll-target="#六e1071包">六、e1071包</a>
   <ul class="collapse">
-  <li><a href="#概述-5" id="toc-概述-5" class="nav-link" data-scroll-target="#概述-5"><span class="header-section-number">1.10.1</span> 1.概述</a></li>
-  <li><a href="#核心功能-2" id="toc-核心功能-2" class="nav-link" data-scroll-target="#核心功能-2"><span class="header-section-number">1.10.2</span> 2.核心功能</a></li>
-  <li><a href="#主要函数详解" id="toc-主要函数详解" class="nav-link" data-scroll-target="#主要函数详解"><span class="header-section-number">1.10.3</span> 3.主要函数详解</a></li>
-  <li><a href="#生态与依赖" id="toc-生态与依赖" class="nav-link" data-scroll-target="#生态与依赖"><span class="header-section-number">1.10.4</span> 4.生态与依赖</a></li>
-  <li><a href="#注意事项-2" id="toc-注意事项-2" class="nav-link" data-scroll-target="#注意事项-2"><span class="header-section-number">1.10.5</span> 5.注意事项</a></li>
+  <li><a href="#概述-5" id="toc-概述-5" class="nav-link" data-scroll-target="#概述-5">1.概述</a></li>
+  <li><a href="#核心功能-2" id="toc-核心功能-2" class="nav-link" data-scroll-target="#核心功能-2">2.核心功能</a></li>
+  <li><a href="#主要函数详解" id="toc-主要函数详解" class="nav-link" data-scroll-target="#主要函数详解">3.主要函数详解</a></li>
+  <li><a href="#生态与依赖" id="toc-生态与依赖" class="nav-link" data-scroll-target="#生态与依赖">4.生态与依赖</a></li>
+  <li><a href="#注意事项-2" id="toc-注意事项-2" class="nav-link" data-scroll-target="#注意事项-2">5.注意事项</a></li>
   </ul></li>
-  <li><a href="#七h2o包" id="toc-七h2o包" class="nav-link" data-scroll-target="#七h2o包"><span class="header-section-number">1.11</span> 七、h2o包</a></li>
-  <li><a href="#概述-6" id="toc-概述-6" class="nav-link" data-scroll-target="#概述-6"><span class="header-section-number">1.12</span> 1.概述</a></li>
-  <li><a href="#核心特点-3" id="toc-核心特点-3" class="nav-link" data-scroll-target="#核心特点-3"><span class="header-section-number">1.13</span> 2.核心特点</a></li>
-  <li><a href="#主要功能与算法" id="toc-主要功能与算法" class="nav-link" data-scroll-target="#主要功能与算法"><span class="header-section-number">1.14</span> 3.主要功能与算法</a>
+  <li><a href="#七h2o包" id="toc-七h2o包" class="nav-link" data-scroll-target="#七h2o包">七、h2o包</a></li>
+  <li><a href="#概述-6" id="toc-概述-6" class="nav-link" data-scroll-target="#概述-6">1.概述</a></li>
+  <li><a href="#核心特点-3" id="toc-核心特点-3" class="nav-link" data-scroll-target="#核心特点-3">2.核心特点</a></li>
+  <li><a href="#主要功能与算法" id="toc-主要功能与算法" class="nav-link" data-scroll-target="#主要功能与算法">3.主要功能与算法</a>
   <ul class="collapse">
-  <li><a href="#监督学习算法" id="toc-监督学习算法" class="nav-link" data-scroll-target="#监督学习算法"><span class="header-section-number">1.14.1</span> 3.1.监督学习算法</a></li>
-  <li><a href="#无监督学习算法" id="toc-无监督学习算法" class="nav-link" data-scroll-target="#无监督学习算法"><span class="header-section-number">1.14.2</span> 3.2.无监督学习算法</a></li>
-  <li><a href="#自动机器学习" id="toc-自动机器学习" class="nav-link" data-scroll-target="#自动机器学习"><span class="header-section-number">1.14.3</span> 3.3.自动机器学习</a></li>
+  <li><a href="#监督学习算法" id="toc-监督学习算法" class="nav-link" data-scroll-target="#监督学习算法">3.1.监督学习算法</a></li>
+  <li><a href="#无监督学习算法" id="toc-无监督学习算法" class="nav-link" data-scroll-target="#无监督学习算法">3.2.无监督学习算法</a></li>
+  <li><a href="#自动机器学习" id="toc-自动机器学习" class="nav-link" data-scroll-target="#自动机器学习">3.3.自动机器学习</a></li>
   </ul></li>
-  <li><a href="#使用流程" id="toc-使用流程" class="nav-link" data-scroll-target="#使用流程"><span class="header-section-number">1.15</span> 4.使用流程</a></li>
-  <li><a href="#与其他包的对比-2" id="toc-与其他包的对比-2" class="nav-link" data-scroll-target="#与其他包的对比-2"><span class="header-section-number">1.16</span> 5.与其他包的对比</a></li>
-  <li><a href="#八tidymodels包生态" id="toc-八tidymodels包生态" class="nav-link" data-scroll-target="#八tidymodels包生态"><span class="header-section-number">1.17</span> 八、tidymodels<strong>包生态</strong></a>
+  <li><a href="#使用流程" id="toc-使用流程" class="nav-link" data-scroll-target="#使用流程">4.使用流程</a></li>
+  <li><a href="#与其他包的对比-2" id="toc-与其他包的对比-2" class="nav-link" data-scroll-target="#与其他包的对比-2">5.与其他包的对比</a></li>
+  <li><a href="#八tidymodels包生态" id="toc-八tidymodels包生态" class="nav-link" data-scroll-target="#八tidymodels包生态">八、tidymodels<strong>包生态</strong></a>
   <ul class="collapse">
-  <li><a href="#概述-7" id="toc-概述-7" class="nav-link" data-scroll-target="#概述-7"><span class="header-section-number">1.17.1</span> 1.概述</a></li>
-  <li><a href="#核心设计理念" id="toc-核心设计理念" class="nav-link" data-scroll-target="#核心设计理念"><span class="header-section-number">1.17.2</span> 2.核心设计理念</a></li>
-  <li><a href="#核心包详解" id="toc-核心包详解" class="nav-link" data-scroll-target="#核心包详解"><span class="header-section-number">1.17.3</span> 3.核心包详解</a></li>
+  <li><a href="#概述-7" id="toc-概述-7" class="nav-link" data-scroll-target="#概述-7">1.概述</a></li>
+  <li><a href="#核心设计理念" id="toc-核心设计理念" class="nav-link" data-scroll-target="#核心设计理念">2.核心设计理念</a></li>
+  <li><a href="#核心包详解" id="toc-核心包详解" class="nav-link" data-scroll-target="#核心包详解">3.核心包详解</a></li>
   </ul></li>
-  <li><a href="#典型-tidymodels-工作流" id="toc-典型-tidymodels-工作流" class="nav-link" data-scroll-target="#典型-tidymodels-工作流"><span class="header-section-number">1.18</span> 4.典型 <code>tidymodels</code> 工作流</a>
+  <li><a href="#典型-tidymodels-工作流" id="toc-典型-tidymodels-工作流" class="nav-link" data-scroll-target="#典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</a>
   <ul class="collapse">
-  <li><a href="#丰富的生态系统" id="toc-丰富的生态系统" class="nav-link" data-scroll-target="#丰富的生态系统"><span class="header-section-number">1.18.1</span> 5.丰富的生态系统</a></li>
+  <li><a href="#丰富的生态系统" id="toc-丰富的生态系统" class="nav-link" data-scroll-target="#丰富的生态系统">5.丰富的生态系统</a></li>
   </ul></li>
-  <li><a href="#九mlr3" id="toc-九mlr3" class="nav-link" data-scroll-target="#九mlr3"><span class="header-section-number">1.19</span> 九、mlr3</a>
+  <li><a href="#九mlr3" id="toc-九mlr3" class="nav-link" data-scroll-target="#九mlr3">九、mlr3</a>
   <ul class="collapse">
-  <li><a href="#核心设计理念-1" id="toc-核心设计理念-1" class="nav-link" data-scroll-target="#核心设计理念-1"><span class="header-section-number">1.19.1</span> 1.核心设计理念</a></li>
-  <li><a href="#核心组件" id="toc-核心组件" class="nav-link" data-scroll-target="#核心组件"><span class="header-section-number">1.19.2</span> 2.核心组件</a></li>
-  <li><a href="#丰富的扩展生态系统" id="toc-丰富的扩展生态系统" class="nav-link" data-scroll-target="#丰富的扩展生态系统"><span class="header-section-number">1.19.3</span> 3.丰富的扩展生态系统</a></li>
-  <li><a href="#基本工作流程" id="toc-基本工作流程" class="nav-link" data-scroll-target="#基本工作流程"><span class="header-section-number">1.19.4</span> 4.基本工作流程</a></li>
+  <li><a href="#核心设计理念-1" id="toc-核心设计理念-1" class="nav-link" data-scroll-target="#核心设计理念-1">1.核心设计理念</a></li>
+  <li><a href="#核心组件" id="toc-核心组件" class="nav-link" data-scroll-target="#核心组件">2.核心组件</a></li>
+  <li><a href="#丰富的扩展生态系统" id="toc-丰富的扩展生态系统" class="nav-link" data-scroll-target="#丰富的扩展生态系统">3.丰富的扩展生态系统</a></li>
+  <li><a href="#基本工作流程" id="toc-基本工作流程" class="nav-link" data-scroll-target="#基本工作流程">4.基本工作流程</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -415,7 +415,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第7节 机器学习{.unnumbered}</span></h1>
+<h1 class="title">第16章 R 第7节 机器学习</h1>
 </div>
 
 
@@ -432,11 +432,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="前言" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="前言"><span class="header-section-number">1.1</span> 前言</h2>
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
 <p>R语言的机器学习生态非常繁荣，拥有大量高质量的包。这些包大致可以分为<strong>提供统一工作流的框架</strong>和<strong>实现特定算法的专用包</strong>两大类。</p>
-<section id="统一模型框架" class="level3" data-number="1.1.1">
-<h3 data-number="1.1.1" class="anchored" data-anchor-id="统一模型框架"><span class="header-section-number">1.1.1</span> 1.统一模型框架</h3>
+<section id="统一模型框架" class="level3">
+<h3 class="anchored" data-anchor-id="统一模型框架">1.统一模型框架</h3>
 <p>这类包提供了一站式的解决方案，帮助你规范、高效地管理从数据预处理到模型部署的整个机器学习流程。</p>
 <ul>
 <li><p><strong><code>tidymodels</code></strong>：这是R中现代机器学习的首选框架。它基于<code>tidyverse</code>的设计理念，将所有建模步骤整合成一个连贯、易于理解的管道。它的核心包各司其职：</p>
@@ -454,8 +454,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><strong>实践建议</strong>：如果你是初学者或希望快速上手，<strong>tidymodels</strong> 是当前最推荐的选择，其设计现代且文档完善。如果需要高度定制化的工作流或处理极大规模的数据，<strong>mlr3</strong> 强大的扩展性会更具优势。而<strong>caret</strong> 则适合维护现有项目或偏好其经典风格的用户。</p>
 </section>
-<section id="专用算法包" class="level3" data-number="1.1.2">
-<h3 data-number="1.1.2" class="anchored" data-anchor-id="专用算法包"><span class="header-section-number">1.1.2</span> 2.专用算法包</h3>
+<section id="专用算法包" class="level3">
+<h3 class="anchored" data-anchor-id="专用算法包">2.专用算法包</h3>
 <p>除了框架，R还有大量实现特定算法的专用包。以下是一些核心代表：</p>
 <table class="caption-top table">
 <colgroup>
@@ -529,8 +529,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="总结与建议" class="level3" data-number="1.1.3">
-<h3 data-number="1.1.3" class="anchored" data-anchor-id="总结与建议"><span class="header-section-number">1.1.3</span> 3.总结与建议</h3>
+<section id="总结与建议" class="level3">
+<h3 class="anchored" data-anchor-id="总结与建议">3.总结与建议</h3>
 <p>R的机器学习生态强大且选择多样，你可以这样入手：</p>
 <ol type="1">
 <li><strong>明确目标</strong>：确定你的任务（分类、回归等）和偏好（如是否需要统一工作流）。</li>
@@ -539,14 +539,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="一rpart包" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="一rpart包"><span class="header-section-number">1.2</span> 一、rpart包</h2>
-<section id="概述" class="level3" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="概述"><span class="header-section-number">1.2.1</span> 1.概述</h3>
+<section id="一rpart包" class="level2">
+<h2 class="anchored" data-anchor-id="一rpart包">一、rpart包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1.概述</h3>
 <p><code>rpart</code>（Recursive PARTitioning）是R语言中实现<strong>递归 partitioning 回归树和分类树</strong>的核心包。它实现了1984年Breiman等人所著《Classification and Regression Trees》（CART）一书中的大部分功能。因为”CART”是特定软件商标，且Splus中已有<code>tree</code>函数，故取名<code>rpart</code>。<code>rpart</code>是R的<strong>推荐包（recommended package）</strong>，随R一同安装。</p>
 </section>
-<section id="核心功能" class="level3" data-number="1.2.2">
-<h3 data-number="1.2.2" class="anchored" data-anchor-id="核心功能"><span class="header-section-number">1.2.2</span> 2.核心功能</h3>
+<section id="核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能">2.核心功能</h3>
 <p><code>rpart</code>可构建三种类型的树模型：</p>
 <table class="caption-top table">
 <thead>
@@ -575,16 +575,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="核心函数rpart" class="level3" data-number="1.2.3">
-<h3 data-number="1.2.3" class="anchored" data-anchor-id="核心函数rpart"><span class="header-section-number">1.2.3</span> 3.核心函数：<code>rpart()</code></h3>
-<section id="基本语法" class="level4" data-number="1.2.3.1">
-<h4 data-number="1.2.3.1" class="anchored" data-anchor-id="基本语法"><span class="header-section-number">1.2.3.1</span> 3.1.基本语法</h4>
+<section id="核心函数rpart" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数rpart">3.核心函数：<code>rpart()</code></h3>
+<section id="基本语法" class="level4">
+<h4 class="anchored" data-anchor-id="基本语法">3.1.基本语法</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart</span>(formula, data, weights, subset, <span class="at">na.action =</span> na.rpart,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>      method, <span class="at">model =</span> <span class="cn">FALSE</span>, <span class="at">x =</span> <span class="cn">FALSE</span>, <span class="at">y =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>      parms, control, cost, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="主要参数" class="level4" data-number="1.2.3.2">
-<h4 data-number="1.2.3.2" class="anchored" data-anchor-id="主要参数"><span class="header-section-number">1.2.3.2</span> 3.2.主要参数</h4>
+<section id="主要参数" class="level4">
+<h4 class="anchored" data-anchor-id="主要参数">3.2.主要参数</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -636,8 +636,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="parms参数详解分类树" class="level4" data-number="1.2.3.3">
-<h4 data-number="1.2.3.3" class="anchored" data-anchor-id="parms参数详解分类树"><span class="header-section-number">1.2.3.3</span> 3.3.parms参数详解（分类树）</h4>
+<section id="parms参数详解分类树" class="level4">
+<h4 class="anchored" data-anchor-id="parms参数详解分类树">3.3.parms参数详解（分类树）</h4>
 <p>对于分类树，<code>parms</code>可包含以下组件：</p>
 <ul>
 <li><strong><code>prior</code></strong>：先验概率向量，须为正且总和为1，默认与数据计数成比例</li>
@@ -648,8 +648,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">parms =</span> <span class="fu">list</span>(<span class="at">prior =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.4</span>), <span class="at">split =</span> <span class="st">"information"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="控制参数rpart.control" class="level4" data-number="1.2.3.4">
-<h4 data-number="1.2.3.4" class="anchored" data-anchor-id="控制参数rpart.control"><span class="header-section-number">1.2.3.4</span> 3.4.控制参数：<code>rpart.control()</code></h4>
+<section id="控制参数rpart.control" class="level4">
+<h4 class="anchored" data-anchor-id="控制参数rpart.control">3.4.控制参数：<code>rpart.control()</code></h4>
 <p>通过<code>control</code>参数可以精细控制树的生长过程：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.control</span>(<span class="at">minsplit =</span> <span class="dv">20</span>, <span class="at">minbucket =</span> <span class="fu">round</span>(minsplit<span class="sc">/</span><span class="dv">3</span>),</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">cp =</span> <span class="fl">0.01</span>, <span class="at">maxcompete =</span> <span class="dv">4</span>, <span class="at">maxsurrogate =</span> <span class="dv">5</span>,</span>
@@ -714,8 +714,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="完整使用示例" class="level3" data-number="1.2.4">
-<h3 data-number="1.2.4" class="anchored" data-anchor-id="完整使用示例"><span class="header-section-number">1.2.4</span> 4.完整使用示例</h3>
+<section id="完整使用示例" class="level3">
+<h3 class="anchored" data-anchor-id="完整使用示例">4.完整使用示例</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -769,8 +769,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="co"># rpart.plot`包提供更美观、信息更丰富的决策树可视化。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="输出对象" class="level3" data-number="1.2.5">
-<h3 data-number="1.2.5" class="anchored" data-anchor-id="输出对象"><span class="header-section-number">1.2.5</span> 5.输出对象</h3>
+<section id="输出对象" class="level3">
+<h3 class="anchored" data-anchor-id="输出对象">5.输出对象</h3>
 <p><code>rpart()</code>返回一个<code>rpart</code>类的对象，包含：</p>
 <ul>
 <li><strong><code>frame</code></strong>：树的框架信息（每个节点的分裂变量、样本数、预测值等）</li>
@@ -780,8 +780,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p>可通过<code>summary()</code>、<code>print()</code>、<code>predict()</code>等泛型函数查看和操作。</p>
 </section>
-<section id="注意事项" class="level3" data-number="1.2.6">
-<h3 data-number="1.2.6" class="anchored" data-anchor-id="注意事项"><span class="header-section-number">1.2.6</span> 6.注意事项</h3>
+<section id="注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项">6.注意事项</h3>
 <ol type="1">
 <li><p><strong>缺失值处理</strong>：<code>rpart</code>通过<strong>代理分裂（surrogate splits）</strong> 优雅地处理预测变量缺失，这是它与早期<code>tree</code>函数的主要区别。<code>usesurrogate=2</code>是Breiman等人推荐的设置。</p></li>
 <li><p><strong>过拟合控制</strong>：通过<code>cp</code>参数进行预剪枝，或使用<code>printcp()</code>查看复杂度参数表后进行后剪枝（<code>prune()</code>函数）。</p></li>
@@ -790,15 +790,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="二random-forest包" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="二random-forest包"><span class="header-section-number">1.3</span> 二、Random Forest包</h2>
-<section id="概述-1" class="level3" data-number="1.3.1">
-<h3 data-number="1.3.1" class="anchored" data-anchor-id="概述-1"><span class="header-section-number">1.3.1</span> 1.概述</h3>
+<section id="二random-forest包" class="level2">
+<h2 class="anchored" data-anchor-id="二random-forest包">二、Random Forest包</h2>
+<section id="概述-1" class="level3">
+<h3 class="anchored" data-anchor-id="概述-1">1.概述</h3>
 <p><code>randomForest</code>包是R语言中实现<strong>随机森林（Random Forest）</strong> 算法的核心工具包。它基于Leo Breiman和Adele Cutler的原始Fortran代码实现，由Andy Liaw和Matthew Wiener移植到R语言。</p>
 <p>随机森林是一种强大的集成学习方法，通过构建大量决策树并集成其结果，显著提高模型的准确性和鲁棒性。</p>
 </section>
-<section id="核心功能-1" class="level3" data-number="1.3.2">
-<h3 data-number="1.3.2" class="anchored" data-anchor-id="核心功能-1"><span class="header-section-number">1.3.2</span> 2.核心功能</h3>
+<section id="核心功能-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能-1">2.核心功能</h3>
 <p><code>randomForest</code>包可构建以下类型的模型：</p>
 <table class="caption-top table">
 <colgroup>
@@ -833,10 +833,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="核心函数randomforest" class="level3" data-number="1.3.3">
-<h3 data-number="1.3.3" class="anchored" data-anchor-id="核心函数randomforest"><span class="header-section-number">1.3.3</span> 3.核心函数：<code>randomForest()</code></h3>
-<section id="两种调用方式" class="level4" data-number="1.3.3.1">
-<h4 data-number="1.3.3.1" class="anchored" data-anchor-id="两种调用方式"><span class="header-section-number">1.3.3.1</span> 3.1.两种调用方式</h4>
+<section id="核心函数randomforest" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数randomforest">3.核心函数：<code>randomForest()</code></h3>
+<section id="两种调用方式" class="level4">
+<h4 class="anchored" data-anchor-id="两种调用方式">3.1.两种调用方式</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 公式（Formula）接口</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">randomForest</span>(formula, <span class="at">data=</span><span class="cn">NULL</span>, ..., subset, <span class="at">na.action=</span>na.fail)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -844,8 +844,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认（Default）接口</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">randomForest</span>(x, <span class="at">y=</span><span class="cn">NULL</span>, <span class="at">xtest=</span><span class="cn">NULL</span>, <span class="at">ytest=</span><span class="cn">NULL</span>, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="主要参数详解" class="level4" data-number="1.3.3.2">
-<h4 data-number="1.3.3.2" class="anchored" data-anchor-id="主要参数详解"><span class="header-section-number">1.3.3.2</span> 3.2.主要参数详解</h4>
+<section id="主要参数详解" class="level4">
+<h4 class="anchored" data-anchor-id="主要参数详解">3.2.主要参数详解</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -914,8 +914,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="分类模型特有参数" class="level4" data-number="1.3.3.3">
-<h4 data-number="1.3.3.3" class="anchored" data-anchor-id="分类模型特有参数"><span class="header-section-number">1.3.3.3</span> 3.3.分类模型特有参数</h4>
+<section id="分类模型特有参数" class="level4">
+<h4 class="anchored" data-anchor-id="分类模型特有参数">3.3.分类模型特有参数</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -944,8 +944,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="模型输出与诊断" class="level4" data-number="1.3.3.4">
-<h4 data-number="1.3.3.4" class="anchored" data-anchor-id="模型输出与诊断"><span class="header-section-number">1.3.3.4</span> 3.4.模型输出与诊断</h4>
+<section id="模型输出与诊断" class="level4">
+<h4 class="anchored" data-anchor-id="模型输出与诊断">3.4.模型输出与诊断</h4>
 <p><code>randomForest()</code>返回一个<code>randomForest</code>类的对象，包含以下主要组件：</p>
 <table class="caption-top table">
 <thead>
@@ -1000,8 +1000,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="实用辅助函数" class="level3" data-number="1.3.4">
-<h3 data-number="1.3.4" class="anchored" data-anchor-id="实用辅助函数"><span class="header-section-number">1.3.4</span> 4.实用辅助函数</h3>
+<section id="实用辅助函数" class="level3">
+<h3 class="anchored" data-anchor-id="实用辅助函数">4.实用辅助函数</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1042,11 +1042,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="使用示例" class="level3" data-number="1.3.5">
-<h3 data-number="1.3.5" class="anchored" data-anchor-id="使用示例"><span class="header-section-number">1.3.5</span> 5.使用示例</h3>
+<section id="使用示例" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例">5.使用示例</h3>
 </section>
-<section id="分类以iris数据集为例" class="level3" data-number="1.3.6">
-<h3 data-number="1.3.6" class="anchored" data-anchor-id="分类以iris数据集为例"><span class="header-section-number">1.3.6</span> 5.1.分类（以<code>iris</code>数据集为例）</h3>
+<section id="分类以iris数据集为例" class="level3">
+<h3 class="anchored" data-anchor-id="分类以iris数据集为例">5.1.分类（以<code>iris</code>数据集为例）</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1081,8 +1081,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 预测新数据</span></span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(iris.rf, <span class="at">newdata =</span> iris[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="回归示例" class="level3" data-number="1.3.7">
-<h3 data-number="1.3.7" class="anchored" data-anchor-id="回归示例"><span class="header-section-number">1.3.7</span> 5.2.回归示例</h3>
+<section id="回归示例" class="level3">
+<h3 class="anchored" data-anchor-id="回归示例">5.2.回归示例</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用mtcars数据集进行回归</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rf_reg <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(mpg <span class="sc">~</span> .,</span>
@@ -1099,8 +1099,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#       Mean of squared residuals: ...</span></span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#       % Var explained: ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="无监督模式" class="level3" data-number="1.3.8">
-<h3 data-number="1.3.8" class="anchored" data-anchor-id="无监督模式"><span class="header-section-number">1.3.8</span> 5.3.无监督模式</h3>
+<section id="无监督模式" class="level3">
+<h3 class="anchored" data-anchor-id="无监督模式">5.3.无监督模式</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 仅使用预测变量，不指定响应变量</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>unsup.rf <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(iris[, <span class="sc">-</span><span class="dv">5</span>],</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ntree =</span> <span class="dv">100</span>,</span>
@@ -1111,8 +1111,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">MDSplot</span>(unsup.rf, iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <hr>
 </section>
-<section id="注意事项与技巧" class="level3" data-number="1.3.9">
-<h3 data-number="1.3.9" class="anchored" data-anchor-id="注意事项与技巧"><span class="header-section-number">1.3.9</span> 6.注意事项与技巧</h3>
+<section id="注意事项与技巧" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项与技巧">6.注意事项与技巧</h3>
 <ol type="1">
 <li><p><strong>随机种子</strong>：随机森林具有随机性，建议使用<code>set.seed()</code>确保结果可复现。</p></li>
 <li><p><strong><code>mtry</code>调优</strong>：<code>mtry</code>是最关键的超参数。可通过遍历不同值，选择OOB误差最小的<code>mtry</code>。</p></li>
@@ -1124,15 +1124,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 </section>
 </section>
-<section id="三ranger" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="三ranger"><span class="header-section-number">1.4</span> 三、ranger</h2>
-<section id="概述-2" class="level3" data-number="1.4.1">
-<h3 data-number="1.4.1" class="anchored" data-anchor-id="概述-2"><span class="header-section-number">1.4.1</span> 1.概述</h3>
+<section id="三ranger" class="level2">
+<h2 class="anchored" data-anchor-id="三ranger">三、ranger</h2>
+<section id="概述-2" class="level3">
+<h3 class="anchored" data-anchor-id="概述-2">1.概述</h3>
 <p><code>ranger</code>是R语言中随机森林算法的一个<strong>高速实现</strong>包。其名称取自”<strong>ran</strong>dom fo<strong>ger</strong>erator”的缩写。与经典的<code>randomForest</code>包相比，<code>ranger</code>最突出的优势是<strong>计算速度快</strong>和<strong>内存效率高</strong>，尤其适合处理<strong>高维数据</strong>。</p>
 <p><code>ranger</code>的核心由<strong>C++</strong> 编写，并通过<code>Rcpp</code>包与R语言对接，这使得它在处理大规模数据时性能远超许多同类包。该包由Marvin N. Wright和Andreas Ziegler开发，其方法论文章发表于《Journal of Statistical Software》。</p>
 </section>
-<section id="核心特点" class="level3" data-number="1.4.2">
-<h3 data-number="1.4.2" class="anchored" data-anchor-id="核心特点"><span class="header-section-number">1.4.2</span> 2.核心特点</h3>
+<section id="核心特点" class="level3">
+<h3 class="anchored" data-anchor-id="核心特点">2.核心特点</h3>
 <ul>
 <li><p><strong>速度快、内存效率高</strong>：通过大量的运行时间和内存分析进行了优化。相较于<code>randomForest</code>，<code>ranger</code>通常要快数倍甚至更多。</p></li>
 <li><p><strong>支持高维数据</strong>：特别适合处理变量数远超样本数的场景，如全基因组关联研究（GWAS）数据。</p></li>
@@ -1141,8 +1141,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>多种输入格式</strong>：除常规数据框外，还支持<code>matrix</code>、<code>dgCMatrix</code>（<code>Matrix</code>包）和<code>gwaa.data</code>（<code>GenABEL</code>包）等格式。</p></li>
 </ul>
 </section>
-<section id="主要功能" class="level3" data-number="1.4.3">
-<h3 data-number="1.4.3" class="anchored" data-anchor-id="主要功能"><span class="header-section-number">1.4.3</span> 3.主要功能</h3>
+<section id="主要功能" class="level3">
+<h3 class="anchored" data-anchor-id="主要功能">3.主要功能</h3>
 <p><code>ranger</code>不仅实现了标准随机森林，还集成了多种扩展功能：</p>
 <table class="caption-top table">
 <colgroup>
@@ -1184,8 +1184,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="核心参数" class="level3" data-number="1.4.4">
-<h3 data-number="1.4.4" class="anchored" data-anchor-id="核心参数"><span class="header-section-number">1.4.4</span> 4.核心参数</h3>
+<section id="核心参数" class="level3">
+<h3 class="anchored" data-anchor-id="核心参数">4.核心参数</h3>
 <p><code>ranger()</code>函数的主要参数如下：</p>
 <table class="caption-top table">
 <colgroup>
@@ -1255,8 +1255,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>树类型<strong>自动由响应变量类型决定</strong>：因子→分类，数值→回归，生存对象→生存分析。</p>
 </section>
-<section id="与randomforest的对比" class="level3" data-number="1.4.5">
-<h3 data-number="1.4.5" class="anchored" data-anchor-id="与randomforest的对比"><span class="header-section-number">1.4.5</span> 5.与<code>randomForest</code>的对比</h3>
+<section id="与randomforest的对比" class="level3">
+<h3 class="anchored" data-anchor-id="与randomforest的对比">5.与<code>randomForest</code>的对比</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1305,8 +1305,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>需要注意的是，<code>ranger</code>的默认参数与<code>randomForest</code>略有不同（如<code>mtry</code>默认值），使用时需留意。</p>
 </section>
-<section id="使用示例-1" class="level3" data-number="1.4.6">
-<h3 data-number="1.4.6" class="anchored" data-anchor-id="使用示例-1"><span class="header-section-number">1.4.6</span> 6.使用示例</h3>
+<section id="使用示例-1" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-1">6.使用示例</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 安装与加载</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1372,8 +1372,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>rf_imp <span class="ot">&lt;-</span> <span class="fu">ranger</span>(Species <span class="sc">~</span> ., <span class="at">data =</span> iris, <span class="at">importance =</span> <span class="st">"impurity"</span>)</span>
 <span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>rf_imp<span class="sc">$</span>variable.importance</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="注意事项-1" class="level3" data-number="1.4.7">
-<h3 data-number="1.4.7" class="anchored" data-anchor-id="注意事项-1"><span class="header-section-number">1.4.7</span> 7.注意事项</h3>
+<section id="注意事项-1" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-1">7.注意事项</h3>
 <ul>
 <li><p><strong>默认参数差异</strong>：<code>ranger</code>的<code>mtry</code>默认为<code>sqrt(p)</code>（所有树类型），与<code>randomForest</code>的回归默认（<code>p/3</code>）不同。</p></li>
 <li><p><strong>内存管理</strong>：若不需要预测，可将<code>write.forest = FALSE</code>以节省内存。</p></li>
@@ -1382,15 +1382,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="四xgboost包" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="四xgboost包"><span class="header-section-number">1.5</span> 四、xgboost包</h2>
-<section id="概述-3" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="概述-3"><span class="header-section-number">1.5.1</span> 1.概述</h3>
+<section id="四xgboost包" class="level2">
+<h2 class="anchored" data-anchor-id="四xgboost包">四、xgboost包</h2>
+<section id="概述-3" class="level3">
+<h3 class="anchored" data-anchor-id="概述-3">1.概述</h3>
 <p><code>xgboost</code>（eXtreme Gradient Boosting）是R语言中实现<strong>极限梯度提升</strong>算法的核心包。它基于陈天奇等人2016年发表的论文《XGBoost: A Scalable Tree Boosting System》，是梯度提升框架（GBDT、GBM）的高效实现。</p>
 <p><code>xgboost</code>的核心是一个<strong>C++库</strong>，为包括R在内的多种编程语言提供了接口。R包既提供了符合R语言习惯的高级接口（类似<code>glmnet</code>等包的设计），也提供了与底层核心库直接交互的低级接口。</p>
 </section>
-<section id="核心特点-1" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="核心特点-1"><span class="header-section-number">1.5.2</span> 2.核心特点</h3>
+<section id="核心特点-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心特点-1">2.核心特点</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 36%">
@@ -1430,10 +1430,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="主要函数" class="level3" data-number="1.5.3">
-<h3 data-number="1.5.3" class="anchored" data-anchor-id="主要函数"><span class="header-section-number">1.5.3</span> 3.主要函数</h3>
-<section id="高级接口xgboost" class="level4" data-number="1.5.3.1">
-<h4 data-number="1.5.3.1" class="anchored" data-anchor-id="高级接口xgboost"><span class="header-section-number">1.5.3.1</span> 3.1.高级接口：<code>xgboost()</code></h4>
+<section id="主要函数" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数">3.主要函数</h3>
+<section id="高级接口xgboost" class="level4">
+<h4 class="anchored" data-anchor-id="高级接口xgboost">3.1.高级接口：<code>xgboost()</code></h4>
 <p>这是面向最终用户的主要函数，用法与其他R统计建模包（如<code>glmnet</code>）类似：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xgboost</span>(x, y, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
@@ -1441,18 +1441,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>y</code>：响应变量，<strong>无需手动编码</strong>——分类问题传入<code>factor</code>，回归问题传入数值向量，生存分析传入<code>Surv</code>对象</li>
 </ul>
 </section>
-<section id="低级接口xgb.train" class="level4" data-number="1.5.3.2">
-<h4 data-number="1.5.3.2" class="anchored" data-anchor-id="低级接口xgb.train"><span class="header-section-number">1.5.3.2</span> 3.2.低级接口：<code>xgb.train()</code></h4>
+<section id="低级接口xgb.train" class="level4">
+<h4 class="anchored" data-anchor-id="低级接口xgb.train">3.2.低级接口：<code>xgb.train()</code></h4>
 <p>适合包开发者或需要更精细控制的用户，<strong>更稳定、更少受破坏性变更影响</strong>：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">xgb.train</span>(params, data, nrounds, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="数据容器xgb.dmatrix" class="level4" data-number="1.5.3.3">
-<h4 data-number="1.5.3.3" class="anchored" data-anchor-id="数据容器xgb.dmatrix"><span class="header-section-number">1.5.3.3</span> 3.3.数据容器：<code>xgb.DMatrix()</code></h4>
+<section id="数据容器xgb.dmatrix" class="level4">
+<h4 class="anchored" data-anchor-id="数据容器xgb.dmatrix">3.3.数据容器：<code>xgb.DMatrix()</code></h4>
 <p>XGBoost的高效数据存储格式，用于<code>xgb.train()</code>等低级接口：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>dtrain <span class="ot">&lt;-</span> <span class="fu">xgb.DMatrix</span>(data, <span class="at">label =</span> y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="辅助函数" class="level4" data-number="1.5.3.4">
-<h4 data-number="1.5.3.4" class="anchored" data-anchor-id="辅助函数"><span class="header-section-number">1.5.3.4</span> 3.4.辅助函数</h4>
+<section id="辅助函数" class="level4">
+<h4 class="anchored" data-anchor-id="辅助函数">3.4.辅助函数</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1486,11 +1486,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="核心参数-1" class="level3" data-number="1.5.4">
-<h3 data-number="1.5.4" class="anchored" data-anchor-id="核心参数-1"><span class="header-section-number">1.5.4</span> 4.核心参数</h3>
+<section id="核心参数-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心参数-1">4.核心参数</h3>
 <p>XGBoost的参数分为<strong>三大类</strong>：</p>
-<section id="通用参数general-parameters" class="level4" data-number="1.5.4.1">
-<h4 data-number="1.5.4.1" class="anchored" data-anchor-id="通用参数general-parameters"><span class="header-section-number">1.5.4.1</span> 4.1. 通用参数（General Parameters）</h4>
+<section id="通用参数general-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="通用参数general-parameters">4.1. 通用参数（General Parameters）</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1523,8 +1523,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="booster参数树模型常用" class="level4" data-number="1.5.4.2">
-<h4 data-number="1.5.4.2" class="anchored" data-anchor-id="booster参数树模型常用"><span class="header-section-number">1.5.4.2</span> 4.2. Booster参数（树模型常用）</h4>
+<section id="booster参数树模型常用" class="level4">
+<h4 class="anchored" data-anchor-id="booster参数树模型常用">4.2. Booster参数（树模型常用）</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1585,8 +1585,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>R包参数命名提示</strong>：R包中可用<code>.</code>（点）替换参数中的下划线，例如<code>max.depth</code>等效于<code>max_depth</code>。</p>
 </blockquote>
 </section>
-<section id="任务参数task-parameters" class="level4" data-number="1.5.4.3">
-<h4 data-number="1.5.4.3" class="anchored" data-anchor-id="任务参数task-parameters"><span class="header-section-number">1.5.4.3</span> 4.3. 任务参数（Task Parameters）</h4>
+<section id="任务参数task-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="任务参数task-parameters">4.3. 任务参数（Task Parameters）</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1617,8 +1617,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 </section>
-<section id="使用示例-2" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="使用示例-2"><span class="header-section-number">1.6</span> 5.使用示例</h2>
+<section id="使用示例-2" class="level2">
+<h2 class="anchored" data-anchor-id="使用示例-2">5.使用示例</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 二分类（以ToothGrowth为例）</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1684,8 +1684,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-63"><a href="#cb13-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="dv">0</span></span>
 <span id="cb13-64"><a href="#cb13-64" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="高级功能" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="高级功能"><span class="header-section-number">1.7</span> 6.高级功能</h2>
+<section id="高级功能" class="level2">
+<h2 class="anchored" data-anchor-id="高级功能">6.高级功能</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1725,8 +1725,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="与其他包的对比" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="与其他包的对比"><span class="header-section-number">1.8</span> 7.与其他包的对比</h2>
+<section id="与其他包的对比" class="level2">
+<h2 class="anchored" data-anchor-id="与其他包的对比">7.与其他包的对比</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -1788,15 +1788,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="五lightgbm" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="五lightgbm"><span class="header-section-number">1.9</span> 五、lightgbm</h2>
-<section id="概述-4" class="level3" data-number="1.9.1">
-<h3 data-number="1.9.1" class="anchored" data-anchor-id="概述-4"><span class="header-section-number">1.9.1</span> 1.概述</h3>
+<section id="五lightgbm" class="level2">
+<h2 class="anchored" data-anchor-id="五lightgbm">五、lightgbm</h2>
+<section id="概述-4" class="level3">
+<h3 class="anchored" data-anchor-id="概述-4">1.概述</h3>
 <p><code>lightgbm</code>（Light Gradient Boosting Machine）是R语言中实现<strong>轻量级梯度提升机</strong>算法的核心包。它基于Ke等人2017年发表于NIPS的论文《LightGBM: A Highly Efficient Gradient Boosting Decision Tree》，由微软团队开发并开源。</p>
 <p>LightGBM是<strong>梯度提升决策树（GBDT）</strong> 框架的高效实现，在<strong>训练速度、内存占用和准确性</strong>方面相比传统实现有显著提升。因其卓越性能，已被广泛应用于众多机器学习竞赛的获胜方案中。其核心为<strong>C++库</strong>，R包提供了与之交互的接口。</p>
 </section>
-<section id="核心特点-2" class="level3" data-number="1.9.2">
-<h3 data-number="1.9.2" class="anchored" data-anchor-id="核心特点-2"><span class="header-section-number">1.9.2</span> 2.核心特点</h3>
+<section id="核心特点-2" class="level3">
+<h3 class="anchored" data-anchor-id="核心特点-2">2.核心特点</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -1849,8 +1849,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p><strong>Leaf-wise vs Level-wise</strong>：传统GBDT（如XGBoost默认）按层生长，同一层所有节点分裂后再进入下一层。LightGBM按叶子生长，每次选择增益最大的叶子进行分裂，收敛更快，但可能长出较深的树，需通过<code>max_depth</code>限制。</p>
 </section>
-<section id="主要函数与接口" class="level3" data-number="1.9.3">
-<h3 data-number="1.9.3" class="anchored" data-anchor-id="主要函数与接口"><span class="header-section-number">1.9.3</span> 3.主要函数与接口</h3>
+<section id="主要函数与接口" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数与接口">3.主要函数与接口</h3>
 <p><code>lightgbm</code> R包提供<strong>两个训练函数</strong>：</p>
 <table class="caption-top table">
 <colgroup>
@@ -1880,8 +1880,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p><strong>建议</strong>：生产环境或对性能敏感的场景，推荐使用<code>lgb.train()</code>，其API变更较少。</p>
 </section>
-<section id="关键辅助函数" class="level3" data-number="1.9.4">
-<h3 data-number="1.9.4" class="anchored" data-anchor-id="关键辅助函数"><span class="header-section-number">1.9.4</span> 4.关键辅助函数</h3>
+<section id="关键辅助函数" class="level3">
+<h3 class="anchored" data-anchor-id="关键辅助函数">4.关键辅助函数</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -1914,11 +1914,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <hr>
 </section>
-<section id="参数" class="level3" data-number="1.9.5">
-<h3 data-number="1.9.5" class="anchored" data-anchor-id="参数"><span class="header-section-number">1.9.5</span> 5.参数</h3>
+<section id="参数" class="level3">
+<h3 class="anchored" data-anchor-id="参数">5.参数</h3>
 <p>LightGBM的参数通过<strong>列表</strong>传入<code>params</code>参数。</p>
-<section id="核心参数core-parameters" class="level4" data-number="1.9.5.1">
-<h4 data-number="1.9.5.1" class="anchored" data-anchor-id="核心参数core-parameters"><span class="header-section-number">1.9.5.1</span> 5.1. 核心参数（Core Parameters）</h4>
+<section id="核心参数core-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="核心参数core-parameters">5.1. 核心参数（Core Parameters）</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1966,8 +1966,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="过拟合控制参数" class="level4" data-number="1.9.5.2">
-<h4 data-number="1.9.5.2" class="anchored" data-anchor-id="过拟合控制参数"><span class="header-section-number">1.9.5.2</span> 5.2. 过拟合控制参数</h4>
+<section id="过拟合控制参数" class="level4">
+<h4 class="anchored" data-anchor-id="过拟合控制参数">5.2. 过拟合控制参数</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2025,8 +2025,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="类别特征处理" class="level4" data-number="1.9.5.3">
-<h4 data-number="1.9.5.3" class="anchored" data-anchor-id="类别特征处理"><span class="header-section-number">1.9.5.3</span> 5.3. 类别特征处理</h4>
+<section id="类别特征处理" class="level4">
+<h4 class="anchored" data-anchor-id="类别特征处理">5.3. 类别特征处理</h4>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2044,8 +2044,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-<section id="使用示例-3" class="level3" data-number="1.9.6">
-<h3 data-number="1.9.6" class="anchored" data-anchor-id="使用示例-3"><span class="header-section-number">1.9.6</span> 6.使用示例</h3>
+<section id="使用示例-3" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-3">6.使用示例</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lightgbm)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2154,8 +2154,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a><span class="co"># 最佳迭代轮数</span></span>
 <span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a>best_iter <span class="ot">&lt;-</span> cv_result<span class="sc">$</span>best_iter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="与其他包的对比-1" class="level3" data-number="1.9.7">
-<h3 data-number="1.9.7" class="anchored" data-anchor-id="与其他包的对比-1"><span class="header-section-number">1.9.7</span> 7.与其他包的对比</h3>
+<section id="与其他包的对比-1" class="level3">
+<h3 class="anchored" data-anchor-id="与其他包的对比-1">7.与其他包的对比</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -2230,8 +2230,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p><strong>速度与内存</strong>：LightGBM在相同硬件上通常更快、内存占用更少，尤其在<strong>大数据集</strong>上优势明显。</p></li>
 </ul>
 </section>
-<section id="注意事项与技巧-1" class="level3" data-number="1.9.8">
-<h3 data-number="1.9.8" class="anchored" data-anchor-id="注意事项与技巧-1"><span class="header-section-number">1.9.8</span> 8.注意事项与技巧</h3>
+<section id="注意事项与技巧-1" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项与技巧-1">8.注意事项与技巧</h3>
 <ul>
 <li><p><strong><code>num_leaves</code>是关键超参数</strong>：它是控制模型复杂度最重要的参数，通常应小于<code>2^(max_depth)</code>。</p></li>
 <li><p><strong>小数据集慎用leaf-wise</strong>：在小数据集上，leaf-wise可能过拟合，建议配合<code>max_depth</code>限制或改用<code>xgboost</code>。</p></li>
@@ -2242,14 +2242,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="六e1071包" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="六e1071包"><span class="header-section-number">1.10</span> 六、e1071包</h2>
-<section id="概述-5" class="level3" data-number="1.10.1">
-<h3 data-number="1.10.1" class="anchored" data-anchor-id="概述-5"><span class="header-section-number">1.10.1</span> 1.概述</h3>
+<section id="六e1071包" class="level2">
+<h2 class="anchored" data-anchor-id="六e1071包">六、e1071包</h2>
+<section id="概述-5" class="level3">
+<h3 class="anchored" data-anchor-id="概述-5">1.概述</h3>
 <p><code>e1071</code>是R语言中一个<strong>历史悠久且功能丰富</strong>的综合工具包。它最初由维也纳工业大学（TU Wien）统计系（其系号即为e1071）开发，因此得名。该包提供了许多在统计学和机器学习领域广泛应用的函数，尤其在<strong>支持向量机（SVM）</strong> 方面，是R中最常用和权威的实现之一。</p>
 </section>
-<section id="核心功能-2" class="level3" data-number="1.10.2">
-<h3 data-number="1.10.2" class="anchored" data-anchor-id="核心功能-2"><span class="header-section-number">1.10.2</span> 2.核心功能</h3>
+<section id="核心功能-2" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能-2">2.核心功能</h3>
 <p><code>e1071</code>包是一个“工具箱”，集成了多种功能：</p>
 <table class="caption-top table">
 <colgroup>
@@ -2339,10 +2339,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 <p>此外，它还包含一些实用工具，如<code>matchClasses()</code>用于匹配分类标签、<code>read.matrix.csr()</code>等用于读写稀疏矩阵。</p>
 </section>
-<section id="主要函数详解" class="level3" data-number="1.10.3">
-<h3 data-number="1.10.3" class="anchored" data-anchor-id="主要函数详解"><span class="header-section-number">1.10.3</span> 3.主要函数详解</h3>
-<section id="支持向量机svm" class="level4" data-number="1.10.3.1">
-<h4 data-number="1.10.3.1" class="anchored" data-anchor-id="支持向量机svm"><span class="header-section-number">1.10.3.1</span> 3.1. 支持向量机：<code>svm()</code></h4>
+<section id="主要函数详解" class="level3">
+<h3 class="anchored" data-anchor-id="主要函数详解">3.主要函数详解</h3>
+<section id="支持向量机svm" class="level4">
+<h4 class="anchored" data-anchor-id="支持向量机svm">3.1. 支持向量机：<code>svm()</code></h4>
 <p>这是<code>e1071</code>包最著名的函数，它是对<strong>LIBSVM</strong>库的R语言封装。</p>
 <ul>
 <li><strong>核心参数</strong>：
@@ -2366,8 +2366,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看混淆矩阵</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pred, iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="朴素贝叶斯naivebayes" class="level4" data-number="1.10.3.2">
-<h4 data-number="1.10.3.2" class="anchored" data-anchor-id="朴素贝叶斯naivebayes"><span class="header-section-number">1.10.3.2</span> 3.2. 朴素贝叶斯：<code>naiveBayes()</code></h4>
+<section id="朴素贝叶斯naivebayes" class="level4">
+<h4 class="anchored" data-anchor-id="朴素贝叶斯naivebayes">3.2. 朴素贝叶斯：<code>naiveBayes()</code></h4>
 <p>一个简单但高效的分类器，基于贝叶斯定理并假设特征之间相互独立。</p>
 <ul>
 <li><strong>核心参数</strong>：
@@ -2385,8 +2385,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, iris)</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(pred, iris<span class="sc">$</span>Species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="模型调优tune" class="level4" data-number="1.10.3.3">
-<h4 data-number="1.10.3.3" class="anchored" data-anchor-id="模型调优tune"><span class="header-section-number">1.10.3.3</span> 3.3. 模型调优：<code>tune()</code></h4>
+<section id="模型调优tune" class="level4">
+<h4 class="anchored" data-anchor-id="模型调优tune">3.3. 模型调优：<code>tune()</code></h4>
 <p>提供了一种简便的方法，通过<strong>网格搜索</strong>和<strong>交叉验证</strong>来寻找模型的最佳超参数。</p>
 <ul>
 <li><strong>核心参数</strong>：
@@ -2408,15 +2408,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>best.model <span class="ot">&lt;-</span> tuned<span class="sc">$</span>best.model</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="生态与依赖" class="level3" data-number="1.10.4">
-<h3 data-number="1.10.4" class="anchored" data-anchor-id="生态与依赖"><span class="header-section-number">1.10.4</span> 4.生态与依赖</h3>
+<section id="生态与依赖" class="level3">
+<h3 class="anchored" data-anchor-id="生态与依赖">4.生态与依赖</h3>
 <ul>
 <li><p><strong>依赖关系</strong>：<code>e1071</code>主要依赖于R基础包（如<code>stats</code>、<code>graphics</code>）以及<code>class</code>和<code>proxy</code>包。它建议（Suggests）但不强制依赖<code>cluster</code>、<code>mlbench</code>、<code>randomForest</code>、<code>rpart</code>等包，以支持其<code>tune()</code>等功能。</p></li>
 <li><p><strong>应用领域</strong>：由于其功能广泛，<code>e1071</code>在多个领域都有应用，并被收录在CRAN的<strong>机器学习</strong>、<strong>聚类</strong>、<strong>心理测量学</strong>等多个官方任务视图中。</p></li>
 </ul>
 </section>
-<section id="注意事项-2" class="level3" data-number="1.10.5">
-<h3 data-number="1.10.5" class="anchored" data-anchor-id="注意事项-2"><span class="header-section-number">1.10.5</span> 5.注意事项</h3>
+<section id="注意事项-2" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-2">5.注意事项</h3>
 <ul>
 <li><p><strong>SVM的预处理</strong>：<code>svm()</code>函数默认会对数据进行<strong>缩放（scale）</strong>，这通常是必要的，可以防止数值范围大的变量主导模型。如果不需要，可以通过设置参数<code>scale = FALSE</code>来关闭。</p></li>
 <li><p><strong>调参的重要性</strong>：SVM（<code>svm()</code>）的性能高度依赖于超参数（如<code>cost</code>和<code>gamma</code>）的选择。建议在实际应用中，务必使用<code>tune()</code>函数进行系统性的参数搜索，而不是使用默认值。</p></li>
@@ -2424,16 +2424,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="七h2o包" class="level2" data-number="1.11">
-<h2 data-number="1.11" class="anchored" data-anchor-id="七h2o包"><span class="header-section-number">1.11</span> 七、h2o包</h2>
+<section id="七h2o包" class="level2">
+<h2 class="anchored" data-anchor-id="七h2o包">七、h2o包</h2>
 </section>
-<section id="概述-6" class="level2" data-number="1.12">
-<h2 data-number="1.12" class="anchored" data-anchor-id="概述-6"><span class="header-section-number">1.12</span> 1.概述</h2>
+<section id="概述-6" class="level2">
+<h2 class="anchored" data-anchor-id="概述-6">1.概述</h2>
 <p><code>h2o</code>包是<strong>H2O.ai</strong>公司开发的开源机器学习平台<code>H2O</code>的<strong>R语言接口</strong>。它本身并非算法实现，而是一个<strong>客户端</strong>，通过<strong>REST API</strong>与后端H2O集群（一个Java进程）通信。这意味着所有计算都在H2O集群上分布式进行，R仅负责发送指令和接收结果。</p>
 <p><code>h2o</code>包的主要优势在于其<strong>可扩展性</strong>和<strong>分布式计算能力</strong>，能够处理内存无法容纳的大规模数据集。</p>
 </section>
-<section id="核心特点-3" class="level2" data-number="1.13">
-<h2 data-number="1.13" class="anchored" data-anchor-id="核心特点-3"><span class="header-section-number">1.13</span> 2.核心特点</h2>
+<section id="核心特点-3" class="level2">
+<h2 class="anchored" data-anchor-id="核心特点-3">2.核心特点</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -2473,11 +2473,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="主要功能与算法" class="level2" data-number="1.14">
-<h2 data-number="1.14" class="anchored" data-anchor-id="主要功能与算法"><span class="header-section-number">1.14</span> 3.主要功能与算法</h2>
+<section id="主要功能与算法" class="level2">
+<h2 class="anchored" data-anchor-id="主要功能与算法">3.主要功能与算法</h2>
 <p><code>h2o</code>包支持丰富的<strong>监督学习</strong>与<strong>无监督学习</strong>算法：</p>
-<section id="监督学习算法" class="level3" data-number="1.14.1">
-<h3 data-number="1.14.1" class="anchored" data-anchor-id="监督学习算法"><span class="header-section-number">1.14.1</span> 3.1.监督学习算法</h3>
+<section id="监督学习算法" class="level3">
+<h3 class="anchored" data-anchor-id="监督学习算法">3.1.监督学习算法</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -2545,8 +2545,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="无监督学习算法" class="level3" data-number="1.14.2">
-<h3 data-number="1.14.2" class="anchored" data-anchor-id="无监督学习算法"><span class="header-section-number">1.14.2</span> 3.2.无监督学习算法</h3>
+<section id="无监督学习算法" class="level3">
+<h3 class="anchored" data-anchor-id="无监督学习算法">3.2.无监督学习算法</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2574,15 +2574,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="自动机器学习" class="level3" data-number="1.14.3">
-<h3 data-number="1.14.3" class="anchored" data-anchor-id="自动机器学习"><span class="header-section-number">1.14.3</span> 3.3.自动机器学习</h3>
+<section id="自动机器学习" class="level3">
+<h3 class="anchored" data-anchor-id="自动机器学习">3.3.自动机器学习</h3>
 <ul>
 <li><strong><code>h2o.automl()</code></strong>：自动运行多个算法及其超参数组合，返回性能最佳的模型排行榜。</li>
 </ul>
 </section>
 </section>
-<section id="使用流程" class="level2" data-number="1.15">
-<h2 data-number="1.15" class="anchored" data-anchor-id="使用流程"><span class="header-section-number">1.15</span> 4.使用流程</h2>
+<section id="使用流程" class="level2">
+<h2 class="anchored" data-anchor-id="使用流程">4.使用流程</h2>
 <p>使用<code>h2o</code>包的标准工作流程如下：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">### 1. 安装与加载</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -2692,8 +2692,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a><span class="fu">h2o.cluster</span>()</span>
 <span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a><span class="fu">h2o.shutdown</span>(<span class="at">prompt =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="与其他包的对比-2" class="level2" data-number="1.16">
-<h2 data-number="1.16" class="anchored" data-anchor-id="与其他包的对比-2"><span class="header-section-number">1.16</span> 5.与其他包的对比</h2>
+<section id="与其他包的对比-2" class="level2">
+<h2 class="anchored" data-anchor-id="与其他包的对比-2">5.与其他包的对比</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 20%">
@@ -2771,23 +2771,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-<section id="八tidymodels包生态" class="level2" data-number="1.17">
-<h2 data-number="1.17" class="anchored" data-anchor-id="八tidymodels包生态"><span class="header-section-number">1.17</span> 八、tidymodels<strong>包生态</strong></h2>
-<section id="概述-7" class="level3" data-number="1.17.1">
-<h3 data-number="1.17.1" class="anchored" data-anchor-id="概述-7"><span class="header-section-number">1.17.1</span> 1.概述</h3>
+<section id="八tidymodels包生态" class="level2">
+<h2 class="anchored" data-anchor-id="八tidymodels包生态">八、tidymodels<strong>包生态</strong></h2>
+<section id="概述-7" class="level3">
+<h3 class="anchored" data-anchor-id="概述-7">1.概述</h3>
 <p><code>tidymodels</code> 不是一个单一的R包，而是一个<strong>用于建模和机器学习的R包生态系统</strong>。它是一个 <strong>“元包”（meta-package）</strong> ，其设计哲学、语法和数据结构与广为人知的 <code>tidyverse</code> 一脉相承。</p>
 <p><code>tidymodels</code> 项目的目标是为R中的统计和机器学习建模提供一个<strong>统一、规范且高效</strong>的框架。你可以将它看作是R语言中 <code>scikit-learn</code> 在Python中的对应物。</p>
 </section>
-<section id="核心设计理念" class="level3" data-number="1.17.2">
-<h3 data-number="1.17.2" class="anchored" data-anchor-id="核心设计理念"><span class="header-section-number">1.17.2</span> 2.核心设计理念</h3>
+<section id="核心设计理念" class="level3">
+<h3 class="anchored" data-anchor-id="核心设计理念">2.核心设计理念</h3>
 <ol type="1">
 <li><strong>一致性</strong>：无论是线性回归还是随机森林，整个工作流程（数据划分、预处理、建模、评估）都使用统一、可预测的函数和语法。</li>
 <li><strong>模块化</strong>：每个核心功能都由专门的包负责，例如，<code>rsample</code>负责数据拆分，<code>recipes</code>负责特征工程，<code>parsnip</code>负责统一模型接口。这种设计使得代码更清晰、更易于维护和扩展。</li>
 <li><strong>整洁数据（Tidy Data）原则</strong>：所有函数的输入和输出都尽量设计为整洁的数据框（<code>tibble</code>）格式，方便与 <code>tidyverse</code> 系列包（如 <code>dplyr</code>、<code>ggplot2</code>）无缝衔接。</li>
 </ol>
 </section>
-<section id="核心包详解" class="level3" data-number="1.17.3">
-<h3 data-number="1.17.3" class="anchored" data-anchor-id="核心包详解"><span class="header-section-number">1.17.3</span> 3.核心包详解</h3>
+<section id="核心包详解" class="level3">
+<h3 class="anchored" data-anchor-id="核心包详解">3.核心包详解</h3>
 <p>当你运行 <code>library(tidymodels)</code> 时，它会自动加载一组核心包。这些包构成了建模工作流的基础工具。</p>
 <table class="caption-top table">
 <colgroup>
@@ -2847,11 +2847,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </section>
 </section>
-<section id="典型-tidymodels-工作流" class="level2" data-number="1.18">
-<h2 data-number="1.18" class="anchored" data-anchor-id="典型-tidymodels-工作流"><span class="header-section-number">1.18</span> 4.典型 <code>tidymodels</code> 工作流</h2>
+<section id="典型-tidymodels-工作流" class="level2">
+<h2 class="anchored" data-anchor-id="典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</h2>
 <p>与 <code>caret</code> 的单一函数 <code>train()</code> 不同，<code>tidymodels</code> 鼓励通过<strong>组合</strong>不同的核心包来构建一个清晰、可复现的建模流水线。</p>
-<section id="数据拆分-rsample" class="level4" data-number="1.18.0.1">
-<h4 data-number="1.18.0.1" class="anchored" data-anchor-id="数据拆分-rsample"><span class="header-section-number">1.18.0.1</span> 4.1.<strong>数据拆分 (<code>rsample</code>)</strong>:</h4>
+<section id="数据拆分-rsample" class="level4">
+<h4 class="anchored" data-anchor-id="数据拆分-rsample">4.1.<strong>数据拆分 (<code>rsample</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
@@ -2860,33 +2860,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>car_train <span class="ot">&lt;-</span> <span class="fu">training</span>(car_split)</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>car_test  <span class="ot">&lt;-</span> <span class="fu">testing</span>(car_split)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="特征工程-recipes" class="level4" data-number="1.18.0.2">
-<h4 data-number="1.18.0.2" class="anchored" data-anchor-id="特征工程-recipes"><span class="header-section-number">1.18.0.2</span> 4.2.<strong>特征工程 (<code>recipes</code>)</strong>:</h4>
+<section id="特征工程-recipes" class="level4">
+<h4 class="anchored" data-anchor-id="特征工程-recipes">4.2.<strong>特征工程 (<code>recipes</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义一个预处理配方：将所有预测变量标准化</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>car_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> car_train) <span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="模型定义-parsnip" class="level4" data-number="1.18.0.3">
-<h4 data-number="1.18.0.3" class="anchored" data-anchor-id="模型定义-parsnip"><span class="header-section-number">1.18.0.3</span> 4.3.<strong>模型定义 (<code>parsnip</code>)</strong>:</h4>
+<section id="模型定义-parsnip" class="level4">
+<h4 class="anchored" data-anchor-id="模型定义-parsnip">4.3.<strong>模型定义 (<code>parsnip</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定一个随机森林模型，并设置其引擎为 'ranger'</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">mtry =</span> <span class="dv">5</span>, <span class="at">trees =</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">"regression"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="创建工作流-workflows" class="level4" data-number="1.18.0.4">
-<h4 data-number="1.18.0.4" class="anchored" data-anchor-id="创建工作流-workflows"><span class="header-section-number">1.18.0.4</span> 4.4.<strong>创建工作流 (<code>workflows</code>)</strong>:</h4>
+<section id="创建工作流-workflows" class="level4">
+<h4 class="anchored" data-anchor-id="创建工作流-workflows">4.4.<strong>创建工作流 (<code>workflows</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将预处理和模型绑定在一起</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>rf_workflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(car_recipe) <span class="sc">%&gt;%</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(rf_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="训练模型-fit" class="level4" data-number="1.18.0.5">
-<h4 data-number="1.18.0.5" class="anchored" data-anchor-id="训练模型-fit"><span class="header-section-number">1.18.0.5</span> 4.5.<strong>训练模型 (<code>fit</code>)</strong>:</h4>
+<section id="训练模型-fit" class="level4">
+<h4 class="anchored" data-anchor-id="训练模型-fit">4.5.<strong>训练模型 (<code>fit</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在工作流上调用 fit()，它会自动按顺序执行预处理和模型训练</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_workflow <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> car_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="评估模型-yardstick" class="level4" data-number="1.18.0.6">
-<h4 data-number="1.18.0.6" class="anchored" data-anchor-id="评估模型-yardstick"><span class="header-section-number">1.18.0.6</span> 4.6.<strong>评估模型 (<code>yardstick</code>)</strong>:</h4>
+<section id="评估模型-yardstick" class="level4">
+<h4 class="anchored" data-anchor-id="评估模型-yardstick">4.6.<strong>评估模型 (<code>yardstick</code>)</strong>:</h4>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 对测试集进行预测</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> rf_fit <span class="sc">%&gt;%</span> <span class="fu">predict</span>(car_test)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 将预测值与真实值绑定，并计算RMSE</span></span>
@@ -2895,8 +2895,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predictions)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>car_results <span class="sc">%&gt;%</span> <span class="fu">rmse</span>(<span class="at">truth =</span> mpg, <span class="at">estimate =</span> .pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="丰富的生态系统" class="level3" data-number="1.18.1">
-<h3 data-number="1.18.1" class="anchored" data-anchor-id="丰富的生态系统"><span class="header-section-number">1.18.1</span> 5.丰富的生态系统</h3>
+<section id="丰富的生态系统" class="level3">
+<h3 class="anchored" data-anchor-id="丰富的生态系统">5.丰富的生态系统</h3>
 <p>除了核心包，<code>tidymodels</code> 生态系统还包含大量<strong>专门包</strong>，用于处理特定任务：</p>
 <ul>
 <li><strong>预处理扩展</strong>: <code>textrecipes</code> (处理文本数据), <code>embed</code> (处理高维分类变量), <code>themis</code> (处理类别不平衡数据)。</li>
@@ -2906,12 +2906,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
-<section id="九mlr3" class="level2" data-number="1.19">
-<h2 data-number="1.19" class="anchored" data-anchor-id="九mlr3"><span class="header-section-number">1.19</span> 九、mlr3</h2>
+<section id="九mlr3" class="level2">
+<h2 class="anchored" data-anchor-id="九mlr3">九、mlr3</h2>
 <p><code>mlr3</code>是R语言中一个现代、面向对象且高效的机器学习框架。它是经典<code>mlr</code>包的重写版本，旨在提供一个统一、可扩展且高效的机器学习工作平台。</p>
 <p><code>mlr3</code>本身是一个<strong>基础包</strong>，提供了机器学习最核心的“乐高积木”。其强大的功能通过一个庞大的<strong>扩展包生态系统</strong>来实现，你可以根据需要灵活组装。</p>
-<section id="核心设计理念-1" class="level3" data-number="1.19.1">
-<h3 data-number="1.19.1" class="anchored" data-anchor-id="核心设计理念-1"><span class="header-section-number">1.19.1</span> 1.核心设计理念</h3>
+<section id="核心设计理念-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心设计理念-1">1.核心设计理念</h3>
 <ul>
 <li><strong>面向对象</strong>：基于<code>R6</code>类构建，所有核心组件（如任务、学习器）都是可交互、可修改的R6对象。</li>
 <li><strong>统一接口</strong>：为数据预处理、模型训练、评估等提供一致的语法，降低了在不同算法间切换的学习成本。</li>
@@ -2919,8 +2919,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>高性能与可扩展性</strong>：原生支持并行计算，并支持数据库等“out-of-memory”数据后端，能处理超大数据集。</li>
 </ul>
 </section>
-<section id="核心组件" class="level3" data-number="1.19.2">
-<h3 data-number="1.19.2" class="anchored" data-anchor-id="核心组件"><span class="header-section-number">1.19.2</span> 2.核心组件</h3>
+<section id="核心组件" class="level3">
+<h3 class="anchored" data-anchor-id="核心组件">2.核心组件</h3>
 <ul>
 <li><strong><code>Task</code>（任务）</strong>：封装了数据和要解决的问题（如分类、回归），是分析的起点。</li>
 <li><strong><code>Learner</code>（学习器）</strong>：代表一个机器学习算法，如决策树、随机森林等。</li>
@@ -2929,34 +2929,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong><code>Benchmark</code>（基准测试）</strong>：提供统一框架，用于在不同任务上比较多个学习器的性能。</li>
 </ul>
 </section>
-<section id="丰富的扩展生态系统" class="level3" data-number="1.19.3">
-<h3 data-number="1.19.3" class="anchored" data-anchor-id="丰富的扩展生态系统"><span class="header-section-number">1.19.3</span> 3.丰富的扩展生态系统</h3>
+<section id="丰富的扩展生态系统" class="level3">
+<h3 class="anchored" data-anchor-id="丰富的扩展生态系统">3.丰富的扩展生态系统</h3>
 <p><code>mlr3</code>的强大之处在于其生态系统。以下是一些核心扩展包：</p>
-<section id="核心增强" class="level4" data-number="1.19.3.1">
-<h4 data-number="1.19.3.1" class="anchored" data-anchor-id="核心增强"><span class="header-section-number">1.19.3.1</span> 3.1.核心增强</h4>
+<section id="核心增强" class="level4">
+<h4 class="anchored" data-anchor-id="核心增强">3.1.核心增强</h4>
 <ul>
 <li><strong><code>mlr3verse</code></strong>：元包，一键安装和加载最重要的扩展包。</li>
 <li><strong><code>mlr3pipelines</code></strong>：创建复杂的机器学习流水线（PipeOps），组合预处理、建模等步骤。</li>
 </ul>
 </section>
-<section id="学习器算法" class="level4" data-number="1.19.3.2">
-<h4 data-number="1.19.3.2" class="anchored" data-anchor-id="学习器算法"><span class="header-section-number">1.19.3.2</span> 3.2.学习器（算法）</h4>
+<section id="学习器算法" class="level4">
+<h4 class="anchored" data-anchor-id="学习器算法">3.2.学习器（算法）</h4>
 <ul>
 <li><strong><code>mlr3learners</code></strong>：官方维护的<strong>核心算法</strong>集合。</li>
 <li><strong><code>mlr3extralearners</code></strong>：社区贡献的<strong>更多算法</strong>。</li>
 <li><strong><code>mlr3torch</code></strong>：基于<code>torch</code>的<strong>深度学习</strong>支持。</li>
 </ul>
 </section>
-<section id="调参与优化" class="level4" data-number="1.19.3.3">
-<h4 data-number="1.19.3.3" class="anchored" data-anchor-id="调参与优化"><span class="header-section-number">1.19.3.3</span> 3.3.调参与优化</h4>
+<section id="调参与优化" class="level4">
+<h4 class="anchored" data-anchor-id="调参与优化">3.3.调参与优化</h4>
 <ul>
 <li><strong><code>mlr3tuning</code></strong>：超参数调优。</li>
 <li><strong><code>mlr3hyperband</code></strong>、<strong><code>mlr3mbo</code></strong>：先进的调参策略。</li>
 <li><strong><code>mlr3automl</code></strong>：自动化机器学习。</li>
 </ul>
 </section>
-<section id="特殊任务与数据类型" class="level4" data-number="1.19.3.4">
-<h4 data-number="1.19.3.4" class="anchored" data-anchor-id="特殊任务与数据类型"><span class="header-section-number">1.19.3.4</span> 3.4.特殊任务与数据类型</h4>
+<section id="特殊任务与数据类型" class="level4">
+<h4 class="anchored" data-anchor-id="特殊任务与数据类型">3.4.特殊任务与数据类型</h4>
 <ul>
 <li><strong><code>mlr3proba</code></strong>：<strong>生存分析</strong>与概率预测。</li>
 <li><strong><code>mlr3cluster</code></strong>：<strong>聚类</strong>分析。</li>
@@ -2964,19 +2964,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong><code>mlr3fda</code></strong>：<strong>函数型</strong>数据分析。</li>
 </ul>
 </section>
-<section id="数据与可视化" class="level4" data-number="1.19.3.5">
-<h4 data-number="1.19.3.5" class="anchored" data-anchor-id="数据与可视化"><span class="header-section-number">1.19.3.5</span> 3.5.数据与可视化</h4>
+<section id="数据与可视化" class="level4">
+<h4 class="anchored" data-anchor-id="数据与可视化">3.5.数据与可视化</h4>
 <ul>
 <li><strong><code>mlr3data</code></strong>、<strong><code>mlr3oml</code></strong>：提供玩具数据集及从OpenML下载数据。</li>
 <li><strong><code>mlr3viz</code></strong>：任务、学习器等对象的可视化。</li>
 </ul>
 </section>
 </section>
-<section id="基本工作流程" class="level3" data-number="1.19.4">
-<h3 data-number="1.19.4" class="anchored" data-anchor-id="基本工作流程"><span class="header-section-number">1.19.4</span> 4.基本工作流程</h3>
+<section id="基本工作流程" class="level3">
+<h3 class="anchored" data-anchor-id="基本工作流程">4.基本工作流程</h3>
 <p>一个典型的 <code>mlr3</code> 工作流通常遵循 <strong>任务 (Task) -&gt; 学习器 (Learner) -&gt; 重抽样 (Resampling) -&gt; 评估 (Evaluation)</strong> 的模式。后文提供一个从基础到进阶的完整案例，展示如何用 <code>mlr3</code> 解决一个分类问题。</p>
-<section id="案例1训练与评估一个模型" class="level4" data-number="1.19.4.1">
-<h4 data-number="1.19.4.1" class="anchored" data-anchor-id="案例1训练与评估一个模型"><span class="header-section-number">1.19.4.1</span> 4.1. 案例1：训练与评估一个模型</h4>
+<section id="案例1训练与评估一个模型" class="level4">
+<h4 class="anchored" data-anchor-id="案例1训练与评估一个模型">4.1. 案例1：训练与评估一个模型</h4>
 <p>以经典的 <code>iris</code>（鸢尾花）数据集为例，训练一个决策树模型，并用交叉验证评估其性能。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装 mlr3verse，它会自动安装 mlr3, mlr3learners, mlr3tuning 等核心包</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("mlr3verse")</span></span>
@@ -3031,8 +3031,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb25-51"><a href="#cb25-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; classif.acc</span></span>
 <span id="cb25-52"><a href="#cb25-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        0.94</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="案例2基准测试-benchmarking-比较多个模型" class="level4" data-number="1.19.4.2">
-<h4 data-number="1.19.4.2" class="anchored" data-anchor-id="案例2基准测试-benchmarking-比较多个模型"><span class="header-section-number">1.19.4.2</span> 4.2. 案例2：基准测试 (Benchmarking) 比较多个模型</h4>
+<section id="案例2基准测试-benchmarking-比较多个模型" class="level4">
+<h4 class="anchored" data-anchor-id="案例2基准测试-benchmarking-比较多个模型">4.2. 案例2：基准测试 (Benchmarking) 比较多个模型</h4>
 <p><code>mlr3</code> 的 <code>benchmark()</code> 函数提供了一个统一的框架，可以公平地比较多个学习器在同一个任务上的表现。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 准备多个学习器</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -3067,8 +3067,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:  1     iris           CART            cv     5       0.9400      0.9736</span></span>
 <span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:  2     iris RandomForest            cv     5       0.9533      0.9936</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="案例3超参数调优-hyperparameter-tuning" class="level4" data-number="1.19.4.3">
-<h4 data-number="1.19.4.3" class="anchored" data-anchor-id="案例3超参数调优-hyperparameter-tuning"><span class="header-section-number">1.19.4.3</span> 4.3. 案例3：超参数调优 (Hyperparameter Tuning)</h4>
+<section id="案例3超参数调优-hyperparameter-tuning" class="level4">
+<h4 class="anchored" data-anchor-id="案例3超参数调优-hyperparameter-tuning">4.3. 案例3：超参数调优 (Hyperparameter Tuning)</h4>
 <p>使用 <code>mlr3tuning</code> 包，可以自动搜索模型的最佳超参数。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载调优相关的包 (如果之前加载了 mlr3verse，则已包含)</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(mlr3tuning)</span></span>
