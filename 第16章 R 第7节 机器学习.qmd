@@ -1,4 +1,4 @@
-# 第16章 R 第7节 机器学习{.unnumbered}
+# 第16章 R 第7节 机器学习 {.unnumbered}
 
 
 ## 前言
