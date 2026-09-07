@@ -215,6 +215,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
   </div>
@@ -395,9 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#概述-7" id="toc-概述-7" class="nav-link" data-scroll-target="#概述-7">1.概述</a></li>
   <li><a href="#核心设计理念" id="toc-核心设计理念" class="nav-link" data-scroll-target="#核心设计理念">2.核心设计理念</a></li>
   <li><a href="#核心包详解" id="toc-核心包详解" class="nav-link" data-scroll-target="#核心包详解">3.核心包详解</a></li>
-  </ul></li>
-  <li><a href="#典型-tidymodels-工作流" id="toc-典型-tidymodels-工作流" class="nav-link" data-scroll-target="#典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</a>
-  <ul class="collapse">
+  <li><a href="#典型-tidymodels-工作流" id="toc-典型-tidymodels-工作流" class="nav-link" data-scroll-target="#典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</a></li>
   <li><a href="#丰富的生态系统" id="toc-丰富的生态系统" class="nav-link" data-scroll-target="#丰富的生态系统">5.丰富的生态系统</a></li>
   </ul></li>
   <li><a href="#九mlr3" id="toc-九mlr3" class="nav-link" data-scroll-target="#九mlr3">九、mlr3</a>
@@ -2846,9 +2850,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </section>
-</section>
-<section id="典型-tidymodels-工作流" class="level2">
-<h2 class="anchored" data-anchor-id="典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</h2>
+<section id="典型-tidymodels-工作流" class="level3">
+<h3 class="anchored" data-anchor-id="典型-tidymodels-工作流">4.典型 <code>tidymodels</code> 工作流</h3>
 <p>与 <code>caret</code> 的单一函数 <code>train()</code> 不同，<code>tidymodels</code> 鼓励通过<strong>组合</strong>不同的核心包来构建一个清晰、可复现的建模流水线。</p>
 <section id="数据拆分-rsample" class="level4">
 <h4 class="anchored" data-anchor-id="数据拆分-rsample">4.1.<strong>数据拆分 (<code>rsample</code>)</strong>:</h4>
@@ -2894,6 +2897,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(mpg) <span class="sc">%&gt;%</span></span>
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predictions)</span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>car_results <span class="sc">%&gt;%</span> <span class="fu">rmse</span>(<span class="at">truth =</span> mpg, <span class="at">estimate =</span> .pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
 </section>
 <section id="丰富的生态系统" class="level3">
 <h3 class="anchored" data-anchor-id="丰富的生态系统">5.丰富的生态系统</h3>
