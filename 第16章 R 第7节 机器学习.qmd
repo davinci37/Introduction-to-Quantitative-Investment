@@ -1,0 +1,1857 @@
+# 第16章 R 第7节 机器学习{.unnumbered}
+
+
+## 前言
+
+
+R语言的机器学习生态非常繁荣，拥有大量高质量的包。这些包大致可以分为**提供统一工作流的框架**和**实现特定算法的专用包**两大类。
+
+
+### 1.统一模型框架
+
+
+这类包提供了一站式的解决方案，帮助你规范、高效地管理从数据预处理到模型部署的整个机器学习流程。
+
+
+-   **`tidymodels`**：这是R中现代机器学习的首选框架。它基于`tidyverse`的设计理念，将所有建模步骤整合成一个连贯、易于理解的管道。它的核心包各司其职：
+
+
+    -   `rsample`：负责数据拆分和重采样。
+    -   `recipes`：提供了一套用于特征工程的“配方”。
+    -   `parsnip`：为不同算法提供统一的接口，让你无需记忆每个包的具体语法。
+    -   `workflows`：将“配方”和“模型”捆绑在一起，方便管理。
+    -   `tune` & `dials`：用于超参数调优。
+    -   `yardstick`：用于模型性能评估。
+    -   `broom`：将模型输出整理成整洁的数据框。
+
+
+-   **`mlr3`**：一个面向对象、可扩展性极强的机器学习框架。它是`mlr`包的升级版，专为处理大规模数据和复杂任务而设计。`mlr3`本身是一个轻量级核心，其强大功能通过庞大的**扩展包生态系统**（如`mlr3learners`, `mlr3pipelines`, `mlr3proba`等）实现。
+
+
+-   **`caret`** (Classification And REgression Training)：一个老牌且经典的整合包，曾是该领域的标杆。它同样提供了统一的训练、调参和评估接口，集成了上百种算法。虽然`tidymodels`被视为它的进化版，但`caret`依然被广泛使用。
+
+
+**实践建议**：如果你是初学者或希望快速上手，**tidymodels** 是当前最推荐的选择，其设计现代且文档完善。如果需要高度定制化的工作流或处理极大规模的数据，**mlr3** 强大的扩展性会更具优势。而**caret** 则适合维护现有项目或偏好其经典风格的用户。
+
+
+### 2.专用算法包
+
+
+除了框架，R还有大量实现特定算法的专用包。以下是一些核心代表：
+
+
+| 算法类别 | 核心包 | 用途与特点 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **线性模型与正则化** | `glmnet` | 实现Lasso、Ridge和弹性网（Elastic Net）正则化，非常高效。 |
+| **树模型与随机森林** | `rpart` | 实现CART决策树，是R的基础包之一。 |
+|  | `randomForest` | 经典、易用的随机森林算法实现。 |
+|  | `ranger` | **高性能**的随机森林实现，速度更快，内存效率更高，常作为`tidymodels`的“引擎”。 |
+|  | `xgboost` / `lightgbm` | 梯度提升算法（GBDT）的标杆，在竞赛和工业界广泛应用，效率极高。 |
+| **支持向量机 (SVM)** | `e1071` | 提供SVM以及Naive Bayes等其他经典算法。 |
+|  | `kernlab` | 基于核函数的机器学习方法，包括SVM、PCA等。 |
+| **神经网络与深度学习** | `nnet` | 实现单隐层前馈神经网络，是R的基础包之一。 |
+|  | `keras` / `tensorflow` | 提供R语言接口，对接业界流行的Python深度学习框架。 |
+|  | `torch` | 提供对PyTorch底层库`libtorch`的R接口，实现原生深度学习。 |
+|  | `h2o` | 提供可扩展的、分布式的机器学习算法，包括深度学习。 |
+
+
+### 3.总结与建议
+
+
+R的机器学习生态强大且选择多样，你可以这样入手：
+
+
+1.  **明确目标**：确定你的任务（分类、回归等）和偏好（如是否需要统一工作流）。
+2.  **选择框架**：对于新项目，**建议从 `tidymodels` 开始**。如果项目复杂或需要高度定制，可探索 `mlr3`。
+3.  **按需补充**：对于指定的模型框架，可直接引入 `ranger`、`xgboost`、`glmnet` 等专用包即可。
+
+
+## 一、rpart包
+
+
+### 1.概述
+
+
+`rpart`（Recursive PARTitioning）是R语言中实现**递归 partitioning 回归树和分类树**的核心包。它实现了1984年Breiman等人所著《Classification and Regression Trees》（CART）一书中的大部分功能。因为"CART"是特定软件商标，且Splus中已有`tree`函数，故取名`rpart`。`rpart`是R的**推荐包（recommended package）**，随R一同安装。
+
+
+### 2.核心功能
+
+
+`rpart`可构建三种类型的树模型：
+
+
+| 模型类型   | 说明                       | `method`参数 |
+|------------|----------------------------|--------------|
+| **分类树** | 响应变量为因子（分类变量） | `"class"`    |
+| **回归树** | 响应变量为连续数值变量     | `"anova"`    |
+| **生存树** | 响应变量为生存对象         | `"exp"`      |
+
+
+### 3.核心函数：`rpart()`
+
+
+#### 3.1.基本语法
+
+
+``` r
+rpart(formula, data, weights, subset, na.action = na.rpart,
+      method, model = FALSE, x = FALSE, y = TRUE,
+      parms, control, cost, ...)
+```
+
+
+#### 3.2.主要参数
+
+
+| 参数 | 说明 |
+|------------------------------------|------------------------------------|
+| `formula` | 模型公式，如 `y ~ x1 + x2`，不含交互项 |
+| `data` | 数据框 |
+| `method` | 指定模型类型：`"anova"`（回归）、`"class"`（分类）、`"poisson"`、`"exp"`（生存）。若不指定，程序会根据响应变量类型自动推断 |
+| `weights` | 可选的大小写权重 |
+| `subset` | 选择数据子集进行拟合 |
+| `na.action` | 默认 `na.rpart`：删除响应变量`y`缺失的观测，但保留预测变量缺失的观测 |
+| `parms` | 分裂函数的可选参数 |
+| `control` | 控制算法细节的选项列表 |
+| `cost` | 每个变量的非负成本向量，默认全为1，用于调整变量被选为分裂变量的优先级 |
+
+
+#### 3.3.parms参数详解（分类树）
+
+
+对于分类树，`parms`可包含以下组件：
+
+
+-   **`prior`**：先验概率向量，须为正且总和为1，默认与数据计数成比例
+-   **`loss`**：损失矩阵，对角线为0，非对角线为正
+-   **`split`**：分裂指标，可选 `"gini"`（默认）或 `"information"`（信息增益）
+
+
+``` r
+rpart(Species ~ ., data = iris,
+      parms = list(prior = c(0.3, 0.3, 0.4), split = "information"))
+```
+
+
+------------------------------------------------------------------------
+
+
+#### 3.4.控制参数：`rpart.control()`
+
+
+通过`control`参数可以精细控制树的生长过程：
+
+
+``` r
+rpart.control(minsplit = 20, minbucket = round(minsplit/3),
+              cp = 0.01, maxcompete = 4, maxsurrogate = 5,
+              usesurrogate = 2, xval = 10,
+              surrogatestyle = 0, maxdepth = 30)
+```
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `minsplit` | 20 | 节点中最少观测数，小于此值不再尝试分裂 |
+| `minbucket` | `minsplit/3` | 任一叶子节点的最少观测数 |
+| `cp`（复杂度参数） | 0.01 | 分裂必须使整体不拟合度下降至少`cp`倍，否则不尝试。主要作用是节省计算时间 |
+| `maxdepth` | 30 | 树的最大深度（根节点为0） |
+| `xval` | 10 | 交叉验证折数 |
+| `maxcompete` | 4 | 保留的竞争分裂数量 |
+| `maxsurrogate` | 5 | 保留的代理分裂数量 |
+| `usesurrogate` | 2 | 如何处理缺失值：0=不用代理变量；1=按顺序使用代理变量；2=代理变量全缺失时送往多数方向 |
+
+
+------------------------------------------------------------------------
+
+
+### 4.完整使用示例
+
+
+``` r
+library(rpart)
+
+
+#分类树（以`iris`数据集为例）
+
+
+# 拟合分类树
+fit <- rpart(Species ~ ., data = iris, method = "class")
+
+
+# 查看模型摘要
+summary(fit)
+
+
+# 预测
+predict(fit, newdata = iris[1:5, ], type = "class")
+
+
+# 回归树（以`car.test.frame`数据集为例）
+
+
+# 拟合回归树
+z.auto <- rpart(Mileage ~ Weight, data = car.test.frame)
+summary(z.auto)
+
+
+# 自定义控制参数
+
+
+# 限制树深度、提高分裂门槛
+fit <- rpart(Kyphosis ~ Age + Number + Start, data = kyphosis,
+             control = rpart.control(cp = 0.05, maxdepth = 4))
+
+
+# 树的可视化
+
+
+# 基础绘图
+
+
+plot(fit)
+text(fit, use.n = TRUE)
+
+
+# 增强可视化（推荐`rpart.plot`包）
+
+
+library(rpart.plot)
+rpart.plot(fit)
+
+
+# rpart.plot`包提供更美观、信息更丰富的决策树可视化。
+```
+
+
+### 5.输出对象
+
+
+`rpart()`返回一个`rpart`类的对象，包含：
+
+
+-   **`frame`**：树的框架信息（每个节点的分裂变量、样本数、预测值等）
+-   **`where`**：每个观测所属的叶子节点编号
+-   **`cptable`**：复杂度参数表，用于选择合适的剪枝程度
+-   **`splits`**：分裂信息（含竞争分裂和代理分裂）
+
+
+可通过`summary()`、`print()`、`predict()`等泛型函数查看和操作。
+
+
+### 6.注意事项
+
+
+1.  **缺失值处理**：`rpart`通过**代理分裂（surrogate splits）** 优雅地处理预测变量缺失，这是它与早期`tree`函数的主要区别。`usesurrogate=2`是Breiman等人推荐的设置。
+
+
+2.  **过拟合控制**：通过`cp`参数进行预剪枝，或使用`printcp()`查看复杂度参数表后进行后剪枝（`prune()`函数）。
+
+
+3.  **变量重要性**：可通过`fit$variable.importance`查看各变量对模型的重要性。
+
+
+4.  **用户自定义分裂函数**：`method`参数可传入包含`init`、`split`和`eval`函数的列表，实现自定义分裂准则。
+
+
+## 二、Random Forest包
+
+
+### 1.概述
+
+
+`randomForest`包是R语言中实现**随机森林（Random Forest）** 算法的核心工具包。它基于Leo Breiman和Adele Cutler的原始Fortran代码实现，由Andy Liaw和Matthew Wiener移植到R语言。
+
+
+随机森林是一种强大的集成学习方法，通过构建大量决策树并集成其结果，显著提高模型的准确性和鲁棒性。
+
+
+### 2.核心功能
+
+
+`randomForest`包可构建以下类型的模型：
+
+
+| 模型类型       | 说明                           | 判定方式                    |
+|------------------------|------------------------|------------------------|
+| **分类森林**   | 响应变量为因子                 | `y`为`factor`类型时自动选择 |
+| **回归森林**   | 响应变量为连续数值             | `y`为数值型时自动选择       |
+| **无监督模式** | 仅使用预测变量，不提供响应变量 | `y`参数省略时进入该模式     |
+
+
+------------------------------------------------------------------------
+
+
+### 3.核心函数：`randomForest()`
+
+
+#### 3.1.两种调用方式
+
+
+``` r
+# 公式（Formula）接口
+randomForest(formula, data=NULL, ..., subset, na.action=na.fail)
+
+
+# 默认（Default）接口
+randomForest(x, y=NULL, xtest=NULL, ytest=NULL, ...)
+```
+
+
+#### 3.2.主要参数详解
+
+
+| 参数 | 说明 |
+|------------------------------------|------------------------------------|
+| `x` / `formula` | 预测变量，可为数据框、矩阵或公式 |
+| `y` | 响应向量。若为`factor`则执行分类，否则执行回归；若省略则进入无监督模式 |
+| `xtest` / `ytest` | 可选的测试集预测变量和响应变量 |
+| `ntree` | 树的数量，默认**500**。不宜过小，应确保每行数据都被预测若干次 |
+| `mtry` | **每棵树的每个节点随机采样的候选变量数**，最关键的超参数之一。分类默认`sqrt(p)`，回归默认`p/3`（p为变量总数） |
+| `replace` | 是否**有放回**抽样，默认`TRUE`（即Bootstrap抽样） |
+| `sampsize` | 每棵树抽取的样本量。若有放回则默认`nrow(x)`，无放回则默认`ceiling(0.632 * nrow(x))` |
+| `nodesize` | **终端节点（叶子）的最小样本量**。分类默认`1`，回归默认`5`。设得越大，树越小、训练越快 |
+| `maxnodes` | 每棵树的最大终端节点数。不指定则生长到最大可能 |
+| `importance` | 是否计算变量重要性，默认`FALSE` |
+| `localImp` | 是否计算每个样本的局部变量重要性，默认`FALSE` |
+| `proximity` | 是否计算样本间的**邻近矩阵**，默认`FALSE` |
+| `keep.forest` | 是否保留森林结构（用于后续预测），若有`y`且无`xtest`则默认`TRUE` |
+
+
+------------------------------------------------------------------------
+
+
+#### 3.3.分类模型特有参数
+
+
+| 参数 | 说明 |
+|------------------------------------|------------------------------------|
+| `classwt` | 类别的先验权重，不需要总和为1，回归中忽略 |
+| `cutoff` | 分类决策阈值。每个类别的默认值为`1/k`（k为类别数），即多数投票获胜 |
+| `strata` | 用于分层抽样的因子变量 |
+
+
+------------------------------------------------------------------------
+
+
+#### 3.4.模型输出与诊断
+
+
+`randomForest()`返回一个`randomForest`类的对象，包含以下主要组件：
+
+
+| 组件         | 说明                                         |
+|--------------|----------------------------------------------|
+| `type`       | 模型类型：`"classification"`或`"regression"` |
+| `ntree`      | 实际生长的树的数量                           |
+| `mtry`       | 每次分裂的候选变量数                         |
+| `votes`      | （分类）每棵树的投票结果                     |
+| `predicted`  | 训练集的预测值                               |
+| `err.rate`   | （分类）各类别及整体的袋外（OOB）错误率      |
+| `mse`        | （回归）袋外均方误差                         |
+| `rsq`        | （回归）袋外R²                               |
+| `importance` | 变量重要性矩阵（需设置`importance=TRUE`）    |
+| `proximity`  | 邻近矩阵（需设置`proximity=TRUE`）           |
+
+
+------------------------------------------------------------------------
+
+
+### 4.实用辅助函数
+
+
+| 函数            | 功能                                               |
+|-----------------|----------------------------------------------------|
+| `importance()`  | 提取变量重要性                                     |
+| `varImpPlot()`  | 绘制变量重要性图                                   |
+| `getTree()`     | 提取森林中某一棵树的结构                           |
+| `combine()`     | 合并多个随机森林模型                               |
+| `classCenter()` | 基于邻近矩阵计算各类别的**原型（prototype）** 样本 |
+| `MDSplot()`     | 基于邻近矩阵进行多维缩放（MDS）可视化              |
+| `rfcv()`        | 递归特征消除交叉验证，用于变量筛选                 |
+
+
+------------------------------------------------------------------------
+
+
+### 5.使用示例
+
+
+### 5.1.分类（以`iris`数据集为例）
+
+
+``` r
+library(randomForest)
+
+
+# 设置随机种子以确保结果可复现
+set.seed(71)
+
+
+# 训练随机森林分类模型
+iris.rf <- randomForest(Species ~ .,
+                        data = iris,
+                        importance = TRUE,
+                        proximity = TRUE)
+
+
+# 查看模型摘要
+print(iris.rf)
+# 输出：Type of random forest: classification
+#       Number of trees: 500
+#       No. of variables tried at each split: 2
+#       OOB estimate of error rate: 4%
+#       Confusion matrix: ...
+
+
+# 查看变量重要性
+importance(iris.rf)
+
+
+# 绘制变量重要性
+varImpPlot(iris.rf)
+
+
+# 预测新数据
+predict(iris.rf, newdata = iris[1:5, ])
+```
+
+
+### 5.2.回归示例
+
+
+``` r
+# 使用mtcars数据集进行回归
+set.seed(123)
+rf_reg <- randomForest(mpg ~ .,
+                       data = mtcars,
+                       ntree = 300,
+                       importance = TRUE)
+
+
+# 查看回归结果
+print(rf_reg)
+# 输出：Type of random forest: regression
+#       Number of trees: 300
+#       No. of variables tried at each split: 3
+#       Mean of squared residuals: ...
+#       % Var explained: ...
+```
+
+
+### 5.3.无监督模式
+
+
+``` r
+# 仅使用预测变量，不指定响应变量
+unsup.rf <- randomForest(iris[, -5],
+                         ntree = 100,
+                         proximity = TRUE)
+
+
+# 使用邻近矩阵进行聚类可视化
+MDSplot(unsup.rf, iris$Species)
+```
+
+
+------------------------------------------------------------------------
+
+
+### 6.注意事项与技巧
+
+
+1.  **随机种子**：随机森林具有随机性，建议使用`set.seed()`确保结果可复现。
+
+
+2.  **`mtry`调优**：`mtry`是最关键的超参数。可通过遍历不同值，选择OOB误差最小的`mtry`。
+
+
+3.  **`ntree`选择**：一般500棵已足够，可观察OOB误差随树数量增加是否收敛来判断。
+
+
+4.  **类别不平衡**：可通过`sampsize`进行分层抽样，或通过`classwt`和`cutoff`调整先验权重和决策阈值。
+
+
+5.  **缺失值处理**：`na.action`默认为`na.fail`（遇缺失值报错）。随机森林可通过`na.roughfix`或`rfImpute`函数处理缺失值。
+
+
+6.  **计算效率**：`nodesize`设大可以加速训练（树更小）；`maxnodes`也可控制树的大小。
+
+
+7.  **过拟合**：随机森林通常不易过拟合，增加`ntree`不会导致过拟合。
+
+
+## 三、ranger
+
+
+### 1.概述
+
+
+`ranger`是R语言中随机森林算法的一个**高速实现**包。其名称取自"**ran**dom fo**ger**erator"的缩写。与经典的`randomForest`包相比，`ranger`最突出的优势是**计算速度快**和**内存效率高**，尤其适合处理**高维数据**。
+
+
+`ranger`的核心由**C++** 编写，并通过`Rcpp`包与R语言对接，这使得它在处理大规模数据时性能远超许多同类包。该包由Marvin N. Wright和Andreas Ziegler开发，其方法论文章发表于《Journal of Statistical Software》。
+
+
+### 2.核心特点
+
+
+-   **速度快、内存效率高**：通过大量的运行时间和内存分析进行了优化。相较于`randomForest`，`ranger`通常要快数倍甚至更多。
+
+
+-   **支持高维数据**：特别适合处理变量数远超样本数的场景，如全基因组关联研究（GWAS）数据。
+
+
+-   **多线程支持**：默认使用2个线程，用户可指定使用的核心数。
+
+
+-   **多种森林类型**：支持分类、回归、生存分析、概率预测等多种森林。
+
+
+-   **多种输入格式**：除常规数据框外，还支持`matrix`、`dgCMatrix`（`Matrix`包）和`gwaa.data`（`GenABEL`包）等格式。
+
+
+### 3.主要功能
+
+
+`ranger`不仅实现了标准随机森林，还集成了多种扩展功能：
+
+
+| 功能 | 说明 |
+|------------------------------------|------------------------------------|
+| **标准随机森林** | 分类、回归、生存森林 |
+| **概率森林（Probability Forest）** | 输出每个类别的概率估计 |
+| **分位数回归森林** | 估计响应变量的条件分位数 |
+| **极随机树（Extremely Randomized Trees）** | 额外随机化分裂点选择 |
+| **病例特异性随机森林（CSRF）** | 针对特定测试样本构建加权森林 |
+| **变量重要性** | 支持杂质减少（impurity）和置换（permutation）等多种模式 |
+
+
+------------------------------------------------------------------------
+
+
+### 4.核心参数
+
+
+`ranger()`函数的主要参数如下：
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `num.trees` | 500 | 森林中树的数量 |
+| `mtry` | `sqrt(p)` | 每个节点随机采样的候选变量数 |
+| `min.node.size` | 分类1/回归5/生存3 | 节点可分裂的最小样本量 |
+| `max.depth` | 无限制 | 树的最大深度 |
+| `replace` | `TRUE` | 是否**有放回**抽样（Bootstrap） |
+| `sample.fraction` | 1（有放回）/ 0.632（无放回） | 每棵树抽取的样本比例 |
+| `importance` | `"none"` | 变量重要性计算模式 |
+| `probability` | `FALSE` | 是否生长概率森林（输出类别概率） |
+| `num.threads` | 2 | 使用的CPU线程数 |
+| `write.forest` | `TRUE` | 是否保存森林结构（用于预测） |
+
+
+树类型**自动由响应变量类型决定**：因子→分类，数值→回归，生存对象→生存分析。
+
+
+### 5.与`randomForest`的对比
+
+
+| 对比维度       | `randomForest` | `ranger`                        |
+|----------------|----------------|---------------------------------|
+| **速度**       | 较慢           | **显著更快**（通常快4-6倍以上） |
+| **高维数据**   | 未特别优化     | **专门优化**，支持GWAS数据      |
+| **生存分析**   | ❌ 不支持      | ✅ 支持随机生存森林             |
+| **分位数回归** | ❌ 不支持      | ✅ 支持                         |
+| **概率森林**   | ❌ 不支持      | ✅ 支持                         |
+| **多线程**     | 单线程         | ✅ 多线程支持                   |
+| **结果可比性** | 基准           | **高度可比**，结果非常接近      |
+
+
+需要注意的是，`ranger`的默认参数与`randomForest`略有不同（如`mtry`默认值），使用时需留意。
+
+
+### 6.使用示例
+
+
+``` r
+### 安装与加载
+
+
+install.packages("ranger")
+library(ranger)
+
+
+### 分类森林（以`iris`为例）
+
+
+# 训练分类森林
+rf <- ranger(Species ~ ., data = iris)
+
+
+# 查看模型摘要
+print(rf)
+# Type: Classification
+# Number of trees: 500
+# Sample size: 150
+# Number of independent variables: 4
+# Mtry: 2
+# OOB prediction error: 3.33%
+
+
+# 预测
+pred <- predict(rf, data = iris)
+table(pred$predictions, iris$Species)
+
+
+### 回归森林
+
+
+rf_reg <- ranger(mpg ~ ., data = mtcars)
+print(rf_reg)
+
+
+### 分位数回归森林
+
+
+rf_quant <- ranger(mpg ~ ., mtcars[1:26, ], quantreg = TRUE)
+pred_quant <- predict(rf_quant, mtcars[27:32, ],
+                      type = "quantiles",
+                      quantiles = c(0.1, 0.5, 0.9))
+pred_quant$predictions
+
+
+### 自定义参数
+
+
+rf_custom <- ranger(Species ~ .,
+                    data = iris,
+                    num.trees = 1000,
+                    mtry = 3,
+                    min.node.size = 5,
+                    max.depth = 10,
+                    importance = "impurity",
+                    num.threads = 4)
+
+
+### 变量重要性
+
+
+rf_imp <- ranger(Species ~ ., data = iris, importance = "impurity")
+rf_imp$variable.importance
+```
+
+
+### 7.注意事项
+
+
+-   **默认参数差异**：`ranger`的`mtry`默认为`sqrt(p)`（所有树类型），与`randomForest`的回归默认（`p/3`）不同。
+
+
+-   **内存管理**：若不需要预测，可将`write.forest = FALSE`以节省内存。
+
+
+-   **无序因子处理**：通过`respect.unordered.factors`参数控制，推荐使用`"order"`模式，计算快且支持无限级别。
+
+
+-   **缺失值处理**：`na.action`默认为`"na.learn"`，可在训练时处理缺失值。
+
+
+## 四、xgboost包
+
+
+### 1.概述
+
+
+`xgboost`（eXtreme Gradient Boosting）是R语言中实现**极限梯度提升**算法的核心包。它基于陈天奇等人2016年发表的论文《XGBoost: A Scalable Tree Boosting System》，是梯度提升框架（GBDT、GBM）的高效实现。
+
+
+`xgboost`的核心是一个**C++库**，为包括R在内的多种编程语言提供了接口。R包既提供了符合R语言习惯的高级接口（类似`glmnet`等包的设计），也提供了与底层核心库直接交互的低级接口。
+
+
+### 2.核心特点
+
+
+| 特点 | 说明 |
+|--------------------------|----------------------------------------------|
+| **高效快速** | 单机自动并行计算，速度可比现有梯度提升包**快10倍以上** |
+| **灵活可移植** | 同一代码可在Hadoop、SGE、MPI等主要分布式环境运行，可处理**十亿级以上样本**的问题 |
+| **丰富的目标函数** | 支持回归、分类、排序等多种学习任务 |
+| **可扩展性强** | 用户可自定义目标函数和评估指标 |
+| **内置正则化** | 通过L1/L2正则化有效控制过拟合 |
+| **缺失值自动处理** | 自动学习缺失值的最优分裂方向 |
+
+
+### 3.主要函数
+
+
+#### 3.1.高级接口：`xgboost()`
+
+
+这是面向最终用户的主要函数，用法与其他R统计建模包（如`glmnet`）类似：
+
+
+``` r
+xgboost(x, y, ...)
+```
+
+
+-   `x`：特征数据，支持`data.frame`、矩阵、`Matrix`包的稀疏矩阵
+-   `y`：响应变量，**无需手动编码**——分类问题传入`factor`，回归问题传入数值向量，生存分析传入`Surv`对象
+
+
+#### 3.2.低级接口：`xgb.train()`
+
+
+适合包开发者或需要更精细控制的用户，**更稳定、更少受破坏性变更影响**：
+
+
+``` r
+xgb.train(params, data, nrounds, ...)
+```
+
+
+#### 3.3.数据容器：`xgb.DMatrix()`
+
+
+XGBoost的高效数据存储格式，用于`xgb.train()`等低级接口：
+
+
+``` r
+dtrain <- xgb.DMatrix(data, label = y)
+```
+
+
+#### 3.4.辅助函数
+
+
+| 函数                    | 功能                          |
+|-------------------------|-------------------------------|
+| `predict()`             | 对新数据进行预测              |
+| `xgb.cv()`              | 交叉验证                      |
+| `xgb.params()`          | 生成参数列表，支持IDE自动补全 |
+| `xgb.importance()`      | 计算特征重要性                |
+| `xgb.plot.importance()` | 绘制特征重要性图              |
+
+
+------------------------------------------------------------------------
+
+
+### 4.核心参数
+
+
+XGBoost的参数分为**三大类**：
+
+
+#### 4.1. 通用参数（General Parameters）
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `booster` | `gbtree` | 基学习器类型：`gbtree`（树）、`gblinear`（线性）、`dart`（Dropouts meet Multiple Additive Regression Trees） |
+| `verbosity` | `1` | 打印消息详细程度：0=静默，1=警告，2=信息，3=调试 |
+| `nthread` | 最大可用线程数 | 并行计算使用的线程数 |
+
+
+#### 4.2. Booster参数（树模型常用）
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `learning_rate`（别名`eta`） | `0.3` | 学习率/步长收缩，范围\[0,1\]，越小越保守、越不易过拟合 |
+| `max_depth` | `6` | 树的最大深度，值越大模型越复杂、越易过拟合 |
+| `min_child_weight` | `1` | 子节点所需的最小实例权重（hessian）和，越大越保守 |
+| `gamma`（别名`min_split_loss`） | `0` | 分裂所需的最小损失减少量，越大越保守 |
+| `subsample` | `1` | 每棵树使用的训练样本比例，防止过拟合 |
+| `colsample_bytree` | `1` | 每棵树使用的特征比例 |
+| `lambda`（L2正则化） | `1` | 权重L2正则化项 |
+| `alpha`（L1正则化） | `0` | 权重L1正则化项 |
+
+
+> **R包参数命名提示**：R包中可用`.`（点）替换参数中的下划线，例如`max.depth`等效于`max_depth`。
+
+
+#### 4.3. 任务参数（Task Parameters）
+
+
+| 参数 | 说明 |
+|------------------------------------|------------------------------------|
+| `objective` | 目标函数，如`reg:squarederror`（回归）、`binary:logistic`（二分类）、`multi:softprob`（多分类） |
+| `eval_metric` | 评估指标，如`rmse`、`logloss`、`auc`等 |
+| `num_class` | 多分类时的类别数 |
+
+
+------------------------------------------------------------------------
+
+
+## 5.使用示例
+
+
+``` r
+### 二分类（以ToothGrowth为例）
+
+
+library(xgboost)
+
+
+data(ToothGrowth)
+y <- ToothGrowth$supp          # 因子型响应变量（二分类）
+x <- ToothGrowth[, c("len", "dose")]
+
+
+# 训练模型（自动识别为二分类任务）
+model <- xgboost(x, y, nthreads = 1, nrounds = 2)
+# 输出：
+# Objective: binary:logistic
+# Number of iterations: 2
+
+
+# 预测
+predict(model, x[1:6, ], type = "response")  # 概率
+predict(model, x[1:6, ], type = "class")     # 类别
+
+
+### 回归
+
+
+# 数值型y自动识别为回归任务
+y_reg <- mtcars$mpg
+x_reg <- as.matrix(mtcars[, -1])
+model_reg <- xgboost(x_reg, y_reg, nrounds = 100, learning_rate = 0.1)
+
+
+### 使用`xgb.train()`（低级接口）
+
+
+# 准备DMatrix
+dtrain <- xgb.DMatrix(data = x, label = y)
+
+
+# 设置参数
+params <- list(
+  objective = "binary:logistic",
+  learning_rate = 0.1,
+  max_depth = 6,
+  subsample = 0.8,
+  colsample_bytree = 0.8
+)
+
+
+# 训练
+model <- xgb.train(params = params, data = dtrain, nrounds = 100)
+
+
+### 交叉验证与早停
+
+
+cv_model <- xgb.cv(
+  params = params,
+  data = dtrain,
+  nrounds = 100,
+  nfold = 5,
+  early_stopping_rounds = 10,
+  verbose = 0
+)
+```
+
+
+## 6.高级功能
+
+
+| 功能 | 说明 |
+|------------------------------------|------------------------------------|
+| **自定义目标函数** | 用户可定义自己的目标函数和评估指标 |
+| **特征重要性** | 内置增益（Gain）、覆盖度（Cover）、频率（Frequency）等重要性指标 |
+| **单调约束** | 通过`monotone_constraints`参数强制特征与预测值之间的单调关系 |
+| **交互约束** | 通过`interaction_constraints`限制特征之间的交互 |
+| **类别特征** | 支持直接将`factor`列作为类别特征处理 |
+| **模型序列化** | 支持`saveRDS()`等R序列化器，也提供跨语言兼容的自有序列化方式 |
+
+
+## 7.与其他包的对比
+
+
+| 对比维度 | `xgboost` | `ranger` | `randomForest` |
+|------------------|------------------|------------------|------------------|
+| **算法** | 梯度提升（串行集成） | 随机森林（并行集成） | 随机森林（并行集成） |
+| **基学习器** | 树（默认较浅）、线性 | 树（较深） | 树（较深） |
+| **过拟合控制** | 学习率、正则化、早停 | 树数量、`mtry` | 树数量、`mtry` |
+| **缺失值处理** | 自动学习分裂方向 | 需预处理 | 需预处理 |
+| **训练速度** | 快（C++ + 并行） | 很快 | 较慢 |
+| **可解释性** | 特征重要性 | 特征重要性 | 特征重要性 |
+| **适用场景** | 表格数据、追求精度 | 高维数据、追求速度 | 基准模型 |
+
+
+## 五、lightgbm
+
+
+### 1.概述
+
+
+`lightgbm`（Light Gradient Boosting Machine）是R语言中实现**轻量级梯度提升机**算法的核心包。它基于Ke等人2017年发表于NIPS的论文《LightGBM: A Highly Efficient Gradient Boosting Decision Tree》，由微软团队开发并开源。
+
+
+LightGBM是**梯度提升决策树（GBDT）** 框架的高效实现，在**训练速度、内存占用和准确性**方面相比传统实现有显著提升。因其卓越性能，已被广泛应用于众多机器学习竞赛的获胜方案中。其核心为**C++库**，R包提供了与之交互的接口。
+
+
+### 2.核心特点
+
+
+| 特点 | 说明 |
+|------------------------------------|------------------------------------|
+| **训练速度极快** | 基于**直方图算法**（Histogram-based）和**单边梯度采样（GOSS）** 技术 |
+| **内存占用低** | 直方图算法将连续特征离散化为整数，大幅降低内存消耗 |
+| **Leaf-wise树生长** | 采用**按叶子生长**（best-first）策略，相比传统的按层生长（level-wise）能更快收敛 |
+| **原生支持类别特征** | 可直接处理`factor`类型特征，无需手动独热编码 |
+| **支持大规模数据** | 可处理**十亿级样本**和**高维特征** |
+| **并行与分布式学习** | 支持多线程并行及多机分布式训练 |
+| **内置正则化** | 通过`min_data_in_leaf`、`min_sum_hessian_in_leaf`、`lambda_l1`、`lambda_l2`等控制过拟合 |
+| **缺失值自动处理** | 自动学习缺失值的最优分裂方向 |
+| **早停机制** | 支持基于验证集表现的早停，防止过拟合并节省时间 |
+
+
+**Leaf-wise vs Level-wise**：传统GBDT（如XGBoost默认）按层生长，同一层所有节点分裂后再进入下一层。LightGBM按叶子生长，每次选择增益最大的叶子进行分裂，收敛更快，但可能长出较深的树，需通过`max_depth`限制。
+
+
+### 3.主要函数与接口
+
+
+`lightgbm` R包提供**两个训练函数**：
+
+
+| 函数 | 说明 | 适用场景 |
+|------------------------|------------------------|------------------------|
+| `lightgbm()` | 高级接口，数据可直接传入矩阵/数据框，无需手动创建`lgb.Dataset` | 快速建模、与R生态兼容 |
+| `lgb.train()` | 低级接口，更灵活、更高效，需要`lgb.Dataset`对象 | 追求性能、需要精细控制、稳定性优先 |
+
+
+**建议**：生产环境或对性能敏感的场景，推荐使用`lgb.train()`，其API变更较少。
+
+
+### 4.关键辅助函数
+
+
+| 函数                        | 功能                       |
+|-----------------------------|----------------------------|
+| `lgb.Dataset()`             | 创建LightGBM的高效数据容器 |
+| `predict()`                 | 对新数据进行预测           |
+| `lgb.cv()`                  | 交叉验证                   |
+| `lgb.save()` / `lgb.load()` | 模型保存与加载             |
+| `lgb.importance()`          | 计算特征重要性             |
+
+
+------------------------------------------------------------------------
+
+
+### 5.参数
+
+
+LightGBM的参数通过**列表**传入`params`参数。
+
+
+#### 5.1. 核心参数（Core Parameters）
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `objective` | 自动推断 | 目标函数：`regression`、`binary`、`multiclass`、`lambdarank`等 |
+| `boosting` | `gbdt` | 提升类型：`gbdt`（传统）、`dart`（Dropouts）、`goss`（单边梯度采样）、`rf`（随机森林） |
+| `num_leaves` | `31` | **单棵树的最大叶子数**，控制模型复杂度的核心参数 |
+| `max_depth` | `-1`（无限制） | 树的最大深度 |
+| `learning_rate`（别名`eta`、`shrinkage_rate`） | `0.1` | 学习率/步长收缩 |
+| `nrounds`（函数参数） | `100` | 提升轮数/树的数量 |
+
+
+#### 5.2. 过拟合控制参数
+
+
+| 参数 | 默认值 | 说明 |
+|------------------------|------------------------|------------------------|
+| `min_data_in_leaf` | `20` | 叶子节点最少样本数，越大越保守 |
+| `min_sum_hessian_in_leaf`（别名`min_child_weight`） | `1e-3` | 叶子节点最小Hessian和 |
+| `lambda_l1`（L1正则化） | `0.0` | L1正则化项 |
+| `lambda_l2`（L2正则化） | `0.0` | L2正则化项 |
+| `max_depth` | `-1` | 最大深度，限制树深 |
+| `bagging_fraction`（别名`subsample`） | `1.0` | 每轮迭代使用的样本比例 |
+| `bagging_freq` | `0` | bagging的频率，0表示禁用 |
+| `feature_fraction`（别名`colsample_bytree`） | `1.0` | 每棵树使用的特征比例 |
+
+
+#### 5.3. 类别特征处理
+
+
+| 参数                  | 说明                                         |
+|-----------------------|----------------------------------------------|
+| `categorical_feature` | 指定哪些列是类别特征，可传列名向量或索引向量 |
+
+
+------------------------------------------------------------------------
+
+
+### 6.使用示例
+
+
+``` r
+library(lightgbm)
+
+
+# 加载数据
+data(bank, package = "lightgbm")
+
+
+### 分类（以bank数据集为例）
+
+
+# 准备数据（二分类）
+y <- as.numeric(bank$y == "yes")
+X <- data.matrix(bank[, c("age", "balance")])
+
+
+# 方法1：使用高级接口 lightgbm()
+fit <- lightgbm(
+    data = X,
+    label = y,
+    params = list(
+        num_leaves = 4,
+        learning_rate = 1.0,
+        objective = "binary"
+    ),
+    nrounds = 10,
+    verbose = -1
+)
+
+
+# 预测（输出概率）
+pred <- predict(fit, X)
+
+
+### 使用lgb.train()（低级接口）
+
+
+# 创建Dataset
+dtrain <- lgb.Dataset(X, label = y)
+
+
+# 设置参数
+params <- list(
+    objective = "binary",
+    num_leaves = 4,
+    learning_rate = 1.0
+)
+
+
+# 训练
+fit <- lgb.train(
+    params = params,
+    data = dtrain,
+    nrounds = 10,
+    verbose = -1
+)
+
+
+### 回归（以`mtcars`为例）
+
+
+data(mtcars)
+X <- as.matrix(mtcars[, -1])
+y <- mtcars$mpg
+
+
+fit <- lightgbm(
+    data = X,
+    label = y,
+    params = list(
+        objective = "regression",
+        num_leaves = 8,
+        learning_rate = 0.1
+    ),
+    nrounds = 100
+)
+
+
+predict(fit, X[1:5, ])
+
+
+### 类别特征处理
+
+
+# 指定类别特征
+params <- list(
+    objective = "binary",
+    categorical_feature = c("gender", "education")  # 列名
+    # 或 categorical_feature = c(1, 3)  # 列索引
+)
+
+
+### 交叉验证与早停
+
+
+# 交叉验证
+cv_result <- lgb.cv(
+    params = params,
+    data = dtrain,
+    nrounds = 100,
+    nfold = 5,
+    early_stopping_rounds = 10,
+    verbose = -1
+)
+
+
+# 最佳迭代轮数
+best_iter <- cv_result$best_iter
+```
+
+
+### 7.与其他包的对比
+
+
+| 对比维度 | `lightgbm` | `xgboost` | `ranger` |
+|------------------|------------------|------------------|------------------|
+| **算法** | 梯度提升（Leaf-wise） | 梯度提升（Level-wise + Histogram） | 随机森林（Bagging） |
+| **训练速度** | **极快** | 快 | 快 |
+| **内存占用** | **最低** | 中等 | 中等 |
+| **类别特征** | ✅ **原生支持** | ❌ 需手动编码 | ❌ 需手动编码 |
+| **树生长方式** | Leaf-wise（按叶子） | Level-wise（按层） | Level-wise |
+| **缺失值处理** | 自动学习 | 自动学习 | 需预处理 |
+| **并行支持** | 多线程 + 分布式 | 多线程 + 分布式 | 多线程 |
+| **适用场景** | **大规模数据、追求速度** | 通用、追求精度 | 高维数据、解释性 |
+
+
+**LightGBM vs XGBoost 关键差异**
+
+
+-   **树生长策略**：LightGBM的leaf-wise策略收敛更快，但在小数据集上可能过拟合，需用`max_depth`或`num_leaves`限制。
+
+
+-   **直方图算法**：LightGBM默认使用直方图算法加速分裂；XGBoost也支持该选项（`tree_method='hist'`）。
+
+
+-   **类别特征**：LightGBM原生支持类别特征，XGBoost需要手动编码（如One-Hot或目标编码）。
+
+
+-   **速度与内存**：LightGBM在相同硬件上通常更快、内存占用更少，尤其在**大数据集**上优势明显。
+
+
+### 8.注意事项与技巧
+
+
+-   **`num_leaves`是关键超参数**：它是控制模型复杂度最重要的参数，通常应小于`2^(max_depth)`。
+
+
+-   **小数据集慎用leaf-wise**：在小数据集上，leaf-wise可能过拟合，建议配合`max_depth`限制或改用`xgboost`。
+
+
+-   **类别特征需显式声明**：LightGBM虽然支持类别特征，但必须通过`categorical_feature`参数明确指定。
+
+
+-   **早停与验证集**：使用`lgb.train()`时，通过`valids`参数传入验证集，并设置`early_stopping_rounds`可有效防止过拟合。
+
+
+-   **多线程设置**：可通过`num_threads`参数控制使用的CPU核心数。
+
+
+-   **模型序列化**：`serializable = TRUE`（默认）可使模型可通过`saveRDS()`保存。
+
+
+## 六、e1071包
+
+
+### 1.概述
+
+
+`e1071`是R语言中一个**历史悠久且功能丰富**的综合工具包。它最初由维也纳工业大学（TU Wien）统计系（其系号即为e1071）开发，因此得名。该包提供了许多在统计学和机器学习领域广泛应用的函数，尤其在**支持向量机（SVM）** 方面，是R中最常用和权威的实现之一。
+
+
+### 2.核心功能
+
+
+`e1071`包是一个“工具箱”，集成了多种功能：
+
+
+| 功能类别 | 具体函数/算法 | 说明 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **支持向量机** | `svm()` | **最核心的功能**，提供了libsvm库的R语言接口，支持分类、回归和异常检测 |
+| **分类与聚类** | `naiveBayes()` | 经典的**朴素贝叶斯**分类器 |
+|  | `gknn()` | **广义K近邻**算法 |
+|  | `cmeans()` | **模糊C均值**聚类 |
+|  | `bclust()` | **Bagged聚类**，通过Bootstrap抽样提升聚类稳定性 |
+| 模型评估与调优 | `tune()` | 一个通用的**网格搜索**框架，用于对模型进行超参数调优 |
+|  | `classAgreement()` | 计算分类结果的一致性指标 |
+| 统计与概率 | `skewness()`, `kurtosis()` | 计算数据的**偏度**和**峰度** |
+|  | `probplot()` | 生成**概率图**（Q-Q图的一种） |
+|  | `moment()` | 计算统计矩 |
+| 距离与路径 | `hamming.distance()` | 计算**汉明距离** |
+|  | `allShortestPaths()` | 使用Floyd算法寻找图中的**所有最短路径** |
+| 信号处理 | `stft()` | 进行**短时傅里叶变换** |
+|  | `hanning.window()` | 生成Hanning窗函数 |
+
+
+此外，它还包含一些实用工具，如`matchClasses()`用于匹配分类标签、`read.matrix.csr()`等用于读写稀疏矩阵。
+
+
+### 3.主要函数详解
+
+
+#### 3.1. 支持向量机：`svm()`
+
+
+这是`e1071`包最著名的函数，它是对**LIBSVM**库的R语言封装。
+
+
+-   **核心参数**：
+    -   `formula`或`x`, `y`：指定模型公式或自变量与因变量。
+    -   `data`：数据源。
+    -   `type`：指定SVM类型，如`C-classification`（分类）、`eps-regression`（回归）、`one-classification`（异常检测）。
+    -   `kernel`：核函数，常用选项有`linear`（线性）、`polynomial`（多项式）、`radial`（径向基/RBF，默认）、`sigmoid`。
+    -   `cost`：**惩罚参数**，控制对误分类的容忍度，是SVM最重要的调优参数之一。
+    -   `gamma`：RBF、多项式及sigmoid核的参数，决定单个训练样本的影响范围。
+-   **使用示例**（分类）：
+
+
+``` r
+library(e1071)
+# 使用鸢尾花数据集训练SVM分类器
+model <- svm(Species ~ ., data = iris, kernel = "radial", cost = 10, gamma = 0.1)
+# 查看模型摘要
+summary(model)
+# 进行预测
+pred <- predict(model, iris)
+# 查看混淆矩阵
+table(pred, iris$Species)
+```
+
+
+#### 3.2. 朴素贝叶斯：`naiveBayes()`
+
+
+一个简单但高效的分类器，基于贝叶斯定理并假设特征之间相互独立。
+
+
+-   **核心参数**：
+    -   `formula`或`x`, `y`：指定模型。
+    -   `data`：数据源。
+    -   `laplace`：拉普拉斯平滑参数，默认为0，用于处理零概率问题。
+-   **使用示例**：
+
+
+``` r
+library(e1071)
+# 训练朴素贝叶斯模型
+model <- naiveBayes(Species ~ ., data = iris)
+# 进行预测
+pred <- predict(model, iris)
+table(pred, iris$Species)
+```
+
+
+#### 3.3. 模型调优：`tune()`
+
+
+提供了一种简便的方法，通过**网格搜索**和**交叉验证**来寻找模型的最佳超参数。
+
+
+-   **核心参数**：
+    -   `method`：要调优的函数，如`svm`、`randomForest`等。
+    -   `train.x`和`train.y`：训练数据。
+    -   `ranges`：一个列表，指定各参数的取值范围内核。
+    -   `tunecontrol`：控制调优过程的参数，如交叉验证折数。
+-   **使用示例**（为SVM调参）：
+
+
+``` r
+library(e1071)
+# 为svm函数调优，寻找最佳的cost和gamma值
+tuned <- tune(svm, Species ~ ., data = iris,
+               ranges = list(cost = c(0.1, 1, 10), gamma = c(0.01, 0.1, 1)))
+# 查看调优结果
+summary(tuned)
+# 获取最佳模型
+best.model <- tuned$best.model
+```
+
+
+### 4.生态与依赖
+
+
+-   **依赖关系**：`e1071`主要依赖于R基础包（如`stats`、`graphics`）以及`class`和`proxy`包。它建议（Suggests）但不强制依赖`cluster`、`mlbench`、`randomForest`、`rpart`等包，以支持其`tune()`等功能。
+
+
+-   **应用领域**：由于其功能广泛，`e1071`在多个领域都有应用，并被收录在CRAN的**机器学习**、**聚类**、**心理测量学**等多个官方任务视图中。
+
+
+### 5.注意事项
+
+
+-   **SVM的预处理**：`svm()`函数默认会对数据进行**缩放（scale）**，这通常是必要的，可以防止数值范围大的变量主导模型。如果不需要，可以通过设置参数`scale = FALSE`来关闭。
+
+
+-   **调参的重要性**：SVM（`svm()`）的性能高度依赖于超参数（如`cost`和`gamma`）的选择。建议在实际应用中，务必使用`tune()`函数进行系统性的参数搜索，而不是使用默认值。
+
+
+-   **版本更新**：该包维护活跃，最近一次更新为**2025年12月18日**。使用时请确保安装最新版本以获得最佳性能和bug修复。
+
+
+## 七、h2o包
+
+
+## 1.概述
+
+
+`h2o`包是**H2O.ai**公司开发的开源机器学习平台`H2O`的**R语言接口**。它本身并非算法实现，而是一个**客户端**，通过**REST API**与后端H2O集群（一个Java进程）通信。这意味着所有计算都在H2O集群上分布式进行，R仅负责发送指令和接收结果。
+
+
+`h2o`包的主要优势在于其**可扩展性**和**分布式计算能力**，能够处理内存无法容纳的大规模数据集。
+
+
+## 2.核心特点
+
+
+| 特点 | 说明 |
+|------------------------------------|------------------------------------|
+| **分布式与可扩展** | 核心算法均支持**并行化与分布式**计算，可部署在单机、多核或集群上，处理**十亿级样本**和**高维特征** |
+| **内存高效** | 数据以压缩的列式格式存储于H2O集群的Java堆内存中 |
+| **REST API通信** | R包与H2O集群通过REST API交互，版本需严格匹配 |
+| **自动机器学习（AutoML）** | 内置`h2o.automl()`函数，可自动训练和调优多个模型，并返回**排行榜（leaderboard）** |
+| **模型可解释性（MOJO/POJO）** | 支持将模型导出为**纯Java代码（POJO）** 或**优化的Java对象（MOJO）**，便于部署到生产环境 |
+| **与`tidymodels`生态集成** | 通过`agua`包，可在`tidymodels`工作流中使用H2O算法 |
+
+
+## 3.主要功能与算法
+
+
+`h2o`包支持丰富的**监督学习**与**无监督学习**算法：
+
+
+### 3.1.监督学习算法
+
+
+| 算法类别 | 具体算法 | 对应函数 |
+|------------------------|------------------------|------------------------|
+| **广义线性模型（GLM）** | 线性回归、逻辑回归、多项回归等 | `h2o.glm()` |
+| **梯度提升机（GBM）** | 包括**XGBoost**的分布式实现 | `h2o.gbm()`、`h2o.xgboost()` |
+| **随机森林（RF）** | 分布式随机森林 | `h2o.randomForest()` |
+| **深度神经网络（DNN）** | 多层前馈神经网络 | `h2o.deeplearning()` |
+| **朴素贝叶斯** | — | `h2o.naiveBayes()` |
+| **广义加性模型（GAM）** | — | `h2o.gam()` |
+| **ANOVA GLM** | — | `h2o.anovaglm()` |
+| **Cox比例风险模型** | 生存分析 | `h2o.coxph()` |
+| **最大R GLM（maxrglm）** | — | `h2o.maxrglm()` |
+| **堆叠集成（Stacked Ensembles）** | 使用多种基模型构建元模型 | `h2o.stackedEnsemble()` |
+
+
+### 3.2.无监督学习算法
+
+
+| 算法                  | 对应函数         |
+|-----------------------|------------------|
+| **K-Means聚类**       | `h2o.kmeans()`   |
+| **主成分分析（PCA）** | `h2o.pca()`      |
+| **奇异值分解（SVD）** | `h2o.svd()`      |
+| **Word2Vec**          | `h2o.word2vec()` |
+
+
+### 3.3.自动机器学习
+
+
+-   **`h2o.automl()`**：自动运行多个算法及其超参数组合，返回性能最佳的模型排行榜。
+
+
+## 4.使用流程
+
+
+使用`h2o`包的标准工作流程如下：
+
+
+``` r
+### 1. 安装与加载
+
+
+install.packages("h2o")
+library(h2o)
+
+
+# 系统要求：需要Java 8至17环境。
+
+
+### 2. 初始化H2O集群
+
+
+# 启动本地H2O集群（默认地址 localhost:54321）
+h2o.init()
+
+
+# 连接远程集群
+h2o.init(ip = "192.168.1.100", port = 54321)
+
+
+# 首次调用`h2o.init()`会自动启动一个本地H2O实例。R会话结束时，集群不会自动关闭，需手动关闭。
+
+
+### 3. 数据导入与转换
+
+
+# 将R数据框转换为H2O数据对象（H2OFrame）
+data_hf <- as.h2o(iris)
+
+
+# 从CSV文件直接导入（分布式读取）
+data_hf <- h2o.importFile("path/to/large_data.csv")
+
+
+# 数据分割（类似caret::createDataPartition）
+splits <- h2o.splitFrame(data_hf, ratios = c(0.7, 0.15), seed = 123)
+train <- splits[[1]]
+valid <- splits[[2]]
+test  <- splits[[3]]
+
+
+### 4. 定义预测变量与响应变量
+
+
+y <- "Species"
+x <- setdiff(names(data_hf), y)
+
+
+### 5. 训练模型（以GBM为例）
+
+
+# 训练梯度提升机
+model <- h2o.gbm(
+    x = x,
+    y = y,
+    training_frame = train,
+    validation_frame = valid,
+    ntrees = 100,
+    max_depth = 5,
+    learn_rate = 0.1
+)
+
+
+### 6. 模型评估与预测
+
+
+# 在测试集上评估性能
+performance <- h2o.performance(model, newdata = test)
+print(performance)
+
+
+# 预测
+predictions <- h2o.predict(model, newdata = test)
+
+
+# 将H2O对象转换回R数据框
+predictions_df <- as.data.frame(predictions)
+
+
+### 7. 自动机器学习（AutoML）
+
+
+# 自动训练多个模型
+aml <- h2o.automl(
+    x = x,
+    y = y,
+    training_frame = train,
+    validation_frame = valid,
+    max_runtime_secs = 60,  # 运行时间限制
+    max_models = 20         # 或限制模型数量
+)
+
+
+# 查看排行榜
+aml@leaderboard
+
+
+# 获取最佳模型
+best_model <- aml@leader
+
+
+### 8. 关闭H2O集群
+
+
+h2o.cluster()
+h2o.shutdown(prompt = FALSE)
+```
+
+
+## 5.与其他包的对比
+
+
+| 对比维度 | `h2o` | `ranger` / `randomForest` | `xgboost` / `lightgbm` | `caret` / `tidymodels` |
+|---------------|---------------|---------------|---------------|---------------|
+| **计算模式** | 客户端-服务器（分布式） | 本地内存 | 本地内存 | 本地内存 |
+| **数据处理能力** | **十亿级样本** | 内存受限 | 内存受限 | 内存受限 |
+| **速度** | **快（分布式）** | 较快 | 快 | 中等 |
+| **算法多样性** | **非常丰富** | 中等（树模型） | 中等（提升树） | **最丰富**（\>200个引擎） |
+| **AutoML** | ✅ 内置 | ❌ | ❌ | 需借助`autoML`等扩展 |
+| **模型部署** | POJO/MOJO导出 | 需`predict`函数 | 需原生格式 | 需`bundle`等 |
+| **学习曲线** | **较低** | 低 | 中高 | 中等 |
+| **开发活跃度** | ✅ 活跃 | ✅ 活跃 | ✅ 活跃 | ✅ 活跃 |
+
+
+## 八、tidymodels**包生态**
+
+
+### 1.概述
+
+
+`tidymodels` 不是一个单一的R包，而是一个**用于建模和机器学习的R包生态系统**。它是一个 **“元包”（meta-package）** ，其设计哲学、语法和数据结构与广为人知的 `tidyverse` 一脉相承。
+
+
+`tidymodels` 项目的目标是为R中的统计和机器学习建模提供一个**统一、规范且高效**的框架。你可以将它看作是R语言中 `scikit-learn` 在Python中的对应物。
+
+
+### 2.核心设计理念
+
+
+1.  **一致性**：无论是线性回归还是随机森林，整个工作流程（数据划分、预处理、建模、评估）都使用统一、可预测的函数和语法。
+2.  **模块化**：每个核心功能都由专门的包负责，例如，`rsample`负责数据拆分，`recipes`负责特征工程，`parsnip`负责统一模型接口。这种设计使得代码更清晰、更易于维护和扩展。
+3.  **整洁数据（Tidy Data）原则**：所有函数的输入和输出都尽量设计为整洁的数据框（`tibble`）格式，方便与 `tidyverse` 系列包（如 `dplyr`、`ggplot2`）无缝衔接。
+
+
+### 3.核心包详解
+
+
+当你运行 `library(tidymodels)` 时，它会自动加载一组核心包。这些包构成了建模工作流的基础工具。
+
+
+| 包名 | 功能 | 核心作用 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **`rsample`** | **数据拆分与重抽样** | 提供将数据划分为训练集、测试集的方法，以及交叉验证、自助法（Bootstrap）等重抽样工具，用于模型的可靠评估。 |
+| **`recipes`** | **数据预处理与特征工程** | 提供了一个现代、管道式（pipeable）的API来构建预处理步骤。可以一站式完成缺失值插补、变量编码、特征缩放、创建交互项等任务。 |
+| **`parsnip`** | **统一的模型接口** | 这是 `tidymodels` 的核心。它让你用一套统一的语法（如 `linear_reg()`、`rand_forest()`）来定义模型，而无需记忆不同R包（如 `rpart`、`randomForest`、`e1071`）的具体函数名和参数，模型的具体实现由“引擎”（engine）参数指定。 |
+| **`workflows`** | **工作流编排** | 将“数据预处理（`recipes`）”和“模型定义（`parsnip`）”绑定成一个整体对象。这确保了在训练、预测或调参时，所有步骤都按正确顺序自动执行。 |
+| **`tune`** | **超参数调优** | 提供系统性的方法来调整模型和预处理步骤中的超参数（如随机森林的 `mtry` 或 `trees`）。 |
+| **`yardstick`** | **模型性能评估** | 提供了一套全面的、易于使用的指标来计算模型性能，如分类问题的 `accuracy`、`roc_auc`，回归问题的 `rmse`、`rsq` 等。 |
+| **`broom`** | **结果整理** | 将R中许多统计函数（如 `lm()`、`t.test()`）混乱的输出结果，整理成整洁、结构化的 `tibble` 数据框。 |
+| **`dials`** | **调参参数管理** | 用于创建和管理调参时所需的参数集和参数网格，与 `tune` 包协同工作。 |
+
+
+## 4.典型 `tidymodels` 工作流
+
+
+与 `caret` 的单一函数 `train()` 不同，`tidymodels` 鼓励通过**组合**不同的核心包来构建一个清晰、可复现的建模流水线。
+
+
+#### 4.1.**数据拆分 (`rsample`)**:
+
+
+``` r
+library(tidymodels)
+data("mtcars")
+set.seed(123)
+# 将数据拆分为训练集 (75%) 和测试集 (25%)
+car_split <- initial_split(mtcars, prop = 0.75, strata = mpg)
+car_train <- training(car_split)
+car_test  <- testing(car_split)
+```
+
+
+#### 4.2.**特征工程 (`recipes`)**:
+
+
+``` r
+# 定义一个预处理配方：将所有预测变量标准化
+car_recipe <- recipe(mpg ~ ., data = car_train) %>%
+    step_normalize(all_predictors())
+```
+
+
+#### 4.3.**模型定义 (`parsnip`)**:
+
+
+``` r
+# 指定一个随机森林模型，并设置其引擎为 'ranger'
+rf_model <- rand_forest(mtry = 5, trees = 500) %>%
+    set_engine("ranger") %>%
+    set_mode("regression")
+```
+
+
+#### 4.4.**创建工作流 (`workflows`)**:
+
+
+``` r
+# 将预处理和模型绑定在一起
+rf_workflow <- workflow() %>%
+    add_recipe(car_recipe) %>%
+    add_model(rf_model)
+```
+
+
+#### 4.5.**训练模型 (`fit`)**:
+
+
+``` r
+# 在工作流上调用 fit()，它会自动按顺序执行预处理和模型训练
+rf_fit <- rf_workflow %>% fit(data = car_train)
+```
+
+
+#### 4.6.**评估模型 (`yardstick`)**:
+
+
+``` r
+# 对测试集进行预测
+predictions <- rf_fit %>% predict(car_test)
+# 将预测值与真实值绑定，并计算RMSE
+car_results <- car_test %>%
+    select(mpg) %>%
+    bind_cols(predictions)
+car_results %>% rmse(truth = mpg, estimate = .pred)
+```
+
+
+### 5.丰富的生态系统
+
+
+除了核心包，`tidymodels` 生态系统还包含大量**专门包**，用于处理特定任务：
+
+
+-   **预处理扩展**: `textrecipes` (处理文本数据), `embed` (处理高维分类变量), `themis` (处理类别不平衡数据)。
+-   **模型扩展**: `bonsai` (提供LightGBM等树模型引擎), `discrim` (判别分析模型), `censored` (生存分析模型)。
+-   **后处理**: `probably` (用于调整分类阈值)。
+-   **与其他框架集成**: `agua` 包提供了与 `h2o` 的接口。
+
+
+## 九、mlr3
+
+
+`mlr3`是R语言中一个现代、面向对象且高效的机器学习框架。它是经典`mlr`包的重写版本，旨在提供一个统一、可扩展且高效的机器学习工作平台。
+
+
+`mlr3`本身是一个**基础包**，提供了机器学习最核心的“乐高积木”。其强大的功能通过一个庞大的**扩展包生态系统**来实现，你可以根据需要灵活组装。
+
+
+### 1.核心设计理念
+
+
+-   **面向对象**：基于`R6`类构建，所有核心组件（如任务、学习器）都是可交互、可修改的R6对象。
+-   **统一接口**：为数据预处理、模型训练、评估等提供一致的语法，降低了在不同算法间切换的学习成本。
+-   **模块化与可扩展**：采用“乐高”式设计，核心简洁，功能通过扩展包按需添加，且支持自定义组件。
+-   **高性能与可扩展性**：原生支持并行计算，并支持数据库等“out-of-memory”数据后端，能处理超大数据集。
+
+
+### 2.核心组件
+
+
+-   **`Task`（任务）**：封装了数据和要解决的问题（如分类、回归），是分析的起点。
+-   **`Learner`（学习器）**：代表一个机器学习算法，如决策树、随机森林等。
+-   **`Resampling`（重抽样）**：定义如何划分数据，如交叉验证、自助法，用于模型评估。
+-   **`Measure`（度量）**：定义模型性能的评估指标，如准确率、均方误差（MSE）。
+-   **`Benchmark`（基准测试）**：提供统一框架，用于在不同任务上比较多个学习器的性能。
+
+
+### 3.丰富的扩展生态系统
+
+
+`mlr3`的强大之处在于其生态系统。以下是一些核心扩展包：
+
+
+#### 3.1.核心增强
+
+
+-   **`mlr3verse`**：元包，一键安装和加载最重要的扩展包。
+-   **`mlr3pipelines`**：创建复杂的机器学习流水线（PipeOps），组合预处理、建模等步骤。
+
+
+#### 3.2.学习器（算法）
+
+
+-   **`mlr3learners`**：官方维护的**核心算法**集合。
+-   **`mlr3extralearners`**：社区贡献的**更多算法**。
+-   **`mlr3torch`**：基于`torch`的**深度学习**支持。
+
+
+#### 3.3.调参与优化
+
+
+-   **`mlr3tuning`**：超参数调优。
+-   **`mlr3hyperband`**、**`mlr3mbo`**：先进的调参策略。
+-   **`mlr3automl`**：自动化机器学习。
+
+
+#### 3.4.特殊任务与数据类型
+
+
+-   **`mlr3proba`**：**生存分析**与概率预测。
+-   **`mlr3cluster`**：**聚类**分析。
+-   **`mlr3spatiotempcv`**：**时空**数据重抽样。
+-   **`mlr3fda`**：**函数型**数据分析。
+
+
+#### 3.5.数据与可视化
+
+
+-   **`mlr3data`**、**`mlr3oml`**：提供玩具数据集及从OpenML下载数据。
+-   **`mlr3viz`**：任务、学习器等对象的可视化。
+
+
+### 4.基本工作流程
+
+
+一个典型的 `mlr3` 工作流通常遵循 **任务 (Task) -\> 学习器 (Learner) -\> 重抽样 (Resampling) -\> 评估 (Evaluation)** 的模式。后文提供一个从基础到进阶的完整案例，展示如何用 `mlr3` 解决一个分类问题。
+
+
+#### 4.1. 案例1：训练与评估一个模型
+
+
+以经典的 `iris`（鸢尾花）数据集为例，训练一个决策树模型，并用交叉验证评估其性能。
+
+
+``` r
+# 安装 mlr3verse，它会自动安装 mlr3, mlr3learners, mlr3tuning 等核心包
+# install.packages("mlr3verse")
+
+
+# 加载 mlr3verse
+library(mlr3verse)
+
+
+# 1. 创建任务 (Task)
+
+
+# tsk() 函数用于加载 mlr3 内置的数据集，并封装为一个分类任务。
+# 从 mlr3 的内置任务字典中加载鸢尾花数据集。
+task = tsk("iris")
+print(task)
+# > <TaskClassif:iris> (153 x 5)
+
+
+# 2. 选择学习器 (Learner)
+
+
+# lrn() 函数用于创建一个学习器对象。
+# "classif.rpart" 表示用于分类的决策树
+# 从学习器字典中选择一个分类决策树。
+# predict_type = "prob" 可输出概率
+learner = lrn("classif.rpart", predict_type = "prob")
+
+
+# 3. 定义重抽样策略 (Resampling)
+
+
+# rsmp() 函数定义重抽样方法。"cv" 代表交叉验证，folds = 5 表示5折
+resampling = rsmp("cv", folds = 5)
+
+
+# 4. 执行重抽样评估 (Resample)
+
+
+# resample() 函数会将前面定义的 task, learner, resampling 组合起来执行评估
+# 执行重抽样，它会自动进行5次训练和预测。
+rr = resample(task, learner, resampling)
+
+
+# 5. 查看评估结果
+# 计算所有折叠的平均分类准确率
+measure = msr("classif.acc") # msr() 用于选择评估指标
+
+
+# 从重抽样结果对象 rr 中汇总（平均）出准确率这一指标。
+rr$aggregate(measure)
+#> classif.acc
+#>        0.94
+```
+
+
+#### 4.2. 案例2：基准测试 (Benchmarking) 比较多个模型
+
+
+`mlr3` 的 `benchmark()` 函数提供了一个统一的框架，可以公平地比较多个学习器在同一个任务上的表现。
+
+
+``` r
+# 1. 准备多个学习器
+
+
+learners = list(
+  lrn("classif.rpart", id = "CART"),              # 决策树，并赋予ID
+  lrn("classif.ranger", id = "RandomForest")      # 随机森林
+)
+
+
+# 2. 创建基准测试设计 (Benchmark Design)
+# 定义要比较的实验组合：一个任务，两个学习器，一种重抽样方法
+
+
+design = benchmark_grid(
+  tasks = task,          # 任务
+  learners = learners,   # 学习器列表
+  resamplings = resampling # 重抽样策略
+)
+
+
+# 3. 执行基准测试
+# 接收这个设计并执行所有实验。
+bmr = benchmark(design)
+
+
+# 4. 查看和比较结果
+# 汇总所有学习器的平均性能
+# 可以方便地汇总和对比不同模型的性能指标。
+bmr$aggregate(msrs(c("classif.acc", "classif.auc"))) # 同时计算准确率和AUC
+#>    nr   task_id      learner_id resampling_id iters classif.acc classif.auc
+#> 1:  1     iris           CART            cv     5       0.9400      0.9736
+#> 2:  2     iris RandomForest            cv     5       0.9533      0.9936
+```
+
+
+#### 4.3. 案例3：超参数调优 (Hyperparameter Tuning)
+
+
+使用 `mlr3tuning` 包，可以自动搜索模型的最佳超参数。
+
+
+``` r
+# 加载调优相关的包 (如果之前加载了 mlr3verse，则已包含)
+# library(mlr3tuning)
+
+
+# 1. 定义需要调优的学习器，并设置超参数搜索空间
+# 我们对随机森林的 mtry 和 num.trees 进行调优
+# to_tune()：标记哪些超参数需要被优化，并指定其搜索范围。
+learner_tuned = lrn(
+  "classif.ranger",
+  predict_type = "prob",
+  # to_tune() 函数定义了超参数的搜索范围
+  mtry = to_tune(lower = 1, upper = 4),     # 整数，范围1到4
+  num.trees = to_tune(lower = 100, upper = 500) # 整数，范围100到500
+)
+
+
+# 2. 创建调优实例 (Tuning Instance)
+# 定义调优的目标：使用3折交叉验证，优化分类误差（classif.ce），并设置随机搜索终止条件.
+# tune()：执行超参数调优过程。
+instance = tune(
+  method = "random_search", # 调优方法
+  task = task,
+  learner = learner_tuned,
+  resampling = rsmp("cv", folds = 3),
+  measures = msr("classif.ce"),
+  term_evals = 10 # 终止条件：尝试10组超参数组合
+)
+
+
+# 3. 查看调优结果
+# 打印出最佳性能对应的超参数组合
+# instance$result：存储了调优过程中找到的最佳超参数配置及其对应的性能。
+print(instance$result)
+#>    mtry num.trees learner_param_vals  classif.ce
+#> 1:    2       348           <list[2]> 0.04666667
+
+
+# 4. 将调优后的学习器应用于全数据并评估
+# 从调优结果中提取最佳超参数配置的学习器
+# 可以直接用于后续的预测或评估。
+learner_optimized = instance$result_learner
+
+
+# 使用5折交叉验证评估这个优化后的学习器
+rr_optimized = resample(task, learner_optimized, rsmp("cv", folds = 5))
+rr_optimized$aggregate(msr("classif.acc"))
+#> classif.acc
+#>        0.96
+```
+
+
+总之，`mlr3`不仅仅是一个R包，它是一个**完整、现代且高度模块化的机器学习框架**。无论是初学者还是专家，都能通过它高效、规范地完成从数据预处理到模型部署的整个机器学习流程。其强大的扩展性确保了它能跟上机器学习领域的最新发展。
