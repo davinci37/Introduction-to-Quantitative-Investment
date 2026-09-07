@@ -1524,7 +1524,7 @@ h2o.shutdown(prompt = FALSE)
 | **`dials`** | **调参参数管理** | 用于创建和管理调参时所需的参数集和参数网格，与 `tune` 包协同工作。 |
 
 
-## 4.典型 `tidymodels` 工作流
+### 4.典型 `tidymodels` 工作流
 
 
 与 `caret` 的单一函数 `train()` 不同，`tidymodels` 鼓励通过**组合**不同的核心包来构建一个清晰、可复现的建模流水线。
