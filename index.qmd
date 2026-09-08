@@ -34,9 +34,9 @@ https://github.com/davinci37/Introduction-to-Quantitative-Investment/
 
 在遵守以下条件的前提下，您被允许： 
 
-- 复制、发行本作品
+- 复制、发行本作品。
 
-- 修改、转换或以本作品为基础进行创作
+- 修改、转换或以本作品为基础进行创作。
 
 请您遵守：
 
