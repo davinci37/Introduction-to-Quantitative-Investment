@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>第1章 基础知识 第4节 策略研发 – 量化投资导论</title>
+<title>r-第8节-torch-for-r – 量化投资导论</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./第1章 基础知识 第6节 统计方法和模型.html" rel="next">
-<link href="./第1章 基础知识 第3节 两个范式.html" rel="prev">
+<link href="./第16章 R 第7节 机器学习.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -79,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating quarto-light">
+<body class="nav-sidebar floating fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第1章 基础知识 第4节 策略研发.html">第1章 基础知识 第4节 策略研发</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第8节 torch for R.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第8节 torch for R.html</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -151,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link active">
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
   </div>
 </li>
@@ -277,7 +276,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第8节 torch for R.html</span></span></a>
   </div>
 </li>
@@ -286,200 +285,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
-  <li><a href="#第一阶段策略开发" id="toc-第一阶段策略开发" class="nav-link" data-scroll-target="#第一阶段策略开发">第一阶段：策略开发</a>
-  <ul class="collapse">
-  <li><a href="#第一步投资理念与策略目标定义" id="toc-第一步投资理念与策略目标定义" class="nav-link" data-scroll-target="#第一步投资理念与策略目标定义">第一步：投资理念与策略目标定义</a></li>
-  <li><a href="#第二步数据获取与预处理" id="toc-第二步数据获取与预处理" class="nav-link" data-scroll-target="#第二步数据获取与预处理">第二步：数据获取与预处理</a></li>
-  <li><a href="#第三步因子挖掘与特征工程" id="toc-第三步因子挖掘与特征工程" class="nav-link" data-scroll-target="#第三步因子挖掘与特征工程">第三步：因子挖掘与特征工程</a></li>
-  <li><a href="#第四步模型选择与训练" id="toc-第四步模型选择与训练" class="nav-link" data-scroll-target="#第四步模型选择与训练">第四步：模型选择与训练</a></li>
-  <li><a href="#第五步策略回测与验证" id="toc-第五步策略回测与验证" class="nav-link" data-scroll-target="#第五步策略回测与验证">第五步：策略回测与验证</a></li>
-  <li><a href="#第六步模型解释与归因分析" id="toc-第六步模型解释与归因分析" class="nav-link" data-scroll-target="#第六步模型解释与归因分析">第六步：模型解释与归因分析</a></li>
-  </ul></li>
-  <li><a href="#第二阶段策略实盘部署与迭代" id="toc-第二阶段策略实盘部署与迭代" class="nav-link" data-scroll-target="#第二阶段策略实盘部署与迭代">第二阶段：策略实盘部署与迭代</a>
-  <ul class="collapse">
-  <li><a href="#第七步策略部署与实盘交易" id="toc-第七步策略部署与实盘交易" class="nav-link" data-scroll-target="#第七步策略部署与实盘交易">第七步：策略部署与实盘交易</a></li>
-  <li><a href="#第八步实盘监控与策略迭代" id="toc-第八步实盘监控与策略迭代" class="nav-link" data-scroll-target="#第八步实盘监控与策略迭代">第八步：实盘监控与策略迭代</a></li>
-  </ul></li>
-  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">总结</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">第1章 基础知识 第4节 策略研发</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
 
-
-<section id="引言" class="level2">
-<h2 class="anchored" data-anchor-id="引言">引言</h2>
-<p>前文中，我们系统梳理了量化投资的两大理论范式，并辅以两个基础性的策略案例进行了具体说明。需要说明的是，上述案例在因子挖掘、模型构建以及风险管理等方面都非常简单，甚至简陋，仅用于演示框架和诠释思想。从本节开始，我们将正式进入实践层面。本节中，我们为读者详尽阐述一个专业的量化投资策略研发所遵循的标准流程，及其关键环节和核心要点。</p>
-<p>量化投资是一种以数学、统计学和计算机技术为基础，通过对海量历史与实时数据的分析，构建投资模型，并以自动化、系统化的方式进行投资决策和交易的方法。其核心在于数据驱动和模型驱动，强调用规则和算法替代主观判断，强调纪律性和客观性，强调定量的投资决策和风险管理，追求投资决策的理性和效率。</p>
-<p>量化投资策略研发始于一个明确的问题，通过数据收集、特征工程和模型训练，寻找规律，并最终要求严格的验证和可解释性才能付诸实践。从一个从投资理念到实盘交易的完整开发周期，通常遵循以下八个关键步骤。</p>
-</section>
-<section id="第一阶段策略开发" class="level2">
-<h2 class="anchored" data-anchor-id="第一阶段策略开发">第一阶段：策略开发</h2>
-<p>这一阶段的核心目标是从一个模糊的投资策略想法出发，通过数据和算法，构建一个历史数据回测表现良好、具备一定稳定性的量化策略原型。</p>
-<section id="第一步投资理念与策略目标定义" class="level3">
-<h3 class="anchored" data-anchor-id="第一步投资理念与策略目标定义">第一步：投资理念与策略目标定义</h3>
-<p>提出基于市场规律或统计现象的投资想法，是量化投资的起点。策略构思通常来源于对市场的深刻洞察、统计分析或经济理论。这是整个量化策略开发的基石，决定了策略的方向、潜在盈利能力和风险来源。明确市场机会与投资理念，首先需要识别并定义一个具体的市场机会或可量化的投资逻辑。这通常源于对市场无效性、统计套利机会、行为金融学偏差或宏观经济理论的洞察。例如：“利用小市值股票在财报发布后的动量效应进行套利”，或者“预测特定行业指数未来一周的波动率”。这个理念必须是清晰、可被量化。具体包括以下几点：</p>
-<ul>
-<li><p><strong>明确策略对象：</strong>选股、择时、风格、行业、或资产配置？</p></li>
-<li><p><strong>定义策略范式：</strong>是截面范式还是时间序列范式。</p></li>
-<li><p><strong>划定策略适用的资产范围：</strong>定义清晰的纳入和排除标准。例如：“沪深300指数成分股中，剔除ST股、上市不足一年的次新股、以及日均交易额低于1亿元的股票”。</p></li>
-<li><p><strong>定义预测目标：</strong>明确模型需要预测的具体目标，包括： 收益预测（回归问题）：预测未来一段时间的收益率或波动率。 方向预测（分类问题）：预测某资产在未来N个交易日是上涨下跌二分类，或是上涨、下跌、横盘多分类。 状态划分（分类问题）：识别当前市场处于“牛市”、“熊市”或“震荡市”等状态。</p></li>
-<li><p><strong>确定时间窗口与交易频率：</strong>明确策略的持仓周期和交易频率。例如： 预测时间点：基于每个交易日开盘前的数据进行预测。 预测时间周期：预测未来1小时（日内/隔夜策略），预测未来1天（日度策略）、5天（周度策略）或20天（月度策略）的表现。这直接决定了策略的性质，是高频、中频还是低频策略。</p></li>
-</ul>
-</section>
-<section id="第二步数据获取与预处理" class="level3">
-<h3 class="anchored" data-anchor-id="第二步数据获取与预处理">第二步：数据获取与预处理</h3>
-<p>获取、清洗和整理所需数据。数据的完整性和准确性直接影响后续模型开发的质量。数据处理包括去噪、填补缺失值、标准化等步骤。</p>
-<ul>
-<li><p><strong>主要的数据包括：</strong> 市场行情数据：内容最为丰富，包括股票、债券、商品等不同品种的，现货、期货、期权等各类市场的，价格（开、高、低、收）、成交量、成交额等数据。 基本面数据：上市公司的财务报表（利润表、资产负债表、现金流量表，财务报表附注，和审计报告等）。 分析师预期数据：分析师盈利预测、分析师评级调整等。 宏观经济：统计局、央行、以及一些民间机构定期发布的宏观经济数据。 另类数据：新闻等。</p></li>
-<li><p><strong>数据预处理：</strong>金融数据具有低信噪比的特点。预处理尤为关键。主要包括以下几方面内容： 数据清洗与对齐：处理数据错误、重复值，并根据时间戳将不同来源的数据（如日频财务数据和分钟级行情数据）进行对齐。 缺失值处理：对于股票截面数据，常使用行业均值或基于模型的插值法进行填充。金融时间序列数据，简单的均值/中位数填充可能引入偏差。更常用的方法是前向填充或后向填充。 异常值处理：识别并处理由“胖尾事件”或数据错误导致的极端值。可采用统计方法（如MAD法）或基于领域知识（如涨跌停限制）进行识别，并使用缩尾法进行处理。 数据标准化/归一化：对连续型数据进行去量纲化处理（如Z-score标准化），使得不同尺度的因子具有可比性。</p></li>
-</ul>
-</section>
-<section id="第三步因子挖掘与特征工程" class="level3">
-<h3 class="anchored" data-anchor-id="第三步因子挖掘与特征工程">第三步：因子挖掘与特征工程</h3>
-<p>此步骤是将原始数据转化为能够有效预测目标变量的“因子”，又称“特征。此步骤是量化策略创造超额收益Alpha的核心环节。对于机器学习模型而言也是建模成功的关键。</p>
-<section id="因子构建" class="level4">
-<h4 class="anchored" data-anchor-id="因子构建">1.因子构建</h4>
-<p>常见的因子构建包括以下几类：</p>
-<ul>
-<li><p>技术指标衍生：根据行情数据计算各类技术分析指标，如移动平均线（SMA）、相对强弱指数（RSI）、MACD等。</p></li>
-<li><p>基本面因子衍生：从财报数据中计算财务比率，如市盈率（PE）、市净率（PB）、净资产收益率（ROE）等。</p></li>
-<li><p>数据变换：对偏态分布的因子进行对数变换；通过差分处理非平稳时间序列；创建多项式或交叉项特征以捕捉非线性关系。</p></li>
-<li><p>另类数据特征化：使用自然语言处理（NLP）技术从新闻公告中提取情感得分、关键词频率等。</p></li>
-</ul>
-</section>
-<section id="因子筛选" class="level4">
-<h4 class="anchored" data-anchor-id="因子筛选">2.因子筛选</h4>
-<p>在高维度的因子库中筛选出最有效且冗余度低的因子组合，以防止模型过拟合，并提升模型稳定性和可解释性。常用的因子选择方法包括以下几类：</p>
-<ul>
-<li><p>过滤法：基于统计指标（如信息系数IC、皮尔逊相关系数、互信息）独立评估每个因子与预测目标的相关性，快速剔除无关因子。</p></li>
-<li><p>包裹法：利用模型自身的性能（如夏普比率、信息比率）作为评价标准，通过递归特征消除（RFE）等方法来寻找最优的因子子集。</p></li>
-<li><p>嵌入法：在模型训练过程中自动进行因子选择，最典型的代表是Lasso回归（L1正则化），它能将不重要的因子系数压缩至零。基于树模型（如随机森林、LightGBM）的特征重要性排序也是一种常用的嵌入式方法。</p></li>
-</ul>
-</section>
-</section>
-<section id="第四步模型选择与训练" class="level3">
-<h3 class="anchored" data-anchor-id="第四步模型选择与训练">第四步：模型选择与训练</h3>
-<p>根据策略目标和因子特性，选择合适的算法并进行训练。将投资想法转化为数学模型或算法。模型开发需要兼顾理论的严谨性与实际的可操作性，常用方法包括回归分析、时间序列分析、机器学习等。</p>
-<section id="模型选择" class="level4">
-<h4 class="anchored" data-anchor-id="模型选择">1.模型选择：</h4>
-<ul>
-<li><p>线性模型：如线性回归、逻辑回归，可解释性强，计算速度快，常作为基准模型。</p></li>
-<li><p>树模型：如随机森林、XGBoost、LightGBM，目前在处理表格类金融数据方面的主流选择，性能强大，能自动处理非线性关系和特征交互，稳定性好。</p></li>
-<li><p>支持向量机：在处理高维、特征稀疏的、小规模数据时表现良好。</p></li>
-<li><p>神经网络/深度学习：适用于处理图像（如K线图模式识别）、文本分析（舆情分析）、以及海量高维因子等极其复杂的数据，但需要大量数据，可解释性较差。</p></li>
-</ul>
-</section>
-<section id="数据集划分" class="level4">
-<h4 class="anchored" data-anchor-id="数据集划分">2.数据集划分</h4>
-<p>在时间序列数据上进行划分时，严禁随机划分，因为这会引入“未来信息”，导致严重的“前视偏差”。必须采用时序划分方法：</p>
-<ul>
-<li><p>训练集：使用历史最早期的数据，用于训练模型参数。</p></li>
-<li><p>验证集：紧随训练集之后的一段时间数据，用于模型调参和选择。</p></li>
-<li><p>测试集：历史数据中最近的一部分，仅用于最终评估模型在未知数据上的表现。</p></li>
-</ul>
-<p><strong>滚动窗口法：</strong>或称扩展窗口，这是更严谨的方法，模拟真实世界中模型，不断用新数据重新训练的过程，是交叉验证在时间序列上的正确应用。</p>
-<p><strong>样本不平衡：</strong>在预测市场涨跌时，可能出现某一类别样本远多于另一类别的情况。可以采用过采样（SMOTE法）、欠采样、或在模型训练时调整类别权重来解决。</p>
-<p>必须强调的是，模型并不是必须的。模型是为了寻找和拟合规律，投资者无法精确定义的规则。如果你能清楚的定义规律，那么模型就是多余的。比如一个清晰的规律“向上突破20均线做多，向下跌破20均线满仓做空”，这就是一个清晰的规律。如果这个规律能带来长期稳定的收益，那么它本身就可以构成一个有效的策略，也那么就不需要模型再去拟合。绝对不要陷入模型的思维固化的陷阱。</p>
-</section>
-</section>
-<section id="第五步策略回测与验证" class="level3">
-<h3 class="anchored" data-anchor-id="第五步策略回测与验证">第五步：策略回测与验证</h3>
-<p>这是检验策略在历史数据中是否成功的核心环节。回测的严谨性直接关系到策略能否进入实盘。常用的绩效指标包括：</p>
-<ul>
-<li><p><strong>收益能力：</strong>年化收益率、累计收益率、相对于基准的超额收益、信息比率（超额收益的稳定性）。</p></li>
-<li><p><strong>风险与回撤：</strong>衡量策略可能面临的最大亏损，最大回撤、年化波动率、下方风险、风险价值。</p></li>
-<li><p><strong>风险调整后收益：</strong>夏普比率（Sharpe Ratio）衡量每单位风险带来的超额收益；卡玛比率（Calmar Ratio）衡量收益与最大回撤的关系。</p></li>
-</ul>
-<p>验证：</p>
-<ul>
-<li><p><strong>样本内回测：</strong>在训练集和验证集上进行的回测，主要用于模型开发和调优。</p></li>
-<li><p><strong>样本外验证：</strong>使用测试集进行回测，这是检验策略泛化能力的关键一步。只有在样本外表现依然稳健的策略，才具备进入下一阶段的潜力。</p></li>
-</ul>
-<p>避免回测陷阱，必须警惕并尽可能消除各种偏差：</p>
-<ul>
-<li><p><strong>过拟合：</strong>策略在历史数据上表现完美，但在新数据上表现糟糕。通过严格的样本外验证、增加正则化、简化模型等方式来缓解。</p></li>
-<li><p><strong>前视偏差和未来数据：</strong>在t时刻的决策中，错误地使用了t时刻之后才可能知道的信息。</p></li>
-<li><p><strong>幸存者偏差：</strong>回测数据中只包含了“活下来”的股票，忽略了退市、被并购的公司，导致结果过于乐观。</p></li>
-<li><p><strong>交易成本：</strong>必须考虑实际的交易成本，包括手续费、印花税和滑点，衡量理想成交价与实际成交价的差异。</p></li>
-</ul>
-<p>回测能够帮助投资者识别策略的优缺点，根据回测结果调整模型参数，避免过度拟合，提升模型的稳健性和适应性。但需警惕过度拟合。</p>
-</section>
-<section id="第六步模型解释与归因分析" class="level3">
-<h3 class="anchored" data-anchor-id="第六步模型解释与归因分析">第六步：模型解释与归因分析</h3>
-<p><strong>模型解释和归因</strong>对于模型的风险管理、策略改进和建立信任至关重要。我们不会完全信任一个<strong>“黑箱”策略</strong>。尤其是在策略失效的时候，了解模型失效的原因，对于模型的使用至关重要。所以针对模型及其输出结果，要对以下三方面内容做出解释和回答。</p>
-<ul>
-<li><p><strong>全局解释：</strong>策略整体上依赖哪些因子进行决策？常用方法如下：</p>
-<p><strong>特征重要性（Feature Importance）：</strong>对于树模型，可以直接输出各个因子的重要性排序。</p>
-<p><strong>SHAP图（SHapley Additive exPlanations）：</strong>SHAP是当前最流行的模型解释工具，可以清晰地展示每个因子对模型整体输出的平均贡献度和影响方向。</p></li>
-<li><p><strong>收益归因分析：</strong>分析策略的收益来源，是来自市场的暴露，特定行业的暴露，还是风格因子的暴露（如小市值、价值），还是来自模型独特的Alpha部分。</p></li>
-<li><p><strong>局部解释：</strong>通俗的讲，就是解释某一笔具体的交易，为什么在今天买入这只股票，模型是依据什么做出的决策。这在黑盒模型比较难解释，常借助LIME方法。</p>
-<p><strong>LIME（Local Interpretable Model-agnostic Explanations）</strong>：在预测点附近，微调各因子值，生成扰动数据，以此局部的模拟数据训练线性模型，得到黑盒模型的近似解释。</p></li>
-</ul>
-<p>通过以上步骤，可以帮助你进一步理解模型的决策逻辑，并平稳地过渡到真实交易环境中。</p>
-</section>
-</section>
-<section id="第二阶段策略实盘部署与迭代" class="level2">
-<h2 class="anchored" data-anchor-id="第二阶段策略实盘部署与迭代">第二阶段：策略实盘部署与迭代</h2>
-<section id="第七步策略部署与实盘交易" class="level3">
-<h3 class="anchored" data-anchor-id="第七步策略部署与实盘交易">第七步：策略部署与实盘交易</h3>
-<p>将通过上述验证的策略部署到实际的交易系统中，使其在真实市场中产生投资决策和交易指令。</p>
-<p><strong>过渡阶段：</strong>投入大规模资金前，必须经过一个模拟实盘交易或小资金实盘测试阶段，也称为“孵化期”，以检验策略在真实市场环境下的表现，特别是验证交易执行、滑点和冲击成本、交易成本等在回测中难以精确模拟的因素。</p>
-<p><strong>风险管理：</strong></p>
-<ul>
-<li><p>硬性风控：设定严格的止损线、单日最大亏损限制、持仓集中度限制等。</p></li>
-<li><p>合规性：策略的开发和运行必须严格遵守监管机构的规定，能触及市场操纵等法律红线。在中国市场包括程序化交易报备制度、禁止异常交易行为等。</p></li>
-</ul>
-</section>
-<section id="第八步实盘监控与策略迭代" class="level3">
-<h3 class="anchored" data-anchor-id="第八步实盘监控与策略迭代">第八步：实盘监控与策略迭代</h3>
-<p>量化投资绝非一劳永逸，策略实盘后也不可能高枕无忧。任何有效的策略都可能面临效用的衰减。前文我们也提到，市场是动态变化的，当市场逻辑发生本质性转变时，基于历史路径依赖的模型，难免失效。此外，量化策略更加容易复制和传播，这使得量化策略具有更强的自限性和自我毁灭性。因此，做好实盘监控和策略迭代是量化投资从业者和量化团队长期成功的关键。</p>
-<ul>
-<li><p>首先，要持续跟踪关键指标。实时监控策略的夏普比率、最大回撤、交易滑点等指标，并与回测表现进行对比。</p></li>
-<li><p>其次，监控关键因子的统计分布是否发生显著变化。市场风格的切换、宏观环境的改变、交易规则的变化都可能导致数据分布发生漂移和改变，进而使模型失效。</p></li>
-<li><p>最后，定期评估与模型更新，要建立一个定期的评估和再训练机制。例如，每季度或每半年，使用最新的数据对模型进行重新训练或全量更新。当监控到策略表现出现持续、显著的恶化时，需要启动深入的归因分析，判断是暂时的市场扰动还是策略逻辑本身已经失效，并决定是否需要对策略进行重大修改，甚至彻底下线。</p></li>
-</ul>
-</section>
-</section>
-<section id="总结" class="level2">
-<h2 class="anchored" data-anchor-id="总结">总结</h2>
-<p>我们再用一点篇幅对以上内容做一下总结和强调。首先我要强调的是，量化投资策略的研发要遵循“逻辑驱动，思想先行”的原则。策略必须源于对市场运行规律的深刻理解，或一个坚实的经济学和金融学逻辑，而不是盲目的进行“数据拟合”，也不能盲目的进行模型和技术的堆叠。必须切实牢记和践行。</p>
-<ul>
-<li><p><strong>设定合理的策略目标。</strong>策略目标符合经济学预期和现实。网络中充斥大量的动辄年化50%的策略逻辑和代码。这些策略或者是基于样本内回测的虚假宣传，或者是对于特定风险的极端暴露，在真正的量化投资实践中都不可取。对于绝大多数的量化投资策略而言，在真实的投资实践下，通过合理暴露风险的前提下，能够稳定的每年20%的收益（或超额收益）几乎是所有策略的天花板。</p></li>
-<li><p><strong>数据质量决定策略上限。</strong>高质量、干净、长周期、多源化的数据是策略成功的基石。正如“垃圾进，垃圾出”的原则，任何复杂的算法都无法弥补数据的缺陷。因子的构建和筛选决定了模型性能。</p></li>
-<li><p>模型选择：在同等目标实现的前提下，<strong>模型结构越简单越好</strong>。这个问题我们会在书中多个章节内容反复讨论。</p></li>
-<li><p><strong>回测验证是试金石。</strong>没有经过严格的、考虑了各种现实偏差的回测，尤其是样本外验证，任何策略都是不可信的。</p></li>
-<li><p><strong>可解释性与预期风险管理：</strong>策略为何赚钱？赚的什么钱？在何种市场环境下可能失效？为什么失效？如果失效怎么应对？清楚的回答以上问题，对风险的预估做到心中有数，当风险来临做到有准备有预案，是进行有效风险控制和在危机中保持信心的前提。</p></li>
-<li><p>最后一点，<strong>长期思维。</strong>策略的目标不是追求短期暴利，而是为投资者提供长期、稳定的回报，并做到风险可控，以及始终在合规的框架内运行。</p></li>
-</ul>
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -884,14 +698,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./第1章 基础知识 第3节 两个范式.html" class="pagination-link" aria-label="第1章 基础知识 第3节 两个范式">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第1章 基础知识 第3节 两个范式</span>
+      <a href="./第16章 R 第7节 机器学习.html" class="pagination-link" aria-label="第16章 R 第7节 机器学习">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第7节 机器学习</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="pagination-link" aria-label="第1章 基础知识 第6节 统计方法和模型">
-        <span class="nav-page-text">第1章 基础知识 第6节 统计方法和模型</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
