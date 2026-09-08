@@ -42,7 +42,7 @@ book:
     - 第16章 R 第5节 金融计算.qmd
     - 第16章 R 第6节 线性模型.qmd
     - 第16章 R 第7节 机器学习.qmd
-
+    - 第16章 R 第8节 torch for R.qmd
 
 bibliography: references.bib
 
