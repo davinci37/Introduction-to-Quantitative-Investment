@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>r-第8节-torch-for-r – 量化投资导论</title>
+<title>第16章 R 第8节 torch for R – 量化投资导论</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,6 +25,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -78,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -87,7 +122,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第8节 torch for R.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第8节 torch for R.html</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第8节 torch for R.html">第16章 R 第8节 torch for R</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -277,7 +312,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">第16章 R 第8节 torch for R.html</span></span></a>
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
   </div>
 </li>
     </ul>
@@ -285,15 +320,571 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a>
+  <ul class="collapse">
+  <li><a href="#tensorflow" id="toc-tensorflow" class="nav-link" data-scroll-target="#tensorflow">1.tensorflow</a></li>
+  <li><a href="#keras-keras3" id="toc-keras-keras3" class="nav-link" data-scroll-target="#keras-keras3">2.keras / keras3</a></li>
+  <li><a href="#torch" id="toc-torch" class="nav-link" data-scroll-target="#torch">3.torch</a></li>
+  </ul></li>
+  <li><a href="#一torch包简介" id="toc-一torch包简介" class="nav-link" data-scroll-target="#一torch包简介">一、torch包简介</a>
+  <ul class="collapse">
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">1.核心功能</a></li>
+  <li><a href="#安装与配置" id="toc-安装与配置" class="nav-link" data-scroll-target="#安装与配置">2.安装与配置</a></li>
+  <li><a href="#生态系统" id="toc-生态系统" class="nav-link" data-scroll-target="#生态系统">3.生态系统</a></li>
+  </ul></li>
+  <li><a href="#二学习资料" id="toc-二学习资料" class="nav-link" data-scroll-target="#二学习资料">二、学习资料</a>
+  <ul class="collapse">
+  <li><a href="#官方文档" id="toc-官方文档" class="nav-link" data-scroll-target="#官方文档">1.官方文档</a></li>
+  <li><a href="#deep-learning-and-scientific-computing-with-r-torch" id="toc-deep-learning-and-scientific-computing-with-r-torch" class="nav-link" data-scroll-target="#deep-learning-and-scientific-computing-with-r-torch"><strong>2.</strong>《<strong>Deep Learning and Scientific Computing with R torch》</strong></a></li>
+  <li><a href="#a-minimal-rtorch-book" id="toc-a-minimal-rtorch-book" class="nav-link" data-scroll-target="#a-minimal-rtorch-book"><strong>3.</strong>《<strong>A Minimal rTorch Book》</strong></a></li>
+  <li><a href="#社区学习资源r4ds-book-club" id="toc-社区学习资源r4ds-book-club" class="nav-link" data-scroll-target="#社区学习资源r4ds-book-club"><strong>4. 社区学习资源：R4DS Book Club</strong></a></li>
+  </ul></li>
+  <li><a href="#三r-torch-gpu-环境安装指南" id="toc-三r-torch-gpu-环境安装指南" class="nav-link" data-scroll-target="#三r-torch-gpu-环境安装指南">三、R torch &amp; GPU 环境安装指南</a>
+  <ul class="collapse">
+  <li><a href="#前置条件" id="toc-前置条件" class="nav-link" data-scroll-target="#前置条件">1.前置条件</a></li>
+  <li><a href="#方法一使用-cudatoolkit-r-包" id="toc-方法一使用-cudatoolkit-r-包" class="nav-link" data-scroll-target="#方法一使用-cudatoolkit-r-包">2.方法一：使用 <code>cudatoolkit</code> R 包</a></li>
+  <li><a href="#方法二从预编译二进制包安装" id="toc-方法二从预编译二进制包安装" class="nav-link" data-scroll-target="#方法二从预编译二进制包安装">3.方法二：从预编译二进制包安装</a></li>
+  <li><a href="#方法三手动安装-cuda-toolkit-cudnn" id="toc-方法三手动安装-cuda-toolkit-cudnn" class="nav-link" data-scroll-target="#方法三手动安装-cuda-toolkit-cudnn">4.方法三：手动安装 CUDA Toolkit + cuDNN</a></li>
+  </ul></li>
+  <li><a href="#四torch内存管理" id="toc-四torch内存管理" class="nav-link" data-scroll-target="#四torch内存管理">四、Torch内存管理</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第8节 torch for R</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>R语言为深度学习的三大<strong>主流深度学习框架（TensorFlow、Keras、PyTorch）</strong>都提供了功能强大的接口包，让R用户能直接在熟悉的环境中进行复杂的深度学习任务。</p>
+<section id="tensorflow" class="level3">
+<h3 class="anchored" data-anchor-id="tensorflow">1.tensorflow</h3>
+<p><code>tensorflow</code> 包是R语言访问完整TensorFlow API的官方接口。</p>
+<ul>
+<li><strong>核心功能</strong>：它提供了对TensorFlow核心功能的完全访问，包括<strong>张量（Tensor）</strong> 操作、<strong>自动微分</strong>以及<strong>数据流图（Data Flow Graph）</strong> 的构建与执行。作为底层框架，它负责所有数值计算。</li>
+<li><strong>设计定位</strong>：它是构建更高级API（如<code>keras</code>）的基础。你可以直接用它来构建自定义的计算图或模型，但通常需要编写更多代码。</li>
+<li><strong>硬件加速</strong>：支持利用<strong>CPU</strong>或<strong>GPU</strong>进行加速计算，这对于大规模深度学习训练至关重要。</li>
+</ul>
+</section>
+<section id="keras-keras3" class="level3">
+<h3 class="anchored" data-anchor-id="keras-keras3">2.keras / keras3</h3>
+<p><code>keras</code> 包（以及新一代的 <code>keras3</code> 包）为R用户提供了高层次的神经网络API，极大地简化了模型构建和训练流程。</p>
+<ul>
+<li><strong><code>keras</code> vs <code>keras3</code></strong>：旧的 <code>keras</code> 包是专为TensorFlow后端设计的（Keras 2.x）。而新的 <strong><code>keras3</code></strong> 包则连接了Keras 3，其最大特点是<strong>后端无关性</strong>，支持在 <strong>TensorFlow、JAX 或 PyTorch</strong> 等多个后端之间自由切换。对于新项目，官方推荐使用 <code>keras3</code>。</li>
+<li><strong>主要特点</strong>：
+<ul>
+<li><strong>用户友好</strong>：API设计简洁直观，便于快速原型开发。</li>
+<li><strong>模块化</strong>：可以像搭积木一样，通过组合不同的<strong>层（Layers）</strong>、<strong>优化器（Optimizers）</strong> 和<strong>损失函数（Loss Functions）</strong> 来构建模型。</li>
+<li><strong>功能全面</strong>：内置了对<strong>卷积神经网络（CNN，用于计算机视觉）</strong>、<strong>循环神经网络（RNN，用于序列处理）</strong> 等多种网络结构的支持。</li>
+<li><strong>跨硬件运行</strong>：代码可以无缝地在CPU或GPU上运行。</li>
+</ul></li>
+</ul>
+</section>
+<section id="torch" class="level3">
+<h3 class="anchored" data-anchor-id="torch">3.torch</h3>
+<p><code>torch</code> 包是R语言对流行深度学习框架 <strong>PyTorch</strong> 的移植。</p>
+<ul>
+<li><strong>纯R实现</strong>：与依赖Python后端的<code>tensorflow</code>不同，<code>torch</code>包是<strong>完全用R编写</strong>的，底层基于 <code>libtorch</code>（PyTorch的C++库）。这意味着它<strong>没有Python依赖</strong>，对R用户更加纯粹。</li>
+<li><strong>核心功能</strong>：提供与PyTorch类似的功能，包括<strong>张量（Tensor）</strong> 运算、<strong>自动梯度（Autograd）</strong> 系统以及<strong>神经网络（NN）</strong> 模块。</li>
+<li><strong>动态计算图</strong>：继承了PyTorch的动态计算图特性，使得模型调试和修改更加灵活直观。</li>
+<li><strong>硬件加速</strong>：同样支持GPU加速。</li>
+</ul>
+<p>在当今深度学习领域，<strong>TensorFlow、Keras 与 PyTorch</strong> 并称为三大主流开源框架。三者各有千秋。尽管TensorFlow（含Keras）作为工业界的重要成员，具备不可替代的价值，但若论及<strong>科研灵活度、社区活跃度以及实际落地场景的覆盖广度</strong>，<strong>PyTorch</strong> 无疑已占据显著优势。</p>
+<p>作者本人在日常研发工作中长期深度使用 <strong>PyTorch</strong> 框架，积累了较多的实践经验，也熟悉其常见陷阱与性能调优技巧。基于这份熟悉与信任，同时也为了帮助读者避开我曾经走过的弯路，本节将把笔墨集中于 Torch 的深度讲解</p>
+</section>
+</section>
+<section id="一torch包简介" class="level2">
+<h2 class="anchored" data-anchor-id="一torch包简介">一、torch包简介</h2>
+<p><code>torch</code> 包为 R 语言用户提供了一个强大、原生且无需依赖 Python 的深度学习框架。它是广受欢迎的 PyTorch 库在 R 语言中的“移植”版本，让 R 用户能够直接在 R 环境中使用与 PyTorch 类似的功能和 API 来构建和训练神经网络。</p>
+<p>其核心特点在于，它并非简单地用 <code>reticulate</code> 封装 Python 的 PyTorch，而是直接构建于 PyTorch 底层的 C++ 库 <strong><code>libtorch</code></strong> 之上。这种设计带来了两大优势： * <strong>无需 Python 环境</strong>：用户无需安装和配置 Python，极大地简化了安装和部署流程。 * <strong>性能与稳定性</strong>：通过底层的 C++ 实现，确保了高性能，并避免了跨语言调用可能引入的问题。</p>
+<section id="核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能">1.核心功能</h3>
+<p><code>torch</code> 包提供了从基础张量操作到高级神经网络构建的全套工具，其核心功能模块主要包括：</p>
+<section id="张量tensor" class="level4">
+<h4 class="anchored" data-anchor-id="张量tensor"><strong>1.1.张量（Tensor）</strong></h4>
+<p>这是深度学习的基石，类似于 NumPy 的多维数组，但支持在 GPU 上加速运算。</p>
+<ul>
+<li><strong>创建与转换</strong>：可以用 <code>torch_tensor()</code> 从 R 的数组（array）创建张量，并用 <code>as_array()</code> 转回 R 数组。</li>
+<li><strong>设备支持</strong>：张量可以轻松地在 CPU 和 GPU 之间移动，例如 <code>torch_tensor(1, device = "cuda")</code> 将张量创建在 GPU 上。</li>
+</ul>
+</section>
+<section id="自动微分autograd" class="level4">
+<h4 class="anchored" data-anchor-id="自动微分autograd"><strong>1.2.自动微分（Autograd）</strong></h4>
+<p><code>torch</code> 的核心功能，能够自动计算张量的梯度，这是训练神经网络的基础。</p>
+<ul>
+<li><strong>示例</strong>：下面的代码展示了如何自动计算简单函数 <code>y = w * x + b</code> 关于参数 <code>x</code>, <code>w</code>, <code>b</code> 的梯度。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(torch)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">torch_tensor</span>(<span class="dv">1</span>, <span class="at">requires_grad =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">torch_tensor</span>(<span class="dv">2</span>, <span class="at">requires_grad =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">torch_tensor</span>(<span class="dv">3</span>, <span class="at">requires_grad =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> w <span class="sc">*</span> x <span class="sc">+</span> b</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>y<span class="sc">$</span><span class="fu">backward</span>()  <span class="co"># 计算梯度</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>x<span class="sc">$</span>grad  <span class="co"># 输出: 2</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>w<span class="sc">$</span>grad  <span class="co"># 输出: 1</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>grad  <span class="co"># 输出: 1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="神经网络模块nn-和-nnf提供构建神经网络的乐高积木" class="level4">
+<h4 class="anchored" data-anchor-id="神经网络模块nn-和-nnf提供构建神经网络的乐高积木"><strong>1.3.神经网络模块（<code>nn</code> 和 <code>nnf</code>）</strong>：提供构建神经网络的“乐高积木”。</h4>
+<ul>
+<li><strong><code>nn_module</code></strong>：用于定义包含可训练权重的神经网络层或完整模型。例如 <code>nn_linear()</code>（线性层）、<code>nn_conv2d()</code>（卷积层）。</li>
+<li><strong><code>nnf_*</code></strong> (nn functional)：提供无状态（不包含可训练权重）的函数式版本，如激活函数 <code>nnf_relu()</code>、<code>nnf_softmax()</code> 等。</li>
+</ul>
+</section>
+<section id="优化器optimizers实现了多种优化算法来更新模型权重以最小化损失函数" class="level4">
+<h4 class="anchored" data-anchor-id="优化器optimizers实现了多种优化算法来更新模型权重以最小化损失函数"><strong>1.4.优化器（Optimizers）</strong>：实现了多种优化算法来更新模型权重，以最小化损失函数。</h4>
+<ul>
+<li>包括 <code>optim_sgd()</code> (随机梯度下降)、<code>optim_adam()</code> (Adam)、<code>optim_rmsprop()</code> (RMSprop) 等。</li>
+</ul>
+</section>
+<section id="数据加载data-loading提供了高效的数据处理工具" class="level4">
+<h4 class="anchored" data-anchor-id="数据加载data-loading提供了高效的数据处理工具"><strong>1.5.数据加载（Data Loading）</strong>：提供了高效的数据处理工具。</h4>
+<ul>
+<li><strong><code>dataset</code></strong>：一个抽象类，用于定义自定义数据集。</li>
+<li><strong><code>dataloader</code></strong>：组合数据集和采样器，提供批量、多进程的迭代方式，方便模型训练。</li>
+</ul>
+</section>
+<section id="损失函数loss-functions提供了用于训练的常用损失函数" class="level4">
+<h4 class="anchored" data-anchor-id="损失函数loss-functions提供了用于训练的常用损失函数"><strong>1.6.损失函数（Loss Functions）</strong>：提供了用于训练的常用损失函数。</h4>
+<ul>
+<li>例如 <code>nn_mse_loss()</code> (均方误差损失)、<code>nn_cross_entropy_loss()</code> (交叉熵损失) 等。</li>
+</ul>
+</section>
+</section>
+<section id="安装与配置" class="level3">
+<h3 class="anchored" data-anchor-id="安装与配置">2.安装与配置</h3>
+<p><code>torch</code> 包的安装非常直接，主要步骤如下：</p>
+<section id="安装-r-包" class="level4">
+<h4 class="anchored" data-anchor-id="安装-r-包"><strong>2.1.安装 R 包</strong>：</h4>
+<p>可以从 <strong>CRAN</strong> 或 <strong>GitHub</strong> 安装。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 CRAN 安装稳定版</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 GitHub 安装开发版（获取最新功能）</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("mlverse/torch")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="安装-libtorch" class="level4">
+<h4 class="anchored" data-anchor-id="安装-libtorch"><strong>2.2.安装 LibTorch</strong></h4>
+<p>首次加载 <code>torch</code> 包时，它会自动检测系统环境（如是否有 CUDA 支持的 NVIDIA GPU），并下载并安装相应版本（CPU 或 GPU）的 <code>libtorch</code> 库。这一过程由 <code>install_torch()</code> 函数管理。</p>
+<p>如果电脑未安装<strong><code>NVIDIA</code></strong> <strong><code>CUDA</code></strong>环境，则默认安装基于<strong><code>CPU</code></strong>环境。安装CPU版本的torch过程比较简单，正常情况按提示默认执行安装即可。如果要安装基于<strong><code>NVIDIA GPU</code></strong>和<strong><code>CUDA</code></strong>的环境，安装过程相对比较复杂，我们将在后文详细介绍。</p>
+</section>
+</section>
+<section id="生态系统" class="level3">
+<h3 class="anchored" data-anchor-id="生态系统">3.生态系统</h3>
+<p>围绕 <code>torch</code> 包，一个丰富的生态系统正在形成，提供了更高级和便捷的功能：</p>
+<ul>
+<li><strong><code>torchvision</code></strong>：专门用于计算机视觉任务，提供了流行的数据集、数据增强工具和预训练模型。</li>
+<li><strong><code>torchaudio</code></strong>：专门用于计算机音频任务。</li>
+<li><strong><code>luz</code></strong>：一个高级接口，极大地简化了训练流程。它封装了训练、验证、早停、学习率调度等繁琐的循环代码，让用户能像在 Keras 中一样简洁地训练模型。</li>
+<li><strong><code>cito</code></strong>：另一个高级接口，允许用户使用 R 的公式语法（如 <code>y ~ x1 + x2</code>）来构建和训练神经网络，对熟悉 R 统计建模的用户非常友好。</li>
+</ul>
+</section>
+</section>
+<section id="二学习资料" class="level2">
+<h2 class="anchored" data-anchor-id="二学习资料">二、学习资料</h2>
+<p><code>torch</code> 包为 R 语言社区带来了顶级深度学习框架的能力，并且设计得对 R 用户非常友好。如果你希望在 R 环境中进行深度学习，它是一个非常理想的选择。</p>
+<section id="官方文档" class="level3">
+<h3 class="anchored" data-anchor-id="官方文档">1.官方文档</h3>
+<p>R 的 <code>torch</code> 包官方文档网站是 <a href="https://torch.mlverse.org/docs" class="uri">https://torch.mlverse.org/docs</a>。这是一个为 R 语言用户设计的、基于 PyTorch 的深度学习框架的完整知识库。</p>
+<p>文档网站结构清晰，方便用户按需查找：</p>
+<ul>
+<li><strong>起步指南 (Articles)</strong>：包含从<strong>安装</strong>到<strong>序列化</strong>等一系列入门文章。例如，有专门文章介绍如何<strong>加载数据</strong>。</li>
+<li><strong>参考 (Reference)</strong>：提供了所有函数的详细 API 文档，是开发时的必备工具。</li>
+<li><strong>高级主题 (Advanced)</strong>：涵盖<strong>内存管理</strong>、<strong>CUDA 兼容性</strong>、<strong>自动混合精度 (AMP)</strong> 等进阶内容。</li>
+<li><strong>示例 (Examples)</strong>：包含从基础（<code>basic-autograd</code>, <code>basic-nn-module</code>）到具体应用（如 <code>dataset</code>）的各类示例。</li>
+<li><strong>生态系统</strong>：文档首页也提到了 <code>torch for R</code> 是一个包含多个扩展包的生态系统。</li>
+</ul>
+<p>该文档为 R 用户使用 <code>torch</code> 进行从张量操作到复杂神经网络训练的各项工作，提供了全面且结构化的指南。</p>
+</section>
+<section id="deep-learning-and-scientific-computing-with-r-torch" class="level3">
+<h3 class="anchored" data-anchor-id="deep-learning-and-scientific-computing-with-r-torch"><strong>2.</strong>《<strong>Deep Learning and Scientific Computing with R torch》</strong></h3>
+<p>《Deep Learning and Scientific Computing with R torch》是一本为R语言用户编写的、关于使用 <code>torch</code> 包进行深度学习和科学计算的实用指南。</p>
+<p>这本书为那些希望使用R语言进行深度学习，但又不想转向Python的统计学家和研究人员提供了完美的解决方案。</p>
+<section id="书籍基本信息" class="level4">
+<h4 class="anchored" data-anchor-id="书籍基本信息">2.1.书籍基本信息</h4>
+<ul>
+<li><strong>作者</strong>：Sigrid Keydana。</li>
+<li><strong>出版时间</strong>：2023年4月1日。</li>
+<li><strong>免费在线版本</strong>：<a href="https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/" class="uri">https://skeydan.github.io/Deep-Learning-and-Scientific-Computing-with-R-torch/</a></li>
+<li><strong>源代码</strong>：所有源代码和相关资源托管在GitHub上：<a href="https://github.com/skeydan/Deep-Learning-and-Scientific-Computing-with-R-torch"><strong>https://github.com/skeydan/Deep-Learning-and-Scientific-Computing-with-R-torch</strong></a>。</li>
+<li><strong>纸质书/电子书</strong>：可通过 CRC Press、Amazon 等渠道购买</li>
+<li>本书的在线版本采用”知识共享署名-非商业性使用-相同方式共享 4.0国际许可协议“授权 (CC BY-NC-4.0）。</li>
+</ul>
+</section>
+<section id="核心特点与目标读者" class="level4">
+<h4 class="anchored" data-anchor-id="核心特点与目标读者">2.2.核心特点与目标读者</h4>
+<p>这本书最大的特点是<strong>为R语言用户量身打造</strong>，目标是让不熟悉Python的R用户也能轻松上手深度学习。其<strong>核心特点</strong>包括：</p>
+<ul>
+<li><strong>概念优先，易于理解</strong>：本书以清晰、平易近人的方式解释复杂概念，并通过大量示例和代码进行说明。</li>
+<li><strong>实用性强</strong>：书中提供了丰富的应用案例，范围涵盖图像识别、时间序列预测和音频分类等。</li>
+<li><strong>全面的入门指南</strong>：它不仅是深度学习的教程，也展示了<code>torch</code>在更广泛的科学计算领域的应用。</li>
+</ul>
+<p><strong>目标读者</strong>非常广泛，包括：</p>
+<ul>
+<li><strong>统计学家和其他应用型研究人员</strong>，他们精通R但不熟悉Python。</li>
+<li><strong>本科生、硕士生和博士生</strong>，他们了解R并希望开始拟合深度学习模型。</li>
+<li>任何<strong>没有广泛机器学习背景</strong>的R用户。</li>
+</ul>
+</section>
+<section id="内容结构" class="level4">
+<h4 class="anchored" data-anchor-id="内容结构">2.3.内容结构</h4>
+<p>全书共28章，清晰地分为三个部分：</p>
+<p><strong>第一部分：熟悉 <code>torch</code> (第1-11章)</strong> 这部分是全书的基础，旨在让读者掌握 <code>torch</code> 的核心概念。 * <strong>入门与安装</strong>：介绍如何在不安装Python的情况下，在R环境中安装 <code>torch</code> 及相关包。 * <strong>核心构件</strong>：详细讲解张量（Tensors）、自动微分（Autograd）、优化器（Optimizers）和模块（Modules）。 * <strong>从零开始</strong>：引导读者从张量开始，手动构建并训练一个用于回归任务的小型神经网络，这有助于理解底层原理。</p>
+<p><strong>第二部分：使用 <code>torch</code> 进行深度学习 (第12-22章)</strong> 这部分聚焦于如何使用 <code>torch</code> 实现各种深度学习模型。 * <strong>数据处理</strong>：介绍如何批量加载数据以应对大数据集。 * <strong>高效训练</strong>：引入 <code>luz</code> 包，它进一步简化了神经网络的训练、验证和测试流程。 * <strong>实战应用</strong>：通过一系列案例，展示如何解决实际问题，如图像分类、图像分割、处理表格数据、时间序列预测和音频分类等。</p>
+<p><strong>第三部分：<code>torch</code> 的其他应用 (第23-28章)</strong> 这部分展示了 <code>torch</code> 在深度学习之外的科学计算能力。 * <strong>矩阵计算</strong>：探讨如何使用 <code>torch</code> 解决最小二乘问题等。 * <strong>信号处理</strong>：介绍离散傅里叶变换（DFT）、快速傅里叶变换（FFT）和小波（Wavelets）等主题。</p>
+</section>
+<section id="优点与不足" class="level4">
+<h4 class="anchored" data-anchor-id="优点与不足">2.4.优点与不足</h4>
+<ul>
+<li><strong>优点</strong>：
+<ul>
+<li><strong>上手快</strong>：相比其他R语言深度学习方案（如Keras），<code>torch</code> 包的安装和使用过程更简单、稳定。</li>
+<li><strong>可读性强</strong>：文笔生动有趣，易于阅读。</li>
+</ul></li>
+<li><strong>不足</strong>：
+<ul>
+<li><strong>理论不深</strong>：本书并非一本厚重的理论著作，对于希望深入了解算法背后数学原理的读者，可能需要补充其他资料。</li>
+</ul></li>
+</ul>
+<p>无论如何，这本书是R语言社区中弥合“R语言技能”与“深度学习应用”之间鸿沟的重要作品。是我最推荐的关于R torch的第一阅读书籍。</p>
+</section>
+</section>
+<section id="a-minimal-rtorch-book" class="level3">
+<h3 class="anchored" data-anchor-id="a-minimal-rtorch-book"><strong>3.</strong>《<strong>A Minimal rTorch Book》</strong></h3>
+<p>《A Minimal rTorch Book》是一本旨在帮助R语言用户快速上手<code>rTorch</code>包（R语言与PyTorch的桥梁）的入门教程。这本书的核心特点是 <strong>“极简”</strong> 与 <strong>“实用”</strong>，它并非一本面面俱到的百科全书，而是一份旨在让读者“在乐趣中学习”的快速指南。</p>
+<section id="书籍概要" class="level4">
+<h4 class="anchored" data-anchor-id="书籍概要">3.1.书籍概要</h4>
+<ul>
+<li><strong>作者</strong>：Alfonso R. Reyes。</li>
+<li><strong>免费在线版本</strong>：：<a href="https://f0nzie.github.io/rtorch-minimal-book/" class="uri">https://f0nzie.github.io/rtorch-minimal-book/</a>。</li>
+<li><strong>源代码</strong>：所有源代码和相关资源托管在GitHub上：<a href="https://github.com/f0nzie/rtorch-minimal-book" class="uri">https://github.com/f0nzie/rtorch-minimal-book</a>。</li>
+</ul>
+</section>
+<section id="核心特点与目标读者-1" class="level4">
+<h4 class="anchored" data-anchor-id="核心特点与目标读者-1">3.2.核心特点与目标读者</h4>
+<ul>
+<li><strong>为R用户量身打造</strong>：本书是写给那些希望在R环境中使用PyTorch强大功能的R语言使用者。</li>
+<li><strong>动机明确</strong>：作者写作的初衷是，虽然可以直接用Python写PyTorch，但难以割舍RMarkdown在<strong>文学化编程（Literate Programming）</strong> 和<strong>可重复性研究</strong>方面的卓越体验。</li>
+<li><strong>强调R与Python的协同</strong>：它展示了如何在同一个RMarkdown文档中无缝地混合使用R和Python代码，各取所长。</li>
+</ul>
+</section>
+<section id="主要内容" class="level4">
+<h4 class="anchored" data-anchor-id="主要内容">3.3.主要内容</h4>
+<p>这本书通过一系列精心设计的章节，引导读者从入门到实践：</p>
+<ul>
+<li><strong>环境配置</strong>：详细指导如何安装Anaconda、R、Rtools、RStudio，以及<code>reticulate</code>和<code>rTorch</code>包。</li>
+<li><strong>基础入门</strong>：介绍如何开始使用<code>rTorch</code>，获取PyTorch版本和配置信息。</li>
+<li><strong>核心概念</strong>：通过对比，阐明<code>rTorch</code>与原生PyTorch在语法上的主要差异（例如，R中使用<code>$</code>符号调用模块和方法）。</li>
+<li><strong>实践案例</strong>：提供了丰富的实战示例，包括：
+<ul>
+<li><strong>线性回归</strong>：以“降雨量预测”为例，展示从数据到模型的全过程。</li>
+<li><strong>逻辑回归</strong>：解决分类问题。</li>
+<li><strong>神经网络</strong>：从零开始，分步构建神经网络。</li>
+<li><strong>数据操作</strong>：展示如何将R语言中熟悉的<code>data.frame</code>与PyTorch张量结合使用。</li>
+</ul></li>
+</ul>
+<p>值得一提的是，作者还计划了另一本进阶教程《rTorch Advanced Examples》，可以作为本书的补充学习材料。</p>
+<p>总的来说，这本书是一份非常友好的<code>rTorch</code>入门教程。如果你是一位希望涉足深度学习领域的R语言用户，它会是一个很棒的起点。</p>
+</section>
+</section>
+<section id="社区学习资源r4ds-book-club" class="level3">
+<h3 class="anchored" data-anchor-id="社区学习资源r4ds-book-club"><strong>4. 社区学习资源：R4DS Book Club</strong></h3>
+<p>“R4DS Book Club”是一个围绕经典书籍 <strong>《R for Data Science》（简称R4DS）</strong> 组织起来的全球性、公益性的在线学习社区。它的正式名称是 <strong>“数据科学学习社区”（Data Science Learning Community, DSLC）</strong>。该社区始于2017年，最初就是为了共同阅读《R for Data Science》这本书而创立。如今，它已发展成为一个举办各种数据科学相关书籍读书会的活跃社区。</p>
+<p>以下是关于它的详细介绍：</p>
+<section id="核心书籍" class="level4">
+<h4 class="anchored" data-anchor-id="核心书籍">4.1.核心书籍</h4>
+<p>读书会研读的核心书籍是 <strong>《R for Data Science》</strong> 。</p>
+<ul>
+<li><p><strong>作者</strong>：由Hadley Wickham, Mine Çetinkaya-Rundel, Garrett Grolemund 合著。</p></li>
+<li><p><strong>内容</strong>：这本书是学习使用R语言进行数据科学的经典入门教材，主要教授如何使用 tidyverse 系列包进行数据导入、整理、转换、可视化和建模等。</p></li>
+<li><p><strong>获取</strong>：这本书是<strong>开源</strong>的，其最新版的官方网站在线地址为：<a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a>。</p></li>
+</ul>
+</section>
+<section id="运作模式" class="level4">
+<h4 class="anchored" data-anchor-id="运作模式">4.2.运作模式</h4>
+<p>R4DS Book Club 有一套成熟的、社区驱动的运作模式：</p>
+<ol type="1">
+<li><strong>分小组（Cohorts）学习</strong>：读书会以“期”或“组”（Cohort）为单位进行。每期都有固定的开始和结束时间，成员们在同一进度下共同学习。</li>
+<li><strong>每周线上会议</strong>：每周会举行线上视频会议，讨论相应的章节。</li>
+<li><strong>成员轮流主讲</strong>：每周由一名志愿者负责主讲（Present），总结章节内容并引导讨论。</li>
+<li><strong>所有资源公开</strong>：每次会议的<strong>视频录像</strong>都会被上传到社区官方的YouTube频道，对所有人免费开放。同时，主讲人制作的<strong>讲义和幻灯片</strong>等相关资料也会在GitHub上公开。</li>
+</ol>
+</section>
+<section id="如何参与" class="level4">
+<h4 class="anchored" data-anchor-id="如何参与">4.3.如何参与？</h4>
+<p>如果你对这个读书会感兴趣，可以通过以下方式加入：</p>
+<ul>
+<li><strong>加入Slack</strong>：所有沟通、组织和实时讨论都在<strong>Slack</strong>上进行。你可以通过这个链接加入：<a href="https://dslc.io/join" class="uri">https://dslc.io/join</a>。</li>
+<li><strong>查看活动安排</strong>：在Slack的 <code>#book_club-r_for_data_science</code> 频道里，可以找到当前进行的小组及其会议安排和主讲人报名表。</li>
+<li><strong>观看往期视频</strong>：如果时间不凑巧，也可以随时在社区YouTube频道上观看过往所有小组的会议录像。</li>
+</ul>
+</section>
+<section id="相关资源" class="level4">
+<h4 class="anchored" data-anchor-id="相关资源">4.4.相关资源</h4>
+<ul>
+<li><strong>社区官网</strong>：<a href="https://DSLC.io" class="uri">https://DSLC.io</a></li>
+<li><strong>所有读书会列表</strong>：<a href="https://dslc.io/bookclubs.html" class="uri">https://dslc.io/bookclubs.html</a></li>
+<li><strong>常见问题</strong>：<a href="https://dslc.io/faq.html" class="uri">https://dslc.io/faq.html</a></li>
+</ul>
+<p>总的来说，R4DS Book Club（现为DSLC）是一个学习R语言和数据科学的绝佳平台，无论你是初学者还是希望精进技能的实践者，都能在这里找到志同道合的伙伴和丰富的学习资源。</p>
+</section>
+</section>
+</section>
+<section id="三r-torch-gpu-环境安装指南" class="level2">
+<h2 class="anchored" data-anchor-id="三r-torch-gpu-环境安装指南">三、R torch &amp; GPU 环境安装指南</h2>
+<p>本文我们以Windows系统为例进行讲解，MacOS和Linux系统可参考Windows系统。</p>
+<section id="前置条件" class="level3">
+<h3 class="anchored" data-anchor-id="前置条件">1.前置条件</h3>
+<p>在常规的 R 包安装之后，<code>torch</code> 还需要安装另外两个库：LibTorch 和 LibLantern。以Windows系统下，</p>
+<p>如果你没有 GPU，或者只想要安装 <strong>CPU 版本的 <code>torch</code></strong>，可以运行以下命令安装：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)  </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"torch"</span>)  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 之后按提示默认执行即可。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果想要安装 <strong>GPU版本的 <code>torch</code></strong>，要在 <code>torch</code> 中使用 GPU，你需要：</p>
+<ul>
+<li><p>拥有一块支持 CUDA 的 NVIDIA GPU。你可以在<a href="https://developer.nvidia.com/cuda/gpus#compute">这里</a>查询你的 GPU 是否支持 CUDA。</p></li>
+<li><p>正确安装 <strong>NVIDIA CUDA Toolkit 12.8</strong> 版本。关于 CUDA v12.8，请按照<a href="https://developer.nvidia.com/cuda-12-8-1-download-archive">此链接</a>的安装说明进行操作。</p>
+<p><strong>注意</strong>：CUDA Toolkit 的版本必须与上述版本<strong>完全一致</strong>。</p></li>
+<li><p>安装 <strong>cuDNN</strong> —— 一个与 CUDA v12.8 兼容的版本。请按照<a href="https://developer.nvidia.com/cudnn">此链接</a>的安装说明进行操作。</p></li>
+<li><p><code>torch</code> 对支持的 CUDA 和 CUDNN 版本有非常具体的要求。</p></li>
+</ul>
+<p>安装好了以上所有前置条件，才可以安装 <code>torch</code>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)  <span class="fu">library</span>(<span class="st">"torch"</span>)  <span class="co"># 滞后按提示默认执行即可。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果你采用了默认的安装位置，R会检测到你已安装 CUDA 软件，并自动下载启用 GPU 的 Lantern 二进制文件。你也可以通过设置 <code>CUDA</code> 环境变量来强制指定某个特定版本的 CUDA Toolkit，例如：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">CUDA=</span><span class="st">"12.8"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>请参考<a href="https://torch.mlverse.org/docs/dev/articles/compatibility-matrix">兼容性矩阵</a>来选择你的版本。</p>
+</section>
+<section id="方法一使用-cudatoolkit-r-包" class="level3">
+<h3 class="anchored" data-anchor-id="方法一使用-cudatoolkit-r-包">2.方法一：使用 <code>cudatoolkit</code> R 包</h3>
+<p>根据官方文档，<code>torch</code> 的 GPU 环境安装主要有两种方式。其中，<strong>使用 <code>cudatoolkit</code> R 包是</strong>官方<strong>最新推荐的方法</strong>。</p>
+<p>这是 <code>torch</code> 官方文档在当前版本中<strong>首推</strong>的方法。你<strong>无需在系统上完整安装 CUDA Toolkit</strong>，只需安装对应的 R 包即可提供 CUDA 运行时库。</p>
+<p><strong>操作步骤：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装 cudatoolkit R 包（以 CUDA 12.8 为例）</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"cuda12.8"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://mlverse.r-universe.dev"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"https://cloud.r-project.org"</span>))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 然后正常安装 torch</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>说明：</strong></p>
+<ul>
+<li><p>支持的 CUDA 版本有 <strong>12.6、12.8、12.9</strong>。</p></li>
+<li><p><code>torch</code> 启动时会<strong>自动检测</strong>已安装的 <code>cudatoolkit</code> R 包并使用。</p></li>
+<li><p>如果安装了多个版本，会自动选用<strong>最新的受支持版本</strong>。</p></li>
+</ul>
+<p><strong>环境变量</strong></p>
+<p><code>TORCH_CUDATOOLKIT</code> 环境变量控制 <code>cudatoolkit</code> R 包的检测行为：</p>
+<ul>
+<li><strong>未设置（默认）</strong>：<code>torch</code> 自动检测已安装的 <code>cudatoolkit</code> R 包。</li>
+<li><strong>设置为特定版本（例如 <code>TORCH_CUDATOOLKIT=12.8</code>）</strong>：强制 <code>torch</code> 使用该特定版本的 <code>cudatoolkit</code> R 包。如果该包未安装则会报错。如果同时还设置了 <code>CUDA</code>，这两个值必须一致。</li>
+<li><strong>设置为 <code>FALSE</code></strong>：完全禁用 <code>cudatoolkit</code> R 包检测。<code>torch</code> 将仅使用系统 CUDA（通过 <code>CUDA_HOME</code>、<code>CUDA_PATH</code> 或 <code>nvcc</code>）。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 强制 torch 使用 cuda12.8 这个 R 包</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TORCH_CUDATOOLKIT =</span> <span class="st">"12.8"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者，完全禁用 cudatoolkit R 包的检测</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">TORCH_CUDATOOLKIT =</span> <span class="st">"FALSE"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置完成后，再加载 torch 包</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(torch)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>完整的 CUDA 版本<strong>检测优先级</strong>如下：</p>
+<ol type="1">
+<li><code>TORCH_CUDATOOLKIT</code>：显式指定 <code>cudatoolkit</code> R 包。</li>
+<li><code>CUDA</code>：如果已安装匹配的 <code>cudatoolkit</code> R 包则使用它；否则直接将该值用于系统 CUDA。</li>
+<li>自动检测已安装的 <code>cudatoolkit</code> R 包。</li>
+<li>系统 CUDA：<code>CUDA_HOME</code> / <code>CUDA_PATH</code>、常规路径、<code>PATH</code> 中的 <code>nvcc</code>。</li>
+</ol>
+<p>当通过上述步骤 1-3 中的任意一步找到了 <code>cudatoolkit</code> R 包时，系统 CUDA 检测将被完全跳过。</p>
+</section>
+<section id="方法二从预编译二进制包安装" class="level3">
+<h3 class="anchored" data-anchor-id="方法二从预编译二进制包安装">3.方法二：从预编译二进制包安装</h3>
+<p>从 <code>torch v0.9.1.9000</code> 开始，官方提供了一个 CRAN 风格的仓库，其中的预编译二进制包<strong>已经包含了所有必要的共享库（包括 CUDA 和 cuDNN）</strong>，因此<strong>同样无需手动安装 CUDA 或 cuDNN</strong>。</p>
+<p><strong>操作步骤：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">timeout =</span> <span class="dv">600</span>)  <span class="co"># 建议增加超时时间，因为要下载约 2GB 的文件</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择 GPU 版本（"cu128" 表示 CUDA 12.8）</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>kind <span class="ot">&lt;-</span> <span class="st">"cu128"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>version <span class="ot">&lt;-</span> <span class="fu">available.packages</span>()[<span class="st">"torch"</span>,<span class="st">"Version"</span>]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">torch =</span> <span class="fu">sprintf</span>(<span class="st">"https://torch-cdn.mlverse.org/packages/%s/%s/"</span>, kind, version),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">CRAN =</span> <span class="st">"https://cloud.r-project.org"</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>安装完成后运行：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(torch)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cuda_is_available</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>返回 <code>TRUE</code> 即表示 GPU 已就绪。</p>
+</section>
+<section id="方法三手动安装-cuda-toolkit-cudnn" class="level3">
+<h3 class="anchored" data-anchor-id="方法三手动安装-cuda-toolkit-cudnn">4.方法三：手动安装 CUDA Toolkit + cuDNN</h3>
+<p><strong>尽管官方推荐的方法一和方法二都不需要手动安装 CUDA Toolkit 和 cuDNN</strong>，但对其版本的匹配方法并未做详细介绍。方法三介绍的<strong>手动安装</strong>可以更好的解决上述方法遇到的版本匹配问题。</p>
+<p><strong>再次提示：对于Windows平台，你需要：</strong></p>
+<ul>
+<li><p>拥有<strong>支持 CUDA 的 NVIDIA GPU</strong></p></li>
+<li><p>安装 <strong>NVIDIA CUDA Toolkit</strong></p></li>
+<li><p>安装<strong>与 CUDA 兼容的 cuDNN</strong></p></li>
+</ul>
+<p><strong>必须强盗的安装核心原则：</strong></p>
+<p>必须确保<strong>“R torch版本 -&gt; LibTorch版本 -&gt; CUDA版本 -&gt; cuDNN版本 -&gt; 显卡驱动版本”</strong>这一链条完全匹配。</p>
+<section id="第一步软件依赖关系确认" class="level4">
+<h4 class="anchored" data-anchor-id="第一步软件依赖关系确认">4.1.第一步：软件依赖关系确认</h4>
+<p>开始任何操作前，必须先规划并确认好版本组合。你可以通过以下步骤获得版本信息，并使用下表梳理你的方案。</p>
+<ol type="1">
+<li><p>确认 <strong>R torch</strong> 及其对应的 <strong>LibTorch</strong> 版本</p>
+<p>在R中执行<code>install.packages("torch")</code>并加载库(<code>library(torch)</code>)，安装程序会自动下载匹配的LibTorch。</p>
+<p>安装日志中显示的LibTorch文件名（如<code>libtorch-win-shared-with-deps-2.7.1%2Bcpu.zip</code>）即指明了其版本。</p>
+<p>注意：由于未安装 CUDA，它会默认安装 CPU 版的，需要及时停止。</p></li>
+<li><p>确认所需 <strong>CUDA 版本</strong></p>
+<p>访问<a href="https://pytorch.org/get-started/previous-versions/">PyTorch历史版本页面</a>，根据上一步确定的 LibTorch 版本（如2.7.1），查找其对应的官方指定的CUDA版本（如CUDA12.8）。请以此官方信息为准。</p></li>
+<li><p>确认所需 <strong>cuDNN 版本</strong></p>
+<p>根据上一步确定的 CUDA 版本，继而确定 cuDNN 版本 。</p>
+<p>访问：https://docs.nvidia.com/deeplearning/cudnn/backend/latest/reference/support-matrix.html#support-matrix。</p>
+<p>以上网页中介绍了 NVIDIA cuDNN 版本与各种受支持的 NVIDIA CUDA Toolkit、CUDA 驱动程序以及 NVIDIA 硬件版本之间的兼容性。</p></li>
+<li><p><strong>确认显卡驱动要求</strong></p>
+<p>根据上一步确定的CUDA版本，到<a href="https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html">NVIDIA官方文档</a>确认该版本CUDA所要求的最低显卡驱动版本。</p></li>
+</ol>
+</section>
+<section id="第二步安装前系统准备" class="level4">
+<h4 class="anchored" data-anchor-id="第二步安装前系统准备">4.2.第二步：安装前系统准备</h4>
+<ol type="1">
+<li><p><strong>安装 VisualC++ Redistributable</strong></p>
+<p>前往<a href="https://aka.ms/vc14/vc_redist.x64.exe">Microsoft官网</a>下载并安装最新的<code>VC_redist.x64.exe</code>。</p>
+<p>这是LibTorch在Windows上运行的必备组件。</p>
+<p>注意，务必更新安装最新版。 Microsoft Visual C++ Redistributable latest supported downloads Latest supported Visual C++ Redistributable downloads | Microsoft Learn</p></li>
+<li><p><strong>安装VisualStudio（可选）</strong></p>
+<p>如果你未来需要进行C++扩展开发，可安装VisualStudio并在安装时勾选“使用C++的桌面开发”工作负载。</p></li>
+<li><p><strong>更新显卡驱动</strong></p>
+<p>以管理员身份运行从<a href="https://www.nvidia.cn/Download/index.aspx">NVIDIA官网</a>下载的最新驱动。</p>
+<p>建议在“自定义安装”中选择“执行清洁安装”，以确保旧驱动组件被彻底清理。</p></li>
+</ol>
+</section>
+<section id="第三步安装-cuda-toolkit" class="level4">
+<h4 class="anchored" data-anchor-id="第三步安装-cuda-toolkit">4.3.第三步：安装 CUDA Toolkit</h4>
+<ol type="1">
+<li><p><strong>下载</strong></p>
+<p>前往<a href="https://developer.nvidia.com/cuda-toolkit-archive">CUDAToolkitArchive</a>，选择与你规划版本完全一致的安装包。</p></li>
+<li><p><strong>安装</strong></p>
+<p>运行安装程序，在安装类型界面选择“自定义”。</p>
+<p>在组件选择中，建议取消勾选“Visual Studio Integration”和“Driver components”，仅保留必要的CUDA工具包组件，避免与现有驱动或环境冲突。</p></li>
+<li><p><strong>验证</strong></p>
+<p>安装完成后，打开新的命令提示符（CMD），输入<code>nvcc--version</code>。</p>
+<p>如果正确显示你安装的CUDA版本号，则表明安装成功。</p></li>
+</ol>
+</section>
+<section id="第四步安装与配置cudnn" class="level4">
+<h4 class="anchored" data-anchor-id="第四步安装与配置cudnn">4.4.第四步：安装与配置cuDNN</h4>
+<ol type="1">
+<li><p><strong>下载</strong></p>
+<p>前往<a href="https://developer.nvidia.com/rdp/cudnn-archive">cuDNNArchive</a>，登录后下载与你CUDA版本精确匹配的cuDNN。</p>
+<p>例如，对于CUDA12.x，应选择标题中带有<code>_cuda12</code>字样的压缩包（如<code>cudnn-windows-x86_64-9.7.1.26_cuda12-archive.zip</code>）。</p></li>
+<li><p><strong>安装（本质是文件复制）</strong></p>
+<p>解压下载的cuDNN压缩包，会得到<code>bin</code>、<code>include</code>、<code>lib</code>三个文件夹。</p>
+<p>导航到CUDA安装目录（通常是<code>C:\ProgramFiles\NVIDIAGPUComputingToolkit\CUDA\v12.x</code>）。</p>
+<p>将解压出的三个文件夹内的所有内容，分别复制到CUDA目录下对应的同名文件夹中。</p></li>
+<li><p><strong>配置环境变量</strong></p>
+<p>确保系统环境变量<code>PATH</code>中包含CUDA的<code>bin</code>和<code>libnvvp</code>目录，例如： C:2.8C:2.8</p>
+<p>检查并确保存在<code>CUDA_PATH</code>变量，其值应为<code>C:\ProgramFiles\NVIDIAGPUComputingToolkit\CUDA\v12.8</code>。</p></li>
+</ol>
+</section>
+<section id="第五步安装验证与测试" class="level4">
+<h4 class="anchored" data-anchor-id="第五步安装验证与测试">4.5.第五步：安装验证与测试</h4>
+<p>建议按照以下顺序进行验证，确保底层支持完好，最后再次安装R包。</p>
+<ol type="1">
+<li><p><strong>CUDA基础测试</strong></p>
+<p>以管理员身份打开CMD，进入CUDA示例目录并运行两个测试程序：</p>
+<p>cd C:2.8_suite deviceQuery.exe 和 bandwidthTest.exe 两个测试的Result=PASS是CUDA环境就绪的关键标志。</p></li>
+<li><p><strong>安装与验证Rtorch</strong></p>
+<p>在R或RStudio中运行：install.packages(“torch”)</p>
+<p>安装完成后，加载包并进行GPU可用性验证： library(torch)</p>
+<p>查看CUDA是否可用 cuda_is_available() ，返回TRUE为成功</p>
+<p>查看检测到的CUDA版本 cuda_version()</p>
+<p>查看检测到的cuDNN版本 backends_cudnn_version()</p></li>
+</ol>
+<p><strong>版本管理：</strong> 严格遵守依赖链条。若需更换版本，建议从更新驱动开始，并按顺序重装CUDA、cuDNN，最后重新安装Rtorch。</p>
+</section>
+</section>
+</section>
+<section id="四torch内存管理" class="level2">
+<h2 class="anchored" data-anchor-id="四torch内存管理">四、Torch内存管理</h2>
+<p>cuda_empty_cache() 是 PyTorch 中的一个函数，用于清空 CUDA 缓存分配器持有的未使用内存，将这些内存释放回系统，以便其他进程或应用程序使用。</p>
+<p>要理解这个函数，首先需要了解 PyTorch 如何管理 GPU 内存：</p>
+<p>1. 缓存分配器：PyTorch 使用一个缓存内存分配器来加速内存分配。当张量被释放时，PyTorch 通常不会立即将内存返还给系统，而是保留在自己的缓存池中。这样，当需要分配新张量时，可以直接从缓存中快速分配，而不用向系统申请，大大提升了性能。</p>
+<ol start="2" type="1">
+<li>内存碎片：频繁分配和释放不同大小的张量会导致内存碎片。即使总空闲内存很多，也可能因为没有足够大的连续内存块而无法分配大张量。</li>
+</ol>
+<p>cuda_empty_cache() 就是用来解决上述问题的：</p>
+<p>功能：强制清空 PyTorch 缓存分配器中所有未使用的、缓存的内存块，将它们释放回系统。它不会释放当前正被张量占用的内存，只释放那些已经被 PyTorch 标记为空闲但还保留在缓存中的内存。</p>
+<p>主要应用场景 ：</p>
+<ul>
+<li><p>1在多个 PyTorch 进程或实验之间：当你完成一个实验或训练任务，准备开始下一个时，调用此函数可以确保干净的内存状态。</p></li>
+<li><p>2内存不足错误之前：当你预计接下来要分配一个非常大的张量，并且之前的内存操作产生了很多碎片时，可以尝试先清空缓存。</p></li>
+<li><p>3与其他 GPU 应用程序共享时：如果你需要在 PyTorch 和其他 GPU 应用程序（如 TensorFlow、游戏、渲染软件）之间切换，调用此函数可以释放 PyTorch 占用的 GPU 内存给其他程序使用。</p></li>
+<li><p>4在评估/推理阶段：在训练后进行评估时，如果遇到内存不足，可以调用此函数释放训练过程中缓存的但不再需要的内存。</p></li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>性能影响：频繁调用 empty_cache() 会降低性能，因为它清空了缓存，后续的内存分配需要重新向系统申请。不要在训练循环中调用它！</li>
+<li>不是万能药：它不能解决真正的内存泄漏问题。如果张量仍然有引用，内存不会被释放。它不能增加可用的 GPU 内存总量，只是更好地利用现有内存。</li>
+<li>监控工具：使用 torch.cuda.memory_summary() 或 nvidia-smi 来监控实际的内存使用情况，判断是否需要调用此函数。</li>
+<li>替代方案：有时使用 torch.cuda.synchronize() 确保所有操作完成后再测量内存会更准确。对于内存碎片问题，可以考虑调整张量分配策略或使用内存优化技术。</li>
+</ul>
+
+
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
