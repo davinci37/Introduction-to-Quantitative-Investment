@@ -1,0 +1,286 @@
+# 第16章 R 第9节 其它计量分析工具包 {.unnumbered}
+
+
+## 一、midasr 包和**混频数据采样回归**
+
+
+## 概述
+
+
+`midasr` 是 R 语言中用于**混频数据采样回归（MIDAS, Mixed Data Sampling Regression）** 的核心包。它提供了一套完整的工具，用于分析**响应变量与解释变量频率不同**的时间序列数据（例如，用季度GDP预测月度就业数据，或用月度数据预测季度数据）。
+
+
+该包由 Vaidotas Zemlys-Balevičius、Virmantas Kvedaras 等人开发，其设计受到了 Eric Ghysels 创建的 MIDAS Matlab 工具箱的启发。
+
+
+## 主要功能
+
+
+`midasr` 包涵盖了 MIDAS 回归的完整工作流：
+
+
+-   **模型估计**：支持多种 MIDAS 模型变体
+-   **模型选择**：提供基于信息准则的滞后选择等功能
+-   **模型检验**：包含模型充分性检验
+-   **预测**：支持点预测和基于模型组合的预测
+
+
+## 核心函数
+
+
+包中提供了以下主要函数：
+
+
+| 函数 | 功能 |
+|------------------------------------|------------------------------------|
+| `midas_r()` | 使用**非线性最小二乘法（NLS）** 估计**受限 MIDAS 回归** |
+| `midas_u()` | 估计**无限制 MIDAS 回归（U-MIDAS）**，本质上是 OLS 的包装器 |
+| `midas_nlpr()` | 估计**非线性参数 MIDAS 回归** |
+| `midas_sp()` | 估计**半参数及部分线性 MIDAS 回归** |
+| `midas_qr()` | 估计**分位数 MIDAS 回归** |
+| `mls()` | **时间序列向低频嵌入**，是构建 MIDAS 模型公式的灵活工具 |
+| `mlsd()` | 利用可用日期信息进行时间序列向低频嵌入 |
+| `forecast()` | MIDAS 回归的**预测**方法 |
+| `hAh.test()` / `hAhr.test()` | MIDAS 回归的**充分性检验** |
+| `midasr_ic_table()` | 使用**信息准则进行滞后选择** |
+| `average_forecast()` | 计算**加权预测组合** |
+| `select_and_forecast()` | 执行**模型选择后预测** |
+
+
+此外，`midasr` 为拟合的 MIDAS 回归对象提供了完善的**通用方法**，包括 `summary()`、`coef()`、`residuals()`、`fitted()`、`predict()`、`logLik()` 等，以及用于估计**稳健标准误**的 `estfun()` 和 `bread()` 方法。
+
+
+包中还内置了所有常用的 MIDAS 回归**权重约束函数**，如归一化 Almon 多项式、归一化 Beta 等。
+
+
+### 基本用法示例
+
+
+估计一个受限 MIDAS 模型的基本结构：
+
+
+``` r
+library(midasr)
+
+
+# formula 中通过 fmls() 指定高频变量及其滞后结构
+model <- midas_r(y ~ fmls(x, lag_structure, frequency),
+                 data = list(y = y, x = x),
+                 start = list(weight_name = starting_values))
+```
+
+
+其中： - `formula`：模型公式，必须包含 `fmls()` 函数来定义高频解释变量 - `data`：包含混频数据的命名列表 - `start`：优化起始值，须为具名列表 - `Ofunction`：指定优化函数（默认为 `optim` 的 BFGS 方法）
+
+
+## 模型诊断与选择
+
+
+`midasr` 提供了模型充分性检验函数 `hAh.test()` 和 `hAhr.test()`，以及基于信息准则的滞后选择工具 `midasr_ic_table()`，帮助用户在众多候选模型中选出最优设定。
+
+
+## 二、**EMD** 包和经典经验模态分解
+
+
+在R中，实现经典经验模态分解（EMD）的权威包是 **`EMD`** 包。它由Kim和Oh开发，专门用于执行一维和二维的EMD分解及Hilbert谱分析。
+
+
+### 核心功能：`emd()` 函数
+
+
+`EMD`包的核心是 `emd()` 函数，它用于将给定的时间序列或信号分解为若干个本征模态函数（IMF）和一个残差项。其基本用法如下：
+
+
+``` r
+emd(xt, tt = NULL, tol = sd(xt) * 0.1^2, max.sift = 20,
+    stoprule = "type1", boundary = "periodic", sm = "none",
+    smlevels = c(1), spar = NULL, check = FALSE,
+    max.imf = 10, plot.imf = FALSE, ...)
+```
+
+
+#### 主要参数详解
+
+
+-   **`xt`**: 待分解的观测值或信号向量（必须）。
+-   **`tt`**: 可选的时间或观测索引向量，默认为 `1:length(xt)`。
+-   **`tol`**: 筛选（sifting）过程的容忍度，用于判断筛选是否应停止。默认值为 `sd(xt) * 0.1^2`。
+-   **`max.sift`**: 筛选过程的最大迭代次数，默认20次。
+-   **`stoprule`**: 筛选过程的停止准则，可选 `"type1"` 到 `"type5"`，默认 `"type1"`。`"type1"` 要求包络均值的绝对值小于用户指定的容忍度；其他类型对应Huang等人在不同文献中提出的准则。
+-   **`boundary`**: 边界处理方法，可选 `"none"`, `"wave"`, `"symmetric"`, `"periodic"`（默认）, `"evenodd"`。
+-   **`sm`**: 包络构建方法。`"none"` 表示用插值法（默认），`"spline"` 为样条平滑，`"kernel"` 为核平滑，`"locfit"` 为局部多项式平滑。
+-   **`max.imf`**: 提取的IMF最大数量，默认10个。
+-   **`plot.imf`**: 逻辑值，若为 `TRUE`，则会逐步显示每个IMF的图形。
+
+
+#### 函数返回值
+
+
+`emd()` 函数返回一个列表，主要包含： \* **`imf`**: 一个矩阵，每一列是一个提取出的IMF。 \* **`residue`**: 残差信号，即原始信号减去所有IMF后的剩余部分。 \* **`nimf`**: 实际提取出的IMF数量。
+
+
+### 辅助函数与包特性
+
+
+除了核心的 `emd()`，`EMD` 包还提供了一些辅助功能：
+
+
+-   **`extrema()`**: 用于识别信号中的局部极大值、极小值和过零点，是EMD分解的基础步骤。
+
+
+-   **Hilbert谱分析**: 包的核心目标之一就是对分解得到的IMF进行Hilbert谱分析，以获取时频信息。
+
+
+### 应用示例
+
+
+下面的代码演示了如何使用 `EMD` 包对一个由三个正弦波叠加而成的合成信号进行分解。
+
+
+``` r
+# 1. 安装并加载EMD包
+# install.packages("EMD")
+library(EMD)
+
+
+# 2. 生成一个示例信号 (三个正弦波叠加)
+ndata <- 3000
+tt2 <- seq(0, 9, length.out = ndata)
+xt2 <- sin(pi * tt2) + sin(2 * pi * tt2) + sin(6 * pi * tt2)
+
+
+# 3. 执行EMD分解
+# plot.imf = TRUE 会在分解过程中逐步显示每个IMF的图形
+decomposition <- emd(xt = xt2, tt = tt2, plot.imf = TRUE)
+
+
+# 4. 查看分解结果
+# 提取的IMF矩阵
+imfs <- decomposition$imf
+# 残差信号
+residue <- decomposition$residue
+# IMF的数量
+num_imfs <- decomposition$nimf
+```
+
+
+### 常见问题与提示
+
+
+-   **模式混叠（Mode Mixing）**: 经典EMD算法的一个固有问题，即一个IMF中可能包含差异很大的时间尺度，或者相似的时间尺度被分散到不同的IMF中。如果遇到此问题，可以考虑使用 `Rlibeemd` 包提供的EEMD或CEEMDAN方法。
+-   **端点效应（End Effect）**: 在信号两端，由于无法确定极值，拟合的包络可能发散。`EMD` 包提供了多种 `boundary` 参数（如 `"periodic"`, `"symmetric"`）来处理此问题。
+-   **计算效率**: 对于长序列或复杂信号，EMD分解可能比较耗时。`Rlibeemd` 包基于C语言编写，在效率上可能更有优势。
+
+
+对于需要在R中进行经典EMD分解和Hilbert谱分析的用户，`EMD` 包是最直接、最权威的选择。如果需要处理模式混叠或追求更高计算效率，可以考虑 `Rlibeemd` 包。
+
+
+## 三、傅里叶变换
+
+
+在R中做傅里叶变换，最直接的工具是基础包`stats`中的`fft()`函数。同时，针对不同的需求（如高性能计算、专业频谱分析、图像处理等），也有多个专业的扩展包可供选择。
+
+
+这里通过几个典型场景的案例，来展示具体的实现方法。
+
+
+### 1.使用 `stats::fft()` 进行频谱分析
+
+
+这是最通用的方法，适用于快速了解信号的频域特征。
+
+
+**代码示例**:
+
+
+``` r
+# 1. 生成一个包含两个频率成分的信号 (4 Hz 和 20 Hz)
+n <- 1000                # 信号点数
+fs <- 100                # 采样频率 (Hz)
+x <- seq(0, n-1, by=1) / fs  # 时间向量 (秒)
+# 信号: 幅度为1的4Hz正弦波 + 幅度为0.5的20Hz正弦波
+y <- sin(4 * 2 * pi * x) + 0.5 * sin(20 * 2 * pi * x)
+
+
+# 2. 执行快速傅里叶变换 (FFT)
+Y <- fft(y)
+
+
+# 3. 计算幅度谱并归一化
+# 取模，并除以信号长度n得到真实的单边频谱幅度
+mag <- abs(Y) / n
+
+
+# 4. 创建频率轴 (仅取前 n/2+1 个点，即单边频谱)
+freq <- (0:(n/2)) * (fs / n)
+
+
+# 5. 取幅度谱的前一半 (单边频谱)，并调整幅度 (除直流分量外，乘以2)
+mag_single <- mag[1:(n/2 + 1)]
+mag_single[2:length(mag_single)] <- 2 * mag_single[2:length(mag_single)]
+
+
+# 6. 绘制原始信号和单边幅度谱
+par(mfrow = c(2, 1))
+
+
+# 原始信号 (前200个点)
+plot(x[1:200], y[1:200], type="l", xlab="Time (s)", ylab="Amplitude",
+     main="Original Signal (First 200 points)")
+
+
+# 单边幅度谱
+plot(freq, mag_single, type="l", xlab="Frequency (Hz)", ylab="Magnitude",
+     main="Single-Sided Amplitude Spectrum")
+# 在4Hz和20Hz处添加标记，验证结果
+abline(v = c(4, 20), col="red", lty=2)
+```
+
+
+### 2. 使用 `spectral` 包进行频谱分析
+
+
+`spectral`包是对`stats::fft()`的高级封装，提供了更便捷、功能更全面的频谱分析工具。
+
+
+**特点**:
+
+
+-   自动计算并返回傅里叶频谱和功率谱密度（PSD）。
+
+
+-   输出的频率轴是“合理的”。 \* 支持一维、二维乃至多维数据的分析。
+
+
+-   提供了类似Lomb-Scargle方法的误警概率（FAP），便于统计推断。
+
+
+**代码示例**:
+
+
+``` r
+library(spectral)
+
+
+# 1. 创建与上面相同的示例信号
+n <- 1000
+fs <- 100
+x <- seq(0, n-1, by=1) / fs
+y <- sin(4 * 2 * pi * x) + 0.5 * sin(20 * 2 * pi * x)
+
+
+# 2. 使用 spec.fft 计算频谱
+# 输入信号 y 和对应的时间向量 x
+FT <- spec.fft(y, x)
+
+
+# 3. 查看结果
+print(FT)
+summary(FT)
+
+
+# 4. 绘制频谱图
+# spec.fft 返回的对象可以直接用 plot 绘制
+plot(FT, ylab = "Amplitude", xlab = "Frequency", type = "l",
+     main = "Spectrum (spectral package)")
+```

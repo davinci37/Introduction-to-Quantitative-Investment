@@ -1,0 +1,962 @@
+# 第16章 R 第12节 数据读写和存储 {.unnumbered}
+
+
+## 一、基础数据读写
+
+
+R语言提供了非常丰富的数据导入导出能力，其基础功能主要通过R默认加载 `utils` 包中的一系列函数实现，足以处理绝大多数常见数据格式。
+
+
+### 1.核心数据导入函数
+
+
+R语言的数据导入功能，特别是对文本文件的读取，其底层基础是 `scan()` 函数。在此基础上，R为不同类型的文件提供了更便捷的封装函数。
+
+
+| 函数 | 主要用途 | 关键参数与说明 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **`read.table()`** | **通用表格数据读取** | 最灵活的函数，可读取各种分隔符的文本文件。常用参数包括：`file`(文件路径)、`header`(是否将首行作为列名)、`sep`(字段分隔符)、`stringsAsFactors`(是否将字符串转为因子)等。 |
+| **`read.csv()`** | **读取CSV文件** | `read.table()` 的便捷版本，默认 `sep=","`，`header=TRUE`。是处理逗号分隔文件最常用的函数。 |
+| **`read.csv2()`** | **读取CSV文件（欧洲风格）** | 用于读取逗号作为小数点的CSV文件，默认 `sep=";"`，`dec=","`。 |
+| **`read.delim()`** | **读取制表符分隔文件** | 用于读取Tab键分隔的文本文件，默认 `sep="\t"`，`header=TRUE`。 |
+| **`read.fwf()`** | **读取固定宽度文件** | 用于读取数据按列对齐、没有分隔符的文件。 |
+| **`scan()`** | **灵活读取向量数据** | 更底层的函数，可以读取向量、矩阵等，灵活性高。 |
+
+
+**2.使用 `read.csv()` 等基础函数需注意：**
+
+
+1.  **字符串自动转因子**：在R 4.0.0版本之前，`read.csv()` 默认会将字符型列转换为因子（Factor）。如果不需要，建议明确设置参数 `stringsAsFactors = FALSE`。
+2.  **文件编码问题**：当处理含中文等非英文字符的文件时，需通过 `fileEncoding` 参数指定正确编码（如 `"UTF-8"` 或 `"GBK"`），否则会出现乱码。
+
+
+### 3.核心数据导出函数
+
+
+数据导出与导入对应，同样提供了一系列函数。
+
+
+| 函数 | 主要用途 | 关键参数与说明 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **`write.table()`** | **通用表格数据导出** | 最通用的函数，可将数据框写入文本文件。参数与 `read.table()` 类似，如 `file`、`sep`、`row.names`（是否输出行名）等。 |
+| **`write.csv()`** | **导出为CSV文件** | `write.table()` 的便捷版本，默认 `sep=","`。 |
+| **`write.csv2()`** | **导出为CSV文件（欧洲风格）** | 用于生成逗号作为小数点的CSV文件，默认 `sep=";"`，`dec=","`。 |
+| **`cat()`** | **灵活输出与文件写入** | 功能丰富，可将多个对象连接后输出到屏幕或文件。通过 `file` 参数指定文件，`append=TRUE` 可在文件末尾追加内容。 |
+
+
+### 4.专有格式：RData与RDS
+
+
+除了通用文本格式，R还提供了两种高效的原生数据格式：
+
+
+-   **RData（.RData / .rda）**：用于保存**一个或多个**R对象。使用 `save()` 函数保存，`load()` 函数加载。
+-   **RDS（.rds）**：用于保存**单个**R对象。使用 `saveRDS()` 函数保存，`readRDS()` 函数加载。 这两种格式能完美保留R对象的所有属性（如因子水平、时间序列属性等），且读写速度极快，是保存R工作成果的理想选择。
+
+
+### 5.总结与扩展
+
+
+总而言之，**基础R** 通过 `read.table`、`read.csv`、`write.table`、`write.csv` 等函数，为 **CSV、TXT** 等表格数据的读写提供了强大支持。
+
+
+当然，R强大的生态系统还提供了处理更复杂数据格式的扩展包，例如：
+
+
+-   **`readxl`**：读取 Excel (.xls/.xlsx) 文件。
+
+
+-   **`haven`**：读取 SAS、SPSS、Stata 等统计软件格式。
+
+
+-   **`jsonlite`** 和 **`XML`**：处理 JSON 和 XML 数据。
+
+
+-   **`DBI`** 及相应驱动（如 `RSQLite`, `RMySQL`）：连接各类数据库。
+
+
+总的来说，R的数据导入导出能力非常强大和灵活。掌握好基础R函数已能满足大部分日常需求，而面对特殊格式时，丰富的扩展包生态则提供了完备的解决方案。
+
+
+## 二、Excel 文件读写
+
+
+R语言读写Excel文件的包主要有以下几类，按功能和使用场景区分。
+
+
+### 1.流读取包：readxl
+
+
+`readxl` 是tidyverse生态中的一员，**专为读取Excel文件设计**，不支持写入。
+
+
+-   **核心优势**：**零外部依赖**，无需安装Java或Excel环境，在Windows、Mac、Linux上均可稳定运行。它通过内置的C/C++库（`libxls`和`RapidXML`）直接解析文件。
+-   **主要函数**：
+    -   `read_excel()`: 读取Excel文件的核心函数。
+    -   `excel_sheets()`: 列出Excel文件中所有工作表的名称。
+    -   `readxl_example()`: 获取包自带的示例Excel文件路径，方便练习。
+-   **灵活读取**：通过`range`参数，可以像在Excel中一样指定读取范围，例如`range = "B3:D15"`。
+-   **适用场景**：当你**只需要读取数据**，希望过程简单、可靠、无痛时，`readxl`是首选。
+
+
+### 2.主流写入包：writexl
+
+
+`writexl` 专注于**将R数据框高效地写入Excel的`.xlsx`格式**。
+
+
+-   **核心优势**：**极简、轻量且快速**。整个包用C语言编写，**零依赖**，速度极快，在基准测试中速度约为`openxlsx`的两倍。
+-   **主要函数**：
+    -   `write_xlsx()`: 核心写入函数。可以轻松地将单个数据框或**多个数据框组成的命名列表**写入同一个Excel文件的不同工作表。
+-   **适用场景**：当你**只需要导出数据**，追求最快的速度和最小的包体积时。
+
+
+### 3.全能型选手：openxlsx
+
+
+`openxlsx` 提供了**读写、编辑、样式设置**等全面的Excel操作能力。
+
+
+-   **核心优势**：功能强大且**无需Java依赖**。它通过Rcpp实现，性能优秀，足以替代传统的`xlsx`包。
+-   **主要函数**：
+    -   `read.xlsx()`: 读取Excel文件。
+    -   `write.xlsx()`: 将数据框写入Excel文件。
+    -   `loadWorkbook()`: 加载一个现有的Excel文件作为R中的“工作簿”对象，以便进行后续的编辑和样式操作。
+-   **适用场景**：当你不仅需要读写，**还需要对Excel进行复杂的格式设置、样式调整或内容修改**时。
+-   **注意**：`openxlsx`原版已**不再积极开发**，官方建议新项目使用`openxlsx2`等替代方案。`openxlsx2`是它的继任者，功能更现代。
+
+
+### 4.其他备选方案
+
+
+-   **xlsx包**：老牌包，可读写Excel 97-2003和2007+格式。但**依赖Java环境**，配置较麻烦，且处理大数据时速度较慢。
+-   **XLConnect包**：同样是**依赖Java**的综合性Excel操作包。功能非常全面，跨平台性好。如果你熟悉Java或需要其特定功能，可以考虑。
+-   **gdata包**：另一个老牌包，但同样存在外部依赖问题，目前已不常用。
+
+
+### 5.实战代码示例
+
+
+以下是用 `readxl` 和 `openxlsx` 进行基本操作的示例。
+
+
+#### 5.1. 使用 `readxl`
+
+
+``` r
+# 1. 安装并加载包
+install.packages("readxl")
+library(readxl)
+
+
+# 2. 查看文件有哪些工作表
+sheet_names <- excel_sheets("你的文件.xlsx")
+print(sheet_names)
+
+
+# 3. 读取数据（最常用）
+# 默认读取第一个工作表
+data <- read_excel("你的文件.xlsx")
+
+
+# 读取指定名称的工作表
+data <- read_excel("你的文件.xlsx", sheet = "Sheet2")
+
+
+# 读取指定位置（第二个）的工作表
+data <- read_excel("你的文件.xlsx", sheet = 2)
+
+
+# 4. 更精确地控制读取
+# 跳过前2行，从第3行开始读，并手动指定列名
+data <- read_excel("你的文件.xlsx",
+                   skip = 2,
+                   col_names = c("ID", "Name", "Score"))
+
+
+# 只读取A1:C10这个单元格区域
+data <- read_excel("你的文件.xlsx", range = "A1:C10")
+```
+
+
+#### 5.2. 使用 `openxlsx`
+
+
+``` r
+# 1. 安装并加载包
+install.packages("openxlsx")
+library(openxlsx)
+
+
+# 2. 读取数据
+# 默认读取第一个工作表
+data <- read.xlsx("你的文件.xlsx")
+
+
+# 读取指定名称的工作表
+data <- read.xlsx("你的文件.xlsx", sheet = "Sheet2")
+
+
+# 读取指定位置（第二个）的工作表
+data <- read.xlsx("你的文件.xlsx", sheet = 2)
+
+
+# 3. 更精确地控制读取
+# 指定读取的行列范围 (例如从第3行开始，读取前100行)
+data <- read.xlsx("你的文件.xlsx", startRow = 3, rows = 100)
+```
+
+
+### 6.如何选择
+
+
+各包主要功能、特点与适用场景对比：
+
+
+| 包名 | 主要功能 | Java依赖 | 特点与适用场景 |
+|:-----------------|:-----------------|:------------------|:-----------------|
+| **readxl** | **读取** | 无 | **读取专用**，零依赖，简单可靠，是读取数据的首选。 |
+| **writexl** | **写入** | 无 | **写入专用**，极简、轻量、速度最快，是导出数据的首选。 |
+| **openxlsx** | **读写 + 编辑** | 无 | **功能全面**，无需Java，适合需要修改和美化Excel文件的场景。 |
+| xlsx | 读写 + 编辑 | **有** | 老牌包，功能全但依赖Java，配置复杂，速度较慢。 |
+| XLConnect | 读写 + 编辑 | **有** | 功能强大的Java桥接器，跨平台性好。 |
+
+
+根据场景需要选择合适的工具波。简单来说，可以遵循以下原则：
+
+
+-   **如果只是单纯导入数据**，**`readxl`** 是首选。它速度最快，用法简单，且无任何外部依赖，能覆盖大多数导入需求。
+
+
+-   **如果需要创建或修改Excel文件**：**`openxlsx`** 是更好的选择。它功能全面，同样不依赖Java，是进行Excel读、写、编辑的一站式解决方案。
+
+
+-   **应避免使用的包**：除非有特殊的遗留系统要求，否则应**避免使用 `xlsx`** ，因为它们分别依赖Java和Perl，配置繁琐且性能不佳。
+
+
+## 三、**haven包**
+
+
+`haven`包是R语言中用于与SPSS、SAS、Stata等统计软件进行数据交换的首选工具。它通过封装**ReadStat** C语言库来实现对各种专有数据格式的读写，具有**速度快、稳定性高**的优点。作为**tidyverse**生态系统的一员，`haven`的设计理念与现代R语言实践高度一致。
+
+
+### 1.核心功能：读与写
+
+
+下表总结了`haven`针对不同软件的核心读写函数：
+
+
+| 统计软件 | 读取函数 | 写入函数 | 支持的文件格式 |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **SAS** | `read_sas()` | \- | `.sas7bdat` (数据集) 和 `.sas7bcat` (目录文件) |
+|  | `read_xpt()` | `write_xpt()` | SAS传输文件 (XPORT格式, 版本5和8) |
+| **SPSS** | `read_sav()` | `write_sav()` | `.sav` 文件 (包括压缩的 `.zsav` 文件) |
+|  | `read_por()` | \- | 较旧的 `.por` 便携式文件 |
+| **Stata** | `read_dta()` | `write_dta()` | `.dta` 文件 (读取支持至版本15，写入支持版本8-15) |
+
+
+### 2.基本使用用法
+
+
+使用`haven`的流程非常直观，主要包括安装、加载和调用函数三个步骤。
+
+
+#### 2.**1. 安装与加载**
+
+
+你可以选择安装整个`tidyverse`或仅安装`haven`包：
+
+
+``` r
+# 安装
+install.packages("tidyverse") # 推荐，会一并安装其他常用包
+# 或者
+install.packages("haven")
+
+
+# 加载
+library(haven)
+```
+
+
+#### 2.**2. 读取与写入数据**
+
+
+加载包后，直接使用对应的读写函数即可。
+
+
+``` r
+# --- SAS 示例 ---
+# 读取 .sas7bdat 文件
+sas_data <- read_sas("path/to/your_data.sas7bdat")
+# 写入 SAS 传输文件
+write_xpt(mtcars, "mtcars.xpt")
+
+
+# --- SPSS 示例 ---
+# 读取 .sav 文件
+spss_data <- read_sav("path/to/your_data.sav")
+# 写入 .sav 文件
+write_sav(mtcars, "mtcars.sav")
+
+
+# --- Stata 示例 ---
+# 读取 .dta 文件
+stata_data <- read_dta("path/to/your_data.dta")
+# 写入 .dta 文件
+write_dta(mtcars, "mtcars.dta")
+```
+
+
+### 3.数据类型的处理
+
+
+`haven`的强大之处不仅在于读写，更在于它对不同软件中特殊数据类型的精细处理。
+
+
+-   **输出格式为Tibble**：读取的数据会以`tibble`格式（一种增强版的`data.frame`）呈现，打印和操作更方便。
+-   **标签值的处理 (`labelled`类)**：SPSS和Stata的"值标签"（如用1代表"男"，2代表"女"）会被保存为特殊的 **`labelled`** 类。这既保留了原始编码，也保留了标签信息。
+-   **标签与因子转换 (`as_factor()`)**：你可以使用`as_factor()`函数将`labelled`向量轻松转换为R的因子（`factor`）类型。该函数提供了多种转换方式，例如使用标签作为因子水平等。
+-   **特殊缺失值的保留**：R默认的缺失值是`NA`。而SAS、SPSS等软件支持多种特殊缺失值（如`NA`， `NA`等），`haven`在读取时会尽力保留这些信息。
+-   **日期/时间与字符的处理**：日期和时间会被自动转换为R的日期/时间类（`Date`/`POSIXct`）。字符型变量在导入时**不会**被自动转换为因子，保持了数据的原始形态。
+
+
+### 4.备选方案与注意事项
+
+
+-   **同类包对比**：在`haven`之前，**`foreign`**包是主流选择。但`foreign`包较为古老，对Stata的支持仅到版本12，且对标签等元数据的处理不如`haven`完善。因此，对于新项目，**`haven`是更现代、更强大的选择**。
+-   **中文编码问题**：在处理含有中文的SPSS或Stata文件时，偶尔会遇到乱码。这通常是由于文件编码（如GBK）与R默认编码（UTF-8）不一致导致。如果遇到此问题，可以尝试在读取函数中指定`encoding`参数，例如 `read_sav("file.sav", encoding = "gb18030")`。
+
+
+## 四、R语言与数据库交互
+
+
+R语言与数据库交互的生态非常成熟，核心思路是统一的：通过 **`DBI`** 包提供标准接口，再由各个**专用驱动包**（如`RMySQL`、`ROracle`）或通用驱动包（如`odbc`）负责底层实现。
+
+
+### 1.核心框架：DBI 包
+
+
+`DBI`（DataBase Interface）是R中连接数据库的**统一接口规范**。它定义了一系列标准函数（如`dbConnect`、`dbGetQuery`等），让用户用几乎相同的代码操作不同数据库。
+
+
+### 2.与 MySQL 交互：RMySQL 包
+
+
+`RMySQL` 是专门用于连接MySQL数据库的驱动包。
+
+
+#### 2.**1. 安装与加载**
+
+
+``` r
+install.packages("RMySQL")
+library(RMySQL)
+```
+
+
+#### 2.**2. 建立连接**
+
+
+使用 `dbConnect` 函数创建连接对象。关键参数包括 `MySQL()` 驱动、`host`（主机地址）、`dbname`（数据库名）、`user`（用户名）和 `password`（密码）。
+
+
+``` r
+# 连接到本地MySQL数据库
+con <- dbConnect(MySQL(),
+                 host = "localhost",
+                 dbname = "your_database",
+                 user = "your_username",
+                 password = "your_password")
+```
+
+
+#### 2.**3. 核心数据操作**
+
+
+**查询数据**：`dbGetQuery()` 执行查询并直接返回数据框。
+
+
+``` r
+result <- dbGetQuery(con, "SELECT * FROM your_table WHERE id > 100")
+```
+
+
+**写入数据**：`dbWriteTable()` 将R数据框写入数据库。
+
+
+``` r
+dbWriteTable(con, "new_table", your_data_frame, overwrite = TRUE)
+```
+
+
+**执行语句**：`dbExecute()` 用于插入、更新、删除等无返回值的SQL操作。
+
+
+``` r
+dbExecute(con, "UPDATE your_table SET column1 = 'new_value' WHERE id = 10")
+```
+
+
+**断开连接**：`dbDisconnect()` 关闭连接，释放资源。
+
+
+``` r
+dbDisconnect(con)
+```
+
+
+### 3.与 Oracle 交互：ROracle 包
+
+
+`ROracle` 是Oracle官方支持的数据库接口包，基于OCI（Oracle Call Interface）。
+
+
+#### 3.**1. 安装与加载**
+
+
+``` r
+install.packages("ROracle")
+library(ROracle)
+```
+
+
+#### 3.**2. 建立连接**
+
+
+同样是 `dbConnect` 函数，但驱动需指定为 `Oracle()`。连接时可直接传入用户名和密码。`dbname` 参数用于指定Oracle的连接标识符（TNS名称或Easy Connect字符串）。
+
+
+``` r
+# 创建驱动实例并连接
+drv <- Oracle()
+con <- dbConnect(drv, username = "scott", password = "tiger", dbname = "orcl")
+```
+
+
+#### 3.**3. 核心数据操作**
+
+
+`ROracle` 也遵循 `DBI` 规范，因此核心函数与MySQL一致。
+
+
+``` r
+# 查询数据
+result <- dbGetQuery(con, "SELECT * FROM emp")
+
+
+# 执行更新
+dbExecute(con, "UPDATE emp SET sal = sal * 1.1 WHERE deptno = 20")
+
+
+# 断开连接
+dbDisconnect(con)
+```
+
+
+### 4.通用方案：odbc 包（连接任何数据库）
+
+
+`odbc` 包是基于ODBC的通用解决方案，可连接所有支持ODBC的数据库。
+
+
+#### 4.**1. 安装与加载**
+
+
+``` r
+install.packages("odbc")
+library(odbc)
+```
+
+
+#### 4.**2. 建立连接**
+
+
+`dbConnect` 函数需要指定 `odbc()` 驱动和 `DSN`（数据源名称）或详细的连接参数。
+
+
+``` r
+# 通过DSN连接
+con <- dbConnect(odbc(), dsn = "YourDataSourceName")
+
+
+# 或直接指定驱动和服务器信息
+con <- dbConnect(odbc(),
+                 Driver = "ODBC Driver 17 for SQL Server",
+                 Server = "your_server_name",
+                 Database = "your_database",
+                 UID = "your_username",
+                 PWD = "your_password")
+```
+
+
+#### 4.**3. 核心数据操作**
+
+
+后续的查询、写入等操作与前述完全一致，因为 `odbc` 包同样遵循 `DBI` 标准。
+
+
+### 5.使用 `dbplyr` 包写R代码操作数据库
+
+
+`dbplyr` 包让你能用 **`dplyr` 风格的R代码** 来操作数据库，它会自动将R代码翻译成SQL语句执行。
+
+
+``` r
+library(dplyr)
+library(dbplyr)
+
+
+# 连接数据库
+con <- dbConnect(RMySQL::MySQL(), ...)
+
+
+# 创建一个指向数据库表的“远程”数据框
+tbl(con, "your_table") %>%
+  filter(id > 100) %>%
+  select(name, value) %>%
+  collect() # collect() 将结果数据拉取到R内存中
+```
+
+
+这种方式兼具了`dplyr`的易用性和数据库的高性能。
+
+
+### 6.总结与建议
+
+
+#### 6.**1. 方案选择**
+
+
+-   **专用驱动 (`RMySQL`, `ROracle`)**：性能最优，配置简单，是连接特定数据库的首选。
+-   **通用驱动 (`odbc`)**：适合需要连接多种异构数据库，或数据库没有专用R包的情况。
+
+
+#### 6.**2. 最佳实践**
+
+
+-   **始终断开连接**：使用 `dbDisconnect()` 释放资源。
+-   **善用 `dbplyr`**：处理大数据时，尽量让计算在数据库内完成，避免将全部数据拉取到R内存中。
+-   **保护敏感信息**：避免在脚本中硬编码用户名和密码，可使用环境变量或配置文件来管理。
+
+
+## 六、`sqldf` 包
+
+
+### 1.概述
+
+
+`sqldf` 包的目标用户是那些**熟悉 SQL 但不熟悉 R 数据处理语法（如 dplyr）** 的分析师，让你能以自己最舒服的方式操作数据。它允许你直接对 R 中的**数据框（data frame）执行 SQL 查询**。
+
+
+`sqldf` 的魅力在于其极致的自动化。你只需提供一个 SQL 语句，所需工作由它在后台自动完成，其工作原理：
+
+
+1.  **自动创建**：在内存中创建一个临时数据库。
+
+
+2.  **自动导入**：将你指定的 R 数据框作为数据表导入该数据库。
+
+
+3.  **自动执行**：运行你提供的 SQL 查询。
+
+
+4.  **自动返回**：将查询结果读取回 R，并作为数据框返回。
+
+
+5.  **自动清理**：最后删除这个临时数据库，对你完全透明。
+
+
+### 2.应用示例
+
+
+使用 `sqldf` 的流程非常简单直接。
+
+
+#### 2.**1. 安装与加载**
+
+
+``` r
+install.packages("sqldf")
+library(sqldf)
+```
+
+
+#### 2.**2. 核心用法：`sqldf()` 函数**
+
+
+核心函数就是 `sqldf()`。你只需将 SQL 语句作为字符串传入，并在 SQL 中直接使用 R 数据框的名字作为“表名”。
+
+
+``` r
+# 使用 R 内置的 iris 数据集
+data(iris)
+
+
+# 执行一个简单的查询：选择 Species 为 'virginica' 的所有列
+result <- sqldf("SELECT * FROM iris WHERE Species = 'virginica'")
+
+
+# 执行一个带聚合的查询
+result <- sqldf("SELECT Species, AVG(Sepal.Length) as Avg_Sepal_Length FROM iris GROUP BY Species")
+```
+
+
+### 3.支持的数据库后端
+
+
+`sqldf` 默认使用 **SQLite** 作为后端数据库，但它也支持通过参数切换来连接其他数据库。
+
+
+| 数据库         | 支持的R包     | 说明                                   |
+|:---------------|:--------------|:---------------------------------------|
+| **SQLite**     | `RSQLite`     | **默认后端**，无需额外配置，开箱即用。 |
+| **PostgreSQL** | `RPostgreSQL` | 功能强大的开源关系型数据库。           |
+| **MySQL**      | `RMySQL`      | 从0.4-0版本开始支持。                  |
+
+
+**注意**：要使用非默认的数据库，你需要安装对应的R包，并通过设置全局选项来切换驱动，例如：`options(sqldf.driver = "PostgreSQL")`。
+
+
+### 4.注意：性能与替代方案
+
+
+尽管 `sqldf` 非常方便，但有几点需要你特别留意：
+
+
+-   **性能考量**：`sqldf` 的设计初衷是**为了方便，而非追求极致的速度**。在处理**大型数据集**时，由于需要将数据框完整地复制到内存数据库中进行处理，其性能可能不如 `dplyr` 等专门为R优化的包。
+-   **数据类型与函数**：SQL查询中使用的函数（如 `AVG`, `SUM`）是由**数据库后端（如SQLite）提供的，而非R的函数**。因此，某些R中特有的函数或数据类型可能无法直接在 `sqldf` 的查询中使用。
+-   **对于超大文件**：`sqldf` 包提供的 `read.csv.sql()` 函数可以在读取大型CSV文件时直接进行SQL过滤，仅将符合条件的数据加载到R中，从而避免内存溢出。
+-   **一个现代的替代者**：如果你喜欢 `sqldf` 用SQL操作数据框的思路，但又希望获得更好的性能，可以关注 **`duckdb`** 包。它同样支持直接对R数据框执行SQL，但基于更高效的列式存储引擎，在处理大数据时表现更优。
+
+
+总之，`sqldf` 是一个为 **SQL 用户**量身定制的R包，它通过全自动的幕后流程，让你能以最熟悉的SQL语法操作R中的数据框。它非常适合快速数据探索和那些对性能要求不高的场景。
+
+
+## 七、**RSQLite 包**
+
+
+### 1.概述
+
+
+**RSQLite** 是 R 语言中用于操作 **SQLite** 数据库的核心包。它的最大特点是**将 SQLite 数据库引擎直接嵌入到 R 包中**，因此使用时无需额外安装或配置任何外部数据库软件。
+
+
+RSQLite 提供了与 **DBI** 包（R 的数据库接口规范）完全兼容的接口，这意味着你可以使用 DBI 包中定义的标准函数（如 `dbConnect`、`dbGetQuery`、`dbWriteTable` 等）来操作 SQLite 数据库，学习成本低，且代码风格与其他数据库包（如 RPostgreSQL、RMariaDB）保持一致。
+
+
+### 2.主要特点
+
+
+1.  零配置、开箱即用
+
+
+    -   包内直接包含了 SQLite 引擎的源代码，通过**静态链接**方式集成，不会调用系统的 SQLite 库，保证了在不同环境下的行为一致性。
+    -   支持的 SQLite 版本会随着包更新而升级（例如版本 2.4.3 内置 SQLite 3.50.4，版本 3.53.3 内置 SQLite 3.53.3）。
+
+
+2.  符合 DBI 规范
+
+
+    -   RSQLite 是 DBI 兼容接口，使用时**主要调用 DBI 包中的函数**，而不是直接调用 RSQLite 的函数。
+    -   推荐的加载方式是先加载 `DBI`，再通过 `RSQLite::SQLite()` 指定驱动。
+
+
+3.  轻量级、单用户
+
+
+    -   SQLite 本身是一个**公共领域**的、**单用户**、**非常轻量级**的数据库引擎，实现了 SQL 92 标准的核心功能（表创建、更新、插入、查询以及事务管理）。
+    -   非常适合作为嵌入式数据库、本地数据存储、测试和原型开发使用。
+
+
+4.  支持远程数据库（实验性）
+
+
+    -   当编译时支持 libcurl，可以启用实验性的 **HTTP/HTTPS 虚拟文件系统（VFS）**，允许对远程的、不可变的 SQLite 数据库文件进行**只读**访问。
+
+
+### 3.基本使用方法
+
+
+安装：
+
+
+``` r
+# 从 CRAN 安装最新正式版：
+install.packages("RSQLite")
+
+
+# 或从 GitHub 安装开发版：
+# install.packages("devtools")
+devtools::install_github("r-dbi/RSQLite")
+```
+
+
+加载 DBI 包并创建连接
+
+
+``` r
+library(DBI)
+
+
+# 创建持久化数据库文件
+con <- dbConnect(RSQLite::SQLite(), "my-database.sqlite")
+
+
+# 创建临时内存数据库（断开连接后自动删除）
+con <- dbConnect(RSQLite::SQLite(), ":memory:")
+# 或使用空字符串表示临时磁盘数据库
+con <- dbConnect(RSQLite::SQLite(), "")
+```
+
+
+**写入数据**
+
+
+``` r
+# 将 R 中的数据框写入数据库表：
+dbWriteTable(con, "mtcars", mtcars)
+dbWriteTable(con, "iris", iris)
+```
+
+
+**查询数据**
+
+
+``` r
+# 一次性获取全部结果（适用于小数据集）：
+dbGetQuery(con, 'SELECT * FROM mtcars WHERE cyl = 4')
+
+
+
+
+# 安全地使用参数化查询（防止 SQL 注入， 不要用 `paste()` 拼凑 SQL）：
+dbGetQuery(con, 'SELECT * FROM iris WHERE "Sepal.Length" < :x',
+           params = list(x = 4.6))
+
+
+
+
+# 分批获取大量结果（避免内存溢出）：
+rs <- dbSendQuery(con, 'SELECT * FROM mtcars')
+while (!dbHasCompleted(rs)) {
+  df <- dbFetch(rs, n = 10)  # 每次取10行
+  print(nrow(df))
+}
+dbClearResult(rs)
+```
+
+
+**断开连接**
+
+
+``` r
+dbDisconnect(con)
+```
+
+
+### 4.总结
+
+
+**RSQLite** 是在 R 中使用 SQLite 数据库的**标准方案**。它无需外部依赖、完全符合 DBI 规范，既适合快速进行本地数据分析，也可作为复杂应用的数据存储后端。其内置的 SQLite 引擎、对参数化查询的支持以及分批读取大数据集的能力，使其在易用性、安全性和性能之间取得了很好的平衡。
+
+
+## 八、duckdb包
+
+
+### 1.概述
+
+
+**duckdb** 是 R 语言中用于操作 **DuckDB** 数据库的核心包。
+
+
+DuckDB 是一个**嵌入式、进程内（in-process）的 SQL OLAP 数据库管理系统**，专为**分析型查询工作负载**而设计，并针对**快速查询执行**进行了优化。它在**极简部署理念**（无外部依赖、无需独立服务器）之上，加入了专为**在线分析处理（OLAP）** 优化的**列式存储引擎**。
+
+
+与 RSQLite 类似，duckdb 包也**完全实现了 DBI 接口**，因此你可以使用相同的 `dbConnect`、`dbGetQuery`、`dbWriteTable` 等标准函数来操作 DuckDB。
+
+
+### 2.主要特点
+
+
+-   零配置、嵌入式部署
+
+
+    -   DuckDB 采用 MIT 开源协议，**无外部依赖，无需安装或维护独立的数据库服务器**。
+    -   整个数据库就是一个**单文件**（如 `.duckdb` 或 `.db`），方便共享和版本管理。
+    -   与 RSQLite 类似，它也支持**内存数据库**（`:memory:`）。
+
+
+-   列式存储 + OLAP 优化
+
+
+    -   DuckDB 采用**列式存储**（columnar storage），同一列的数据在物理上连续存放。
+    -   这种设计使其在**过滤、聚合、连接**等分析型操作上性能极佳，特别适合处理**大规模数据分析**任务。
+
+
+-   支持大于内存的数据集
+
+
+    -   DuckDB 可以直接对磁盘上的数据进行查询，**无需将整个数据集加载到 R 的内存中**。
+    -   它可以在数据**读入内存之前**就完成筛选、选择和分组等操作，从而显著降低内存压力。
+
+
+-   完整的 SQL 支持 + 事务保证
+
+
+    -   支持完整的 SQL 语法（`CREATE TABLE`、`SELECT`、`JOIN`、`UPDATE` 等）。
+    -   提供 **ACID 事务保证**，通过自定义的、面向批量优化的**多版本并发控制（MVCC）** 实现。与 SQLite 类似，也使用**预写日志（WAL）** 机制。
+
+
+-   丰富的扩展机制
+
+
+    -   DuckDB 提供灵活的扩展机制，允许定义**新的数据类型、函数和文件格式**。
+    -   原生支持多种数据源的**直接查询**，包括 CSV、Parquet、JSON 等。
+
+
+-   与 R 生态深度整合
+
+
+    -   实现了 **DBI 接口**，与 R 中其他数据库包用法一致。
+
+
+    -   提供 **`duckplyr`** 包，提供**与 dplyr 兼容的 API**，让你可以用熟悉的 `dplyr` 语法操作 DuckDB。
+
+
+    -   支持**直接在 R 数据框（data frames）上执行 SQL 查询**。
+
+
+### 3.安装
+
+
+**从 CRAN 安装（推荐）**
+
+
+``` r
+install.packages("duckdb")
+```
+
+
+Windows 和 macOS 用户可直接安装预编译的二进制包。Linux 用户从源码编译可能需要较长时间（最长一小时），建议使用 Posit Public Package Manager 或 r-universe 获取预编译版本。
+
+
+**从 r-universe 安装（开发版）**
+
+
+``` r
+install.packages("duckdb", repos = c("https://duckdb.r-universe.dev",
+                                     "https://cloud.r-project.org"))
+```
+
+
+**从 GitHub 安装**
+
+
+``` r
+# install.packages("pak")
+pak::pak("duckdb/duckdb-r")
+```
+
+
+### 4.基本用法
+
+
+与 RSQLite 类似，duckdb 包遵循 DBI 标准接口。
+
+
+#### 4.1. 加载并创建连接
+
+
+``` r
+library(DBI)
+
+
+# 创建内存数据库（默认）
+con <- dbConnect(duckdb::duckdb())
+
+
+# 或显式指定内存数据库
+con <- dbConnect(duckdb::duckdb(), dbdir = ":memory:")
+
+
+# 创建持久化数据库文件
+con <- dbConnect(duckdb::duckdb(), dbdir = "my-db.duckdb")
+
+
+# 只读模式（多进程共享时必需）
+con <- dbConnect(duckdb::duckdb(), dbdir = "my-db.duckdb", read_only = TRUE)
+```
+
+
+#### 4.1. 写入数据
+
+
+``` r
+# 将 R 数据框写入数据库表
+dbWriteTable(con, "mtcars", mtcars)
+```
+
+
+#### 4.1. 执行 SQL 查询
+
+
+``` r
+# 执行无返回结果的语句（如 CREATE TABLE）
+dbExecute(con, "CREATE TABLE items (item VARCHAR, value DECIMAL(10, 2), count INTEGER)")
+
+
+# 执行查询并获取结果
+res <- dbGetQuery(con, "SELECT * FROM mtcars WHERE cyl = 4")
+print(res)
+
+
+# 使用参数化查询（推荐，防 SQL 注入）
+dbGetQuery(con, "SELECT * FROM mtcars WHERE cyl = ?", params = list(4))
+```
+
+
+#### 4.1. 断开连接
+
+
+``` r
+dbDisconnect(con, shutdown = TRUE)
+```
+
+
+### 5.性能优势
+
+
+DuckDB 在分析型任务上的性能提升极为显著。一个典型的对比实验（对 1 亿行数据做分组均值计算）显示：
+
+
+| 方法              | 相对速度       |
+|-------------------|----------------|
+| **DuckDB**        | **1x（基准）** |
+| **readr + dplyr** | 慢 **28 倍**   |
+| **Base R**        | 慢 **125 倍**  |
+
+
+在矩阵乘法等计算密集型任务中，DuckDB 比 SQLite 快约 **20 倍**。在一般的过滤查询中，DuckDB 也比 SQLite 快约 **2 倍**。
+
+
+**DuckDB vs SQLite：对比总结**
+
+
+| 维度             | **DuckDB**              | **SQLite**             |
+|------------------|-------------------------|------------------------|
+| **定位**         | OLAP（分析型）          | OLTP（事务型）         |
+| **存储格式**     | 列式存储                | 行式存储               |
+| **适用场景**     | 大数据分析、聚合、连接  | 小规模事务、嵌入式应用 |
+| **分析查询性能** | **极快**（快 2\~20 倍） | 较慢                   |
+| **事务并发**     | 单写者/多读者           | 支持读写并发           |
+| **设计理念**     | 为分析速度优化          | 为通用性优化           |
+
+
+**简单来说**：如果你的任务是**数据清洗、聚合、统计分析**等 OLAP 场景，且数据量较大，DuckDB 是更优选择；如果是**小规模数据的事务处理**，SQLite 依然胜任。
+
+
+### 6.总结
+
+
+**duckdb** 包将 DuckDB 的强大分析能力带入了 R 生态。如果你经常在 R 中处理**数 GB 甚至更大的数据集**，或需要进行**复杂的聚合、连接操作**，duckdb 包是一个能显著提升效率的工具。

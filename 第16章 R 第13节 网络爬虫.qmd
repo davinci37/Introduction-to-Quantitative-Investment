@@ -1,0 +1,1471 @@
+# 第16章 R 第13节 网络爬虫 {.unnumbered}
+
+
+## 前言
+
+
+R语言网络爬虫的包生态已经相当成熟，它借鉴了Python生态的优点，同时深度融入了R语言以 tidyverse 为核心的数据处理哲学，形成了一套“组合式”的清晰工具链。
+
+
+### 1.核心基础层：请求与解析
+
+
+这是R爬虫最核心、最常用的部分，主要由两个包协同完成：
+
+
+-   **`httr` / `httr2` 负责“请求”**：这是处理HTTP协议的利器。`httr`是经典选择，而`httr2`是其现代化重写版，提供了更符合现代R习惯的管道操作和更清晰的请求对象概念。它们可以轻松处理GET/POST请求、管理Cookie、设置User-Agent以及处理认证，是应对需要登录或提交表单的网站的基础。
+-   **`rvest` 负责“解析”**：这是R语言中最受欢迎、使用频率最高的网页解析包，由Hadley Wickham开发，可以看作是R语言里的“BeautifulSoup”。它封装了底层的`xml2`包，提供了一套简洁直观的函数，让你能通过**CSS选择器**或**XPath**轻松地从HTML中提取文本、链接、表格等数据。它的设计哲学与`magrittr`管道（`%>%`）完美契合，代码可读性很高。
+
+
+**基础工作流**通常是：用`httr`发送请求获取网页源码，然后将结果传递给`rvest`进行解析和数据提取。
+
+
+### 2.进阶处理层：应对动态内容
+
+
+当面对由JavaScript动态渲染的网页时，基础的请求-解析模式会失效，这时就需要浏览器自动化工具。
+
+
+-   **`RSelenium`**：这是最经典的解决方案，它通过Selenium WebDriver驱动真实的浏览器（如Chrome、Firefox），可以模拟点击、滚动、填写表单等几乎所有用户操作，从而获取动态生成的内容。它的缺点是配置相对复杂，需要安装Java和浏览器驱动，且运行速度较慢。
+-   **`chromote` 与 `selenider`**：`chromote`是一个更轻量的替代方案，它直接通过Chrome DevTools Protocol控制无头Chrome浏览器，无需Java环境。而`selenider`则是一个更友好的封装，它提供了“惰性元素”和“自动等待”等特性，让编写稳定、可重复的浏览器自动化脚本变得简单很多，并且它默认使用更快的`chromote`作为后端。
+
+
+### 3.辅助与生态工具
+
+
+一个健壮的爬虫项目还需要其他工具的配合：
+
+
+-   **`xml2`**：`rvest`的底层依赖，提供了更底层、更灵活的XML/HTML操作能力，当你需要进行复杂的XPath查询或节点操作时，可以直接使用它。
+-   **`jsonlite`**：当目标网站的数据通过API以JSON格式返回时，这个包是解析和生成JSON数据的不二之选，它能与R的数据类型进行无损转换。
+-   **`polite` 与 `robotstxt`**：这两个包用于确保你的爬虫遵守网络礼仪。`robotstxt`用于解析网站的`robots.txt`文件，判断哪些页面允许抓取。而`polite`则更进一步，它的`bow()`函数会先检查`robots.txt`，并自动在请求间加入延迟，帮助你做一个“有礼貌”的爬虫，避免对目标网站造成过大压力。
+
+
+### 4.新兴的一体化框架
+
+
+近年来，R社区也出现了借鉴其他语言优秀框架思路的一体化爬虫工具。
+
+
+-   **`crawlee`**：这是一个受Node.js同名库启发的R包，旨在提供**可重复**的网页抓取工作流。它内置了去重且可恢复的请求队列、内容感知处理器和结构化存储后端，支持抓取HTML、站点地图、RSS甚至PDF，并可选择集成无头浏览器进行渲染。它构建在`httr2`、`rvest`、`xml2`、`chromote`等现有生态之上，代表了R爬虫向工程化、流程化方向的发展。
+-   **`ralger`**：这个包的目标是简化网页抓取，它将`rvest`等包的功能封装成更简单的函数，让用户可以快速上手，尤其适合抓取表格和列表数据。
+
+
+### 5.总结与建议
+
+
+R语言的网络爬虫生态可以概括为：**以`rvest` + `httr2`为基石，以`RSelenium`/`chromote`处理动态内容，并用`polite`等工具确保合规与稳健**。
+
+
+对于大多数静态页面的抓取任务，`rvest` + `httr2`的组合已经足够高效。当遇到动态网站时，再引入`selenider`或`chromote`。如果你希望构建更结构化、可重复的爬虫项目，可以关注`crawlee`这样的新兴框架。
+
+
+此外，还有一个值得关注的优势：爬取到的数据可以**无缝衔接**到`dplyr`、`tidyr`等强大的数据处理包中，在同一环境中完成从数据获取到清洗、分析的全流程，这是R语言爬虫生态的一个显著特点。
+
+
+## 一、httr 和 httr2 包
+
+
+`httr` 和 `httr2` 是 R 语言中处理 HTTP 请求的核心工具包，它们由同一团队（r-lib）开发，但设计哲学和功能定位有显著差异。简单来说，**`httr` 是经典但已进入维护模式的“老将”，而 `httr2` 是旨在解决现代 API 交互痛点的“全新重构版”**。
+
+
+### 1. `httr`：经典的 HTTP 客户端
+
+
+`httr` 曾是 R 社区进行 HTTP 请求的事实标准，它围绕 HTTP 动词（如 `GET()`、`POST()`）组织，使用起来非常直观。
+
+
+-   **核心设计**：它的主要特点是**请求即执行**。当你调用 `GET("https://example.com")` 时，函数会立即发送请求并返回一个 `response` 对象。
+-   **当前状态**：`httr` 目前已被标记为 **“superseded”（已被取代）**。官方仅会进行必要的维护以使其留在 CRAN 上，并明确推荐用户转向 `httr2`。
+-   **基础用法**：对于简单的场景，它依然简洁。
+
+
+``` r
+library(httr)    
+resp <- GET("https://api.github.com/users/hadley")
+# 使用 content() 提取响应内容
+content(resp, "parsed")    
+```
+
+
+### 2. `httr2`：现代化的重构与飞跃
+
+
+`httr2` 是对 `httr` 的**彻底重写**，其核心目标是解决编写 API 封装包时遇到的复杂问题，并提供更符合现代 R 语言习惯（如管道操作）的接口。
+
+
+`httr2` 最大的变化是引入了**显式的请求对象（Request Object）**。
+
+
+-   **构建与执行分离**：在 `httr2` 中，你首先用 `request()` 创建一个请求对象，然后使用一系列 `req_*()` 函数（如 `req_headers()`、`req_body_json()`）来逐步修饰它。只有当你调用 `req_perform()` 时，请求才会真正被发送。这种设计让构建复杂请求变得非常清晰，也完美契合 `|>` 管道。
+-   **统一的执行函数**：不再需要记住 `GET()`、`POST()` 等不同函数。`req_perform()` 一个函数就能执行任何请求。
+-   **自动错误处理**：`httr2` 会自动将 HTTP 错误状态码（4xx、5xx）转换为 R 的错误（Error），这能帮你更早地发现问题。你可以用 `req_error()` 来自定义这个行为。
+
+
+除了设计上的改进，`httr2` 还内置了许多 `httr` 时代需要手动实现的实用功能。
+
+
+-   **自动重试与速率限制**：内置了 `req_retry()` 函数，可以轻松设置最大重试次数、判断哪些错误是暂时性的，以及重试的等待时间。这对于处理 API 的速率限制（如 429 错误）非常有用。
+-   **现代化的 OAuth 支持**：对 OAuth 认证流程进行了彻底重构，支持更多种类的流程，并让自定义和创建新的 OAuth 流程变得更加容易。
+-   **安全的机密管理**：提供了 `secret_encrypt()` 等函数来安全地管理 API 密钥等敏感信息，还提供了 `obfuscate()` 来轻度混淆代码中的机密数据，防止其被轻易爬取。
+-   **自动缓存**：通过 `req_cache()`，可以自动缓存可缓存的 API 响应。虽然并非所有响应都可缓存，但对于支持缓存的 API，这能显著提升性能。
+-   **强大的请求调试**：`req_dry_run()` 函数可以让你在不实际发送请求的情况下，精确地预览 `httr2` 将会发送给服务器的内容，包括请求方法、URL、头和正文，极大地方便了调试。
+
+
+### 3. 应用示例
+
+
+#### 3.1. httr 应用案例
+
+
+下面是一个 `httr` 的简洁使用示例，演示如何发送 **GET 请求**、传递查询参数、检查响应状态，并解析 JSON 返回内容。
+
+
+``` r
+# 1. 安装并加载 httr
+install.packages("httr")
+library(httr)
+
+
+# 2. 发送 GET 请求，并附加查询参数
+resp <- GET(
+  url = "https://httpbin.org/get",
+  query = list(name = "httr", version = "1.0")
+)
+
+
+# 3. 检查 HTTP 状态码（200 表示成功）
+cat("状态码：", status_code(resp), "\n")
+
+
+# 4. 查看响应头
+cat("内容类型：", headers(resp)$`content-type`, "\n")
+
+
+# 5. 解析 JSON 响应为 R 列表
+data <- content(resp, as = "parsed", type = "application/json")
+
+
+# 6. 查看返回内容
+str(data)
+# 其中 data$args 会包含你传入的查询参数
+print(data$args)
+```
+
+
+运行后，你会看到类似输出：
+
+
+```         
+状态码： 200
+内容类型： application/json
+List of 4
+$ args    :List of 2
+  ..$ name   : chr "httr"
+  ..$ version: chr "1.0"
+$ headers :List of 5
+...
+$ url     : chr "https://httpbin.org/get?name=httr&version=1.0"
+...
+$name
+[1] "httr"
+$version
+[1] "1.0"
+```
+
+
+关键函数说明
+
+
+| 函数 | 作用 |
+|------------------------------------|------------------------------------|
+| `GET()` | 发送 GET 请求，`query` 参数自动拼接到 URL |
+| `status_code()` | 获取 HTTP 状态码，如 200、404、500 |
+| `headers()` | 获取响应头信息 |
+| `content(resp, as = "parsed")` | 自动按 `Content-Type` 解析响应体，JSON 会转为 R 列表 |
+
+
+补充：如果你需要提交表单数据，可以用 `POST()`：
+
+
+``` r
+resp_post <- POST(
+  url = "https://httpbin.org/post",
+  body = list(a = 1, b = 2),
+  encode = "form"
+)
+content(resp_post, as = "parsed", type = "application/json")
+```
+
+
+`httr` 目前处于维护模式，新项目建议使用 **`httr2`**，但维护旧代码时 `httr` 的这套用法仍然非常常见。
+
+
+#### 3.1. httr2 应用案例
+
+
+下面是一个完整的 `httr2` 使用示例，演示如何构建请求、添加查询参数与请求头、执行请求并解析 JSON 响应。所有代码均可直接运行。
+
+
+完整示例：GET 请求
+
+
+``` r
+# 1. 安装并加载 httr2
+if (!requireNamespace("httr2", quietly = TRUE)) {
+  install.packages("httr2")
+}
+library(httr2)
+
+
+# 2. 创建请求对象，并用管道逐步修饰
+req <- request("https://httpbin.org/get") %>%
+  req_url_query(name = "httr2", version = "1.0") %>%     # 添加查询参数
+  req_headers(Accept = "application/json") %>%           # 添加请求头
+  req_user_agent("R httr2 demo")                         # 设置 User-Agent
+
+
+# 3. （可选）预览将要发送的请求，便于调试
+cat("--- 请求预览 ---\n")
+req_dry_run(req)
+
+
+# 4. 执行请求
+resp <- req_perform(req)
+
+
+# 5. 检查 HTTP 状态码
+cat("\n状态码：", resp_status(resp), "\n")
+
+
+# 6. 解析 JSON 响应为 R 列表
+data <- resp_body_json(resp)
+
+
+# 7. 查看返回内容
+str(data)
+cat("\n传入的查询参数：\n")
+print(data$args)
+```
+
+
+运行后你会看到类似输出：
+
+
+```         
+--- 请求预览 ---
+GET /get?name=httr2&version=1.0 HTTP/1.1
+Host: httpbin.org
+Accept: application/json
+User-Agent: R httr2 demo
+
+
+状态码： 200
+List of 4
+$ args    :List of 2
+  ..$ name   : chr "httr2"
+  ..$ version: chr "1.0"
+$ headers :List of 5
+...
+$ url     : chr "https://httpbin.org/get?name=httr2&version=1.0"
+...
+传入的查询参数：
+$name
+[1] "httr2"
+$version
+[1] "1.0"
+```
+
+
+补充：`httr2` 中发送 POST 请求只需改变请求体，执行方式完全一致。
+
+
+``` r
+# 发送表单数据
+resp_form <- request("https://httpbin.org/post") %>%
+  req_body_form(a = 1, b = 2) %>%
+  req_perform()
+
+
+resp_form %>%  resp_body_json() %>%  _$form
+
+
+# 发送 JSON 数据
+resp_json <- request("https://httpbin.org/post") %>%
+  req_body_json(list(x = 10, y = 20)) %>%
+  req_perform()
+
+
+resp_json %>%  resp_body_json() %>% _$json
+```
+
+
+`httr2` 可以自动将 HTTP 错误状态码转为 R 错误，也可以自定义：
+
+
+``` r
+# 默认情况下，4xx/5xx 不会抛出错误，需手动检查
+resp <- request("https://httpbin.org/status/404") %>%  req_perform()
+resp_status(resp)   # 返回 404
+
+
+# 让 httr2 在遇到错误状态码时自动抛出错误
+resp <- request("https://httpbin.org/status/404") %>%  
+  req_error(is_error = function(resp) TRUE) %>%  
+  req_perform()   # 这里会抛出错误
+```
+
+
+关键函数说明
+
+
+| 函数                                  | 作用                          |
+|---------------------------------------|-------------------------------|
+| `request()`                           | 创建请求对象，指定 URL        |
+| `req_url_query()`                     | 添加查询字符串参数            |
+| `req_headers()`                       | 添加自定义请求头              |
+| `req_user_agent()`                    | 设置 User-Agent               |
+| `req_body_form()` / `req_body_json()` | 设置 POST 请求体              |
+| `req_dry_run()`                       | 预览请求内容，不实际发送      |
+| `req_perform()`                       | 执行请求，返回响应对象        |
+| `resp_status()`                       | 获取 HTTP 状态码              |
+| `resp_body_json()`                    | 将响应体解析为 R 列表（JSON） |
+| `req_error()`                         | 自定义错误处理逻辑            |
+
+
+`httr2` 通过显式的请求对象和管道操作，让 HTTP 交互更加清晰、可组合，是新项目进行 API 调用的推荐选择。
+
+
+总的来说，`httr2` 在保留 `httr` 易用性的基础上，通过引入显式请求对象和内置诸多高级功能，为 R 语言中与 Web API 的交互设立了新的标准。
+
+
+**对于所有新的项目和代码，都应优先使用 `httr2`**。它提供了更现代、更强大、更易于维护的 API 交互方式。`httr` 仅适用于维护那些已经深度依赖它的旧有代码。
+
+
+## 二、rvest 包
+
+
+`rvest` 是 R 语言中用于**静态网页抓取**的核心包，它基于 `xml2` 构建，提供了类似 tidyverse 的管道操作风格，让 HTML 解析和数据提取变得直观高效。下面从核心工作流、关键函数到进阶用法，为你系统介绍这个包。
+
+
+### 1.核心工作流程
+
+
+`rvest` 的抓取任务遵循一个清晰的四步工作流：
+
+
+1.  **读取页面**：用 `read_html()` 将 HTML 页面加载为 `xml_document` 对象
+2.  **定位元素**：用 `html_elements()` 或 `html_element()` 通过 CSS 选择器或 XPath 找到目标节点
+3.  **提取数据**：用 `html_text2()`、`html_attr()` 或 `html_table()` 从节点中提取文本、属性或表格
+4.  **整理输出**：将提取结果整理为向量或数据框，供后续分析
+
+
+``` r
+library(rvest)
+
+
+page <- read_html("https://example.com")
+titles <- page |>
+  html_elements("h2.title") |>
+  html_text2()
+```
+
+
+### 2.关键函数详解
+
+
+#### 2.1.读取 HTML
+
+
+`read_html()` 通过 HTTP 请求获取页面源码，再用 `xml2` 解析。它只处理服务器返回的**原始 HTML**，这是"静态"抓取的含义——速度快、依赖少，但不处理 JavaScript 动态生成的内容。
+
+
+``` r
+# 从 URL 读取
+page <- read_html("https://example.com")
+
+
+# 从本地 HTML 字符串读取（调试用）
+page <- minimal_html("<p>test</p>")
+```
+
+
+#### 2.2.选择元素
+
+
+`html_elements()` vs `html_element()`两个函数都支持 **CSS 选择器**和 **XPath 表达式**，但行为不同：
+
+
+| 函数 | 返回长度 | 适用场景 |
+|:-----------------------|:-----------------------|:-----------------------|
+| `html_elements()` | 展平所有匹配节点 | 页面中有多个同类元素时 |
+| `html_element()` | 与输入等长（无匹配返回 `NA`） | 每个父节点下只取一个子元素时 |
+
+
+``` r
+# 提取所有 <p> 段落
+paragraphs <- page |> html_elements("p")
+
+
+# 对每个 section 提取第一个 <h2> 标题
+titles <- page |>
+  html_elements("section") |>
+  html_element("h2") |>
+  html_text2()
+```
+
+
+#### 2.3.提取文本
+
+
+`html_text2()` vs `html_text()`两个函数的区别在于**对浏览器渲染效果的模拟程度**：
+
+
+-   **`html_text()`**：返回原始底层文本，包含浏览器会忽略的空白字符，不处理 `
+` 标签
+-   **`html_text2()`**：模拟浏览器显示效果，将 `
+` 转为换行，折叠无意义空白，格式化表格数据
+
+
+``` r
+html <- minimal_html(
+  "<p>This is a paragraph.
+This should start on a new line</p>"
+)
+
+
+html |> html_element("p") |> html_text()
+#> [1] "This is a paragraph.This should start on a new line"
+
+
+html |> html_element("p") |> html_text2()
+#> [1] "This is a paragraph.\nThis should start on a new line"
+```
+
+
+> **建议**：大多数情况下使用 `html_text2()`，它能产出更干净的文本。只有在性能敏感且文本结构简单的场景下，才考虑 `html_text()`。
+
+
+#### 2.4.提取属性
+
+
+`html_attr()`用于获取元素的属性值，如链接的 `href`、图片的 `src`、自定义的 `data-*` 属性等。注意它始终返回字符串，需要时需自行转换类型。
+
+
+``` r
+# 提取电影编号并转为整数
+episodes <- films |>
+  html_element("h2") |>
+  html_attr("data-id") |>
+  as.integer()
+```
+
+
+#### 2.5.提取表格
+
+
+`html_table()`直接将 HTML `<table>` 元素解析为 R 数据框。它的算法会模拟浏览器行为，将合并单元格的值重复填充到每个被覆盖的单元格中。
+
+
+``` r
+table <- page |>
+  html_elements("table.wikitable") |>
+  .[[1]] |>
+  html_table()
+```
+
+
+#### 2.6.解析表单
+
+
+`html_form()` → `html_form_set()` → `html_form_submit()`用于模拟表单提交（如搜索框、登录等）：
+
+
+``` r
+form <- page |> html_form() |> .[[1]]
+filled <- html_form_set(form, q = "搜索关键词")
+result <- html_form_submit(filled)
+result_page <- read_html(result)
+```
+
+
+------------------------------------------------------------------------
+
+
+#### 2.7.CSS 选择器速查
+
+
+`rvest` 的 CSS 选择器由 `selectr` 包实现，支持大部分 CSS3 选择器。常用语法：
+
+
+| 选择器            | 含义       | 示例                               |
+|:------------------|:-----------|:-----------------------------------|
+| `tag`             | 按标签名   | `"p"` 选所有段落                   |
+| `.class`          | 按类名     | `".title"` 选 class="title" 的元素 |
+| `#id`             | 按 id      | `"#first"` 选 id="first" 的元素    |
+| `[attr]`          | 按属性存在 | `"[href]"` 选有 href 的链接        |
+| `[attr="val"]`    | 按属性值   | `"[data-id='1']"`                  |
+| `tag.class`       | 组合       | `"h2.title"`                       |
+| `:contains(text)` | 包含文本   | `"p:contains('R语言')"`            |
+
+
+调试选择器时，推荐使用 **SelectorGadget** 浏览器书签工具，它可以交互式地生成 CSS 选择器。
+
+
+#### 2.8.动态内容处理
+
+
+如果页面内容由 JavaScript 动态生成，`read_html()` 获取的源码中不会包含这些数据。此时需要使用 `read_html_live()`，它在后台启动一个真实的 Chrome 浏览器，等待 JS 执行后再抓取渲染后的 HTML。
+
+
+**依赖提醒**：`read_html_live()` 底层使用 `chromote` 包，需要本机安装 Google Chrome。
+
+
+``` r
+# 静态读取拿不到动态生成的内容
+static <- read_html("https://example.com/dynamic")
+# 返回的表格可能是空的
+
+
+# 使用实时浏览器
+dynamic <- read_html_live("https://example.com/dynamic")
+table <- dynamic |> html_element("table") |> html_table()
+```
+
+
+`read_html_live()` 返回 `LiveHTML` 对象，它还支持模拟用户交互：
+
+
+``` r
+dynamic$click("button.load-more")   # 点击按钮
+dynamic$scroll_to("bottom")          # 滚动页面
+dynamic$type("input#search", "R语言") # 输入文本
+```
+
+
+#### 2.9.会话管理与分页抓取
+
+
+`session()` 模拟浏览器会话
+
+
+当需要在多个请求间保持 Cookies、处理跳转或模拟连续操作时，可以使用 `session()`：
+
+
+``` r
+s <- session("https://example.com/login")
+s <- session_submit(s, form)      # 提交表单
+s <- session_jump_to(s, "https://example.com/page2")  # 跳转到新页面
+s <- session_follow_link(s, "下一页")  # 点击链接跳转
+```
+
+
+分页抓取模式：爬取多页数据的典型模式是，**定位"下一页"链接 → 提取其 href → 循环抓取**。
+
+
+``` r
+url <- "https://example.com/list?page=1"
+all_data <- list()
+
+
+while (!is.na(url)) {
+  page <- read_html(url)
+  all_data <- c(all_data, list(extract_data(page)))
+  
+  next_link <- page |> html_element("a.next-page") |> html_attr("href")
+  url <- if (!is.na(next_link)) next_link else NA
+}
+```
+
+
+------------------------------------------------------------------------
+
+
+### 3.最佳实践与注意事项
+
+
+-   **配合 `polite` 包使用。** 抓取多页时强烈建议用 `polite` 封装请求，确保遵守 `robots.txt` 并设置合理的请求间隔，避免对目标站点造成压力。
+
+
+-   **先找 API，再考虑爬 HTML。** 许多网站的表格数据实际来自 JSON API，直接请求 API 比解析 HTML 更稳定、更高效。
+
+
+-   **不要过度依赖 SelectorGadget。** 它生成的 CSS 选择器可能过于具体，容易因页面结构微调而失效。尽量选择基于语义属性（如 `data-*`、稳定的 class 名）的选择器。
+
+
+-   **用 `purrr::safely()` 构建健壮的循环。** 批量抓取时，单个页面的失败不应中断整个流程。`safely()` 可以将错误捕获为结果对象，便于后续处理。
+
+
+## 四、“先找 API”
+
+
+“先找 API，再考虑爬 HTML”是一条非常实用的抓取策略。它的核心逻辑是：**很多网站的前端页面只是“壳”，真正的数据是通过 JavaScript 向后台 API 请求 JSON，再渲染到页面上的。** 如果你能直接请求那个 API，就绕过了 HTML 解析，拿到的是结构化数据。
+
+
+### 1. 为什么优先找 API？
+
+
+**数据结构化** API 通常返回 JSON，字段名、类型、嵌套关系都是明确的。而 HTML 抓取拿到的是文本，需要自己清洗、转换类型、处理缺失值。
+
+
+**稳定性更高** 前端 HTML 的 class 名、DOM 结构可能随时改版，CSS 选择器很容易失效。API 接口一旦被前端依赖，通常不会频繁变动；即使变动，也往往有版本号或兼容期。
+
+
+**响应更小、速度更快** 一个 API 响应可能只有几十 KB 的 JSON，而完整 HTML 页面可能几百 KB 甚至几 MB，还包含大量无关的导航、广告、脚本。解析 JSON 也比解析 DOM 快得多。
+
+
+**分页和过滤更清晰** API 通常有明确的 `page`、`limit`、`offset`、`cursor` 等参数，分页元数据也直接放在响应里。HTML 分页则要去找“下一页”链接，容易断。
+
+
+**不受渲染限制** 不需要启动浏览器、等待 JS 执行、处理动态加载。直接发 HTTP 请求即可，适合批量抓取。
+
+
+### 2. 如何发现网站背后的 API？
+
+
+-   使用浏览器开发者工具
+
+
+    -   打开目标页面，按 `F12` 打开开发者工具。
+
+
+    -   切换到 **Network（网络）** 面板。
+
+
+    -   刷新页面，选择 **Fetch/XHR** 过滤器。
+
+
+    -   在筛选框中搜索你想要的字段，比如“价格”、“评论”、“表格标题”。
+
+
+    -   逐个查看请求的 **Response（响应）**，找到返回目标数据的 **JSON**。
+
+
+-   重点观察请求信息。找到目标请求后，点击它，查看：
+
+
+    -   **Request URL**：接口地址。
+
+
+    -   **Request Method**：GET 还是 POST。
+
+
+    -   **Query String Parameters**：URL 里的查询参数，如 `page=2&limit=20`。
+
+
+    -   **Request Headers**：特别是 `Authorization`、`Cookie`、`Referer`、`User-Agent`、`X-Requested-With`。
+
+
+    -   **Request Payload**：POST 请求的 body，可能是 JSON 或表单。
+
+
+    -   **Response**：JSON 结构，确认数据在哪个字段。
+
+
+### 3. API 请求简单示例
+
+
+#### 3.1.基本 GET 请求
+
+
+``` r
+library(httr2)
+library(jsonlite)
+library(purrr)
+
+
+get_page <- function(page) {
+  request("https://api.example.com/items") |>
+    req_url_query(page = page, limit = 20) |>
+    req_headers(
+      `User-Agent` = "Mozilla/5.0",
+      `Accept` = "application/json"
+    ) |>
+    req_perform() |>
+    resp_body_json(simplifyVector = TRUE)
+}
+
+
+# 抓取第 1 页
+page1 <- get_page(1)
+str(page1)
+```
+
+
+`resp_body_json(simplifyVector = TRUE)` 会自动把 JSON 转成数据框或列表，底层就是 `jsonlite::fromJSON()`。
+
+
+#### 3.2.带认证的请求
+
+
+如果 API 需要 token：
+
+
+``` r
+request("https://api.example.com/items") |>
+  req_headers(
+    Authorization = paste("Bearer", token),
+    `User-Agent` = "Mozilla/5.0"
+  ) |>
+  req_url_query(page = 1) |>
+  req_perform() |>
+  resp_body_json(simplifyVector = TRUE)
+```
+
+
+如果认证靠 Cookie：
+
+
+``` r
+req_headers(Cookie = "sessionid=abc123; csrftoken=xyz")
+```
+
+
+#### 3.3.POST 请求
+
+
+``` r
+req <- request("https://api.example.com/search") |>
+  req_method("POST") |>
+  req_body_json(list(
+    keyword = "R语言",
+    page = 1,
+    page_size = 20
+  )) |>
+  req_headers(`Content-Type` = "application/json")
+
+
+resp <- req_perform(req)
+data <- resp_body_json(resp)
+```
+
+
+#### 3.4.分页循环
+
+
+``` r
+all_data <- list()
+page <- 1
+repeat {
+  resp <- get_page(page)
+  if (length(resp$data) == 0) break
+  all_data[[page]] <- resp$data
+  page <- page + 1
+  Sys.sleep(1)  # 礼貌延迟
+}
+df <- map_dfr(all_data, as_tibble)
+```
+
+
+#### 3.5.如果响应里有 `next` 游标：
+
+
+``` r
+cursor <- NULL
+repeat {
+  resp <- request("https://api.example.com/items") |>
+    req_url_query(cursor = cursor, limit = 100) |>
+    req_perform() |>
+    resp_body_json()
+  all_data <- c(all_data, list(resp$data))
+  cursor <- resp$next_cursor
+  if (is.null(cursor)) break
+}
+```
+
+
+### 4.综合应用示例
+
+
+下面是一个完整的豆瓣 Top250 抓取脚本：
+
+
+``` r
+library(httr2)
+library(jsonlite)
+library(dplyr)
+library(tidyr)
+
+
+fetch_douban_top <- function(start = 0, limit = 20) {
+  
+  resp <- request("https://movie.douban.com/j/chart/top_list") |>
+    req_url_query(
+      type = 11,
+      interval_id = "100:90",
+      action = "",
+      start = start,
+      limit = limit
+    ) |>
+    req_headers(
+      `User-Agent` = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      `Referer` = "https://movie.douban.com/"
+    ) |>
+    req_retry(max_tries = 3) |>          # 失败自动重试 3 次
+    req_throttle(rate = 5 / 60) |>       # 每分钟最多 5 次请求
+    req_perform()
+  
+  resp_body_json(resp, simplifyVector = TRUE) |>
+    as_tibble() |>
+    select(rank, title, url, rating) |>
+    unnest_wider(rating, names_sep = "_") |>
+    rename(score = rating_1, rating_count = rating_2) |>
+    select(rank, title, score, rating_count, url)
+}
+
+
+# 测试
+fetch_douban_top(0, 20)
+
+
+all_movies <- list()
+for (start in seq(0, 240, by = 20)) {
+  message("正在抓取 start = ", start)
+  
+  page_data <- tryCatch(
+    fetch_douban_top(start, 20),
+    error = function(e) {
+      message("  失败：", conditionMessage(e))
+      return(NULL)
+    }
+  )
+  
+  if (!is.null(page_data) && nrow(page_data) > 0) {
+    all_movies[[length(all_movies) + 1]] <- page_data
+  }
+  
+  Sys.sleep(2)  # 每次请求间隔 2 秒
+}
+
+
+# 合并成一张表
+movies <- bind_rows(all_movies)
+movies
+```
+
+
+### 5. API 与 HTML 抓取对比
+
+
+| 维度     | API 抓取                 | HTML 抓取              |
+|:---------|:-------------------------|:-----------------------|
+| 数据格式 | JSON/XML，结构化         | HTML，半结构化         |
+| 稳定性   | 较高，接口变动少         | 较低，CSS 选择器易失效 |
+| 速度     | 快，响应体小             | 慢，需下载完整页面     |
+| 动态内容 | 直接获取                 | 需浏览器渲染           |
+| 分页     | 参数明确，元数据清晰     | 需找“下一页”链接       |
+| 反爬     | 可能有 token、签名、限流 | 可能有验证码、JS 混淆  |
+| 合规     | 同样需遵守 robots/ToS    | 同样需遵守             |
+
+
+### 6. 注意事项
+
+
+-   **先看 robots.txt 和 Terms of Service** 不是所有 API 都允许外部调用。有些接口是内部接口，未经授权大量请求可能违反服务条款。
+
+
+-   **控制请求频率** 即使 API 没有明说限流，也要加 `Sys.sleep()` 或 `req_throttle()`。高频请求可能被封 IP 或账号。
+
+
+-   **处理认证和 token 过期** 有些 token 是短期有效的，需要定期刷新。可以先用浏览器登录，复制 Cookie 或 token，但长期运行要考虑自动刷新。
+
+
+-   **API 可能变更或无文档** 内部 API 没有稳定性承诺，今天能用明天可能改。代码里要做好错误处理和字段缺失处理。
+
+
+-   **不要忽略 HTML 抓取** 如果 API 需要复杂签名、加密参数，或者数据只在服务端渲染的 HTML 里，那么 `rvest` 仍然是必要的。策略是：**能走 API 就走 API，走不通再回退到 HTML 解析或内嵌 JSON。**
+
+
+### 7.总结
+
+
+**“先找 API”**本质上是**先侦查数据来源**，而不是一上来就写 CSS 选择器。通过浏览器 Network 面板找到返回 JSON 的请求，用 `httr2` 复现，用 `jsonlite` 解析，往往能用更少的代码、更高的稳定性拿到数据。只有在 API 不可用或过于复杂时，才转向 `rvest` 解析 HTML，或从内嵌 JSON 中提取数据。
+
+
+## 五、`RSelenium` 和 `chromote` 包
+
+
+`RSelenium` 和 `chromote` 都是 R 语言中用于**浏览器自动化**的包，主要解决由 JavaScript 动态渲染的网页抓取问题。目前，**`chromote` 已成为更主流、更轻量的选择**，而 `RSelenium` 则更像是一个功能更全但配置更重的“老将”。
+
+
+### 1.RSelenium：功能全面的“老将”
+
+
+`RSelenium` 是 Selenium WebDriver 的 R 语言绑定，它通过独立的 Selenium 服务器来远程控制多种浏览器（如 Chrome、Firefox）。
+
+
+它的主要特点是**功能强大但配置复杂**：
+
+
+-   **功能全面**：能够处理非常复杂的浏览器交互，如拖拽、文件上传等。
+
+
+-   **多浏览器支持**：理论上支持所有 Selenium 兼容的浏览器。
+
+
+-   **配置较重**：使用前需要**独立运行一个 Selenium 服务器**，并且通常需要 **Java 环境**的支持，启动和配置都比较繁琐。
+
+
+它适合需要与浏览器进行极其复杂交互，或已有工作流严重依赖 Selenium 生态的特定场景。
+
+
+### 2.chromote：现代轻量的“首选”
+
+
+`chromote` 是 Chrome DevTools Protocol (CDP) 的 R 语言实现，它直接通过该协议控制基于 Chromium 的浏览器（如 Chrome、Edge、Opera）。
+
+
+它被设计得**更轻量、更现代**，主要优势在于：
+
+
+-   **配置简单**：**无需 Java 或独立的 Selenium 服务器**，只要系统安装了 Chrome 即可使用，启动非常快。
+
+
+-   **官方支持**：它也是 `rvest::read_html_live()` 函数的底层驱动，让你能用类似 `rvest` 的熟悉语法来抓取动态页面。
+
+
+-   **异步 API**：除了易用的同步 API，还提供了异步 API，方便处理更复杂的自动化任务。
+
+
+### 3.核心对比
+
+
+| 特性 | `RSelenium` | `chromote` |
+|:-----------------------|:-----------------------|:-----------------------|
+| **底层协议** | Selenium WebDriver | Chrome DevTools Protocol (CDP) |
+| **依赖环境** | **Java** + Selenium Server | 仅需 **Chrome/Chromium** 浏览器 |
+| **配置复杂度** | 较重，需启动服务器 | **非常轻量**，开箱即用 |
+| **浏览器支持** | 多浏览器 (Chrome, Firefox等) | 主要支持 Chromium 系浏览器 |
+| **当前地位** | 传统选择，功能全面 | **2024年后的默认选择**，更轻更快 |
+
+
+对于绝大多数新的动态网页抓取项目，**`chromote` 是首选**。它更简单、更轻量，且与 R 生态（如 `rvest`）的集成更好。只有当你需要与浏览器进行 `chromote` 无法完成的极其复杂的交互，或者你的团队已有成熟的 Selenium 基础设施时，才需要考虑 `RSelenium`。
+
+
+### 4.chromote使用案例
+
+
+`chromote` 的核心使用模式很清晰：**创建会话 → 导航 → 提取或交互 → 关闭**。对于大多数抓取任务，推荐组合使用 `rvest::read_html_live()`，它提供的 `$click()`、`$type()`、`$scroll_to()` 等方法能让交互代码更简洁。掌握“执行 JavaScript 提取数据”和“模拟用户交互”这两个核心技能，就能应对绝大多数动态网页的抓取需求。
+
+
+下面用一个**完整可运行**的例子，抓取一个 JavaScript 动态渲染的页面。R 项目官网的页面标题由 JavaScript 渲染，用 `rvest::read_html()` 拿不到，但用 `chromote` 可以。
+
+
+#### 4.1.完整代码
+
+
+``` r
+library(chromote)
+
+
+# 1. 启动一个无头浏览器会话
+b <- ChromoteSession$new()
+
+
+# 这会启动一个**无头 Chrome**（不显示窗口）。如果你想看到浏览器界面，加一行：
+b$view()
+
+
+# 2. 导航到目标页面（会等待页面加载完成）
+b$go_to("https://www.r-project.org/")
+# go_to() 会自动等待页面加载完成。
+# 如果换成底层的 `b$Page$navigate()`，你需要自己处理等待逻辑，所以推荐用 `go_to()`。
+
+
+# 3. 执行 JavaScript，提取页面标题
+result <- b$Runtime$evaluate(
+  'document.querySelector("h1") ? document.querySelector("h1").innerText : "未找到"'
+)
+# `Runtime$evaluate()` 会执行一段 JavaScript，返回一个列表，数据在 `result$result$value` 里。
+
+
+# 常用的 JS 写法：
+# 提取所有链接的文本
+b$Runtime$evaluate(
+  'Array.from(document.querySelectorAll("a")).map(a => a.innerText).join("\\n")'
+)$result$value
+
+
+# 提取某个元素的属性
+b$Runtime$evaluate(
+  'document.querySelector("a").href'
+)$result$value
+
+
+# 4. 查看结果
+print(result$result$value)
+
+
+# 5. 关闭会话（释放资源）
+b$close()
+# 关闭会话很重要。不关闭的话，Chrome 进程会一直留在后台，多跑几次就会占满内存。
+```
+
+
+#### 4.2.更简单的写法
+
+
+如果你不想直接操作 CDP，可以用 `rvest` 封装的版本 **`read_html_live()`**，语法和 `rvest` 一模一样：
+
+
+``` r
+library(rvest)
+
+
+# 启动实时会话（底层就是 chromote）
+sess <- read_html_live("https://www.r-project.org/")
+
+
+# 用 rvest 的语法提取数据
+title <- sess |> html_element("h1") |> html_text2()
+print(title)
+
+
+# 关闭
+sess$close()
+```
+
+
+这个写法更适合抓取任务，因为你可以直接复用 `rvest` 的选择器语法。
+
+
+#### 4.3.常用操作
+
+
+``` r
+b <- ChromoteSession$new()
+b$view()                              # 显示浏览器窗口
+b$go_to("https://example.com")        # 导航
+
+
+# 截图
+b$screenshot("page.png")
+
+
+# 执行 JS
+b$Runtime$evaluate('document.title')$result$value
+
+
+# 点击按钮
+b$Runtime$evaluate('document.querySelector("#btn").click()')
+
+
+# 滚动到底部
+b$Runtime$evaluate('window.scrollTo(0, document.body.scrollHeight)')
+
+
+# 等待几秒（让 JS 加载完）
+Sys.sleep(2)
+
+
+b$close()
+```
+
+
+## 六、jsonlite 包
+
+
+### 1.概述
+
+
+`jsonlite` 是 R 语言中处理 JSON 数据的标准包，由 Jeroen Ooms 开发。它的核心目标是**在 JSON 和 R 对象之间做自然、高效的转换**，特别针对 Web API 和数据分析场景做了优化。
+
+
+R 自带没有解析 JSON 的函数。早期有 `rjson`、`RJSONIO` 等包，但各有局限。`jsonlite` 出现后，凭借以下特点成为事实标准：
+
+
+-   **双向转换**：JSON → R，R → JSON，都支持
+-   **自动简化**：JSON 数组能自动转成 R 向量或数据框，不用手动循环
+-   **API 友好**：专为处理 REST API 返回的数据设计
+-   **性能好**：底层用 C++ 实现，速度快
+-   **无外部依赖**：安装即用
+
+
+### 2.两个核心函数
+
+
+#### `2.1.fromJSON()`：JSON → R
+
+
+把 JSON 字符串、文件或 URL 解析为 R 对象。
+
+
+``` r
+library(jsonlite)
+
+
+# 从字符串解析
+json_str <- '{"name": "张三", "age": 30, "city": "北京"}'
+fromJSON(json_str)
+# $name
+# [1] "张三"
+# $age
+# [1] 30
+# $city
+# [1] "北京"
+```
+
+
+**关键参数 `simplifyVector`**：默认 `TRUE`，会把 JSON 数组/对象自动转成 R 向量或数据框，这是 `jsonlite` 最实用的特性。
+
+
+``` r
+# JSON 数组 → R 向量
+fromJSON('[1, 2, 3, 4, 5]')
+# [1] 1 2 3 4 5
+
+
+# JSON 对象数组 → R 数据框
+json_str <- '[
+  {"name": "张三", "age": 30},
+  {"name": "李四", "age": 25}
+]'
+fromJSON(json_str)
+#   name age
+# 1 张三  30
+# 2 李四  25
+```
+
+
+如果设置 `simplifyVector = FALSE`，则所有东西都保持为嵌套列表，不做自动简化：
+
+
+``` r
+fromJSON('[1, 2, 3]', simplifyVector = FALSE)
+# [[1]]
+# [1] 1
+# [[2]]
+# [1] 2
+# [[3]]
+# [1] 3
+```
+
+
+#### `2.2.toJSON()`：R → JSON
+
+
+把 R 对象序列化为 JSON 字符串。
+
+
+``` r
+# 数据框 → JSON
+df <- data.frame(name = c("张三", "李四"), age = c(30, 25))
+toJSON(df)
+# [{"name":"张三","age":30},{"name":"李四","age":25}]
+```
+
+
+常用参数：
+
+
+``` r
+toJSON(df, pretty = TRUE)          # 格式化输出，方便阅读
+toJSON(df, auto_unbox = TRUE)      # 长度为 1 的向量不加方括号
+toJSON(df, dataframe = "rows")     # 数据框按行输出（默认）
+toJSON(df, dataframe = "columns")  # 数据框按列输出
+toJSON(df, na = "null")            # NA 转成 null
+```
+
+
+`auto_unbox` 特别常用。默认情况下，R 中标量 `"张三"` 会被输出为 `["张三"]`，加上 `auto_unbox = TRUE` 后才是 `"张三"`。
+
+
+``` r
+toJSON(list(name = "张三"))
+# {"name":["张三"]}
+
+
+toJSON(list(name = "张三"), auto_unbox = TRUE)
+# {"name":"张三"}
+```
+
+
+### 3.实际抓取场景中的用法
+
+
+#### 3.1.解析 API 响应
+
+
+配合 `httr2` 使用是最常见的场景：
+
+
+``` r
+library(httr2)
+library(jsonlite)
+
+
+resp <- request("https://api.github.com/users/torvalds") |>
+  req_perform()
+
+
+# 方式一：resp_body_json() 内部就是 jsonlite
+data <- resp_body_json(resp, simplifyVector = TRUE)
+
+
+# 方式二：先拿原始文本，再自己解析
+raw <- resp_body_string(resp)
+data <- fromJSON(raw)
+```
+
+
+`resp_body_json()` 底层调用的就是 `fromJSON()`，所以参数用法完全一样。
+
+
+#### 3.2.解析嵌套 JSON
+
+
+API 返回的数据经常嵌套很深：
+
+
+``` r
+json_str <- '{
+  "code": 200,
+  "data": {
+    "users": [
+      {"name": "张三", "tags": ["R", "Python"]},
+      {"name": "李四", "tags": ["SQL", "Java"]}
+    ],
+    "total": 2
+  }
+}'
+
+
+result <- fromJSON(json_str, simplifyVector = TRUE)
+str(result)
+# List of 2
+#  $ code: int 200
+#  $ data:List of 2
+#   ..$ users:'data.frame': 2 obs. of 2 variables:
+#   .. ..$ name: chr [1:2] "张三" "李四"
+#   .. ..$ tags:List of 2
+#   ..$ total: int 2
+
+
+# 直接取到用户数据框
+result$data$users
+#   name       tags
+# 1 张三    R, Python
+# 2 李四   SQL, Java
+```
+
+
+#### 3.3.处理 JSON 中的数组字段
+
+
+当 JSON 对象里有数组字段时，`fromJSON` 会把它转成 list 列：
+
+
+``` r
+json_str <- '[
+  {"name": "张三", "scores": [90, 85, 88]},
+  {"name": "李四", "scores": [78, 92, 80]}
+]'
+
+
+df <- fromJSON(json_str)
+str(df)
+# 'data.frame': 2 obs. of 2 variables:
+#  $ name  : chr "张三" "李四"
+#  $ scores:List of 2
+
+
+# 展开 scores 列
+library(tidyr)
+df |> unnest_wider(scores, names_sep = "_")
+#   name scores_1 scores_2 scores_3
+# 1 张三       90       85       88
+# 2 李四       78       92       80
+```
+
+
+### 4.注意事项
+
+
+#### 4.1. 过度简化
+
+
+默认 `simplifyVector = TRUE` 有时会“过度简化”。如果 JSON 数组长度不一致，`fromJSON` 可能无法转成数据框，会退回成 list。这时需要手动处理：
+
+
+``` r
+# 长度不一致时
+json_str <- '[
+  {"name": "张三", "scores": [90, 85]},
+  {"name": "李四", "scores": [78]}
+]'
+df <- fromJSON(json_str)
+# 仍然能转成数据框，scores 是 list 列
+#   name scores
+# 1 张三 90, 85
+# 2 李四     78
+```
+
+
+#### 4.2. 空对象和空数组
+
+
+``` r
+fromJSON('{}')        # named list()
+fromJSON('[]')        # list()
+fromJSON('null')      # NULL
+```
+
+
+在 API 响应里，`null` 会被转成 R 的 `NULL` 或 `NA`，取决于上下文。
+
+
+#### 4.3. 数字精度
+
+
+JSON 没有整数和浮点数的严格区分。`fromJSON` 会尽量转成 `integer` 或 `numeric`：
+
+
+``` r
+fromJSON('1')      # 1 (integer)
+fromJSON('1.5')    # 1.5 (numeric)
+fromJSON('1e10')   # 1e+10 (numeric)
+```
+
+
+#### 4.4. 日期时间
+
+
+JSON 没有日期类型，日期通常以字符串形式存在。`fromJSON` 不会自动转成 `Date` 或 `POSIXct`，需要手动处理：
+
+
+``` r
+df <- fromJSON('{"date": "2024-01-15"}')
+df$date <- as.Date(df$date)
+```
+
+
+#### 4.5. 中文编码
+
+
+`jsonlite` 默认按 UTF-8 处理，一般不会有问题。但写文件时要注意：
+
+
+``` r
+writeLines(toJSON(df, auto_unbox = TRUE),
+           file("output.json", encoding = "UTF-8"))
+```
+
+
+在爬虫工作流中，`jsonlite` 通常和 `httr2` 搭配：`httr2` 负责发请求拿回 JSON 文本，`jsonlite` 负责把它变成可分析的 R 数据框。理解了这两个函数和 `simplifyVector` 的行为，就掌握了 R 处理 JSON 的绝大部分场景。
+
+
+## 七、`pdftools` 包
+
+
+`pdftools` 是 R 语言中处理 PDF 文件的核心工具包，它基于 `libpoppler` 库构建，专为**提取文本、元数据、字体和附件**，以及**将 PDF 页面渲染为图像**而设计。
+
+
+它的核心价值在于，能将“为打印而设计”的 PDF 文档，转化为可供搜索、索引和数据分析的机器可读文本，这在文献计量、文本挖掘等场景中非常有用。
+
+
+### 1.核心函数详解
+
+
+`pdftools` 的主要功能都围绕几个直观的函数展开，它们都以 PDF 文件路径或原始字节向量作为输入。
+
+
+-   **`pdf_text()`：提取纯文本** 这是最常用的函数。它返回一个字符向量，**向量的长度等于 PDF 的页数**，每个元素对应一页的纯文本内容。
+
+
+``` r
+library(pdftools)
+
+
+# 手动下载一个示例PDF "1403.2805.pdf"
+
+
+# 查看第一页文本
+txt <- pdf_text("1403.2805.pdf")
+
+
+cat(txt[1])
+```
+
+
+-   **`pdf_info()`：获取文档元数据** 提取 PDF 的元信息，如作者、创建日期、版本、页数等。
+
+
+``` r
+info <- pdf_info("1403.2805.pdf")
+str(info)
+```
+
+
+-   **`pdf_data()`：获取带位置的文本数据** 这是一个更底层的函数，它**为每页返回一个数据框**，其中每一行代表一个文本框，并包含其**坐标位置（x, y）、宽度和高度**等信息。这对于解析结构复杂的页面（如多栏排版）非常有用。
+
+
+-   **`pdf_fonts()` 与 `pdf_attachments()`** 分别用于提取 PDF 中嵌入的字体信息和附件文件列表。
+
+
+-   **`pdf_toc()`：提取目录结构** 以嵌套列表的形式返回 PDF 的书签/目录结构，可以方便地用 `jsonlite::toJSON()` 转换为 JSON 格式查看。
+
+
+-   **`pdf_render_page()` 与 `pdf_convert()`：渲染为图像** 可以将 PDF 的特定页面渲染为位图数组，或直接转换为 PNG、JPEG 等图像格式，方便进行后续的可视化或 OCR 处理。
+
+
+### 2.实战应用场景
+
+
+#### 2.1. 批量提取文本用于分析
+
+
+你可以轻松地批量处理一个文件夹中的所有 PDF，将它们的文本内容提取出来，构建一个语料库。
+
+
+``` r
+library(pdftools)
+library(purrr)
+
+
+# 假设所有 PDF 都在 "pdfs/" 文件夹下
+pdf_files <- list.files("pdfs/", pattern = "\\.pdf$", full.names = TRUE)
+
+
+# 批量提取文本
+all_text <- map(pdf_files, ~ pdf_text(.x))
+
+
+# 可以为每个文件的结果命名
+names(all_text) <- basename(pdf_files)
+
+
+# 现在 all_text 是一个列表，每个元素是一个字符向量（对应一个PDF的各页文本）
+# 可以进一步合并或分析
+```
+
+
+#### 2.2. 处理扫描件（配合 OCR）
+
+
+`pdftools` 本身**不能直接识别图像中的文字**。如果 PDF 是扫描件（即文本是图片，无法用鼠标选中），`pdf_text()` 会返回空字符串。此时，你需要配合 `tesseract` 包进行光学字符识别（OCR）。
+
+
+`pdftools` 提供了便捷的桥梁函数 `pdf_ocr_text()`，它内部会先调用 `pdf_convert()` 将页面转为图像，再交由 `tesseract` 进行识别。
+
+
+``` r
+# 需要先安装并配置好 tesseract 引擎和 R 包
+# install.packages("tesseract")
+library(tesseract)
+
+
+# 对扫描的 PDF 进行 OCR
+ocr_text <- pdf_ocr_text("scanned_document.pdf", dpi = 300, language = "eng")
+```
+
+
+### 3.常见问题与注意事项
+
+
+-   **表格提取困难**：`pdftools` 提取的是文本流，**无法智能识别表格结构**。对于多栏排版或复杂的表格，提取出的文本可能会错位、合并，需要大量的后期清洗工作。
+-   **区分文本型与图像型 PDF**：在使用前，可以用一个简单的方法判断：**在 PDF 阅读器中尝试选中并复制文字**。如果能正常选中和粘贴，说明是文本型 PDF，适合用 `pdftools`；如果无法选中，则是图像型 PDF，需要走 OCR 流程。
+-   **加密 PDF**：对于有密码保护的 PDF，`pdf_text()` 等函数提供了 `opw`（所有者密码）和 `upw`（用户密码）参数来解锁文档。
+-   **Linux 系统依赖**：在 Linux 上从源码安装时，需要先安装 `libpoppler-cpp-dev` 等系统依赖库。
+
+
+`pdftools` 是 R 中处理**文本型 PDF** 的首选工具，在**提取纯文本和元数据**方面表现出色，速度和稳定性都很好。它的局限在于无法直接理解复杂的版面结构和识别扫描图像。因此，明确你的 PDF 类型是文本型还是图像型，是选择 `pdftools` 还是转向 OCR 方案（如 `tesseract`）的关键第一步。

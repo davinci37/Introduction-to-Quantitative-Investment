@@ -43,6 +43,12 @@ book:
     - 第16章 R 第6节 线性模型.qmd
     - 第16章 R 第7节 机器学习.qmd
     - 第16章 R 第8节 torch for R.qmd
+    - 第16章 R 第9节 其它计量分析工具包.qmd
+    - 第16章 R 第10节 优化算法.qmd
+    - 第16章 R 第11节 提升计算效率 .qmd
+    - 第16章 R 第12节 数据读写和存储.qmd
+    - 第16章 R 第13节 网络爬虫.qmd
+
 
 bibliography: references.bib
 
