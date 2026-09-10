@@ -2,7 +2,7 @@
 
 ## 作者：davinci37
 
-## 关于本书
+## 关于本书：
 
 本书内容将致力于为读者，特别是有志于投身量化投资事业的年轻一代，描绘一幅更全面、更科学的量化投资图景。本书也将不厌其烦的探讨科学的投资观念与价值观，设定合理的投资目标，并系统化地实现这些目标。
 
@@ -18,7 +18,7 @@
 
 写给每一位致力于量化投资事业的同仁。
 
-## 在线阅读
+## 在线阅读：
 
 https://davinci37.github.io/Introduction-to-Quantitative-Investment/
 
@@ -26,7 +26,7 @@ https://davinci37.github.io/Introduction-to-Quantitative-Investment/
 
 https://github.com/davinci37/Introduction-to-Quantitative-Investment/
 
-## 许可证
+## 许可证：
 
 版权所有 © \[2026\] \[davinci37\]
 
