@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第10节 优化算法 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第11节 提升计算效率 .html" rel="next">
+<link href="./第16章 R 第9节 其它计量分析工具包.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第10节 优化算法.html">第16章 R 第10节 优化算法</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
+  <ul class="collapse">
+  <li><a href="#通用优化框架与基础设施" id="toc-通用优化框架与基础设施" class="nav-link" data-scroll-target="#通用优化框架与基础设施">1.通用优化框架与基础设施</a></li>
+  <li><a href="#专用投资组合优化包" id="toc-专用投资组合优化包" class="nav-link" data-scroll-target="#专用投资组合优化包">2.专用投资组合优化包</a></li>
+  <li><a href="#遗传算法" id="toc-遗传算法" class="nav-link" data-scroll-target="#遗传算法">3.遗传算法</a></li>
+  <li><a href="#其他实用工具" id="toc-其他实用工具" class="nav-link" data-scroll-target="#其他实用工具">4. 其他实用工具</a></li>
+  </ul></li>
+  <li><a href="#一cvxr-包" id="toc-一cvxr-包" class="nav-link" data-scroll-target="#一cvxr-包"><strong>一、CVXR</strong> 包</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1.概述</a></li>
+  <li><a href="#核心特性" id="toc-核心特性" class="nav-link" data-scroll-target="#核心特性">2.核心特性</a></li>
+  <li><a href="#基本代码工作流程" id="toc-基本代码工作流程" class="nav-link" data-scroll-target="#基本代码工作流程">3.基本代码工作流程</a></li>
+  <li><a href="#代码示例最小二乘问题" id="toc-代码示例最小二乘问题" class="nav-link" data-scroll-target="#代码示例最小二乘问题">4.代码示例：最小二乘问题</a></li>
+  <li><a href="#支持的求解器" id="toc-支持的求解器" class="nav-link" data-scroll-target="#支持的求解器">5.支持的求解器</a></li>
+  <li><a href="#文档与学习资源" id="toc-文档与学习资源" class="nav-link" data-scroll-target="#文档与学习资源">6.文档与学习资源</a></li>
+  </ul></li>
+  <li><a href="#二quadprog-包" id="toc-二quadprog-包" class="nav-link" data-scroll-target="#二quadprog-包">二、<strong>quadprog</strong> 包</a>
+  <ul class="collapse">
+  <li><a href="#概述-1" id="toc-概述-1" class="nav-link" data-scroll-target="#概述-1">1.概述</a></li>
+  <li><a href="#核心函数" id="toc-核心函数" class="nav-link" data-scroll-target="#核心函数">2.核心函数</a></li>
+  <li><a href="#使用示例" id="toc-使用示例" class="nav-link" data-scroll-target="#使用示例">3.使用示例</a></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项">4.注意事项</a></li>
+  </ul></li>
+  <li><a href="#三rglpk-包" id="toc-三rglpk-包" class="nav-link" data-scroll-target="#三rglpk-包">三、Rglpk 包</a>
+  <ul class="collapse">
+  <li><a href="#概述-2" id="toc-概述-2" class="nav-link" data-scroll-target="#概述-2">1.概述</a></li>
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">2.核心功能</a></li>
+  <li><a href="#核心函数-1" id="toc-核心函数-1" class="nav-link" data-scroll-target="#核心函数-1">3.核心函数</a></li>
+  <li><a href="#使用示例-1" id="toc-使用示例-1" class="nav-link" data-scroll-target="#使用示例-1">4.使用示例</a></li>
+  <li><a href="#注意事项-1" id="toc-注意事项-1" class="nav-link" data-scroll-target="#注意事项-1">5.注意事项</a></li>
+  </ul></li>
+  <li><a href="#四portfolioanalytics-包" id="toc-四portfolioanalytics-包" class="nav-link" data-scroll-target="#四portfolioanalytics-包">四、PortfolioAnalytics 包</a>
+  <ul class="collapse">
+  <li><a href="#概述-3" id="toc-概述-3" class="nav-link" data-scroll-target="#概述-3">1.概述</a></li>
+  <li><a href="#凸优化求解器-convex-optimization" id="toc-凸优化求解器-convex-optimization" class="nav-link" data-scroll-target="#凸优化求解器-convex-optimization">2.凸优化求解器 (Convex Optimization)</a></li>
+  <li><a href="#启发式全局优化算法-heuristicglobal-optimization" id="toc-启发式全局优化算法-heuristicglobal-optimization" class="nav-link" data-scroll-target="#启发式全局优化算法-heuristicglobal-optimization">3.启发式/全局优化算法 (Heuristic/Global Optimization)</a></li>
+  <li><a href="#随机搜索-random-search-random-portfolios" id="toc-随机搜索-random-search-random-portfolios" class="nav-link" data-scroll-target="#随机搜索-random-search-random-portfolios">4.随机搜索 (Random Search / Random Portfolios)</a></li>
+  <li><a href="#如何选择" id="toc-如何选择" class="nav-link" data-scroll-target="#如何选择">5.如何选择</a></li>
+  </ul></li>
+  <li><a href="#五riskparityportfolio-包" id="toc-五riskparityportfolio-包" class="nav-link" data-scroll-target="#五riskparityportfolio-包">五、riskParityPortfolio 包</a>
+  <ul class="collapse">
+  <li><a href="#核心算法" id="toc-核心算法" class="nav-link" data-scroll-target="#核心算法">1.核心算法</a></li>
+  <li><a href="#主要功能" id="toc-主要功能" class="nav-link" data-scroll-target="#主要功能">2.主要功能</a></li>
+  <li><a href="#使用示例-2" id="toc-使用示例-2" class="nav-link" data-scroll-target="#使用示例-2">3.使用示例</a></li>
+  </ul></li>
+  <li><a href="#六genalg-包" id="toc-六genalg-包" class="nav-link" data-scroll-target="#六genalg-包">六、genalg 包</a>
+  <ul class="collapse">
+  <li><a href="#概述-4" id="toc-概述-4" class="nav-link" data-scroll-target="#概述-4">1.概述</a></li>
+  <li><a href="#核心功能-1" id="toc-核心功能-1" class="nav-link" data-scroll-target="#核心功能-1">2.核心功能</a></li>
+  <li><a href="#主要参数" id="toc-主要参数" class="nav-link" data-scroll-target="#主要参数">3.主要参数</a></li>
+  <li><a href="#可视化与结果分析" id="toc-可视化与结果分析" class="nav-link" data-scroll-target="#可视化与结果分析">4.可视化与结果分析</a></li>
+  <li><a href="#代码示例" id="toc-代码示例" class="nav-link" data-scroll-target="#代码示例">5.代码示例</a></li>
+  <li><a href="#典型应用场景" id="toc-典型应用场景" class="nav-link" data-scroll-target="#典型应用场景">6.典型应用场景</a></li>
+  <li><a href="#七gramevol-包" id="toc-七gramevol-包" class="nav-link" data-scroll-target="#七gramevol-包">七、<strong>gramEvol 包</strong></a></li>
+  <li><a href="#概述-5" id="toc-概述-5" class="nav-link" data-scroll-target="#概述-5">1.概述</a></li>
+  <li><a href="#语法进化ge" id="toc-语法进化ge" class="nav-link" data-scroll-target="#语法进化ge">2.语法进化（GE）</a></li>
+  <li><a href="#核心函数与语法定义" id="toc-核心函数与语法定义" class="nav-link" data-scroll-target="#核心函数与语法定义">3.核心函数与语法定义</a></li>
+  <li><a href="#使用示例开普勒定律的符号回归" id="toc-使用示例开普勒定律的符号回归" class="nav-link" data-scroll-target="#使用示例开普勒定律的符号回归">4.使用示例：开普勒定律的符号回归</a></li>
+  <li><a href="#高级特性" id="toc-高级特性" class="nav-link" data-scroll-target="#高级特性">5.高级特性</a></li>
+  <li><a href="#注意事项-2" id="toc-注意事项-2" class="nav-link" data-scroll-target="#注意事项-2">6.注意事项</a></li>
+  <li><a href="#核心优势" id="toc-核心优势" class="nav-link" data-scroll-target="#核心优势">7.核心优势</a></li>
+  </ul></li>
+  <li><a href="#八alabama包" id="toc-八alabama包" class="nav-link" data-scroll-target="#八alabama包">八、alabama包</a>
+  <ul class="collapse">
+  <li><a href="#概述-6" id="toc-概述-6" class="nav-link" data-scroll-target="#概述-6">1.概述</a></li>
+  <li><a href="#核心函数-2" id="toc-核心函数-2" class="nav-link" data-scroll-target="#核心函数-2">2.核心函数</a></li>
+  <li><a href="#核心参数详解" id="toc-核心参数详解" class="nav-link" data-scroll-target="#核心参数详解">3.核心参数详解</a></li>
+  <li><a href="#使用示例-3" id="toc-使用示例-3" class="nav-link" data-scroll-target="#使用示例-3">4.使用示例</a></li>
+  <li><a href="#重要注意事项" id="toc-重要注意事项" class="nav-link" data-scroll-target="#重要注意事项">5.重要注意事项</a></li>
+  <li><a href="#核心优势-1" id="toc-核心优势-1" class="nav-link" data-scroll-target="#核心优势-1">6.核心优势</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第10节 优化算法</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>在量化投资领域，R语言提供了非常丰富的优化求解包生态，它们各有侧重，可以从不同的角度解决投资组合构建中的核心问题。我将这些包按照其核心功能和应用场景进行了分类介绍。</p>
+<section id="通用优化框架与基础设施" class="level3">
+<h3 class="anchored" data-anchor-id="通用优化框架与基础设施">1.通用优化框架与基础设施</h3>
+<p>这类包提供了统一的接口或底层求解器，是构建复杂优化模型的基础。</p>
+<ul>
+<li><strong>CVXR</strong>：一个基于<strong>凸优化</strong>（Convex Optimization）的建模框架。它允许你用自然、数学化的语法描述优化问题，然后自动选择并调用后台的求解器（如 <code>OSQP</code>, <code>ECOS</code>, <code>SCS</code> 等）进行求解。它也支持 <code>CPLEX</code>, <code>GUROBI</code>, <code>MOSEK</code> 等商业求解器。</li>
+<li><strong>quadprog</strong>：一个专门用于<strong>二次规划</strong>（Quadratic Programming, QP）问题的经典求解器。它常用于求解最小方差组合等经典均值-方差优化问题。</li>
+<li><strong>Rglpk / lpSolve</strong>：专注于<strong>线性规划</strong>（Linear Programming, LP）和<strong>混合整数线性规划</strong>（MILP）问题的求解器。在量化投资中，常用于以CVaR（条件风险价值）为目标函数的优化问题。</li>
+<li><strong>alabama</strong>：通过<strong>增广拉格朗日自适应屏障算法</strong>，专门用于求解带有<strong>线性或非线性等式与不等式约束</strong>的复杂优化问题。</li>
+<li><strong>ROI (R Optimization Infrastructure)</strong>：这是一个<strong>优化问题的基础设施框架</strong>。它本身不求解问题，但为各类优化问题（如线性规划LP、二次规划QP等）提供了一个统一的接口。它通过加载不同的插件，我们可以无缝切换底层求解器。</li>
+</ul>
+</section>
+<section id="专用投资组合优化包" class="level3">
+<h3 class="anchored" data-anchor-id="专用投资组合优化包">2.专用投资组合优化包</h3>
+<p>这类包是专门为投资组合优化场景设计的，提供了从问题定义到求解的一站式解决方案。</p>
+<ul>
+<li><strong>PortfolioAnalytics</strong>：这是一个功能非常强大的投资组合优化包，旨在解决带有<strong>复杂约束和目标</strong>的现实世界问题。它支持多种优化方法：
+<ul>
+<li><strong>凸优化求解器</strong>：通过 <code>ROI</code> 接口调用 <code>quadprog</code>（QP）或 <code>glpk</code>（LP/MILP）。</li>
+<li><strong>启发式/全局优化算法</strong>：集成了 <code>DEoptim</code>（差分进化）、<code>pso</code>（粒子群）、<code>GenSA</code>（广义模拟退火）等，用于处理非凸、不连续的复杂问题。</li>
+<li><strong>随机搜索</strong>：通过生成大量随机组合来探索解空间。</li>
+</ul></li>
+<li><strong>fPortfolio</strong>：这是一个经典的、专注于投资组合优化的包，提供了丰富的均值-方差模型变体（如高效前沿、最大夏普比率、最小方差等）。</li>
+<li><strong>riskParityPortfolio</strong> 专门用于构建<strong>风险平价（Risk Parity）</strong>投资组合，可以让不同资产对组合的总风险贡献相等或按指定比例（即风险预算）分配。</li>
+</ul>
+</section>
+<section id="遗传算法" class="level3">
+<h3 class="anchored" data-anchor-id="遗传算法">3.遗传算法</h3>
+<ul>
+<li><p><code>genalg</code> 提供了基于<strong>遗传算法（Genetic Algorithm, GA）</strong>的优化工具。在量化投资领域，<code>genalg</code> 可以作为一个强大的工具，用于处理那些传统优化方法难以解决的复杂、非凸问题。</p></li>
+<li><p><code>gramEvol</code>是一个R包，它通过<strong>语法进化（Grammatical Evolution）</strong>算法，在用户定义的<strong>上下文无关语法</strong>指导下生成R表达式种群，并对其进行进化优化，以自动发现能实现特定目标的程序。</p></li>
+</ul>
+</section>
+<section id="其他实用工具" class="level3">
+<h3 class="anchored" data-anchor-id="其他实用工具">4. 其他实用工具</h3>
+<ul>
+<li><strong>stats (optim / optimize)</strong>：R的基础包中的通用优化函数。<code>optim()</code> 提供了如 Nelder-Mead、CG 等多种算法，可用于解决一些自定义的优化问题。</li>
+<li><strong>nloptr / optimx</strong>：提供了更丰富的非线性优化算法，适合处理更一般的非线性问题。</li>
+</ul>
+</section>
+</section>
+<section id="一cvxr-包" class="level2">
+<h2 class="anchored" data-anchor-id="一cvxr-包"><strong>一、CVXR</strong> 包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1.概述</h3>
+<p><strong>CVXR</strong> 是 R 语言中一个用于<strong>凸优化（Convex Optimization）</strong>的面向对象建模语言包。它提供了一个<strong>领域特定语言（DSL）</strong>，允许用户以接近数学符号的自然语法来构建和求解凸优化问题，而无需将其转化为大多数求解器所要求的标准形式。CVXR 的设计理念与 Python 的 <strong>CVXPY</strong>、MATLAB 的 <strong>CVX</strong> 等工具一脉相承。其核心算法发表于 Fu, Narasimhan, and Boyd (2020) 的论文中。</p>
+</section>
+<section id="核心特性" class="level3">
+<h3 class="anchored" data-anchor-id="核心特性">2.核心特性</h3>
+<p>CVXR 的核心工作流程：</p>
+<ol type="1">
+<li><p><strong>问题构建</strong>：用户通过组合常量（Constants）、变量（Variables）和参数（Parameters），并运用预定义的函数库来指定目标函数和约束条件。</p></li>
+<li><p><strong>凸性验证</strong>：CVXR 应用** disciplined convex programming (DCP)** 规则集来验证问题的凸性。</p></li>
+<li><p><strong>问题转换</strong>：验证通过后，CVXR 将问题转换为标准的锥形形式。</p></li>
+<li><p><strong>求解</strong>：最后，将转换后的问题传递给合适的底层求解器（Solver）以获得解决方案。</p></li>
+</ol>
+<p>除了基础的凸优化（DCP），CVXR 还支持更广泛的数学规划问题：</p>
+<ul>
+<li><p><strong>DGP</strong> (Disciplined Geometric Programming)：几何规划。</p></li>
+<li><p><strong>DQCP</strong> (Disciplined Quasiconvex Programming)：拟凸规划。</p></li>
+<li><p><strong>DNLP</strong> (Disciplined Nonlinear Programming)：从 1.9.1 版本开始，CVXR 将建模能力扩展到了<strong>非凸的平滑非线性规划</strong>问题。</p></li>
+</ul>
+</section>
+<section id="基本代码工作流程" class="level3">
+<h3 class="anchored" data-anchor-id="基本代码工作流程">3.基本代码工作流程</h3>
+<ol type="1">
+<li><strong>加载包</strong>：<code>library(CVXR)</code></li>
+<li><strong>定义变量</strong>：使用 <code>Variable()</code> 函数定义优化变量。</li>
+<li><strong>构建目标函数</strong>：使用 <code>Minimize()</code> 或 <code>Maximize()</code> 定义目标。</li>
+<li><strong>设置约束</strong>：使用列表 <code>list()</code> 包含所有约束条件。</li>
+<li><strong>创建问题对象</strong>：用 <code>Problem()</code> 函数组合目标和约束。</li>
+<li><strong>求解问题</strong>：使用 <code>psolve()</code> 函数求解。</li>
+<li><strong>提取结果</strong>：使用 <code>value()</code> 函数获取变量的最优值。</li>
+</ol>
+</section>
+<section id="代码示例最小二乘问题" class="level3">
+<h3 class="anchored" data-anchor-id="代码示例最小二乘问题">4.代码示例：最小二乘问题</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CVXR)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 定义变量</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>betaHat <span class="ot">&lt;-</span> <span class="fu">Variable</span>(<span class="dv">10</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 构建目标函数 (最小化残差平方和)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>objective <span class="ot">&lt;-</span> <span class="fu">Minimize</span>(<span class="fu">sum</span>((Y <span class="sc">-</span> X <span class="sc">%*%</span> betaHat)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 创建问题并求解</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>problem <span class="ot">&lt;-</span> <span class="fu">Problem</span>(objective)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">psolve</span>(problem)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 提取结果</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>optimal_value <span class="ot">&lt;-</span> result</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>estimated_beta <span class="ot">&lt;-</span> <span class="fu">value</span>(betaHat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>更复杂的带约束问题（如非负最小二乘）只需简单添加约束即可：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加 beta &gt;= 0 的约束</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>problem <span class="ot">&lt;-</span> <span class="fu">Problem</span>(objective, <span class="at">constraints =</span> <span class="fu">list</span>(betaHat <span class="sc">&gt;=</span> <span class="dv">0</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">psolve</span>(problem, <span class="at">solver =</span> <span class="st">"CLARABEL"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="支持的求解器" class="level3">
+<h3 class="anchored" data-anchor-id="支持的求解器">5.支持的求解器</h3>
+<p>CVXR 本身不是一个求解器，而是一个建模框架，它支持多种后端求解器。CVXR 1.8.2 及以上版本共支持 15 种求解器，其中 4 个为内置。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">求解器</th>
+<th style="text-align: left;">R 包</th>
+<th style="text-align: left;">支持问题类型</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>CLARABEL</strong></td>
+<td style="text-align: left;">clarabel</td>
+<td style="text-align: left;">LP, QP, SOCP, SDP, EXP</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>SCS</strong></td>
+<td style="text-align: left;">scs</td>
+<td style="text-align: left;">LP, QP, SOCP, SDP, EXP, MIP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>OSQP</strong></td>
+<td style="text-align: left;">osqp</td>
+<td style="text-align: left;">LP, QP</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>ECOS</strong></td>
+<td style="text-align: left;">ECOSolveR</td>
+<td style="text-align: left;">LP, QP, SOCP, EXP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>MOSEK</strong></td>
+<td style="text-align: left;">Rmosek</td>
+<td style="text-align: left;">LP, QP, SOCP, SDP, EXP, MIP</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>GUROBI</strong></td>
+<td style="text-align: left;">gurobi</td>
+<td style="text-align: left;">LP, QP, SOCP, MIP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>HiGHS</strong></td>
+<td style="text-align: left;">highs</td>
+<td style="text-align: left;">LP, QP, MIP</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>GLPK</strong></td>
+<td style="text-align: left;">Rglpk</td>
+<td style="text-align: left;">LP, MIP</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>CLARABEL</strong> 是默认求解器，能处理最广泛的内置问题类型。</li>
+<li>用户可以通过 <code>psolve(problem, solver = "SOLVER_NAME")</code> 手动指定求解器。</li>
+</ul>
+</section>
+<section id="文档与学习资源" class="level3">
+<h3 class="anchored" data-anchor-id="文档与学习资源">6.文档与学习资源</h3>
+<ul>
+<li><strong>包首页</strong>：<a href="https://cvxr.rbind.io" class="uri">https://cvxr.rbind.io</a></li>
+<li><strong>完整参考文档</strong>：<a href="https://www.cvxgrp.org/CVXR/" class="uri">https://www.cvxgrp.org/CVXR/</a></li>
+<li><strong>入门教程</strong>：安装后运行 <code>vignette("cvxr_intro", package = "CVXR")</code></li>
+<li><strong>在线教程书</strong>：《Convex Optimization in R Using CVXR》</li>
+</ul>
+</section>
+</section>
+<section id="二quadprog-包" class="level2">
+<h2 class="anchored" data-anchor-id="二quadprog-包">二、<strong>quadprog</strong> 包</h2>
+<section id="概述-1" class="level3">
+<h3 class="anchored" data-anchor-id="概述-1">1.概述</h3>
+<p><strong>quadprog</strong> 是 R 语言中用于求解<strong>二次规划（Quadratic Programming, QP）</strong> 问题的经典包。它由 Berwin A. Turlach 最初为 S 语言编写，后由 Andreas Weingessel 移植到 R。</p>
+<p>该包的核心算法实现了 Goldfarb 和 Idnani（1982, 1983）提出的<strong>对偶方法</strong>（dual method），专门用于求解<strong>严格凸</strong>的二次规划问题。</p>
+</section>
+<section id="核心函数" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数">2.核心函数</h3>
+<section id="solve.qp-主求解函数" class="level4">
+<h4 class="anchored" data-anchor-id="solve.qp-主求解函数">2.1. <code>solve.QP()</code> 主求解函数</h4>
+<p>这是 quadprog 包最核心的函数，用于求解如下形式的二次规划问题：</p>
+<p><span class="math display">\[
+\min \left(-d^T b + \frac{1}{2} b^T D b\right)
+\]</span></p>
+<p>满足约束条件：</p>
+<p><span class="math display">\[
+A^T b \geq b_0
+\]</span></p>
+<p>其中前 <code>meq</code> 个约束为<strong>等式约束</strong>，其余为<strong>不等式约束</strong>。</p>
+<p><strong>函数形式</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">solve.QP</span>(Dmat, dvec, Amat, bvec, <span class="at">meq=</span><span class="dv">0</span>, <span class="at">factorized=</span><span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>参数说明</strong>：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Dmat</code></td>
+<td>二次项矩阵（需为正定矩阵）</td>
+</tr>
+<tr class="even">
+<td><code>dvec</code></td>
+<td>一次项系数向量</td>
+</tr>
+<tr class="odd">
+<td><code>Amat</code></td>
+<td>约束矩阵（每列对应一个约束）</td>
+</tr>
+<tr class="even">
+<td><code>bvec</code></td>
+<td>约束右端向量</td>
+</tr>
+<tr class="odd">
+<td><code>meq</code></td>
+<td>前 <code>meq</code> 个约束为等式约束，默认为 0</td>
+</tr>
+<tr class="even">
+<td><code>factorized</code></td>
+<td>若为 <code>TRUE</code>，则 <code>Dmat</code> 传入的是 <span class="math inline">\(R^{-1}\)</span>（其中 <span class="math inline">\(D = R^T R\)</span>）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>返回值</strong>：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>成分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>solution</code></td>
+<td>最优解向量</td>
+</tr>
+<tr class="even">
+<td><code>value</code></td>
+<td>目标函数在最优解处的值</td>
+</tr>
+<tr class="odd">
+<td><code>unconstrained.solution</code></td>
+<td>无约束最小化解</td>
+</tr>
+<tr class="even">
+<td><code>iterations</code></td>
+<td>迭代次数（第一个为算法迭代数，第二个为约束失活次数）</td>
+</tr>
+<tr class="odd">
+<td><code>Lagrangian</code></td>
+<td>拉格朗日乘子</td>
+</tr>
+<tr class="even">
+<td><code>iact</code></td>
+<td>活跃约束的索引</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="solve.qp.compact-稀疏格式版本" class="level4">
+<h4 class="anchored" data-anchor-id="solve.qp.compact-稀疏格式版本">2. <code>solve.QP.compact()</code> 稀疏格式版本</h4>
+<p>当约束矩阵较为稀疏时，可使用此函数的<strong>紧凑格式</strong>来节省内存和提高效率。它采用 <code>Aind</code> 参数来指定非零元素的位置。</p>
+<hr>
+</section>
+</section>
+<section id="使用示例" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例">3.使用示例</h3>
+<section id="示例-1基本二次规划" class="level4">
+<h4 class="anchored" data-anchor-id="示例-1基本二次规划">3.1.示例 1：基本二次规划</h4>
+<p>求解最小化 <span class="math inline">\(\frac{1}{2}x^T x - (0, 5, 0) \cdot x\)</span>，约束条件为 <span class="math inline">\(A^T x \geq b\)</span>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quadprog)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 二次项矩阵 D (单位矩阵)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Dmat <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 一次项系数 d</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>dvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">0</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 约束矩阵 A (每列为一个约束): A^T b &gt;= b0</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">0</span>,    <span class="co"># 第一列</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">2</span>,  <span class="dv">1</span>, <span class="dv">0</span>,    <span class="co"># 第二列</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">0</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>),   <span class="co"># 第三列</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>bvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">0</span>)   <span class="co"># 约束右端</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve.QP</span>(Dmat, dvec, Amat, bvec)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sol<span class="sc">$</span>solution)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="示例-2带等式约束" class="level4">
+<h4 class="anchored" data-anchor-id="示例-2带等式约束">3.2.示例 2：带等式约束</h4>
+<p>在上述问题基础上增加等式约束 <span class="math inline">\(3x_1 + 2x_2 + x_3 = 1\)</span>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 新增等式约束作为 Amat 的第一列，并设置 meq = 1</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Amat_eq <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>), Amat)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>bvec_eq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, bvec)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sol_eq <span class="ot">&lt;-</span> <span class="fu">solve.QP</span>(Dmat, dvec, Amat_eq, bvec_eq, <span class="at">meq =</span> <span class="dv">1</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sol_eq<span class="sc">$</span>solution)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="示例-3全局最小方差问题投资组合优化" class="level4">
+<h4 class="anchored" data-anchor-id="示例-3全局最小方差问题投资组合优化">3.3.示例 3：全局最小方差问题投资组合优化</h4>
+<p>这是 quadprog 最经典的应用场景之一：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quadprog)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设有三只资产的收益率数据</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>returns <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">300</span>, <span class="at">mean =</span> <span class="fl">0.01</span>, <span class="at">sd =</span> <span class="fl">0.02</span>), <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">ncol</span>(returns)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 协方差矩阵 (二次项)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>Dmat <span class="ot">&lt;-</span> <span class="fu">cov</span>(returns)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 一次项系数 (最小方差组合中 dvec = 0)</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>dvec <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 约束：权重之和为 1 (等式约束)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="at">nrow =</span> n)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>bvec <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>meq <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解最小方差组合</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve.QP</span>(Dmat, dvec, Amat, bvec, <span class="at">meq =</span> <span class="dv">1</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> sol<span class="sc">$</span>solution</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(weights)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如需添加<strong>权重下限</strong>（如不允许卖空，<span class="math inline">\(w_i \geq 0\)</span>），只需在 <code>Amat</code> 中添加单位矩阵的列：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加下限约束 w_i &gt;= 0</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rep</span>(<span class="dv">1</span>, n), <span class="fu">diag</span>(n))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>bvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fu">rep</span>(<span class="dv">0</span>, n))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>meq <span class="ot">&lt;-</span> <span class="dv">1</span>  <span class="co"># 只有第一个约束（和为1）是等式</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve.QP</span>(Dmat, dvec, Amat, bvec, <span class="at">meq =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项">4.注意事项</h3>
+<ul>
+<li><p><strong>默认求极小值</strong>：quadprog 默认求解极小值问题。若原问题是求极大值，需通过乘以负号转化为极小值问题。</p></li>
+<li><p><strong>约束方向</strong>：约束形式固定为 <span class="math inline">\(A^T b \geq b_0\)</span>。若原约束为 <span class="math inline">\(\leq\)</span> 形式，需通过乘以 <span class="math inline">\(-1\)</span> 转化。</p></li>
+<li><p><strong>正定性要求</strong>：<code>Dmat</code> 必须为正定矩阵，否则算法可能失败。</p></li>
+</ul>
+</section>
+</section>
+<section id="三rglpk-包" class="level2">
+<h2 class="anchored" data-anchor-id="三rglpk-包">三、Rglpk 包</h2>
+<section id="概述-2" class="level3">
+<h3 class="anchored" data-anchor-id="概述-2">1.概述</h3>
+<p><strong>Rglpk</strong> 是 R 语言中一个用于求解<strong>线性规划（LP）</strong> 和<strong>混合整数线性规划（MILP）</strong> 问题的高性能工具包。它提供了对开源求解器 <strong>GLPK</strong>（GNU Linear Programming Kit）的 R 语言接口。</p>
+<p>对于 R 语言用户而言，Rglpk 是解决线性规划和混合整数规划问题的首选工具之一。Rglpk 的<strong>优势</strong>在于：</p>
+<ul>
+<li><p><strong>简单易用</strong>：核心函数只需 5-6 个参数即可完成模型定义</p></li>
+<li><p><strong>功能强大</strong>：支持 LP、MILP 以及从多种标准格式读取模型</p></li>
+<li><p><strong>高效可靠</strong>：基于成熟的 GLPK 开源求解器</p></li>
+<li><p><strong>适合大规模问题</strong>：支持稀疏矩阵，内存效率高</p></li>
+</ul>
+</section>
+<section id="核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能">2.核心功能</h3>
+<p>Rglpk 主要用于求解以下两类问题：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>问题类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>线性规划（LP）</strong></td>
+<td>所有决策变量均为连续实数</td>
+</tr>
+<tr class="even">
+<td><strong>混合整数线性规划（MILP）</strong></td>
+<td>部分决策变量为整数，部分为连续实数（纯整数规划可视为其特例）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="核心函数-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数-1">3.核心函数</h3>
+<p><code>Rglpk_solve_LP()</code>是 Rglpk 最核心的求解函数，其语法如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Rglpk_solve_LP</span>(obj, mat, dir, rhs, <span class="at">bounds =</span> <span class="cn">NULL</span>, <span class="at">types =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">max =</span> <span class="cn">FALSE</span>, <span class="at">control =</span> <span class="fu">list</span>(), ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="参数详解" class="level4">
+<h4 class="anchored" data-anchor-id="参数详解">3.1.参数详解</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>obj</code></td>
+<td>数值向量</td>
+<td>目标函数的系数</td>
+</tr>
+<tr class="even">
+<td><code>mat</code></td>
+<td>矩阵或稀疏矩阵</td>
+<td>约束条件的系数矩阵</td>
+</tr>
+<tr class="odd">
+<td><code>dir</code></td>
+<td>字符向量</td>
+<td>约束方向，可取 <code>"&lt;"</code>, <code>"&lt;="</code>, <code>"&gt;"</code>, <code>"&gt;="</code>, <code>"=="</code></td>
+</tr>
+<tr class="even">
+<td><code>rhs</code></td>
+<td>数值向量</td>
+<td>约束条件的右端项</td>
+</tr>
+<tr class="odd">
+<td><code>bounds</code></td>
+<td>列表</td>
+<td>变量的上下界约束（默认每变量 ≥ 0）</td>
+</tr>
+<tr class="even">
+<td><code>types</code></td>
+<td>字符向量</td>
+<td>变量类型：<code>"B"</code>（0-1 二进制）、<code>"I"</code>（整数）、<code>"C"</code>（连续）</td>
+</tr>
+<tr class="odd">
+<td><code>max</code></td>
+<td>逻辑值</td>
+<td><code>TRUE</code> 求最大值，<code>FALSE</code>（默认）求最小值</td>
+</tr>
+<tr class="even">
+<td><code>control</code></td>
+<td>列表</td>
+<td>求解器控制参数（详见下文）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="控制参数control-列表" class="level4">
+<h4 class="anchored" data-anchor-id="控制参数control-列表">3.2.控制参数（<code>control</code> 列表）</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>verbose</code></td>
+<td><code>TRUE</code> 输出求解过程，<code>FALSE</code>（默认）静默运行</td>
+</tr>
+<tr class="even">
+<td><code>presolve</code></td>
+<td><code>TRUE</code> 启用预求解器（默认 <code>FALSE</code>）</td>
+</tr>
+<tr class="odd">
+<td><code>tm_limit</code></td>
+<td>时间限制（毫秒），0 表示使用 GLPK 默认值</td>
+</tr>
+<tr class="even">
+<td><code>canonicalize_status</code></td>
+<td><code>TRUE</code>（默认）将状态码标准化（成功返回 0）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="返回值" class="level4">
+<h4 class="anchored" data-anchor-id="返回值">3.3.返回值</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>solution</code></td>
+<td>最优解向量</td>
+</tr>
+<tr class="even">
+<td><code>objval</code></td>
+<td>目标函数最优值</td>
+</tr>
+<tr class="odd">
+<td><code>status</code></td>
+<td>状态码（0 表示求解成功）</td>
+</tr>
+<tr class="even">
+<td><code>solution_dual</code></td>
+<td>对偶变量值（如有）</td>
+</tr>
+<tr class="odd">
+<td><code>auxiliary</code></td>
+<td>约束对应的辅助变量值</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="文件读取函数rglpk_read_file" class="level4">
+<h4 class="anchored" data-anchor-id="文件读取函数rglpk_read_file">3.4.文件读取函数：<code>Rglpk_read_file()</code></h4>
+<p>除了直接定义模型，Rglpk 还支持从标准格式文件中读取模型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Rglpk_read_file</span>(file, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"MPS_fixed"</span>, <span class="st">"MPS_free"</span>, <span class="st">"CPLEX_LP"</span>, <span class="st">"MathProg"</span>),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">ignore_first_row =</span> <span class="cn">FALSE</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>支持的格式包括： - <strong>MPS</strong>（固定/自由格式） - <strong>CPLEX LP</strong> 格式 - <strong>GNU MathProg</strong> 格式（类似 AMPL 的建模语言）</p>
+<p>读取后返回的对象可直接传入 <code>Rglpk_solve_LP()</code> 进行求解。</p>
+<hr>
+</section>
+</section>
+<section id="使用示例-1" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-1">4.使用示例</h3>
+<section id="示例-1简单线性规划" class="level4">
+<h4 class="anchored" data-anchor-id="示例-1简单线性规划">4.1.示例 1：简单线性规划</h4>
+<p>最大化：<code>2x₁ + 4x₂ + 3x₃</code><br>
+约束： - <code>3x₁ + 4x₂ + 2x₃ ≤ 60</code> - <code>2x₁ + x₂ + 2x₃ ≤ 40</code> - <code>x₁ + 3x₂ + 2x₃ ≤ 80</code> - <code>x₁, x₂, x₃ ≥ 0</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rglpk)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>dir <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"&lt;="</span>, <span class="st">"&lt;="</span>, <span class="st">"&lt;="</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>rhs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">40</span>, <span class="dv">80</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>max <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">Rglpk_solve_LP</span>(obj, mat, dir, rhs, <span class="at">max =</span> max)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>solution)   <span class="co"># 最优解</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>objval)     <span class="co"># 最优值</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="示例-2混合整数规划" class="level4">
+<h4 class="anchored" data-anchor-id="示例-2混合整数规划">4.2.示例 2：混合整数规划</h4>
+<p>如果要求 <code>x₁</code> 和 <code>x₃</code> 为整数，只需添加 <code>types</code> 参数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>types <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"I"</span>, <span class="st">"C"</span>, <span class="st">"I"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">Rglpk_solve_LP</span>(obj, mat, dir, rhs, <span class="at">types =</span> types, <span class="at">max =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="示例-3从文件读取模型" class="level4">
+<h4 class="anchored" data-anchor-id="示例-3从文件读取模型">4.3.示例 3：从文件读取模型</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取 CPLEX LP 格式文件</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">Rglpk_read_file</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">system.file</span>(<span class="fu">file.path</span>(<span class="st">"examples"</span>, <span class="st">"plan.lp"</span>), <span class="at">package =</span> <span class="st">"Rglpk"</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"CPLEX_LP"</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 直接求解</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">Rglpk_solve_LP</span>(x<span class="sc">$</span>objective, x<span class="sc">$</span>constraints[[<span class="dv">1</span>]],</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                         x<span class="sc">$</span>constraints[[<span class="dv">2</span>]], x<span class="sc">$</span>constraints[[<span class="dv">3</span>]],</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                         x<span class="sc">$</span>bounds, x<span class="sc">$</span>types, x<span class="sc">$</span>maximum)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="注意事项-1" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-1">5.注意事项</h3>
+<ul>
+<li><p><strong>严格不等式</strong>：GLPK 只支持非严格不等式（<code>≤</code>、<code>≥</code>），严格不等式（<code>&lt;</code>、<code>&gt;</code>）会被当作非严格不等式处理。</p></li>
+<li><p><strong>变量默认边界</strong>：如果不指定 <code>bounds</code>，所有变量默认下界为 0、上界为无穷。</p></li>
+<li><p><strong>稀疏矩阵支持</strong>：<code>mat</code> 和 <code>obj</code> 可以使用 <code>slam</code> 包提供的稀疏矩阵类型（<code>simple_triplet_matrix</code>），在处理大规模问题时能显著提升效率。</p></li>
+</ul>
+</section>
+</section>
+<section id="四portfolioanalytics-包" class="level2">
+<h2 class="anchored" data-anchor-id="四portfolioanalytics-包">四、PortfolioAnalytics 包</h2>
+<section id="概述-3" class="level3">
+<h3 class="anchored" data-anchor-id="概述-3">1.概述</h3>
+<p>PortfolioAnalytics 是一个功能非常强大的投资组合优化包，旨在解决带有复杂约束和目标的现实世界问题。它支持多种优化方法：</p>
+<ul>
+<li><p><strong>凸优化求解器：</strong>通过 ROI 接口调用 quadprog（QP）或 glpk（LP/MILP）。</p></li>
+<li><p><strong>启发式/全局优化算法：</strong>集成了 DEoptim（差分进化）、pso（粒子群）、GenSA（广义模拟退火）等，用于处理非凸、不连续的复杂问题。</p></li>
+</ul>
+</section>
+<section id="凸优化求解器-convex-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="凸优化求解器-convex-optimization">2.凸优化求解器 (Convex Optimization)</h3>
+<p>这类方法适合目标函数和约束条件都是<strong>凸函数</strong>的问题，能保证找到<strong>全局最优解</strong>，计算效率高。<code>PortfolioAnalytics</code> 通过 <code>ROI</code>（R Optimization Infrastructure）包来统一调用这些求解器。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">求解器</th>
+<th style="text-align: left;">问题类型</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>quadprog</strong></td>
+<td style="text-align: left;">二次规划 (QP)</td>
+<td style="text-align: left;">用于解决带有二次目标函数（如最小化方差）和线性约束的问题。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>glpk</strong></td>
+<td style="text-align: left;">线性规划 (LP) / 混合整数线性规划 (MILP)</td>
+<td style="text-align: left;">用于解决目标函数和约束都是线性的问题。</td>
+</tr>
+</tbody>
+</table>
+<p>你可以通过 <code>optimize_method</code> 参数来指定使用哪种方法：</p>
+<ul>
+<li><p><strong>自动选择</strong>：设置 <code>optimize_method = "ROI"</code>，包会根据问题类型自动选择 <code>quadprog</code>（QP）或 <code>glpk</code>（LP/MILP）。</p></li>
+<li><p><strong>手动指定</strong>：也可以直接设置 <code>optimize_method = "quadprog"</code> 或 <code>"glpk"</code>。</p></li>
+</ul>
+<p>需要注意的是，使用前需安装并加载对应的 <code>ROI</code> 插件包，例如 <code>ROI.plugin.quadprog</code> 和 <code>ROI.plugin.glpk</code>。</p>
+</section>
+<section id="启发式全局优化算法-heuristicglobal-optimization" class="level3">
+<h3 class="anchored" data-anchor-id="启发式全局优化算法-heuristicglobal-optimization">3.启发式/全局优化算法 (Heuristic/Global Optimization)</h3>
+<p>当问题<strong>非凸、不连续</strong>或存在<strong>非解析的复杂约束</strong>（如基数约束）时，传统凸优化方法失效。此时，<code>PortfolioAnalytics</code> 集成了多种随机全局优化算法，它们不依赖梯度信息，通过启发式搜索寻找近似最优解。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">算法</th>
+<th style="text-align: left;">核心思想</th>
+<th style="text-align: left;">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>DEoptim</strong></td>
+<td style="text-align: left;">差分进化 (Differential Evolution)</td>
+<td style="text-align: left;">一种强大的随机全局优化算法，适用于连续空间的复杂优化问题。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>pso</strong></td>
+<td style="text-align: left;">粒子群优化 (Particle Swarm Optimization)</td>
+<td style="text-align: left;">模拟鸟群觅食行为，通过粒子间的信息共享来寻找最优解。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>GenSA</strong></td>
+<td style="text-align: left;">广义模拟退火 (Generalized Simulated Annealing)</td>
+<td style="text-align: left;">模拟金属退火过程的随机搜索算法，能有效跳出局部最优。</td>
+</tr>
+</tbody>
+</table>
+<p>使用这些算法时，可以通过 <code>search_size</code> 参数控制随机搜索的规模。</p>
+</section>
+<section id="随机搜索-random-search-random-portfolios" class="level3">
+<h3 class="anchored" data-anchor-id="随机搜索-random-search-random-portfolios">4.随机搜索 (Random Search / Random Portfolios)</h3>
+<p>这是一种<strong>探索解空间</strong>的基础方法，通过生成大量满足约束条件的随机投资组合来寻找可行解。它主要有三种生成方法：</p>
+<ul>
+<li><strong><code>sample</code> 方法</strong>：最灵活，但速度最慢。可以处理杠杆、上下限、分组和头寸限制等多种约束。</li>
+<li><strong><code>simplex</code> 方法</strong>：基于 W. T. Shaw 的论文，能有效生成满足<strong>满额投资</strong>（权重和为1）和下限约束的组合。</li>
+<li><strong><code>grid</code> 方法</strong>：基于 <code>NMOF</code> 包的网格搜索，但仅能满足权重的上下限约束。</li>
+</ul>
+<p>使用随机搜索时，需设置 <code>optimize_method = "random"</code>，并通过 <code>search_size</code> 指定生成的组合数量。</p>
+</section>
+<section id="如何选择" class="level3">
+<h3 class="anchored" data-anchor-id="如何选择">5.如何选择</h3>
+<ul>
+<li><strong>首选凸优化</strong>：如果你的问题是<strong>凸的</strong>（如最小化方差、最大化收益），优先使用 <code>"ROI"</code>、<code>"quadprog"</code> 或 <code>"glpk"</code>，它们能保证找到全局最优解。</li>
+<li><strong>复杂问题用启发式</strong>：当问题涉及<strong>非凸目标、复杂约束</strong>（如头寸限制、周转率约束）或需要优化<strong>CVaR</strong>等风险指标时，应选择 <code>"DEoptim"</code>、<code>"pso"</code> 或 <code>"GenSA"</code>。</li>
+<li><strong>探索或初始化用随机搜索</strong>：<code>"random"</code> 方法适合在优化前<strong>探索解空间</strong>，或作为<strong>基准</strong>来评估其他算法的表现。</li>
+</ul>
+</section>
+</section>
+<section id="五riskparityportfolio-包" class="level2">
+<h2 class="anchored" data-anchor-id="五riskparityportfolio-包">五、riskParityPortfolio 包</h2>
+<p><code>riskParityPortfolio</code> 是一个用于<strong>快速构建风险平价（Risk Parity）投资组合</strong>的 R 包。它的核心目标是<strong>均衡配置不同资产的风险贡献</strong>，而非简单地分散资金。该包为我们使用的风险平价策略提供了高效、灵活的实现工具。</p>
+<section id="核心算法" class="level3">
+<h3 class="anchored" data-anchor-id="核心算法">1.核心算法</h3>
+<p><code>riskParityPortfolio</code> 针对不同复杂度的优化问题，集成了多种高效算法：</p>
+<ul>
+<li><strong>基础凸优化</strong>：对于无卖空和预算约束的经典风险平价问题，采用由 Spinu (2013) 提出的<strong>凸优化公式</strong>，可保证获得<strong>唯一最优解</strong>。</li>
+<li><strong>循环算法</strong>：使用由 Griveau-Billion 等人提出的<strong>循环方法</strong>进行快速求解，尤其适合高维度的投资组合。</li>
+<li><strong>非凸优化</strong>：当问题涉及更复杂的约束（如下界限制、期望收益目标等）时，问题通常变为<strong>非凸</strong>的。此时，包会采用 Feng &amp; Palomar (2015) 提出的<strong>连续凸近似方法 (SCRIP)</strong> 进行求解。</li>
+</ul>
+</section>
+<section id="主要功能" class="level3">
+<h3 class="anchored" data-anchor-id="主要功能">2.主要功能</h3>
+<p>该包通过统一的 <code>riskParityPortfolio()</code> 函数，提供了从基础到进阶的多种功能：</p>
+<ul>
+<li><strong>标准风险平价</strong>：默认情况下，只需输入资产收益率的<strong>协方差矩阵</strong>，即可计算等风险贡献的投资组合权重。</li>
+<li><strong>风险预算 (Risk Budgeting)</strong>：你可以通过 <code>b</code> 参数，为不同资产<strong>指定具体的风险贡献目标</strong>，构建风险预算组合。</li>
+<li><strong>集成均值-方差目标</strong>：允许在优化目标中加入<strong>期望收益</strong>或<strong>组合方差</strong>项，实现风险平价与均值-方差框架的融合。</li>
+<li><strong>丰富的约束条件</strong>：支持<strong>卖空限制</strong>、<strong>头寸上下限</strong>（box constraints）等实际投资中常见的约束。</li>
+<li><strong>可视化分析</strong>：提供了 <code>barplotPortfolioRisk()</code> 函数，可直观地<strong>对比展示组合的资金配置与风险贡献分配</strong>。</li>
+</ul>
+</section>
+<section id="使用示例-2" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-2">3.使用示例</h3>
+<p>以下是一个简单的 R 代码示例，演示了如何构建一个标准风险平价组合：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(riskParityPortfolio)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成模拟数据 (5个资产)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(N<span class="sc">^</span><span class="dv">2</span>), <span class="at">ncol =</span> N)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(V)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算标准风险平价组合</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">riskParityPortfolio</span>(Sigma)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看结果</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(res)  <span class="co"># 返回 "w", "relative_risk_contribution", "is_feasible"</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res<span class="sc">$</span>w)  <span class="co"># 输出最优权重</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>riskParityPortfolio</code> 的强大之处在于其灵活性。你可以通过调整参数构建更符合实际需求的组合。</p>
+<p><strong>加入期望收益目标</strong>：通过 <code>mu</code> 和 <code>lmd_mu</code> 参数，可以在风险平价的基础上追求更高的期望收益。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mu 为期望收益向量, lmd_mu 为权衡参数</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rpp <span class="ot">&lt;-</span> <span class="fu">riskParityPortfolio</span>(Sigma, <span class="at">mu =</span> mu, <span class="at">lmd_mu =</span> <span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>控制组合波动率</strong>：通过 <code>lmd_var</code> 参数，可以在优化中额外加入对组合总方差（波动率）的惩罚或偏好。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lmd_var 控制方差项的影响程度</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rpp <span class="ot">&lt;-</span> <span class="fu">riskParityPortfolio</span>(Sigma, <span class="at">lmd_var =</span> <span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>总的来说，<code>riskParityPortfolio</code> 是一个专注、高效且灵活的 R 包。它从基础的凸优化问题出发，通过集成先进的算法，能够处理从标准风险平等到包含多种实际约束和目标的复杂问题，是进行量化资产配置的有力工具。</p>
+</section>
+</section>
+<section id="六genalg-包" class="level2">
+<h2 class="anchored" data-anchor-id="六genalg-包">六、genalg 包</h2>
+<section id="概述-4" class="level3">
+<h3 class="anchored" data-anchor-id="概述-4">1.概述</h3>
+<p><code>genalg</code> 是一个用于解决优化问题的 <strong>R 语言遗传算法（Genetic Algorithm, GA）包</strong>。它由 Egon Willighagen 和 Michel Ballings 开发，其核心理念是模拟生物进化中的“适者生存”原则，通过选择（Selection）、交叉（Crossover）和变异（Mutation）等操作，迭代地寻找问题的最优解。</p>
+<p><code>genalg</code> 通过 <code>rbga()</code> 和 <code>rbga.bin()</code> 两个核心函数，让用户能够轻松地将遗传算法应用于各种自定义的优化问题，并提供了丰富的监控和可视化工具来辅助分析。</p>
+</section>
+<section id="核心功能-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能-1">2.核心功能</h3>
+<p><code>genalg</code> 的核心是 <code>rbga()</code> 函数，它支持两种主要的数据类型：</p>
+<ul>
+<li><strong>二进制染色体 (Binary Chromosomes)</strong>：通过 <code>rbga.bin()</code> 实现，每个基因位只能取 0 或 1，常用于特征选择等场景。</li>
+<li><strong>浮点数染色体 (Floating Point Chromosomes)</strong>：通过 <code>rbga()</code> 实现，每个基因位可以取一个连续的实数值，适用于参数优化等问题。</li>
+</ul>
+</section>
+<section id="主要参数" class="level3">
+<h3 class="anchored" data-anchor-id="主要参数">3.主要参数</h3>
+<p><code>rbga()</code> 函数提供了丰富的参数来控制优化过程：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>stringMin</code>, <code>stringMax</code></td>
+<td style="text-align: left;"><strong>（必需）</strong> 分别指定每个基因的最小值和最大值的向量。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>popSize</code></td>
+<td style="text-align: left;">种群大小，即每一代中包含的染色体数量，默认为 200。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>iters</code></td>
+<td style="text-align: left;">迭代次数，即算法运行的代数，默认为 100。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>mutationChance</code></td>
+<td style="text-align: left;">变异概率，即每个基因发生变异的几率。默认值为 <code>1/(size+1)</code>（<code>size</code> 为染色体长度）。该值影响算法的收敛速度与搜索范围。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>elitism</code></td>
+<td style="text-align: left;">精英主义，指每一代中直接保留到下一代的优秀染色体数量，默认为种群大小的 20%。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>evalFunc</code></td>
+<td style="text-align: left;"><strong>（必需）</strong> 用户自定义的评估函数，用于计算每个染色体的适应度（fitness）。算法会<strong>最小化</strong>该函数的返回值。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>monitorFunc</code></td>
+<td style="text-align: left;">监控函数，可在每一代结束后被调用，用于实时观察优化过程。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>suggestions</code></td>
+<td style="text-align: left;">可选参数，用于提供初始种群的建议染色体。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="可视化与结果分析" class="level3">
+<h3 class="anchored" data-anchor-id="可视化与结果分析">4.可视化与结果分析</h3>
+<p><code>genalg</code> 提供了专门用于分析优化结果的可视化功能：</p>
+<ul>
+<li><strong>默认图 (<code>type="default"</code>)</strong>：展示每一代中<strong>最小</strong>和<strong>平均</strong>的评估值，直观反映算法的收敛情况。</li>
+<li><strong>直方图 (<code>type="hist"</code>)</strong>：
+<ul>
+<li>对于二进制染色体，展示每个基因被选中的频率。</li>
+<li>对于浮点数染色体，为每个变量绘制直方图，展示其在种群中的取值分布。</li>
+</ul></li>
+<li><strong>变量关系图 (<code>type="vars"</code>)</strong>：绘制评估函数值与变量值的关系图，有助于发现变量与目标函数之间的相关性。</li>
+</ul>
+</section>
+<section id="代码示例" class="level3">
+<h3 class="anchored" data-anchor-id="代码示例">5.代码示例</h3>
+<p>下面是一个简单的示例，演示如何使用 <code>genalg</code> 来寻找两个目标值（π 和 √50）。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(genalg)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 定义评估函数：计算染色体与目标值的绝对误差之和</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>evaluate <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">string=</span><span class="fu">c</span>()) {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 本例中，染色体长度为2</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    returnVal <span class="ot">=</span> <span class="fu">abs</span>(string[<span class="dv">1</span>] <span class="sc">-</span> pi) <span class="sc">+</span> <span class="fu">abs</span>(string[<span class="dv">2</span>] <span class="sc">-</span> <span class="fu">sqrt</span>(<span class="dv">50</span>))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    returnVal</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 定义监控函数：实时绘制每一代种群在二维空间的位置</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>monitor <span class="ot">&lt;-</span> <span class="cf">function</span>(obj) {</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    xlim <span class="ot">=</span> <span class="fu">c</span>(obj<span class="sc">$</span>stringMin[<span class="dv">1</span>], obj<span class="sc">$</span>stringMax[<span class="dv">1</span>])</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    ylim <span class="ot">=</span> <span class="fu">c</span>(obj<span class="sc">$</span>stringMin[<span class="dv">2</span>], obj<span class="sc">$</span>stringMax[<span class="dv">2</span>])</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(obj<span class="sc">$</span>population, <span class="at">xlim=</span>xlim, <span class="at">ylim=</span>ylim,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab=</span><span class="st">"pi"</span>, <span class="at">ylab=</span><span class="st">"sqrt(50)"</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 运行遗传算法</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 第一个基因在 [1, 5] 间寻优，第二个基因在 [1, 10] 间寻优</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>rbga.results <span class="ot">=</span> <span class="fu">rbga</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>),</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>                    <span class="at">monitorFunc=</span>monitor,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                    <span class="at">evalFunc=</span>evaluate,</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>                    <span class="at">verbose=</span><span class="cn">TRUE</span>,</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>                    <span class="at">mutationChance=</span><span class="fl">0.01</span>)</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 查看和绘制结果</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rbga.results)          <span class="co"># 默认收敛图</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rbga.results, <span class="at">type=</span><span class="st">"hist"</span>) <span class="co"># 变量分布直方图</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rbga.results, <span class="at">type=</span><span class="st">"vars"</span>) <span class="co"># 变量与目标值关系图</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="典型应用场景" class="level3">
+<h3 class="anchored" data-anchor-id="典型应用场景">6.典型应用场景</h3>
+<p>由于其灵活性和对自定义评估函数的支持，<code>genalg</code> 适用于广泛的优化问题：</p>
+<ul>
+<li><strong>特征选择 (Feature Selection)</strong>：使用二进制染色体，选择对模型预测最重要的特征子集。</li>
+<li><strong>参数调优 (Parameter Tuning)</strong>：使用浮点数染色体，优化机器学习模型或仿真模型的超参数。</li>
+<li><strong>实验设计优化</strong>：如在生物、化学等领域，优化培养基成分、反应条件等实验参数。</li>
+</ul>
+</section>
+<section id="七gramevol-包" class="level3">
+<h3 class="anchored" data-anchor-id="七gramevol-包">七、<strong>gramEvol 包</strong></h3>
+</section>
+<section id="概述-5" class="level3">
+<h3 class="anchored" data-anchor-id="概述-5">1.概述</h3>
+<p><strong>gramEvol</strong> 是 R 语言中实现<strong>语法进化（Grammatical Evolution, GE）</strong> 算法的工具包。该包的作者是 Farzad Noorian 和 Anthony Mihirana de Silva.它允许用户通过自定义的<strong>上下文无关文法（Context-Free Grammar, CFG）</strong> 定义程序结构，然后利用进化算法在由该文法生成的所有 R 表达式空间中进行搜索，以发现能够达到特定目标的最佳程序。</p>
+</section>
+<section id="语法进化ge" class="level3">
+<h3 class="anchored" data-anchor-id="语法进化ge">2.语法进化（GE）</h3>
+<p>语法进化是一种<strong>程序自动发现</strong>技术，核心思想和工作流程是：</p>
+<ol type="1">
+<li><strong>定义语法</strong>：用户通过上下文无关文法描述候选程序的可能结构</li>
+<li><strong>进化搜索</strong>：算法维护一个候选程序群体，通过迭代（选择、交叉、变异）不断优化</li>
+<li><strong>适应度评估</strong>：每个候选程序通过用户定义的代价函数（cost function）评估其表现</li>
+<li><strong>输出最优解</strong>：最终返回适应度最高的 R 表达式</li>
+</ol>
+<p>与遗传编程（Genetic Programming）相比，GE 的优势在于<strong>语法约束更灵活</strong>，可以确保生成的所有程序在语法上都是有效的。</p>
+</section>
+<section id="核心函数与语法定义" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数与语法定义">3.核心函数与语法定义</h3>
+<section id="创建语法规则" class="level4">
+<h4 class="anchored" data-anchor-id="创建语法规则">3.1. 创建语法规则</h4>
+<p>gramEvol 提供了三种创建语法规则（GERule）的函数：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>用途</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>grule()</code></td>
+<td>定义 R 表达式规则（Grammar Rule）</td>
+<td><code>grule(sin, cos, log)</code></td>
+</tr>
+<tr class="even">
+<td><code>gsrule()</code></td>
+<td>定义字符串规则（Grammar String Rule），可生成非 R 语法的序列</td>
+<td><code>gsrule("+", "-", "*")</code></td>
+</tr>
+<tr class="odd">
+<td><code>gvrule()</code></td>
+<td>定义向量规则（Grammar Vector Rule），从向量中取元素作为规则</td>
+<td><code>gvrule(1:4)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="创建文法对象" class="level4">
+<h4 class="anchored" data-anchor-id="创建文法对象">3.2. 创建文法对象</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CreateGrammar</span>(ruleDef, startSymb)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>ruleDef</code>：一个命名列表，每个元素是一个 GERule 对象，名称即<strong>非终结符</strong>（non-terminal symbol）</li>
+<li><code>startSymb</code>：起始符号（默认为 <code>ruleDef</code> 的第一个规则）</li>
+</ul>
+</section>
+<section id="核心求解函数grammaticalevolution" class="level4">
+<h4 class="anchored" data-anchor-id="核心求解函数grammaticalevolution">3.3. 核心求解函数：<code>GrammaticalEvolution()</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">GrammaticalEvolution</span>(grammarDef, costFunc, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>grammarDef</code></td>
+<td>由 <code>CreateGrammar</code> 创建的文法对象</td>
+</tr>
+<tr class="even">
+<td><code>costFunc</code></td>
+<td>代价函数，接受一个 R 表达式作为输入，返回数值（越小越好）</td>
+</tr>
+<tr class="odd">
+<td><code>iterations</code></td>
+<td>进化迭代次数</td>
+</tr>
+<tr class="even">
+<td><code>populationSize</code></td>
+<td>种群大小（默认 50）</td>
+</tr>
+<tr class="odd">
+<td><code>elitism</code></td>
+<td>精英保留数量</td>
+</tr>
+<tr class="even">
+<td><code>mutationChance</code></td>
+<td>变异概率</td>
+</tr>
+<tr class="odd">
+<td><code>codonLength</code></td>
+<td>每个个体的密码子长度</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="辅助函数" class="level4">
+<h4 class="anchored" data-anchor-id="辅助函数">3.4. 辅助函数</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GrammarMap(codon, grammarDef)</code></td>
+<td>将整数序列（密码子）映射为对应的 R 表达式</td>
+</tr>
+<tr class="even">
+<td><code>GrammarRandomExpr(grammarDef, numExpr)</code></td>
+<td>从文法中随机生成表达式</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="使用示例开普勒定律的符号回归" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例开普勒定律的符号回归">4.使用示例：开普勒定律的符号回归</h3>
+<p>以下示例演示如何使用 gramEvol 通过符号回归<strong>重新发现开普勒第三定律</strong>（行星公转周期与轨道半径的关系）。</p>
+<section id="步骤-1定义文法" class="level4">
+<h4 class="anchored" data-anchor-id="步骤-1定义文法">4.1. 步骤 1：定义文法</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gramEvol"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>grammarDef <span class="ot">&lt;-</span> <span class="fu">CreateGrammar</span>(<span class="fu">list</span>(</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">expr =</span> <span class="fu">grule</span>(<span class="fu">op</span>(expr, expr), <span class="fu">func</span>(expr), var),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">func =</span> <span class="fu">grule</span>(sin, cos, log, sqrt),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">op =</span> <span class="fu">grule</span>(<span class="st">`</span><span class="at">+</span><span class="st">`</span>, <span class="st">`</span><span class="at">-</span><span class="st">`</span>, <span class="st">`</span><span class="at">*</span><span class="st">`</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">var =</span> <span class="fu">grule</span>(distance, distance<span class="sc">^</span>n, n),</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">gvrule</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)  <span class="co"># 等价于 grule(1, 2, 3, 4)</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这个文法定义了表达式可以递归地由二元运算、函数或变量组成，变量可以是 <code>distance</code>、<code>distance^n</code> 或常数 <code>n</code>。</p>
+</section>
+<section id="步骤-2准备数据和代价函数" class="level4">
+<h4 class="anchored" data-anchor-id="步骤-2准备数据和代价函数">4.2. 步骤 2：准备数据和代价函数</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 太阳系行星数据（距离和公转周期）</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>distance <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.72</span>, <span class="fl">1.00</span>, <span class="fl">1.52</span>, <span class="fl">5.20</span>, <span class="fl">9.53</span>, <span class="fl">19.10</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>period   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.61</span>, <span class="fl">1.00</span>, <span class="fl">1.84</span>, <span class="fl">11.90</span>, <span class="fl">29.40</span>, <span class="fl">83.50</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 代价函数：评估表达式预测周期与实际周期的误差</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>SymRegCostFunc <span class="ot">&lt;-</span> <span class="cf">function</span>(expr) {</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> <span class="fu">eval</span>(expr)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">is.na</span>(result))) <span class="fu">return</span>(<span class="cn">Inf</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">mean</span>(<span class="fu">log</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">abs</span>(period <span class="sc">-</span> result))))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="步骤-3运行语法进化" class="level4">
+<h4 class="anchored" data-anchor-id="步骤-3运行语法进化">4.3. 步骤 3：运行语法进化</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ge <span class="ot">&lt;-</span> <span class="fu">GrammaticalEvolution</span>(grammarDef, SymRegCostFunc, <span class="at">iterations =</span> <span class="dv">50</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ge)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="步骤-4查看结果" class="level4">
+<h4 class="anchored" data-anchor-id="步骤-4查看结果">4.4. 步骤 4：查看结果</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取最优表达式</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>best.expression <span class="ot">&lt;-</span> ge<span class="sc">$</span>best<span class="sc">$</span>expression</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(best.expression)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 比较真实周期、开普勒定律预测值和 GE 发现表达式</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">data.frame</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    distance,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    period,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Kepler =</span> <span class="fu">sqrt</span>(distance<span class="sc">^</span><span class="dv">3</span>),  <span class="co"># 开普勒第三定律</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">GE =</span> <span class="fu">eval</span>(best.expression)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行后，GE 算法可能会发现类似于 <code>sqrt(distance^3)</code> 的表达式，即<strong>重新发现开普勒第三定律</strong>。</p>
+</section>
+</section>
+<section id="高级特性" class="level3">
+<h3 class="anchored" data-anchor-id="高级特性">5.高级特性</h3>
+<section id="使用-gsrule-生成非-r-语法序列" class="level4">
+<h4 class="anchored" data-anchor-id="使用-gsrule-生成非-r-语法序列">5.1. 使用 <code>gsrule()</code> 生成非 R 语法序列</h4>
+<p>当需要生成<strong>不是合法 R 语法</strong>的字符串（如 <code>"A+B"</code>）时，使用 <code>gsrule()</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ruleDef <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">expr =</span> <span class="fu">gsrule</span>(<span class="st">"&lt;var&gt;&lt;op&gt;&lt;var&gt;"</span>),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">op   =</span> <span class="fu">gsrule</span>(<span class="st">"+"</span>, <span class="st">"-"</span>, <span class="st">"*"</span>),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">var  =</span> <span class="fu">gsrule</span>(<span class="st">"A"</span>, <span class="st">"B"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>grammarDef <span class="ot">&lt;-</span> <span class="fu">CreateGrammar</span>(ruleDef)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="保留逗号和赋值运算符" class="level4">
+<h4 class="anchored" data-anchor-id="保留逗号和赋值运算符">5.2. 保留逗号和赋值运算符</h4>
+<p>在使用 <code>grule()</code> 时，如果规则中包含逗号或赋值符（<code>=</code>），需要用 <code>.()</code> 包裹以保留它们：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ruleDef <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">expr =</span> <span class="fu">grule</span>(<span class="fu">data.frame</span>(dat)),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">dat  =</span> <span class="fu">grule</span>(.(<span class="at">x =</span> <span class="dv">1</span>, <span class="at">y =</span> <span class="dv">2</span>), .(<span class="at">x =</span> <span class="dv">5</span>, <span class="at">y =</span> <span class="dv">6</span>))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="从-.bnf-文件读取文法" class="level4">
+<h4 class="anchored" data-anchor-id="从-.bnf-文件读取文法">5.3. 从 .bnf 文件读取文法</h4>
+<p><code>CreateGrammar()</code> 也支持直接从 Backus-Naur Form（BNF）格式的文件读取文法：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grammarDef <span class="ot">&lt;-</span> <span class="fu">CreateGrammar</span>(<span class="st">"path/to/grammar.bnf"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="注意事项-2" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-2">6.注意事项</h3>
+<ol type="1">
+<li><p><strong>代价函数需返回数值</strong>：gramEvol 通过最小化代价函数来搜索最优解，代价函数必须接收一个 R 表达式并返回一个数值（越小越好）。</p></li>
+<li><p><strong>处理无效表达式</strong>：在代价函数中应处理可能导致错误或 <code>NaN</code> 的表达式（如对负数取对数），通常返回 <code>Inf</code> 以淘汰该个体。</p></li>
+<li><p><strong>随机种子</strong>：为获得可重复的结果，建议在运行前设置 <code>set.seed()</code>。</p></li>
+<li><p><strong>性能考虑</strong>：对于大规模问题，可增加 <code>iterations</code> 和 <code>populationSize</code>，但需权衡计算时间。</p></li>
+</ol>
+</section>
+<section id="核心优势" class="level3">
+<h3 class="anchored" data-anchor-id="核心优势">7.核心优势</h3>
+<p>gramEvol 的核心优势在于：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>声明式编程</strong></td>
+<td>用户只需定义文法和代价函数，无需手动设计搜索算法</td>
+</tr>
+<tr class="even">
+<td><strong>灵活性高</strong></td>
+<td>支持 R 表达式和字符串两种规则形式，适用场景广泛</td>
+</tr>
+<tr class="odd">
+<td><strong>原生 R 实现</strong></td>
+<td>完全在 R 环境中运行，无需外部依赖</td>
+</tr>
+<tr class="even">
+<td><strong>教学资源丰富</strong></td>
+<td>提供详细的 vignette 教程和 JSS 论文</td>
+</tr>
+</tbody>
+</table>
+<p>该包适用于<strong>符号回归、自动编程、参数优化、方程发现</strong>等场景，是 R 语言生态中实现语法进化算法的首选工具。</p>
+</section>
+</section>
+<section id="八alabama包" class="level2">
+<h2 class="anchored" data-anchor-id="八alabama包">八、alabama包</h2>
+<section id="概述-6" class="level3">
+<h3 class="anchored" data-anchor-id="概述-6">1.概述</h3>
+<p><strong>alabama</strong> 是 R 语言中一个专门用于<strong>带约束非线性优化</strong>的工具包。由 Ravi Varadhan 开发（Gabor Grothendieck 亦有贡献），首次发布于 2010 年。它实现了<strong>增广拉格朗日自适应障碍最小化算法</strong>（Augmented Lagrangian Adaptive Barrier Minimization Algorithm），能够有效处理带有<strong>线性或非线性等式与不等式约束</strong>的平滑非线性目标函数优化问题。</p>
+</section>
+<section id="核心函数-2" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数-2">2.核心函数</h3>
+<p>alabama 提供了两个主要函数：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><code>auglag()</code></strong></td>
+<td>增广拉格朗日最小化算法，<strong>允许初始值不满足不等式约束</strong>（即不可行初始点）</td>
+</tr>
+<tr class="even">
+<td><strong><code>constrOptim.nl()</code></strong></td>
+<td>与 <code>auglag()</code> 类似，但<strong>要求初始值满足不等式约束</strong>（可行初始点）</td>
+</tr>
+</tbody>
+</table>
+<p>两者核心算法相同，主要区别在于对初始值的约束要求不同。实际使用中，<code>auglag()</code> 更为灵活，因为无需事先寻找可行初始点。</p>
+</section>
+<section id="核心参数详解" class="level3">
+<h3 class="anchored" data-anchor-id="核心参数详解">3.核心参数详解</h3>
+<p>以 <code>auglag()</code> 为例（<code>constrOptim.nl()</code> 参数与之相同）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">auglag</span>(par, fn, gr, hin, hin.jac, heq, heq.jac,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">control.outer =</span> <span class="fu">list</span>(), <span class="at">control.optim =</span> <span class="fu">list</span>(), ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>par</code></td>
+<td>数值向量</td>
+<td>初始参数值。<code>auglag()</code> 允许违反不等式约束</td>
+</tr>
+<tr class="even">
+<td><code>fn</code></td>
+<td>函数</td>
+<td>目标函数，接受向量参数返回标量值</td>
+</tr>
+<tr class="odd">
+<td><code>gr</code></td>
+<td>函数</td>
+<td>目标函数的梯度向量函数。默认为 <code>NULL</code>，使用数值微分</td>
+</tr>
+<tr class="even">
+<td><code>hin</code></td>
+<td>函数</td>
+<td>不等式约束函数，要求 <strong><code>hin[j] &gt; 0</code></strong> 对所有 j 成立</td>
+</tr>
+<tr class="odd">
+<td><code>hin.jac</code></td>
+<td>函数</td>
+<td><code>hin</code> 的雅可比矩阵。默认数值微分</td>
+</tr>
+<tr class="even">
+<td><code>heq</code></td>
+<td>函数</td>
+<td>等式约束函数，要求 <strong><code>heq[j] = 0</code></strong> 对所有 j 成立</td>
+</tr>
+<tr class="odd">
+<td><code>heq.jac</code></td>
+<td>函数</td>
+<td><code>heq</code> 的雅可比矩阵。默认数值微分</td>
+</tr>
+<tr class="even">
+<td><code>control.outer</code></td>
+<td>列表</td>
+<td>外层循环控制参数</td>
+</tr>
+<tr class="odd">
+<td><code>control.optim</code></td>
+<td>列表</td>
+<td>内层无约束优化控制参数（与 <code>optim()</code> 或 <code>nlminb()</code> 相同）</td>
+</tr>
+<tr class="even">
+<td><code>...</code></td>
+<td>其他</td>
+<td>传递给 <code>fn</code>, <code>gr</code>, <code>hin</code>, <code>heq</code> 的额外参数</td>
+</tr>
+</tbody>
+</table>
+<p><code>control.outer</code> 可调参数</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>默认值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>lam0</code></td>
+<td>-</td>
+<td>拉格朗日参数初始值</td>
+</tr>
+<tr class="even">
+<td><code>sig0</code></td>
+<td>-</td>
+<td>惩罚项缩放参数</td>
+</tr>
+<tr class="odd">
+<td><code>eps</code></td>
+<td>-</td>
+<td>外层迭代收敛容差</td>
+</tr>
+<tr class="even">
+<td><code>itmax</code></td>
+<td>-</td>
+<td>最大外层迭代次数</td>
+</tr>
+<tr class="odd">
+<td><code>ilack.max</code></td>
+<td>-</td>
+<td>参数无变化时最大容忍迭代次数</td>
+</tr>
+<tr class="even">
+<td><code>trace</code></td>
+<td><code>FALSE</code></td>
+<td>若为 <code>TRUE</code>，打印每次外层迭代的约束满足情况、参数值和目标值</td>
+</tr>
+<tr class="odd">
+<td><code>method</code></td>
+<td><code>"BFGS"</code></td>
+<td>内层无约束优化算法，可选 <code>optim()</code> 中的算法或 <code>"nlminb"</code></td>
+</tr>
+<tr class="even">
+<td><code>NMinit</code></td>
+<td><code>FALSE</code></td>
+<td>是否在第一轮外层迭代使用 Nelder-Mead 算法</td>
+</tr>
+<tr class="odd">
+<td><code>i.scale</code></td>
+<td>-</td>
+<td>不等式约束的缩放因子</td>
+</tr>
+<tr class="even">
+<td><code>e.scale</code></td>
+<td>-</td>
+<td>等式约束的缩放因子</td>
+</tr>
+<tr class="odd">
+<td><code>kkt2.check</code></td>
+<td><code>TRUE</code></td>
+<td>是否检查二阶 KKT 条件</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="使用示例-3" class="level3">
+<h3 class="anchored" data-anchor-id="使用示例-3">4.使用示例</h3>
+<section id="带不等式约束的优化" class="level4">
+<h4 class="anchored" data-anchor-id="带不等式约束的优化">4.1.带不等式约束的优化</h4>
+<p>最小化目标函数 <code>(x₁ + 3x₂ + x₃)² + 4(x₁ - x₂)²</code>，约束条件为 <code>x₁ + x₂ + x₃ ≥ 1</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alabama)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 目标函数</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>fn <span class="ot">&lt;-</span> <span class="cf">function</span>(x) (x[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">+</span> x[<span class="dv">3</span>])<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 梯度（可选，提供后可大幅加速高维问题）</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>gr <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">3</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  g[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">+</span> x[<span class="dv">3</span>]) <span class="sc">+</span> <span class="dv">8</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">2</span>])</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  g[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">6</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">+</span> x[<span class="dv">3</span>]) <span class="sc">-</span> <span class="dv">8</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">-</span> x[<span class="dv">2</span>])</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  g[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (x[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">+</span> x[<span class="dv">3</span>])</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  g</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 不等式约束：hin(x) &gt; 0，即 x1 + x2 + x3 - 1 &gt; 0</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>hin <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x[<span class="dv">1</span>] <span class="sc">+</span> x[<span class="dv">2</span>] <span class="sc">+</span> x[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">auglag</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),   <span class="co"># 初始值</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fn =</span> fn,</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>                 <span class="at">gr =</span> gr,</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hin =</span> hin,</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>                 <span class="at">control.outer =</span> <span class="fu">list</span>(<span class="at">trace =</span> <span class="cn">TRUE</span>))  <span class="co"># 开启迭代日志</span></span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>par)      <span class="co"># 最优解</span></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>value)    <span class="co"># 最优目标值</span></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>convergence)  <span class="co"># 0 表示成功收敛</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="带等式约束的优化" class="level4">
+<h4 class="anchored" data-anchor-id="带等式约束的优化">4.2.带等式约束的优化</h4>
+<p>若需同时添加等式约束 <code>x₁ + 2x₂ - x₃ = 2</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 等式约束：heq(x) = 0</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>heq <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x[<span class="dv">1</span>] <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x[<span class="dv">2</span>] <span class="sc">-</span> x[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">auglag</span>(<span class="at">par =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fn =</span> fn,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">gr =</span> gr,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">hin =</span> hin,</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">heq =</span> heq)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="返回值-1" class="level4">
+<h4 class="anchored" data-anchor-id="返回值-1">4.3.返回值</h4>
+<p>函数返回一个列表，包含以下关键组件：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>par</code></td>
+<td>最优参数向量</td>
+</tr>
+<tr class="even">
+<td><code>value</code></td>
+<td>最优目标函数值</td>
+</tr>
+<tr class="odd">
+<td><code>convergence</code></td>
+<td>收敛代码：<code>0</code> 表示成功，正数表示失败</td>
+</tr>
+<tr class="even">
+<td><code>counts</code></td>
+<td>目标函数和梯度的评估次数</td>
+</tr>
+<tr class="odd">
+<td><code>outer.iterations</code></td>
+<td>外层迭代次数</td>
+</tr>
+<tr class="even">
+<td><code>ineq</code></td>
+<td>收敛时不等式约束的值（应全部 ≥ 0）</td>
+</tr>
+<tr class="odd">
+<td><code>equal</code></td>
+<td>收敛时等式约束的值（应全部接近 0）</td>
+</tr>
+<tr class="even">
+<td><code>kkt1</code></td>
+<td>一阶 KKT 条件是否满足</td>
+</tr>
+<tr class="odd">
+<td><code>kkt2</code></td>
+<td>二阶 KKT 条件是否满足</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="重要注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="重要注意事项">5.重要注意事项</h3>
+<ul>
+<li><p><strong>约束函数的符号约定</strong>：</p>
+<ul>
+<li>不等式约束要求 <strong><code>hin(x) &gt; 0</code></strong>。若希望表达 <code>g(x) ≤ 0</code>，需定义为 <code>hin(x) = -g(x)</code>。</li>
+<li>等式约束要求 <strong><code>heq(x) = 0</code></strong>。</li>
+</ul></li>
+<li><p><strong>梯度与雅可比矩阵</strong>：虽然默认使用数值微分，但在高维问题中<strong>提供精确梯度</strong>可显著提升计算速度。</p></li>
+<li><p><strong>初始值容忍度</strong>：<code>auglag()</code> 允许初始值违反不等式约束，而 <code>constrOptim.nl()</code> 则要求初始值可行。</p></li>
+<li><p><strong>KKT 条件检查</strong>：默认会检查二阶 KKT 条件，若 Hessian 计算耗时，可将 <code>kkt2.check = FALSE</code> 关闭。</p></li>
+</ul>
+</section>
+<section id="核心优势-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心优势-1">6.核心优势</h3>
+<p>alabama 的核心优势在于：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>特点</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>约束类型全面</strong></td>
+<td>同时支持线性和非线性、等式和不等式约束</td>
+</tr>
+<tr class="even">
+<td><strong>初始值要求宽松</strong></td>
+<td><code>auglag()</code> 允许不可行初始点，大幅降低使用门槛</td>
+</tr>
+<tr class="odd">
+<td><strong>算法稳健</strong></td>
+<td>增广拉格朗日 + 自适应障碍方法，对复杂约束问题有较好表现</td>
+</tr>
+<tr class="even">
+<td><strong>梯度支持</strong></td>
+<td>支持用户提供精确梯度以加速计算</td>
+</tr>
+<tr class="odd">
+<td><strong>可观测性强</strong></td>
+<td><code>trace = TRUE</code> 可实时查看迭代过程</td>
+</tr>
+<tr class="even">
+<td><strong>ROI 生态集成</strong></td>
+<td>可作为 ROI 框架的求解插件</td>
+</tr>
+</tbody>
+</table>
+<p>alabama 可作为 <strong>ROI</strong>（R Optimization Infrastructure）的插件使用。通过 <code>ROI.plugin.alabama</code> 包，可在 ROI 框架中调用 alabama 求解器。此外，alabama 被多个 R 包依赖或建议使用，包括 <code>GDINA</code>、<code>gllvm</code>、<code>metafor</code>、<code>tramME</code> 等。</p>
+<p>该包适用于<strong>经济学建模、工程优化、统计估计</strong>等需要处理复杂约束的数值优化场景，是 R 语言中处理带约束非线性优化问题的重要工具。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第9节 其它计量分析工具包.html" class="pagination-link" aria-label="第16章 R 第9节 其它计量分析工具包">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第9节 其它计量分析工具包</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第11节 提升计算效率 .html" class="pagination-link" aria-label="第16章 R 第11节 提升计算效率">
+        <span class="nav-page-text">第16章 R 第11节 提升计算效率</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

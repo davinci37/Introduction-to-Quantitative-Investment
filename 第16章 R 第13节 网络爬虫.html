@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第13节 网络爬虫 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第12节 数据读写和存储.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第13节 网络爬虫.html">第16章 R 第13节 网络爬虫</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
+  <ul class="collapse">
+  <li><a href="#核心基础层请求与解析" id="toc-核心基础层请求与解析" class="nav-link" data-scroll-target="#核心基础层请求与解析">1.核心基础层：请求与解析</a></li>
+  <li><a href="#进阶处理层应对动态内容" id="toc-进阶处理层应对动态内容" class="nav-link" data-scroll-target="#进阶处理层应对动态内容">2.进阶处理层：应对动态内容</a></li>
+  <li><a href="#辅助与生态工具" id="toc-辅助与生态工具" class="nav-link" data-scroll-target="#辅助与生态工具">3.辅助与生态工具</a></li>
+  <li><a href="#新兴的一体化框架" id="toc-新兴的一体化框架" class="nav-link" data-scroll-target="#新兴的一体化框架">4.新兴的一体化框架</a></li>
+  <li><a href="#总结与建议" id="toc-总结与建议" class="nav-link" data-scroll-target="#总结与建议">5.总结与建议</a></li>
+  </ul></li>
+  <li><a href="#一httr-和-httr2-包" id="toc-一httr-和-httr2-包" class="nav-link" data-scroll-target="#一httr-和-httr2-包">一、httr 和 httr2 包</a>
+  <ul class="collapse">
+  <li><a href="#httr经典的-http-客户端" id="toc-httr经典的-http-客户端" class="nav-link" data-scroll-target="#httr经典的-http-客户端">1. <code>httr</code>：经典的 HTTP 客户端</a></li>
+  <li><a href="#httr2现代化的重构与飞跃" id="toc-httr2现代化的重构与飞跃" class="nav-link" data-scroll-target="#httr2现代化的重构与飞跃">2. <code>httr2</code>：现代化的重构与飞跃</a></li>
+  <li><a href="#应用示例" id="toc-应用示例" class="nav-link" data-scroll-target="#应用示例">3. 应用示例</a></li>
+  </ul></li>
+  <li><a href="#二rvest-包" id="toc-二rvest-包" class="nav-link" data-scroll-target="#二rvest-包">二、rvest 包</a>
+  <ul class="collapse">
+  <li><a href="#核心工作流程" id="toc-核心工作流程" class="nav-link" data-scroll-target="#核心工作流程">1.核心工作流程</a></li>
+  <li><a href="#关键函数详解" id="toc-关键函数详解" class="nav-link" data-scroll-target="#关键函数详解">2.关键函数详解</a></li>
+  <li><a href="#最佳实践与注意事项" id="toc-最佳实践与注意事项" class="nav-link" data-scroll-target="#最佳实践与注意事项">3.最佳实践与注意事项</a></li>
+  </ul></li>
+  <li><a href="#四先找-api" id="toc-四先找-api" class="nav-link" data-scroll-target="#四先找-api">四、“先找 API”</a>
+  <ul class="collapse">
+  <li><a href="#为什么优先找-api" id="toc-为什么优先找-api" class="nav-link" data-scroll-target="#为什么优先找-api">1. 为什么优先找 API？</a></li>
+  <li><a href="#如何发现网站背后的-api" id="toc-如何发现网站背后的-api" class="nav-link" data-scroll-target="#如何发现网站背后的-api">2. 如何发现网站背后的 API？</a></li>
+  <li><a href="#api-请求简单示例" id="toc-api-请求简单示例" class="nav-link" data-scroll-target="#api-请求简单示例">3. API 请求简单示例</a></li>
+  <li><a href="#综合应用示例" id="toc-综合应用示例" class="nav-link" data-scroll-target="#综合应用示例">4.综合应用示例</a></li>
+  <li><a href="#api-与-html-抓取对比" id="toc-api-与-html-抓取对比" class="nav-link" data-scroll-target="#api-与-html-抓取对比">5. API 与 HTML 抓取对比</a></li>
+  <li><a href="#注意事项" id="toc-注意事项" class="nav-link" data-scroll-target="#注意事项">6. 注意事项</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">7.总结</a></li>
+  </ul></li>
+  <li><a href="#五rselenium-和-chromote-包" id="toc-五rselenium-和-chromote-包" class="nav-link" data-scroll-target="#五rselenium-和-chromote-包">五、<code>RSelenium</code> 和 <code>chromote</code> 包</a>
+  <ul class="collapse">
+  <li><a href="#rselenium功能全面的老将" id="toc-rselenium功能全面的老将" class="nav-link" data-scroll-target="#rselenium功能全面的老将">1.RSelenium：功能全面的“老将”</a></li>
+  <li><a href="#chromote现代轻量的首选" id="toc-chromote现代轻量的首选" class="nav-link" data-scroll-target="#chromote现代轻量的首选">2.chromote：现代轻量的“首选”</a></li>
+  <li><a href="#核心对比" id="toc-核心对比" class="nav-link" data-scroll-target="#核心对比">3.核心对比</a></li>
+  <li><a href="#chromote使用案例" id="toc-chromote使用案例" class="nav-link" data-scroll-target="#chromote使用案例">4.chromote使用案例</a></li>
+  </ul></li>
+  <li><a href="#六jsonlite-包" id="toc-六jsonlite-包" class="nav-link" data-scroll-target="#六jsonlite-包">六、jsonlite 包</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1.概述</a></li>
+  <li><a href="#两个核心函数" id="toc-两个核心函数" class="nav-link" data-scroll-target="#两个核心函数">2.两个核心函数</a></li>
+  <li><a href="#实际抓取场景中的用法" id="toc-实际抓取场景中的用法" class="nav-link" data-scroll-target="#实际抓取场景中的用法">3.实际抓取场景中的用法</a></li>
+  <li><a href="#注意事项-1" id="toc-注意事项-1" class="nav-link" data-scroll-target="#注意事项-1">4.注意事项</a></li>
+  </ul></li>
+  <li><a href="#七pdftools-包" id="toc-七pdftools-包" class="nav-link" data-scroll-target="#七pdftools-包">七、<code>pdftools</code> 包</a>
+  <ul class="collapse">
+  <li><a href="#核心函数详解" id="toc-核心函数详解" class="nav-link" data-scroll-target="#核心函数详解">1.核心函数详解</a></li>
+  <li><a href="#实战应用场景" id="toc-实战应用场景" class="nav-link" data-scroll-target="#实战应用场景">2.实战应用场景</a></li>
+  <li><a href="#常见问题与注意事项" id="toc-常见问题与注意事项" class="nav-link" data-scroll-target="#常见问题与注意事项">3.常见问题与注意事项</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第13节 网络爬虫</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>R语言网络爬虫的包生态已经相当成熟，它借鉴了Python生态的优点，同时深度融入了R语言以 tidyverse 为核心的数据处理哲学，形成了一套“组合式”的清晰工具链。</p>
+<section id="核心基础层请求与解析" class="level3">
+<h3 class="anchored" data-anchor-id="核心基础层请求与解析">1.核心基础层：请求与解析</h3>
+<p>这是R爬虫最核心、最常用的部分，主要由两个包协同完成：</p>
+<ul>
+<li><strong><code>httr</code> / <code>httr2</code> 负责“请求”</strong>：这是处理HTTP协议的利器。<code>httr</code>是经典选择，而<code>httr2</code>是其现代化重写版，提供了更符合现代R习惯的管道操作和更清晰的请求对象概念。它们可以轻松处理GET/POST请求、管理Cookie、设置User-Agent以及处理认证，是应对需要登录或提交表单的网站的基础。</li>
+<li><strong><code>rvest</code> 负责“解析”</strong>：这是R语言中最受欢迎、使用频率最高的网页解析包，由Hadley Wickham开发，可以看作是R语言里的“BeautifulSoup”。它封装了底层的<code>xml2</code>包，提供了一套简洁直观的函数，让你能通过<strong>CSS选择器</strong>或<strong>XPath</strong>轻松地从HTML中提取文本、链接、表格等数据。它的设计哲学与<code>magrittr</code>管道（<code>%&gt;%</code>）完美契合，代码可读性很高。</li>
+</ul>
+<p><strong>基础工作流</strong>通常是：用<code>httr</code>发送请求获取网页源码，然后将结果传递给<code>rvest</code>进行解析和数据提取。</p>
+</section>
+<section id="进阶处理层应对动态内容" class="level3">
+<h3 class="anchored" data-anchor-id="进阶处理层应对动态内容">2.进阶处理层：应对动态内容</h3>
+<p>当面对由JavaScript动态渲染的网页时，基础的请求-解析模式会失效，这时就需要浏览器自动化工具。</p>
+<ul>
+<li><strong><code>RSelenium</code></strong>：这是最经典的解决方案，它通过Selenium WebDriver驱动真实的浏览器（如Chrome、Firefox），可以模拟点击、滚动、填写表单等几乎所有用户操作，从而获取动态生成的内容。它的缺点是配置相对复杂，需要安装Java和浏览器驱动，且运行速度较慢。</li>
+<li><strong><code>chromote</code> 与 <code>selenider</code></strong>：<code>chromote</code>是一个更轻量的替代方案，它直接通过Chrome DevTools Protocol控制无头Chrome浏览器，无需Java环境。而<code>selenider</code>则是一个更友好的封装，它提供了“惰性元素”和“自动等待”等特性，让编写稳定、可重复的浏览器自动化脚本变得简单很多，并且它默认使用更快的<code>chromote</code>作为后端。</li>
+</ul>
+</section>
+<section id="辅助与生态工具" class="level3">
+<h3 class="anchored" data-anchor-id="辅助与生态工具">3.辅助与生态工具</h3>
+<p>一个健壮的爬虫项目还需要其他工具的配合：</p>
+<ul>
+<li><strong><code>xml2</code></strong>：<code>rvest</code>的底层依赖，提供了更底层、更灵活的XML/HTML操作能力，当你需要进行复杂的XPath查询或节点操作时，可以直接使用它。</li>
+<li><strong><code>jsonlite</code></strong>：当目标网站的数据通过API以JSON格式返回时，这个包是解析和生成JSON数据的不二之选，它能与R的数据类型进行无损转换。</li>
+<li><strong><code>polite</code> 与 <code>robotstxt</code></strong>：这两个包用于确保你的爬虫遵守网络礼仪。<code>robotstxt</code>用于解析网站的<code>robots.txt</code>文件，判断哪些页面允许抓取。而<code>polite</code>则更进一步，它的<code>bow()</code>函数会先检查<code>robots.txt</code>，并自动在请求间加入延迟，帮助你做一个“有礼貌”的爬虫，避免对目标网站造成过大压力。</li>
+</ul>
+</section>
+<section id="新兴的一体化框架" class="level3">
+<h3 class="anchored" data-anchor-id="新兴的一体化框架">4.新兴的一体化框架</h3>
+<p>近年来，R社区也出现了借鉴其他语言优秀框架思路的一体化爬虫工具。</p>
+<ul>
+<li><strong><code>crawlee</code></strong>：这是一个受Node.js同名库启发的R包，旨在提供<strong>可重复</strong>的网页抓取工作流。它内置了去重且可恢复的请求队列、内容感知处理器和结构化存储后端，支持抓取HTML、站点地图、RSS甚至PDF，并可选择集成无头浏览器进行渲染。它构建在<code>httr2</code>、<code>rvest</code>、<code>xml2</code>、<code>chromote</code>等现有生态之上，代表了R爬虫向工程化、流程化方向的发展。</li>
+<li><strong><code>ralger</code></strong>：这个包的目标是简化网页抓取，它将<code>rvest</code>等包的功能封装成更简单的函数，让用户可以快速上手，尤其适合抓取表格和列表数据。</li>
+</ul>
+</section>
+<section id="总结与建议" class="level3">
+<h3 class="anchored" data-anchor-id="总结与建议">5.总结与建议</h3>
+<p>R语言的网络爬虫生态可以概括为：<strong>以<code>rvest</code> + <code>httr2</code>为基石，以<code>RSelenium</code>/<code>chromote</code>处理动态内容，并用<code>polite</code>等工具确保合规与稳健</strong>。</p>
+<p>对于大多数静态页面的抓取任务，<code>rvest</code> + <code>httr2</code>的组合已经足够高效。当遇到动态网站时，再引入<code>selenider</code>或<code>chromote</code>。如果你希望构建更结构化、可重复的爬虫项目，可以关注<code>crawlee</code>这样的新兴框架。</p>
+<p>此外，还有一个值得关注的优势：爬取到的数据可以<strong>无缝衔接</strong>到<code>dplyr</code>、<code>tidyr</code>等强大的数据处理包中，在同一环境中完成从数据获取到清洗、分析的全流程，这是R语言爬虫生态的一个显著特点。</p>
+</section>
+</section>
+<section id="一httr-和-httr2-包" class="level2">
+<h2 class="anchored" data-anchor-id="一httr-和-httr2-包">一、httr 和 httr2 包</h2>
+<p><code>httr</code> 和 <code>httr2</code> 是 R 语言中处理 HTTP 请求的核心工具包，它们由同一团队（r-lib）开发，但设计哲学和功能定位有显著差异。简单来说，<strong><code>httr</code> 是经典但已进入维护模式的“老将”，而 <code>httr2</code> 是旨在解决现代 API 交互痛点的“全新重构版”</strong>。</p>
+<section id="httr经典的-http-客户端" class="level3">
+<h3 class="anchored" data-anchor-id="httr经典的-http-客户端">1. <code>httr</code>：经典的 HTTP 客户端</h3>
+<p><code>httr</code> 曾是 R 社区进行 HTTP 请求的事实标准，它围绕 HTTP 动词（如 <code>GET()</code>、<code>POST()</code>）组织，使用起来非常直观。</p>
+<ul>
+<li><strong>核心设计</strong>：它的主要特点是<strong>请求即执行</strong>。当你调用 <code>GET("https://example.com")</code> 时，函数会立即发送请求并返回一个 <code>response</code> 对象。</li>
+<li><strong>当前状态</strong>：<code>httr</code> 目前已被标记为 <strong>“superseded”（已被取代）</strong>。官方仅会进行必要的维护以使其留在 CRAN 上，并明确推荐用户转向 <code>httr2</code>。</li>
+<li><strong>基础用法</strong>：对于简单的场景，它依然简洁。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)    </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(<span class="st">"https://api.github.com/users/hadley"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 content() 提取响应内容</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp, <span class="st">"parsed"</span>)    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="httr2现代化的重构与飞跃" class="level3">
+<h3 class="anchored" data-anchor-id="httr2现代化的重构与飞跃">2. <code>httr2</code>：现代化的重构与飞跃</h3>
+<p><code>httr2</code> 是对 <code>httr</code> 的<strong>彻底重写</strong>，其核心目标是解决编写 API 封装包时遇到的复杂问题，并提供更符合现代 R 语言习惯（如管道操作）的接口。</p>
+<p><code>httr2</code> 最大的变化是引入了<strong>显式的请求对象（Request Object）</strong>。</p>
+<ul>
+<li><strong>构建与执行分离</strong>：在 <code>httr2</code> 中，你首先用 <code>request()</code> 创建一个请求对象，然后使用一系列 <code>req_*()</code> 函数（如 <code>req_headers()</code>、<code>req_body_json()</code>）来逐步修饰它。只有当你调用 <code>req_perform()</code> 时，请求才会真正被发送。这种设计让构建复杂请求变得非常清晰，也完美契合 <code>|&gt;</code> 管道。</li>
+<li><strong>统一的执行函数</strong>：不再需要记住 <code>GET()</code>、<code>POST()</code> 等不同函数。<code>req_perform()</code> 一个函数就能执行任何请求。</li>
+<li><strong>自动错误处理</strong>：<code>httr2</code> 会自动将 HTTP 错误状态码（4xx、5xx）转换为 R 的错误（Error），这能帮你更早地发现问题。你可以用 <code>req_error()</code> 来自定义这个行为。</li>
+</ul>
+<p>除了设计上的改进，<code>httr2</code> 还内置了许多 <code>httr</code> 时代需要手动实现的实用功能。</p>
+<ul>
+<li><strong>自动重试与速率限制</strong>：内置了 <code>req_retry()</code> 函数，可以轻松设置最大重试次数、判断哪些错误是暂时性的，以及重试的等待时间。这对于处理 API 的速率限制（如 429 错误）非常有用。</li>
+<li><strong>现代化的 OAuth 支持</strong>：对 OAuth 认证流程进行了彻底重构，支持更多种类的流程，并让自定义和创建新的 OAuth 流程变得更加容易。</li>
+<li><strong>安全的机密管理</strong>：提供了 <code>secret_encrypt()</code> 等函数来安全地管理 API 密钥等敏感信息，还提供了 <code>obfuscate()</code> 来轻度混淆代码中的机密数据，防止其被轻易爬取。</li>
+<li><strong>自动缓存</strong>：通过 <code>req_cache()</code>，可以自动缓存可缓存的 API 响应。虽然并非所有响应都可缓存，但对于支持缓存的 API，这能显著提升性能。</li>
+<li><strong>强大的请求调试</strong>：<code>req_dry_run()</code> 函数可以让你在不实际发送请求的情况下，精确地预览 <code>httr2</code> 将会发送给服务器的内容，包括请求方法、URL、头和正文，极大地方便了调试。</li>
+</ul>
+</section>
+<section id="应用示例" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例">3. 应用示例</h3>
+<section id="httr-应用案例" class="level4">
+<h4 class="anchored" data-anchor-id="httr-应用案例">3.1. httr 应用案例</h4>
+<p>下面是一个 <code>httr</code> 的简洁使用示例，演示如何发送 <strong>GET 请求</strong>、传递查询参数、检查响应状态，并解析 JSON 返回内容。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载 httr</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"httr"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 发送 GET 请求，并附加查询参数</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://httpbin.org/get"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="fu">list</span>(<span class="at">name =</span> <span class="st">"httr"</span>, <span class="at">version =</span> <span class="st">"1.0"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 检查 HTTP 状态码（200 表示成功）</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"状态码："</span>, <span class="fu">status_code</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 查看响应头</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"内容类型："</span>, <span class="fu">headers</span>(resp)<span class="sc">$</span><span class="st">`</span><span class="at">content-type</span><span class="st">`</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 解析 JSON 响应为 R 列表</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">"parsed"</span>, <span class="at">type =</span> <span class="st">"application/json"</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 查看返回内容</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 其中 data$args 会包含你传入的查询参数</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data<span class="sc">$</span>args)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行后，你会看到类似输出：</p>
+<pre><code>状态码： 200
+内容类型： application/json
+List of 4
+$ args    :List of 2
+  ..$ name   : chr "httr"
+  ..$ version: chr "1.0"
+$ headers :List of 5
+...
+$ url     : chr "https://httpbin.org/get?name=httr&amp;version=1.0"
+...
+$name
+[1] "httr"
+$version
+[1] "1.0"</code></pre>
+<p>关键函数说明</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>GET()</code></td>
+<td>发送 GET 请求，<code>query</code> 参数自动拼接到 URL</td>
+</tr>
+<tr class="even">
+<td><code>status_code()</code></td>
+<td>获取 HTTP 状态码，如 200、404、500</td>
+</tr>
+<tr class="odd">
+<td><code>headers()</code></td>
+<td>获取响应头信息</td>
+</tr>
+<tr class="even">
+<td><code>content(resp, as = "parsed")</code></td>
+<td>自动按 <code>Content-Type</code> 解析响应体，JSON 会转为 R 列表</td>
+</tr>
+</tbody>
+</table>
+<p>补充：如果你需要提交表单数据，可以用 <code>POST()</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>resp_post <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://httpbin.org/post"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">body =</span> <span class="fu">list</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">2</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">encode =</span> <span class="st">"form"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">content</span>(resp_post, <span class="at">as =</span> <span class="st">"parsed"</span>, <span class="at">type =</span> <span class="st">"application/json"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>httr</code> 目前处于维护模式，新项目建议使用 <strong><code>httr2</code></strong>，但维护旧代码时 <code>httr</code> 的这套用法仍然非常常见。</p>
+</section>
+<section id="httr2-应用案例" class="level4">
+<h4 class="anchored" data-anchor-id="httr2-应用案例">3.1. httr2 应用案例</h4>
+<p>下面是一个完整的 <code>httr2</code> 使用示例，演示如何构建请求、添加查询参数与请求头、执行请求并解析 JSON 响应。所有代码均可直接运行。</p>
+<p>完整示例：GET 请求</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载 httr2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"httr2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"httr2"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 创建请求对象，并用管道逐步修饰</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://httpbin.org/get"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">name =</span> <span class="st">"httr2"</span>, <span class="at">version =</span> <span class="st">"1.0"</span>) <span class="sc">%&gt;%</span>     <span class="co"># 添加查询参数</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(<span class="at">Accept =</span> <span class="st">"application/json"</span>) <span class="sc">%&gt;%</span>           <span class="co"># 添加请求头</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_user_agent</span>(<span class="st">"R httr2 demo"</span>)                         <span class="co"># 设置 User-Agent</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. （可选）预览将要发送的请求，便于调试</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"--- 请求预览 ---</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="fu">req_dry_run</span>(req)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 执行请求</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 检查 HTTP 状态码</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">状态码："</span>, <span class="fu">resp_status</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 解析 JSON 响应为 R 列表</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 7. 查看返回内容</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">传入的查询参数：</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(data<span class="sc">$</span>args)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>运行后你会看到类似输出：</p>
+<pre><code>--- 请求预览 ---
+GET /get?name=httr2&amp;version=1.0 HTTP/1.1
+Host: httpbin.org
+Accept: application/json
+User-Agent: R httr2 demo
+
+
+状态码： 200
+List of 4
+$ args    :List of 2
+  ..$ name   : chr "httr2"
+  ..$ version: chr "1.0"
+$ headers :List of 5
+...
+$ url     : chr "https://httpbin.org/get?name=httr2&amp;version=1.0"
+...
+传入的查询参数：
+$name
+[1] "httr2"
+$version
+[1] "1.0"</code></pre>
+<p>补充：<code>httr2</code> 中发送 POST 请求只需改变请求体，执行方式完全一致。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 发送表单数据</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resp_form <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://httpbin.org/post"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_form</span>(<span class="at">a =</span> <span class="dv">1</span>, <span class="at">b =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>resp_form <span class="sc">%&gt;%</span>  <span class="fu">resp_body_json</span>() <span class="sc">%&gt;%</span>  _<span class="sc">$</span>form</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 发送 JSON 数据</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>resp_json <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://httpbin.org/post"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(<span class="at">x =</span> <span class="dv">10</span>, <span class="at">y =</span> <span class="dv">20</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>resp_json <span class="sc">%&gt;%</span>  <span class="fu">resp_body_json</span>() <span class="sc">%&gt;%</span> _<span class="sc">$</span>json</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>httr2</code> 可以自动将 HTTP 错误状态码转为 R 错误，也可以自定义：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认情况下，4xx/5xx 不会抛出错误，需手动检查</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://httpbin.org/status/404"</span>) <span class="sc">%&gt;%</span>  <span class="fu">req_perform</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(resp)   <span class="co"># 返回 404</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 让 httr2 在遇到错误状态码时自动抛出错误</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://httpbin.org/status/404"</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_error</span>(<span class="at">is_error =</span> <span class="cf">function</span>(resp) <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()   <span class="co"># 这里会抛出错误</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>关键函数说明</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>函数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>request()</code></td>
+<td>创建请求对象，指定 URL</td>
+</tr>
+<tr class="even">
+<td><code>req_url_query()</code></td>
+<td>添加查询字符串参数</td>
+</tr>
+<tr class="odd">
+<td><code>req_headers()</code></td>
+<td>添加自定义请求头</td>
+</tr>
+<tr class="even">
+<td><code>req_user_agent()</code></td>
+<td>设置 User-Agent</td>
+</tr>
+<tr class="odd">
+<td><code>req_body_form()</code> / <code>req_body_json()</code></td>
+<td>设置 POST 请求体</td>
+</tr>
+<tr class="even">
+<td><code>req_dry_run()</code></td>
+<td>预览请求内容，不实际发送</td>
+</tr>
+<tr class="odd">
+<td><code>req_perform()</code></td>
+<td>执行请求，返回响应对象</td>
+</tr>
+<tr class="even">
+<td><code>resp_status()</code></td>
+<td>获取 HTTP 状态码</td>
+</tr>
+<tr class="odd">
+<td><code>resp_body_json()</code></td>
+<td>将响应体解析为 R 列表（JSON）</td>
+</tr>
+<tr class="even">
+<td><code>req_error()</code></td>
+<td>自定义错误处理逻辑</td>
+</tr>
+</tbody>
+</table>
+<p><code>httr2</code> 通过显式的请求对象和管道操作，让 HTTP 交互更加清晰、可组合，是新项目进行 API 调用的推荐选择。</p>
+<p>总的来说，<code>httr2</code> 在保留 <code>httr</code> 易用性的基础上，通过引入显式请求对象和内置诸多高级功能，为 R 语言中与 Web API 的交互设立了新的标准。</p>
+<p><strong>对于所有新的项目和代码，都应优先使用 <code>httr2</code></strong>。它提供了更现代、更强大、更易于维护的 API 交互方式。<code>httr</code> 仅适用于维护那些已经深度依赖它的旧有代码。</p>
+</section>
+</section>
+</section>
+<section id="二rvest-包" class="level2">
+<h2 class="anchored" data-anchor-id="二rvest-包">二、rvest 包</h2>
+<p><code>rvest</code> 是 R 语言中用于<strong>静态网页抓取</strong>的核心包，它基于 <code>xml2</code> 构建，提供了类似 tidyverse 的管道操作风格，让 HTML 解析和数据提取变得直观高效。下面从核心工作流、关键函数到进阶用法，为你系统介绍这个包。</p>
+<section id="核心工作流程" class="level3">
+<h3 class="anchored" data-anchor-id="核心工作流程">1.核心工作流程</h3>
+<p><code>rvest</code> 的抓取任务遵循一个清晰的四步工作流：</p>
+<ol type="1">
+<li><strong>读取页面</strong>：用 <code>read_html()</code> 将 HTML 页面加载为 <code>xml_document</code> 对象</li>
+<li><strong>定位元素</strong>：用 <code>html_elements()</code> 或 <code>html_element()</code> 通过 CSS 选择器或 XPath 找到目标节点</li>
+<li><strong>提取数据</strong>：用 <code>html_text2()</code>、<code>html_attr()</code> 或 <code>html_table()</code> 从节点中提取文本、属性或表格</li>
+<li><strong>整理输出</strong>：将提取结果整理为向量或数据框，供后续分析</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://example.com"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"h2.title"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="关键函数详解" class="level3">
+<h3 class="anchored" data-anchor-id="关键函数详解">2.关键函数详解</h3>
+<section id="读取-html" class="level4">
+<h4 class="anchored" data-anchor-id="读取-html">2.1.读取 HTML</h4>
+<p><code>read_html()</code> 通过 HTTP 请求获取页面源码，再用 <code>xml2</code> 解析。它只处理服务器返回的<strong>原始 HTML</strong>，这是”静态”抓取的含义——速度快、依赖少，但不处理 JavaScript 动态生成的内容。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 URL 读取</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://example.com"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 从本地 HTML 字符串读取（调试用）</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="fu">minimal_html</span>(<span class="st">"&lt;p&gt;test&lt;/p&gt;"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="选择元素" class="level4">
+<h4 class="anchored" data-anchor-id="选择元素">2.2.选择元素</h4>
+<p><code>html_elements()</code> vs <code>html_element()</code>两个函数都支持 <strong>CSS 选择器</strong>和 <strong>XPath 表达式</strong>，但行为不同：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">返回长度</th>
+<th style="text-align: left;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>html_elements()</code></td>
+<td style="text-align: left;">展平所有匹配节点</td>
+<td style="text-align: left;">页面中有多个同类元素时</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>html_element()</code></td>
+<td style="text-align: left;">与输入等长（无匹配返回 <code>NA</code>）</td>
+<td style="text-align: left;">每个父节点下只取一个子元素时</td>
+</tr>
+</tbody>
+</table>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取所有 &lt;p&gt; 段落</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>paragraphs <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span> <span class="fu">html_elements</span>(<span class="st">"p"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 对每个 section 提取第一个 &lt;h2&gt; 标题</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>titles <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"section"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"h2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_text2</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="提取文本" class="level4">
+<h4 class="anchored" data-anchor-id="提取文本">2.3.提取文本</h4>
+<p><code>html_text2()</code> vs <code>html_text()</code>两个函数的区别在于<strong>对浏览器渲染效果的模拟程度</strong>：</p>
+<ul>
+<li><strong><code>html_text()</code></strong>：返回原始底层文本，包含浏览器会忽略的空白字符，不处理 <code></code> 标签</li>
+<li><strong><code>html_text2()</code></strong>：模拟浏览器显示效果，将 <code></code> 转为换行，折叠无意义空白，格式化表格数据</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>html <span class="ot">&lt;-</span> <span class="fu">minimal_html</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"&lt;p&gt;This is a paragraph.</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">This should start on a new line&lt;/p&gt;"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>html <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"p"</span>) <span class="sc">|&gt;</span> <span class="fu">html_text</span>()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "This is a paragraph.This should start on a new line"</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>html <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"p"</span>) <span class="sc">|&gt;</span> <span class="fu">html_text2</span>()</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "This is a paragraph.\nThis should start on a new line"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<blockquote class="blockquote">
+<p><strong>建议</strong>：大多数情况下使用 <code>html_text2()</code>，它能产出更干净的文本。只有在性能敏感且文本结构简单的场景下，才考虑 <code>html_text()</code>。</p>
+</blockquote>
+</section>
+<section id="提取属性" class="level4">
+<h4 class="anchored" data-anchor-id="提取属性">2.4.提取属性</h4>
+<p><code>html_attr()</code>用于获取元素的属性值，如链接的 <code>href</code>、图片的 <code>src</code>、自定义的 <code>data-*</code> 属性等。注意它始终返回字符串，需要时需自行转换类型。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取电影编号并转为整数</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>episodes <span class="ot">&lt;-</span> films <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_element</span>(<span class="st">"h2"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_attr</span>(<span class="st">"data-id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.integer</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="提取表格" class="level4">
+<h4 class="anchored" data-anchor-id="提取表格">2.5.提取表格</h4>
+<p><code>html_table()</code>直接将 HTML <code>&lt;table&gt;</code> 元素解析为 R 数据框。它的算法会模拟浏览器行为，将合并单元格的值重复填充到每个被覆盖的单元格中。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_elements</span>(<span class="st">"table.wikitable"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  .[[<span class="dv">1</span>]] <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="解析表单" class="level4">
+<h4 class="anchored" data-anchor-id="解析表单">2.6.解析表单</h4>
+<p><code>html_form()</code> → <code>html_form_set()</code> → <code>html_form_submit()</code>用于模拟表单提交（如搜索框、登录等）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span> <span class="fu">html_form</span>() <span class="sc">|&gt;</span> .[[<span class="dv">1</span>]]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>filled <span class="ot">&lt;-</span> <span class="fu">html_form_set</span>(form, <span class="at">q =</span> <span class="st">"搜索关键词"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">html_form_submit</span>(filled)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>result_page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+<section id="css-选择器速查" class="level4">
+<h4 class="anchored" data-anchor-id="css-选择器速查">2.7.CSS 选择器速查</h4>
+<p><code>rvest</code> 的 CSS 选择器由 <code>selectr</code> 包实现，支持大部分 CSS3 选择器。常用语法：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">选择器</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>tag</code></td>
+<td style="text-align: left;">按标签名</td>
+<td style="text-align: left;"><code>"p"</code> 选所有段落</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.class</code></td>
+<td style="text-align: left;">按类名</td>
+<td style="text-align: left;"><code>".title"</code> 选 class=“title” 的元素</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>#id</code></td>
+<td style="text-align: left;">按 id</td>
+<td style="text-align: left;"><code>"#first"</code> 选 id=“first” 的元素</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>[attr]</code></td>
+<td style="text-align: left;">按属性存在</td>
+<td style="text-align: left;"><code>"[href]"</code> 选有 href 的链接</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>[attr="val"]</code></td>
+<td style="text-align: left;">按属性值</td>
+<td style="text-align: left;"><code>"[data-id='1']"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>tag.class</code></td>
+<td style="text-align: left;">组合</td>
+<td style="text-align: left;"><code>"h2.title"</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>:contains(text)</code></td>
+<td style="text-align: left;">包含文本</td>
+<td style="text-align: left;"><code>"p:contains('R语言')"</code></td>
+</tr>
+</tbody>
+</table>
+<p>调试选择器时，推荐使用 <strong>SelectorGadget</strong> 浏览器书签工具，它可以交互式地生成 CSS 选择器。</p>
+</section>
+<section id="动态内容处理" class="level4">
+<h4 class="anchored" data-anchor-id="动态内容处理">2.8.动态内容处理</h4>
+<p>如果页面内容由 JavaScript 动态生成，<code>read_html()</code> 获取的源码中不会包含这些数据。此时需要使用 <code>read_html_live()</code>，它在后台启动一个真实的 Chrome 浏览器，等待 JS 执行后再抓取渲染后的 HTML。</p>
+<p><strong>依赖提醒</strong>：<code>read_html_live()</code> 底层使用 <code>chromote</code> 包，需要本机安装 Google Chrome。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 静态读取拿不到动态生成的内容</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>static <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://example.com/dynamic"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回的表格可能是空的</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用实时浏览器</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>dynamic <span class="ot">&lt;-</span> <span class="fu">read_html_live</span>(<span class="st">"https://example.com/dynamic"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> dynamic <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"table"</span>) <span class="sc">|&gt;</span> <span class="fu">html_table</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>read_html_live()</code> 返回 <code>LiveHTML</code> 对象，它还支持模拟用户交互：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dynamic<span class="sc">$</span><span class="fu">click</span>(<span class="st">"button.load-more"</span>)   <span class="co"># 点击按钮</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>dynamic<span class="sc">$</span><span class="fu">scroll_to</span>(<span class="st">"bottom"</span>)          <span class="co"># 滚动页面</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>dynamic<span class="sc">$</span><span class="fu">type</span>(<span class="st">"input#search"</span>, <span class="st">"R语言"</span>) <span class="co"># 输入文本</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="会话管理与分页抓取" class="level4">
+<h4 class="anchored" data-anchor-id="会话管理与分页抓取">2.9.会话管理与分页抓取</h4>
+<p><code>session()</code> 模拟浏览器会话</p>
+<p>当需要在多个请求间保持 Cookies、处理跳转或模拟连续操作时，可以使用 <code>session()</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">session</span>(<span class="st">"https://example.com/login"</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">session_submit</span>(s, form)      <span class="co"># 提交表单</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">session_jump_to</span>(s, <span class="st">"https://example.com/page2"</span>)  <span class="co"># 跳转到新页面</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">session_follow_link</span>(s, <span class="st">"下一页"</span>)  <span class="co"># 点击链接跳转</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>分页抓取模式：爬取多页数据的典型模式是，<strong>定位”下一页”链接 → 提取其 href → 循环抓取</strong>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://example.com/list?page=1"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span><span class="fu">is.na</span>(url)) {</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  all_data <span class="ot">&lt;-</span> <span class="fu">c</span>(all_data, <span class="fu">list</span>(<span class="fu">extract_data</span>(page)))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  next_link <span class="ot">&lt;-</span> page <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"a.next-page"</span>) <span class="sc">|&gt;</span> <span class="fu">html_attr</span>(<span class="st">"href"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  url <span class="ot">&lt;-</span> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.na</span>(next_link)) next_link <span class="cf">else</span> <span class="cn">NA</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<hr>
+</section>
+</section>
+<section id="最佳实践与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="最佳实践与注意事项">3.最佳实践与注意事项</h3>
+<ul>
+<li><p><strong>配合 <code>polite</code> 包使用。</strong> 抓取多页时强烈建议用 <code>polite</code> 封装请求，确保遵守 <code>robots.txt</code> 并设置合理的请求间隔，避免对目标站点造成压力。</p></li>
+<li><p><strong>先找 API，再考虑爬 HTML。</strong> 许多网站的表格数据实际来自 JSON API，直接请求 API 比解析 HTML 更稳定、更高效。</p></li>
+<li><p><strong>不要过度依赖 SelectorGadget。</strong> 它生成的 CSS 选择器可能过于具体，容易因页面结构微调而失效。尽量选择基于语义属性（如 <code>data-*</code>、稳定的 class 名）的选择器。</p></li>
+<li><p><strong>用 <code>purrr::safely()</code> 构建健壮的循环。</strong> 批量抓取时，单个页面的失败不应中断整个流程。<code>safely()</code> 可以将错误捕获为结果对象，便于后续处理。</p></li>
+</ul>
+</section>
+</section>
+<section id="四先找-api" class="level2">
+<h2 class="anchored" data-anchor-id="四先找-api">四、“先找 API”</h2>
+<p>“先找 API，再考虑爬 HTML”是一条非常实用的抓取策略。它的核心逻辑是：<strong>很多网站的前端页面只是“壳”，真正的数据是通过 JavaScript 向后台 API 请求 JSON，再渲染到页面上的。</strong> 如果你能直接请求那个 API，就绕过了 HTML 解析，拿到的是结构化数据。</p>
+<section id="为什么优先找-api" class="level3">
+<h3 class="anchored" data-anchor-id="为什么优先找-api">1. 为什么优先找 API？</h3>
+<p><strong>数据结构化</strong> API 通常返回 JSON，字段名、类型、嵌套关系都是明确的。而 HTML 抓取拿到的是文本，需要自己清洗、转换类型、处理缺失值。</p>
+<p><strong>稳定性更高</strong> 前端 HTML 的 class 名、DOM 结构可能随时改版，CSS 选择器很容易失效。API 接口一旦被前端依赖，通常不会频繁变动；即使变动，也往往有版本号或兼容期。</p>
+<p><strong>响应更小、速度更快</strong> 一个 API 响应可能只有几十 KB 的 JSON，而完整 HTML 页面可能几百 KB 甚至几 MB，还包含大量无关的导航、广告、脚本。解析 JSON 也比解析 DOM 快得多。</p>
+<p><strong>分页和过滤更清晰</strong> API 通常有明确的 <code>page</code>、<code>limit</code>、<code>offset</code>、<code>cursor</code> 等参数，分页元数据也直接放在响应里。HTML 分页则要去找“下一页”链接，容易断。</p>
+<p><strong>不受渲染限制</strong> 不需要启动浏览器、等待 JS 执行、处理动态加载。直接发 HTTP 请求即可，适合批量抓取。</p>
+</section>
+<section id="如何发现网站背后的-api" class="level3">
+<h3 class="anchored" data-anchor-id="如何发现网站背后的-api">2. 如何发现网站背后的 API？</h3>
+<ul>
+<li><p>使用浏览器开发者工具</p>
+<ul>
+<li><p>打开目标页面，按 <code>F12</code> 打开开发者工具。</p></li>
+<li><p>切换到 <strong>Network（网络）</strong> 面板。</p></li>
+<li><p>刷新页面，选择 <strong>Fetch/XHR</strong> 过滤器。</p></li>
+<li><p>在筛选框中搜索你想要的字段，比如“价格”、“评论”、“表格标题”。</p></li>
+<li><p>逐个查看请求的 <strong>Response（响应）</strong>，找到返回目标数据的 <strong>JSON</strong>。</p></li>
+</ul></li>
+<li><p>重点观察请求信息。找到目标请求后，点击它，查看：</p>
+<ul>
+<li><p><strong>Request URL</strong>：接口地址。</p></li>
+<li><p><strong>Request Method</strong>：GET 还是 POST。</p></li>
+<li><p><strong>Query String Parameters</strong>：URL 里的查询参数，如 <code>page=2&amp;limit=20</code>。</p></li>
+<li><p><strong>Request Headers</strong>：特别是 <code>Authorization</code>、<code>Cookie</code>、<code>Referer</code>、<code>User-Agent</code>、<code>X-Requested-With</code>。</p></li>
+<li><p><strong>Request Payload</strong>：POST 请求的 body，可能是 JSON 或表单。</p></li>
+<li><p><strong>Response</strong>：JSON 结构，确认数据在哪个字段。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="api-请求简单示例" class="level3">
+<h3 class="anchored" data-anchor-id="api-请求简单示例">3. API 请求简单示例</h3>
+<section id="基本-get-请求" class="level4">
+<h4 class="anchored" data-anchor-id="基本-get-请求">3.1.基本 GET 请求</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>get_page <span class="ot">&lt;-</span> <span class="cf">function</span>(page) {</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">request</span>(<span class="st">"https://api.example.com/items"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_url_query</span>(<span class="at">page =</span> page, <span class="at">limit =</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_headers</span>(</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">User-Agent</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Mozilla/5.0"</span>,</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Accept</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">resp_body_json</span>(<span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 抓取第 1 页</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>page1 <span class="ot">&lt;-</span> <span class="fu">get_page</span>(<span class="dv">1</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(page1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>resp_body_json(simplifyVector = TRUE)</code> 会自动把 JSON 转成数据框或列表，底层就是 <code>jsonlite::fromJSON()</code>。</p>
+</section>
+<section id="带认证的请求" class="level4">
+<h4 class="anchored" data-anchor-id="带认证的请求">3.2.带认证的请求</h4>
+<p>如果 API 需要 token：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">request</span>(<span class="st">"https://api.example.com/items"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, token),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">User-Agent</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Mozilla/5.0"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_query</span>(<span class="at">page =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>(<span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果认证靠 Cookie：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">req_headers</span>(<span class="at">Cookie =</span> <span class="st">"sessionid=abc123; csrftoken=xyz"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="post-请求" class="level4">
+<h4 class="anchored" data-anchor-id="post-请求">3.3.POST 请求</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.example.com/search"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">keyword =</span> <span class="st">"R语言"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">page =</span> <span class="dv">1</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">page_size =</span> <span class="dv">20</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(<span class="st">`</span><span class="at">Content-Type</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"application/json"</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="分页循环" class="level4">
+<h4 class="anchored" data-anchor-id="分页循环">3.4.分页循环</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>page <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  resp <span class="ot">&lt;-</span> <span class="fu">get_page</span>(page)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(resp<span class="sc">$</span>data) <span class="sc">==</span> <span class="dv">0</span>) <span class="cf">break</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  all_data[[page]] <span class="ot">&lt;-</span> resp<span class="sc">$</span>data</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  page <span class="ot">&lt;-</span> page <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)  <span class="co"># 礼貌延迟</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(all_data, as_tibble)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="如果响应里有-next-游标" class="level4">
+<h4 class="anchored" data-anchor-id="如果响应里有-next-游标">3.5.如果响应里有 <code>next</code> 游标：</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>cursor <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">repeat</span> {</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  resp <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.example.com/items"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_url_query</span>(<span class="at">cursor =</span> cursor, <span class="at">limit =</span> <span class="dv">100</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_perform</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">resp_body_json</span>()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  all_data <span class="ot">&lt;-</span> <span class="fu">c</span>(all_data, <span class="fu">list</span>(resp<span class="sc">$</span>data))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  cursor <span class="ot">&lt;-</span> resp<span class="sc">$</span>next_cursor</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(cursor)) <span class="cf">break</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="综合应用示例" class="level3">
+<h3 class="anchored" data-anchor-id="综合应用示例">4.综合应用示例</h3>
+<p>下面是一个完整的豆瓣 Top250 抓取脚本：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>fetch_douban_top <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">start =</span> <span class="dv">0</span>, <span class="at">limit =</span> <span class="dv">20</span>) {</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  resp <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://movie.douban.com/j/chart/top_list"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_url_query</span>(</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">type =</span> <span class="dv">11</span>,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">interval_id =</span> <span class="st">"100:90"</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">action =</span> <span class="st">""</span>,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">start =</span> start,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">limit =</span> limit</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_headers</span>(</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">User-Agent</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"Mozilla/5.0 (Windows NT 10.0; Win64; x64)"</span>,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>      <span class="st">`</span><span class="at">Referer</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"https://movie.douban.com/"</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_retry</span>(<span class="at">max_tries =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span>          <span class="co"># 失败自动重试 3 次</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_throttle</span>(<span class="at">rate =</span> <span class="dv">5</span> <span class="sc">/</span> <span class="dv">60</span>) <span class="sc">|&gt;</span>       <span class="co"># 每分钟最多 5 次请求</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">req_perform</span>()</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(rank, title, url, rating) <span class="sc">|&gt;</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_wider</span>(rating, <span class="at">names_sep =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">score =</span> rating_1, <span class="at">rating_count =</span> rating_2) <span class="sc">|&gt;</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(rank, title, score, rating_count, url)</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 测试</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="fu">fetch_douban_top</span>(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>all_movies <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (start <span class="cf">in</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">240</span>, <span class="at">by =</span> <span class="dv">20</span>)) {</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"正在抓取 start = "</span>, start)</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>  page_data <span class="ot">&lt;-</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fetch_douban_top</span>(start, <span class="dv">20</span>),</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">error =</span> <span class="cf">function</span>(e) {</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>      <span class="fu">message</span>(<span class="st">"  失败："</span>, <span class="fu">conditionMessage</span>(e))</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(page_data) <span class="sc">&amp;&amp;</span> <span class="fu">nrow</span>(page_data) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>    all_movies[[<span class="fu">length</span>(all_movies) <span class="sc">+</span> <span class="dv">1</span>]] <span class="ot">&lt;-</span> page_data</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="dv">2</span>)  <span class="co"># 每次请求间隔 2 秒</span></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并成一张表</span></span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>movies <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(all_movies)</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>movies</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="api-与-html-抓取对比" class="level3">
+<h3 class="anchored" data-anchor-id="api-与-html-抓取对比">5. API 与 HTML 抓取对比</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">维度</th>
+<th style="text-align: left;">API 抓取</th>
+<th style="text-align: left;">HTML 抓取</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">数据格式</td>
+<td style="text-align: left;">JSON/XML，结构化</td>
+<td style="text-align: left;">HTML，半结构化</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">稳定性</td>
+<td style="text-align: left;">较高，接口变动少</td>
+<td style="text-align: left;">较低，CSS 选择器易失效</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">速度</td>
+<td style="text-align: left;">快，响应体小</td>
+<td style="text-align: left;">慢，需下载完整页面</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">动态内容</td>
+<td style="text-align: left;">直接获取</td>
+<td style="text-align: left;">需浏览器渲染</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">分页</td>
+<td style="text-align: left;">参数明确，元数据清晰</td>
+<td style="text-align: left;">需找“下一页”链接</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">反爬</td>
+<td style="text-align: left;">可能有 token、签名、限流</td>
+<td style="text-align: left;">可能有验证码、JS 混淆</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">合规</td>
+<td style="text-align: left;">同样需遵守 robots/ToS</td>
+<td style="text-align: left;">同样需遵守</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项">6. 注意事项</h3>
+<ul>
+<li><p><strong>先看 robots.txt 和 Terms of Service</strong> 不是所有 API 都允许外部调用。有些接口是内部接口，未经授权大量请求可能违反服务条款。</p></li>
+<li><p><strong>控制请求频率</strong> 即使 API 没有明说限流，也要加 <code>Sys.sleep()</code> 或 <code>req_throttle()</code>。高频请求可能被封 IP 或账号。</p></li>
+<li><p><strong>处理认证和 token 过期</strong> 有些 token 是短期有效的，需要定期刷新。可以先用浏览器登录，复制 Cookie 或 token，但长期运行要考虑自动刷新。</p></li>
+<li><p><strong>API 可能变更或无文档</strong> 内部 API 没有稳定性承诺，今天能用明天可能改。代码里要做好错误处理和字段缺失处理。</p></li>
+<li><p><strong>不要忽略 HTML 抓取</strong> 如果 API 需要复杂签名、加密参数，或者数据只在服务端渲染的 HTML 里，那么 <code>rvest</code> 仍然是必要的。策略是：<strong>能走 API 就走 API，走不通再回退到 HTML 解析或内嵌 JSON。</strong></p></li>
+</ul>
+</section>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">7.总结</h3>
+<p><strong>“先找 API”</strong>本质上是<strong>先侦查数据来源</strong>，而不是一上来就写 CSS 选择器。通过浏览器 Network 面板找到返回 JSON 的请求，用 <code>httr2</code> 复现，用 <code>jsonlite</code> 解析，往往能用更少的代码、更高的稳定性拿到数据。只有在 API 不可用或过于复杂时，才转向 <code>rvest</code> 解析 HTML，或从内嵌 JSON 中提取数据。</p>
+</section>
+</section>
+<section id="五rselenium-和-chromote-包" class="level2">
+<h2 class="anchored" data-anchor-id="五rselenium-和-chromote-包">五、<code>RSelenium</code> 和 <code>chromote</code> 包</h2>
+<p><code>RSelenium</code> 和 <code>chromote</code> 都是 R 语言中用于<strong>浏览器自动化</strong>的包，主要解决由 JavaScript 动态渲染的网页抓取问题。目前，<strong><code>chromote</code> 已成为更主流、更轻量的选择</strong>，而 <code>RSelenium</code> 则更像是一个功能更全但配置更重的“老将”。</p>
+<section id="rselenium功能全面的老将" class="level3">
+<h3 class="anchored" data-anchor-id="rselenium功能全面的老将">1.RSelenium：功能全面的“老将”</h3>
+<p><code>RSelenium</code> 是 Selenium WebDriver 的 R 语言绑定，它通过独立的 Selenium 服务器来远程控制多种浏览器（如 Chrome、Firefox）。</p>
+<p>它的主要特点是<strong>功能强大但配置复杂</strong>：</p>
+<ul>
+<li><p><strong>功能全面</strong>：能够处理非常复杂的浏览器交互，如拖拽、文件上传等。</p></li>
+<li><p><strong>多浏览器支持</strong>：理论上支持所有 Selenium 兼容的浏览器。</p></li>
+<li><p><strong>配置较重</strong>：使用前需要<strong>独立运行一个 Selenium 服务器</strong>，并且通常需要 <strong>Java 环境</strong>的支持，启动和配置都比较繁琐。</p></li>
+</ul>
+<p>它适合需要与浏览器进行极其复杂交互，或已有工作流严重依赖 Selenium 生态的特定场景。</p>
+</section>
+<section id="chromote现代轻量的首选" class="level3">
+<h3 class="anchored" data-anchor-id="chromote现代轻量的首选">2.chromote：现代轻量的“首选”</h3>
+<p><code>chromote</code> 是 Chrome DevTools Protocol (CDP) 的 R 语言实现，它直接通过该协议控制基于 Chromium 的浏览器（如 Chrome、Edge、Opera）。</p>
+<p>它被设计得<strong>更轻量、更现代</strong>，主要优势在于：</p>
+<ul>
+<li><p><strong>配置简单</strong>：<strong>无需 Java 或独立的 Selenium 服务器</strong>，只要系统安装了 Chrome 即可使用，启动非常快。</p></li>
+<li><p><strong>官方支持</strong>：它也是 <code>rvest::read_html_live()</code> 函数的底层驱动，让你能用类似 <code>rvest</code> 的熟悉语法来抓取动态页面。</p></li>
+<li><p><strong>异步 API</strong>：除了易用的同步 API，还提供了异步 API，方便处理更复杂的自动化任务。</p></li>
+</ul>
+</section>
+<section id="核心对比" class="level3">
+<h3 class="anchored" data-anchor-id="核心对比">3.核心对比</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;"><code>RSelenium</code></th>
+<th style="text-align: left;"><code>chromote</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>底层协议</strong></td>
+<td style="text-align: left;">Selenium WebDriver</td>
+<td style="text-align: left;">Chrome DevTools Protocol (CDP)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>依赖环境</strong></td>
+<td style="text-align: left;"><strong>Java</strong> + Selenium Server</td>
+<td style="text-align: left;">仅需 <strong>Chrome/Chromium</strong> 浏览器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>配置复杂度</strong></td>
+<td style="text-align: left;">较重，需启动服务器</td>
+<td style="text-align: left;"><strong>非常轻量</strong>，开箱即用</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>浏览器支持</strong></td>
+<td style="text-align: left;">多浏览器 (Chrome, Firefox等)</td>
+<td style="text-align: left;">主要支持 Chromium 系浏览器</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>当前地位</strong></td>
+<td style="text-align: left;">传统选择，功能全面</td>
+<td style="text-align: left;"><strong>2024年后的默认选择</strong>，更轻更快</td>
+</tr>
+</tbody>
+</table>
+<p>对于绝大多数新的动态网页抓取项目，<strong><code>chromote</code> 是首选</strong>。它更简单、更轻量，且与 R 生态（如 <code>rvest</code>）的集成更好。只有当你需要与浏览器进行 <code>chromote</code> 无法完成的极其复杂的交互，或者你的团队已有成熟的 Selenium 基础设施时，才需要考虑 <code>RSelenium</code>。</p>
+</section>
+<section id="chromote使用案例" class="level3">
+<h3 class="anchored" data-anchor-id="chromote使用案例">4.chromote使用案例</h3>
+<p><code>chromote</code> 的核心使用模式很清晰：<strong>创建会话 → 导航 → 提取或交互 → 关闭</strong>。对于大多数抓取任务，推荐组合使用 <code>rvest::read_html_live()</code>，它提供的 <code>$click()</code>、<code>$type()</code>、<code>$scroll_to()</code> 等方法能让交互代码更简洁。掌握“执行 JavaScript 提取数据”和“模拟用户交互”这两个核心技能，就能应对绝大多数动态网页的抓取需求。</p>
+<p>下面用一个<strong>完整可运行</strong>的例子，抓取一个 JavaScript 动态渲染的页面。R 项目官网的页面标题由 JavaScript 渲染，用 <code>rvest::read_html()</code> 拿不到，但用 <code>chromote</code> 可以。</p>
+<section id="完整代码" class="level4">
+<h4 class="anchored" data-anchor-id="完整代码">4.1.完整代码</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(chromote)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 启动一个无头浏览器会话</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> ChromoteSession<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 这会启动一个**无头 Chrome**（不显示窗口）。如果你想看到浏览器界面，加一行：</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">view</span>()</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 导航到目标页面（会等待页面加载完成）</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">go_to</span>(<span class="st">"https://www.r-project.org/"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># go_to() 会自动等待页面加载完成。</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果换成底层的 `b$Page$navigate()`，你需要自己处理等待逻辑，所以推荐用 `go_to()`。</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 执行 JavaScript，提取页面标题</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">'document.querySelector("h1") ? document.querySelector("h1").innerText : "未找到"'</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="co"># `Runtime$evaluate()` 会执行一段 JavaScript，返回一个列表，数据在 `result$result$value` 里。</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 常用的 JS 写法：</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取所有链接的文本</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Array.from(document.querySelectorAll("a")).map(a =&gt; a.innerText).join("</span><span class="sc">\\</span><span class="st">n")'</span></span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>result<span class="sc">$</span>value</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取某个元素的属性</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">'document.querySelector("a").href'</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>)<span class="sc">$</span>result<span class="sc">$</span>value</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 查看结果</span></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result<span class="sc">$</span>result<span class="sc">$</span>value)</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 关闭会话（释放资源）</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">close</span>()</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 关闭会话很重要。不关闭的话，Chrome 进程会一直留在后台，多跑几次就会占满内存。</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="更简单的写法" class="level4">
+<h4 class="anchored" data-anchor-id="更简单的写法">4.2.更简单的写法</h4>
+<p>如果你不想直接操作 CDP，可以用 <code>rvest</code> 封装的版本 <strong><code>read_html_live()</code></strong>，语法和 <code>rvest</code> 一模一样：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 启动实时会话（底层就是 chromote）</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>sess <span class="ot">&lt;-</span> <span class="fu">read_html_live</span>(<span class="st">"https://www.r-project.org/"</span>)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 用 rvest 的语法提取数据</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> sess <span class="sc">|&gt;</span> <span class="fu">html_element</span>(<span class="st">"h1"</span>) <span class="sc">|&gt;</span> <span class="fu">html_text2</span>()</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(title)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 关闭</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>sess<span class="sc">$</span><span class="fu">close</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这个写法更适合抓取任务，因为你可以直接复用 <code>rvest</code> 的选择器语法。</p>
+</section>
+<section id="常用操作" class="level4">
+<h4 class="anchored" data-anchor-id="常用操作">4.3.常用操作</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> ChromoteSession<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">view</span>()                              <span class="co"># 显示浏览器窗口</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">go_to</span>(<span class="st">"https://example.com"</span>)        <span class="co"># 导航</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 截图</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">screenshot</span>(<span class="st">"page.png"</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行 JS</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(<span class="st">'document.title'</span>)<span class="sc">$</span>result<span class="sc">$</span>value</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 点击按钮</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(<span class="st">'document.querySelector("#btn").click()'</span>)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 滚动到底部</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>Runtime<span class="sc">$</span><span class="fu">evaluate</span>(<span class="st">'window.scrollTo(0, document.body.scrollHeight)'</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 等待几秒（让 JS 加载完）</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.sleep</span>(<span class="dv">2</span>)</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span><span class="fu">close</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="六jsonlite-包" class="level2">
+<h2 class="anchored" data-anchor-id="六jsonlite-包">六、jsonlite 包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1.概述</h3>
+<p><code>jsonlite</code> 是 R 语言中处理 JSON 数据的标准包，由 Jeroen Ooms 开发。它的核心目标是<strong>在 JSON 和 R 对象之间做自然、高效的转换</strong>，特别针对 Web API 和数据分析场景做了优化。</p>
+<p>R 自带没有解析 JSON 的函数。早期有 <code>rjson</code>、<code>RJSONIO</code> 等包，但各有局限。<code>jsonlite</code> 出现后，凭借以下特点成为事实标准：</p>
+<ul>
+<li><strong>双向转换</strong>：JSON → R，R → JSON，都支持</li>
+<li><strong>自动简化</strong>：JSON 数组能自动转成 R 向量或数据框，不用手动循环</li>
+<li><strong>API 友好</strong>：专为处理 REST API 返回的数据设计</li>
+<li><strong>性能好</strong>：底层用 C++ 实现，速度快</li>
+<li><strong>无外部依赖</strong>：安装即用</li>
+</ul>
+</section>
+<section id="两个核心函数" class="level3">
+<h3 class="anchored" data-anchor-id="两个核心函数">2.两个核心函数</h3>
+<section id="fromjsonjson-r" class="level4">
+<h4 class="anchored" data-anchor-id="fromjsonjson-r"><code>2.1.fromJSON()</code>：JSON → R</h4>
+<p>把 JSON 字符串、文件或 URL 解析为 R 对象。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 从字符串解析</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'{"name": "张三", "age": 30, "city": "北京"}'</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json_str)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># $name</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "张三"</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># $age</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 30</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co"># $city</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] "北京"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>关键参数 <code>simplifyVector</code></strong>：默认 <code>TRUE</code>，会把 JSON 数组/对象自动转成 R 向量或数据框，这是 <code>jsonlite</code> 最实用的特性。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JSON 数组 → R 向量</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'[1, 2, 3, 4, 5]'</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1 2 3 4 5</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># JSON 对象数组 → R 数据框</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "张三", "age": 30},</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "李四", "age": 25}</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="st">]'</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(json_str)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   name age</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 张三  30</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 李四  25</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果设置 <code>simplifyVector = FALSE</code>，则所有东西都保持为嵌套列表，不做自动简化：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'[1, 2, 3]'</span>, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># [[1]]</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 1</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [[2]]</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 2</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># [[3]]</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] 3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="tojsonr-json" class="level4">
+<h4 class="anchored" data-anchor-id="tojsonr-json"><code>2.2.toJSON()</code>：R → JSON</h4>
+<p>把 R 对象序列化为 JSON 字符串。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据框 → JSON</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">name =</span> <span class="fu">c</span>(<span class="st">"张三"</span>, <span class="st">"李四"</span>), <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">25</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># [{"name":"张三","age":30},{"name":"李四","age":25}]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>常用参数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df, <span class="at">pretty =</span> <span class="cn">TRUE</span>)          <span class="co"># 格式化输出，方便阅读</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)      <span class="co"># 长度为 1 的向量不加方括号</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df, <span class="at">dataframe =</span> <span class="st">"rows"</span>)     <span class="co"># 数据框按行输出（默认）</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df, <span class="at">dataframe =</span> <span class="st">"columns"</span>)  <span class="co"># 数据框按列输出</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(df, <span class="at">na =</span> <span class="st">"null"</span>)            <span class="co"># NA 转成 null</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>auto_unbox</code> 特别常用。默认情况下，R 中标量 <code>"张三"</code> 会被输出为 <code>["张三"]</code>，加上 <code>auto_unbox = TRUE</code> 后才是 <code>"张三"</code>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">name =</span> <span class="st">"张三"</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># {"name":["张三"]}</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">toJSON</span>(<span class="fu">list</span>(<span class="at">name =</span> <span class="st">"张三"</span>), <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co"># {"name":"张三"}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="实际抓取场景中的用法" class="level3">
+<h3 class="anchored" data-anchor-id="实际抓取场景中的用法">3.实际抓取场景中的用法</h3>
+<section id="解析-api-响应" class="level4">
+<h4 class="anchored" data-anchor-id="解析-api-响应">3.1.解析 API 响应</h4>
+<p>配合 <code>httr2</code> 使用是最常见的场景：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.github.com/users/torvalds"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_perform</span>()</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式一：resp_body_json() 内部就是 jsonlite</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式二：先拿原始文本，再自己解析</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>raw <span class="ot">&lt;-</span> <span class="fu">resp_body_string</span>(resp)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>resp_body_json()</code> 底层调用的就是 <code>fromJSON()</code>，所以参数用法完全一样。</p>
+</section>
+<section id="解析嵌套-json" class="level4">
+<h4 class="anchored" data-anchor-id="解析嵌套-json">3.2.解析嵌套 JSON</h4>
+<p>API 返回的数据经常嵌套很深：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'{</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="st">  "code": 200,</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="st">  "data": {</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="st">    "users": [</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="st">      {"name": "张三", "tags": ["R", "Python"]},</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="st">      {"name": "李四", "tags": ["SQL", "Java"]}</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ],</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="st">    "total": 2</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="st">  }</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="st">}'</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(json_str, <span class="at">simplifyVector =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(result)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="co"># List of 2</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co">#  $ code: int 200</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="co">#  $ data:List of 2</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   ..$ users:'data.frame': 2 obs. of 2 variables:</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   .. ..$ name: chr [1:2] "张三" "李四"</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   .. ..$ tags:List of 2</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a><span class="co">#   ..$ total: int 2</span></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 直接取到用户数据框</span></span>
+<span id="cb37-25"><a href="#cb37-25" aria-hidden="true" tabindex="-1"></a>result<span class="sc">$</span>data<span class="sc">$</span>users</span>
+<span id="cb37-26"><a href="#cb37-26" aria-hidden="true" tabindex="-1"></a><span class="co">#   name       tags</span></span>
+<span id="cb37-27"><a href="#cb37-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 张三    R, Python</span></span>
+<span id="cb37-28"><a href="#cb37-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 李四   SQL, Java</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="处理-json-中的数组字段" class="level4">
+<h4 class="anchored" data-anchor-id="处理-json-中的数组字段">3.3.处理 JSON 中的数组字段</h4>
+<p>当 JSON 对象里有数组字段时，<code>fromJSON</code> 会把它转成 list 列：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "张三", "scores": [90, 85, 88]},</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "李四", "scores": [78, 92, 80]}</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="st">]'</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(json_str)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 'data.frame': 2 obs. of 2 variables:</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#  $ name  : chr "张三" "李四"</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#  $ scores:List of 2</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 展开 scores 列</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">unnest_wider</span>(scores, <span class="at">names_sep =</span> <span class="st">"_"</span>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   name scores_1 scores_2 scores_3</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 张三       90       85       88</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 李四       78       92       80</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="注意事项-1" class="level3">
+<h3 class="anchored" data-anchor-id="注意事项-1">4.注意事项</h3>
+<section id="过度简化" class="level4">
+<h4 class="anchored" data-anchor-id="过度简化">4.1. 过度简化</h4>
+<p>默认 <code>simplifyVector = TRUE</code> 有时会“过度简化”。如果 JSON 数组长度不一致，<code>fromJSON</code> 可能无法转成数据框，会退回成 list。这时需要手动处理：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 长度不一致时</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>json_str <span class="ot">&lt;-</span> <span class="st">'[</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "张三", "scores": [90, 85]},</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="st">  {"name": "李四", "scores": [78]}</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="st">]'</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(json_str)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 仍然能转成数据框，scores 是 list 列</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   name scores</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 张三 90, 85</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 李四     78</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="空对象和空数组" class="level4">
+<h4 class="anchored" data-anchor-id="空对象和空数组">4.2. 空对象和空数组</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'{}'</span>)        <span class="co"># named list()</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'[]'</span>)        <span class="co"># list()</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'null'</span>)      <span class="co"># NULL</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在 API 响应里，<code>null</code> 会被转成 R 的 <code>NULL</code> 或 <code>NA</code>，取决于上下文。</p>
+</section>
+<section id="数字精度" class="level4">
+<h4 class="anchored" data-anchor-id="数字精度">4.3. 数字精度</h4>
+<p>JSON 没有整数和浮点数的严格区分。<code>fromJSON</code> 会尽量转成 <code>integer</code> 或 <code>numeric</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'1'</span>)      <span class="co"># 1 (integer)</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'1.5'</span>)    <span class="co"># 1.5 (numeric)</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fromJSON</span>(<span class="st">'1e10'</span>)   <span class="co"># 1e+10 (numeric)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="日期时间" class="level4">
+<h4 class="anchored" data-anchor-id="日期时间">4.4. 日期时间</h4>
+<p>JSON 没有日期类型，日期通常以字符串形式存在。<code>fromJSON</code> 不会自动转成 <code>Date</code> 或 <code>POSIXct</code>，需要手动处理：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="st">'{"date": "2024-01-15"}'</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="中文编码" class="level4">
+<h4 class="anchored" data-anchor-id="中文编码">4.5. 中文编码</h4>
+<p><code>jsonlite</code> 默认按 UTF-8 处理，一般不会有问题。但写文件时要注意：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(<span class="fu">toJSON</span>(df, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>           <span class="fu">file</span>(<span class="st">"output.json"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在爬虫工作流中，<code>jsonlite</code> 通常和 <code>httr2</code> 搭配：<code>httr2</code> 负责发请求拿回 JSON 文本，<code>jsonlite</code> 负责把它变成可分析的 R 数据框。理解了这两个函数和 <code>simplifyVector</code> 的行为，就掌握了 R 处理 JSON 的绝大部分场景。</p>
+</section>
+</section>
+</section>
+<section id="七pdftools-包" class="level2">
+<h2 class="anchored" data-anchor-id="七pdftools-包">七、<code>pdftools</code> 包</h2>
+<p><code>pdftools</code> 是 R 语言中处理 PDF 文件的核心工具包，它基于 <code>libpoppler</code> 库构建，专为<strong>提取文本、元数据、字体和附件</strong>，以及<strong>将 PDF 页面渲染为图像</strong>而设计。</p>
+<p>它的核心价值在于，能将“为打印而设计”的 PDF 文档，转化为可供搜索、索引和数据分析的机器可读文本，这在文献计量、文本挖掘等场景中非常有用。</p>
+<section id="核心函数详解" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数详解">1.核心函数详解</h3>
+<p><code>pdftools</code> 的主要功能都围绕几个直观的函数展开，它们都以 PDF 文件路径或原始字节向量作为输入。</p>
+<ul>
+<li><strong><code>pdf_text()</code>：提取纯文本</strong> 这是最常用的函数。它返回一个字符向量，<strong>向量的长度等于 PDF 的页数</strong>，每个元素对应一页的纯文本内容。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 手动下载一个示例PDF "1403.2805.pdf"</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看第一页文本</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">pdf_text</span>(<span class="st">"1403.2805.pdf"</span>)</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(txt[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong><code>pdf_info()</code>：获取文档元数据</strong> 提取 PDF 的元信息，如作者、创建日期、版本、页数等。</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>info <span class="ot">&lt;-</span> <span class="fu">pdf_info</span>(<span class="st">"1403.2805.pdf"</span>)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(info)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><strong><code>pdf_data()</code>：获取带位置的文本数据</strong> 这是一个更底层的函数，它<strong>为每页返回一个数据框</strong>，其中每一行代表一个文本框，并包含其<strong>坐标位置（x, y）、宽度和高度</strong>等信息。这对于解析结构复杂的页面（如多栏排版）非常有用。</p></li>
+<li><p><strong><code>pdf_fonts()</code> 与 <code>pdf_attachments()</code></strong> 分别用于提取 PDF 中嵌入的字体信息和附件文件列表。</p></li>
+<li><p><strong><code>pdf_toc()</code>：提取目录结构</strong> 以嵌套列表的形式返回 PDF 的书签/目录结构，可以方便地用 <code>jsonlite::toJSON()</code> 转换为 JSON 格式查看。</p></li>
+<li><p><strong><code>pdf_render_page()</code> 与 <code>pdf_convert()</code>：渲染为图像</strong> 可以将 PDF 的特定页面渲染为位图数组，或直接转换为 PNG、JPEG 等图像格式，方便进行后续的可视化或 OCR 处理。</p></li>
+</ul>
+</section>
+<section id="实战应用场景" class="level3">
+<h3 class="anchored" data-anchor-id="实战应用场景">2.实战应用场景</h3>
+<section id="批量提取文本用于分析" class="level4">
+<h4 class="anchored" data-anchor-id="批量提取文本用于分析">2.1. 批量提取文本用于分析</h4>
+<p>你可以轻松地批量处理一个文件夹中的所有 PDF，将它们的文本内容提取出来，构建一个语料库。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设所有 PDF 都在 "pdfs/" 文件夹下</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>pdf_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">"pdfs/"</span>, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.pdf$"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 批量提取文本</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>all_text <span class="ot">&lt;-</span> <span class="fu">map</span>(pdf_files, <span class="sc">~</span> <span class="fu">pdf_text</span>(.x))</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以为每个文件的结果命名</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(all_text) <span class="ot">&lt;-</span> <span class="fu">basename</span>(pdf_files)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 现在 all_text 是一个列表，每个元素是一个字符向量（对应一个PDF的各页文本）</span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 可以进一步合并或分析</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="处理扫描件配合-ocr" class="level4">
+<h4 class="anchored" data-anchor-id="处理扫描件配合-ocr">2.2. 处理扫描件（配合 OCR）</h4>
+<p><code>pdftools</code> 本身<strong>不能直接识别图像中的文字</strong>。如果 PDF 是扫描件（即文本是图片，无法用鼠标选中），<code>pdf_text()</code> 会返回空字符串。此时，你需要配合 <code>tesseract</code> 包进行光学字符识别（OCR）。</p>
+<p><code>pdftools</code> 提供了便捷的桥梁函数 <code>pdf_ocr_text()</code>，它内部会先调用 <code>pdf_convert()</code> 将页面转为图像，再交由 <code>tesseract</code> 进行识别。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 需要先安装并配置好 tesseract 引擎和 R 包</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tesseract")</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tesseract)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 对扫描的 PDF 进行 OCR</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>ocr_text <span class="ot">&lt;-</span> <span class="fu">pdf_ocr_text</span>(<span class="st">"scanned_document.pdf"</span>, <span class="at">dpi =</span> <span class="dv">300</span>, <span class="at">language =</span> <span class="st">"eng"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="常见问题与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="常见问题与注意事项">3.常见问题与注意事项</h3>
+<ul>
+<li><strong>表格提取困难</strong>：<code>pdftools</code> 提取的是文本流，<strong>无法智能识别表格结构</strong>。对于多栏排版或复杂的表格，提取出的文本可能会错位、合并，需要大量的后期清洗工作。</li>
+<li><strong>区分文本型与图像型 PDF</strong>：在使用前，可以用一个简单的方法判断：<strong>在 PDF 阅读器中尝试选中并复制文字</strong>。如果能正常选中和粘贴，说明是文本型 PDF，适合用 <code>pdftools</code>；如果无法选中，则是图像型 PDF，需要走 OCR 流程。</li>
+<li><strong>加密 PDF</strong>：对于有密码保护的 PDF，<code>pdf_text()</code> 等函数提供了 <code>opw</code>（所有者密码）和 <code>upw</code>（用户密码）参数来解锁文档。</li>
+<li><strong>Linux 系统依赖</strong>：在 Linux 上从源码安装时，需要先安装 <code>libpoppler-cpp-dev</code> 等系统依赖库。</li>
+</ul>
+<p><code>pdftools</code> 是 R 中处理<strong>文本型 PDF</strong> 的首选工具，在<strong>提取纯文本和元数据</strong>方面表现出色，速度和稳定性都很好。它的局限在于无法直接理解复杂的版面结构和识别扫描图像。因此，明确你的 PDF 类型是文本型还是图像型，是选择 <code>pdftools</code> 还是转向 OCR 方案（如 <code>tesseract</code>）的关键第一步。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第12节 数据读写和存储.html" class="pagination-link" aria-label="第16章 R 第12节 数据读写和存储">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第12节 数据读写和存储</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第12节 数据读写和存储 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第13节 网络爬虫.html" rel="next">
+<link href="./第16章 R 第11节 提升计算效率 .html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第12节 数据读写和存储.html">第16章 R 第12节 数据读写和存储</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一基础数据读写" id="toc-一基础数据读写" class="nav-link active" data-scroll-target="#一基础数据读写">一、基础数据读写</a>
+  <ul class="collapse">
+  <li><a href="#核心数据导入函数" id="toc-核心数据导入函数" class="nav-link" data-scroll-target="#核心数据导入函数">1.核心数据导入函数</a></li>
+  <li><a href="#核心数据导出函数" id="toc-核心数据导出函数" class="nav-link" data-scroll-target="#核心数据导出函数">3.核心数据导出函数</a></li>
+  <li><a href="#专有格式rdata与rds" id="toc-专有格式rdata与rds" class="nav-link" data-scroll-target="#专有格式rdata与rds">4.专有格式：RData与RDS</a></li>
+  <li><a href="#总结与扩展" id="toc-总结与扩展" class="nav-link" data-scroll-target="#总结与扩展">5.总结与扩展</a></li>
+  </ul></li>
+  <li><a href="#二excel-文件读写" id="toc-二excel-文件读写" class="nav-link" data-scroll-target="#二excel-文件读写">二、Excel 文件读写</a>
+  <ul class="collapse">
+  <li><a href="#流读取包readxl" id="toc-流读取包readxl" class="nav-link" data-scroll-target="#流读取包readxl">1.流读取包：readxl</a></li>
+  <li><a href="#主流写入包writexl" id="toc-主流写入包writexl" class="nav-link" data-scroll-target="#主流写入包writexl">2.主流写入包：writexl</a></li>
+  <li><a href="#全能型选手openxlsx" id="toc-全能型选手openxlsx" class="nav-link" data-scroll-target="#全能型选手openxlsx">3.全能型选手：openxlsx</a></li>
+  <li><a href="#其他备选方案" id="toc-其他备选方案" class="nav-link" data-scroll-target="#其他备选方案">4.其他备选方案</a></li>
+  <li><a href="#实战代码示例" id="toc-实战代码示例" class="nav-link" data-scroll-target="#实战代码示例">5.实战代码示例</a></li>
+  <li><a href="#如何选择" id="toc-如何选择" class="nav-link" data-scroll-target="#如何选择">6.如何选择</a></li>
+  </ul></li>
+  <li><a href="#三haven包" id="toc-三haven包" class="nav-link" data-scroll-target="#三haven包">三、<strong>haven包</strong></a>
+  <ul class="collapse">
+  <li><a href="#核心功能读与写" id="toc-核心功能读与写" class="nav-link" data-scroll-target="#核心功能读与写">1.核心功能：读与写</a></li>
+  <li><a href="#基本使用用法" id="toc-基本使用用法" class="nav-link" data-scroll-target="#基本使用用法">2.基本使用用法</a></li>
+  <li><a href="#数据类型的处理" id="toc-数据类型的处理" class="nav-link" data-scroll-target="#数据类型的处理">3.数据类型的处理</a></li>
+  <li><a href="#备选方案与注意事项" id="toc-备选方案与注意事项" class="nav-link" data-scroll-target="#备选方案与注意事项">4.备选方案与注意事项</a></li>
+  </ul></li>
+  <li><a href="#四r语言与数据库交互" id="toc-四r语言与数据库交互" class="nav-link" data-scroll-target="#四r语言与数据库交互">四、R语言与数据库交互</a>
+  <ul class="collapse">
+  <li><a href="#核心框架dbi-包" id="toc-核心框架dbi-包" class="nav-link" data-scroll-target="#核心框架dbi-包">1.核心框架：DBI 包</a></li>
+  <li><a href="#与-mysql-交互rmysql-包" id="toc-与-mysql-交互rmysql-包" class="nav-link" data-scroll-target="#与-mysql-交互rmysql-包">2.与 MySQL 交互：RMySQL 包</a></li>
+  <li><a href="#与-oracle-交互roracle-包" id="toc-与-oracle-交互roracle-包" class="nav-link" data-scroll-target="#与-oracle-交互roracle-包">3.与 Oracle 交互：ROracle 包</a></li>
+  <li><a href="#通用方案odbc-包连接任何数据库" id="toc-通用方案odbc-包连接任何数据库" class="nav-link" data-scroll-target="#通用方案odbc-包连接任何数据库">4.通用方案：odbc 包（连接任何数据库）</a></li>
+  <li><a href="#使用-dbplyr-包写r代码操作数据库" id="toc-使用-dbplyr-包写r代码操作数据库" class="nav-link" data-scroll-target="#使用-dbplyr-包写r代码操作数据库">5.使用 <code>dbplyr</code> 包写R代码操作数据库</a></li>
+  <li><a href="#总结与建议" id="toc-总结与建议" class="nav-link" data-scroll-target="#总结与建议">6.总结与建议</a></li>
+  </ul></li>
+  <li><a href="#六sqldf-包" id="toc-六sqldf-包" class="nav-link" data-scroll-target="#六sqldf-包">六、<code>sqldf</code> 包</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1.概述</a></li>
+  <li><a href="#应用示例" id="toc-应用示例" class="nav-link" data-scroll-target="#应用示例">2.应用示例</a></li>
+  <li><a href="#支持的数据库后端" id="toc-支持的数据库后端" class="nav-link" data-scroll-target="#支持的数据库后端">3.支持的数据库后端</a></li>
+  <li><a href="#注意性能与替代方案" id="toc-注意性能与替代方案" class="nav-link" data-scroll-target="#注意性能与替代方案">4.注意：性能与替代方案</a></li>
+  </ul></li>
+  <li><a href="#七rsqlite-包" id="toc-七rsqlite-包" class="nav-link" data-scroll-target="#七rsqlite-包">七、<strong>RSQLite 包</strong></a>
+  <ul class="collapse">
+  <li><a href="#概述-1" id="toc-概述-1" class="nav-link" data-scroll-target="#概述-1">1.概述</a></li>
+  <li><a href="#主要特点" id="toc-主要特点" class="nav-link" data-scroll-target="#主要特点">2.主要特点</a></li>
+  <li><a href="#基本使用方法" id="toc-基本使用方法" class="nav-link" data-scroll-target="#基本使用方法">3.基本使用方法</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">4.总结</a></li>
+  </ul></li>
+  <li><a href="#八duckdb包" id="toc-八duckdb包" class="nav-link" data-scroll-target="#八duckdb包">八、duckdb包</a>
+  <ul class="collapse">
+  <li><a href="#概述-2" id="toc-概述-2" class="nav-link" data-scroll-target="#概述-2">1.概述</a></li>
+  <li><a href="#主要特点-1" id="toc-主要特点-1" class="nav-link" data-scroll-target="#主要特点-1">2.主要特点</a></li>
+  <li><a href="#安装" id="toc-安装" class="nav-link" data-scroll-target="#安装">3.安装</a></li>
+  <li><a href="#基本用法" id="toc-基本用法" class="nav-link" data-scroll-target="#基本用法">4.基本用法</a></li>
+  <li><a href="#性能优势" id="toc-性能优势" class="nav-link" data-scroll-target="#性能优势">5.性能优势</a></li>
+  <li><a href="#总结-1" id="toc-总结-1" class="nav-link" data-scroll-target="#总结-1">6.总结</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第12节 数据读写和存储</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一基础数据读写" class="level2">
+<h2 class="anchored" data-anchor-id="一基础数据读写">一、基础数据读写</h2>
+<p>R语言提供了非常丰富的数据导入导出能力，其基础功能主要通过R默认加载 <code>utils</code> 包中的一系列函数实现，足以处理绝大多数常见数据格式。</p>
+<section id="核心数据导入函数" class="level3">
+<h3 class="anchored" data-anchor-id="核心数据导入函数">1.核心数据导入函数</h3>
+<p>R语言的数据导入功能，特别是对文本文件的读取，其底层基础是 <code>scan()</code> 函数。在此基础上，R为不同类型的文件提供了更便捷的封装函数。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">主要用途</th>
+<th style="text-align: left;">关键参数与说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>read.table()</code></strong></td>
+<td style="text-align: left;"><strong>通用表格数据读取</strong></td>
+<td style="text-align: left;">最灵活的函数，可读取各种分隔符的文本文件。常用参数包括：<code>file</code>(文件路径)、<code>header</code>(是否将首行作为列名)、<code>sep</code>(字段分隔符)、<code>stringsAsFactors</code>(是否将字符串转为因子)等。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>read.csv()</code></strong></td>
+<td style="text-align: left;"><strong>读取CSV文件</strong></td>
+<td style="text-align: left;"><code>read.table()</code> 的便捷版本，默认 <code>sep=","</code>，<code>header=TRUE</code>。是处理逗号分隔文件最常用的函数。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>read.csv2()</code></strong></td>
+<td style="text-align: left;"><strong>读取CSV文件（欧洲风格）</strong></td>
+<td style="text-align: left;">用于读取逗号作为小数点的CSV文件，默认 <code>sep=";"</code>，<code>dec=","</code>。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>read.delim()</code></strong></td>
+<td style="text-align: left;"><strong>读取制表符分隔文件</strong></td>
+<td style="text-align: left;">用于读取Tab键分隔的文本文件，默认 <code>sep="\t"</code>，<code>header=TRUE</code>。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>read.fwf()</code></strong></td>
+<td style="text-align: left;"><strong>读取固定宽度文件</strong></td>
+<td style="text-align: left;">用于读取数据按列对齐、没有分隔符的文件。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>scan()</code></strong></td>
+<td style="text-align: left;"><strong>灵活读取向量数据</strong></td>
+<td style="text-align: left;">更底层的函数，可以读取向量、矩阵等，灵活性高。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2.使用 <code>read.csv()</code> 等基础函数需注意：</strong></p>
+<ol type="1">
+<li><strong>字符串自动转因子</strong>：在R 4.0.0版本之前，<code>read.csv()</code> 默认会将字符型列转换为因子（Factor）。如果不需要，建议明确设置参数 <code>stringsAsFactors = FALSE</code>。</li>
+<li><strong>文件编码问题</strong>：当处理含中文等非英文字符的文件时，需通过 <code>fileEncoding</code> 参数指定正确编码（如 <code>"UTF-8"</code> 或 <code>"GBK"</code>），否则会出现乱码。</li>
+</ol>
+</section>
+<section id="核心数据导出函数" class="level3">
+<h3 class="anchored" data-anchor-id="核心数据导出函数">3.核心数据导出函数</h3>
+<p>数据导出与导入对应，同样提供了一系列函数。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">函数</th>
+<th style="text-align: left;">主要用途</th>
+<th style="text-align: left;">关键参数与说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>write.table()</code></strong></td>
+<td style="text-align: left;"><strong>通用表格数据导出</strong></td>
+<td style="text-align: left;">最通用的函数，可将数据框写入文本文件。参数与 <code>read.table()</code> 类似，如 <code>file</code>、<code>sep</code>、<code>row.names</code>（是否输出行名）等。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>write.csv()</code></strong></td>
+<td style="text-align: left;"><strong>导出为CSV文件</strong></td>
+<td style="text-align: left;"><code>write.table()</code> 的便捷版本，默认 <code>sep=","</code>。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong><code>write.csv2()</code></strong></td>
+<td style="text-align: left;"><strong>导出为CSV文件（欧洲风格）</strong></td>
+<td style="text-align: left;">用于生成逗号作为小数点的CSV文件，默认 <code>sep=";"</code>，<code>dec=","</code>。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong><code>cat()</code></strong></td>
+<td style="text-align: left;"><strong>灵活输出与文件写入</strong></td>
+<td style="text-align: left;">功能丰富，可将多个对象连接后输出到屏幕或文件。通过 <code>file</code> 参数指定文件，<code>append=TRUE</code> 可在文件末尾追加内容。</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="专有格式rdata与rds" class="level3">
+<h3 class="anchored" data-anchor-id="专有格式rdata与rds">4.专有格式：RData与RDS</h3>
+<p>除了通用文本格式，R还提供了两种高效的原生数据格式：</p>
+<ul>
+<li><strong>RData（.RData / .rda）</strong>：用于保存<strong>一个或多个</strong>R对象。使用 <code>save()</code> 函数保存，<code>load()</code> 函数加载。</li>
+<li><strong>RDS（.rds）</strong>：用于保存<strong>单个</strong>R对象。使用 <code>saveRDS()</code> 函数保存，<code>readRDS()</code> 函数加载。 这两种格式能完美保留R对象的所有属性（如因子水平、时间序列属性等），且读写速度极快，是保存R工作成果的理想选择。</li>
+</ul>
+</section>
+<section id="总结与扩展" class="level3">
+<h3 class="anchored" data-anchor-id="总结与扩展">5.总结与扩展</h3>
+<p>总而言之，<strong>基础R</strong> 通过 <code>read.table</code>、<code>read.csv</code>、<code>write.table</code>、<code>write.csv</code> 等函数，为 <strong>CSV、TXT</strong> 等表格数据的读写提供了强大支持。</p>
+<p>当然，R强大的生态系统还提供了处理更复杂数据格式的扩展包，例如：</p>
+<ul>
+<li><p><strong><code>readxl</code></strong>：读取 Excel (.xls/.xlsx) 文件。</p></li>
+<li><p><strong><code>haven</code></strong>：读取 SAS、SPSS、Stata 等统计软件格式。</p></li>
+<li><p><strong><code>jsonlite</code></strong> 和 <strong><code>XML</code></strong>：处理 JSON 和 XML 数据。</p></li>
+<li><p><strong><code>DBI</code></strong> 及相应驱动（如 <code>RSQLite</code>, <code>RMySQL</code>）：连接各类数据库。</p></li>
+</ul>
+<p>总的来说，R的数据导入导出能力非常强大和灵活。掌握好基础R函数已能满足大部分日常需求，而面对特殊格式时，丰富的扩展包生态则提供了完备的解决方案。</p>
+</section>
+</section>
+<section id="二excel-文件读写" class="level2">
+<h2 class="anchored" data-anchor-id="二excel-文件读写">二、Excel 文件读写</h2>
+<p>R语言读写Excel文件的包主要有以下几类，按功能和使用场景区分。</p>
+<section id="流读取包readxl" class="level3">
+<h3 class="anchored" data-anchor-id="流读取包readxl">1.流读取包：readxl</h3>
+<p><code>readxl</code> 是tidyverse生态中的一员，<strong>专为读取Excel文件设计</strong>，不支持写入。</p>
+<ul>
+<li><strong>核心优势</strong>：<strong>零外部依赖</strong>，无需安装Java或Excel环境，在Windows、Mac、Linux上均可稳定运行。它通过内置的C/C++库（<code>libxls</code>和<code>RapidXML</code>）直接解析文件。</li>
+<li><strong>主要函数</strong>：
+<ul>
+<li><code>read_excel()</code>: 读取Excel文件的核心函数。</li>
+<li><code>excel_sheets()</code>: 列出Excel文件中所有工作表的名称。</li>
+<li><code>readxl_example()</code>: 获取包自带的示例Excel文件路径，方便练习。</li>
+</ul></li>
+<li><strong>灵活读取</strong>：通过<code>range</code>参数，可以像在Excel中一样指定读取范围，例如<code>range = "B3:D15"</code>。</li>
+<li><strong>适用场景</strong>：当你<strong>只需要读取数据</strong>，希望过程简单、可靠、无痛时，<code>readxl</code>是首选。</li>
+</ul>
+</section>
+<section id="主流写入包writexl" class="level3">
+<h3 class="anchored" data-anchor-id="主流写入包writexl">2.主流写入包：writexl</h3>
+<p><code>writexl</code> 专注于<strong>将R数据框高效地写入Excel的<code>.xlsx</code>格式</strong>。</p>
+<ul>
+<li><strong>核心优势</strong>：<strong>极简、轻量且快速</strong>。整个包用C语言编写，<strong>零依赖</strong>，速度极快，在基准测试中速度约为<code>openxlsx</code>的两倍。</li>
+<li><strong>主要函数</strong>：
+<ul>
+<li><code>write_xlsx()</code>: 核心写入函数。可以轻松地将单个数据框或<strong>多个数据框组成的命名列表</strong>写入同一个Excel文件的不同工作表。</li>
+</ul></li>
+<li><strong>适用场景</strong>：当你<strong>只需要导出数据</strong>，追求最快的速度和最小的包体积时。</li>
+</ul>
+</section>
+<section id="全能型选手openxlsx" class="level3">
+<h3 class="anchored" data-anchor-id="全能型选手openxlsx">3.全能型选手：openxlsx</h3>
+<p><code>openxlsx</code> 提供了<strong>读写、编辑、样式设置</strong>等全面的Excel操作能力。</p>
+<ul>
+<li><strong>核心优势</strong>：功能强大且<strong>无需Java依赖</strong>。它通过Rcpp实现，性能优秀，足以替代传统的<code>xlsx</code>包。</li>
+<li><strong>主要函数</strong>：
+<ul>
+<li><code>read.xlsx()</code>: 读取Excel文件。</li>
+<li><code>write.xlsx()</code>: 将数据框写入Excel文件。</li>
+<li><code>loadWorkbook()</code>: 加载一个现有的Excel文件作为R中的“工作簿”对象，以便进行后续的编辑和样式操作。</li>
+</ul></li>
+<li><strong>适用场景</strong>：当你不仅需要读写，<strong>还需要对Excel进行复杂的格式设置、样式调整或内容修改</strong>时。</li>
+<li><strong>注意</strong>：<code>openxlsx</code>原版已<strong>不再积极开发</strong>，官方建议新项目使用<code>openxlsx2</code>等替代方案。<code>openxlsx2</code>是它的继任者，功能更现代。</li>
+</ul>
+</section>
+<section id="其他备选方案" class="level3">
+<h3 class="anchored" data-anchor-id="其他备选方案">4.其他备选方案</h3>
+<ul>
+<li><strong>xlsx包</strong>：老牌包，可读写Excel 97-2003和2007+格式。但<strong>依赖Java环境</strong>，配置较麻烦，且处理大数据时速度较慢。</li>
+<li><strong>XLConnect包</strong>：同样是<strong>依赖Java</strong>的综合性Excel操作包。功能非常全面，跨平台性好。如果你熟悉Java或需要其特定功能，可以考虑。</li>
+<li><strong>gdata包</strong>：另一个老牌包，但同样存在外部依赖问题，目前已不常用。</li>
+</ul>
+</section>
+<section id="实战代码示例" class="level3">
+<h3 class="anchored" data-anchor-id="实战代码示例">5.实战代码示例</h3>
+<p>以下是用 <code>readxl</code> 和 <code>openxlsx</code> 进行基本操作的示例。</p>
+<section id="使用-readxl" class="level4">
+<h4 class="anchored" data-anchor-id="使用-readxl">5.1. 使用 <code>readxl</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载包</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 查看文件有哪些工作表</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sheet_names <span class="ot">&lt;-</span> <span class="fu">excel_sheets</span>(<span class="st">"你的文件.xlsx"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sheet_names)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 读取数据（最常用）</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认读取第一个工作表</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"你的文件.xlsx"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取指定名称的工作表</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Sheet2"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取指定位置（第二个）的工作表</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">2</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 更精确地控制读取</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 跳过前2行，从第3行开始读，并手动指定列名</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"你的文件.xlsx"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>                   <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>                   <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"ID"</span>, <span class="st">"Name"</span>, <span class="st">"Score"</span>))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="co"># 只读取A1:C10这个单元格区域</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">range =</span> <span class="st">"A1:C10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="使用-openxlsx" class="level4">
+<h4 class="anchored" data-anchor-id="使用-openxlsx">5.2. 使用 <code>openxlsx</code></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 安装并加载包</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"openxlsx"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(openxlsx)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 读取数据</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认读取第一个工作表</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"你的文件.xlsx"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取指定名称的工作表</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"Sheet2"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取指定位置（第二个）的工作表</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">sheet =</span> <span class="dv">2</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 更精确地控制读取</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定读取的行列范围 (例如从第3行开始，读取前100行)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.xlsx</span>(<span class="st">"你的文件.xlsx"</span>, <span class="at">startRow =</span> <span class="dv">3</span>, <span class="at">rows =</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="如何选择" class="level3">
+<h3 class="anchored" data-anchor-id="如何选择">6.如何选择</h3>
+<p>各包主要功能、特点与适用场景对比：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 26%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">包名</th>
+<th style="text-align: left;">主要功能</th>
+<th style="text-align: left;">Java依赖</th>
+<th style="text-align: left;">特点与适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>readxl</strong></td>
+<td style="text-align: left;"><strong>读取</strong></td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"><strong>读取专用</strong>，零依赖，简单可靠，是读取数据的首选。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>writexl</strong></td>
+<td style="text-align: left;"><strong>写入</strong></td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"><strong>写入专用</strong>，极简、轻量、速度最快，是导出数据的首选。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>openxlsx</strong></td>
+<td style="text-align: left;"><strong>读写 + 编辑</strong></td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;"><strong>功能全面</strong>，无需Java，适合需要修改和美化Excel文件的场景。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">xlsx</td>
+<td style="text-align: left;">读写 + 编辑</td>
+<td style="text-align: left;"><strong>有</strong></td>
+<td style="text-align: left;">老牌包，功能全但依赖Java，配置复杂，速度较慢。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">XLConnect</td>
+<td style="text-align: left;">读写 + 编辑</td>
+<td style="text-align: left;"><strong>有</strong></td>
+<td style="text-align: left;">功能强大的Java桥接器，跨平台性好。</td>
+</tr>
+</tbody>
+</table>
+<p>根据场景需要选择合适的工具波。简单来说，可以遵循以下原则：</p>
+<ul>
+<li><p><strong>如果只是单纯导入数据</strong>，<strong><code>readxl</code></strong> 是首选。它速度最快，用法简单，且无任何外部依赖，能覆盖大多数导入需求。</p></li>
+<li><p><strong>如果需要创建或修改Excel文件</strong>：<strong><code>openxlsx</code></strong> 是更好的选择。它功能全面，同样不依赖Java，是进行Excel读、写、编辑的一站式解决方案。</p></li>
+<li><p><strong>应避免使用的包</strong>：除非有特殊的遗留系统要求，否则应<strong>避免使用 <code>xlsx</code></strong> ，因为它们分别依赖Java和Perl，配置繁琐且性能不佳。</p></li>
+</ul>
+</section>
+</section>
+<section id="三haven包" class="level2">
+<h2 class="anchored" data-anchor-id="三haven包">三、<strong>haven包</strong></h2>
+<p><code>haven</code>包是R语言中用于与SPSS、SAS、Stata等统计软件进行数据交换的首选工具。它通过封装<strong>ReadStat</strong> C语言库来实现对各种专有数据格式的读写，具有<strong>速度快、稳定性高</strong>的优点。作为<strong>tidyverse</strong>生态系统的一员，<code>haven</code>的设计理念与现代R语言实践高度一致。</p>
+<section id="核心功能读与写" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能读与写">1.核心功能：读与写</h3>
+<p>下表总结了<code>haven</code>针对不同软件的核心读写函数：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">统计软件</th>
+<th style="text-align: left;">读取函数</th>
+<th style="text-align: left;">写入函数</th>
+<th style="text-align: left;">支持的文件格式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>SAS</strong></td>
+<td style="text-align: left;"><code>read_sas()</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><code>.sas7bdat</code> (数据集) 和 <code>.sas7bcat</code> (目录文件)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read_xpt()</code></td>
+<td style="text-align: left;"><code>write_xpt()</code></td>
+<td style="text-align: left;">SAS传输文件 (XPORT格式, 版本5和8)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>SPSS</strong></td>
+<td style="text-align: left;"><code>read_sav()</code></td>
+<td style="text-align: left;"><code>write_sav()</code></td>
+<td style="text-align: left;"><code>.sav</code> 文件 (包括压缩的 <code>.zsav</code> 文件)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>read_por()</code></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">较旧的 <code>.por</code> 便携式文件</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Stata</strong></td>
+<td style="text-align: left;"><code>read_dta()</code></td>
+<td style="text-align: left;"><code>write_dta()</code></td>
+<td style="text-align: left;"><code>.dta</code> 文件 (读取支持至版本15，写入支持版本8-15)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="基本使用用法" class="level3">
+<h3 class="anchored" data-anchor-id="基本使用用法">2.基本使用用法</h3>
+<p>使用<code>haven</code>的流程非常直观，主要包括安装、加载和调用函数三个步骤。</p>
+<section id="安装与加载" class="level4">
+<h4 class="anchored" data-anchor-id="安装与加载">2.<strong>1. 安装与加载</strong></h4>
+<p>你可以选择安装整个<code>tidyverse</code>或仅安装<code>haven</code>包：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>) <span class="co"># 推荐，会一并安装其他常用包</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"haven"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="读取与写入数据" class="level4">
+<h4 class="anchored" data-anchor-id="读取与写入数据">2.<strong>2. 读取与写入数据</strong></h4>
+<p>加载包后，直接使用对应的读写函数即可。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SAS 示例 ---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取 .sas7bdat 文件</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sas_data <span class="ot">&lt;-</span> <span class="fu">read_sas</span>(<span class="st">"path/to/your_data.sas7bdat"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 写入 SAS 传输文件</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xpt</span>(mtcars, <span class="st">"mtcars.xpt"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># --- SPSS 示例 ---</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取 .sav 文件</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>spss_data <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"path/to/your_data.sav"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 写入 .sav 文件</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(mtcars, <span class="st">"mtcars.sav"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Stata 示例 ---</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取 .dta 文件</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>stata_data <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"path/to/your_data.dta"</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 写入 .dta 文件</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">write_dta</span>(mtcars, <span class="st">"mtcars.dta"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="数据类型的处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据类型的处理">3.数据类型的处理</h3>
+<p><code>haven</code>的强大之处不仅在于读写，更在于它对不同软件中特殊数据类型的精细处理。</p>
+<ul>
+<li><strong>输出格式为Tibble</strong>：读取的数据会以<code>tibble</code>格式（一种增强版的<code>data.frame</code>）呈现，打印和操作更方便。</li>
+<li><strong>标签值的处理 (<code>labelled</code>类)</strong>：SPSS和Stata的”值标签”（如用1代表”男”，2代表”女”）会被保存为特殊的 <strong><code>labelled</code></strong> 类。这既保留了原始编码，也保留了标签信息。</li>
+<li><strong>标签与因子转换 (<code>as_factor()</code>)</strong>：你可以使用<code>as_factor()</code>函数将<code>labelled</code>向量轻松转换为R的因子（<code>factor</code>）类型。该函数提供了多种转换方式，例如使用标签作为因子水平等。</li>
+<li><strong>特殊缺失值的保留</strong>：R默认的缺失值是<code>NA</code>。而SAS、SPSS等软件支持多种特殊缺失值（如<code>NA</code>， <code>NA</code>等），<code>haven</code>在读取时会尽力保留这些信息。</li>
+<li><strong>日期/时间与字符的处理</strong>：日期和时间会被自动转换为R的日期/时间类（<code>Date</code>/<code>POSIXct</code>）。字符型变量在导入时<strong>不会</strong>被自动转换为因子，保持了数据的原始形态。</li>
+</ul>
+</section>
+<section id="备选方案与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="备选方案与注意事项">4.备选方案与注意事项</h3>
+<ul>
+<li><strong>同类包对比</strong>：在<code>haven</code>之前，<strong><code>foreign</code></strong>包是主流选择。但<code>foreign</code>包较为古老，对Stata的支持仅到版本12，且对标签等元数据的处理不如<code>haven</code>完善。因此，对于新项目，<strong><code>haven</code>是更现代、更强大的选择</strong>。</li>
+<li><strong>中文编码问题</strong>：在处理含有中文的SPSS或Stata文件时，偶尔会遇到乱码。这通常是由于文件编码（如GBK）与R默认编码（UTF-8）不一致导致。如果遇到此问题，可以尝试在读取函数中指定<code>encoding</code>参数，例如 <code>read_sav("file.sav", encoding = "gb18030")</code>。</li>
+</ul>
+</section>
+</section>
+<section id="四r语言与数据库交互" class="level2">
+<h2 class="anchored" data-anchor-id="四r语言与数据库交互">四、R语言与数据库交互</h2>
+<p>R语言与数据库交互的生态非常成熟，核心思路是统一的：通过 <strong><code>DBI</code></strong> 包提供标准接口，再由各个<strong>专用驱动包</strong>（如<code>RMySQL</code>、<code>ROracle</code>）或通用驱动包（如<code>odbc</code>）负责底层实现。</p>
+<section id="核心框架dbi-包" class="level3">
+<h3 class="anchored" data-anchor-id="核心框架dbi-包">1.核心框架：DBI 包</h3>
+<p><code>DBI</code>（DataBase Interface）是R中连接数据库的<strong>统一接口规范</strong>。它定义了一系列标准函数（如<code>dbConnect</code>、<code>dbGetQuery</code>等），让用户用几乎相同的代码操作不同数据库。</p>
+</section>
+<section id="与-mysql-交互rmysql-包" class="level3">
+<h3 class="anchored" data-anchor-id="与-mysql-交互rmysql-包">2.与 MySQL 交互：RMySQL 包</h3>
+<p><code>RMySQL</code> 是专门用于连接MySQL数据库的驱动包。</p>
+<section id="安装与加载-1" class="level4">
+<h4 class="anchored" data-anchor-id="安装与加载-1">2.<strong>1. 安装与加载</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RMySQL"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RMySQL)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="建立连接" class="level4">
+<h4 class="anchored" data-anchor-id="建立连接">2.<strong>2. 建立连接</strong></h4>
+<p>使用 <code>dbConnect</code> 函数创建连接对象。关键参数包括 <code>MySQL()</code> 驱动、<code>host</code>（主机地址）、<code>dbname</code>（数据库名）、<code>user</code>（用户名）和 <code>password</code>（密码）。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 连接到本地MySQL数据库</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">MySQL</span>(),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">host =</span> <span class="st">"localhost"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dbname =</span> <span class="st">"your_database"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">user =</span> <span class="st">"your_username"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">password =</span> <span class="st">"your_password"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="核心数据操作" class="level4">
+<h4 class="anchored" data-anchor-id="核心数据操作">2.<strong>3. 核心数据操作</strong></h4>
+<p><strong>查询数据</strong>：<code>dbGetQuery()</code> 执行查询并直接返回数据框。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM your_table WHERE id &gt; 100"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>写入数据</strong>：<code>dbWriteTable()</code> 将R数据框写入数据库。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"new_table"</span>, your_data_frame, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>执行语句</strong>：<code>dbExecute()</code> 用于插入、更新、删除等无返回值的SQL操作。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE your_table SET column1 = 'new_value' WHERE id = 10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>断开连接</strong>：<code>dbDisconnect()</code> 关闭连接，释放资源。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="与-oracle-交互roracle-包" class="level3">
+<h3 class="anchored" data-anchor-id="与-oracle-交互roracle-包">3.与 Oracle 交互：ROracle 包</h3>
+<p><code>ROracle</code> 是Oracle官方支持的数据库接口包，基于OCI（Oracle Call Interface）。</p>
+<section id="安装与加载-2" class="level4">
+<h4 class="anchored" data-anchor-id="安装与加载-2">3.<strong>1. 安装与加载</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ROracle"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROracle)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="建立连接-1" class="level4">
+<h4 class="anchored" data-anchor-id="建立连接-1">3.<strong>2. 建立连接</strong></h4>
+<p>同样是 <code>dbConnect</code> 函数，但驱动需指定为 <code>Oracle()</code>。连接时可直接传入用户名和密码。<code>dbname</code> 参数用于指定Oracle的连接标识符（TNS名称或Easy Connect字符串）。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建驱动实例并连接</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>drv <span class="ot">&lt;-</span> <span class="fu">Oracle</span>()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(drv, <span class="at">username =</span> <span class="st">"scott"</span>, <span class="at">password =</span> <span class="st">"tiger"</span>, <span class="at">dbname =</span> <span class="st">"orcl"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="核心数据操作-1" class="level4">
+<h4 class="anchored" data-anchor-id="核心数据操作-1">3.<strong>3. 核心数据操作</strong></h4>
+<p><code>ROracle</code> 也遵循 <code>DBI</code> 规范，因此核心函数与MySQL一致。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 查询数据</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM emp"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行更新</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE emp SET sal = sal * 1.1 WHERE deptno = 20"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 断开连接</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="通用方案odbc-包连接任何数据库" class="level3">
+<h3 class="anchored" data-anchor-id="通用方案odbc-包连接任何数据库">4.通用方案：odbc 包（连接任何数据库）</h3>
+<p><code>odbc</code> 包是基于ODBC的通用解决方案，可连接所有支持ODBC的数据库。</p>
+<section id="安装与加载-3" class="level4">
+<h4 class="anchored" data-anchor-id="安装与加载-3">4.<strong>1. 安装与加载</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"odbc"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(odbc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="建立连接-2" class="level4">
+<h4 class="anchored" data-anchor-id="建立连接-2">4.<strong>2. 建立连接</strong></h4>
+<p><code>dbConnect</code> 函数需要指定 <code>odbc()</code> 驱动和 <code>DSN</code>（数据源名称）或详细的连接参数。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 通过DSN连接</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(), <span class="at">dsn =</span> <span class="st">"YourDataSourceName"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或直接指定驱动和服务器信息</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">odbc</span>(),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Driver =</span> <span class="st">"ODBC Driver 17 for SQL Server"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Server =</span> <span class="st">"your_server_name"</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">Database =</span> <span class="st">"your_database"</span>,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">UID =</span> <span class="st">"your_username"</span>,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">PWD =</span> <span class="st">"your_password"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="核心数据操作-2" class="level4">
+<h4 class="anchored" data-anchor-id="核心数据操作-2">4.<strong>3. 核心数据操作</strong></h4>
+<p>后续的查询、写入等操作与前述完全一致，因为 <code>odbc</code> 包同样遵循 <code>DBI</code> 标准。</p>
+</section>
+</section>
+<section id="使用-dbplyr-包写r代码操作数据库" class="level3">
+<h3 class="anchored" data-anchor-id="使用-dbplyr-包写r代码操作数据库">5.使用 <code>dbplyr</code> 包写R代码操作数据库</h3>
+<p><code>dbplyr</code> 包让你能用 <strong><code>dplyr</code> 风格的R代码</strong> 来操作数据库，它会自动将R代码翻译成SQL语句执行。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 连接数据库</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RMySQL<span class="sc">::</span><span class="fu">MySQL</span>(), ...)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个指向数据库表的“远程”数据框</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl</span>(con, <span class="st">"your_table"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(id <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, value) <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>() <span class="co"># collect() 将结果数据拉取到R内存中</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这种方式兼具了<code>dplyr</code>的易用性和数据库的高性能。</p>
+</section>
+<section id="总结与建议" class="level3">
+<h3 class="anchored" data-anchor-id="总结与建议">6.总结与建议</h3>
+<section id="方案选择" class="level4">
+<h4 class="anchored" data-anchor-id="方案选择">6.<strong>1. 方案选择</strong></h4>
+<ul>
+<li><strong>专用驱动 (<code>RMySQL</code>, <code>ROracle</code>)</strong>：性能最优，配置简单，是连接特定数据库的首选。</li>
+<li><strong>通用驱动 (<code>odbc</code>)</strong>：适合需要连接多种异构数据库，或数据库没有专用R包的情况。</li>
+</ul>
+</section>
+<section id="最佳实践" class="level4">
+<h4 class="anchored" data-anchor-id="最佳实践">6.<strong>2. 最佳实践</strong></h4>
+<ul>
+<li><strong>始终断开连接</strong>：使用 <code>dbDisconnect()</code> 释放资源。</li>
+<li><strong>善用 <code>dbplyr</code></strong>：处理大数据时，尽量让计算在数据库内完成，避免将全部数据拉取到R内存中。</li>
+<li><strong>保护敏感信息</strong>：避免在脚本中硬编码用户名和密码，可使用环境变量或配置文件来管理。</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="六sqldf-包" class="level2">
+<h2 class="anchored" data-anchor-id="六sqldf-包">六、<code>sqldf</code> 包</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1.概述</h3>
+<p><code>sqldf</code> 包的目标用户是那些<strong>熟悉 SQL 但不熟悉 R 数据处理语法（如 dplyr）</strong> 的分析师，让你能以自己最舒服的方式操作数据。它允许你直接对 R 中的<strong>数据框（data frame）执行 SQL 查询</strong>。</p>
+<p><code>sqldf</code> 的魅力在于其极致的自动化。你只需提供一个 SQL 语句，所需工作由它在后台自动完成，其工作原理：</p>
+<ol type="1">
+<li><p><strong>自动创建</strong>：在内存中创建一个临时数据库。</p></li>
+<li><p><strong>自动导入</strong>：将你指定的 R 数据框作为数据表导入该数据库。</p></li>
+<li><p><strong>自动执行</strong>：运行你提供的 SQL 查询。</p></li>
+<li><p><strong>自动返回</strong>：将查询结果读取回 R，并作为数据框返回。</p></li>
+<li><p><strong>自动清理</strong>：最后删除这个临时数据库，对你完全透明。</p></li>
+</ol>
+</section>
+<section id="应用示例" class="level3">
+<h3 class="anchored" data-anchor-id="应用示例">2.应用示例</h3>
+<p>使用 <code>sqldf</code> 的流程非常简单直接。</p>
+<section id="安装与加载-4" class="level4">
+<h4 class="anchored" data-anchor-id="安装与加载-4">2.<strong>1. 安装与加载</strong></h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"sqldf"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="核心用法sqldf-函数" class="level4">
+<h4 class="anchored" data-anchor-id="核心用法sqldf-函数">2.<strong>2. 核心用法：<code>sqldf()</code> 函数</strong></h4>
+<p>核心函数就是 <code>sqldf()</code>。你只需将 SQL 语句作为字符串传入，并在 SQL 中直接使用 R 数据框的名字作为“表名”。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 R 内置的 iris 数据集</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(iris)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行一个简单的查询：选择 Species 为 'virginica' 的所有列</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sqldf</span>(<span class="st">"SELECT * FROM iris WHERE Species = 'virginica'"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行一个带聚合的查询</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">sqldf</span>(<span class="st">"SELECT Species, AVG(Sepal.Length) as Avg_Sepal_Length FROM iris GROUP BY Species"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="支持的数据库后端" class="level3">
+<h3 class="anchored" data-anchor-id="支持的数据库后端">3.支持的数据库后端</h3>
+<p><code>sqldf</code> 默认使用 <strong>SQLite</strong> 作为后端数据库，但它也支持通过参数切换来连接其他数据库。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 21%">
+<col style="width: 56%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">数据库</th>
+<th style="text-align: left;">支持的R包</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>SQLite</strong></td>
+<td style="text-align: left;"><code>RSQLite</code></td>
+<td style="text-align: left;"><strong>默认后端</strong>，无需额外配置，开箱即用。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>PostgreSQL</strong></td>
+<td style="text-align: left;"><code>RPostgreSQL</code></td>
+<td style="text-align: left;">功能强大的开源关系型数据库。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>MySQL</strong></td>
+<td style="text-align: left;"><code>RMySQL</code></td>
+<td style="text-align: left;">从0.4-0版本开始支持。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意</strong>：要使用非默认的数据库，你需要安装对应的R包，并通过设置全局选项来切换驱动，例如：<code>options(sqldf.driver = "PostgreSQL")</code>。</p>
+</section>
+<section id="注意性能与替代方案" class="level3">
+<h3 class="anchored" data-anchor-id="注意性能与替代方案">4.注意：性能与替代方案</h3>
+<p>尽管 <code>sqldf</code> 非常方便，但有几点需要你特别留意：</p>
+<ul>
+<li><strong>性能考量</strong>：<code>sqldf</code> 的设计初衷是<strong>为了方便，而非追求极致的速度</strong>。在处理<strong>大型数据集</strong>时，由于需要将数据框完整地复制到内存数据库中进行处理，其性能可能不如 <code>dplyr</code> 等专门为R优化的包。</li>
+<li><strong>数据类型与函数</strong>：SQL查询中使用的函数（如 <code>AVG</code>, <code>SUM</code>）是由<strong>数据库后端（如SQLite）提供的，而非R的函数</strong>。因此，某些R中特有的函数或数据类型可能无法直接在 <code>sqldf</code> 的查询中使用。</li>
+<li><strong>对于超大文件</strong>：<code>sqldf</code> 包提供的 <code>read.csv.sql()</code> 函数可以在读取大型CSV文件时直接进行SQL过滤，仅将符合条件的数据加载到R中，从而避免内存溢出。</li>
+<li><strong>一个现代的替代者</strong>：如果你喜欢 <code>sqldf</code> 用SQL操作数据框的思路，但又希望获得更好的性能，可以关注 <strong><code>duckdb</code></strong> 包。它同样支持直接对R数据框执行SQL，但基于更高效的列式存储引擎，在处理大数据时表现更优。</li>
+</ul>
+<p>总之，<code>sqldf</code> 是一个为 <strong>SQL 用户</strong>量身定制的R包，它通过全自动的幕后流程，让你能以最熟悉的SQL语法操作R中的数据框。它非常适合快速数据探索和那些对性能要求不高的场景。</p>
+</section>
+</section>
+<section id="七rsqlite-包" class="level2">
+<h2 class="anchored" data-anchor-id="七rsqlite-包">七、<strong>RSQLite 包</strong></h2>
+<section id="概述-1" class="level3">
+<h3 class="anchored" data-anchor-id="概述-1">1.概述</h3>
+<p><strong>RSQLite</strong> 是 R 语言中用于操作 <strong>SQLite</strong> 数据库的核心包。它的最大特点是<strong>将 SQLite 数据库引擎直接嵌入到 R 包中</strong>，因此使用时无需额外安装或配置任何外部数据库软件。</p>
+<p>RSQLite 提供了与 <strong>DBI</strong> 包（R 的数据库接口规范）完全兼容的接口，这意味着你可以使用 DBI 包中定义的标准函数（如 <code>dbConnect</code>、<code>dbGetQuery</code>、<code>dbWriteTable</code> 等）来操作 SQLite 数据库，学习成本低，且代码风格与其他数据库包（如 RPostgreSQL、RMariaDB）保持一致。</p>
+</section>
+<section id="主要特点" class="level3">
+<h3 class="anchored" data-anchor-id="主要特点">2.主要特点</h3>
+<ol type="1">
+<li><p>零配置、开箱即用</p>
+<ul>
+<li>包内直接包含了 SQLite 引擎的源代码，通过<strong>静态链接</strong>方式集成，不会调用系统的 SQLite 库，保证了在不同环境下的行为一致性。</li>
+<li>支持的 SQLite 版本会随着包更新而升级（例如版本 2.4.3 内置 SQLite 3.50.4，版本 3.53.3 内置 SQLite 3.53.3）。</li>
+</ul></li>
+<li><p>符合 DBI 规范</p>
+<ul>
+<li>RSQLite 是 DBI 兼容接口，使用时<strong>主要调用 DBI 包中的函数</strong>，而不是直接调用 RSQLite 的函数。</li>
+<li>推荐的加载方式是先加载 <code>DBI</code>，再通过 <code>RSQLite::SQLite()</code> 指定驱动。</li>
+</ul></li>
+<li><p>轻量级、单用户</p>
+<ul>
+<li>SQLite 本身是一个<strong>公共领域</strong>的、<strong>单用户</strong>、<strong>非常轻量级</strong>的数据库引擎，实现了 SQL 92 标准的核心功能（表创建、更新、插入、查询以及事务管理）。</li>
+<li>非常适合作为嵌入式数据库、本地数据存储、测试和原型开发使用。</li>
+</ul></li>
+<li><p>支持远程数据库（实验性）</p>
+<ul>
+<li>当编译时支持 libcurl，可以启用实验性的 <strong>HTTP/HTTPS 虚拟文件系统（VFS）</strong>，允许对远程的、不可变的 SQLite 数据库文件进行<strong>只读</strong>访问。</li>
+</ul></li>
+</ol>
+</section>
+<section id="基本使用方法" class="level3">
+<h3 class="anchored" data-anchor-id="基本使用方法">3.基本使用方法</h3>
+<p>安装：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 CRAN 安装最新正式版：</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"RSQLite"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或从 GitHub 安装开发版：</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"r-dbi/RSQLite"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>加载 DBI 包并创建连接</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建持久化数据库文件</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">"my-database.sqlite"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建临时内存数据库（断开连接后自动删除）</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">":memory:"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 或使用空字符串表示临时磁盘数据库</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>写入数据</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 R 中的数据框写入数据库表：</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"iris"</span>, iris)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>查询数据</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 一次性获取全部结果（适用于小数据集）：</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">'SELECT * FROM mtcars WHERE cyl = 4'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 安全地使用参数化查询（防止 SQL 注入， 不要用 `paste()` 拼凑 SQL）：</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">'SELECT * FROM iris WHERE "Sepal.Length" &lt; :x'</span>,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">params =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fl">4.6</span>))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 分批获取大量结果（避免内存溢出）：</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> <span class="fu">dbSendQuery</span>(con, <span class="st">'SELECT * FROM mtcars'</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (<span class="sc">!</span><span class="fu">dbHasCompleted</span>(rs)) {</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">dbFetch</span>(rs, <span class="at">n =</span> <span class="dv">10</span>)  <span class="co"># 每次取10行</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(df))</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">dbClearResult</span>(rs)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>断开连接</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">4.总结</h3>
+<p><strong>RSQLite</strong> 是在 R 中使用 SQLite 数据库的<strong>标准方案</strong>。它无需外部依赖、完全符合 DBI 规范，既适合快速进行本地数据分析，也可作为复杂应用的数据存储后端。其内置的 SQLite 引擎、对参数化查询的支持以及分批读取大数据集的能力，使其在易用性、安全性和性能之间取得了很好的平衡。</p>
+</section>
+</section>
+<section id="八duckdb包" class="level2">
+<h2 class="anchored" data-anchor-id="八duckdb包">八、duckdb包</h2>
+<section id="概述-2" class="level3">
+<h3 class="anchored" data-anchor-id="概述-2">1.概述</h3>
+<p><strong>duckdb</strong> 是 R 语言中用于操作 <strong>DuckDB</strong> 数据库的核心包。</p>
+<p>DuckDB 是一个<strong>嵌入式、进程内（in-process）的 SQL OLAP 数据库管理系统</strong>，专为<strong>分析型查询工作负载</strong>而设计，并针对<strong>快速查询执行</strong>进行了优化。它在<strong>极简部署理念</strong>（无外部依赖、无需独立服务器）之上，加入了专为<strong>在线分析处理（OLAP）</strong> 优化的<strong>列式存储引擎</strong>。</p>
+<p>与 RSQLite 类似，duckdb 包也<strong>完全实现了 DBI 接口</strong>，因此你可以使用相同的 <code>dbConnect</code>、<code>dbGetQuery</code>、<code>dbWriteTable</code> 等标准函数来操作 DuckDB。</p>
+</section>
+<section id="主要特点-1" class="level3">
+<h3 class="anchored" data-anchor-id="主要特点-1">2.主要特点</h3>
+<ul>
+<li><p>零配置、嵌入式部署</p>
+<ul>
+<li>DuckDB 采用 MIT 开源协议，<strong>无外部依赖，无需安装或维护独立的数据库服务器</strong>。</li>
+<li>整个数据库就是一个<strong>单文件</strong>（如 <code>.duckdb</code> 或 <code>.db</code>），方便共享和版本管理。</li>
+<li>与 RSQLite 类似，它也支持<strong>内存数据库</strong>（<code>:memory:</code>）。</li>
+</ul></li>
+<li><p>列式存储 + OLAP 优化</p>
+<ul>
+<li>DuckDB 采用<strong>列式存储</strong>（columnar storage），同一列的数据在物理上连续存放。</li>
+<li>这种设计使其在<strong>过滤、聚合、连接</strong>等分析型操作上性能极佳，特别适合处理<strong>大规模数据分析</strong>任务。</li>
+</ul></li>
+<li><p>支持大于内存的数据集</p>
+<ul>
+<li>DuckDB 可以直接对磁盘上的数据进行查询，<strong>无需将整个数据集加载到 R 的内存中</strong>。</li>
+<li>它可以在数据<strong>读入内存之前</strong>就完成筛选、选择和分组等操作，从而显著降低内存压力。</li>
+</ul></li>
+<li><p>完整的 SQL 支持 + 事务保证</p>
+<ul>
+<li>支持完整的 SQL 语法（<code>CREATE TABLE</code>、<code>SELECT</code>、<code>JOIN</code>、<code>UPDATE</code> 等）。</li>
+<li>提供 <strong>ACID 事务保证</strong>，通过自定义的、面向批量优化的<strong>多版本并发控制（MVCC）</strong> 实现。与 SQLite 类似，也使用<strong>预写日志（WAL）</strong> 机制。</li>
+</ul></li>
+<li><p>丰富的扩展机制</p>
+<ul>
+<li>DuckDB 提供灵活的扩展机制，允许定义<strong>新的数据类型、函数和文件格式</strong>。</li>
+<li>原生支持多种数据源的<strong>直接查询</strong>，包括 CSV、Parquet、JSON 等。</li>
+</ul></li>
+<li><p>与 R 生态深度整合</p>
+<ul>
+<li><p>实现了 <strong>DBI 接口</strong>，与 R 中其他数据库包用法一致。</p></li>
+<li><p>提供 <strong><code>duckplyr</code></strong> 包，提供<strong>与 dplyr 兼容的 API</strong>，让你可以用熟悉的 <code>dplyr</code> 语法操作 DuckDB。</p></li>
+<li><p>支持<strong>直接在 R 数据框（data frames）上执行 SQL 查询</strong>。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="安装" class="level3">
+<h3 class="anchored" data-anchor-id="安装">3.安装</h3>
+<p><strong>从 CRAN 安装（推荐）</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"duckdb"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Windows 和 macOS 用户可直接安装预编译的二进制包。Linux 用户从源码编译可能需要较长时间（最长一小时），建议使用 Posit Public Package Manager 或 r-universe 获取预编译版本。</p>
+<p><strong>从 r-universe 安装（开发版）</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"duckdb"</span>, <span class="at">repos =</span> <span class="fu">c</span>(<span class="st">"https://duckdb.r-universe.dev"</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"https://cloud.r-project.org"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>从 GitHub 安装</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("pak")</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"duckdb/duckdb-r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="基本用法" class="level3">
+<h3 class="anchored" data-anchor-id="基本用法">4.基本用法</h3>
+<p>与 RSQLite 类似，duckdb 包遵循 DBI 标准接口。</p>
+<section id="加载并创建连接" class="level4">
+<h4 class="anchored" data-anchor-id="加载并创建连接">4.1. 加载并创建连接</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建内存数据库（默认）</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>())</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 或显式指定内存数据库</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), <span class="at">dbdir =</span> <span class="st">":memory:"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建持久化数据库文件</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), <span class="at">dbdir =</span> <span class="st">"my-db.duckdb"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 只读模式（多进程共享时必需）</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(duckdb<span class="sc">::</span><span class="fu">duckdb</span>(), <span class="at">dbdir =</span> <span class="st">"my-db.duckdb"</span>, <span class="at">read_only =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="写入数据" class="level4">
+<h4 class="anchored" data-anchor-id="写入数据">4.1. 写入数据</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 R 数据框写入数据库表</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"mtcars"</span>, mtcars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="执行-sql-查询" class="level4">
+<h4 class="anchored" data-anchor-id="执行-sql-查询">4.1. 执行 SQL 查询</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行无返回结果的语句（如 CREATE TABLE）</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE TABLE items (item VARCHAR, value DECIMAL(10, 2), count INTEGER)"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行查询并获取结果</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = 4"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用参数化查询（推荐，防 SQL 注入）</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM mtcars WHERE cyl = ?"</span>, <span class="at">params =</span> <span class="fu">list</span>(<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="断开连接" class="level4">
+<h4 class="anchored" data-anchor-id="断开连接">4.1. 断开连接</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con, <span class="at">shutdown =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="性能优势" class="level3">
+<h3 class="anchored" data-anchor-id="性能优势">5.性能优势</h3>
+<p>DuckDB 在分析型任务上的性能提升极为显著。一个典型的对比实验（对 1 亿行数据做分组均值计算）显示：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>相对速度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>DuckDB</strong></td>
+<td><strong>1x（基准）</strong></td>
+</tr>
+<tr class="even">
+<td><strong>readr + dplyr</strong></td>
+<td>慢 <strong>28 倍</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>Base R</strong></td>
+<td>慢 <strong>125 倍</strong></td>
+</tr>
+</tbody>
+</table>
+<p>在矩阵乘法等计算密集型任务中，DuckDB 比 SQLite 快约 <strong>20 倍</strong>。在一般的过滤查询中，DuckDB 也比 SQLite 快约 <strong>2 倍</strong>。</p>
+<p><strong>DuckDB vs SQLite：对比总结</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>维度</th>
+<th><strong>DuckDB</strong></th>
+<th><strong>SQLite</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>定位</strong></td>
+<td>OLAP（分析型）</td>
+<td>OLTP（事务型）</td>
+</tr>
+<tr class="even">
+<td><strong>存储格式</strong></td>
+<td>列式存储</td>
+<td>行式存储</td>
+</tr>
+<tr class="odd">
+<td><strong>适用场景</strong></td>
+<td>大数据分析、聚合、连接</td>
+<td>小规模事务、嵌入式应用</td>
+</tr>
+<tr class="even">
+<td><strong>分析查询性能</strong></td>
+<td><strong>极快</strong>（快 2~20 倍）</td>
+<td>较慢</td>
+</tr>
+<tr class="odd">
+<td><strong>事务并发</strong></td>
+<td>单写者/多读者</td>
+<td>支持读写并发</td>
+</tr>
+<tr class="even">
+<td><strong>设计理念</strong></td>
+<td>为分析速度优化</td>
+<td>为通用性优化</td>
+</tr>
+</tbody>
+</table>
+<p><strong>简单来说</strong>：如果你的任务是<strong>数据清洗、聚合、统计分析</strong>等 OLAP 场景，且数据量较大，DuckDB 是更优选择；如果是<strong>小规模数据的事务处理</strong>，SQLite 依然胜任。</p>
+</section>
+<section id="总结-1" class="level3">
+<h3 class="anchored" data-anchor-id="总结-1">6.总结</h3>
+<p><strong>duckdb</strong> 包将 DuckDB 的强大分析能力带入了 R 生态。如果你经常在 R 中处理<strong>数 GB 甚至更大的数据集</strong>，或需要进行<strong>复杂的聚合、连接操作</strong>，duckdb 包是一个能显著提升效率的工具。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第11节 提升计算效率 .html" class="pagination-link" aria-label="第16章 R 第11节 提升计算效率">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第11节 提升计算效率</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第13节 网络爬虫.html" class="pagination-link" aria-label="第16章 R 第13节 网络爬虫">
+        <span class="nav-page-text">第16章 R 第13节 网络爬虫</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
