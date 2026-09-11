@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>��16�� R ��14�� ���ģ�ͽ��� – 量化投资导论</title>
+<title>第16章 R 第14节 与大模型交互 – 量化投资导论</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -123,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第14节 与大模型交互.html">��16�� R ��14�� ���ģ�ͽ���</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第14节 与大模型交互.html">第16章 R 第14节 与大模型交互</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">��16�� R ��14�� ���ģ�ͽ���</span></a>
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -361,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">��16�� R ��16�� �������ù��߰�</span></a>
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -380,79 +380,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#ǰ" id="toc-ǰ" class="nav-link active" data-scroll-target="#ǰ">ǰ��</a>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a>
   <ul class="collapse">
-  <li><a href="#ͳһӿڰ" id="toc-ͳһӿڰ" class="nav-link" data-scroll-target="#ͳһӿڰ">1.ͳһ�ӿڰ�</a></li>
-  <li><a href="#ضṩͻ" id="toc-ضṩͻ" class="nav-link" data-scroll-target="#ضṩͻ">2.�ض��ṩ�̿ͻ���</a></li>
-  <li><a href="#ģͼɣollama" id="toc-ģͼɣollama" class="nav-link" data-scroll-target="#ģͼɣollama">3.����ģ�ͼ��ɣ�Ollama ��̬</a></li>
-  <li><a href="#빤ߵãģͳ-r" id="toc-빤ߵãģͳ-r" class="nav-link" data-scroll-target="#빤ߵãģͳ-r">4.�������빤�ߵ��ã���ģ�Ͳ��� R ����</a></li>
-  <li><a href="#ƕ-ragģͷʶ" id="toc-ƕ-ragģͷʶ" class="nav-link" data-scroll-target="#ƕ-ragģͷʶ">5.Ƕ���� RAG����ģ�ͷ���˽��֪ʶ</a></li>
+  <li><a href="#统一接口包" id="toc-统一接口包" class="nav-link" data-scroll-target="#统一接口包">1.统一接口包</a></li>
+  <li><a href="#特定提供商客户端" id="toc-特定提供商客户端" class="nav-link" data-scroll-target="#特定提供商客户端">2.特定提供商客户端</a></li>
+  <li><a href="#本地模型集成ollama-生态" id="toc-本地模型集成ollama-生态" class="nav-link" data-scroll-target="#本地模型集成ollama-生态">3.本地模型集成：Ollama 生态</a></li>
+  <li><a href="#智能体与工具调用让模型操作-r-环境" id="toc-智能体与工具调用让模型操作-r-环境" class="nav-link" data-scroll-target="#智能体与工具调用让模型操作-r-环境">4.智能体与工具调用：让模型操作 R 环境</a></li>
+  <li><a href="#嵌入与-rag让模型访问私有知识" id="toc-嵌入与-rag让模型访问私有知识" class="nav-link" data-scroll-target="#嵌入与-rag让模型访问私有知识">5.嵌入与 RAG：让模型访问私有知识</a></li>
   </ul></li>
-  <li><a href="#һellmer" id="toc-һellmer" class="nav-link" data-scroll-target="#һellmer">һ��ellmer ��</a></li>
-  <li><a href="#ĺ" id="toc-ĺ" class="nav-link" data-scroll-target="#ĺ">1.���Ĺ��ܸ���</a>
+  <li><a href="#一ellmer-包" id="toc-一ellmer-包" class="nav-link" data-scroll-target="#一ellmer-包">一、ellmer 包</a></li>
+  <li><a href="#核心功能概览" id="toc-核心功能概览" class="nav-link" data-scroll-target="#核心功能概览">1.核心功能概览</a>
   <ul class="collapse">
-  <li><a href="#װãdeepseekϊ" id="toc-װãdeepseekϊ" class="nav-link" data-scroll-target="#װãdeepseekϊ">2.��װ�����ã���DeepSeekΪ����</a></li>
-  <li><a href="#deepseek-ӿ" id="toc-deepseek-ӿ" class="nav-link" data-scroll-target="#deepseek-ӿ">3.DeepSeek �ӿ�</a></li>
-  <li><a href="#ӧð" id="toc-ӧð" class="nav-link" data-scroll-target="#ӧð">4.Ӧ�ð�����</a></li>
-  <li><a href="#с" id="toc-с" class="nav-link" data-scroll-target="#с">5.С��</a></li>
+  <li><a href="#安装与配置以deepseek为例" id="toc-安装与配置以deepseek为例" class="nav-link" data-scroll-target="#安装与配置以deepseek为例">2.安装与配置（以DeepSeek为例）</a></li>
+  <li><a href="#deepseek-接口" id="toc-deepseek-接口" class="nav-link" data-scroll-target="#deepseek-接口">3.DeepSeek 接口</a></li>
+  <li><a href="#应用案例" id="toc-应用案例" class="nav-link" data-scroll-target="#应用案例">4.应用案例：</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结">5.小结</a></li>
   </ul></li>
-  <li><a href="#http-llm-api" id="toc-http-llm-api" class="nav-link" data-scroll-target="#http-llm-api">����ֱ��ͨ�� HTTP ���� LLM API</a>
+  <li><a href="#二直接通过-http-调用-llm-api" id="toc-二直接通过-http-调用-llm-api" class="nav-link" data-scroll-target="#二直接通过-http-调用-llm-api">二、直接通过 HTTP 调用 LLM API</a>
   <ul class="collapse">
-  <li><a href="#httr2ƽʽ" id="toc-httr2ƽʽ" class="nav-link" data-scroll-target="#httr2ƽʽ">1.httr2���Ƽ���ʽ</a></li>
-  <li><a href="#ƚi汾" id="toc-ƚi汾" class="nav-link" data-scroll-target="#ƚi汾">2. ���Ƚ��İ汾</a></li>
-  <li><a href="#ի" id="toc-ի" class="nav-link" data-scroll-target="#ի">3. ���ֶԻ�</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">4. ��������</a></li>
-  <li><a href="#httrʽ" id="toc-httrʽ" class="nav-link" data-scroll-target="#httrʽ">5.httr�����䷽ʽ</a></li>
-  <li><a href="#curlײ㷽ʽ" id="toc-curlײ㷽ʽ" class="nav-link" data-scroll-target="#curlײ㷽ʽ">6.curl����ײ㷽ʽ</a></li>
+  <li><a href="#httr2推荐方式" id="toc-httr2推荐方式" class="nav-link" data-scroll-target="#httr2推荐方式">1.httr2：推荐方式</a></li>
+  <li><a href="#更稳健的版本" id="toc-更稳健的版本" class="nav-link" data-scroll-target="#更稳健的版本">2. 更稳健的版本</a></li>
+  <li><a href="#多轮对话" id="toc-多轮对话" class="nav-link" data-scroll-target="#多轮对话">3. 多轮对话</a></li>
+  <li><a href="#调试请求" id="toc-调试请求" class="nav-link" data-scroll-target="#调试请求">4. 调试请求</a></li>
+  <li><a href="#httr经典方式" id="toc-httr经典方式" class="nav-link" data-scroll-target="#httr经典方式">5.httr：经典方式</a></li>
+  <li><a href="#curl最底层方式" id="toc-curl最底层方式" class="nav-link" data-scroll-target="#curl最底层方式">6.curl：最底层方式</a></li>
   </ul></li>
-  <li><a href="#ǳ" id="toc-ǳ" class="nav-link" data-scroll-target="#ǳ">7.�Ǳ�׼�˵�����֤</a></li>
-  <li><a href="#ʵ" id="toc-ʵ" class="nav-link" data-scroll-target="#ʵ">8.�������������ʵ��</a></li>
-  <li><a href="#ollama" id="toc-ollama" class="nav-link" data-scroll-target="#ollama">����Ollama</a>
+  <li><a href="#非标准端点与认证" id="toc-非标准端点与认证" class="nav-link" data-scroll-target="#非标准端点与认证">7.非标准端点与认证</a></li>
+  <li><a href="#常见问题与最佳实践" id="toc-常见问题与最佳实践" class="nav-link" data-scroll-target="#常见问题与最佳实践">8.常见问题与最佳实践</a></li>
+  <li><a href="#三ollama" id="toc-三ollama" class="nav-link" data-scroll-target="#三ollama">三、Ollama</a>
   <ul class="collapse">
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">1.��������</a></li>
-  <li><a href="#ģϳ" id="toc-ģϳ" class="nav-link" data-scroll-target="#ģϳ">2.ģ�Ϳ�</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3.���������ܼ���</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4.�����ܹ�</a></li>
-  <li><a href="#ٷӿ-sdk" id="toc-ٷӿ-sdk" class="nav-link" data-scroll-target="#ٷӿ-sdk">5.�ٷ��ӿ��� SDK</a></li>
-  <li><a href="#ĺ-1" id="toc-ĺ-1" class="nav-link" data-scroll-target="#ĺ-1">6.���Ĺ���</a></li>
-  <li><a href="#ӳҫ밲װ" id="toc-ӳҫ밲װ" class="nav-link" data-scroll-target="#ӳҫ밲װ">7.Ӳ��Ҫ���밲װ</a></li>
-  <li><a href="#ȫע" id="toc-ȫע" class="nav-link" data-scroll-target="#ȫע">8.��ȫע������</a></li>
-  <li><a href="#λ" id="toc-λ" class="nav-link" data-scroll-target="#λ">9.��̬��λ</a></li>
+  <li><a href="#核心优势" id="toc-核心优势" class="nav-link" data-scroll-target="#核心优势">1.核心优势</a></li>
+  <li><a href="#模型库" id="toc-模型库" class="nav-link" data-scroll-target="#模型库">2.模型库</a></li>
+  <li><a href="#工具链与框架集成" id="toc-工具链与框架集成" class="nav-link" data-scroll-target="#工具链与框架集成">3.工具链与框架集成</a></li>
+  <li><a href="#技术架构" id="toc-技术架构" class="nav-link" data-scroll-target="#技术架构">4.技术架构</a></li>
+  <li><a href="#官方接口与-sdk" id="toc-官方接口与-sdk" class="nav-link" data-scroll-target="#官方接口与-sdk">5.官方接口与 SDK</a></li>
+  <li><a href="#核心功能" id="toc-核心功能" class="nav-link" data-scroll-target="#核心功能">6.核心功能</a></li>
+  <li><a href="#硬件要求与安装" id="toc-硬件要求与安装" class="nav-link" data-scroll-target="#硬件要求与安装">7.硬件要求与安装</a></li>
+  <li><a href="#安全注意事项" id="toc-安全注意事项" class="nav-link" data-scroll-target="#安全注意事项">8.安全注意事项</a></li>
+  <li><a href="#生态定位" id="toc-生态定位" class="nav-link" data-scroll-target="#生态定位">9.生态定位</a></li>
   </ul></li>
-  <li><a href="#ġollama" id="toc-ġollama" class="nav-link" data-scroll-target="#ġollama">�ġ���Ollama����</a>
+  <li><a href="#四与ollama交互" id="toc-四与ollama交互" class="nav-link" data-scroll-target="#四与ollama交互">四、与Ollama交互</a>
   <ul class="collapse">
-  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">1.����R������</a></li>
-  <li><a href="#ollamar-ϊ" id="toc-ollamar-ϊ" class="nav-link" data-scroll-target="#ollamar-ϊ">2.�������֣��� <code>ollamar</code> Ϊ��</a></li>
-  <li><a href="#ļ" id="toc-ļ" class="nav-link" data-scroll-target="#ļ">3.�������ļ��÷�</a></li>
-  <li><a href="#ѡ" id="toc-ѡ" class="nav-link" data-scroll-target="#ѡ">4.ѡ����</a></li>
+  <li><a href="#主流r包速览" id="toc-主流r包速览" class="nav-link" data-scroll-target="#主流r包速览">1.主流R包速览</a></li>
+  <li><a href="#快速上手以-ollamar-为例" id="toc-快速上手以-ollamar-为例" class="nav-link" data-scroll-target="#快速上手以-ollamar-为例">2.快速上手：以 <code>ollamar</code> 为例</a></li>
+  <li><a href="#其他包的简单用法" id="toc-其他包的简单用法" class="nav-link" data-scroll-target="#其他包的简单用法">3.其他包的简单用法</a></li>
+  <li><a href="#选择建议" id="toc-选择建议" class="nav-link" data-scroll-target="#选择建议">4.选择建议</a></li>
   </ul></li>
-  <li><a href="#塢rollama" id="toc-塢rollama" class="nav-link" data-scroll-target="#塢rollama">�塢rollama</a>
+  <li><a href="#五rollama" id="toc-五rollama" class="nav-link" data-scroll-target="#五rollama">五、rollama</a>
   <ul class="collapse">
-  <li><a href="#װ" id="toc-װ" class="nav-link" data-scroll-target="#װ">1.��װ��׼��</a></li>
-  <li><a href="#ĺܣիģʽ" id="toc-ĺܣիģʽ" class="nav-link" data-scroll-target="#ĺܣիģʽ">2.���Ĺ��ܣ����ֶԻ�ģʽ</a></li>
-  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">3.�����÷�</a></li>
-  <li><a href="#ṹjson" id="toc-ṹjson" class="nav-link" data-scroll-target="#ṹjson">4.�ṹ�������JSON��</a></li>
-  <li><a href="#ͼעģģ" id="toc-ͼעģģ" class="nav-link" data-scroll-target="#ͼעģģ">5.ͼ���ע����ģ̬ģ�ͣ�</a></li>
-  <li><a href="#ıע" id="toc-ıע" class="nav-link" data-scroll-target="#ıע">6.�ı���ע</a></li>
-  <li><a href="#ģ" id="toc-ģ" class="nav-link" data-scroll-target="#ģ">7.ģ�͹���</a></li>
-  <li><a href="#ʽ" id="toc-ʽ" class="nav-link" data-scroll-target="#ʽ">8.��������ʽ���</a></li>
-  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">9.�ܽ�</a></li>
+  <li><a href="#安装与准备" id="toc-安装与准备" class="nav-link" data-scroll-target="#安装与准备">1.安装与准备</a></li>
+  <li><a href="#核心功能两种对话模式" id="toc-核心功能两种对话模式" class="nav-link" data-scroll-target="#核心功能两种对话模式">2.核心功能：两种对话模式</a></li>
+  <li><a href="#进阶用法" id="toc-进阶用法" class="nav-link" data-scroll-target="#进阶用法">3.进阶用法</a></li>
+  <li><a href="#结构化输出json" id="toc-结构化输出json" class="nav-link" data-scroll-target="#结构化输出json">4.结构化输出（JSON）</a></li>
+  <li><a href="#图像标注多模态模型" id="toc-图像标注多模态模型" class="nav-link" data-scroll-target="#图像标注多模态模型">5.图像标注（多模态模型）</a></li>
+  <li><a href="#文本标注" id="toc-文本标注" class="nav-link" data-scroll-target="#文本标注">6.文本标注</a></li>
+  <li><a href="#模型管理" id="toc-模型管理" class="nav-link" data-scroll-target="#模型管理">7.模型管理</a></li>
+  <li><a href="#并行与流式输出" id="toc-并行与流式输出" class="nav-link" data-scroll-target="#并行与流式输出">8.并行与流式输出</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">9.总结</a></li>
   </ul></li>
-  <li><a href="#embedding" id="toc-embedding" class="nav-link" data-scroll-target="#embedding">����Embedding</a>
+  <li><a href="#六embedding" id="toc-六embedding" class="nav-link" data-scroll-target="#六embedding">六、Embedding</a>
   <ul class="collapse">
-  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">1.�������</a></li>
-  <li><a href="#ѡƕģ" id="toc-ѡƕģ" class="nav-link" data-scroll-target="#ѡƕģ">2.ѡ������Ƕ��ģ��</a></li>
-  <li><a href="#ĺembed_text" id="toc-ĺembed_text" class="nav-link" data-scroll-target="#ĺembed_text">3.���ĺ�����<code>embed_text()</code></a></li>
-  <li><a href="#ʾıƕ" id="toc-ʾıƕ" class="nav-link" data-scroll-target="#ʾıƕ">4.����ʾ���������ı�Ƕ��</a></li>
-  <li><a href="#ڷʹƕ" id="toc-ڷʹƕ" class="nav-link" data-scroll-target="#ڷʹƕ">5.�߼��÷����ڷ���������ʹ��Ƕ��</a></li>
-  <li><a href="#ؼע" id="toc-ؼע" class="nav-link" data-scroll-target="#ؼע">6.�ؼ�������ע������</a></li>
+  <li><a href="#概念解释" id="toc-概念解释" class="nav-link" data-scroll-target="#概念解释">1.概念解释</a></li>
+  <li><a href="#选择并下载嵌入模型" id="toc-选择并下载嵌入模型" class="nav-link" data-scroll-target="#选择并下载嵌入模型">2.选择并下载嵌入模型</a></li>
+  <li><a href="#核心函数embed_text" id="toc-核心函数embed_text" class="nav-link" data-scroll-target="#核心函数embed_text">3.核心函数：<code>embed_text()</code></a></li>
+  <li><a href="#完整示例生成文本嵌入" id="toc-完整示例生成文本嵌入" class="nav-link" data-scroll-target="#完整示例生成文本嵌入">4.完整示例：生成文本嵌入</a></li>
+  <li><a href="#高级用法在分类任务中使用嵌入" id="toc-高级用法在分类任务中使用嵌入" class="nav-link" data-scroll-target="#高级用法在分类任务中使用嵌入">5.高级用法：在分类任务中使用嵌入</a></li>
+  <li><a href="#关键技巧与注意事项" id="toc-关键技巧与注意事项" class="nav-link" data-scroll-target="#关键技巧与注意事项">6.关键技巧与注意事项</a></li>
   </ul></li>
-  <li><a href="#ߡ" id="toc-ߡ" class="nav-link" data-scroll-target="#ߡ">�ߡ��������</a>
+  <li><a href="#七语义距离" id="toc-七语义距离" class="nav-link" data-scroll-target="#七语义距离">七、语义距离</a>
   <ul class="collapse">
-  <li><a href="#һĺļ㷽" id="toc-һĺļ㷽" class="nav-link" data-scroll-target="#һĺļ㷽">1.��һ�����������ĺ��ļ��㷽��</a></li>
-  <li><a href="#ڶrʵ" id="toc-ڶrʵ" class="nav-link" data-scroll-target="#ڶrʵ">2.�ڶ�������R��ʵ�־������</a></li>
-  <li><a href="#ƕģѡ" id="toc-ƕģѡ" class="nav-link" data-scroll-target="#ƕģѡ">3.��������Ƕ��ģ�͵�ѡ��ָ��</a></li>
-  <li><a href="#ʾ" id="toc-ʾ" class="nav-link" data-scroll-target="#ʾ">4.����������ʾ��</a></li>
+  <li><a href="#第一步语义距离的核心计算方法" id="toc-第一步语义距离的核心计算方法" class="nav-link" data-scroll-target="#第一步语义距离的核心计算方法">1.第一步：语义距离的核心计算方法</a></li>
+  <li><a href="#第二步在r中实现距离计算" id="toc-第二步在r中实现距离计算" class="nav-link" data-scroll-target="#第二步在r中实现距离计算">2.第二步：在R中实现距离计算</a></li>
+  <li><a href="#第三步嵌入模型的选择指南" id="toc-第三步嵌入模型的选择指南" class="nav-link" data-scroll-target="#第三步嵌入模型的选择指南">3.第三步：嵌入模型的选择指南</a></li>
+  <li><a href="#完整工作流示例" id="toc-完整工作流示例" class="nav-link" data-scroll-target="#完整工作流示例">4.完整工作流示例</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -462,7 +462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">��16�� R ��14�� ���ģ�ͽ���</h1>
+<h1 class="title">第16章 R 第14节 与大模型交互</h1>
 </div>
 
 
@@ -479,10 +479,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="ǰ" class="level2">
-<h2 class="anchored" data-anchor-id="ǰ">ǰ��</h2>
-<p>R ���ģ�͵Ľ�����ʽ���൱���죬�γ��˴�<strong>ͳһ�ӿڰ�</strong>��<strong>�ض��ṩ�̿ͻ���</strong>��<strong>����ģ�ͼ���</strong>��<strong>��������</strong>��<strong>������ǿ���ɣ�RAG��</strong> ��������̬��</p>
-<p><strong>���Ľ�����ʽ����</strong></p>
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>R 与大模型的交互方式已相当成熟，形成了从<strong>统一接口包</strong>、<strong>特定提供商客户端</strong>到<strong>本地模型集成</strong>、<strong>智能体框架</strong>与<strong>检索增强生成（RAG）</strong> 的完整生态。</p>
+<p><strong>核心交互方式概览</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -491,120 +491,120 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </colgroup>
 <thead>
 <tr class="header">
-<th>������ʽ</th>
-<th>������</th>
-<th>���Ķ�λ</th>
+<th>交互方式</th>
+<th>代表包</th>
+<th>核心定位</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>ͳһ�ӿ�</strong></td>
-<td><code>ellmer</code>��<code>tidyllm</code>��<code>LLMR</code></td>
-<td>һ�״���������ģ���ṩ��</td>
+<td><strong>统一接口</strong></td>
+<td><code>ellmer</code>、<code>tidyllm</code>、<code>LLMR</code></td>
+<td>一套代码适配多家模型提供商</td>
 </tr>
 <tr class="even">
-<td><strong>ר�ÿͻ���</strong></td>
-<td><code>openai</code>��<code>gemini.R</code>��<code>llm.api</code></td>
-<td>��Ե�һ�ṩ�̵���ȼ���</td>
+<td><strong>专用客户端</strong></td>
+<td><code>openai</code>、<code>gemini.R</code>、<code>llm.api</code></td>
+<td>针对单一提供商的深度集成</td>
 </tr>
 <tr class="odd">
-<td><strong>����ģ��</strong></td>
-<td><code>ollamar</code>��<code>rollama</code>��<code>llamaR</code></td>
-<td>�ڱ������п�Դģ�ͣ����� API ��Կ</td>
+<td><strong>本地模型</strong></td>
+<td><code>ollamar</code>、<code>rollama</code>、<code>llamaR</code></td>
+<td>在本地运行开源模型，无需 API 密钥</td>
 </tr>
 <tr class="even">
-<td><strong>������/���ߵ���</strong></td>
-<td><code>corteza</code>��<code>agenticr</code>��<code>LLMAgentR</code></td>
-<td>��ģ�͵��� R ������ִ�д���</td>
+<td><strong>智能体/工具调用</strong></td>
+<td><code>corteza</code>、<code>agenticr</code>、<code>LLMAgentR</code></td>
+<td>让模型调用 R 函数、执行代码</td>
 </tr>
 <tr class="odd">
-<td><strong>RAG/Ƕ��</strong></td>
-<td><code>ragnar</code>��<code>RAGFlowChainR</code>��<code>ragR</code></td>
-<td>������ǿ���ɣ����˽��֪ʶ��</td>
+<td><strong>RAG/嵌入</strong></td>
+<td><code>ragnar</code>、<code>RAGFlowChainR</code>、<code>ragR</code></td>
+<td>检索增强生成，结合私有知识库</td>
 </tr>
 </tbody>
 </table>
-<section id="ͳһӿڰ" class="level3">
-<h3 class="anchored" data-anchor-id="ͳһӿڰ">1.ͳһ�ӿڰ�</h3>
-<p>ͳһ�ӿڰ��ĺ��ļ�ֵ����<strong>���ṩ�̲����װ�����ò�</strong>���о��������������ģ�Ͷ���д��</p>
-<p><strong><code>ellmer</code>��Posit/tidyverse ��Ʒ��</strong> ��Ŀǰ�������ķ�����֧�� OpenAI��Anthropic Claude��Google Gemini��Azure��AWS Bedrock��Databricks��Snowflake ���ڶ��ṩ�̡�ʹ�÷�ʽ��Ϊ��ࡣ</p>
-<p><code>ellmer</code> ���ṩ�� <code>live_console()</code> �� <code>live_browser()</code> ���ڽ���ʽ�Ի����Լ� <code>chat()</code> ���������ڽű��г��򻯵��á�ֵ��������ǣ�<code>chat_anthropic()</code> Ĭ��ʹ�� Claude Sonnet ϵ��ģ�ͣ���ģ�������� R ���뷽�����ͻ����</p>
-<p><strong><code>tidyllm</code></strong> ������� tidyverse ���ġ����� + �ṩ�̡��﷨��0.3.0 �汾��<code>chat()</code>��<code>embed()</code>��<code>send_batch()</code> ��ͨ�ö���ȡ���˾ɵ��ṩ��ר�ú������ṩ��ͨ�� <code>claude()</code>��<code>openai()</code>��<code>ollama()</code> �����ú���ָ������֧�ֶ�ģ̬���루ͼƬ��PDF����Ƶ/��Ƶ������ά���ṹ���ĶԻ���ʷ��</p>
-<p><strong><code>LLMR</code></strong> �����о�����������<strong>��һ���ö���</strong>��<code>llm_config()</code>����<strong>��һ���ú���</strong>��<code>call_llm()</code>������ơ����ص��������˶�<strong>�ṹ�������JSON Schema��</strong> ��һ��֧�֣��Լ������ģ��ʵ��Ĳ������й��� <code>call_llm_par()</code>��</p>
+<section id="统一接口包" class="level3">
+<h3 class="anchored" data-anchor-id="统一接口包">1.统一接口包</h3>
+<p>统一接口包的核心价值在于<strong>将提供商差异封装在配置层</strong>，研究代码无需因更换模型而重写。</p>
+<p><strong><code>ellmer</code>（Posit/tidyverse 出品）</strong> 是目前最主流的方案，支持 OpenAI、Anthropic Claude、Google Gemini、Azure、AWS Bedrock、Databricks、Snowflake 等众多提供商。使用方式极为简洁。</p>
+<p><code>ellmer</code> 还提供了 <code>live_console()</code> 和 <code>live_browser()</code> 用于交互式对话，以及 <code>chat()</code> 方法用于在脚本中程序化调用。值得留意的是，<code>chat_anthropic()</code> 默认使用 Claude Sonnet 系列模型，该模型在生成 R 代码方面表现突出。</p>
+<p><strong><code>tidyllm</code></strong> 则采用了 tidyverse 风格的“动词 + 提供商”语法。0.3.0 版本后，<code>chat()</code>、<code>embed()</code>、<code>send_batch()</code> 等通用动词取代了旧的提供商专用函数，提供商通过 <code>claude()</code>、<code>openai()</code>、<code>ollama()</code> 等配置函数指定。它支持多模态输入（图片、PDF、音频/视频），并维护结构化的对话历史。</p>
+<p><strong><code>LLMR</code></strong> 面向研究场景，采用<strong>单一配置对象</strong>（<code>llm_config()</code>）和<strong>单一调用函数</strong>（<code>call_llm()</code>）的设计。其特点是内置了对<strong>结构化输出（JSON Schema）</strong> 的一等支持，以及面向多模型实验的并行运行工具 <code>call_llm_par()</code>。</p>
 </section>
-<section id="ضṩͻ" class="level3">
-<h3 class="anchored" data-anchor-id="ضṩͻ">2.�ض��ṩ�̿ͻ���</h3>
-<p>����Ҫ���ʹ��ĳһ�ṩ�̵Ķ��й���ʱ��ר�ÿͻ��˸�Ϊ���ʡ�</p>
-<p><strong><code>openai</code></strong> �� OpenAI API ������ R ��װ������ Chat��Embeddings��Images��DALL-E����Audio��Whisper/TTS����Fine-tuning ��ȫ���˵㡣<strong><code>openaiRtools</code></strong> ���Ƕ� OpenAI Python SDK ��������ֲ��API ����� Python �汾�߶�һ�¡�</p>
-<p><strong><code>gemini.R</code></strong> �ṩ Google Gemini API ��ȫ��ӿڣ�֧�� Gemini ���ı����ɡ���ģ̬�����Լ� TTS�������ϳɣ����ܡ�</p>
-<p><strong><code>llm.api</code></strong> ��һ��<strong>��������</strong>�Ŀͻ��ˣ������� <code>curl</code>��<code>jsonlite</code> �� <code>tinyoauth</code>��֧�� OpenAI��Anthropic Claude��Moonshot Kimi��Ollama �Լ��κ� OpenAI ���ݶ˵㡣���Ķ���֮������������<strong>������ѭ����agent loop���͹��ߵ���</strong>֧�֣��Լ� <strong>Model Context Protocol��MCP���ͻ���</strong>��</p>
+<section id="特定提供商客户端" class="level3">
+<h3 class="anchored" data-anchor-id="特定提供商客户端">2.特定提供商客户端</h3>
+<p>当需要深度使用某一提供商的独有功能时，专用客户端更为合适。</p>
+<p><strong><code>openai</code></strong> 是 OpenAI API 的完整 R 封装，覆盖 Chat、Embeddings、Images（DALL-E）、Audio（Whisper/TTS）、Fine-tuning 等全部端点。<strong><code>openaiRtools</code></strong> 则是对 OpenAI Python SDK 的完整移植，API 风格与 Python 版本高度一致。</p>
+<p><strong><code>gemini.R</code></strong> 提供 Google Gemini API 的全面接口，支持 Gemini 的文本生成、多模态理解以及 TTS（语音合成）功能。</p>
+<p><strong><code>llm.api</code></strong> 是一个<strong>极简依赖</strong>的客户端，仅依赖 <code>curl</code>、<code>jsonlite</code> 和 <code>tinyoauth</code>，支持 OpenAI、Anthropic Claude、Moonshot Kimi、Ollama 以及任何 OpenAI 兼容端点。它的独特之处在于内置了<strong>智能体循环（agent loop）和工具调用</strong>支持，以及 <strong>Model Context Protocol（MCP）客户端</strong>。</p>
 </section>
-<section id="ģͼɣollama" class="level3">
-<h3 class="anchored" data-anchor-id="ģͼɣollama">3.����ģ�ͼ��ɣ�Ollama ��̬</h3>
-<p>�������д�ģ����<strong>������˽���ɱ����ƺͿɸ�����</strong>������в�����������ƣ������ʺϴ��������о����ݻ���Ҫ���ģ���������ϡ�</p>
-<p><strong><code>ollamar</code></strong> ������ R �� Ollama �������ĺ��İ����ṩ <code>generate()</code>���������ɣ��� <code>chat()</code>�����ֶԻ����Ⱥ�����ʹ��ǰ���ڱ��ذ�װ Ollama ����ȡģ�ͣ��� <code>ollama pull llama3.1</code>����Ӳ���ϣ����� 7B ģ��������Ҫ 8GB �ڴ棬13B ģ���� 16GB��33B ģ���� 32GB��</p>
-<p><strong><code>rollama</code></strong> �� <code>ollamar</code> �Ļ�����������<strong>������ģ���������ڹ���</strong>���ܣ����� <code>check_model_installed()</code>��<code>create_model()</code>���� Modelfile �����Զ���ģ�ͣ���<code>chat_history()</code> �� <code>new_chat()</code> �ȣ��ʺ���Ҫ��ϸ���Ʊ���ģ����Ϊ�ĳ�����</p>
-<p><strong><code>llamaR</code></strong> ���ṩ�˶� <code>llama.cpp</code> �ĵײ� R �󶨣�֧��ͨ�� <code>ggmlR</code> ���� GPU ���٣��ʺ϶����������м���Ҫ����û���</p>
+<section id="本地模型集成ollama-生态" class="level3">
+<h3 class="anchored" data-anchor-id="本地模型集成ollama-生态">3.本地模型集成：Ollama 生态</h3>
+<p>本地运行大模型在<strong>数据隐私、成本控制和可复现性</strong>方面具有不可替代的优势，尤其适合处理敏感研究数据或需要大规模处理的语料。</p>
+<p><strong><code>ollamar</code></strong> 是连接 R 与 Ollama 服务器的核心包，提供 <code>generate()</code>（单次生成）和 <code>chat()</code>（多轮对话）等函数。使用前需在本地安装 Ollama 并拉取模型（如 <code>ollama pull llama3.1</code>）。硬件上，运行 7B 模型至少需要 8GB 内存，13B 模型需 16GB，33B 模型需 32GB。</p>
+<p><strong><code>rollama</code></strong> 在 <code>ollamar</code> 的基础上增加了<strong>完整的模型生命周期管理</strong>功能，包括 <code>check_model_installed()</code>、<code>create_model()</code>（从 Modelfile 创建自定义模型）、<code>chat_history()</code> 和 <code>new_chat()</code> 等，适合需要精细控制本地模型行为的场景。</p>
+<p><strong><code>llamaR</code></strong> 则提供了对 <code>llama.cpp</code> 的底层 R 绑定，支持通过 <code>ggmlR</code> 进行 GPU 加速，适合对推理性能有极致要求的用户。</p>
 </section>
-<section id="빤ߵãģͳ-r" class="level3">
-<h3 class="anchored" data-anchor-id="빤ߵãģͳ-r">4.�������빤�ߵ��ã���ģ�Ͳ��� R ����</h3>
-<p>���� R ���ģ�ͽ�����<strong>��߱����</strong>�ķ��򡪡�ģ�Ͳ���ֻ�������ı������ǿ���<strong>���� R ��������ȡ�Ự����ִ�д��벢��������</strong>��</p>
-<p><strong><code>corteza</code></strong> ������ֱ��ӳ��Ϊ <strong>R ��������</strong>������ MCP ����������������Դ׷�ٻ��ơ����ṩ������ڣ������� CLI��R ����̨�� REPL ѭ����<code>chat()</code>�����Լ������ⲿ�ͻ��˵� MCP ��������<code>serve()</code>����</p>
-<p><strong><code>agenticr</code></strong> ��Ŀ���Ϊֱ�ӣ��� AI �����塰ס����R ����̨���û���������ʾ���»������ R ���롢��Ȼ���Ի�б���������һ��ʵ������ǣ����û������ API ��Կ�����Զ�ͨ�� Ollama ʹ�ñ��ص� Qwen3-1.7B ģ�ͣ�ʵ��������������</p>
-<p><strong><code>LLMAgentR</code></strong> �ṩ�˻���ͼ��ģ�黯�������ܣ�֧�ֹ����������ɡ����ԡ����ͺ��Ż���ר�� Agent������ OpenAI��Anthropic��Groq �� Ollama��</p>
-<p><code>llm.api</code> �� <code>agent()</code> ����Ҳֵ�ù�ע�����Զ��������ߵ��õ�ѭ����ֱ��ģ�ͷ��ش��ı���ӦΪֹ�����˶��ֹ��߽�����ʵ�֡�</p>
+<section id="智能体与工具调用让模型操作-r-环境" class="level3">
+<h3 class="anchored" data-anchor-id="智能体与工具调用让模型操作-r-环境">4.智能体与工具调用：让模型操作 R 环境</h3>
+<p>这是 R 与大模型交互中<strong>最具变革性</strong>的方向——模型不再只是生成文本，而是可以<strong>调用 R 函数、读取会话对象、执行代码并迭代推理</strong>。</p>
+<p><strong><code>corteza</code></strong> 将工具直接映射为 <strong>R 函数调用</strong>，无需 MCP 服务器，并带有溯源追踪机制。它提供三种入口：命令行 CLI、R 控制台的 REPL 循环（<code>chat()</code>），以及面向外部客户端的 MCP 服务器（<code>serve()</code>）。</p>
+<p><strong><code>agenticr</code></strong> 的目标更为直接：让 AI 智能体“住进”R 控制台。用户可以在提示符下混合输入 R 代码、自然语言或斜杠命令。它的一个实用设计是：如果没有配置 API 密钥，会自动通过 Ollama 使用本地的 Qwen3-1.7B 模型，实现零配置启动。</p>
+<p><strong><code>LLMAgentR</code></strong> 提供了基于图的模块化智能体框架，支持构建代码生成、调试、解释和优化等专用 Agent，兼容 OpenAI、Anthropic、Groq 和 Ollama。</p>
+<p><code>llm.api</code> 的 <code>agent()</code> 函数也值得关注：它自动处理工具调用的循环，直到模型返回纯文本响应为止，简化了多轮工具交互的实现。</p>
 </section>
-<section id="ƕ-ragģͷʶ" class="level3">
-<h3 class="anchored" data-anchor-id="ƕ-ragģͷʶ">5.Ƕ���� RAG����ģ�ͷ���˽��֪ʶ</h3>
-<p><strong>Ƕ�루Embeddings��</strong> �ǽ��ı�ת��Ϊ������ʾ�Ĺ��̣������������� RAG �Ļ�����</p>
-<p><strong><code>ragnar</code>��tidyverse ��Ʒ��</strong> �ṩ��ͳһ��Ƕ��ӿڣ�֧�� <code>embed_openai()</code>��<code>embed_ollama()</code>��<code>embed_bedrock()</code> �ȣ�Ŀ������ R �û��ܹ���һ�µķ�ʽ�������ṩ�̻�ȡǶ��������</p>
-<p><strong><code>RAGFlowChainR</code></strong> ������������ RAG ��������ʹ�� <strong>DuckDB</strong> ��Ϊ���������洢��֧�� HNSW ������ȫ�ļ������ɶԽ� OpenAI �� Ollama ���ݵ�Ƕ��ģ�ͣ��������˿�ѡ�� <strong>Tavily ��������</strong>��Ϊ�������Դ���������Ŀ���ǶԱ� Python ��̬�е� RAGFlowChain��Ϊ R �û��ṩ�������� RAG �ܵ���</p>
-<p><strong><code>ragR</code></strong> ��������� RAG ��������<strong>���������С���־��¼������</strong>��ʹ�ñ��� RDS �ļ���Ϊ�����洢���ʺ���Ҫ����������ȫ���ػ������ĳ�����</p>
-<p><strong><code>text2vec</code></strong> ��һ����ʷ�ƾõ��ı�����������֧�� GloVe ��Ƕ�롢LDA/LSA ���⽨ģ�Ⱦ��䷽�����ʺϲ������ⲿ API �Ĵ�����Ƕ������</p>
+<section id="嵌入与-rag让模型访问私有知识" class="level3">
+<h3 class="anchored" data-anchor-id="嵌入与-rag让模型访问私有知识">5.嵌入与 RAG：让模型访问私有知识</h3>
+<p><strong>嵌入（Embeddings）</strong> 是将文本转换为向量表示的过程，是语义搜索和 RAG 的基础。</p>
+<p><strong><code>ragnar</code>（tidyverse 出品）</strong> 提供了统一的嵌入接口，支持 <code>embed_openai()</code>、<code>embed_ollama()</code>、<code>embed_bedrock()</code> 等，目标是让 R 用户能够以一致的方式从主流提供商获取嵌入向量。</p>
+<p><strong><code>RAGFlowChainR</code></strong> 构建了完整的 RAG 工作流：使用 <strong>DuckDB</strong> 作为本地向量存储，支持 HNSW 索引和全文检索，可对接 OpenAI 或 Ollama 兼容的嵌入模型，并集成了可选的 <strong>Tavily 网络搜索</strong>作为补充检索源。它的设计目标是对标 Python 生态中的 RAGFlowChain，为 R 用户提供生产级的 RAG 管道。</p>
+<p><strong><code>ragR</code></strong> 则更侧重于 RAG 工作流的<strong>构建、运行、日志记录和评估</strong>，使用本地 RDS 文件作为向量存储，适合需要轻量级、完全本地化方案的场景。</p>
+<p><strong><code>text2vec</code></strong> 是一个历史悠久的文本向量化包，支持 GloVe 词嵌入、LDA/LSA 主题建模等经典方法，适合不依赖外部 API 的纯本地嵌入需求。</p>
 </section>
 </section>
-<section id="һellmer" class="level2">
-<h2 class="anchored" data-anchor-id="һellmer">һ��ellmer ��</h2>
-<p><code>ellmer</code> �� Posit �Ŷ�Ϊ R ���Դ���� LLM ͳһ�ӿڰ������� R �û�����һ���﷨����ʮ���ִ�ģ�ͣ����޷��������ݷ�����������</p>
+<section id="一ellmer-包" class="level2">
+<h2 class="anchored" data-anchor-id="一ellmer-包">一、ellmer 包</h2>
+<p><code>ellmer</code> 是 Posit 团队为 R 语言打造的 LLM 统一接口包，它让 R 用户能用一套语法调用十余种大模型，并无缝融入数据分析工作流。</p>
 </section>
-<section id="ĺ" class="level2">
-<h2 class="anchored" data-anchor-id="ĺ">1.���Ĺ��ܸ���</h2>
+<section id="核心功能概览" class="level2">
+<h2 class="anchored" data-anchor-id="核心功能概览">1.核心功能概览</h2>
 <ul>
-<li><p><strong>ͳһ�Ķ�ģ�ͽӿ�</strong>��<code>ellmer</code> ͨ�� <code>chat_*()</code> ϵ�к��������˲�ͬ���� API �Ĳ��죬���� OpenAI��Anthropic Claude��Google Gemini��DeepSeek��Ollama �����������̡��л�ģ��ֻ��������������������ಿ�ּ������䡣</p></li>
-<li><p><strong>��ʽ�����Streaming��</strong>��֧�����������ջظ����ڿ���̨�� Shiny Ӧ���ж��ܻ������ ChatGPT ��ʵʱ���顣</p></li>
-<li><p><strong>���ߵ��ã�Tool Calling��</strong>��ͨ�� <code>tool()</code> ���������� R ����ע��Ϊ�����ߡ���LLM ���ڶԻ����Զ�������ã�ʵ�ֲ�ѯ���ݿ⡢ִ�м��㡢��ȡʵʱ��Ϣ�Ȳ�����</p></li>
-<li><p><strong>�ṹ��������ȡ</strong>������ <code>ellmer</code> �����ɫ�Ĺ��ܡ���ֻ���� <code>type_object()</code> �������������ݽṹ������ <code>$chat_structured()</code>��LLM �ͻ�ֱ�Ӵӷǽṹ���ı�����ȡ��Ϣ�������� R �ж�Ӧ�� list �� data.frame�������ֶ����� JSON��</p></li>
-<li><p><strong>�첽�벢��</strong>��<code>$chat_async()</code> �� <code>$stream_async()</code> ���� Promise �����ʺ��������д������� LLM ����������������Ч�ʡ�</p></li>
-<li><p><strong>��̬Эͬ</strong>��<code>ellmer</code> �� Posit AI ����������ڣ����� <code>vitals</code>��ģ����������<code>ragnar</code>��RAG����<code>shinychat</code>��Shiny ����Ӧ�ã���<code>mcptools</code>��MCP Э�飩�Ȱ����ʹ�á�</p></li>
+<li><p><strong>统一的多模型接口</strong>：<code>ellmer</code> 通过 <code>chat_*()</code> 系列函数屏蔽了不同厂商 API 的差异，覆盖 OpenAI、Anthropic Claude、Google Gemini、DeepSeek、Ollama 等主流服务商。切换模型只需更换函数名，代码其余部分几乎不变。</p></li>
+<li><p><strong>流式输出（Streaming）</strong>：支持逐字逐句接收回复，在控制台或 Shiny 应用中都能获得类似 ChatGPT 的实时体验。</p></li>
+<li><p><strong>工具调用（Tool Calling）</strong>：通过 <code>tool()</code> 函数将任意 R 函数注册为“工具”，LLM 可在对话中自动请求调用，实现查询数据库、执行计算、获取实时信息等操作。</p></li>
+<li><p><strong>结构化数据提取</strong>：这是 <code>ellmer</code> 最具特色的功能。你只需用 <code>type_object()</code> 声明期望的数据结构，调用 <code>$chat_structured()</code>，LLM 就会直接从非结构化文本中提取信息，并返回 R 中对应的 list 或 data.frame，无需手动解析 JSON。</p></li>
+<li><p><strong>异步与并发</strong>：<code>$chat_async()</code> 和 <code>$stream_async()</code> 返回 Promise 对象，适合批量并行处理大量 LLM 请求，显著提升吞吐效率。</p></li>
+<li><p><strong>生态协同</strong>：<code>ellmer</code> 是 Posit AI 工具链的入口，可与 <code>vitals</code>（模型评估）、<code>ragnar</code>（RAG）、<code>shinychat</code>（Shiny 聊天应用）、<code>mcptools</code>（MCP 协议）等包配合使用。</p></li>
 </ul>
-<section id="װãdeepseekϊ" class="level3">
-<h3 class="anchored" data-anchor-id="װãdeepseekϊ">2.��װ�����ã���DeepSeekΪ����</h3>
-<p><strong>��װ</strong>��CRAN ��ʽ�棩��</p>
+<section id="安装与配置以deepseek为例" class="level3">
+<h3 class="anchored" data-anchor-id="安装与配置以deepseek为例">2.安装与配置（以DeepSeek为例）</h3>
+<p><strong>安装</strong>（CRAN 正式版）：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ellmer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>���� DeepSeek API Key</strong>��</p>
-<p>��Ϊ API key �����У�ֱ��д�� R �ű�������й¶���ٷ��Ƽ�����Կд�� <code>.Renviron</code> �ļ���R ����ʱ���Զ����أ�<code>ellmer</code> ���Զ���ȡ��������Ͳ��ó��� key���������£�</p>
-<pre><code># ���û��װ usethis
+<p><strong>配置 DeepSeek API Key</strong>：</p>
+<p>因为 API key 很敏感，直接写在 R 脚本里容易泄露。官方推荐将密钥写入 <code>.Renviron</code> 文件，R 启动时会自动加载，<code>ellmer</code> 会自动读取，代码里就不用出现 key。方法如下：</p>
+<pre><code># 如果没安装 usethis
 install.packages("usethis")
 
 
-# �� .Renviron �ļ�
+# 打开 .Renviron 文件
 usethis::edit_r_environ()
 
 
-# Ȼ���ڴ򿪵��ļ����һ�У�
-DEEPSEEK_API_KEY="�����Կ"
+# 然后在打开的文件里加一行：
+DEEPSEEK_API_KEY="你的密钥"
 
 
-# �����ļ���Ȼ������ R / RStudio��
-# ֮���飺
+# 保存文件，然后重启 R / RStudio。
+# 之后检查：
 # Sys.getenv("DEEPSEEK_API_KEY")
-# �������ʾ��� key����˵�����ú��ˡ�
-# �Ժ��� ellmer ���� DeepSeek ʱ��
-# �Ͳ������ֶ�����Կ��ellmer�����Զ���ȡ�������������</code></pre>
+# 如果能显示你的 key，就说明设置好了。
+# 以后用 ellmer 连接 DeepSeek 时，
+# 就不用再手动传密钥，ellmer包会自动读取这个环境变量。</code></pre>
 </section>
-<section id="deepseek-ӿ" class="level3">
-<h3 class="anchored" data-anchor-id="deepseek-ӿ">3.DeepSeek �ӿ�</h3>
-<p><code>chat_deepseek()</code> ������ <code>chat_openai_compatible()</code> ֮�ϣ�Ĭ������ DeepSeek �ٷ� API��<a href="https://api.deepseek.com"><code>https://api.deepseek.com</code></a>����</p>
+<section id="deepseek-接口" class="level3">
+<h3 class="anchored" data-anchor-id="deepseek-接口">3.DeepSeek 接口</h3>
+<p><code>chat_deepseek()</code> 构建在 <code>chat_openai_compatible()</code> 之上，默认连接 DeepSeek 官方 API（<a href="https://api.deepseek.com"><code>https://api.deepseek.com</code></a>）。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -626,19 +626,19 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="cn">NULL</span>,</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">credentials =</span> <span class="cn">NULL</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>���ݹٷ��ĵ���<code>chat_deepseek()</code> <strong>Ŀǰ��֧�ֽṹ��������ȡ��structured data extraction����ͼ������</strong>���������������� <code>$chat_structured()</code> �� <code>type_object()</code>����Ҫ���� <code>chat_openai()</code> �� <code>chat_anthropic()</code> ��֧�ָù��ܵ�ģ�͡�</p>
+<p>根据官方文档，<code>chat_deepseek()</code> <strong>目前不支持结构化数据提取（structured data extraction）和图像输入</strong>。如果你的任务依赖 <code>$chat_structured()</code> 或 <code>type_object()</code>，需要改用 <code>chat_openai()</code> 或 <code>chat_anthropic()</code> 等支持该功能的模型。</p>
 </section>
-<section id="ӧð" class="level3">
-<h3 class="anchored" data-anchor-id="ӧð">4.Ӧ�ð�����</h3>
-<p>���°����ı��� R ���Բ�ʿ�Ŷӵ�ʵս��ʾ������չʾ�� <code>ellmer</code> + DeepSeek ����ʵ���ݷ��������е��÷����� DeepSeek ����������˷�� ggplot2 ͼ����</p>
-<p><strong>�����趨��</strong></p>
-<p>����һ�� 2025 ���°����ÿ���������ݣ�<code>trend_data</code>�������� <code>date</code>��<code>sales</code> �� <code>is_peak</code>���Ƿ�߷��գ����С���ϣ�� AI ����һ��<strong>������˷��</strong>�� <code>ggplot2</code> ͼ����Ҫ����ɫ�������޺�ɫ����������Ч�����Զ������塣</p>
-<p><strong>�������룺</strong></p>
+<section id="应用案例" class="level3">
+<h3 class="anchored" data-anchor-id="应用案例">4.应用案例：</h3>
+<p>以下案例改编自 R 语言博士团队的实战演示，完整展示了 <code>ellmer</code> + DeepSeek 在真实数据分析场景中的用法。用 DeepSeek 生成赛博朋克风格 ggplot2 图表。</p>
+<p><strong>场景设定：</strong></p>
+<p>你有一份 2025 年下半年的每日销售数据（<code>trend_data</code>），包含 <code>date</code>、<code>sales</code> 和 <code>is_peak</code>（是否高峰日）三列。你希望 AI 生成一张<strong>赛博朋克风格</strong>的 <code>ggplot2</code> 图表，要求深色背景、霓虹色线条、发光效果和自定义字体。</p>
+<p><strong>完整代码：</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. ģ������ ---</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. 模拟数据 ---</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>trend_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2025-07-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2025-12-31"</span>), <span class="at">by =</span> <span class="st">"day"</span>)</span>
@@ -651,53 +651,53 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. ���� DeepSeek ������� ---</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. 创建 DeepSeek 聊天对象 ---</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_deepseek</span>(</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="fu">paste</span>(</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"����һλ����� R �������ݿ��ӻ�ר�ң���ͨ tidyverse �� ggplot2��"</span>,</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"���ó������Ӿ������ǿ��ͼ�������ϸ���ѭ�û������ݽṹ������"</span>,</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"���ɵĴ���������ֱ�����У���Ҫʹ��δ���û������ж����������"</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"你是一位资深的 R 语言数据可视化专家，精通 tidyverse 和 ggplot2。"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"你擅长创建视觉冲击力强的图表，并严格遵循用户的数据结构和需求。"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"生成的代码必须可以直接运行，不要使用未在用户数据中定义的列名。"</span></span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. ����������������ĵ� Prompt ---</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. 构造带有数据上下文的 Prompt ---</span></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>prompt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����һ����Ϊ `trend_data` �����ݿ򣬰��������У�</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- date (���ڣ�Date ����)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- sales (ÿ�����۶��ֵ��)</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- is_peak (����ֵ���Ƿ�Ϊ���۸߷���)</span><span class="sc">\n\n</span><span class="st">"</span>,</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����ǰ 6 �����£�</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"我有一个名为 `trend_data` 的数据框，包含以下列：</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- date (日期，Date 类型)</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- sales (每日销售额，数值型)</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- is_peak (布尔值，是否为销售高峰日)</span><span class="sc">\n\n</span><span class="st">"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"数据前 6 行如下：</span><span class="sc">\n</span><span class="st">"</span>,</span>
 <span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">capture.output</span>(<span class="fu">head</span>(trend_data)), <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\n\n</span><span class="st">��ʹ�� ggplot2 ����һ���������(Cyberpunk)������������ͼ��"</span>,</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����Ҫ��</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1. ��ɫ�������� #0D0221 ��������ɫ��</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. ʹ���޺�ɫ��������Ʒ�졢���ϣ���Ϊ�����ͱ�ע��ɫ</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. �߷�������Ŀ�ı�Ǹ���</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. ���ӷ���Ч����ʹ�� ggfx ������Ӱģ�⣩</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5. ��������ǩʹ�ÿƼ������壨�� Orbitron���������������޳������壩</span><span class="sc">\n</span><span class="st">"</span>,</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"6. ��������� R ���룬������Ҫ�� library() ���á�"</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\n\n</span><span class="st">请使用 ggplot2 绘制一张赛博朋克(Cyberpunk)风格的销售趋势图。"</span>,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"具体要求：</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1. 深色背景（如 #0D0221 或类似深色）</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. 使用霓虹色（青蓝、品红、亮紫）作为线条和标注颜色</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. 高峰日用醒目的标记高亮</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. 添加发光效果（使用 ggfx 包或阴影模拟）</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5. 标题和轴标签使用科技感字体（如 Orbitron，若不可用则用无衬线字体）</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"6. 输出完整的 R 代码，包含必要的 library() 调用。"</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. �������󣬻�ȡ���ɵĴ��� ---</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. 发送请求，获取生成的代码 ---</span></span>
 <span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(prompt)</span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(response)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><img src="images/16-14-1.png" class="img-fluid"></p>
-<p><strong>��ʾ����ƣ�</strong></p>
+<p><strong>提示词设计：</strong></p>
 <ul>
-<li><p><strong>System Prompt �Ľ�ɫԼ��</strong>���� <code>chat_deepseek()</code> ��ͨ�� <code>system_prompt</code> �޶� AI �Ľ�ɫ����R ���ӻ�ר�ҡ�������Ϊ׼�򣨡������ֱ�����С������������������������������ٻþ����롣</p></li>
-<li><p><strong>����������ע��</strong>���� <code>head(trend_data)</code> ��ʵ�����Ƕ�� Prompt����ģ�͡���������ʵ�����ݽṹ�����������͡�����ֵ����������ƾ�ղ²⡣���Ǽ�����������Ĺؼ����ɡ�</p></li>
-<li><p><strong>Prompt �������Ӿ����ľ�ȷ����</strong>���ѡ�������˷�񡱲��Ϊ��ִ�еľ���Ҫ�󣨱���ɫ���롢��ɫ����������Ч��ʵ�ַ�ʽ���������ƣ�����ģ������ȷ��ʩ��ͼֽ��</p></li>
+<li><p><strong>System Prompt 的角色约束</strong>：在 <code>chat_deepseek()</code> 中通过 <code>system_prompt</code> 限定 AI 的角色（“R 可视化专家”）和行为准则（“代码可直接运行”“不捏造列名”），这能显著减少幻觉代码。</p></li>
+<li><p><strong>数据上下文注入</strong>：将 <code>head(trend_data)</code> 的实际输出嵌入 Prompt，让模型“看到”真实的数据结构（列名、类型、样例值），而不是凭空猜测。这是减少列名错误的关键技巧。</p></li>
+<li><p><strong>Prompt 工程与视觉规格的精确描述</strong>：把“赛博朋克风格”拆解为可执行的具体要求（背景色代码、配色方案、发光效果实现方式、字体名称），让模型有明确的施工图纸。</p></li>
 </ul>
-<p>ģ�������</p>
-<p>DeepSeek �᷵����������Ĵ��루������������ģ�ͻ����ʵ�����ݷֲ��Զ����������᷶Χ���߷��λ�úͱ�עϸ�ڣ���ֻ�轫���صĴ���ճ���� R �ű������м��ɡ�</p>
+<p>模型输出：</p>
+<p>DeepSeek 会返回类似下面的代码（经过整理）。模型会根据实际数据分布自动调整坐标轴范围、高峰点位置和标注细节，你只需将返回的代码粘贴到 R 脚本中运行即可。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfx)   <span class="co"># ���ڷ���Ч��</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfx)   <span class="co"># 用于发光效果</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ��������</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载字体</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Orbitron"</span>, <span class="st">"orbitron"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
@@ -731,23 +731,23 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#B0B0FF"</span>, <span class="at">size =</span> <span class="dv">11</span>)</span>
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="с" class="level3">
-<h3 class="anchored" data-anchor-id="с">5.С��</h3>
-<p><code>ellmer</code> + DeepSeek ������� <strong>�������������ݷ�������</strong>�������Լ۱ȼ��ߣ�DeepSeek �� API �۸�Զ����������ҵģ�ͣ��� <code>ellmer</code> ��ͳһ�ӿ����������������ּ�ࡣ��Ҫע����ǣ����� <code>chat_deepseek()</code> ��ǰ��֧�ֽṹ��������ȡ������������漰���ĵ���������ȡ�ֶβ����� data.frame�����齫ģ���л�Ϊ <code>chat_openai()</code> �� <code>chat_anthropic()</code>������ API �÷���ȫһ�¡�</p>
+<section id="小结" class="level3">
+<h3 class="anchored" data-anchor-id="小结">5.小结</h3>
+<p><code>ellmer</code> + DeepSeek 的组合在 <strong>代码生成与数据分析辅助</strong>场景中性价比极高：DeepSeek 的 API 价格远低于主流商业模型，而 <code>ellmer</code> 的统一接口让整个工作流保持简洁。需要注意的是，由于 <code>chat_deepseek()</code> 当前不支持结构化数据提取，若你的任务涉及从文档中批量抽取字段并返回 data.frame，建议将模型切换为 <code>chat_openai()</code> 或 <code>chat_anthropic()</code>，其余 API 用法完全一致。</p>
 </section>
 </section>
-<section id="http-llm-api" class="level2">
-<h2 class="anchored" data-anchor-id="http-llm-api">����ֱ��ͨ�� HTTP ���� LLM API</h2>
-<p>������ R ��û�и���ĳ���˵㣨��<strong>���״�ģ��GLMϵ��</strong>������������Ҫ����ϸ�ؿ�������ͷ����֤��ʽ����ʱ�����ԡ���ʽ��Ӧʱ������ֱ�ӹ��� HTTP ������� LLM API������������Ȼ�ǣ�</p>
-<p><strong>�������� �� ������֤ͷ �� ���������壨ͨ���� JSON���� ���� POST ���� �� ������Ӧ</strong></p>
-<p>�Դ� R �п��õ����ַ�ʽ�ǣ�</p>
+<section id="二直接通过-http-调用-llm-api" class="level2">
+<h2 class="anchored" data-anchor-id="二直接通过-http-调用-llm-api">二、直接通过 HTTP 调用 LLM API</h2>
+<p>当现有 R 包没有覆盖某个端点（如<strong>智谱大模型GLM系列</strong>），或者你需要更精细地控制请求头、认证方式、超时、重试、流式响应时，可以直接构造 HTTP 请求调用 LLM API。核心流程仍然是：</p>
+<p><strong>构造请求 → 添加认证头 → 设置请求体（通常是 JSON）→ 发送 POST 请求 → 解析响应</strong></p>
+<p>对此 R 中可用的三种方式是：</p>
 <ul>
-<li><strong>httr2</strong>���ִ����ܵ��Ѻã��Ƽ���ѡ��</li>
-<li><strong>httr</strong>�������ȶ����ܶ�ɴ�������ʹ�ã�</li>
-<li><strong>curl</strong>����ײ㣬�ʺ���Ҫ��ȫ���� HTTP ��Ϊ�ĳ�����</li>
+<li><strong>httr2</strong>：现代、管道友好，推荐首选；</li>
+<li><strong>httr</strong>：经典稳定，很多旧代码仍在使用；</li>
+<li><strong>curl</strong>：最底层，适合需要完全控制 HTTP 行为的场景。</li>
 </ul>
-<section id="httr2ƽʽ" class="level3">
-<h3 class="anchored" data-anchor-id="httr2ƽʽ">1.httr2���Ƽ���ʽ</h3>
+<section id="httr2推荐方式" class="level3">
+<h3 class="anchored" data-anchor-id="httr2推荐方式">1.httr2：推荐方式</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -761,7 +761,7 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature=</span><span class="fl">0.5</span>,</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"用R写一个线性回归的示例"</span>)</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
@@ -769,18 +769,18 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
 <span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
 <span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>˵����</p>
+<p>说明：</p>
 <ul>
-<li><code>request()</code> �����������</li>
-<li><code>req_headers()</code> ������֤ͷ���������ͣ�</li>
-<li><code>req_body_json()</code> �Զ��� R �б�ת�� JSON����Ĭ������ <code>Content-Type: application/json</code>��Ҳ���Զ��������� <code>unbox</code>��</li>
-<li><code>req_perform()</code> ��������</li>
-<li><code>resp_body_json()</code> ����Ӧ�����Ϊ R �б���</li>
+<li><code>request()</code> 创建请求对象；</li>
+<li><code>req_headers()</code> 添加认证头和内容类型；</li>
+<li><code>req_body_json()</code> 自动把 R 列表转成 JSON，并默认设置 <code>Content-Type: application/json</code>，也会自动处理标量 <code>unbox</code>；</li>
+<li><code>req_perform()</code> 发送请求；</li>
+<li><code>resp_body_json()</code> 把响应体解析为 R 列表。</li>
 </ul>
 </section>
-<section id="ƚi汾" class="level3">
-<h3 class="anchored" data-anchor-id="ƚi汾">2. ���Ƚ��İ汾</h3>
-<p>���������в�Ҫֻд��Сʾ�����������ټ��ϳ�ʱ�����Ժ�״̬���顣</p>
+<section id="更稳健的版本" class="level3">
+<h3 class="anchored" data-anchor-id="更稳健的版本">2. 更稳健的版本</h3>
+<p>生产环境中不要只写最小示例，建议至少加上超时、重试和状态码检查。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -793,8 +793,8 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature=</span><span class="fl">0.5</span>,</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"����һ���Ͻ������� R ���֡�"</span>),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"你是一个严谨但简洁的 R 助手。"</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"用R写一个线性回归的示例"</span>)</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="fl">0.2</span>,</span>
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">800</span></span>
@@ -813,28 +813,28 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(resp) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"����ʧ�ܣ�HTTP ״̬�룺"</span>, <span class="fu">resp_status</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"请求失败，HTTP 状态码："</span>, <span class="fu">resp_status</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">resp_body_string</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
 <span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span>
 <span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>����Ĺؼ��㣺</p>
+<p>这里的关键点：</p>
 <ul>
-<li><code>req_timeout(60)</code>������ 60 �볬ʱ��</li>
-<li><code>req_retry()</code>������������ʱ����������������ԣ�</li>
-<li><code>req_error(is_error = function(resp) FALSE)</code>������ httr2 �Զ��״��������ֶ����״̬��ʹ����壻</li>
-<li><code>simplifyVector = FALSE</code>������Ƕ�� JSON ���б��ṹ�����ڰ��ֶη��ʡ�</li>
+<li><code>req_timeout(60)</code>：设置 60 秒超时；</li>
+<li><code>req_retry()</code>：对限流和临时服务器错误进行重试；</li>
+<li><code>req_error(is_error = function(resp) FALSE)</code>：不让 httr2 自动抛错，方便手动检查状态码和错误体；</li>
+<li><code>simplifyVector = FALSE</code>：保持嵌套 JSON 的列表结构，便于按字段访问。</li>
 </ul>
 </section>
-<section id="ի" class="level3">
-<h3 class="anchored" data-anchor-id="ի">3. ���ֶԻ�</h3>
-<p>LLM API ͨ��ͨ�� <code>messages</code> ����ά�������ģ�</p>
+<section id="多轮对话" class="level3">
+<h3 class="anchored" data-anchor-id="多轮对话">3. 多轮对话</h3>
+<p>LLM API 通常通过 <code>messages</code> 数组维护上下文：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>messages <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"����һ�� R ����ר�ҡ�"</span>),</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"ʲô�����Իع飿"</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"assistant"</span>, <span class="at">content =</span> <span class="st">"���Իع��ǡ���"</span>),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"�����һ�� R ʾ����"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"你是一个 R 语言专家。"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"什么是线性回归？"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"assistant"</span>, <span class="at">content =</span> <span class="st">"线性回归是……"</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"请给出一个 R 示例。"</span>)</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
@@ -851,21 +851,21 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">4. ��������</h3>
+<section id="调试请求" class="level3">
+<h3 class="anchored" data-anchor-id="调试请求">4. 调试请求</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_dry_run</span>()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_verbose</span>() <span class="sc">|&gt;</span> <span class="fu">req_perform</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ҳ���Լ�����һ���������Ӧ��</p>
+<p>也可以检查最后一次请求和响应：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>httr2<span class="sc">::</span><span class="fu">last_request</span>()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>httr2<span class="sc">::</span><span class="fu">last_response</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>�鿴��Ӧ״̬��ͷ��</p>
+<p>查看响应状态和头：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(resp)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_headers</span>(resp)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_body_string</span>(resp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="httrʽ" class="level3">
-<h3 class="anchored" data-anchor-id="httrʽ">5.httr�����䷽ʽ</h3>
-<p>�����ά���ɴ��룬�������� httr ��̬����������д��</p>
+<section id="httr经典方式" class="level3">
+<h3 class="anchored" data-anchor-id="httr经典方式">5.httr：经典方式</h3>
+<p>如果你维护旧代码，或者依赖 httr 生态，可以这样写：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -873,7 +873,7 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"用R写一个线性回归的示例"</span>)</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
@@ -897,17 +897,17 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">content</span>(resp, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(txt, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Ҫ�㣺</p>
+<p>要点：</p>
 <ul>
-<li><code>toJSON(..., auto_unbox = TRUE)</code> ����Ҫ�����򵥸��ַ������ܱ���������飻</li>
-<li><code>content_type_json()</code> ���� <code>Content-Type</code>��</li>
-<li><code>encode = "raw"</code> ��ʾ�������Ѿ��� JSON �ַ�����</li>
-<li><code>status_code()</code> ��� HTTP ״̬�롣</li>
+<li><code>toJSON(..., auto_unbox = TRUE)</code> 很重要，否则单个字符串可能被编码成数组；</li>
+<li><code>content_type_json()</code> 设置 <code>Content-Type</code>；</li>
+<li><code>encode = "raw"</code> 表示请求体已经是 JSON 字符串；</li>
+<li><code>status_code()</code> 检查 HTTP 状态码。</li>
 </ul>
 </section>
-<section id="curlײ㷽ʽ" class="level3">
-<h3 class="anchored" data-anchor-id="curlײ㷽ʽ">6.curl����ײ㷽ʽ</h3>
-<p>����Ҫ��ȫ���� HTTP ��Ϊʱ������ʹ�� <code>curl</code> ����</p>
+<section id="curl最底层方式" class="level3">
+<h3 class="anchored" data-anchor-id="curl最底层方式">6.curl：最底层方式</h3>
+<p>当需要完全控制 HTTP 行为时，可以使用 <code>curl</code> 包：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -925,7 +925,7 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(<span class="fu">list</span>(</span>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"用R写一个线性回归的示例"</span>)</span>
 <span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>), <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
@@ -942,18 +942,18 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(txt, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>���ַ�ʽ�ʺϣ�</p>
+<p>这种方式适合：</p>
 <ul>
-<li>�Զ���˵㣻</li>
-<li>�Ǳ�׼��֤��</li>
-<li>���Դ�����TLS��HTTP �汾��</li>
-<li>��Ҫ��ȷ���Ƶײ�������Ϊ��</li>
+<li>自定义端点；</li>
+<li>非标准认证；</li>
+<li>调试代理、TLS、HTTP 版本；</li>
+<li>需要精确控制底层连接行为。</li>
 </ul>
 </section>
 </section>
-<section id="ǳ" class="level2">
-<h2 class="anchored" data-anchor-id="ǳ">7.�Ǳ�׼�˵�����֤</h2>
-<p>��ͬ���̵� API ������ȫ���� OpenAI������ Anthropic Claude ʹ�� <code>x-api-key</code> �� <code>anthropic-version</code>���˵��������Ҳ��ͬ��</p>
+<section id="非标准端点与认证" class="level2">
+<h2 class="anchored" data-anchor-id="非标准端点与认证">7.非标准端点与认证</h2>
+<p>不同厂商的 API 并不完全兼容 OpenAI。例如 Anthropic Claude 使用 <code>x-api-key</code> 和 <code>anthropic-version</code>，端点和请求体也不同：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -967,7 +967,7 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"claude-3-5-sonnet-latest"</span>,</span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"用R写一个线性回归的示例"</span>)</span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
 <span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
@@ -975,7 +975,7 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>�ܶ౾�����������ṩ OpenAI ���ݶ˵㣬���� Ollama��vLLM��LM Studio��LocalAI �ȡ���ʱͨ��ֻ��Ҫ�� <code>base_url</code>���Ա��ز����OllamaΪ����</p>
+<p>很多本地推理服务提供 OpenAI 兼容端点，例如 Ollama、vLLM、LM Studio、LocalAI 等。此时通常只需要改 <code>base_url</code>。以本地部署的Ollama为例：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -985,12 +985,12 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url) <span class="sc">|&gt;</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">"v1"</span>, <span class="st">"chat"</span>, <span class="st">"completions"</span>) <span class="sc">|&gt;</span>   <span class="co"># ƴ�� /v1/chat/completions</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span>                                  <span class="co"># ָ�� POST</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">"v1"</span>, <span class="st">"chat"</span>, <span class="st">"completions"</span>) <span class="sc">|&gt;</span>   <span class="co"># 拼出 /v1/chat/completions</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span>                                  <span class="co"># 指定 POST</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> model,</span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��ã������һ�����Լ���"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"你好，请介绍一下你自己。"</span>)</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  ))</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -998,41 +998,41 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
 <span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>������ط�����Ҫ��֤�����Բ��� <code>Authorization</code> ͷ�������Ҫ���򰴷���Ҫ�����ӡ�</p>
+<p>如果本地服务不需要认证，可以不加 <code>Authorization</code> 头；如果需要，则按服务要求添加。</p>
 </section>
-<section id="ʵ" class="level2">
-<h2 class="anchored" data-anchor-id="ʵ">8.�������������ʵ��</h2>
+<section id="常见问题与最佳实践" class="level2">
+<h2 class="anchored" data-anchor-id="常见问题与最佳实践">8.常见问题与最佳实践</h2>
 <ul>
-<li><p><strong>��Կ��ҪӲ���룬</strong>ʹ�û��������� <code>.Renviron</code>��</p></li>
-<li><p><strong>����ʹ�� httr2��</strong>httr2 �Ĺܵ�������ԡ�����������ʽ֧�ָ��ִ���httr �ʺϾɴ��룬curl �ʺϵײ���ԡ�</p></li>
-<li><p><strong>��� HTTP ״̬�롣ÿ��</strong>����һ���ɹ���400��401��403��429��500 ��Ӧ�в�ͬ������</p></li>
-<li><p><strong>���ó�ʱ�����ԣ�</strong>LLM ����������ܽ���������<strong><code>req_timeout(60)</code></strong> �� <strong><code>req_retry(max_tries = 3)���Ƚ�</code></strong>��</p></li>
-<li><p><strong>ע�� JSON ���롣</strong>ʹ�� httr2 �� <code>req_body_json()</code> ͨ������Ҫ�ֶ� <strong><code>auto_unbox</code></strong>��ʹ�� httr �� curl ʱ���ǵã�jsonlite::toJSON(x, <strong>auto_unbox = TRUE</strong>)</p></li>
-<li><p><strong>����������</strong>���� 429 ʱ�����Զ�ȡ <code>Retry-After</code> ��Ӧͷ������ʹ��ָ���˱ܡ�</p></li>
-<li><p><strong>��Ҫй¶��Կ��</strong>����ʱ�����ӡ��������ͷ��<code>req_dry_run()</code> �ᾡ������������Ϣ�������������</p></li>
-<li><p><strong>���������绷����</strong>����ͨ�� <code>req_proxy()</code> �򻷾��������ô�����</p>
+<li><p><strong>密钥不要硬编码，</strong>使用环境变量或 <code>.Renviron</code>。</p></li>
+<li><p><strong>优先使用 httr2。</strong>httr2 的管道风格、重试、错误处理和流式支持更现代。httr 适合旧代码，curl 适合底层调试。</p></li>
+<li><p><strong>检查 HTTP 状态码。每次</strong>请求不一定成功，400、401、403、429、500 都应有不同处理。</p></li>
+<li><p><strong>设置超时和重试：</strong>LLM 网络请求可能较慢，加入<strong><code>req_timeout(60)</code></strong> 和 <strong><code>req_retry(max_tries = 3)更稳健</code></strong>。</p></li>
+<li><p><strong>注意 JSON 编码。</strong>使用 httr2 的 <code>req_body_json()</code> 通常不需要手动 <strong><code>auto_unbox</code></strong>。使用 httr 或 curl 时，记得：jsonlite::toJSON(x, <strong>auto_unbox = TRUE</strong>)</p></li>
+<li><p><strong>处理限流：</strong>遇到 429 时，可以读取 <code>Retry-After</code> 响应头，或者使用指数退避。</p></li>
+<li><p><strong>不要泄露密钥：</strong>调试时避免打印完整请求头。<code>req_dry_run()</code> 会尽量隐藏敏感信息，但仍需谨慎。</p></li>
+<li><p><strong>代理与网络环境：</strong>可以通过 <code>req_proxy()</code> 或环境变量设置代理：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_proxy</span>(<span class="st">"http://proxy.example.com"</span>, <span class="dv">8080</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><strong>�ɱ���������ȿ��ƣ�</strong>���� <code>max_tokens</code>��<code>temperature</code> �Ȳ����������������ġ�</p></li>
-<li><p><strong>�������������װ��</strong>�� base URL��ģ��������֤��ʽ����ʱ�����ԡ����������װ�ɺ���������ÿ���ظ�д������롣</p></li>
+<li><p><strong>成本与输出长度控制：</strong>设置 <code>max_tokens</code>、<code>temperature</code> 等参数，避免意外消耗。</p></li>
+<li><p><strong>生产环境建议封装：</strong>把 base URL、模型名、认证方式、超时、重试、错误解析封装成函数，避免每次重复写请求代码。</p></li>
 </ul>
-<p>��֮��ֱ��ͨ�� HTTP ���� LLM API �����������������Է����κζ˵㡢ʹ���κ���֤��ʽ�������κ�����ϸ�ڡ�</p>
+<p>总之，直接通过 HTTP 调用 LLM API 的最大优势是灵活：你可以访问任何端点、使用任何认证方式、调试任何请求细节。</p>
 </section>
-<section id="ollama" class="level2">
-<h2 class="anchored" data-anchor-id="ollama">����Ollama</h2>
-<p><strong>Ollama</strong> ��һ�Դ�ı��ش�����ģ�ͣ�LLM������ƽ̨�����ĺ���Ŀ����<strong>�ô�ģ���� Docker ����һ���������ڸ��˵�����һ�����ء����к͹���</strong>��������ؽ����˱������д�ģ�͵��ż����������������ƶ� API�������ڱ�������ʹ�� DeepSeek��Qwen��Llama ���ϰٸ���Դģ�͡�</p>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">1.��������</h3>
-<p>Ollama ����˴�ͳ�ƶ� AI ����ļ���ʹ�㣬Ϊ�û��ṩ�˸��������� AI ʹ�÷�ʽ��</p>
+<section id="三ollama" class="level2">
+<h2 class="anchored" data-anchor-id="三ollama">三、Ollama</h2>
+<p><strong>Ollama</strong> 是一款开源的本地大语言模型（LLM）运行平台，它的核心目标是<strong>让大模型像 Docker 容器一样，可以在个人电脑上一键下载、运行和管理</strong>。它极大地降低了本地运行大模型的门槛，让你无需依赖云端 API，即可在本地离线使用 DeepSeek、Qwen、Llama 等上百个开源模型。</p>
+<section id="核心优势" class="level3">
+<h3 class="anchored" data-anchor-id="核心优势">1.核心优势</h3>
+<p>Ollama 解决了传统云端 AI 服务的几大痛点，为用户提供了更灵活、自主的 AI 使用方式。</p>
 <ul>
-<li><strong>��ȫ����뿪Դ</strong>��Ollama ��������֧�ֵ�ģ�;���ѣ����� MIT ����֤������������Ƶ�ʹ�ã�����֧���κ� API ���÷��á�</li>
-<li><strong>������˽�밲ȫ</strong>���������ݴ������ڱ�����ɣ��������������뿪����豸���Ӹ����϶ž������ݱ��������ռ������õķ��գ������ʺϴ���������Ϣ��</li>
-<li><strong>���߿���������</strong>��ģ�����غ󣬿��������绷�������С��㻹���Խ� Ollama ��װ�ھ������ڵķ������ϣ�ʵ�ֶ��豸����ʹ�ã�����������ݮ�ɵȵ͹����豸�����С�</li>
-<li><strong>�ḻ��ģ�Ϳ�������л�</strong>��֧�ֳ��� <strong>150 ��</strong>��Դģ�ͣ����� Llama��DeepSeek��Qwen��Mistral��Gemma �ȣ�����Ը������������л���ͬģ�͡�</li>
+<li><strong>完全免费与开源</strong>：Ollama 本身及其支持的模型均免费，采用 MIT 许可证，你可以无限制地使用，无需支付任何 API 调用费用。</li>
+<li><strong>数据隐私与安全</strong>：所有数据处理都在本地完成，输入和输出不会离开你的设备，从根本上杜绝了数据被第三方收集或滥用的风险，尤其适合处理敏感信息。</li>
+<li><strong>离线可用与灵活部署</strong>：模型下载后，可在无网络环境下运行。你还可以将 Ollama 安装在局域网内的服务器上，实现多设备共享使用，甚至能在树莓派等低功耗设备上运行。</li>
+<li><strong>丰富的模型库与灵活切换</strong>：支持超过 <strong>150 个</strong>开源模型，包括 Llama、DeepSeek、Qwen、Mistral、Gemma 等，你可以根据需求轻松切换不同模型。</li>
 </ul>
 </section>
-<section id="ģϳ" class="level3">
-<h3 class="anchored" data-anchor-id="ģϳ">2.ģ�Ϳ�</h3>
-<p>Ollama ͨ�� <code>ollama.com/library</code> ά��һ���������������Ż���ģ�Ϳ⣬����������Դģ�ͼ��壺</p>
+<section id="模型库" class="level3">
+<h3 class="anchored" data-anchor-id="模型库">2.模型库</h3>
+<p>Ollama 通过 <code>ollama.com/library</code> 维护一个经过本地推理优化的模型库，覆盖主流开源模型家族：</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 14%">
@@ -1041,131 +1041,131 @@ DEEPSEEK_API_KEY="�����Կ"
 </colgroup>
 <thead>
 <tr class="header">
-<th>ģ�ͼ���</th>
-<th>����ģ��</th>
-<th>�ص�</th>
+<th>模型家族</th>
+<th>代表模型</th>
+<th>特点</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Llama</td>
 <td>Llama 2 / 3 / 3.1 / 3.2 / 4</td>
-<td>Meta ��ͨ��ģ��ϵ��</td>
+<td>Meta 的通用模型系列</td>
 </tr>
 <tr class="even">
 <td>Gemma</td>
 <td>Gemma 1 / 2 / 3</td>
-<td>Google �ĸ�Ч����ģ��</td>
+<td>Google 的高效语言模型</td>
 </tr>
 <tr class="odd">
 <td>Qwen</td>
 <td>Qwen 2 / 3 / 2.5-VL / 3-VL</td>
-<td>����Ͱ͵�ģ�ͼ��壬����ģ̬����</td>
+<td>阿里巴巴的模型家族，含多模态变体</td>
 </tr>
 <tr class="even">
 <td>Mistral</td>
-<td>Mistral 1/2/3��Mixtral</td>
-<td>Mistral AI ��ģ��</td>
+<td>Mistral 1/2/3、Mixtral</td>
+<td>Mistral AI 的模型</td>
 </tr>
 <tr class="odd">
 <td>DeepSeek</td>
-<td>DeepSeek v3.1��R1</td>
-<td>����ģ��</td>
+<td>DeepSeek v3.1、R1</td>
+<td>推理模型</td>
 </tr>
 <tr class="even">
 <td>Phi</td>
-<td>Phi ϵ��</td>
-<td>΢����С������ģ��</td>
+<td>Phi 系列</td>
+<td>微软的小型语言模型</td>
 </tr>
 <tr class="odd">
 <td>CodeLlama</td>
-<td>��</td>
-<td>��������ר��</td>
+<td>—</td>
+<td>代码生成专用</td>
 </tr>
 </tbody>
 </table>
-<p>ģ��������ѭ�ṹ����ʽ��<code>[host/][namespace/]model[:tag]</code>������ <code>registry.ollama.ai/library/llama3:8b</code>��</p>
-<p><strong>��ǩ��tag��</strong> ���ڱ�ʶģ�Ͱ汾�������������������� <code>7b</code>��<code>q4_0</code>��<code>q8_0</code>����<code>q4_0</code> �� <code>q8_0</code> ��ʡԼ 50% �Դ档</p>
+<p>模型命名遵循结构化格式：<code>[host/][namespace/]model[:tag]</code>，例如 <code>registry.ollama.ai/library/llama3:8b</code>。</p>
+<p><strong>标签（tag）</strong> 用于标识模型版本、参数量或量化级别（如 <code>7b</code>、<code>q4_0</code>、<code>q8_0</code>），<code>q4_0</code> 比 <code>q8_0</code> 节省约 50% 显存。</p>
 </section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">3.���������ܼ���</h3>
-<p>Ollama ��̬��������������<strong>������ AI Ӧ�ÿ�ܵ���Ȼ�����</strong>��</p>
-<p><strong>LangChain ����</strong>��<code>langchain-ollama</code>��Python���� <code>@langchain/ollama</code>��JS���������ٷ�ά���ļ��ɰ����� JS �汾Ϊ����ʵ���� <code>ChatOllama</code> ʱָ��ģ�����Ƽ���ֱ�ӵ��ñ���ģ�ͣ�Ĭ������ <code>http://localhost:11434</code>��Python �������ͨ�� <code>langchain_community.llms.Ollama</code> ��ʹ�� OpenAI ����Э����롣</p>
-<p><strong>MCP��Model Context Protocol��֧��</strong>��Ollama �� MCP �Ľ��ʹ����ģ���ܹ������ⲿ���ߡ��������ж�� MCP ������ʵ�֣�֧�� GitHub API ���ɡ�������Զ�������������˵�ȹ��ܡ����磬һ�� GitHub Bot ���Խ��� PR ������� diff ���͸����� Ollama ģ�ͽ�����飬�ٰ���������Ϊ���۷��زֿ⡣</p>
-<p><strong>RAG ���������ݿ�</strong>��Ollama ����Ϊ RAG ϵͳ�����ɶˣ���� Qdrant��ChromaDB��FAISS ���������ݿ�ʹ�á��������̰�����ʹ�� <code>nomic-embed-text</code> ��Ƕ��ģ�����������������������ݿ������ʱ�� Ollama ���ռ������������Ĳ����ɻش�</p>
+<section id="工具链与框架集成" class="level3">
+<h3 class="anchored" data-anchor-id="工具链与框架集成">3.工具链与框架集成</h3>
+<p>Ollama 生态最显著的特征是<strong>与主流 AI 应用框架的深度互操作</strong>。</p>
+<p><strong>LangChain 集成</strong>：<code>langchain-ollama</code>（Python）和 <code>@langchain/ollama</code>（JS）是两个官方维护的集成包。以 JS 版本为例，实例化 <code>ChatOllama</code> 时指定模型名称即可直接调用本地模型，默认连接 <code>http://localhost:11434</code>。Python 侧则可以通过 <code>langchain_community.llms.Ollama</code> 或使用 OpenAI 兼容协议接入。</p>
+<p><strong>MCP（Model Context Protocol）支持</strong>：Ollama 与 MCP 的结合使本地模型能够调用外部工具。社区已有多个 MCP 服务器实现，支持 GitHub API 集成、浏览器自动化、多智能体端点等功能。例如，一个 GitHub Bot 可以接收 PR 变更，将 diff 发送给本地 Ollama 模型进行审查，再把评审结果作为评论发回仓库。</p>
+<p><strong>RAG 与向量数据库</strong>：Ollama 常作为 RAG 系统的生成端，配合 Qdrant、ChromaDB、FAISS 等向量数据库使用。典型流程包括：使用 <code>nomic-embed-text</code> 等嵌入模型生成向量→存入向量数据库→检索时由 Ollama 接收检索到的上下文并生成回答。</p>
 </section>
-<section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">4.�����ܹ�</h3>
-<p>Ollama �����˾���� <strong>Client-Server���ͻ���-���������ܹ�</strong>��ͨ��ģ�黯��ƽ������Է�װ�ڵײ㡣</p>
+<section id="技术架构" class="level3">
+<h3 class="anchored" data-anchor-id="技术架构">4.技术架构</h3>
+<p>Ollama 采用了经典的 <strong>Client-Server（客户端-服务器）架构</strong>，通过模块化设计将复杂性封装在底层。</p>
 <ul>
-<li><strong>�������</strong>����ܹ����¶��Ͽɷ�Ϊ���㣺
+<li><strong>核心组件</strong>：其架构自下而上可分为三层：
 <ul>
-<li><strong>���������</strong>���ײ����� <strong><code>llama.cpp</code></strong>������һ���� C/C++ ��д�ĸ������������棬������ص�ģ�ͼ��غ;�����㹤����</li>
-<li><strong>�����</strong>��Ollama ������ͨ�� HTTP Э����ͻ���ͨ�ţ��������ṩ <strong>OpenAI ���ݵ� API</strong> �ӿڣ�����ζ�Ŵ������е� AI Ӧ�ú͹��߿����޷�Խ� Ollama��</li>
-<li><strong>�ͻ��˲�</strong>���û�ͨ�������У�CLI��������Ӧ���� Ollama ����������ģ�ͼ��ء��Ի�������</li>
+<li><strong>推理引擎层</strong>：底层依赖 <strong><code>llama.cpp</code></strong>，这是一个用 C/C++ 编写的高性能推理引擎，负责最繁重的模型加载和矩阵计算工作。</li>
+<li><strong>服务层</strong>：Ollama 服务器通过 HTTP 协议与客户端通信，并对外提供 <strong>OpenAI 兼容的 API</strong> 接口，这意味着大量现有的 AI 应用和工具可以无缝对接 Ollama。</li>
+<li><strong>客户端层</strong>：用户通过命令行（CLI）或桌面应用与 Ollama 交互，发起模型加载、对话等请求。</li>
 </ul></li>
-<li><strong>�ؼ�������������Quantization��</strong>��Ollama Ĭ����ȡ���� <strong>Q4_K_M ������</strong>ģ�͡�ͨ����ģ��Ȩ�ش� 16-bit ѹ����Լ 4-bit���ɽ�ģ�������С��ԭ��С�� <strong>1/3</strong>���Ӷ��� 14B �����Ĵ�ģ���ܹ��ڽ� 32GB �ڴ�ļ��õ������������С�</li>
+<li><strong>关键技术：量化（Quantization）</strong>：Ollama 默认拉取的是 <strong>Q4_K_M 量化版</strong>模型。通过将模型权重从 16-bit 压缩到约 4-bit，可将模型体积缩小至原大小的 <strong>1/3</strong>，从而让 14B 参数的大模型能够在仅 32GB 内存的家用电脑上流畅运行。</li>
 </ul>
 </section>
-<section id="ٷӿ-sdk" class="level3">
-<h3 class="anchored" data-anchor-id="ٷӿ-sdk">5.�ٷ��ӿ��� SDK</h3>
-<p>Ollama �ṩ<strong>�����㼶�Ľ��뷽ʽ</strong>�����Ǵӿ��ٵ��Ե���ȼ��ɵ�ȫ������</p>
-<p><strong>REST API</strong>������Ĭ�ϼ��� <code>127.0.0.1:11434</code>��ͨ�� <code>curl</code> ����ֱ�ӵ��ã��������������</p>
-<p><strong>�ٷ� Python / JavaScript SDK</strong>��������֤����ʽ���䡢�����������Ͱ�ȫ�ӿڡ�Python ���ṩ <code>generate</code> �� <code>chat</code> ���ֵ���ģʽ��֧�������Ĺ�����ͨ�� <code>context</code> �������ֶ��ֶԻ���������ȡ����JavaScript ��ͬʱ֧�� Node.js ����������������������� TypeScript ���Ͷ��塣</p>
-<p><strong>OpenAI API ���ݲ�</strong>��Ollama �ṩ�� <code>/v1/chat/completions</code> ���ݶ˵㣬���л��� OpenAI ��Ӧ��ֻ�轫 <code>base_url</code> ָ�� <code>http://localhost:11434/v1/</code>��<code>api_key</code> ��������ռλֵ�����޷�Ǩ�ơ�</p>
-<p>���⣬����ά���� SDK ������ .NET��Java �����ԣ�������� OpenAPI �淶�Զ����ɵ� C# SDK ֧��ȫ�� Ollama API �˵㡣</p>
+<section id="官方接口与-sdk" class="level3">
+<h3 class="anchored" data-anchor-id="官方接口与-sdk">5.官方接口与 SDK</h3>
+<p>Ollama 提供<strong>三个层级的接入方式</strong>，覆盖从快速调试到深度集成的全部需求：</p>
+<p><strong>REST API</strong>：服务默认监听 <code>127.0.0.1:11434</code>，通过 <code>curl</code> 即可直接调用，无需额外依赖。</p>
+<p><strong>官方 Python / JavaScript SDK</strong>：处理认证、流式传输、错误处理和类型安全接口。Python 库提供 <code>generate</code> 和 <code>chat</code> 两种调用模式，支持上下文管理（通过 <code>context</code> 参数保持多轮对话）和请求取消。JavaScript 库同时支持 Node.js 和浏览器环境，内置完整的 TypeScript 类型定义。</p>
+<p><strong>OpenAI API 兼容层</strong>：Ollama 提供了 <code>/v1/chat/completions</code> 兼容端点，现有基于 OpenAI 的应用只需将 <code>base_url</code> 指向 <code>http://localhost:11434/v1/</code>，<code>api_key</code> 填入任意占位值即可无缝迁移。</p>
+<p>此外，社区维护的 SDK 覆盖了 .NET、Java 等语言，例如基于 OpenAPI 规范自动生成的 C# SDK 支持全部 Ollama API 端点。</p>
 </section>
-<section id="ĺ-1" class="level3">
-<h3 class="anchored" data-anchor-id="ĺ-1">6.���Ĺ���</h3>
-<p>Ollama �ṩ��һ�������Ĺ�����������������Ͷ���ģ�͡�</p>
+<section id="核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能">6.核心功能</h3>
+<p>Ollama 提供了一套完整的工具链，方便你管理和定制模型。</p>
 <ul>
-<li><p><strong>�򻯵�ģ�͹���</strong>��ͨ���򵥵���������ģ�͵���ȡ�����С��鿴��ɾ����</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ���ز�����һ��ģ��</span></span>
+<li><p><strong>简化的模型管理</strong>：通过简单的命令即可完成模型的拉取、运行、查看和删除。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载并运行一个模型</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run qwen2.5:7b</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴���������ص�ģ���б�</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看本地已下载的模型列表</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> list</span>
 <span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ɾ��һ��ģ��</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除一个模型</span></span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> rm qwen2.5:7b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
-<li><p><strong>ǿ��� Modelfile ����</strong>��<code>Modelfile</code> �� Ollama �ġ���ͼ���������㴴���ͷ����Զ���ģ�͡������ͨ��������ϵͳ��ʾ�ʣ�System Prompt�����������в��������¶ȡ�top_p������������ GGUF �� Safetensors ��ʽ���Զ���ģ�͡�</p></li>
-<li><p><strong>������ API ����̬����</strong>������ REST API��Ollama ���ṩ�� <strong>Python</strong> �� <strong>JavaScript</strong> �⡣�� <strong>OpenAI ���ݽӿ�</strong>��<code>/v1/chat/completions</code>���������ֱ��ʹ�� OpenAI �� SDK �����ñ���ģ�ͣ�ֻ�轫 <code>base_url</code> ָ�� http://localhost:11434/v1/chat/completions ���ɡ�</p></li>
+<li><p><strong>强大的 Modelfile 定制</strong>：<code>Modelfile</code> 是 Ollama 的“蓝图”，允许你创建和分享自定义模型。你可以通过它设置系统提示词（System Prompt）、调整运行参数（如温度、top_p），甚至导入 GGUF 或 Safetensors 格式的自定义模型。</p></li>
+<li><p><strong>多语言 API 与生态集成</strong>：除了 REST API，Ollama 还提供了 <strong>Python</strong> 和 <strong>JavaScript</strong> 库。其 <strong>OpenAI 兼容接口</strong>（<code>/v1/chat/completions</code>）让你可以直接使用 OpenAI 的 SDK 来调用本地模型，只需将 <code>base_url</code> 指向 http://localhost:11434/v1/chat/completions 即可。</p></li>
 </ul>
 </section>
-<section id="ӳҫ밲װ" class="level3">
-<h3 class="anchored" data-anchor-id="ӳҫ밲װ">7.Ӳ��Ҫ���밲װ</h3>
-<p>Ollama ֧�� <strong>macOS��Windows �� Linux</strong> ����ƽ̨����װ���̷ǳ��򵥣�ͨ��ֻ�����ذ�װ����һ·����һ�������ɡ�</p>
+<section id="硬件要求与安装" class="level3">
+<h3 class="anchored" data-anchor-id="硬件要求与安装">7.硬件要求与安装</h3>
+<p>Ollama 支持 <strong>macOS、Windows 和 Linux</strong> 三大平台，安装过程非常简单，通常只需下载安装包并一路“下一步”即可。</p>
 <ul>
-<li><strong>������ã������� 7B ģ�ͣ�</strong>��4 �� CPU + 8GB �ڴ档</li>
-<li><strong>�Ƽ����ã��������� 13B+ ģ�ͣ�</strong>��8 �� CPU + 16GB �ڴ� + NVIDIA �Կ���֧�� CUDA����</li>
-<li><strong>GPU ֧��</strong>��Ollama ֧�ּ������� <strong>5.0+</strong> �� NVIDIA GPU�������汾 531+�����Լ�ͨ�� ROCm ��֧�ֵ� AMD GPU���� Apple Silicon Mac �ϣ����������� <strong>MLX</strong> ��ܽ��м��١�</li>
+<li><strong>最低配置（可运行 7B 模型）</strong>：4 核 CPU + 8GB 内存。</li>
+<li><strong>推荐配置（流畅运行 13B+ 模型）</strong>：8 核 CPU + 16GB 内存 + NVIDIA 显卡（支持 CUDA）。</li>
+<li><strong>GPU 支持</strong>：Ollama 支持计算能力 <strong>5.0+</strong> 的 NVIDIA GPU（驱动版本 531+），以及通过 ROCm 库支持的 AMD GPU。在 Apple Silicon Mac 上，它还能利用 <strong>MLX</strong> 框架进行加速。</li>
 </ul>
 </section>
-<section id="ȫע" class="level3">
-<h3 class="anchored" data-anchor-id="ȫע">8.��ȫע������</h3>
-<p>Ollama Ĭ�����ô���<strong>δ��Ȩ���ʷ���</strong>������Ĭ�ϱ�¶ RESTful API �˿� 11434��ȱ������������֤��2025 �� 3 �£��������簲ȫͨ���������ʹ˷���ͨ����</p>
-<p>�����͹ٷ������<strong>�ӹ̴�ʩ</strong>���������ַ������ <code>127.0.0.1</code>��ͨ�� Caddy ����������� HTTP Basic Auth������ TLS ���� API ͨ�š��Լ�ͨ�� OAuth2.0 ʵ�ֻ��ڽ�ɫ�ķ��ʿ��ơ�Ollama ����Ҳ���ƶ���Secure Mode�����ԣ��ƻ�ͨ�� <code>--secure</code> ��־�л����ӹ�Ĭ�����ã�����������֤������ʱ�İ�ȫ���档</p>
-<p><strong>Ĭ������£�Ollama ������󶨵����� <code>127.0.0.1</code>���ǰ�ȫ�ġ�</strong> ������̳̻�ָ���û����� <code>OLLAMA_HOST=0.0.0.0</code> �Ա���������ʣ�<strong>���ʹ����¶����������û���κμ�Ȩ����</strong>������δ��Ȩ���ʵķ��ա�</p>
-<p>����Զ�̷��ʣ����ͨ�� <strong>Nginx �������</strong>������ <strong>HTTP Basic Auth</strong> ��֤����ʹ�� <strong>Cloudflare ����</strong>�Ȱ�ȫ��ʽ������ֱ�ӽ� Ollama �˿ڱ�¶�ڹ�����</p>
+<section id="安全注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="安全注意事项">8.安全注意事项</h3>
+<p>Ollama 默认配置存在<strong>未授权访问风险</strong>：服务默认暴露 RESTful API 端口 11434，缺乏内置身份验证。2025 年 3 月，国家网络安全通报中心曾就此发出通报。</p>
+<p>社区和官方建议的<strong>加固措施</strong>包括：保持服务绑定在 <code>127.0.0.1</code>、通过 Caddy 反向代理添加 HTTP Basic Auth、启用 TLS 加密 API 通信、以及通过 OAuth2.0 实现基于角色的访问控制。Ollama 社区也在推动“Secure Mode”特性，计划通过 <code>--secure</code> 标志切换至加固默认配置，包括内置认证和启动时的安全警告。</p>
+<p><strong>默认情况下，Ollama 服务仅绑定到本地 <code>127.0.0.1</code>，是安全的。</strong> 但许多教程会指导用户设置 <code>OLLAMA_HOST=0.0.0.0</code> 以便局域网访问，<strong>这会使服务暴露在网络上且没有任何鉴权机制</strong>，存在未授权访问的风险。</p>
+<p>如需远程访问，务必通过 <strong>Nginx 反向代理</strong>并添加 <strong>HTTP Basic Auth</strong> 认证，或使用 <strong>Cloudflare 隧道</strong>等安全方式，切勿直接将 Ollama 端口暴露在公网。</p>
 </section>
-<section id="λ" class="level3">
-<h3 class="anchored" data-anchor-id="λ">9.��̬��λ</h3>
-<p>����ͬ�๤�ߵĶԱ��У�Ollama �Ķ�λ�ǳ�������</p>
+<section id="生态定位" class="level3">
+<h3 class="anchored" data-anchor-id="生态定位">9.生态定位</h3>
+<p>在与同类工具的对比中，Ollama 的定位非常清晰：</p>
 <ul>
-<li><p><strong>Ollama</strong>��<strong>���˿��������ԭ��</strong>����ѡ��ǿ�����伴�õ�����ͼ򻯵�ģ�͹����� *</p></li>
-<li><p><strong>llama.cpp</strong>��׷��<strong>����������Ӳ������</strong>�ĵײ����棬�ʺ��ڱ�Ե�豸�Ͻ��и߶ȶ��ƻ��Ĳ���</p></li>
-<li><p><strong>vLLM</strong>������<strong>���������ĸ߲�������</strong>��ܣ��ʺ���Ҫ������������ API ����ĳ�����</p></li>
+<li><p><strong>Ollama</strong>：<strong>个人开发与快速原型</strong>的首选，强调开箱即用的体验和简化的模型管理。 *</p></li>
+<li><p><strong>llama.cpp</strong>：追求<strong>极致性能与硬件适配</strong>的底层引擎，适合在边缘设备上进行高度定制化的部署。</p></li>
+<li><p><strong>vLLM</strong>：面向<strong>生产环境的高并发服务</strong>框架，适合需要处理大量并发 API 请求的场景。</p></li>
 </ul>
-<p>�ܵ���˵��Ollama �Ǹ��˿����ߡ��о��ߺ� AI ����������Ͳ��𱾵ش�ģ�͵�<strong>������</strong>����ͨ������Ľ�����ǿ��Ĺ��ܣ���ԭ�����ӵı��� AI ����������װ��ͨ����һ���򵥵����顣</p>
+<p>总的来说，Ollama 是个人开发者、研究者和 AI 爱好者体验和部署本地大模型的<strong>最佳起点</strong>。它通过极简的交互和强大的功能，将原本复杂的本地 AI 部署变成了像安装普通软件一样简单的事情。</p>
 </section>
 </section>
-<section id="ġollama" class="level2">
-<h2 class="anchored" data-anchor-id="ġollama">�ġ���Ollama����</h2>
-<p>��R��������Ollama��������ֱ�ӵķ�ʽ��ʹ��<strong>ר�ŵ�R��</strong>�����Ƿ�װ�˵ײ��HTTP�����������������ͨR����һ��ʹ�ñ��ش�ģ�͡�Ŀǰ������������ѡ���� <strong><code>ollamar</code></strong> �� <strong><code>rollama</code></strong>��</p>
-<section id="r" class="level3">
-<h3 class="anchored" data-anchor-id="r">1.����R������</h3>
+<section id="四与ollama交互" class="level2">
+<h2 class="anchored" data-anchor-id="四与ollama交互">四、与Ollama交互</h2>
+<p>在R语言中与Ollama交互，最直接的方式是使用<strong>专门的R包</strong>。它们封装了底层的HTTP请求，让你能像调用普通R函数一样使用本地大模型。目前社区最主流的选择是 <strong><code>ollamar</code></strong> 和 <strong><code>rollama</code></strong>。</p>
+<section id="主流r包速览" class="level3">
+<h3 class="anchored" data-anchor-id="主流r包速览">1.主流R包速览</h3>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1174,205 +1174,205 @@ DEEPSEEK_API_KEY="�����Կ"
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">R��</th>
-<th style="text-align: left;">�����ص�</th>
-<th style="text-align: left;">���ó���</th>
+<th style="text-align: left;">R包</th>
+<th style="text-align: left;">核心特点</th>
+<th style="text-align: left;">适用场景</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>ollamar</strong></td>
-<td style="text-align: left;">����ȫ�棬��Ollama�ٷ�Python/JS�������ƣ�����<code>httr2</code>���󣬱��ڵ��ԡ�</td>
-<td style="text-align: left;">��Ҫ��ϸ�������󡢽��в��л�������ϣ����ٷ�������һ�µĿ����ߡ�</td>
+<td style="text-align: left;">功能全面，与Ollama官方Python/JS库风格相似，返回<code>httr2</code>对象，便于调试。</td>
+<td style="text-align: left;">需要精细控制请求、进行并行化操作或希望与官方库体验一致的开发者。</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>rollama</strong></td>
-<td style="text-align: left;">��װ��Ollama API���ṩ����ChatGPT�ĶԻ����飬֧��<code>query</code>�������ʴ𣩺�<code>chat</code>�����ֶԻ���������</td>
-<td style="text-align: left;">���ٽ��ж��ֶԻ���������ϣ���Ը����ķ�ʽ�����Ի���ʷ��</td>
+<td style="text-align: left;">封装了Ollama API，提供类似ChatGPT的对话体验，支持<code>query</code>（单次问答）和<code>chat</code>（多轮对话）函数。</td>
+<td style="text-align: left;">快速进行多轮对话交互，或希望以更简洁的方式管理对话历史。</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>ellmer</strong></td>
-<td style="text-align: left;">Tidyverse����ṩ<code>chat_ollama()</code>������ͳһ������ӿڣ��Զ������Ի�״̬��</td>
-<td style="text-align: left;">�Ѿ�ϰ��ʹ��Tidyverseϵ�а���ϣ����ͳһ��ʽ�����LLM�������û���</td>
+<td style="text-align: left;">Tidyverse风格，提供<code>chat_ollama()</code>函数，统一的聊天接口，自动处理对话状态。</td>
+<td style="text-align: left;">已经习惯使用Tidyverse系列包，希望用统一方式与多种LLM交互的用户。</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>tidyllm</strong></td>
-<td style="text-align: left;">�ṩTidy���Ĺܵ����������޷켯�ɵ����ݹ������С�</td>
-<td style="text-align: left;">�����ݹܵ�����������LLM���󣬻���Ҫ���ƶ�ģ�ͻ��ʹ�õĳ�����</td>
+<td style="text-align: left;">提供Tidy风格的管道操作，可无缝集成到数据工作流中。</td>
+<td style="text-align: left;">在数据管道中批量处理LLM请求，或需要与云端模型混合使用的场景。</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>shiny.ollama</strong></td>
-<td style="text-align: left;">�ṩ���伴�õ�R Shinyͼ�ν��棬������뼴����ģ�����졣</td>
-<td style="text-align: left;">ϣ������ӵ��һ������������棬����Ҫ��������ʽAIӦ��ԭ�͵��û���</td>
+<td style="text-align: left;">提供开箱即用的R Shiny图形界面，无需编码即可与模型聊天。</td>
+<td style="text-align: left;">希望快速拥有一个本地聊天界面，或需要构建交互式AI应用原型的用户。</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="ollamar-ϊ" class="level3">
-<h3 class="anchored" data-anchor-id="ollamar-ϊ">2.�������֣��� <code>ollamar</code> Ϊ��</h3>
-<p><strong>1. ��װ��׼��</strong> ���Ȱ�װ������Ollama��Ȼ����R�а�װ<code>ollamar</code>����</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��CRAN��װ�ȶ���</span></span>
+<section id="快速上手以-ollamar-为例" class="level3">
+<h3 class="anchored" data-anchor-id="快速上手以-ollamar-为例">2.快速上手：以 <code>ollamar</code> 为例</h3>
+<p><strong>1. 安装与准备</strong> 首先安装并启动Ollama，然后在R中安装<code>ollamar</code>包：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从CRAN安装稳定版</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ollamar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>2. ���Ĳ���ʾ��</strong></p>
+<p><strong>2. 核心操作示例</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ollamar)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �������ӣ�ȷ��Ollama������������</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 测试连接（确保Ollama服务已启动）</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">test_connection</span>()</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �г����������ص�ģ��</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 列出本地已下载的模型</span></span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ����һ����ģ��</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载一个新模型</span></span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">pull</span>(<span class="st">"llama3.1"</span>)</span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ı�������httr2��Ӧ����</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">generate</span>(<span class="st">"llama3.1"</span>, <span class="st">"��һ�仰����ʲô��R���ԡ�"</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ȡ�ı����</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成文本（返回httr2响应对象）</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">generate</span>(<span class="st">"llama3.1"</span>, <span class="st">"用一句话解释什么是R语言。"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取文本结果</span></span>
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_process</span>(resp, <span class="st">"text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ļ" class="level3">
-<h3 class="anchored" data-anchor-id="ļ">3.�������ļ��÷�</h3>
-<p><strong><code>rollama</code> �Ķ��ֶԻ�</strong></p>
+<section id="其他包的简单用法" class="level3">
+<h3 class="anchored" data-anchor-id="其他包的简单用法">3.其他包的简单用法</h3>
+<p><strong><code>rollama</code> 的多轮对话</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ʴ�</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 单次问答</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"为什么天空是蓝色的？"</span>)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �������ֶԻ����Զ�����������</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"������ô֪���ģ�"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>rollama</code> �� <code>chat()</code> �������Զ�ά���Ի���ʷ��ֱ������� <code>new_chat()</code> ��ʼ�»Ự��</p>
-<p><strong><code>ellmer</code> ��Tidyverse���</strong></p>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 开启多轮对话，自动保留上下文</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"为什么天空是蓝色的？"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"那你怎么知道的？"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>rollama</code> 的 <code>chat()</code> 函数会自动维护对话历史，直到你调用 <code>new_chat()</code> 开始新会话。</p>
+<p><strong><code>ellmer</code> 的Tidyverse风格</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建聊天对象</span></span>
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_ollama</span>(<span class="at">model =</span> <span class="st">"llama3.2"</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ʼ�Ի�</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"���ҽ���������ͳ��ѧ�ҵ�Ц��"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong><code>shiny.ollama</code> һ������ͼ�ν���</strong></p>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 开始对话</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"给我讲三个关于统计学家的笑话"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong><code>shiny.ollama</code> 一键启动图形界面</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny.ollama)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># �������õ�Shiny����Ӧ��</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 启动内置的Shiny聊天应用</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">run_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>ִ�к���һ����ҳ���棬�����������ѡ��ģ�Ͳ����жԻ���</p>
+<p>执行后会打开一个网页界面，你可以在其中选择模型并进行对话。</p>
 </section>
-<section id="ѡ" class="level3">
-<h3 class="anchored" data-anchor-id="ѡ">4.ѡ����</h3>
-<p>ѡ���ĸ���ȡ������ľ�������</p>
+<section id="选择建议" class="level3">
+<h3 class="anchored" data-anchor-id="选择建议">4.选择建议</h3>
+<p>选择哪个包取决于你的具体需求：</p>
 <ul>
-<li><p><strong>׷����ȫ��͹ٷ�����</strong>����ѡ <strong><code>ollamar</code></strong>��</p></li>
-<li><p><strong>���ٿ�ʼ���ֶԻ�</strong>��<strong><code>rollama</code></strong> �� <code>chat()</code> �����ǳ���ݡ�</p></li>
-<li><p><strong>����Tidyverse������</strong>��<strong><code>ellmer</code></strong> �� <strong><code>tidyllm</code></strong> �ǲ�����ѡ��</p></li>
-<li><p><strong>��Ҫͼ�ν���</strong>��ֱ���� <strong><code>shiny.ollama</code></strong> ����Ӧ�á�</p></li>
+<li><p><strong>追求功能全面和官方体验</strong>：首选 <strong><code>ollamar</code></strong>。</p></li>
+<li><p><strong>快速开始多轮对话</strong>：<strong><code>rollama</code></strong> 的 <code>chat()</code> 函数非常便捷。</p></li>
+<li><p><strong>融入Tidyverse工作流</strong>：<strong><code>ellmer</code></strong> 或 <strong><code>tidyllm</code></strong> 是不错的选择。</p></li>
+<li><p><strong>需要图形界面</strong>：直接用 <strong><code>shiny.ollama</code></strong> 启动应用。</p></li>
 </ul>
-<p>���⣬Ollama�����ṩ����OpenAI��API����Ҳ����ֱ���� <code>httr2</code> �Ȱ�����POST���� <a href="http://localhost:11434/v1/chat/completions"><code>http://localhost:11434/v1/chat/completions</code></a>��ʵ�ָ��ײ���Զ��彻����ǰ���Ѿ��������ܡ�</p>
+<p>此外，Ollama本身提供兼容OpenAI的API，你也可以直接用 <code>httr2</code> 等包发送POST请求到 <a href="http://localhost:11434/v1/chat/completions"><code>http://localhost:11434/v1/chat/completions</code></a>，实现更底层的自定义交互，前文已经做出介绍。</p>
 </section>
 </section>
-<section id="塢rollama" class="level2">
-<h2 class="anchored" data-anchor-id="塢rollama">�塢rollama</h2>
-<p><code>rollama</code> ��һ�� R ���԰���ּ�ڷ�װ Ollama �� API���������� R �������޷����б��ش�����ģ�ͣ��������ʹ�� ChatGPT/OpenAI API �����顣���������ѧ��<strong>�Ա��ء���ԴȨ�ص�ģ��Ϊ���ģ����ȿ�����˽���ɸ����ԺͿ��������������</strong>��</p>
-<section id="װ" class="level3">
-<h3 class="anchored" data-anchor-id="װ">1.��װ��׼��</h3>
-<p><code>rollama</code> ����ֻ�ǿͻ��ˣ�����Ҫ�Ȱ�װ <strong>Ollama ����</strong>��ȷ�������С�</p>
-<p><strong>1. ��װ Ollama ����</strong> �� <a href="https://ollama.com/">Ollama ����</a> ���ز���װ��</p>
-<p><strong>2. ��װ <code>rollama</code> ��</strong> �� R �д� CRAN ��װ�ȶ��棬��� GitHub ��װ�����棺</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �� CRAN ��װ</span></span>
+<section id="五rollama" class="level2">
+<h2 class="anchored" data-anchor-id="五rollama">五、rollama</h2>
+<p><code>rollama</code> 是一个 R 语言包，旨在封装 Ollama 的 API，让你能在 R 环境中无缝运行本地大语言模型，获得类似使用 ChatGPT/OpenAI API 的体验。它的设计哲学是<strong>以本地、开源权重的模型为核心，优先考虑隐私、可复现性和科研任务的易用性</strong>。</p>
+<section id="安装与准备" class="level3">
+<h3 class="anchored" data-anchor-id="安装与准备">1.安装与准备</h3>
+<p><code>rollama</code> 本身只是客户端，你需要先安装 <strong>Ollama 服务</strong>并确保其运行。</p>
+<p><strong>1. 安装 Ollama 服务</strong> 从 <a href="https://ollama.com/">Ollama 官网</a> 下载并安装。</p>
+<p><strong>2. 安装 <code>rollama</code> 包</strong> 在 R 中从 CRAN 安装稳定版，或从 GitHub 安装开发版：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从 CRAN 安装</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rollama"</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ��װ�����棨���¸�Ƶ����</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 或安装开发版（更新更频繁）</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("JBGruber/rollama")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>3. ��֤����</strong> ��װ�󣬲��� R �ܷ����ӵ����� Ollama ����</p>
+<p><strong>3. 验证连接</strong> 安装后，测试 R 能否连接到本地 Ollama 服务：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ping_ollama</span>()</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># �ɹ��᷵�أ��7�4 Ollama (v0.17.4) is running at http://localhost:11434!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>4. ����ģ��</strong> ʹ�� <code>pull_model()</code> ����ģ�ͣ���ָ������ʱ����Ĭ�ϵ� <code>llama3.1:8b</code>��</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����Ĭ��ģ��</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 成功会返回：▶ Ollama (v0.17.4) is running at http://localhost:11434!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>4. 下载模型</strong> 使用 <code>pull_model()</code> 下载模型，不指定参数时下载默认的 <code>llama3.1:8b</code>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载默认模型</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>()</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ָ��ģ��</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载指定模型</span></span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># �г���������ģ��</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 列出本地已有模型</span></span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ĺܣիģʽ" class="level3">
-<h3 class="anchored" data-anchor-id="ĺܣիģʽ">2.���Ĺ��ܣ����ֶԻ�ģʽ</h3>
-<p><code>rollama</code> �ṩ�� <code>query()</code> �� <code>chat()</code> �������ĺ������ֱ��Ӧ�����ʴ�Ͷ��ֶԻ���</p>
-<p><strong><code>query()</code>�������ʴ�</strong> ÿ�ε��ö��Ƕ�������ģ�Ͳ�������ʷ�Ի���</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"��һ�仰����ʲô��R���ԡ�"</span>)</span>
+<section id="核心功能两种对话模式" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能两种对话模式">2.核心功能：两种对话模式</h3>
+<p><code>rollama</code> 提供了 <code>query()</code> 和 <code>chat()</code> 两个核心函数，分别对应单次问答和多轮对话。</p>
+<p><strong><code>query()</code>：单次问答</strong> 每次调用都是独立请求，模型不保留历史对话。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 提出独立问题</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"用一句话解释什么是R语言。"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ����������ȡ���ı�</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">query</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存结果并提取纯文本</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">query</span>(<span class="st">"为什么天空是蓝色的？"</span>)</span>
 <span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> resp<span class="sc">$</span>message<span class="sc">$</span>content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>output</code> �����ɿ��Ʒ��ظ�ʽ���� <code>"text"</code>�����ı�����<code>"data.frame"</code>�����ݿ򣩡�<code>"list"</code>���б����ȡ�</p>
-<p><strong><code>chat()</code>�����ֶԻ�</strong> �Զ�ά���Ի������ģ�ֱ������ <code>new_chat()</code> ��ʼ�»Ự��</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ʼ���ֶԻ�</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"������ô֪���ģ�"</span>)   <span class="co"># ģ�ͼǵ���һ������</span></span>
+<p><code>output</code> 参数可控制返回格式，如 <code>"text"</code>（纯文本）、<code>"data.frame"</code>（数据框）、<code>"list"</code>（列表）等。</p>
+<p><strong><code>chat()</code>：多轮对话</strong> 自动维护对话上下文，直到调用 <code>new_chat()</code> 开始新会话。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 开始多轮对话</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"为什么天空是蓝色的？"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"那你怎么知道的？"</span>)   <span class="co"># 模型记得上一个问题</span></span>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴�Ի���ʷ</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看对话历史</span></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chat_history</span>()</span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ʷ�������¶Ի�</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 清空历史，开启新对话</span></span>
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">new_chat</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="section-4" class="level3">
-<h3 class="anchored" data-anchor-id="section-4">3.�����÷�</h3>
-<section id="ȫѡ" class="level4">
-<h4 class="anchored" data-anchor-id="ȫѡ">3.<strong>1.ȫ��ѡ������</strong></h4>
-<p>ͨ�� <code>options()</code> ������Ĭ����Ϊ������ÿ�ε��ö��ظ�ָ����</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����Ĭ��ģ��</span></span>
+<section id="进阶用法" class="level3">
+<h3 class="anchored" data-anchor-id="进阶用法">3.进阶用法</h3>
+<section id="全局选项设置" class="level4">
+<h4 class="anchored" data-anchor-id="全局选项设置">3.<strong>1.全局选项设置</strong></h4>
+<p>通过 <code>options()</code> 可设置默认行为，避免每次调用都重复指定：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 更改默认模型</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_model =</span> <span class="st">"qwen2.5:7b"</span>)    </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ����������ӣ���֤����ɸ���</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置随机种子，保证结果可复现</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_seed =</span> <span class="dv">42</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ָ����������ַ</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定服务器地址</span></span>
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_server =</span> <span class="st">"http://localhost:11434"</span>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ĭ��ϵͳ��Ϣ</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 默认系统消息</span></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_config =</span> <span class="st">"You make answers understandable to a 5 year old"</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>rollama_verbose = TRUE</code>��Ĭ�ϣ�����ʾ����ָʾ��������ʱ����Ϊ <code>FALSE</code> ��ø������Ĵ���׷�١�</p>
+<p><code>rollama_verbose = TRUE</code>（默认）会显示进度指示器，调试时可设为 <code>FALSE</code> 获得更清晰的错误追踪。</p>
 </section>
-<section id="ģͳ" class="level4">
-<h4 class="anchored" data-anchor-id="ģͳ">3.<strong>2.����ģ�Ͳ���</strong></h4>
-<p>ͨ�� <code>model_params</code> ������ʱ����ģ����Ϊ�����������ԣ�<code>temperature</code>��������������ȣ�<code>num_predict</code>����</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"дһ�׹��ڴ���Ķ�ʫ"</span>,</span>
+<section id="调整模型参数" class="level4">
+<h4 class="anchored" data-anchor-id="调整模型参数">3.<strong>2.调整模型参数</strong></h4>
+<p>通过 <code>model_params</code> 参数临时调整模型行为，如控制随机性（<code>temperature</code>）或限制输出长度（<code>num_predict</code>）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"写一首关于春天的短诗"</span>,</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">model_params =</span> <span class="fu">list</span>(<span class="at">temperature =</span> <span class="fl">0.9</span>, <span class="at">num_predict =</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="զģmodelfile" class="level4">
-<h4 class="anchored" data-anchor-id="զģmodelfile">3.<strong>3.�Զ���ģ�ͣ�Modelfile��</strong></h4>
-<p>ʹ�� <code>create_model()</code> ��������ģ�ʹ�������ģ�ͣ��־û�����ϵͳ��ʾ�Ͳ�����</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����һ����Ϊ "mario" ��ģ��</span></span>
+<section id="自定义模型modelfile" class="level4">
+<h4 class="anchored" data-anchor-id="自定义模型modelfile">3.<strong>3.自定义模型（Modelfile）</strong></h4>
+<p>使用 <code>create_model()</code> 基于现有模型创建定制模型，持久化保存系统提示和参数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建一个名为 "mario" 的模型</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_model</span>(<span class="st">"mario"</span>,</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">modelfile =</span> <span class="st">"FROM llama3.1</span><span class="sc">\n</span><span class="st">SYSTEM You are mario from Super Mario Bros."</span>)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ���Զ���ģ��</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"��ã�����˭��"</span>, <span class="at">model =</span> <span class="st">"mario"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用自定义模型</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"你好，你是谁？"</span>, <span class="at">model =</span> <span class="st">"mario"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 </section>
-<section id="ṹjson" class="level3">
-<h3 class="anchored" data-anchor-id="ṹjson">4.�ṹ�������JSON��</h3>
-<p><code>rollama</code> ֧��ǿ��ģ�ͷ��ط���ָ�� JSON Schema �Ľṹ�����ݣ��ʺ���Ҫ�Զ��������ĳ�����Ollama ʹ��<strong>Լ������</strong>������ȷ�����<strong>ʼ��</strong>�Ƿ��� Schema ����Ч JSON��</p>
-<p><strong>���� Schema</strong> <code>create_schema()</code> ����ͨ������������������� Schema��</p>
+<section id="结构化输出json" class="level3">
+<h3 class="anchored" data-anchor-id="结构化输出json">4.结构化输出（JSON）</h3>
+<p><code>rollama</code> 支持强制模型返回符合指定 JSON Schema 的结构化数据，适合需要自动化解析的场景。Ollama 使用<strong>约束解码</strong>技术，确保输出<strong>始终</strong>是符合 Schema 的有效 JSON。</p>
+<p><strong>定义 Schema</strong> <code>create_schema()</code> 函数通过组合类型声明来构建 Schema：</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;"><code>rollama</code> ����</th>
-<th style="text-align: left;">R ��Ӧ����</th>
-<th style="text-align: left;">JSON Schema ����</th>
+<th style="text-align: left;"><code>rollama</code> 函数</th>
+<th style="text-align: left;">R 对应类型</th>
+<th style="text-align: left;">JSON Schema 类型</th>
 </tr>
 </thead>
 <tbody>
@@ -1413,7 +1413,7 @@ DEEPSEEK_API_KEY="�����Կ"
 </tr>
 </tbody>
 </table>
-<p><strong>ʾ������ȡ������Ϣ</strong></p>
+<p><strong>示例：提取国家信息</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>country_schema <span class="ot">&lt;-</span> <span class="fu">create_schema</span>(</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">type_string</span>(<span class="at">description =</span> <span class="st">"Name of the country"</span>),</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">capital =</span> <span class="fu">type_string</span>(<span class="at">description =</span> <span class="st">"Name of the capital"</span>),</span>
@@ -1425,117 +1425,117 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># �� Schema ���� format ����</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 Schema 传入 format 参数</span></span>
 <span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>input_text <span class="ot">&lt;-</span> <span class="st">"Canada is a country in North America. With a population of over 41 million..."</span></span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(input_text, <span class="at">format =</span> country_schema)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>ģ�ͻ���ı����Զ���������ֶΣ����ؿ�ֱ�ӽ����� JSON��</p>
+<p>模型会从文本中自动填充所有字段，返回可直接解析的 JSON。</p>
 </section>
-<section id="ͼעģģ" class="level3">
-<h3 class="anchored" data-anchor-id="ͼעģģ">5.ͼ���ע����ģ̬ģ�ͣ�</h3>
-<p><code>rollama</code> ֧�ֶ�ģ̬ģ�ͣ��� <code>llava</code>��������ͬʱ�����ı���ͼ�����롣</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ͼ������</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"��������ͼƬ"</span>,</span>
+<section id="图像标注多模态模型" class="level3">
+<h3 class="anchored" data-anchor-id="图像标注多模态模型">5.图像标注（多模态模型）</h3>
+<p><code>rollama</code> 支持多模态模型（如 <code>llava</code>），可以同时处理文本和图像输入。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 对图像提问</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"描述这张图片"</span>,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">"llava"</span>,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">images =</span> <span class="st">"https://raw.githubusercontent.com/JBGruber/rollama/master/man/figures/logo.png"</span>)</span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ��Ͻṹ���������ϵͳ��ͼ�����</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �� images ��Ϊ�б����룬�ɷֱ��עÿ��ͼƬ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>����Խ�ͼ���ע��ṹ�������ϣ�ʵ��ϵͳ����ͼ������������</p>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 结合结构化输出进行系统化图像分类</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 将 images 作为列表传入，可分别标注每张图片</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>你可以将图像标注与结构化输出结合，实现系统化的图像分类和描述。</p>
 </section>
-<section id="ıע" class="level3">
-<h3 class="anchored" data-anchor-id="ıע">6.�ı���ע</h3>
-<p><code>rollama</code> �ر��ʺ������ı���ע����ͨ������ϵͳ��ʾ��������ģ���Թ̶���ʽ�����������</p>
+<section id="文本标注" class="level3">
+<h3 class="anchored" data-anchor-id="文本标注">6.文本标注</h3>
+<p><code>rollama</code> 特别适合批量文本标注任务。通过设置系统提示，可以让模型以固定格式输出分类结果：</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_config =</span> <span class="st">"You assign texts into categories. Answer with just the correct category."</span>)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �Զ����ı�������з���</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 对多条文本进行情感分析</span></span>
 <span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the pizza tastes terrible"</span>, <span class="st">"the service is great"</span>)</span>
 <span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (text <span class="cf">in</span> texts) {</span>
 <span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">query</span>(<span class="fu">paste0</span>(text, <span class="st">"</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>))</span>
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>����ģʽ�������ɼ��ɵ� <code>dplyr::mutate()</code> �����ݹܵ��У��Գ�ǧ������ı�����������ע��</p>
+<p>这种模式可以轻松集成到 <code>dplyr::mutate()</code> 等数据管道中，对成千上万的文本进行批量标注。</p>
 </section>
-<section id="ģ" class="level3">
-<h3 class="anchored" data-anchor-id="ģ">7.ģ�͹���</h3>
-<p><code>rollama</code> �ṩ��һ��������ģ�͹���������</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ģ��</span></span>
+<section id="模型管理" class="level3">
+<h3 class="anchored" data-anchor-id="模型管理">7.模型管理</h3>
+<p><code>rollama</code> 提供了一套完整的模型管理函数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载模型</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �г�����ģ��</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 列出本地模型</span></span>
 <span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span>
 <span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴ģ�����飨���� Modelfile ���ã�</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看模型详情（包括 Modelfile 配置）</span></span>
 <span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">show_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ģ��</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 复制模型</span></span>
 <span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_model</span>(<span class="st">"qwen2.5:7b"</span>, <span class="st">"qwen2.5-copy"</span>)</span>
 <span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ɾ��ģ��</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 删除模型</span></span>
 <span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">delete_model</span>(<span class="st">"qwen2.5-copy"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ʽ" class="level3">
-<h3 class="anchored" data-anchor-id="ʽ">8.��������ʽ���</h3>
-<p><strong>��ʽ���</strong>��<code>query()</code> �� <code>chat()</code> �� <code>stream</code> ����Ĭ��Ϊ <code>TRUE</code>���𰸻�ʵʱ��ӡ����Ļ�����軺������������ <code>stream = FALSE</code>��</p>
-<p><strong>��������</strong>��Ollama ������֧�ֲ���������������� R ��ʹ�� <code>purrr::map()</code> �Ⱥ������ <code>rollama</code> ����������ͨ�� <code>output = "httr2_request"</code> ��ȡ����ʵ���������е��á�</p>
+<section id="并行与流式输出" class="level3">
+<h3 class="anchored" data-anchor-id="并行与流式输出">8.并行与流式输出</h3>
+<p><strong>流式输出</strong>：<code>query()</code> 和 <code>chat()</code> 的 <code>stream</code> 参数默认为 <code>TRUE</code>，答案会实时打印到屏幕。如需缓存结果，需设置 <code>stream = FALSE</code>。</p>
+<p><strong>并行请求</strong>：Ollama 服务本身支持并发处理。你可以在 R 中使用 <code>purrr::map()</code> 等函数配合 <code>rollama</code> 的请求函数（通过 <code>output = "httr2_request"</code> 获取）来实现批量并行调用。</p>
 </section>
-<section id="section-5" class="level3">
-<h3 class="anchored" data-anchor-id="section-5">9.�ܽ�</h3>
-<p><code>rollama</code> ͨ�����һ�µĺ�����ƣ������ش�ģ�͵�ǿ�������޷켯�ɵ� R �������С����ĺ��ļ�ֵ����<strong>��˽����������ɸ����Լ�������������������</strong>�������ǿ����ʴ𡢶��ֶԻ����Զ���ģ�ͣ����������ı�/ͼ���ע�ͽṹ��������ȡ��<code>rollama</code> ���ṩ��ֱ�۵Ľӿڡ������ͨ�� <code>vignette("rollama")</code> �鿴����ϸ�Ľ̳̺�ʾ����</p>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">9.总结</h3>
+<p><code>rollama</code> 通过简洁一致的函数设计，将本地大模型的强大能力无缝集成到 R 工作流中。它的核心价值在于<strong>隐私保护、结果可复现以及面向科研任务的易用性</strong>。无论是快速问答、多轮对话、自定义模型，还是批量文本/图像标注和结构化数据提取，<code>rollama</code> 都提供了直观的接口。你可以通过 <code>vignette("rollama")</code> 查看更详细的教程和示例。</p>
 </section>
 </section>
-<section id="embedding" class="level2">
-<h2 class="anchored" data-anchor-id="embedding">����Embedding</h2>
-<section id="section-6" class="level3">
-<h3 class="anchored" data-anchor-id="section-6">1.�������</h3>
-<p><strong>Embedding</strong> ���ĳ������<strong>��Ƕ�롱</strong>��<strong>����������</strong>��һ�仰��<strong>�����֡�ͼƬ����Ƶ�ȶ�����һ�������������û����ܼ�������֮����������ƶȡ�</strong></p>
-<p>���硰è���͡�Сè����˼�ӽ�����è���͡���������˼���Զ�������������ֱ�ӱȽ����֣����� embedding ģ�Ͱ�ÿ���ʡ����ӻ��ĵ�ӳ���һ����ά���꣺</p>
+<section id="六embedding" class="level2">
+<h2 class="anchored" data-anchor-id="六embedding">六、Embedding</h2>
+<section id="概念解释" class="level3">
+<h3 class="anchored" data-anchor-id="概念解释">1.概念解释</h3>
+<p><strong>Embedding</strong> 中文常翻译成<strong>“嵌入”</strong>或<strong>“向量化”</strong>。一句话：<strong>把文字、图片、音频等对象变成一串数字向量，让机器能计算它们之间的语义相似度。</strong></p>
+<p>比如“猫”和“小猫”意思接近，“猫”和“汽车”意思差很远。但计算机不能直接比较文字，于是 embedding 模型把每个词、句子或文档映射成一个高维坐标：</p>
 <ul>
-<li><p>��è�� �� <code>[0.2, -1.1, 0.7, ...]</code></p></li>
-<li><p>��Сè�� �� <code>[0.3, -1.0, 0.6, ...]</code></p></li>
-<li><p>�������� �� <code>[-2.0, 0.5, 1.2, ...]</code></p></li>
+<li><p>“猫” → <code>[0.2, -1.1, 0.7, ...]</code></p></li>
+<li><p>“小猫” → <code>[0.3, -1.0, 0.6, ...]</code></p></li>
+<li><p>“汽车” → <code>[-2.0, 0.5, 1.2, ...]</code></p></li>
 </ul>
-<p>��è���͡�Сè�����������������è���͡�����������������Զ������������������ѧ��ʽ�жϡ��������񡱡�</p>
-<p>�Ӽ�����˵��Embedding ��һ������ɢ�������������ռ��ӳ�䡣������ά��ͨ���м��ٵ���ǧά������ 768��1536��3072 ά��ÿһάû��ֱ�۵����ຬ�壬������������׽������������</p>
-<p>�������ƶȼ��㷽ʽ��<strong>�������ƶ�</strong>��Խ�ӽ� 1����ʾԽ���ƣ�Խ�ӽ� 0����ʾԽ����أ��ӽ� -1����ʾ�����෴��</p>
+<p>“猫”和“小猫”的向量距离近，“猫”和“汽车”的向量距离远。这样机器就能用数学方式判断“语义像不像”。</p>
+<p>从技术上说，Embedding 是一个从离散对象到连续向量空间的映射。向量的维度通常有几百到几千维，比如 768、1536、3072 维。每一维没有直观的人类含义，但整体向量捕捉了语义特征。</p>
+<p>常用相似度计算方式是<strong>余弦相似度</strong>：越接近 1，表示越相似；越接近 0，表示越不相关；接近 -1，表示方向相反。</p>
 </section>
-<section id="ѡƕģ" class="level3">
-<h3 class="anchored" data-anchor-id="ѡƕģ">2.ѡ������Ƕ��ģ��</h3>
-<p>�� <code>rollama</code> ���� Embedding��������ʹ�� <code>embed_text()</code> ������������һ��ר�ŵ�Ƕ��ģ�ͣ��� <code>nomic-embed-text</code>����</p>
-<p>Ƕ��������Ҫʹ��ר�ŵ�Ƕ��ģ�ͣ������ǶԻ�ģ�͡�<code>llama3</code> �ȶԻ�ģ����ȻҲ��������������Ч����Ч�ʶ�����ר��ģ�͡�</p>
-<p><strong>�Ƽ�ģ��</strong>��</p>
+<section id="选择并下载嵌入模型" class="level3">
+<h3 class="anchored" data-anchor-id="选择并下载嵌入模型">2.选择并下载嵌入模型</h3>
+<p>在 <code>rollama</code> 中做 Embedding，核心是使用 <code>embed_text()</code> 函数，并搭配一个专门的嵌入模型（如 <code>nomic-embed-text</code>）。</p>
+<p>嵌入任务需要使用专门的嵌入模型，而不是对话模型。<code>llama3</code> 等对话模型虽然也能生成向量，但效果和效率都不如专用模型。</p>
+<p><strong>推荐模型</strong>：</p>
 <ul>
-<li><p><strong><code>nomic-embed-text</code></strong>�������С�ƽ������õ�ѡ������ <strong>768</strong> ά���������Լ <strong>274MB</strong>��</p></li>
-<li><p><strong><code>mxbai-embed-large</code></strong>���������ߣ����� <strong>1024</strong> ά���������Լ <strong>669MB</strong>��</p></li>
-<li><p><strong><code>all-minilm</code></strong>���������������� <strong>384</strong> ά����������� <strong>45MB</strong>���ʺ���Դ���޳�����</p></li>
-<li><p><strong><code>qwen3-embedding</code></strong>�����׷��������ǿ���ܣ���ѡ��ϵ�У��� <code>:0.6b</code> �� <code>:8b</code>����</p></li>
+<li><p><strong><code>nomic-embed-text</code></strong>：最流行、平衡性最好的选择，生成 <strong>768</strong> 维向量，体积约 <strong>274MB</strong>。</p></li>
+<li><p><strong><code>mxbai-embed-large</code></strong>：质量更高，生成 <strong>1024</strong> 维向量，体积约 <strong>669MB</strong>。</p></li>
+<li><p><strong><code>all-minilm</code></strong>：极致轻量，生成 <strong>384</strong> 维向量，体积仅 <strong>45MB</strong>，适合资源受限场景。</p></li>
+<li><p><strong><code>qwen3-embedding</code></strong>：如果追求最新最强性能，可选此系列（如 <code>:0.6b</code> 或 <code>:8b</code>）。</p></li>
 </ul>
-<p><strong>����ģ��</strong>��</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �Ƽ�ʹ�� nomic-embed-text</span></span>
+<p><strong>下载模型</strong>：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 推荐使用 nomic-embed-text</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"nomic-embed-text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ĺembed_text" class="level3">
-<h3 class="anchored" data-anchor-id="ĺembed_text">3.���ĺ�����<code>embed_text()</code></h3>
-<p><code>rollama</code> ͨ�� <code>embed_text()</code> �������ı�ת��Ϊ��ֵ������</p>
+<section id="核心函数embed_text" class="level3">
+<h3 class="anchored" data-anchor-id="核心函数embed_text">3.核心函数：<code>embed_text()</code></h3>
+<p><code>rollama</code> 通过 <code>embed_text()</code> 函数将文本转换为数值向量。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">embed_text</span>(</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  text,                     <span class="co"># �ַ���������Ҫ����Ƕ����ı�</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="cn">NULL</span>,             <span class="co"># Ƕ��ģ�����ƣ�Ĭ��ʹ�� rollama_model ѡ��</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">server =</span> <span class="cn">NULL</span>,            <span class="co"># Ollama ��������ַ</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model_params =</span> <span class="cn">NULL</span>,      <span class="co"># �����ģ�Ͳ���</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  text,                     <span class="co"># 字符向量，需要生成嵌入的文本</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="cn">NULL</span>,             <span class="co"># 嵌入模型名称，默认使用 rollama_model 选项</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">server =</span> <span class="cn">NULL</span>,            <span class="co"># Ollama 服务器地址</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model_params =</span> <span class="cn">NULL</span>,      <span class="co"># 额外的模型参数</span></span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="fu">getOption</span>(<span class="st">"rollama_verbose"</span>, <span class="at">default =</span> <span class="fu">interactive</span>())</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>����ֵ</strong>��һ�� <strong>tibble</strong>������<strong>ÿһ�ж�Ӧһ�������ı�</strong>��<strong>ÿһ�ж�ӦǶ��������һ��ά��</strong>�����磬ʹ�� <code>nomic-embed-text</code> ���� 3 ���ı�����õ�һ�� 3 �� �� 768 �е� tibble��</p>
+<p><strong>返回值</strong>是一个 <strong>tibble</strong>，其中<strong>每一行对应一个输入文本</strong>，<strong>每一列对应嵌入向量的一个维度</strong>。例如，使用 <code>nomic-embed-text</code> 处理 3 条文本，会得到一个 3 行 × 768 列的 tibble。</p>
 </section>
-<section id="ʾıƕ" class="level3">
-<h3 class="anchored" data-anchor-id="ʾıƕ">4.����ʾ���������ı�Ƕ��</h3>
+<section id="完整示例生成文本嵌入" class="level3">
+<h3 class="anchored" data-anchor-id="完整示例生成文本嵌入">4.完整示例：生成文本嵌入</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ׼���ı�</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 准备文本</span></span>
 <span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Here is an article about llamas..."</span>,</span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"R is a language and environment for statistical computing and graphics."</span>,</span>
@@ -1543,134 +1543,134 @@ DEEPSEEK_API_KEY="�����Կ"
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ����Ƕ�루ָ��ʹ�� nomic-embed-text ģ�ͣ�</span></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 生成嵌入（指定使用 nomic-embed-text 模型）</span></span>
 <span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
 <span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. �鿴���</span></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 查看结果</span></span>
 <span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(embeddings)</span>
-<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># �����һ�� tibble��3 �У�768 �У�dim_1 �� dim_768��</span></span>
-<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ÿ�д���һ���ı��� 768 ά������ʾ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出是一个 tibble，3 行，768 列（dim_1 到 dim_768）</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 每行代表一个文本的 768 维向量表示</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ڷʹƕ" class="level3">
-<h3 class="anchored" data-anchor-id="ڷʹƕ">5.�߼��÷����ڷ���������ʹ��Ƕ��</h3>
-<p>����Ƕ�������Խ�����������������������ࡣ</p>
+<section id="高级用法在分类任务中使用嵌入" class="level3">
+<h3 class="anchored" data-anchor-id="高级用法在分类任务中使用嵌入">5.高级用法：在分类任务中使用嵌入</h3>
+<p>生成嵌入后，你可以将其用于下游任务，如分类或聚类。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)  <span class="co"># ���ڽ�ģ</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)  <span class="co"># 用于建模</span></span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ������һ��ѵ�����ݿ� train_df������ text �� rating ����</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ϊ����ѵ���ı�����Ƕ��</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设有一个训练数据框 train_df，包含 text 和 rating 两列</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 为所有训练文本生成嵌入</span></span>
 <span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>train_embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(train_df<span class="sc">$</span>text, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
 <span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ��Ƕ�����ǩ�ϲ�������ѵ��������</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 将嵌入与标签合并，用于训练分类器</span></span>
 <span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(train_df, train_embeddings)</span>
 <span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ�����ɭ�ֵ�ģ�ͽ���ѵ�����˴�Ϊʾ�⣩</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用随机森林等模型进行训练（此处为示意）</span></span>
 <span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>rf_spec <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">mode =</span> <span class="st">"classification"</span>) <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"ranger"</span>)</span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(rating <span class="sc">~</span> ., <span class="at">data =</span> train_data)</span>
 <span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ϊ���ı�����Ƕ��</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 为新文本生成嵌入</span></span>
 <span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>new_embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(new_texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
 <span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ��ѵ���õ�ģ�ͽ���Ԥ��</span></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用训练好的模型进行预测</span></span>
 <span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit, <span class="at">new_data =</span> new_embeddings)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ؼע" class="level3">
-<h3 class="anchored" data-anchor-id="ؼע">6.�ؼ�������ע������</h3>
+<section id="关键技巧与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="关键技巧与注意事项">6.关键技巧与注意事项</h3>
 <ul>
-<li><strong>���ʹ��ר��Ƕ��ģ��</strong>��Ĭ�ϵĶԻ�ģ�ͣ��� <code>llama3.1</code>������ã���ר��ģ�����ٶȡ�����������ά��Ч���Ͼ����������ơ�</li>
-<li><strong>�����ѹ�һ��</strong>��Ollama �� <code>/api/embed</code> �˵�Ĭ�Ϸ��� <strong>L2 ��һ��</strong>����λ���ȣ���������ֱ�������������ƶȼ��㡣�������ֶ���һ��������ĳЩ���� API ����Ϊ��ͬ��</li>
-<li><strong>��������</strong>��<code>embed_text()</code> ԭ��֧������������һ���Դ������ı����ɣ�Ч��Զ����ѭ���������á�</li>
-<li><strong>ģ��ά���ǹ̶���</strong>��ÿ��Ƕ��ģ�����������ά���ǹ̶��ģ��� <code>nomic-embed-text</code> Ϊ 768 ά�����޷�ͨ������������ѡ��ģ��ʱ��ȷ����ά���Ƿ���Ϻ�����;��</li>
-<li><strong>�Ự��Ĭ��ģ��</strong>���������ʹ��ͬһ��Ƕ��ģ�ͣ���������ȫ��ѡ�����ÿ�ε��ö�ָ�� <code>model</code> ������ <code>r     options(rollama_model = "nomic-embed-text")</code></li>
+<li><strong>务必使用专用嵌入模型</strong>：默认的对话模型（如 <code>llama3.1</code>）虽可用，但专用模型在速度、向量质量和维度效率上均有明显优势。</li>
+<li><strong>向量已归一化</strong>：Ollama 的 <code>/api/embed</code> 端点默认返回 <strong>L2 归一化</strong>（单位长度）向量，可直接用于余弦相似度计算。你无需手动归一化，这与某些其他 API 的行为不同。</li>
+<li><strong>批量处理</strong>：<code>embed_text()</code> 原生支持批量处理，一次性传入多个文本即可，效率远高于循环单条调用。</li>
+<li><strong>模型维度是固定的</strong>：每个嵌入模型输出的向量维度是固定的（如 <code>nomic-embed-text</code> 为 768 维），无法通过参数调整。选择模型时需确认其维度是否符合后续用途。</li>
+<li><strong>会话级默认模型</strong>：如果经常使用同一个嵌入模型，可以设置全局选项，避免每次调用都指定 <code>model</code> 参数： <code>r     options(rollama_model = "nomic-embed-text")</code></li>
 </ul>
 </section>
 </section>
-<section id="ߡ" class="level2">
-<h2 class="anchored" data-anchor-id="ߡ">�ߡ��������</h2>
-<p>�������ļ����ģ��ѡ��ͨ����ѭһ�����������̣�<strong>�ı� �� ��������Embedding���� �������</strong>��ǰ���������� <code>rollama</code> ����˵�һ����������������μ�������ѡ�����ģ�͡�</p>
-<section id="һĺļ㷽" class="level3">
-<h3 class="anchored" data-anchor-id="һĺļ㷽">1.��һ�����������ĺ��ļ��㷽��</h3>
-<p>���ı�ת��Ϊ�����󣬺������ǡ�������롱�ĳ���ָ�������¼��֣�</p>
+<section id="七语义距离" class="level2">
+<h2 class="anchored" data-anchor-id="七语义距离">七、语义距离</h2>
+<p>语义距离的计算和模型选择通常遵循一个清晰的流程：<strong>文本 → 向量化（Embedding）→ 计算距离</strong>。前文中我们用 <code>rollama</code> 完成了第一步，接下来就是如何计算距离和选择合适模型。</p>
+<section id="第一步语义距离的核心计算方法" class="level3">
+<h3 class="anchored" data-anchor-id="第一步语义距离的核心计算方法">1.第一步：语义距离的核心计算方法</h3>
+<p>将文本转化为向量后，衡量它们“语义距离”的常用指标有以下几种：</p>
 <ul>
-<li><strong>�������ƶ� (Cosine Similarity)</strong>����õ�ָ�꣬�������������нǵ�����ֵ����ֻ��ע���򣬲����ĳ��ȣ��ǳ��ʺ��ı����ݡ�ֵ��Ϊ <code>[-1, 1]</code>��Խ�ӽ� <code>1</code> ��ʾ����Խ���ơ���Ӧ��<strong>���Ҿ���</strong>Ϊ <code>1 - �������ƶ�</code>��</li>
-<li><strong>ŷ����þ��� (Euclidean Distance)</strong>�����������ռ��е�ֱ�߾��롣ֵԽС����ʾԽ���ơ���������������Ӱ��ϴ����ı������в����������ƶȳ��á�</li>
-<li><strong>��� (Dot Product)</strong>�����������������ڻ�����������Ѿ�<strong>L2��һ��</strong>����OllamaĬ�������������Ľ����ͬ���������ƶȡ�</li>
-<li><strong>��������</strong>�����������پ��� (Manhattan)���ɿɷ�˹������ (Minkowski) �ȣ��ɸ��ݾ��峡��ѡ��</li>
+<li><strong>余弦相似度 (Cosine Similarity)</strong>：最常用的指标，计算两个向量夹角的余弦值。它只关注方向，不关心长度，非常适合文本数据。值域为 <code>[-1, 1]</code>，越接近 <code>1</code> 表示语义越相似。对应的<strong>余弦距离</strong>为 <code>1 - 余弦相似度</code>。</li>
+<li><strong>欧几里得距离 (Euclidean Distance)</strong>：计算向量空间中的直线距离。值越小，表示越相似。但它受向量长度影响较大，在文本任务中不如余弦相似度常用。</li>
+<li><strong>点积 (Dot Product)</strong>：计算两个向量的内积。如果向量已经<strong>L2归一化</strong>（如Ollama默认输出），点积的结果等同于余弦相似度。</li>
+<li><strong>其他距离</strong>：包括曼哈顿距离 (Manhattan)、闵可夫斯基距离 (Minkowski) 等，可根据具体场景选择。</li>
 </ul>
 </section>
-<section id="ڶrʵ" class="level3">
-<h3 class="anchored" data-anchor-id="ڶrʵ">2.�ڶ�������R��ʵ�־������</h3>
-<p>��R�У�����Ƕ����������ķ����ǳ��������ֱ��ʹ�û���������Ҳ���Խ���ר�ŵ�R����</p>
-<section id="һʹ-rollama-r" class="level4">
-<h4 class="anchored" data-anchor-id="һʹ-rollama-r">2.1.����һ��ʹ�� <code>rollama</code> �����R����</h4>
-<p>������ֱ�ӵķ�ʽ����ֻ�轫 <code>rollama</code> ���ɵ�Ƕ��������tibble��ʽ��ת��Ϊ����Ȼ���ֶ����㡣</p>
+<section id="第二步在r中实现距离计算" class="level3">
+<h3 class="anchored" data-anchor-id="第二步在r中实现距离计算">2.第二步：在R中实现距离计算</h3>
+<p>在R中，计算嵌入向量距离的方法非常灵活，你可以直接使用基础函数，也可以借助专门的R包。</p>
+<section id="方法一使用-rollama-与基础r函数" class="level4">
+<h4 class="anchored" data-anchor-id="方法一使用-rollama-与基础r函数">2.1.方法一：使用 <code>rollama</code> 与基础R函数</h4>
+<p>这是最直接的方式，你只需将 <code>rollama</code> 生成的嵌入向量（tibble格式）转换为矩阵，然后手动计算。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ����Ƕ��</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 生成嵌入</span></span>
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>embeddings_tbl <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>embeddings_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(embeddings_tbl)</span>
 <span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. �����������ƶȾ��� (ʹ�û���R����)</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ��һ������</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 计算余弦相似度矩阵 (使用基础R函数)</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 归一化向量</span></span>
 <span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>norm_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))}</span>
 <span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>normalized_embeddings <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(embeddings_mat, <span class="dv">1</span>, norm_vec))</span>
 <span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������ƶȾ���</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算余弦相似度矩阵</span></span>
 <span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>cosine_sim_matrix <span class="ot">&lt;-</span> normalized_embeddings <span class="sc">%*%</span> <span class="fu">t</span>(normalized_embeddings)</span>
 <span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ת��Ϊ���Ҿ������</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 转换为余弦距离矩阵</span></span>
 <span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>cosine_dist_matrix <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> cosine_sim_matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ʹ-text2vec" class="level4">
-<h4 class="anchored" data-anchor-id="ʹ-text2vec">2.2.��������ʹ�� <code>text2vec</code> ��</h4>
-<p><code>text2vec</code> �ṩ�˸�Ч�� <code>sim2()</code> ���������Է���ؼ������ƶȾ���</p>
+<section id="方法二使用-text2vec-包" class="level4">
+<h4 class="anchored" data-anchor-id="方法二使用-text2vec-包">2.2.方法二：使用 <code>text2vec</code> 包</h4>
+<p><code>text2vec</code> 提供了高效的 <code>sim2()</code> 函数，可以方便地计算相似度矩阵。</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(text2vec)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ���� embeddings_mat ���Ѿ����ɵ���������</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ĵ�����������ƶȾ���</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设 embeddings_mat 是已经生成的向量矩阵</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算文档间的余弦相似度矩阵</span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>doc_sim_matrix <span class="ot">&lt;-</span> <span class="fu">sim2</span>(</span>
 <span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> embeddings_mat,</span>
 <span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"cosine"</span>,</span>
 <span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="st">"l2"</span></span>
 <span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ʹרð" class="level4">
-<h4 class="anchored" data-anchor-id="ʹרð">2.3.��������ʹ��ר�ð���������������</h4>
-<p>���ڸ����ӵ���������������һЩR���ṩ�˷�װ�õĺ�����</p>
+<section id="方法三使用专用包进行语义距离分析" class="level4">
+<h4 class="anchored" data-anchor-id="方法三使用专用包进行语义距离分析">2.3.方法三：使用专用包进行语义距离分析</h4>
+<p>对于更复杂的语义距离分析任务，一些R包提供了封装好的函数：</p>
 <ul>
-<li><strong><code>SemanticDistance</code> ��</strong>��ר�����ڼ������������в�ͬԪ�ػ��֮���<strong>�ɶ������������</strong>��֧�ֶԻ������׵ȶ����ı��ṹ�ķ�����</li>
-<li><strong><code>text</code> ��</strong>���ṩ�� <code>textDistance()</code> �� <code>textSimilarity()</code> ����������ֱ����Ƕ�������ϼ�����������������ƶȡ�</li>
-<li><strong><code>conText</code> ��</strong>���ṩ�˻����������ƶ�Ѱ��<strong>����� (Nearest Neighbors)</strong> �Ĺ��ܣ��ʺ����������ͼ�������</li>
+<li><strong><code>SemanticDistance</code> 包</strong>：专门用于计算语言样本中不同元素或块之间的<strong>成对余弦语义距离</strong>，支持对话、独白等多种文本结构的分析。</li>
+<li><strong><code>text</code> 包</strong>：提供了 <code>textDistance()</code> 和 <code>textSimilarity()</code> 函数，可以直接在嵌入向量上计算多种语义距离或相似度。</li>
+<li><strong><code>conText</code> 包</strong>：提供了基于余弦相似度寻找<strong>最近邻 (Nearest Neighbors)</strong> 的功能，适合语义搜索和检索任务。</li>
 </ul>
 </section>
 </section>
-<section id="ƕģѡ" class="level3">
-<h3 class="anchored" data-anchor-id="ƕģѡ">3.��������Ƕ��ģ�͵�ѡ��ָ��</h3>
-<p>Ƕ��ģ�͵�ѡ��ֱ�Ӿ����������������׼ȷ�Ժ�Ч�ʡ�ѡ��ʱ��������ѭ���¾��߿�ܣ�</p>
-<section id="ȷ" class="level4">
-<h4 class="anchored" data-anchor-id="ȷ">3.1.��ȷ��������������</h4>
+<section id="第三步嵌入模型的选择指南" class="level3">
+<h3 class="anchored" data-anchor-id="第三步嵌入模型的选择指南">3.第三步：嵌入模型的选择指南</h3>
+<p>嵌入模型的选择直接决定了语义距离计算的准确性和效率。选择时，可以遵循以下决策框架：</p>
+<section id="明确核心任务与语言" class="level4">
+<h4 class="anchored" data-anchor-id="明确核心任务与语言">3.1.明确核心任务与语言</h4>
 <ul>
-<li><strong>ͨ�öԻ����ı�����</strong>��<code>nomic-embed-text</code> �� <code>mxbai-embed-large</code> ��ͨ�ó����±��־��⡣</li>
-<li><strong>��������</strong>�����ȿ��� <strong><code>bge-large-zh</code></strong> �� <strong><code>bge-m3</code></strong>���������������������רҵ���ﴦ���ϱ��ָ��š�</li>
-<li><strong>�������</strong>����Ҫʹ���ڴ������ר��ѵ����ģ�ͣ��� <strong><code>jina-embeddings-v2</code></strong> �� <strong><code>Qwen3-Embedding</code></strong> ϵ�С�</li>
-<li><strong>�����Գ���</strong>��<code>multilingual-e5-large</code> �� <code>paraphrase-multilingual-MiniLM</code> ��ģ��֧���ϰ������ԡ�</li>
+<li><strong>通用对话与文本理解</strong>：<code>nomic-embed-text</code> 或 <code>mxbai-embed-large</code> 在通用场景下表现均衡。</li>
+<li><strong>中文任务</strong>：优先考虑 <strong><code>bge-large-zh</code></strong> 或 <strong><code>bge-m3</code></strong>，它们在中文语义理解和专业术语处理上表现更优。</li>
+<li><strong>代码检索</strong>：需要使用在代码库上专门训练的模型，如 <strong><code>jina-embeddings-v2</code></strong> 或 <strong><code>Qwen3-Embedding</code></strong> 系列。</li>
+<li><strong>多语言场景</strong>：<code>multilingual-e5-large</code> 或 <code>paraphrase-multilingual-MiniLM</code> 等模型支持上百种语言。</li>
 </ul>
 </section>
-<section id="ȩģά" class="level4">
-<h4 class="anchored" data-anchor-id="ȩģά">3.2.Ȩ��ģ��ά��������</h4>
-<p>Ƕ��������ά��ֱ��Ӱ���˴洢������ɱ����������������</p>
+<section id="权衡模型维度与性能" class="level4">
+<h4 class="anchored" data-anchor-id="权衡模型维度与性能">3.2.权衡模型维度与性能</h4>
+<p>嵌入向量的维度直接影响了存储、计算成本和语义表达能力。</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -1679,67 +1679,67 @@ DEEPSEEK_API_KEY="�����Կ"
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">ά�ȷ�Χ</th>
-<th style="text-align: left;">�ص�</th>
-<th style="text-align: left;">���ó���</th>
+<th style="text-align: left;">维度范围</th>
+<th style="text-align: left;">特点</th>
+<th style="text-align: left;">适用场景</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>384 - 768 ά</strong></td>
-<td style="text-align: left;">���С�������������ٶȿ죬��������ȿ������ޡ�</td>
-<td style="text-align: left;">���ٶ�Ҫ��ߡ���Դ���޵ĳ��������ƶ��˻�ʵʱӦ�á�</td>
+<td style="text-align: left;"><strong>384 - 768 维</strong></td>
+<td style="text-align: left;">体积小，推理和搜索速度快，但语义深度可能有限。</td>
+<td style="text-align: left;">对速度要求高、资源受限的场景，如移动端或实时应用。</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>1024 - 1536 ά</strong></td>
-<td style="text-align: left;">�ڱ���������Ч��֮��ȡ�ýϺ�ƽ�⣬�Ƕ���ͨ��ģ�͵�Ĭ��ά�ȡ�</td>
-<td style="text-align: left;">�����ͨ����������������;�������</td>
+<td style="text-align: left;"><strong>1024 - 1536 维</strong></td>
+<td style="text-align: left;">在表达能力和效率之间取得较好平衡，是多数通用模型的默认维度。</td>
+<td style="text-align: left;">大多数通用语义搜索、分类和聚类任务。</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>2048+ ά</strong></td>
-<td style="text-align: left;">������Ϣ��ḻ���ܲ�׽��ϸ΢�������𣬵�ռ���ڴ�������ٶ�����</td>
-<td style="text-align: left;">�Ծ���Ҫ�󼫸ߵĿ��л�רҵ��������</td>
+<td style="text-align: left;"><strong>2048+ 维</strong></td>
+<td style="text-align: left;">语义信息最丰富，能捕捉更细微的语义差别，但占用内存大，搜索速度慢。</td>
+<td style="text-align: left;">对精度要求极高的科研或专业领域任务。</td>
 </tr>
 </tbody>
 </table>
-<p><code>all-MiniLM-L6-v2</code>��384ά����һ������ĸ�Чģ�ͣ�������ΪĬ��ѡ��</p>
+<p><code>all-MiniLM-L6-v2</code>（384维）是一个经典的高效模型，常被作为默认选择。</p>
 </section>
 </section>
-<section id="ʾ" class="level3">
-<h3 class="anchored" data-anchor-id="ʾ">4.����������ʾ��</h3>
-<p>�ۺ����ϲ��裬һ�������������������������£�</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ���ذ�</span></span>
+<section id="完整工作流示例" class="level3">
+<h3 class="anchored" data-anchor-id="完整工作流示例">4.完整工作流示例</h3>
+<p>综合以上步骤，一个完整的语义距离计算流程如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 加载包</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
 <span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ׼���ı�����</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 准备文本数据</span></span>
 <span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"The cat sat on the mat"</span>, <span class="st">"A dog is playing in the park"</span>, <span class="st">"R is a programming language"</span>)</span>
 <span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ����Ƕ������ (ʹ��rollama)</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 生成嵌入向量 (使用rollama)</span></span>
 <span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>embeddings_tbl <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
 <span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>embeddings_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(embeddings_tbl)</span>
 <span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. �����������ƶȾ��� (ʹ�û���R����)</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 计算余弦相似度矩阵 (使用基础R函数)</span></span>
 <span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>norm_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
 <span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>normalized_emb <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(embeddings_mat, <span class="dv">1</span>, norm_vec))</span>
 <span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>cosine_sim_matrix <span class="ot">&lt;-</span> normalized_emb <span class="sc">%*%</span> <span class="fu">t</span>(normalized_emb)</span>
 <span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. ��ʽ��Ϊ�ɶ������ƶȱ���</span></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. 格式化为可读的相似度表格</span></span>
 <span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>similarity_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cosine_sim_matrix)</span>
 <span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(similarity_df) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(similarity_df) <span class="ot">&lt;-</span> texts</span>
 <span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(similarity_df)</span>
 <span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. �ҵ����ض��ı������Ƶ�����</span></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 找到与特定文本最相似的内容</span></span>
 <span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>target_text <span class="ot">&lt;-</span> <span class="st">"The cat sat on the mat"</span></span>
 <span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>similarities <span class="ot">&lt;-</span> similarity_df[target_text, ]</span>
 <span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(similarities)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>�����������ʱ��<strong>�������ƶ�</strong>����ѡ��ģ��ѡ����Ҫ�ۺϿ���<strong>�������ԡ����Ⱥ�Ч��</strong>��������� <code>rollama</code> ��������Ƕ�룬���û���R������ <code>text2vec</code> �Ȱ����и�Ч�ľ�����㡣</p>
+<p>计算语义距离时，<strong>余弦相似度</strong>是首选。模型选择需要综合考虑<strong>任务语言、精度和效率</strong>。你可以用 <code>rollama</code> 快速生成嵌入，再用基础R函数或 <code>text2vec</code> 等包进行高效的距离计算。</p>
 
 
 </section>
