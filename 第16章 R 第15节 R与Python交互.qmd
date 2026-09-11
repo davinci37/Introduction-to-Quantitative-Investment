@@ -79,32 +79,32 @@ use_condaenv("r-reticulate", required = TRUE)  # 查看当前配置 py_config()
 
 
 ```` markdown
-```{python}
+```{python, eval=FALSE}}
 import pandas as pd
 df = pd.DataFrame({'x': [1, 2, 3], 'y': ['a', 'b', 'c']})
 print(df)
 ```
 
 
-```{python}
+```{python, eval=FALSE}}
 import pandas
 flights = pandas.read_csv("flights.csv")
 flights = flights.dropna()
 ```
 
 
-```{r}
+```{r, eval=FALSE}}
 # 在R中访问Python对象
 py$df
 ```
 
 
-```{r setup, include=FALSE}
+```{r, eval=FALSE}}
 library(reticulate)
 ```
 
 
-```{r}
+```{r, eval=FALSE}}
 library(ggplot2)
 ggplot(py$flights, aes(x=carrier, y=arr_delay)) + geom_point()
 ```
