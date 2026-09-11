@@ -48,6 +48,12 @@ book:
     - 第16章 R 第11节 提升计算效率 .qmd
     - 第16章 R 第12节 数据读写和存储.qmd
     - 第16章 R 第13节 网络爬虫.qmd
+    - 第16章 R 第14节 与大模型交互.qmd
+    - 第16章 R 第15节 R与Python交互.qmd
+    - 第16章 R 第16节 其它常用工具包.qmd
+    - 第16章 R 第17节 其它重要问题.qmd
+
+
 
 
 bibliography: references.bib

@@ -1,0 +1,546 @@
+# 第16章 R 第15节 R与Python交互 {.unnumbered}
+
+
+## 前言
+
+
+R语言与Python的交互是现代数据科学中的一个重要实践。R在统计建模、可视化（如ggplot2）及生物信息学领域积淀深厚，Python则凭借丰富的机器学习库（如scikit-learn、TensorFlow、PyTorch）及工程化部署优势在工业级AI开发中占据主导地位。实际工作中，研究者常需要在同一工作流中同时使用两种语言，这催生了多种成熟的交互方案。
+
+
+## 一、双向交互的总体格局
+
+
+根据主导语言的不同，R与Python的交互可分为两个方向：
+
+
+-   **从R调用Python**：以**`reticulate`**包为代表，在R进程中嵌入Python解释器，使R代码可以直接调用Python函数和模块。
+-   **从Python调用R**：以**`rpy2`**库为代表，在Python进程中嵌入R解释器，使Python代码可以直接调用R函数和包。
+
+
+两者的核心在于“谁嵌入谁”：`reticulate`在R进程中嵌入Python解释器，`rpy2`则在Python进程中嵌入R解释器。这种架构差异决定了它们各自的数据传递路径和性能特征。
+
+
+一个简洁的选型原则是：如果团队以Python为主栈、需频繁调用R统计包，rpy2提供更强的可控性；若工作流始于R、希望渐进式引入PyTorch等进行深度学习预处理，reticulate能提供最低迁移成本。
+
+
+## 二、R调用Python：reticulate
+
+
+### 1.概述
+
+
+reticulate由RStudio官方团队主导开发并长期维护，其核心设计哲学是“零侵入式集成”。它并非简单封装Python命令行调用，而是通过底层C++绑定（基于libpython）实现R运行时与Python解释器的深度耦合。reticulate在R会话中嵌入一个Python会话，实现无缝、高性能的互操作。
+
+
+### 2.安装与配置
+
+
+**安装reticulate：**
+
+
+``` r
+install.packages("reticulate")
+```
+
+
+**Python环境配置**是使用reticulate的关键步骤。reticulate默认使用名为“r-reticulate”的隔离Python虚拟环境。推荐使用Conda进行环境管理，因为它能统一管理Python包及其二进制依赖（如NumPy的BLAS加速库）。
+
+
+指定Python环境的主要函数：
+
+
+``` r
+library(reticulate)  
+
+
+# 方式一：指定Python可执行文件路径
+use_python("/usr/local/bin/python3")
+
+
+# 方式二：使用虚拟环境
+use_virtualenv("myenv")  
+
+
+# 方式三：使用Conda环境（推荐）
+use_condaenv("r-reticulate", required = TRUE)  # 查看当前配置 py_config()
+```
+
+
+在RStudio中，也可通过 Tools → Global Options → Python 来配置Python环境。
+
+
+### 3.四种调用Python的方式
+
+
+#### 3.**1.** 在R Markdown/Quarto中嵌入Python
+
+
+在R Markdown或Quarto文档中，直接使用Python代码块即可。Python块与R块行为完全一致，支持图形输出（包括matplotlib）和chunk选项（echo、include等）：
+
+
+```` markdown
+```{python}
+import pandas as pd
+df = pd.DataFrame({'x': [1, 2, 3], 'y': ['a', 'b', 'c']})
+print(df)
+```
+
+
+```{python}
+import pandas
+flights = pandas.read_csv("flights.csv")
+flights = flights.dropna()
+```
+
+
+```{r}
+# 在R中访问Python对象
+py$df
+```
+
+
+```{r setup, include=FALSE}
+library(reticulate)
+```
+
+
+```{r}
+library(ggplot2)
+ggplot(py$flights, aes(x=carrier, y=arr_delay)) + geom_point()
+```
+````
+
+
+在R Markdown文档中，可以使用`{python}`代码块编写Python代码，R代码块中通过`py$变量名`访问Python中创建的变量，Python代码中通过`r.变量名`访问R中的变量。所有Python块在同一个Python会话中执行，共享变量状态。
+
+
+在Quarto中同样支持`{python}`代码块与`{r}`代码块的混用，`reticulate`作为桥接层。
+
+
+#### 3.**2. 导入Python模块**
+
+
+通过`import()`函数导入任意Python模块，使用`$`操作符访问其函数和属性：
+
+
+``` r
+library(reticulate)
+
+
+os <- import("os")
+os$listdir(".")
+
+
+# 导入pandas
+pd <- import("pandas")
+df <- pd$DataFrame(list(x = c(1, 2, 3), y = c("a", "b", "c")))
+```
+
+
+#### 3.**3. 执行Python脚本**
+
+
+使用`source_python()`函数加载Python脚本，脚本中定义的函数和对象将直接可用：
+
+
+``` r
+source_python("my_script.py")
+result <- my_python_function(arg1, arg2)
+```
+
+
+#### 3.**4. 交互式Python REPL**
+
+
+`repl_python()`函数在R会话中创建交互式Python控制台，在Python中创建的对象对R会话可用，反之亦然：
+
+
+``` r
+repl_python()
+# 进入Python交互环境后可直接输入Python代码
+# 使用 exit 命令退出
+```
+
+
+### 4.数据传递与类型转换
+
+
+在R中可以访问Python对象。所有在Python块中创建的对象都可以通过`py`对象在R中访问，例如`py$x`可访问Python中创建的变量`x`。反之，在Python块中通过`r`对象访问R中的对象，如`r.mtcars`。
+
+
+reticulate在调用Python时自动将R数据类型转换为等价的Python类型，返回值也自动转换回R类型。核心映射关系如下：
+
+
+| R类型           | Python类型       | 示例                         |
+|-----------------|------------------|------------------------------|
+| 单元素向量      | 标量             | `1, 1L, TRUE, "foo"`         |
+| 多元素向量      | 列表             | `c(1.0, 2.0, 3.0)`           |
+| 命名列表        | 字典             | `list(a = 1L, b = 2.0)`      |
+| 矩阵/数组       | NumPy ndarray    | `matrix(c(1,2,3,4), nrow=2)` |
+| 数据框          | Pandas DataFrame | `data.frame(x = c(1,2,3))`   |
+| 函数            | Python函数       | `function(x) x + 1`          |
+| NULL/TRUE/FALSE | None/True/False  | —                            |
+
+
+对于大型数据对象，reticulate采用引用传递避免内存复制，通过**`py_to_r()`**和**`r_to_py()`**的参数（如`convert = FALSE`）可精细控制序列化行为。
+
+
+### 5.环境配置
+
+
+`reticulate`默认使用PATH上的Python版本。可以通过以下函数指定特定环境：
+
+
+``` r
+use_python("/usr/local/bin/python")     # 指定Python路径
+use_virtualenv("myenv")                  # 使用虚拟环境
+use_condaenv("myenv")                    # 使用Conda环境
+```
+
+
+使用`py_config()`或`py_discover_config()`可以查看当前使用的Python配置。
+
+
+## 三、Python调用R：rpy2
+
+
+### 1.概述与安装
+
+
+`rpy2`是一个Python库，提供了与R的接口，允许在Python中调用R函数、访问R对象，并实现Python与R数据结构之间的转换。
+
+
+安装方式：
+
+
+``` bash
+pip install rpy2
+# 或
+conda install rpy2
+```
+
+
+推荐通过Conda安装，rpy2在Conda环境中具有更好的依赖管理能力。
+
+
+### 2.基本用法
+
+
+**2.1.执行R代码字符串**
+
+
+``` python
+import rpy2.robjects as robjects
+
+
+# 执行R代码
+robjects.r('print("Hello from R!")')
+
+
+# 创建R向量并计算均值
+r_vector = robjects.IntVector([10, 20, 30, 40, 50])
+r_mean = robjects.r['mean'](r_vector)
+print(f"R计算的均值: {r_mean[0]}")  # 输出: 30.0
+```
+
+
+**2.2.调用R函数**
+
+
+``` python
+# 获取R全局环境中的函数
+r_func = robjects.globalenv['my_function']
+result = r_func(arg1, arg2)
+```
+
+
+**2.3.导入R包**
+
+
+``` python
+from rpy2.robjects.packages import importr
+stats = importr('stats')
+base = importr('base')
+
+
+# 调用R的线性模型
+result = stats.lm('y ~ x', data=my_dataframe)
+```
+
+
+这将R包导入为Python对象，包中的所有R对象都暴露为Python对象。
+
+
+#### **2.**3.数据框转换
+
+
+rpy2通过`pandas2ri`模块实现R data.frame与pandas DataFrame之间的自动转换：
+
+
+``` python
+import pandas as pd
+from rpy2.robjects import pandas2ri
+
+
+pandas2ri.activate()
+
+
+# R data.frame → pandas DataFrame 自动转换
+
+
+r_df = robjects.r('data.frame(x = c(1,2,3), y = c("a","b","c"))')
+py_df = pandas2ri.rpy2py(r_df)
+
+
+# pandas DataFrame → R data.frame
+
+
+df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})
+r_df = pandas2ri.py2rpy(df)
+
+
+df_python = pd.DataFrame({'x': [1, 2, 3], 'y': ['a', 'b', 'c']})
+r.assign('df_r', df_python)
+r('print(df_r)')
+```
+
+
+启用`pandas2ri.activate()`后，Pandas DataFrame在传入R时自动转换为data.frame，R返回的data.frame也自动转换为Pandas DataFrame。
+
+
+#### **2.**4.Jupyter Notebook中的rpy2
+
+
+在Jupyter Notebook中，可以加载rpy2的IPython扩展以使用`%%R`魔法命令：
+
+
+``` python
+%load_ext rpy2.ipython
+```
+
+
+``` python
+%%R
+x <- rnorm(100)
+mean(x)
+```
+
+
+通过`-i`和`-o`标志可以在Python与R之间传递变量：
+
+
+``` python
+%R -i my_python_var -o r_result
+```
+
+
+此外，`%Rget`可以将结构化数组从R推送到Python，`rternalize`装饰器可以将Python函数暴露给R调用。
+
+
+#### **2.**5.调用R中的统计模型
+
+
+rpy2的一个典型应用场景是在Python中加载和调用R训练的统计模型：
+
+
+``` python
+from rpy2.robjects import r, pandas2ri
+pandas2ri.activate()
+
+
+r('load("cox_model.RData")')
+# 调用R的predict函数
+predictions = r['predict'](r('cox_model'), newdata=df_python)
+```
+
+
+这种模式在Python为主流程的工作流中非常实用，可以将R中经过验证的统计模型直接嵌入Python分析流水线。
+
+
+## 四、性能优化
+
+
+### 1.核心性能瓶颈
+
+
+R与Python交互的主要性能瓶颈在于：
+
+
+-   **序列化开销**：跨语言传递数据时需要序列化和反序列化，尤其是大型数据框
+
+
+-   **内存管理差异**：R使用引用计数与垃圾回收混合机制，Python（CPython）依赖引用计数，两者内存池不共享，导致同一数据可能在两侧重复驻留
+
+
+-   **上下文切换成本**：每次跨语言调用都涉及解释器间的上下文切换
+
+
+### 2.优化策略
+
+
+跨语言数据传递涉及序列化与类型映射的开销，尤其在处理大型数据框或NumPy数组时，可能消耗大量内存与CPU时间。以下优化策略可供参考：
+
+
+-   **减少数据复制**：优先使用支持内存级变量交互的方式，避免通过文件中转。reticulate的引用传递机制可在一定程度上避免不必要的内存复制。
+
+
+-   **选择合适的桥接方向**：让计算密集型任务在原生语言中执行，仅传递必要的结果数据。例如，在R中做统计建模、在Python中做深度学习训练，通过桥接传递模型参数而非原始数据。
+
+
+-   **批量操作代替频繁调用**：尽量减少跨语言调用的次数，将多个操作合并为一次调用。一次调用中执行完整的Python脚本，比多次小规模调用更高效。
+
+
+-   **并行协同架构**：对于大规模计算，可考虑R与Python的并行协同模式。实际测试表明，并行方案相比单核方案可获得显著加速。
+
+
+R与Python的交互已经从早期的命令行调用发展为深度的运行时集成。**reticulate**作为RStudio官方维护的桥梁，通过底层C++绑定实现了R与Python解释器的深度耦合，提供了从R Markdown代码块、模块导入、脚本执行到交互式REPL的全方位支持，是R主导场景下的首选方案。**rpy2**则为Python开发者提供了在Python中调用R的灵活接口，适合Python主导的工作流。
+
+
+两者各有侧重，选择时应考虑团队的技术栈、工作流的起始语言以及对类型安全和性能的具体要求。在实际项目中，建议使用Conda统一管理Python环境，通过虚拟环境隔离依赖，并注意大数据传递时的序列化开销，以实现高效、可复现的跨语言协作。
+
+
+## 五、RStudio
+
+
+RStudio 与 `reticulate` 包的深度集成，为 R 用户提供了一条平滑过渡到混合工作流的路径。它通过**Python 代码块**、**交互式 Python 控制台**以及**环境与对象管理**三大核心支柱，让你可以在熟悉的 IDE 中无缝编写、运行和调试 Python 代码，与 R 代码协同工作。
+
+
+### 1.Python 代码块：在文档中混编 R 与 Python
+
+
+在 RStudio 中，你可以直接在 R Markdown (`.Rmd`) 或 Quarto (`.qmd`) 文档中插入 Python 代码块。只需在代码块头部使用 `{python}` 替代 `{r}`，`reticulate` 提供的 Python 引擎就会自动处理它。
+
+
+-   **执行环境**：所有 Python 代码块在**同一个 Python 会话**中顺序执行，因此后一个代码块可以访问前一个代码块创建的变量和导入的模块，状态得以保持。
+-   **块选项**：Python 代码块支持几乎所有标准的 knitr 块选项，如 `echo`, `include`, `eval`, `fig.width`, `fig.height` 等，行为与 R 代码块完全一致。
+-   **图形输出**：由 `matplotlib` 等库生成的图形会像 R 图形一样，直接嵌入到输出的文档中。
+
+
+### 2.Python 控制台：交互式 REPL 环境
+
+
+RStudio 内置了基于 `reticulate` 的 Python REPL (Read-Eval-Print Loop)，让你可以进行交互式的探索和调试。
+
+
+-   **启动方式**：
+    1.  在 R 控制台中运行 `reticulate::repl_python()`。
+    2.  打开一个 `.py` 脚本文件，将光标置于代码行，使用 `Cmd+Enter` (macOS) 或 `Ctrl+Enter` (Windows/Linux) 执行。RStudio 会自动切换到 Python REPL 模式。
+-   **视觉提示**：进入 Python 控制台后，命令提示符会从 R 的 `>` 变为 Python 的 `>>>`，提醒你当前处于 Python 环境。
+-   **退出与切换**：在 Python 控制台中输入 `exit` 即可退出，返回到 R 控制台。你也可以通过点击控制台右上角的语言图标在 R 和 Python 之间快速切换。
+
+
+### 3.双向数据交换：`py` 与 `r` 辅助对象
+
+
+这是 `reticulate` 最强大的特性之一，它通过两个特殊的辅助对象实现了 R 和 Python 之间的对象无缝访问。
+
+
+-   **从 R 访问 Python 对象**：在 R 代码中，使用 `py$对象名` 即可访问 Python 会话中创建的任何对象。例如，在 Python 块中定义了 `df`，在 R 块中就可以用 `py$df` 来获取它。
+-   **从 Python 访问 R 对象**：在 Python 代码块中，使用 `r.对象名` 即可访问 R 会话中的对象。例如，`r.mtcars` 可以获取 R 内置的 `mtcars` 数据集，并将其自动转换为 pandas DataFrame（如果已安装）或 Python 字典。
+-   **自动类型转换**：`reticulate` 会自动在 R 和 Python 的类型之间进行转换，例如 R 的 `data.frame` 会转换为 pandas 的 `DataFrame`，R 的向量会转换为 Python 的列表等。
+
+
+### 4.环境配置与 IDE 集成
+
+
+为了确保 Python 代码的稳定运行，正确的环境配置至关重要。RStudio 提供了图形化的配置界面。
+
+
+-   **全局设置**：通过 `Tools > Global Options > Python`，你可以为 RStudio 指定默认的 Python 解释器。你可以选择系统 Python、Conda 环境或 Virtualenv 环境。
+-   **环境管理**：`reticulate` 推荐使用隔离的虚拟环境（如 Conda 或 Virtualenv）来管理项目依赖，避免包冲突。你可以使用 `use_condaenv("my-env")` 等函数在 R 会话中激活特定环境。
+-   **IDE 增强**：自 RStudio v1.4 起，Python 支持得到进一步增强。当 `reticulate` REPL 激活时，**Environment 窗格**会显示 Python 主模块中的对象摘要，方便你监控数据状态。
+
+
+### 5.工作流建议与注意事项
+
+
+-   **推荐版本**：为了获得完整的 Python 集成体验（如环境窗格支持），建议使用 **RStudio v1.4 或更高版本**，并确保 `reticulate` 包已安装且为最新版。
+-   **图形尺寸问题**：有一个已知的小问题：R Markdown 中**第一个** Python 绘图代码块的 `fig.width` 和 `fig.height` 选项可能会被忽略。一个简单的解决方法是，在第一个 Python 块中提前导入 `matplotlib` 或 `seaborn` 库。
+-   **脚本执行**：对于独立的 `.py` 脚本，你可以使用 `reticulate::source_python("script.py")` 来运行，脚本中定义的函数和对象将直接加载到 R 会话中。
+
+
+## 六、Positron：Posit 新一代数据科学 IDE
+
+
+### 1.定位与核心理念
+
+
+Positron 是 Posit（原 RStudio 公司）推出的下一代数据科学 IDE，**免费使用**，以 VS Code 为技术底座（Code OSS 分支），但**专为数据工作而设计**。它的核心目标是解决 RStudio 时代一个根本性的架构局限：RStudio 以 R 为中心，Python 支持是通过 reticulate 包“外挂”实现的，而 Positron **从底层就被设计为多语言 IDE**，对 R 和 Python 都提供一等公民级别的支持。
+
+
+这意味着 Positron 不是 RStudio 的简单升级，而是一次**架构层面的重新出发**。官方明确表示 RStudio 不会消失，仍处于积极维护状态，但两者的开发生命周期阶段截然不同：Positron 处于**高速迭代期**，功能快速扩展；RStudio 则更聚焦于**稳定性与缺陷修复**。
+
+
+### 2.技术架构：VS Code 之上的数据科学扩展
+
+
+Positron 的架构并非简单套用 VS Code，而是在其多进程设计之上**增加了一个专门的语言运行时层**。
+
+
+Positron 遵循 VS Code 的多进程架构（主进程、渲染进程、扩展宿主），但**新增了专用的语言运行时生命周期与通信层**（`RuntimeSessionService`），用于管理 R 和 Python 解释器会话。这一设计的关键收益是：**解释器进程与 IDE 进程分离**，因此 R 或 Python 的崩溃不再必然导致整个 IDE 崩溃。
+
+
+Positron 还通过一组“MainThread 服务”将数据科学特有的功能暴露给扩展系统，包括语言运行时编排（`MainThreadLanguageRuntime`）、交互式控制台管理（`MainThreadConsoleService`）、图形渲染（`MainThreadPlotsService`）以及 HTML/URL 内容预览（`MainThreadPreviewPanel`）。同时，Positron **兼容 VS Code 扩展生态**（`.vsix` 文件），可以安装大量第三方扩展。
+
+
+### 3.原生 R 与 Python 多语言支持
+
+
+#### 3.1 独立的解释器管理
+
+
+Positron 支持**同时运行多个 R 和 Python 解释器会话**，涵盖控制台会话和 Notebook 会话两种类型。用户可以通过右上角的 **Interpreter Picker** 在会话之间快速切换。每个会话都有明确的状态指示（空闲/忙碌/关闭），当前活跃会话决定代码补全、诊断和执行的上下文。
+
+
+#### 3.2 R/Python 原生体验
+
+
+与 RStudio 中 Python 需要依赖 reticulate 不同，Positron 对两种语言都提供**原生的代码补全、语法高亮和调试工具**，无需额外配置即可并排使用。Positron 还**内置了对 reticulate 的支持**：当 R 会话中安装了 reticulate 包后，可以直接使用 `repl_python()` 启动一个与 R 会话同进程的 Python 解释器，并通过 `r.` 前缀在 Python 中访问 R 对象，通过 `py$` 在 R 中访问 Python 对象。
+
+
+#### 3.3 Quarto 多语言文档
+
+
+Positron **内置并预配置了 Quarto**，用户无需手动安装即可创建和渲染 `.qmd` 文档。Quarto 文档**原生支持在同一文档中混用 R、Python、Julia、Bash 等多种语言的代码块**，Positron 的集成确保了多语言代码块的执行和结果输出无缝衔接。这是 Positron 实现“统一多语言工作流”的关键组件，使 R 用户能够以渐进方式引入 Python 代码，而不必离开熟悉的工作环境。
+
+
+#### 4.数据科学工作流集成
+
+
+Positron 将 RStudio 中用户熟悉的数据科学面板**重新实现为原生功能**，并增强了多语言支持：
+
+
+-   **Variables 窗格与 Data Explorer**：Variables 窗格展示当前 R 或 Python 会话中的变量摘要。对于数据框对象，点击表格图标即可打开 Data Explorer——一个电子表格式的数据查看器，支持筛选、排序和列级统计摘要。该功能**同时支持 R 的 data.frame/tibble/data.table 和 Python 的 pandas/polars 数据框**，并提供了从 Data Explorer 的筛选操作**一键转换为可复现代码**（Convert to Code）的按钮，当前支持 pandas 和 polars 后端。
+
+
+-   **Connections 窗格**：用于管理和浏览数据库连接。R 和 Python 中创建的连接均可在此查看，支持探索数据库 schema 和预览表数据。Python 的 DuckDB 连接支持在 2025 年 9 月的版本中已加入。
+
+
+-   **Plots 窗格**：用于可视化图形输出，2025 年 11 月版本新增了可自定义的默认尺寸策略设置，用户可以选择以“填充”或“自动”方式默认显示图形。
+
+
+-   **Run App**：Positron 支持在 IDE 内直接启动和调试数据应用与 API，涵盖 Shiny、Streamlit、Dash 和 FastAPI 等框架。
+
+
+### 5.AI 辅助：Positron Assistant
+
+
+Positron Assistant（后整合为 Posit Assistant）是内置的 AI 编码助手，提供**聊天面板和行内代码补全**两种交互方式。它能够访问控制台输出、Variables 窗格和 Plots 窗格的上下文，从而针对数据科学任务提供更具针对性的建议。
+
+
+Assistant 支持**斜杠命令**（如 `/fix`、`/explain`、`/doc`），可以一键修复或解释控制台错误，也能将对话内容直接导出为 Quarto 文档。模型提供方支持 Anthropic、GitHub Copilot、Amazon Bedrock 以及 OpenAI 兼容的模型提供方。2026 年的版本中，Assistant 已切换为原生的 Copilot 补全引擎实现，改善了认证和性能问题。
+
+
+### 6.从 RStudio 迁移的考量
+
+
+Positron **刻意保留了 RStudio 的使用手感**。用户可以在设置中启用 **RStudio Keymap**（`workbench.keybindings.rstudioKeybindings`），恢复大量 RStudio 风格的快捷键，例如 `Ctrl+1` 聚焦源码编辑器、`Ctrl+2` 聚焦控制台、`Cmd/Ctrl+Shift+H` 设置工作目录等。
+
+
+迁移并非零成本。RStudio 中一些深度集成的功能在 Positron 中**尚不完整或缺失**：R Markdown 和 Sweave 的支持深度不及 RStudio（Positron 聚焦 Quarto）。数据导入向导、工作空间状态保存/恢复、以及专门的包安装/开发面板在 Positron 中暂不可用。社区反馈中也提到键盘快捷键过多导致自定义快捷键迁移困难、Quarto 文档中内联图形的体验有待改善等问题。
+
+
+### 7.总结
+
+
+Positron 的本质是 Posit 对“数据科学 IDE 应该是什么样”的一次重新回答。它继承了 VS Code 的工程能力与扩展生态，同时通过专用的语言运行时架构、原生的多解释器管理和内置的 Quarto 支持，构建了一个**真正将 R 和 Python 视为平等参与者的工作环境**。对于同时使用两种语言的数据科学团队，Positron 提供了一条比“RStudio + reticulate”更连贯、更可持续的路径。
