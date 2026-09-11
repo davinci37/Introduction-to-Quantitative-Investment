@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第15节 R与Python交互 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第16节 其它常用工具包.html" rel="next">
+<link href="./第16章 R 第14节 与大模型交互.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第15节 R与Python交互.html">第16章 R 第15节 R与Python交互</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">��16�� R ��14�� ���ģ�ͽ���</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">��16�� R ��16�� �������ù��߰�</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a></li>
+  <li><a href="#一双向交互的总体格局" id="toc-一双向交互的总体格局" class="nav-link" data-scroll-target="#一双向交互的总体格局">一、双向交互的总体格局</a></li>
+  <li><a href="#二r调用pythonreticulate" id="toc-二r调用pythonreticulate" class="nav-link" data-scroll-target="#二r调用pythonreticulate">二、R调用Python：reticulate</a>
+  <ul class="collapse">
+  <li><a href="#概述" id="toc-概述" class="nav-link" data-scroll-target="#概述">1.概述</a></li>
+  <li><a href="#安装与配置" id="toc-安装与配置" class="nav-link" data-scroll-target="#安装与配置">2.安装与配置</a></li>
+  <li><a href="#四种调用python的方式" id="toc-四种调用python的方式" class="nav-link" data-scroll-target="#四种调用python的方式">3.四种调用Python的方式</a></li>
+  <li><a href="#数据传递与类型转换" id="toc-数据传递与类型转换" class="nav-link" data-scroll-target="#数据传递与类型转换">4.数据传递与类型转换</a></li>
+  <li><a href="#环境配置" id="toc-环境配置" class="nav-link" data-scroll-target="#环境配置">5.环境配置</a></li>
+  </ul></li>
+  <li><a href="#三python调用rrpy2" id="toc-三python调用rrpy2" class="nav-link" data-scroll-target="#三python调用rrpy2">三、Python调用R：rpy2</a>
+  <ul class="collapse">
+  <li><a href="#概述与安装" id="toc-概述与安装" class="nav-link" data-scroll-target="#概述与安装">1.概述与安装</a></li>
+  <li><a href="#基本用法" id="toc-基本用法" class="nav-link" data-scroll-target="#基本用法">2.基本用法</a></li>
+  </ul></li>
+  <li><a href="#四性能优化" id="toc-四性能优化" class="nav-link" data-scroll-target="#四性能优化">四、性能优化</a>
+  <ul class="collapse">
+  <li><a href="#核心性能瓶颈" id="toc-核心性能瓶颈" class="nav-link" data-scroll-target="#核心性能瓶颈">1.核心性能瓶颈</a></li>
+  <li><a href="#优化策略" id="toc-优化策略" class="nav-link" data-scroll-target="#优化策略">2.优化策略</a></li>
+  </ul></li>
+  <li><a href="#五rstudio" id="toc-五rstudio" class="nav-link" data-scroll-target="#五rstudio">五、RStudio</a>
+  <ul class="collapse">
+  <li><a href="#python-代码块在文档中混编-r-与-python" id="toc-python-代码块在文档中混编-r-与-python" class="nav-link" data-scroll-target="#python-代码块在文档中混编-r-与-python">1.Python 代码块：在文档中混编 R 与 Python</a></li>
+  <li><a href="#python-控制台交互式-repl-环境" id="toc-python-控制台交互式-repl-环境" class="nav-link" data-scroll-target="#python-控制台交互式-repl-环境">2.Python 控制台：交互式 REPL 环境</a></li>
+  <li><a href="#双向数据交换py-与-r-辅助对象" id="toc-双向数据交换py-与-r-辅助对象" class="nav-link" data-scroll-target="#双向数据交换py-与-r-辅助对象">3.双向数据交换：<code>py</code> 与 <code>r</code> 辅助对象</a></li>
+  <li><a href="#环境配置与-ide-集成" id="toc-环境配置与-ide-集成" class="nav-link" data-scroll-target="#环境配置与-ide-集成">4.环境配置与 IDE 集成</a></li>
+  <li><a href="#工作流建议与注意事项" id="toc-工作流建议与注意事项" class="nav-link" data-scroll-target="#工作流建议与注意事项">5.工作流建议与注意事项</a></li>
+  </ul></li>
+  <li><a href="#六positronposit-新一代数据科学-ide" id="toc-六positronposit-新一代数据科学-ide" class="nav-link" data-scroll-target="#六positronposit-新一代数据科学-ide">六、Positron：Posit 新一代数据科学 IDE</a>
+  <ul class="collapse">
+  <li><a href="#定位与核心理念" id="toc-定位与核心理念" class="nav-link" data-scroll-target="#定位与核心理念">1.定位与核心理念</a></li>
+  <li><a href="#技术架构vs-code-之上的数据科学扩展" id="toc-技术架构vs-code-之上的数据科学扩展" class="nav-link" data-scroll-target="#技术架构vs-code-之上的数据科学扩展">2.技术架构：VS Code 之上的数据科学扩展</a></li>
+  <li><a href="#原生-r-与-python-多语言支持" id="toc-原生-r-与-python-多语言支持" class="nav-link" data-scroll-target="#原生-r-与-python-多语言支持">3.原生 R 与 Python 多语言支持</a></li>
+  <li><a href="#ai-辅助positron-assistant" id="toc-ai-辅助positron-assistant" class="nav-link" data-scroll-target="#ai-辅助positron-assistant">5.AI 辅助：Positron Assistant</a></li>
+  <li><a href="#从-rstudio-迁移的考量" id="toc-从-rstudio-迁移的考量" class="nav-link" data-scroll-target="#从-rstudio-迁移的考量">6.从 RStudio 迁移的考量</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">7.总结</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第15节 R与Python交互</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>R语言与Python的交互是现代数据科学中的一个重要实践。R在统计建模、可视化（如ggplot2）及生物信息学领域积淀深厚，Python则凭借丰富的机器学习库（如scikit-learn、TensorFlow、PyTorch）及工程化部署优势在工业级AI开发中占据主导地位。实际工作中，研究者常需要在同一工作流中同时使用两种语言，这催生了多种成熟的交互方案。</p>
+</section>
+<section id="一双向交互的总体格局" class="level2">
+<h2 class="anchored" data-anchor-id="一双向交互的总体格局">一、双向交互的总体格局</h2>
+<p>根据主导语言的不同，R与Python的交互可分为两个方向：</p>
+<ul>
+<li><strong>从R调用Python</strong>：以<strong><code>reticulate</code></strong>包为代表，在R进程中嵌入Python解释器，使R代码可以直接调用Python函数和模块。</li>
+<li><strong>从Python调用R</strong>：以<strong><code>rpy2</code></strong>库为代表，在Python进程中嵌入R解释器，使Python代码可以直接调用R函数和包。</li>
+</ul>
+<p>两者的核心在于“谁嵌入谁”：<code>reticulate</code>在R进程中嵌入Python解释器，<code>rpy2</code>则在Python进程中嵌入R解释器。这种架构差异决定了它们各自的数据传递路径和性能特征。</p>
+<p>一个简洁的选型原则是：如果团队以Python为主栈、需频繁调用R统计包，rpy2提供更强的可控性；若工作流始于R、希望渐进式引入PyTorch等进行深度学习预处理，reticulate能提供最低迁移成本。</p>
+</section>
+<section id="二r调用pythonreticulate" class="level2">
+<h2 class="anchored" data-anchor-id="二r调用pythonreticulate">二、R调用Python：reticulate</h2>
+<section id="概述" class="level3">
+<h3 class="anchored" data-anchor-id="概述">1.概述</h3>
+<p>reticulate由RStudio官方团队主导开发并长期维护，其核心设计哲学是“零侵入式集成”。它并非简单封装Python命令行调用，而是通过底层C++绑定（基于libpython）实现R运行时与Python解释器的深度耦合。reticulate在R会话中嵌入一个Python会话，实现无缝、高性能的互操作。</p>
+</section>
+<section id="安装与配置" class="level3">
+<h3 class="anchored" data-anchor-id="安装与配置">2.安装与配置</h3>
+<p><strong>安装reticulate：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reticulate"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Python环境配置</strong>是使用reticulate的关键步骤。reticulate默认使用名为“r-reticulate”的隔离Python虚拟环境。推荐使用Conda进行环境管理，因为它能统一管理Python包及其二进制依赖（如NumPy的BLAS加速库）。</p>
+<p>指定Python环境的主要函数：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)  </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式一：指定Python可执行文件路径</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/usr/local/bin/python3"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式二：使用虚拟环境</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"myenv"</span>)  </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式三：使用Conda环境（推荐）</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"r-reticulate"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)  <span class="co"># 查看当前配置 py_config()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在RStudio中，也可通过 Tools → Global Options → Python 来配置Python环境。</p>
+</section>
+<section id="四种调用python的方式" class="level3">
+<h3 class="anchored" data-anchor-id="四种调用python的方式">3.四种调用Python的方式</h3>
+<section id="在r-markdownquarto中嵌入python" class="level4">
+<h4 class="anchored" data-anchor-id="在r-markdownquarto中嵌入python">3.<strong>1.</strong> 在R Markdown/Quarto中嵌入Python</h4>
+<p>在R Markdown或Quarto文档中，直接使用Python代码块即可。Python块与R块行为完全一致，支持图形输出（包括matplotlib）和chunk选项（echo、include等）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python, eval=FALSE}}</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'y'</span>: [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>]})</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="in">```{python, eval=FALSE}}</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> pandas.read_csv(<span class="st">"flights.csv"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> flights.dropna()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 在R中访问Python对象</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>py<span class="sc">$</span>df</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}}</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}}</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(py<span class="sc">$</span>flights, <span class="fu">aes</span>(<span class="at">x=</span>carrier, <span class="at">y=</span>arr_delay)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>在R Markdown文档中，可以使用<code>{python}</code>代码块编写Python代码，R代码块中通过<code>py$变量名</code>访问Python中创建的变量，Python代码中通过<code>r.变量名</code>访问R中的变量。所有Python块在同一个Python会话中执行，共享变量状态。</p>
+<p>在Quarto中同样支持<code>{python}</code>代码块与<code>{r}</code>代码块的混用，<code>reticulate</code>作为桥接层。</p>
+</section>
+<section id="导入python模块" class="level4">
+<h4 class="anchored" data-anchor-id="导入python模块">3.<strong>2. 导入Python模块</strong></h4>
+<p>通过<code>import()</code>函数导入任意Python模块，使用<code>$</code>操作符访问其函数和属性：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>os <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"os"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>os<span class="sc">$</span><span class="fu">listdir</span>(<span class="st">"."</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入pandas</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>pd <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"pandas"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> pd<span class="sc">$</span><span class="fu">DataFrame</span>(<span class="fu">list</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="执行python脚本" class="level4">
+<h4 class="anchored" data-anchor-id="执行python脚本">3.<strong>3. 执行Python脚本</strong></h4>
+<p>使用<code>source_python()</code>函数加载Python脚本，脚本中定义的函数和对象将直接可用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source_python</span>(<span class="st">"my_script.py"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">my_python_function</span>(arg1, arg2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="交互式python-repl" class="level4">
+<h4 class="anchored" data-anchor-id="交互式python-repl">3.<strong>4. 交互式Python REPL</strong></h4>
+<p><code>repl_python()</code>函数在R会话中创建交互式Python控制台，在Python中创建的对象对R会话可用，反之亦然：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">repl_python</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 进入Python交互环境后可直接输入Python代码</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 exit 命令退出</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="数据传递与类型转换" class="level3">
+<h3 class="anchored" data-anchor-id="数据传递与类型转换">4.数据传递与类型转换</h3>
+<p>在R中可以访问Python对象。所有在Python块中创建的对象都可以通过<code>py</code>对象在R中访问，例如<code>py$x</code>可访问Python中创建的变量<code>x</code>。反之，在Python块中通过<code>r</code>对象访问R中的对象，如<code>r.mtcars</code>。</p>
+<p>reticulate在调用Python时自动将R数据类型转换为等价的Python类型，返回值也自动转换回R类型。核心映射关系如下：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>R类型</th>
+<th>Python类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>单元素向量</td>
+<td>标量</td>
+<td><code>1, 1L, TRUE, "foo"</code></td>
+</tr>
+<tr class="even">
+<td>多元素向量</td>
+<td>列表</td>
+<td><code>c(1.0, 2.0, 3.0)</code></td>
+</tr>
+<tr class="odd">
+<td>命名列表</td>
+<td>字典</td>
+<td><code>list(a = 1L, b = 2.0)</code></td>
+</tr>
+<tr class="even">
+<td>矩阵/数组</td>
+<td>NumPy ndarray</td>
+<td><code>matrix(c(1,2,3,4), nrow=2)</code></td>
+</tr>
+<tr class="odd">
+<td>数据框</td>
+<td>Pandas DataFrame</td>
+<td><code>data.frame(x = c(1,2,3))</code></td>
+</tr>
+<tr class="even">
+<td>函数</td>
+<td>Python函数</td>
+<td><code>function(x) x + 1</code></td>
+</tr>
+<tr class="odd">
+<td>NULL/TRUE/FALSE</td>
+<td>None/True/False</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>对于大型数据对象，reticulate采用引用传递避免内存复制，通过<strong><code>py_to_r()</code></strong>和<strong><code>r_to_py()</code></strong>的参数（如<code>convert = FALSE</code>）可精细控制序列化行为。</p>
+</section>
+<section id="环境配置" class="level3">
+<h3 class="anchored" data-anchor-id="环境配置">5.环境配置</h3>
+<p><code>reticulate</code>默认使用PATH上的Python版本。可以通过以下函数指定特定环境：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_python</span>(<span class="st">"/usr/local/bin/python"</span>)     <span class="co"># 指定Python路径</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"myenv"</span>)                  <span class="co"># 使用虚拟环境</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"myenv"</span>)                    <span class="co"># 使用Conda环境</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>使用<code>py_config()</code>或<code>py_discover_config()</code>可以查看当前使用的Python配置。</p>
+</section>
+</section>
+<section id="三python调用rrpy2" class="level2">
+<h2 class="anchored" data-anchor-id="三python调用rrpy2">三、Python调用R：rpy2</h2>
+<section id="概述与安装" class="level3">
+<h3 class="anchored" data-anchor-id="概述与安装">1.概述与安装</h3>
+<p><code>rpy2</code>是一个Python库，提供了与R的接口，允许在Python中调用R函数、访问R对象，并实现Python与R数据结构之间的转换。</p>
+<p>安装方式：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install rpy2</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 或</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> install rpy2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>推荐通过Conda安装，rpy2在Conda环境中具有更好的依赖管理能力。</p>
+</section>
+<section id="基本用法" class="level3">
+<h3 class="anchored" data-anchor-id="基本用法">2.基本用法</h3>
+<p><strong>2.1.执行R代码字符串</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rpy2.robjects <span class="im">as</span> robjects</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 执行R代码</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>robjects.r(<span class="st">'print("Hello from R!")'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建R向量并计算均值</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>r_vector <span class="op">=</span> robjects.IntVector([<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>])</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>r_mean <span class="op">=</span> robjects.r[<span class="st">'mean'</span>](r_vector)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"R计算的均值: </span><span class="sc">{</span>r_mean[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># 输出: 30.0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2.2.调用R函数</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取R全局环境中的函数</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>r_func <span class="op">=</span> robjects.globalenv[<span class="st">'my_function'</span>]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> r_func(arg1, arg2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2.3.导入R包</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects.packages <span class="im">import</span> importr</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> importr(<span class="st">'stats'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> importr(<span class="st">'base'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用R的线性模型</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> stats.lm(<span class="st">'y ~ x'</span>, data<span class="op">=</span>my_dataframe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这将R包导入为Python对象，包中的所有R对象都暴露为Python对象。</p>
+<section id="数据框转换" class="level4">
+<h4 class="anchored" data-anchor-id="数据框转换"><strong>2.</strong>3.数据框转换</h4>
+<p>rpy2通过<code>pandas2ri</code>模块实现R data.frame与pandas DataFrame之间的自动转换：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects <span class="im">import</span> pandas2ri</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>pandas2ri.activate()</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># R data.frame → pandas DataFrame 自动转换</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>r_df <span class="op">=</span> robjects.r(<span class="st">'data.frame(x = c(1,2,3), y = c("a","b","c"))'</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>py_df <span class="op">=</span> pandas2ri.rpy2py(r_df)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># pandas DataFrame → R data.frame</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">'a'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'b'</span>: [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]})</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>r_df <span class="op">=</span> pandas2ri.py2rpy(df)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>df_python <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], <span class="st">'y'</span>: [<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>]})</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>r.assign(<span class="st">'df_r'</span>, df_python)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>r(<span class="st">'print(df_r)'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>启用<code>pandas2ri.activate()</code>后，Pandas DataFrame在传入R时自动转换为data.frame，R返回的data.frame也自动转换为Pandas DataFrame。</p>
+</section>
+<section id="jupyter-notebook中的rpy2" class="level4">
+<h4 class="anchored" data-anchor-id="jupyter-notebook中的rpy2"><strong>2.</strong>4.Jupyter Notebook中的rpy2</h4>
+<p>在Jupyter Notebook中，可以加载rpy2的IPython扩展以使用<code>%%R</code>魔法命令：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>load_ext rpy2.ipython</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>R</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;-</span> rnorm(<span class="dv">100</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mean(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>通过<code>-i</code>和<code>-o</code>标志可以在Python与R之间传递变量：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>R <span class="op">-</span>i my_python_var <span class="op">-</span>o r_result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>此外，<code>%Rget</code>可以将结构化数组从R推送到Python，<code>rternalize</code>装饰器可以将Python函数暴露给R调用。</p>
+</section>
+<section id="调用r中的统计模型" class="level4">
+<h4 class="anchored" data-anchor-id="调用r中的统计模型"><strong>2.</strong>5.调用R中的统计模型</h4>
+<p>rpy2的一个典型应用场景是在Python中加载和调用R训练的统计模型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rpy2.robjects <span class="im">import</span> r, pandas2ri</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pandas2ri.activate()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>r(<span class="st">'load("cox_model.RData")'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用R的predict函数</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>predictions <span class="op">=</span> r[<span class="st">'predict'</span>](r(<span class="st">'cox_model'</span>), newdata<span class="op">=</span>df_python)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这种模式在Python为主流程的工作流中非常实用，可以将R中经过验证的统计模型直接嵌入Python分析流水线。</p>
+</section>
+</section>
+</section>
+<section id="四性能优化" class="level2">
+<h2 class="anchored" data-anchor-id="四性能优化">四、性能优化</h2>
+<section id="核心性能瓶颈" class="level3">
+<h3 class="anchored" data-anchor-id="核心性能瓶颈">1.核心性能瓶颈</h3>
+<p>R与Python交互的主要性能瓶颈在于：</p>
+<ul>
+<li><p><strong>序列化开销</strong>：跨语言传递数据时需要序列化和反序列化，尤其是大型数据框</p></li>
+<li><p><strong>内存管理差异</strong>：R使用引用计数与垃圾回收混合机制，Python（CPython）依赖引用计数，两者内存池不共享，导致同一数据可能在两侧重复驻留</p></li>
+<li><p><strong>上下文切换成本</strong>：每次跨语言调用都涉及解释器间的上下文切换</p></li>
+</ul>
+</section>
+<section id="优化策略" class="level3">
+<h3 class="anchored" data-anchor-id="优化策略">2.优化策略</h3>
+<p>跨语言数据传递涉及序列化与类型映射的开销，尤其在处理大型数据框或NumPy数组时，可能消耗大量内存与CPU时间。以下优化策略可供参考：</p>
+<ul>
+<li><p><strong>减少数据复制</strong>：优先使用支持内存级变量交互的方式，避免通过文件中转。reticulate的引用传递机制可在一定程度上避免不必要的内存复制。</p></li>
+<li><p><strong>选择合适的桥接方向</strong>：让计算密集型任务在原生语言中执行，仅传递必要的结果数据。例如，在R中做统计建模、在Python中做深度学习训练，通过桥接传递模型参数而非原始数据。</p></li>
+<li><p><strong>批量操作代替频繁调用</strong>：尽量减少跨语言调用的次数，将多个操作合并为一次调用。一次调用中执行完整的Python脚本，比多次小规模调用更高效。</p></li>
+<li><p><strong>并行协同架构</strong>：对于大规模计算，可考虑R与Python的并行协同模式。实际测试表明，并行方案相比单核方案可获得显著加速。</p></li>
+</ul>
+<p>R与Python的交互已经从早期的命令行调用发展为深度的运行时集成。<strong>reticulate</strong>作为RStudio官方维护的桥梁，通过底层C++绑定实现了R与Python解释器的深度耦合，提供了从R Markdown代码块、模块导入、脚本执行到交互式REPL的全方位支持，是R主导场景下的首选方案。<strong>rpy2</strong>则为Python开发者提供了在Python中调用R的灵活接口，适合Python主导的工作流。</p>
+<p>两者各有侧重，选择时应考虑团队的技术栈、工作流的起始语言以及对类型安全和性能的具体要求。在实际项目中，建议使用Conda统一管理Python环境，通过虚拟环境隔离依赖，并注意大数据传递时的序列化开销，以实现高效、可复现的跨语言协作。</p>
+</section>
+</section>
+<section id="五rstudio" class="level2">
+<h2 class="anchored" data-anchor-id="五rstudio">五、RStudio</h2>
+<p>RStudio 与 <code>reticulate</code> 包的深度集成，为 R 用户提供了一条平滑过渡到混合工作流的路径。它通过<strong>Python 代码块</strong>、<strong>交互式 Python 控制台</strong>以及<strong>环境与对象管理</strong>三大核心支柱，让你可以在熟悉的 IDE 中无缝编写、运行和调试 Python 代码，与 R 代码协同工作。</p>
+<section id="python-代码块在文档中混编-r-与-python" class="level3">
+<h3 class="anchored" data-anchor-id="python-代码块在文档中混编-r-与-python">1.Python 代码块：在文档中混编 R 与 Python</h3>
+<p>在 RStudio 中，你可以直接在 R Markdown (<code>.Rmd</code>) 或 Quarto (<code>.qmd</code>) 文档中插入 Python 代码块。只需在代码块头部使用 <code>{python}</code> 替代 <code>{r}</code>，<code>reticulate</code> 提供的 Python 引擎就会自动处理它。</p>
+<ul>
+<li><strong>执行环境</strong>：所有 Python 代码块在<strong>同一个 Python 会话</strong>中顺序执行，因此后一个代码块可以访问前一个代码块创建的变量和导入的模块，状态得以保持。</li>
+<li><strong>块选项</strong>：Python 代码块支持几乎所有标准的 knitr 块选项，如 <code>echo</code>, <code>include</code>, <code>eval</code>, <code>fig.width</code>, <code>fig.height</code> 等，行为与 R 代码块完全一致。</li>
+<li><strong>图形输出</strong>：由 <code>matplotlib</code> 等库生成的图形会像 R 图形一样，直接嵌入到输出的文档中。</li>
+</ul>
+</section>
+<section id="python-控制台交互式-repl-环境" class="level3">
+<h3 class="anchored" data-anchor-id="python-控制台交互式-repl-环境">2.Python 控制台：交互式 REPL 环境</h3>
+<p>RStudio 内置了基于 <code>reticulate</code> 的 Python REPL (Read-Eval-Print Loop)，让你可以进行交互式的探索和调试。</p>
+<ul>
+<li><strong>启动方式</strong>：
+<ol type="1">
+<li>在 R 控制台中运行 <code>reticulate::repl_python()</code>。</li>
+<li>打开一个 <code>.py</code> 脚本文件，将光标置于代码行，使用 <code>Cmd+Enter</code> (macOS) 或 <code>Ctrl+Enter</code> (Windows/Linux) 执行。RStudio 会自动切换到 Python REPL 模式。</li>
+</ol></li>
+<li><strong>视觉提示</strong>：进入 Python 控制台后，命令提示符会从 R 的 <code>&gt;</code> 变为 Python 的 <code>&gt;&gt;&gt;</code>，提醒你当前处于 Python 环境。</li>
+<li><strong>退出与切换</strong>：在 Python 控制台中输入 <code>exit</code> 即可退出，返回到 R 控制台。你也可以通过点击控制台右上角的语言图标在 R 和 Python 之间快速切换。</li>
+</ul>
+</section>
+<section id="双向数据交换py-与-r-辅助对象" class="level3">
+<h3 class="anchored" data-anchor-id="双向数据交换py-与-r-辅助对象">3.双向数据交换：<code>py</code> 与 <code>r</code> 辅助对象</h3>
+<p>这是 <code>reticulate</code> 最强大的特性之一，它通过两个特殊的辅助对象实现了 R 和 Python 之间的对象无缝访问。</p>
+<ul>
+<li><strong>从 R 访问 Python 对象</strong>：在 R 代码中，使用 <code>py$对象名</code> 即可访问 Python 会话中创建的任何对象。例如，在 Python 块中定义了 <code>df</code>，在 R 块中就可以用 <code>py$df</code> 来获取它。</li>
+<li><strong>从 Python 访问 R 对象</strong>：在 Python 代码块中，使用 <code>r.对象名</code> 即可访问 R 会话中的对象。例如，<code>r.mtcars</code> 可以获取 R 内置的 <code>mtcars</code> 数据集，并将其自动转换为 pandas DataFrame（如果已安装）或 Python 字典。</li>
+<li><strong>自动类型转换</strong>：<code>reticulate</code> 会自动在 R 和 Python 的类型之间进行转换，例如 R 的 <code>data.frame</code> 会转换为 pandas 的 <code>DataFrame</code>，R 的向量会转换为 Python 的列表等。</li>
+</ul>
+</section>
+<section id="环境配置与-ide-集成" class="level3">
+<h3 class="anchored" data-anchor-id="环境配置与-ide-集成">4.环境配置与 IDE 集成</h3>
+<p>为了确保 Python 代码的稳定运行，正确的环境配置至关重要。RStudio 提供了图形化的配置界面。</p>
+<ul>
+<li><strong>全局设置</strong>：通过 <code>Tools &gt; Global Options &gt; Python</code>，你可以为 RStudio 指定默认的 Python 解释器。你可以选择系统 Python、Conda 环境或 Virtualenv 环境。</li>
+<li><strong>环境管理</strong>：<code>reticulate</code> 推荐使用隔离的虚拟环境（如 Conda 或 Virtualenv）来管理项目依赖，避免包冲突。你可以使用 <code>use_condaenv("my-env")</code> 等函数在 R 会话中激活特定环境。</li>
+<li><strong>IDE 增强</strong>：自 RStudio v1.4 起，Python 支持得到进一步增强。当 <code>reticulate</code> REPL 激活时，<strong>Environment 窗格</strong>会显示 Python 主模块中的对象摘要，方便你监控数据状态。</li>
+</ul>
+</section>
+<section id="工作流建议与注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="工作流建议与注意事项">5.工作流建议与注意事项</h3>
+<ul>
+<li><strong>推荐版本</strong>：为了获得完整的 Python 集成体验（如环境窗格支持），建议使用 <strong>RStudio v1.4 或更高版本</strong>，并确保 <code>reticulate</code> 包已安装且为最新版。</li>
+<li><strong>图形尺寸问题</strong>：有一个已知的小问题：R Markdown 中<strong>第一个</strong> Python 绘图代码块的 <code>fig.width</code> 和 <code>fig.height</code> 选项可能会被忽略。一个简单的解决方法是，在第一个 Python 块中提前导入 <code>matplotlib</code> 或 <code>seaborn</code> 库。</li>
+<li><strong>脚本执行</strong>：对于独立的 <code>.py</code> 脚本，你可以使用 <code>reticulate::source_python("script.py")</code> 来运行，脚本中定义的函数和对象将直接加载到 R 会话中。</li>
+</ul>
+</section>
+</section>
+<section id="六positronposit-新一代数据科学-ide" class="level2">
+<h2 class="anchored" data-anchor-id="六positronposit-新一代数据科学-ide">六、Positron：Posit 新一代数据科学 IDE</h2>
+<section id="定位与核心理念" class="level3">
+<h3 class="anchored" data-anchor-id="定位与核心理念">1.定位与核心理念</h3>
+<p>Positron 是 Posit（原 RStudio 公司）推出的下一代数据科学 IDE，<strong>免费使用</strong>，以 VS Code 为技术底座（Code OSS 分支），但<strong>专为数据工作而设计</strong>。它的核心目标是解决 RStudio 时代一个根本性的架构局限：RStudio 以 R 为中心，Python 支持是通过 reticulate 包“外挂”实现的，而 Positron <strong>从底层就被设计为多语言 IDE</strong>，对 R 和 Python 都提供一等公民级别的支持。</p>
+<p>这意味着 Positron 不是 RStudio 的简单升级，而是一次<strong>架构层面的重新出发</strong>。官方明确表示 RStudio 不会消失，仍处于积极维护状态，但两者的开发生命周期阶段截然不同：Positron 处于<strong>高速迭代期</strong>，功能快速扩展；RStudio 则更聚焦于<strong>稳定性与缺陷修复</strong>。</p>
+</section>
+<section id="技术架构vs-code-之上的数据科学扩展" class="level3">
+<h3 class="anchored" data-anchor-id="技术架构vs-code-之上的数据科学扩展">2.技术架构：VS Code 之上的数据科学扩展</h3>
+<p>Positron 的架构并非简单套用 VS Code，而是在其多进程设计之上<strong>增加了一个专门的语言运行时层</strong>。</p>
+<p>Positron 遵循 VS Code 的多进程架构（主进程、渲染进程、扩展宿主），但<strong>新增了专用的语言运行时生命周期与通信层</strong>（<code>RuntimeSessionService</code>），用于管理 R 和 Python 解释器会话。这一设计的关键收益是：<strong>解释器进程与 IDE 进程分离</strong>，因此 R 或 Python 的崩溃不再必然导致整个 IDE 崩溃。</p>
+<p>Positron 还通过一组“MainThread 服务”将数据科学特有的功能暴露给扩展系统，包括语言运行时编排（<code>MainThreadLanguageRuntime</code>）、交互式控制台管理（<code>MainThreadConsoleService</code>）、图形渲染（<code>MainThreadPlotsService</code>）以及 HTML/URL 内容预览（<code>MainThreadPreviewPanel</code>）。同时，Positron <strong>兼容 VS Code 扩展生态</strong>（<code>.vsix</code> 文件），可以安装大量第三方扩展。</p>
+</section>
+<section id="原生-r-与-python-多语言支持" class="level3">
+<h3 class="anchored" data-anchor-id="原生-r-与-python-多语言支持">3.原生 R 与 Python 多语言支持</h3>
+<section id="独立的解释器管理" class="level4">
+<h4 class="anchored" data-anchor-id="独立的解释器管理">3.1 独立的解释器管理</h4>
+<p>Positron 支持<strong>同时运行多个 R 和 Python 解释器会话</strong>，涵盖控制台会话和 Notebook 会话两种类型。用户可以通过右上角的 <strong>Interpreter Picker</strong> 在会话之间快速切换。每个会话都有明确的状态指示（空闲/忙碌/关闭），当前活跃会话决定代码补全、诊断和执行的上下文。</p>
+</section>
+<section id="rpython-原生体验" class="level4">
+<h4 class="anchored" data-anchor-id="rpython-原生体验">3.2 R/Python 原生体验</h4>
+<p>与 RStudio 中 Python 需要依赖 reticulate 不同，Positron 对两种语言都提供<strong>原生的代码补全、语法高亮和调试工具</strong>，无需额外配置即可并排使用。Positron 还<strong>内置了对 reticulate 的支持</strong>：当 R 会话中安装了 reticulate 包后，可以直接使用 <code>repl_python()</code> 启动一个与 R 会话同进程的 Python 解释器，并通过 <code>r.</code> 前缀在 Python 中访问 R 对象，通过 <code>py$</code> 在 R 中访问 Python 对象。</p>
+</section>
+<section id="quarto-多语言文档" class="level4">
+<h4 class="anchored" data-anchor-id="quarto-多语言文档">3.3 Quarto 多语言文档</h4>
+<p>Positron <strong>内置并预配置了 Quarto</strong>，用户无需手动安装即可创建和渲染 <code>.qmd</code> 文档。Quarto 文档<strong>原生支持在同一文档中混用 R、Python、Julia、Bash 等多种语言的代码块</strong>，Positron 的集成确保了多语言代码块的执行和结果输出无缝衔接。这是 Positron 实现“统一多语言工作流”的关键组件，使 R 用户能够以渐进方式引入 Python 代码，而不必离开熟悉的工作环境。</p>
+</section>
+<section id="数据科学工作流集成" class="level4">
+<h4 class="anchored" data-anchor-id="数据科学工作流集成">4.数据科学工作流集成</h4>
+<p>Positron 将 RStudio 中用户熟悉的数据科学面板<strong>重新实现为原生功能</strong>，并增强了多语言支持：</p>
+<ul>
+<li><p><strong>Variables 窗格与 Data Explorer</strong>：Variables 窗格展示当前 R 或 Python 会话中的变量摘要。对于数据框对象，点击表格图标即可打开 Data Explorer——一个电子表格式的数据查看器，支持筛选、排序和列级统计摘要。该功能<strong>同时支持 R 的 data.frame/tibble/data.table 和 Python 的 pandas/polars 数据框</strong>，并提供了从 Data Explorer 的筛选操作<strong>一键转换为可复现代码</strong>（Convert to Code）的按钮，当前支持 pandas 和 polars 后端。</p></li>
+<li><p><strong>Connections 窗格</strong>：用于管理和浏览数据库连接。R 和 Python 中创建的连接均可在此查看，支持探索数据库 schema 和预览表数据。Python 的 DuckDB 连接支持在 2025 年 9 月的版本中已加入。</p></li>
+<li><p><strong>Plots 窗格</strong>：用于可视化图形输出，2025 年 11 月版本新增了可自定义的默认尺寸策略设置，用户可以选择以“填充”或“自动”方式默认显示图形。</p></li>
+<li><p><strong>Run App</strong>：Positron 支持在 IDE 内直接启动和调试数据应用与 API，涵盖 Shiny、Streamlit、Dash 和 FastAPI 等框架。</p></li>
+</ul>
+</section>
+</section>
+<section id="ai-辅助positron-assistant" class="level3">
+<h3 class="anchored" data-anchor-id="ai-辅助positron-assistant">5.AI 辅助：Positron Assistant</h3>
+<p>Positron Assistant（后整合为 Posit Assistant）是内置的 AI 编码助手，提供<strong>聊天面板和行内代码补全</strong>两种交互方式。它能够访问控制台输出、Variables 窗格和 Plots 窗格的上下文，从而针对数据科学任务提供更具针对性的建议。</p>
+<p>Assistant 支持<strong>斜杠命令</strong>（如 <code>/fix</code>、<code>/explain</code>、<code>/doc</code>），可以一键修复或解释控制台错误，也能将对话内容直接导出为 Quarto 文档。模型提供方支持 Anthropic、GitHub Copilot、Amazon Bedrock 以及 OpenAI 兼容的模型提供方。2026 年的版本中，Assistant 已切换为原生的 Copilot 补全引擎实现，改善了认证和性能问题。</p>
+</section>
+<section id="从-rstudio-迁移的考量" class="level3">
+<h3 class="anchored" data-anchor-id="从-rstudio-迁移的考量">6.从 RStudio 迁移的考量</h3>
+<p>Positron <strong>刻意保留了 RStudio 的使用手感</strong>。用户可以在设置中启用 <strong>RStudio Keymap</strong>（<code>workbench.keybindings.rstudioKeybindings</code>），恢复大量 RStudio 风格的快捷键，例如 <code>Ctrl+1</code> 聚焦源码编辑器、<code>Ctrl+2</code> 聚焦控制台、<code>Cmd/Ctrl+Shift+H</code> 设置工作目录等。</p>
+<p>迁移并非零成本。RStudio 中一些深度集成的功能在 Positron 中<strong>尚不完整或缺失</strong>：R Markdown 和 Sweave 的支持深度不及 RStudio（Positron 聚焦 Quarto）。数据导入向导、工作空间状态保存/恢复、以及专门的包安装/开发面板在 Positron 中暂不可用。社区反馈中也提到键盘快捷键过多导致自定义快捷键迁移困难、Quarto 文档中内联图形的体验有待改善等问题。</p>
+</section>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">7.总结</h3>
+<p>Positron 的本质是 Posit 对“数据科学 IDE 应该是什么样”的一次重新回答。它继承了 VS Code 的工程能力与扩展生态，同时通过专用的语言运行时架构、原生的多解释器管理和内置的 Quarto 支持，构建了一个<strong>真正将 R 和 Python 视为平等参与者的工作环境</strong>。对于同时使用两种语言的数据科学团队，Positron 提供了一条比“RStudio + reticulate”更连贯、更可持续的路径。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第14节 与大模型交互.html" class="pagination-link" aria-label="��16�� R ��14�� ���ģ�ͽ���">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">��16�� R ��14�� ���ģ�ͽ���</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第16节 其它常用工具包.html" class="pagination-link" aria-label="��16�� R ��16�� �������ù��߰�">
+        <span class="nav-page-text">��16�� R ��16�� �������ù��߰�</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

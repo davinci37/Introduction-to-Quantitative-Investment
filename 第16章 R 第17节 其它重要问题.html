@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第16章 R 第17节 其它重要问题 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第16节 其它常用工具包.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第17节 其它重要问题.html">第16章 R 第17节 其它重要问题</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">��16�� R ��14�� ���ģ�ͽ���</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">��16�� R ��16�� �������ù��߰�</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一电脑硬件选择指南" id="toc-一电脑硬件选择指南" class="nav-link active" data-scroll-target="#一电脑硬件选择指南">一、电脑硬件选择指南</a>
+  <ul class="collapse">
+  <li><a href="#内存-ram容量是首要瓶颈" id="toc-内存-ram容量是首要瓶颈" class="nav-link" data-scroll-target="#内存-ram容量是首要瓶颈">1.内存 (RAM)：容量是首要瓶颈</a></li>
+  <li><a href="#存储-硬盘ssd-是必然选择hdd-用于归档" id="toc-存储-硬盘ssd-是必然选择hdd-用于归档" class="nav-link" data-scroll-target="#存储-硬盘ssd-是必然选择hdd-用于归档">2.存储 (硬盘)：SSD 是必然选择，HDD 用于归档</a></li>
+  <li><a href="#cpu单核性能与并行能力的平衡" id="toc-cpu单核性能与并行能力的平衡" class="nav-link" data-scroll-target="#cpu单核性能与并行能力的平衡">3.CPU：单核性能与并行能力的平衡</a></li>
+  <li><a href="#amd-cpu-与-intel-mkl-的兼容性问题" id="toc-amd-cpu-与-intel-mkl-的兼容性问题" class="nav-link" data-scroll-target="#amd-cpu-与-intel-mkl-的兼容性问题">4.AMD CPU 与 Intel MKL 的兼容性问题</a></li>
+  <li><a href="#总结与配置清单" id="toc-总结与配置清单" class="nav-link" data-scroll-target="#总结与配置清单">5.总结与配置清单</a></li>
+  </ul></li>
+  <li><a href="#二内存垃圾回收机制" id="toc-二内存垃圾回收机制" class="nav-link" data-scroll-target="#二内存垃圾回收机制">二、内存垃圾回收机制</a>
+  <ul class="collapse">
+  <li><a href="#r-语言自带的内存回收" id="toc-r-语言自带的内存回收" class="nav-link" data-scroll-target="#r-语言自带的内存回收">1. R 语言自带的内存回收</a></li>
+  <li><a href="#r-torch-的-gpu-内存回收" id="toc-r-torch-的-gpu-内存回收" class="nav-link" data-scroll-target="#r-torch-的-gpu-内存回收">2. R torch 的 GPU 内存回收</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结">3.小结</a></li>
+  </ul></li>
+  <li><a href="#三core-temp" id="toc-三core-temp" class="nav-link" data-scroll-target="#三core-temp">三、Core Temp</a>
+  <ul class="collapse">
+  <li><a href="#核心功能每核心独立测温" id="toc-核心功能每核心独立测温" class="nav-link" data-scroll-target="#核心功能每核心独立测温">1.核心功能：每核心独立测温</a></li>
+  <li><a href="#工作原理直接读取内核传感器" id="toc-工作原理直接读取内核传感器" class="nav-link" data-scroll-target="#工作原理直接读取内核传感器">2.工作原理：直接读取内核传感器</a></li>
+  <li><a href="#在-r-数据分析场景下的实际用途" id="toc-在-r-数据分析场景下的实际用途" class="nav-link" data-scroll-target="#在-r-数据分析场景下的实际用途">3.在 R 数据分析场景下的实际用途</a></li>
+  <li><a href="#与同类工具的对比" id="toc-与同类工具的对比" class="nav-link" data-scroll-target="#与同类工具的对比">4.与同类工具的对比</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">5.总结</a></li>
+  </ul></li>
+  <li><a href="#四process-lasso" id="toc-四process-lasso" class="nav-link" data-scroll-target="#四process-lasso">四、Process Lasso</a>
+  <ul class="collapse">
+  <li><a href="#核心机制probalance-算法" id="toc-核心机制probalance-算法" class="nav-link" data-scroll-target="#核心机制probalance-算法">1.核心机制：ProBalance 算法</a></li>
+  <li><a href="#主要功能特性" id="toc-主要功能特性" class="nav-link" data-scroll-target="#主要功能特性">2.主要功能特性</a></li>
+  <li><a href="#在-r-工作场景下的实用功能" id="toc-在-r-工作场景下的实用功能" class="nav-link" data-scroll-target="#在-r-工作场景下的实用功能">3.在 R 工作场景下的实用功能</a></li>
+  <li><a href="#版本与授权" id="toc-版本与授权" class="nav-link" data-scroll-target="#版本与授权">4.版本与授权</a></li>
+  <li><a href="#总结-1" id="toc-总结-1" class="nav-link" data-scroll-target="#总结-1">5.总结</a></li>
+  </ul></li>
+  <li><a href="#五面向对象编程oop" id="toc-五面向对象编程oop" class="nav-link" data-scroll-target="#五面向对象编程oop">五、面向对象编程（OOP）</a>
+  <ul class="collapse">
+  <li><a href="#定义" id="toc-定义" class="nav-link" data-scroll-target="#定义">1.定义</a></li>
+  <li><a href="#oop-优势" id="toc-oop-优势" class="nav-link" data-scroll-target="#oop-优势">2.OOP 优势</a></li>
+  <li><a href="#oop-劣势与局限" id="toc-oop-劣势与局限" class="nav-link" data-scroll-target="#oop-劣势与局限">3.OOP 劣势与局限</a></li>
+  <li><a href="#适用场景" id="toc-适用场景" class="nav-link" data-scroll-target="#适用场景">4.适用场景</a></li>
+  <li><a href="#不适用或需谨慎使用的场景" id="toc-不适用或需谨慎使用的场景" class="nav-link" data-scroll-target="#不适用或需谨慎使用的场景">5.不适用或需谨慎使用的场景</a></li>
+  <li><a href="#数据分析场景" id="toc-数据分析场景" class="nav-link" data-scroll-target="#数据分析场景">6.数据分析场景</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第16章 R 第17节 其它重要问题</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一电脑硬件选择指南" class="level2">
+<h2 class="anchored" data-anchor-id="一电脑硬件选择指南">一、电脑硬件选择指南</h2>
+<p>在 R 数据分析工作中，电脑硬件配置直接决定工作效率与可处理问题边界的底层约束。R 默认将数据对象载入内存计算，内存容量往往比 CPU 频率更早成为瓶颈；数据读写、R 包安装与编译又高度依赖硬盘的随机读写性能；而 CPU 的单核性能影响日常交互式分析的响应速度，多核能力则决定并行计算与模型训练的加速上限。</p>
+<p>与此同时，AMD 与 Intel 平台在纯 R 脚本层面差异不大，却可能因 Intel MKL 的调度策略在很多高性能包上出现显著性能落差。因此，本文围绕 R 数据分析的真实工作流，从内存、存储、CPU 和平台兼容性四个维度，帮你建立一套可落地、少踩坑、兼顾性价比的硬件选择逻辑。</p>
+<section id="内存-ram容量是首要瓶颈" class="level3">
+<h3 class="anchored" data-anchor-id="内存-ram容量是首要瓶颈">1.内存 (RAM)：容量是首要瓶颈</h3>
+<p>R 语言的核心限制在于，所有数据对象默认都存储在内存中。当内存不足时，系统会使用硬盘作为虚拟内存（交换空间），导致性能急剧下降。因此，<strong>内存容量是 R 数据分析硬件配置中优先级最高的指标。</strong></p>
+<ul>
+<li><strong>容量分级建议</strong>：
+<ul>
+<li><strong>入门 (16GB)</strong>：处理小于 1GB 的数据集，进行基础的数据清洗和统计分析基本够用。但需注意 Windows 系统本身会占用一部分内存。</li>
+<li><strong>推荐 (32GB)</strong>：这是处理 <strong>5-10GB 级别</strong>数据集的舒适起点，足以应对大多数常规的 data.frame 操作和统计建模。</li>
+<li><strong>专业 (64GB+)</strong>：当你需要处理超过 10GB 的大型数据集（如基因组学、金融高频数据），或进行复杂的机器学习模型训练时，64GB 是更稳妥的选择。有实测数据表明，64GB 内存相比 32GB 可将大型 CSV 文件的加载速度提升 <strong>2.3 倍</strong>。</li>
+</ul></li>
+<li><strong>补充建议</strong>：
+<ul>
+<li><strong>内存类型</strong>：优先保证容量，其次再考虑频率。DDR5 相比 DDR4 能提供更高的带宽，对矩阵运算等场景有益。</li>
+<li><strong>扩展性</strong>：选择主板时，留意其内存插槽数量，为未来升级留出空间。</li>
+<li><strong>软件优化</strong>：如果内存实在无法满足需求，可以考虑使用 <code>data.table</code> 包替代 <code>data.frame</code>，它通常能降低 <strong>30%-50%</strong> 的内存消耗。对于超出内存的数据，<code>biglasso</code> 等包支持内存映射，允许在磁盘上处理数据。</li>
+</ul></li>
+</ul>
+</section>
+<section id="存储-硬盘ssd-是必然选择hdd-用于归档" class="level3">
+<h3 class="anchored" data-anchor-id="存储-硬盘ssd-是必然选择hdd-用于归档">2.存储 (硬盘)：SSD 是必然选择，HDD 用于归档</h3>
+<p>对于 R 数据分析，<strong>固态硬盘（SSD）是系统盘和数据工作盘的首选，机械硬盘（HDD）仅适合作为冷数据归档仓库。</strong></p>
+<ul>
+<li><strong>SSD (固态硬盘)</strong>：R 的日常工作涉及大量小文件读写（如安装包、临时文件），SSD 的随机读写速度比 HDD 快 <strong>50 倍以上</strong>，能极大提升 R 包的加载和编译效率。对于大型数据集，从 SSD 加载 10GB CSV 文件耗时约 <strong>28 秒</strong>，而 HDD 则需要 <strong>5 分 42 秒</strong>。</li>
+<li><strong>HDD (机械硬盘)</strong>：其优势在于单位容量成本极低，适合存储不常访问的原始数据、备份文件或大型日志。建议将 HDD 作为<strong>冷数据仓库</strong>，与 SSD 分开部署。</li>
+</ul>
+</section>
+<section id="cpu单核性能与并行能力的平衡" class="level3">
+<h3 class="anchored" data-anchor-id="cpu单核性能与并行能力的平衡">3.CPU：单核性能与并行能力的平衡</h3>
+<p>R 的性能对 CPU 的依赖是双重的：基础操作依赖<strong>单核性能</strong>，而通过特定包实现的并行计算则依赖<strong>核心数量</strong>。</p>
+<ul>
+<li><strong>单核性能优先</strong>：R 的许多核心操作（如 <code>apply</code> 系列函数、<code>lm()</code> 线性回归）本质上是单线程的。因此，<strong>单核性能（通常由高主频决定）</strong> 直接决定了这些交互式任务的响应速度。建议选择基础频率 <strong>≥ 3.5GHz</strong> 的处理器。</li>
+<li><strong>多核并行加速</strong>：当你使用 <code>parallel</code>、<code>future</code> 等包，或运行 <code>xgboost</code>、<code>randomForest</code> 等算法时，多核心能带来显著加速。对于此类场景，<strong>8 核 16 线程</strong>及以上的 CPU 是理想选择。但需注意，并行效率受进程间通信开销影响，<strong>超过 16 核后边际效益会递减</strong>。</li>
+<li><strong>选购层级</strong>：
+<ul>
+<li><strong>入门/性价比</strong>：8 核（如 AMD Ryzen 7 5700X / 5800X，或 Intel Core i7-12700）。</li>
+<li><strong>专业/并行计算</strong>：16 核或更高（如 AMD Ryzen 9 5950X / 7950X，或 Intel Core i9-12900K 及以上）。</li>
+</ul></li>
+</ul>
+</section>
+<section id="amd-cpu-与-intel-mkl-的兼容性问题" class="level3">
+<h3 class="anchored" data-anchor-id="amd-cpu-与-intel-mkl-的兼容性问题">4.AMD CPU 与 Intel MKL 的兼容性问题</h3>
+<p>许多在 Windows 上通过 CRAN 安装的二进制 R 包（如 <code>Matrix</code>、<code>mgcv</code>、<code>caret</code> 的部分依赖）在编译时静态链接了 <strong>Intel Math Kernel Library (MKL)</strong>。Intel MKL 包含一个“CPU 调度器”，它会检测 CPU 的厂商。如果检测到非 Intel CPU，它会<strong>强制使用效率低下的通用代码路径</strong>，而不会启用 AMD CPU 同样支持的 AVX2、AVX-512 等高级指令集。</p>
+<p>这种“歧视”会导致 AMD 平台上的矩阵运算性能大幅下降，可能比同等 Intel 平台<strong>慢 3 倍以上</strong>。在极端情况下，进行高阶矩阵分解（如涉及 ≥30 阶的 <code>ZGELSS</code> 函数）时，甚至可能出现<strong>程序卡死、不返回结果</strong>的严重 Bug。Intel 官方社区也确认了在某些 AMD 处理器上 <code>DGESVD</code> 函数会挂起的问题。</p>
+<p>如果你选择 AMD 平台并遇到此问题，<strong>可以尝试以下方法</strong>：</p>
+<ul>
+<li><strong>设置环境变量</strong>：在 Windows 命令提示符或 R 的 <code>.Renviron</code> 文件中设置 <code>MKL_DEBUG_CPU_TYPE=5</code>，这可以让 MKL “误以为” 自己在 Intel CPU 上运行。</li>
+<li><strong>替换数学库</strong>：更彻底的方案是，为 R 链接 AMD 优化的数学库。可以使用 <strong>AMD AOCL</strong> (AMD Optimizing CPU Libraries) 或开源的 <strong>OpenBLAS</strong> 来替代 MKL。在 Windows 上，可以参考 <code>R-BLAS-LAPACK</code> 项目来帮助你完成切换。</li>
+</ul>
+<p><strong>最终决策</strong>：</p>
+<ul>
+<li><p>如果你的工作流<strong>严重依赖</strong>上述提及的高性能包（<code>Matrix</code>, <code>mgcv</code> 等），且不希望花费时间在系统调优上，<strong>选择 Intel CPU 是更稳妥的方案</strong>。</p></li>
+<li><p>如果你偏好 AMD 平台（如 Ryzen 系列），其纯 R 脚本性能与 Intel 无异，但请务必<strong>做好应对 MKL 性能问题的准备</strong>，并掌握环境变量设置或替换 BLAS/LAPACK 库的方法。</p></li>
+</ul>
+</section>
+<section id="总结与配置清单" class="level3">
+<h3 class="anchored" data-anchor-id="总结与配置清单">5.总结与配置清单</h3>
+<p>综合以上分析，以下是针对 R 数据分析的硬件配置建议清单：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">组件</th>
+<th style="text-align: left;">核心建议</th>
+<th style="text-align: left;">关键理由</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>内存</strong></td>
+<td style="text-align: left;"><strong>容量优先，32GB 起步，64GB 更佳</strong></td>
+<td style="text-align: left;">R 将数据全载入内存，容量不足会导致性能崩溃。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>存储</strong></td>
+<td style="text-align: left;"><strong>NVMe SSD 作为系统/工作盘，HDD 作为归档盘</strong></td>
+<td style="text-align: left;">SSD 的随机读写速度是 R 包管理和数据加载的关键。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>CPU</strong></td>
+<td style="text-align: left;"><strong>平衡单核性能与核心数</strong>，推荐 8 核以上，主频 ≥3.5GHz</td>
+<td style="text-align: left;">单核影响交互速度，多核加速并行任务。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>平台</strong></td>
+<td style="text-align: left;"><strong>Intel 平台省心，AMD 平台需注意 MKL 问题并做好优化准备</strong></td>
+<td style="text-align: left;">AMD 在纯 R 脚本下无差异，但需警惕 MKL 带来的性能陷阱。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>显卡</strong></td>
+<td style="text-align: left;"><strong>非必需</strong>，除非进行深度学习或特定 GPU 加速可视化</td>
+<td style="text-align: left;">R 原生计算不依赖 GPU。</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="二内存垃圾回收机制" class="level2">
+<h2 class="anchored" data-anchor-id="二内存垃圾回收机制">二、内存垃圾回收机制</h2>
+<p><strong>垃圾回收机制（Garbage Collection，GC）</strong>是一种<strong>自动内存管理机制</strong>：程序运行时，由语言运行时或虚拟机负责找出那些<strong>不再被使用、无法再被访问的对象</strong>，并自动释放它们占用的内存，避免内存耗尽。</p>
+<p>在 R 中，GC 虽然会自动运行，但 <code>rm()</code> 掉大对象后，主机内存不一定立刻释放，若不及时主动进行内存回收，内存峰值可能持续升高。</p>
+<p>在 R torch 中，张量释放后 GPU 显存通常仍留在 CUDA 缓存池里，若不及时主动进行内存回收，这些未使用显存不会主动归还，容易造成显存碎片甚至 OOM。</p>
+<p>因此，在任务切换、删除大对象、训练转推理、显存紧张等关键节点做内存回收，可以控制内存/显存峰值、避免资源耗尽、提升多任务和共享 GPU 的稳定性。</p>
+<section id="r-语言自带的内存回收" class="level3">
+<h3 class="anchored" data-anchor-id="r-语言自带的内存回收">1. R 语言自带的内存回收</h3>
+<p>R 语言采用自动<strong>垃圾回收机制（Garbage Collection，GC）</strong>，通常不需要开发者手动管理内存，但可以通过 <strong><code>gc()</code></strong> 主动触发回收。</p>
+<p>更准确地说，R 的 GC 会识别并回收“不再可达”的对象；同时，R 还使用引用计数 / NAMED 机制辅助管理对象共享和写时复制。例如：</p>
+<ul>
+<li>创建引用：<code>b &lt;- a</code> 通常不会立即复制数据，而是让 <code>b</code> 和 <code>a</code> 共享同一对象，并增加引用信息。</li>
+<li>减少引用：<code>rm(a)</code> 或给变量重新赋值时，原对象的引用会减少。</li>
+<li>内存回收：当对象不再被任何名字引用、变为不可达时，GC 就可以回收它占用的内存。</li>
+</ul>
+<section id="gc-的触发方式" class="level4">
+<h4 class="anchored" data-anchor-id="gc-的触发方式">2.GC 的触发方式</h4>
+<p>R 的 GC 通常自动运行，不需要用户手动调用，主要分为两类：</p>
+<ol type="1">
+<li><strong>隐式触发</strong>
+<ul>
+<li>创建新对象时，如果发现可用内存不足；</li>
+<li>函数调用结束后，局部变量离开作用域，引用减少或对象变为不可达；</li>
+<li>在大型循环或长时间运行的代码中，R 会间歇性自动执行 GC。</li>
+</ul></li>
+<li><strong>显式触发</strong>
+<ul>
+<li>调用 <code>gc()</code> 可以主动请求进行一次垃圾回收。</li>
+<li>适用于希望在代码关键点后立即释放内存，或进行内存使用分析时。</li>
+</ul></li>
+</ol>
+</section>
+<section id="gc-函数" class="level4">
+<h4 class="anchored" data-anchor-id="gc-函数">3.<code>gc()</code> 函数</h4>
+<p>调用 <code>gc()</code> 会返回一份详细的内存使用情况矩阵，主要包括：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Ncells</code></td>
+<td>cons cells，主要用于存储语言对象，如列表、函数调用环境等</td>
+</tr>
+<tr class="even">
+<td><code>Vcells</code></td>
+<td>vector cells，用于存储实际数据，如数值、字符向量的内容等</td>
+</tr>
+<tr class="odd">
+<td><code>used</code></td>
+<td>当前使用的内存量，通常还带有 <code>(Mb)</code> 列</td>
+</tr>
+<tr class="even">
+<td><code>gc trigger</code></td>
+<td>当内存使用达到该阈值时，R 会自动触发 GC</td>
+</tr>
+<tr class="odd">
+<td><code>max used</code></td>
+<td>本次 R 会话中内存使用的峰值</td>
+</tr>
+</tbody>
+</table>
+<p>需要注意：为了提升性能，R 会将释放的内存保留在自己的内存池中，以便快速分配给新的 R 对象。因此，即使执行了 GC，系统任务管理器中看到的 R 进程内存占用也可能不会立即显著下降。</p>
+</section>
+</section>
+<section id="r-torch-的-gpu-内存回收" class="level3">
+<h3 class="anchored" data-anchor-id="r-torch-的-gpu-内存回收">2. R torch 的 GPU 内存回收</h3>
+<section id="cuda_empty_cache函数" class="level4">
+<h4 class="anchored" data-anchor-id="cuda_empty_cache函数">2.1.cuda_empty_cache()函数</h4>
+<p>在 R 的 <code>torch</code> 包中，使用：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(torch)  </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 清空未使用的 CUDA 缓存显存</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cuda_empty_cache</span>()  </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看显存摘要</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cuda_memory_summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>它用于清空 CUDA 缓存分配器持有的、当前未使用的缓存显存，并将这些显存释放回系统或 CUDA 驱动，以便其他进程或应用程序使用。</p>
+<p>它不会释放当前仍被张量占用的显存。</p>
+<p>注意：<strong>Python PyTorch</strong> 中对应函数写作 <strong><code>torch.cuda.empty_cache()</code></strong>；但在 <strong>R torch</strong> 中应使用 <strong><code>cuda_empty_cache()</code></strong>。两者概念对应，但不能混写。</p>
+</section>
+<section id="r-torch-如何管理-gpu-显存" class="level4">
+<h4 class="anchored" data-anchor-id="r-torch-如何管理-gpu-显存">2.2.R torch 如何管理 GPU 显存</h4>
+<ol type="1">
+<li><p><strong>缓存分配器</strong> R torch 底层使用 libtorch / PyTorch 的 CUDA 缓存分配器。当张量被释放时，显存通常不会立即返还给系统，而是保留在缓存池中。这样后续分配新张量时，可以直接从缓存中快速分配，而不必重新向系统申请，从而提升性能。</p></li>
+<li><p><strong>内存碎片</strong> 频繁分配和释放不同大小的张量会导致显存碎片。即使总空闲显存很多，也可能因为没有足够大的连续显存块而无法分配大张量。</p></li>
+</ol>
+<p><code>cuda_empty_cache()</code> 的作用就是：</p>
+<ul>
+<li>强制清空 R torch 缓存分配器中所有未使用的缓存显存块；</li>
+<li>将这些显存释放回系统；</li>
+<li>不会释放当前仍被张量占用的显存。</li>
+</ul>
+</section>
+<section id="主要应用场景" class="level4">
+<h4 class="anchored" data-anchor-id="主要应用场景">2.3.主要应用场景</h4>
+<ol type="1">
+<li><p><strong>多个实验或进程之间</strong> 完成一个训练或实验任务，准备开始下一个任务时，可以调用该函数，确保更干净的显存状态。</p></li>
+<li><p><strong>显存不足错误发生前</strong> 如果预计接下来要分配一个非常大的张量，并且之前的内存操作产生了很多碎片，可以先尝试清空缓存。</p></li>
+<li><p><strong>与其他 GPU 应用程序共享显存时</strong> 在 R torch 和其他 GPU 程序之间切换时，可以释放 R torch 占用的未使用缓存显存，供其他程序使用。</p></li>
+<li><p><strong>评估 / 推理阶段</strong> 训练后进行推理或评估时，如果遇到显存不足，可以释放训练过程中缓存但不再需要的显存。</p></li>
+</ol>
+</section>
+<section id="注意事项" class="level4">
+<h4 class="anchored" data-anchor-id="注意事项">2.4.注意事项</h4>
+<ul>
+<li><p><strong>性能影响</strong>：频繁调用 <code>cuda_empty_cache()</code> 会降低性能，因为它清空了缓存，后续显存分配需要重新向系统申请。不要在训练循环中频繁调用。</p></li>
+<li><p><strong>不是万能药</strong>：它不能解决真正的显存泄漏问题。如果张量仍然有引用，显存不会被释放；它也不能增加 GPU 的总显存，只是更好地利用现有显存。</p></li>
+<li><p><strong>监控工具</strong>：可以使用 R torch 的 <code>cuda_memory_summary()</code> 函数；或系统命令 <code>nvidia-smi</code> 来监控实际显存使用情况，判断是否需要调用该函数。</p></li>
+</ul>
+</section>
+</section>
+<section id="小结" class="level3">
+<h3 class="anchored" data-anchor-id="小结">3.小结</h3>
+<table class="caption-top table">
+<caption>总体原则：R 的 <code>gc()</code> 和 R torch 的 <code>cuda_empty_cache()</code> 都适合在关键节点、内存紧张或进程切换时谨慎使用，而不应无差别、高频调用。</caption>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>项目</th>
+<th>R 自带</th>
+<th>R torch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>管理对象</td>
+<td>主机内存中的 R 对象</td>
+<td>GPU 显存中的张量</td>
+</tr>
+<tr class="even">
+<td>回收机制</td>
+<td>自动 GC，基于可达性，结合 NAMED / 引用信息优化</td>
+<td>CUDA 缓存分配器</td>
+</tr>
+<tr class="odd">
+<td>主动回收</td>
+<td><code>gc()</code></td>
+<td><code>cuda_empty_cache()</code></td>
+</tr>
+<tr class="even">
+<td>释放对象</td>
+<td>不可达的 R 对象</td>
+<td>未被张量占用的缓存显存</td>
+</tr>
+<tr class="odd">
+<td>注意点</td>
+<td>GC 后进程内存不一定立即下降</td>
+<td>频繁调用会降低性能，且不能解决真正的显存泄漏</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="三core-temp" class="level2">
+<h2 class="anchored" data-anchor-id="三core-temp">三、Core Temp</h2>
+<p>Core Temp 是一款专注于 <strong>CPU 温度监控</strong>的轻量级免费工具。对于 R 数据分析场景，它的核心价值在于：<strong>在不干扰计算任务的前提下，帮你验证硬件散热是否足以支撑长时间的高负载运行</strong>。</p>
+<section id="核心功能每核心独立测温" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能每核心独立测温">1.核心功能：每核心独立测温</h3>
+<p>大多数监控软件只显示一个“CPU 温度”汇总值，但 Core Temp 的独特之处在于，它能<strong>读取并显示每个物理核心的独立温度</strong>。</p>
+<p>打开 Core Temp，如果一个 8 核 CPU，你会看到 8 行温度读数。同一时刻核心 #0 可能是 42°C，核心 #3 是 58°C，这不是传感器故障，而是不同核心正在处理不同线程、负载分配不均的正常现象。</p>
+<p><strong>系统托盘默认显示的是所有核心中温度最高的那一个</strong>，这是一个从实际需求出发的设计：用户真正关心的是“CPU 会不会热到降频”，而不是“平均散热水平怎么样”。</p>
+<p>除了温度，它还提供 CPU 型号、核心数、制造工艺、核心电压、频率等基础信息，并在检测到过热时弹出警告。</p>
+</section>
+<section id="工作原理直接读取内核传感器" class="level3">
+<h3 class="anchored" data-anchor-id="工作原理直接读取内核传感器">2.工作原理：直接读取内核传感器</h3>
+<p>Core Temp 之所以能做到极低资源占用（安装包仅约 1.6 MB），是因为它<strong>绕过了主板上的外部温度传感器，直接读取每个 CPU 核心内部的数字温度传感器（DTS, Digital Thermal Sensor）</strong>。</p>
+<p>DTS 输出的是一个<strong>距离 Tjmax（最高安全结温）的偏移值</strong>，实际温度 = Tjmax − DTS 偏移值。Tjmax 因 CPU 型号而异（Intel 桌面处理器通常为 100°C，AMD Ryzen 为 95°C），Core Temp 通过维护一个 CPU 型号到 Tjmax 的映射表来换算真实温度。</p>
+<p>这种“直接读取”的方式意味着<strong>几乎没有延迟，读数精度也很高</strong>，且不受主板电路差异的影响。</p>
+</section>
+<section id="在-r-数据分析场景下的实际用途" class="level3">
+<h3 class="anchored" data-anchor-id="在-r-数据分析场景下的实际用途">3.在 R 数据分析场景下的实际用途</h3>
+<p>结合你之前讨论的 R 硬件配置，Core Temp 在以下场景中特别有用：</p>
+<p><strong>验证散热是否满足长时间并行计算需求</strong>。当你用 8 核或 16 核运行 <code>future</code>、<code>xgboost</code> 等并行任务时，CPU 会持续满载。如果散热不足，CPU 会触发<strong>热降频（Thermal Throttling）</strong>，导致并行加速比远低于预期。Core Temp 的每核心温度读数可以帮你判断：满载时最高核心温度是否稳定在安全区间内（一般建议 <strong>低于 85°C</strong>），以及是否存在某个核心因散热不均而“拖后腿”。</p>
+<p><strong>区分“性能问题”还是“散热问题”</strong>。R 任务变慢时，原因可能是代码效率、内存不足，也可能是 CPU 过热降频。Core Temp 提供了一条快速的排查路径：如果温度持续逼近 Tjmax，降频就是瓶颈所在。</p>
+<p><strong>在 AMD 平台上辅助判断 MKL 性能陷阱</strong>。之前提到的 AMD 平台 MKL 性能下降问题，表现之一是矩阵运算耗时异常。Core Temp 可以帮助排除“是否因为过热降频导致变慢”这一干扰因素，让问题定位更聚焦于软件库层面。</p>
+</section>
+<section id="与同类工具的对比" class="level3">
+<h3 class="anchored" data-anchor-id="与同类工具的对比">4.与同类工具的对比</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">工具</th>
+<th style="text-align: left;">定位</th>
+<th style="text-align: left;">与 Core Temp 的差异</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>HWMonitor</strong></td>
+<td style="text-align: left;">全硬件监控</td>
+<td style="text-align: left;">覆盖 CPU、GPU、主板、硬盘温度、电压、风扇转速等，范围更广，但 CPU 温度读数粒度不如 Core Temp 细</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>CPU-Z</strong></td>
+<td style="text-align: left;">硬件信息检测</td>
+<td style="text-align: left;">侧重 CPU 型号、频率、缓存等规格信息，温度监控不是其主要功能</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Libre Hardware Monitor</strong></td>
+<td style="text-align: left;">开源全硬件监控</td>
+<td style="text-align: left;">免费开源，功能全面，适合偏好开源方案的用户</td>
+</tr>
+</tbody>
+</table>
+<p>Core Temp 的定位非常聚焦：<strong>只做 CPU 温度监控，但做到每核心级别的精度和极低的资源开销</strong>。如果你的需求仅限于“知道 CPU 会不会过热降频”，它是最直接的选择。</p>
+</section>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">5.总结</h3>
+<p>对于 R 数据分析工作，Core Temp 不是一个“必须常驻后台”的工具，而是一个<strong>验证性工具</strong>：在搭建好新配置、或调整并行计算方案后，用它跑一次满载测试，确认温度在安全范围内、没有降频发生，就可以放心投入生产。它的每核心独立读数和直接读取 DTS 的设计，使它在“判断 CPU 是否热降频”这件事上，比大多数综合型监控软件更精准。</p>
+</section>
+</section>
+<section id="四process-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="四process-lasso">四、Process Lasso</h2>
+<p>Process Lasso 是一款独特的 Windows 进程级系统优化工具，由 Bitsum Technologies 开发。它的核心目标并非“提升性能”，而是在高 CPU 负载下<strong>维持系统的整体响应速度</strong>，有效避免系统假死、卡顿甚至蓝屏。</p>
+<section id="核心机制probalance-算法" class="level3">
+<h3 class="anchored" data-anchor-id="核心机制probalance-算法">1.核心机制：ProBalance 算法</h3>
+<p>Process Lasso 最核心的技术是 <strong>ProBalance（进程平衡）</strong> 算法。<strong>Windows 系统本身允许单个程序无限制地占用 CPU</strong>，这可能导致某个“霸道”的后台进程（如杀毒扫描、系统更新）耗尽资源，使鼠标和前台程序失去响应。</p>
+<p><strong>ProBalance</strong> 的巧妙之处在于，它<strong>并非通过提高前台程序优先级</strong>来加速，而是<strong>智能、临时地降低那些“行为出格”的后台进程的优先级</strong>，从而为前台交互和系统核心进程“让路”。当该后台进程的资源占用回落到合理阈值以下时，其优先级会被自动恢复。整个过程是自动的，无需用户干预。</p>
+<p><strong>这意味着</strong>：当你的 R 会话在后台跑一个长时间并行任务（比如 <code>future</code> 的交叉验证）时，ProBalance 会自动压制其他非关键后台程序（浏览器、同步服务等）对 CPU 的争抢，让你仍能流畅地做其他操作，而 R 任务本身不会因此被“误伤”中断。</p>
+</section>
+<section id="主要功能特性" class="level3">
+<h3 class="anchored" data-anchor-id="主要功能特性">2.主要功能特性</h3>
+<p>除了自动化的 ProBalance，Process Lasso 还提供了大量手动和自动化的进程控制选项：</p>
+<ul>
+<li><strong>持久的优先级与亲和力</strong>：你可以为特定程序设置“永远”使用的 CPU 优先级和 CPU 亲和力（指定它运行在哪些核心上），这些设置会在程序重启后依然生效。</li>
+<li><strong>自动化规则引擎</strong>：可以创建规则，当进程达到特定阈值时自动执行操作，如<strong>限制其 CPU 使用率</strong>、<strong>更改电源计划</strong>、<strong>重启进程</strong>或<strong>限制运行实例数量</strong>。</li>
+<li><strong>进程看守与黑名单</strong>：监控指定进程，一旦超出资源限制就自动终止或重启它。也可以直接将某些进程列入黑名单，禁止其运行。</li>
+<li><strong>游戏模式</strong>：一键优化，可以临时提升游戏进程的优先级并抑制后台干扰，以改善游戏体验。</li>
+<li><strong>独立的进程治理器</strong>：核心功能由一个名为 <strong>ProcessGovernor.exe</strong> 的后台引擎执行，<strong>不依赖图形界面</strong>。这意味着即使关闭主窗口，优化规则依然在后台生效，资源占用极低（通常低于 1MB 内存）。</li>
+</ul>
+</section>
+<section id="在-r-工作场景下的实用功能" class="level3">
+<h3 class="anchored" data-anchor-id="在-r-工作场景下的实用功能">3.在 R 工作场景下的实用功能</h3>
+<ul>
+<li><p><strong>CPU 亲和性绑定：控制并行进程跑在哪些核心上。</strong> Process Lasso 支持为特定进程设置<strong>持久性 CPU 亲和性</strong>，每次该进程启动时自动应用。这对 R 有两个直接用途：</p>
+<ul>
+<li><p><strong>避免 R 并行任务与前台工作争抢核心。</strong> 如果你用 8 核机器跑 <code>makeCluster(7)</code>，理论上留了 1 核给系统，但 Windows 调度并不保证 R 的从进程一定不会占用那 1 核。通过亲和性绑定，你可以把 R 进程强制限制在核心 1-7，把核心 0 留给系统和其他交互操作，减少上下文切换开销。</p></li>
+<li><p><strong>应对 Intel 大小核的调度不确定性。</strong> 12 代及以后的 Intel 处理器采用 P 核（性能核）+ E 核（能效核）设计，Windows 原生调度器可能将 R 的并行从进程错误地分配到 E 核，导致部分工作线程速度明显落后，拖慢整体并行效率。Process Lasso 允许你将 R 相关进程<strong>强制绑定到仅 P 核</strong>，从调度层面消除这种“木桶效应”。</p></li>
+</ul></li>
+<li><p><strong>进程优先级持久化。</strong> 你可以将 R 或 RStudio 的进程优先级设置为“高于正常”（Above Normal），使其在与其他普通应用竞争时获得调度优势，而无需每次手动调整。但<strong>不建议设为“高”（High）或“实时”（Real-Time）</strong>：Real-Time 优先级可能冻结系统，High 则可能干扰系统关键进程。</p></li>
+</ul>
+</section>
+<section id="版本与授权" class="level3">
+<h3 class="anchored" data-anchor-id="版本与授权">4.版本与授权</h3>
+<p>Process Lasso 提供免费版和功能更强大的专业版（Pro）。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">免费版 (Free)</th>
+<th style="text-align: left;">专业版 (Pro)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>ProBalance 算法</strong></td>
+<td style="text-align: left;">✅ 支持</td>
+<td style="text-align: left;">✅ 支持</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>持久化优先级/亲和力</strong></td>
+<td style="text-align: left;">✅ 支持</td>
+<td style="text-align: left;">✅ 支持</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>游戏模式</strong></td>
+<td style="text-align: left;">✅ 支持</td>
+<td style="text-align: left;">✅ 支持</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>高级规则引擎</strong></td>
+<td style="text-align: left;">❌ 不支持</td>
+<td style="text-align: left;">✅ 支持（如自动电源计划切换、CPU节流）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>进程实例限制</strong></td>
+<td style="text-align: left;">❌ 不支持</td>
+<td style="text-align: left;">✅ 支持</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>强制资源上限</strong></td>
+<td style="text-align: left;">❌ 不支持</td>
+<td style="text-align: left;">✅ 支持</td>
+</tr>
+</tbody>
+</table>
+<p>对于大多数希望改善系统响应性的普通用户，免费版的核心功能已经足够。专业版则面向需要更精细控制策略的高级用户或系统管理员。</p>
+</section>
+<section id="总结-1" class="level3">
+<h3 class="anchored" data-anchor-id="总结-1">5.总结</h3>
+<p><strong>需要客观看待的是</strong>，它并非“性能提升神器”。如果电脑本身运行流畅，它不会凭空提高游戏帧数或应用运行速度。它的价值在于<strong>管理混乱</strong>，即在系统资源被不合理占用时，充当一个“交通警察”的角色来维持秩序。部分用户也反馈，不恰当的规则设置有时会与系统调度产生冲突，反而导致性能下降，因此需要一定的调试耐心。</p>
+<p>总的来说，Process Lasso 是一款设计精巧、理念独特的系统工具。它专注于解决 Windows 在高负载下的响应性难题，通过智能的后台干预来保障用户的操作流畅度，尤其适合那些对系统稳定性有要求，或经常需要处理多任务、后台负载较重的用户。</p>
+</section>
+</section>
+<section id="五面向对象编程oop" class="level2">
+<h2 class="anchored" data-anchor-id="五面向对象编程oop">五、面向对象编程（OOP）</h2>
+<section id="定义" class="level3">
+<h3 class="anchored" data-anchor-id="定义">1.定义</h3>
+<p>面向对象编程是一种以“对象”为核心的编程范式。对象是包含<strong>数据（属性）</strong>和<strong>行为（方法）</strong>的实体。OOP 的四大核心概念是：</p>
+<ul>
+<li><strong>封装</strong>：将数据和行为捆绑在一起，并对外部隐藏内部实现细节，只通过公开接口与对象交互。</li>
+<li><strong>继承</strong>：允许一个类（子类）基于另一个类（父类）创建，继承父类的属性和方法，并可扩展或修改，促进代码重用。</li>
+<li><strong>多态</strong>：允许不同类型的对象对同一消息（方法调用）做出不同响应。父类引用可以指向子类对象，并根据实际对象类型调用相应方法。</li>
+<li><strong>抽象</strong>：隐藏复杂实现细节，只展示必要特征。可通过抽象类或接口定义规范，而不实现具体细节。</li>
+</ul>
+</section>
+<section id="oop-优势" class="level3">
+<h3 class="anchored" data-anchor-id="oop-优势">2.OOP 优势</h3>
+<ul>
+<li><p><strong>模块化与封装：</strong>将数据和行为打包成对象，隐藏内部实现，仅暴露必要接口，降低模块间耦合度。系统修改时通常只需修改一个或少数几个类，不影响整体，使代码更容易维护和调试。</p></li>
+<li><p><strong>代码重用性：</strong>通过继承、组合、泛型等机制，已有类可直接被新功能复用，减少重复代码，提高开发效率，降低代码冗余。</p></li>
+<li><p><strong>可维护性与扩展性：</strong>通过多态和继承，可以较轻松地修改和扩展现有系统。添加新功能通常只需创建新的子类并重写或添加方法，而无需修改已有且已测试通过的代码，符合开闭原则：对扩展开放，对修改关闭。需求变更时，只需在对应类或派生类中修改/新增逻辑；多态还能让新增类型对旧代码“零修改”。</p></li>
+<li><p><strong>模型化现实世界：</strong>OOP 擅长对现实世界建模。可将用户、订单、产品等现实实体直接映射为程序中的对象，缩小问题域与解决方案域之间的鸿沟，使设计更直观、更易理解。</p></li>
+<li><p><strong>易于设计和协作：</strong>清晰的类结构使大型项目可分解为不同模块，不同团队可负责不同类或模块。只要事先定义好清晰接口，通过抽象类或接口即可并行开发。以“对象”而非“过程”组织代码，与业务领域实体天然对应，降低建模难度，便于沟通。</p></li>
+<li><p><strong>庞大的生态与工具链：</strong>主流语言（Java、C#、C++、Python等）与框架（Spring、.NET、Qt 等）均基于 OO 设计，社区成熟，第三方库丰富。</p></li>
+</ul>
+</section>
+<section id="oop-劣势与局限" class="level3">
+<h3 class="anchored" data-anchor-id="oop-劣势与局限">3.OOP 劣势与局限</h3>
+<ul>
+<li><p><strong>抽象过度与复杂度上升：</strong>对简单问题过度追求“纯粹”的 OOP，滥用设计模式，引入大量类、接口和继承层次，会导致代码量和理解成本陡增，使系统僵化、难以理解和修改。</p></li>
+<li><p><strong>性能开销：</strong>OOP 程序通常比面向过程或函数式程序更慢、占用内存更多。对象实例化、动态方法绑定（多态）、多层继承等都会带来额外开销。动态派发、虚函数表，以及托管语言中的对象头、装箱/拆箱、垃圾回收等，都会消耗额外 CPU 与内存。对高频交易、嵌入式等低延迟场景不利。</p></li>
+<li><p><strong>继承滥用与脆弱基类问题：</strong>盲目使用继承会导致脆弱的基类问题：对父类的修改可能波及所有子类；同时形成僵硬的类层次结构。因此“组合优于继承”是 OOP 中的重要原则，但初学者容易忽视。</p></li>
+<li><p><strong>状态分散、调试困难：</strong>对象内部私有状态被多个方法共享，运行时快照大。重现并发或时序 Bug 时，往往需要追踪跨对象调用链。</p></li>
+<li><p><strong>并发与共享可变状态：</strong>传统 OOP 强调封装与可变性，多线程下容易出现竞态条件。虽然可用锁、Actor、不可变对象等手段缓解，但这些并非语言默认范式。</p></li>
+<li><p><strong>测试粒度与依赖成本：</strong>类之间通过组合/继承紧密关联，单元测试常需大量 Mock 和依赖注入，测试代码量甚至可能超过业务代码。</p></li>
+<li><p><strong>并非所有问题都适合“对象”：</strong>纯函数、数据转换、流水线式计算等场景，用函数式或过程式更直观。强行 OOP 容易写出“贫血模型”或“对象沼泽”。</p></li>
+</ul>
+</section>
+<section id="适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="适用场景">4.适用场景</h3>
+<ul>
+<li><p><strong>大型复杂软件系统：</strong>如企业级应用（ERP、CRM）、桌面应用程序（Office、Adobe Suite）。OOP 的模块化特性使管理和维护数百万行代码成为可能。</p></li>
+<li><p><strong>图形用户界面程序：</strong>GUI 库（如 Java Swing、C# WPF、Qt）天然面向对象。窗口、按钮、菜单等都是对象，有自己的状态（位置、颜色）和行为（点击事件）。</p></li>
+<li><p><strong>游戏开发：</strong>游戏中的角色、道具、场景等可自然建模为对象。继承和多态使创建多种类型的敌人或武器更容易。</p></li>
+<li><p><strong>业务系统建模：</strong>任何需要直接映射现实世界业务的系统，如电商平台（用户、订单、库存）、银行系统（账户、交易）、物流系统（包裹、路线）等。</p></li>
+<li><p><strong>需要长期维护和迭代的框架与库：</strong>如 .NET Framework、Java Spring。OOP 的可扩展性和可维护性使这些框架能够持续演进。</p></li>
+</ul>
+</section>
+<section id="不适用或需谨慎使用的场景" class="level3">
+<h3 class="anchored" data-anchor-id="不适用或需谨慎使用的场景">5.不适用或需谨慎使用的场景</h3>
+<ul>
+<li><p><strong>对性能有极端要求的场景：</strong>如操作系统内核、嵌入式系统、科学计算、高频交易算法。这些领域面向过程编程或函数式编程可能更合适。</p></li>
+<li><p><strong>简单的一次性脚本或工具：</strong>如简单的数据格式转换脚本、系统自动化任务。使用 OOP 只会增加不必要的样板代码。</p></li>
+<li><p><strong>数学计算密集型问题：</strong>函数式编程的无副作用和声明式风格可能更清晰，也更易于并行化。</p></li>
+<li><p><strong>管道式数据处理：</strong>如 Unix 命令行工具，数据流经过一系列变换。这种场景下函数式编程或面向过程编程更直观。</p></li>
+<li><p><strong>数据和行为天然分离时：</strong>在某些系统（如部分数据库操作、Web 后端的数据传输对象）中，数据和行为是分离的。强行塞进一个对象里，可能不如使用过程式模块或数据结构更有效。</p></li>
+</ul>
+</section>
+<section id="数据分析场景" class="level3">
+<h3 class="anchored" data-anchor-id="数据分析场景">6.数据分析场景</h3>
+<p>面向对象编程是一种强大而主流的范式。它通过将复杂系统分解为相互协作的对象，极大提高了软件的可维护性、可扩展性和可重用性，特别适合大型、复杂且需要长期演进的软件项目。</p>
+<p>然而，OOP 也有固有的性能开销和复杂性，在解决简单问题或特定类型问题时可能并非最佳选择。量化投资者通常不是纯粹的程序员；即便是专业程序员，也应掌握多种编程范式（面向过程、函数式、面向对象），并根据具体问题选择最合适的工具，或组合使用它们。</p>
+<p>用 R 做数据分析，不要可以追求面向对象编程。因为 R 本身就是多范式语言，支持向量化、函数式和过程式编程。数据分析的典型任务，如读入数据、清洗、变换、分组汇总、建模和可视化，天然更接近“数据流水线”，用函数和管道就能清晰表达，而不是必须定义类、继承和多态。</p>
+<p>从实际工作流看，<code>dplyr</code>、<code>data.table</code>、<code>ggplot2</code>、<code>purrr</code> 等工具已经提供了高度抽象且高效的接口。比如 <code>data |&gt; filter() |&gt; mutate() |&gt; group_by() |&gt; summarise()</code> 这样的写法，可读性和可维护性都很好，完全不需要自己设计对象体系。强行 OOP 反而可能引入大量类、接口和依赖注入，增加样板代码和理解成本。</p>
+<p>更重要的是，R 中 OOP 常常是“隐式使用”而非“显式编写”。<code>data.frame</code>、<code>tibble</code>、<code>lm</code> 模型、<code>ggplot</code> 图形本身就是 S3 对象，<code>print()</code>、<code>summary()</code>、<code>predict()</code>、<code>plot()</code> 等泛型函数已经替你完成了多态派发。也就是说，你可以在不自己写 OOP 代码的情况下，享受 OOP 系统带来的接口便利。</p>
+<p>当然，OOP 并非无用。当需要管理复杂状态、统一多模型接口、开发长期维护的 R 包或框架时，S3、S4、R6 很有价值。但对大多数探索性分析、统计计算、数据转换和管道式任务，函数式加向量化往往更直接、更高效。因此结论是：用 R 做数据分析，应按问题选择范式，而不是默认或强求面向对象编程。</p>
+<p><strong>总之：OOP 适合复杂系统的建模与长期演进，但不应迷信“一切皆对象”；保持简单、面向接口、组合优于继承，按问题选择范式。</strong></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第16节 其它常用工具包.html" class="pagination-link" aria-label="��16�� R ��16�� �������ù��߰�">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">��16�� R ��16�� �������ù��߰�</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

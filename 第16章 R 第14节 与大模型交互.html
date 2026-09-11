@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>��16�� R ��14�� ���ģ�ͽ��� – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第15节 R与Python交互.html" rel="next">
+<link href="./第16章 R 第13节 网络爬虫.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第16章 R 第14节 与大模型交互.html">��16�� R ��14�� ���ģ�ͽ���</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">��16�� R ��14�� ���ģ�ͽ���</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">��16�� R ��16�� �������ù��߰�</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#ǰ" id="toc-ǰ" class="nav-link active" data-scroll-target="#ǰ">ǰ��</a>
+  <ul class="collapse">
+  <li><a href="#ͳһӿڰ" id="toc-ͳһӿڰ" class="nav-link" data-scroll-target="#ͳһӿڰ">1.ͳһ�ӿڰ�</a></li>
+  <li><a href="#ضṩͻ" id="toc-ضṩͻ" class="nav-link" data-scroll-target="#ضṩͻ">2.�ض��ṩ�̿ͻ���</a></li>
+  <li><a href="#ģͼɣollama" id="toc-ģͼɣollama" class="nav-link" data-scroll-target="#ģͼɣollama">3.����ģ�ͼ��ɣ�Ollama ��̬</a></li>
+  <li><a href="#빤ߵãģͳ-r" id="toc-빤ߵãģͳ-r" class="nav-link" data-scroll-target="#빤ߵãģͳ-r">4.�������빤�ߵ��ã���ģ�Ͳ��� R ����</a></li>
+  <li><a href="#ƕ-ragģͷʶ" id="toc-ƕ-ragģͷʶ" class="nav-link" data-scroll-target="#ƕ-ragģͷʶ">5.Ƕ���� RAG����ģ�ͷ���˽��֪ʶ</a></li>
+  </ul></li>
+  <li><a href="#һellmer" id="toc-һellmer" class="nav-link" data-scroll-target="#һellmer">һ��ellmer ��</a></li>
+  <li><a href="#ĺ" id="toc-ĺ" class="nav-link" data-scroll-target="#ĺ">1.���Ĺ��ܸ���</a>
+  <ul class="collapse">
+  <li><a href="#װãdeepseekϊ" id="toc-װãdeepseekϊ" class="nav-link" data-scroll-target="#װãdeepseekϊ">2.��װ�����ã���DeepSeekΪ����</a></li>
+  <li><a href="#deepseek-ӿ" id="toc-deepseek-ӿ" class="nav-link" data-scroll-target="#deepseek-ӿ">3.DeepSeek �ӿ�</a></li>
+  <li><a href="#ӧð" id="toc-ӧð" class="nav-link" data-scroll-target="#ӧð">4.Ӧ�ð�����</a></li>
+  <li><a href="#с" id="toc-с" class="nav-link" data-scroll-target="#с">5.С��</a></li>
+  </ul></li>
+  <li><a href="#http-llm-api" id="toc-http-llm-api" class="nav-link" data-scroll-target="#http-llm-api">����ֱ��ͨ�� HTTP ���� LLM API</a>
+  <ul class="collapse">
+  <li><a href="#httr2ƽʽ" id="toc-httr2ƽʽ" class="nav-link" data-scroll-target="#httr2ƽʽ">1.httr2���Ƽ���ʽ</a></li>
+  <li><a href="#ƚi汾" id="toc-ƚi汾" class="nav-link" data-scroll-target="#ƚi汾">2. ���Ƚ��İ汾</a></li>
+  <li><a href="#ի" id="toc-ի" class="nav-link" data-scroll-target="#ի">3. ���ֶԻ�</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">4. ��������</a></li>
+  <li><a href="#httrʽ" id="toc-httrʽ" class="nav-link" data-scroll-target="#httrʽ">5.httr�����䷽ʽ</a></li>
+  <li><a href="#curlײ㷽ʽ" id="toc-curlײ㷽ʽ" class="nav-link" data-scroll-target="#curlײ㷽ʽ">6.curl����ײ㷽ʽ</a></li>
+  </ul></li>
+  <li><a href="#ǳ" id="toc-ǳ" class="nav-link" data-scroll-target="#ǳ">7.�Ǳ�׼�˵�����֤</a></li>
+  <li><a href="#ʵ" id="toc-ʵ" class="nav-link" data-scroll-target="#ʵ">8.�������������ʵ��</a></li>
+  <li><a href="#ollama" id="toc-ollama" class="nav-link" data-scroll-target="#ollama">����Ollama</a>
+  <ul class="collapse">
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">1.��������</a></li>
+  <li><a href="#ģϳ" id="toc-ģϳ" class="nav-link" data-scroll-target="#ģϳ">2.ģ�Ϳ�</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">3.���������ܼ���</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">4.�����ܹ�</a></li>
+  <li><a href="#ٷӿ-sdk" id="toc-ٷӿ-sdk" class="nav-link" data-scroll-target="#ٷӿ-sdk">5.�ٷ��ӿ��� SDK</a></li>
+  <li><a href="#ĺ-1" id="toc-ĺ-1" class="nav-link" data-scroll-target="#ĺ-1">6.���Ĺ���</a></li>
+  <li><a href="#ӳҫ밲װ" id="toc-ӳҫ밲װ" class="nav-link" data-scroll-target="#ӳҫ밲װ">7.Ӳ��Ҫ���밲װ</a></li>
+  <li><a href="#ȫע" id="toc-ȫע" class="nav-link" data-scroll-target="#ȫע">8.��ȫע������</a></li>
+  <li><a href="#λ" id="toc-λ" class="nav-link" data-scroll-target="#λ">9.��̬��λ</a></li>
+  </ul></li>
+  <li><a href="#ġollama" id="toc-ġollama" class="nav-link" data-scroll-target="#ġollama">�ġ���Ollama����</a>
+  <ul class="collapse">
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">1.����R������</a></li>
+  <li><a href="#ollamar-ϊ" id="toc-ollamar-ϊ" class="nav-link" data-scroll-target="#ollamar-ϊ">2.�������֣��� <code>ollamar</code> Ϊ��</a></li>
+  <li><a href="#ļ" id="toc-ļ" class="nav-link" data-scroll-target="#ļ">3.�������ļ��÷�</a></li>
+  <li><a href="#ѡ" id="toc-ѡ" class="nav-link" data-scroll-target="#ѡ">4.ѡ����</a></li>
+  </ul></li>
+  <li><a href="#塢rollama" id="toc-塢rollama" class="nav-link" data-scroll-target="#塢rollama">�塢rollama</a>
+  <ul class="collapse">
+  <li><a href="#װ" id="toc-װ" class="nav-link" data-scroll-target="#װ">1.��װ��׼��</a></li>
+  <li><a href="#ĺܣիģʽ" id="toc-ĺܣիģʽ" class="nav-link" data-scroll-target="#ĺܣիģʽ">2.���Ĺ��ܣ����ֶԻ�ģʽ</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">3.�����÷�</a></li>
+  <li><a href="#ṹjson" id="toc-ṹjson" class="nav-link" data-scroll-target="#ṹjson">4.�ṹ�������JSON��</a></li>
+  <li><a href="#ͼעģģ" id="toc-ͼעģģ" class="nav-link" data-scroll-target="#ͼעģģ">5.ͼ���ע����ģ̬ģ�ͣ�</a></li>
+  <li><a href="#ıע" id="toc-ıע" class="nav-link" data-scroll-target="#ıע">6.�ı���ע</a></li>
+  <li><a href="#ģ" id="toc-ģ" class="nav-link" data-scroll-target="#ģ">7.ģ�͹���</a></li>
+  <li><a href="#ʽ" id="toc-ʽ" class="nav-link" data-scroll-target="#ʽ">8.��������ʽ���</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5">9.�ܽ�</a></li>
+  </ul></li>
+  <li><a href="#embedding" id="toc-embedding" class="nav-link" data-scroll-target="#embedding">����Embedding</a>
+  <ul class="collapse">
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6">1.�������</a></li>
+  <li><a href="#ѡƕģ" id="toc-ѡƕģ" class="nav-link" data-scroll-target="#ѡƕģ">2.ѡ������Ƕ��ģ��</a></li>
+  <li><a href="#ĺembed_text" id="toc-ĺembed_text" class="nav-link" data-scroll-target="#ĺembed_text">3.���ĺ�����<code>embed_text()</code></a></li>
+  <li><a href="#ʾıƕ" id="toc-ʾıƕ" class="nav-link" data-scroll-target="#ʾıƕ">4.����ʾ���������ı�Ƕ��</a></li>
+  <li><a href="#ڷʹƕ" id="toc-ڷʹƕ" class="nav-link" data-scroll-target="#ڷʹƕ">5.�߼��÷����ڷ���������ʹ��Ƕ��</a></li>
+  <li><a href="#ؼע" id="toc-ؼע" class="nav-link" data-scroll-target="#ؼע">6.�ؼ�������ע������</a></li>
+  </ul></li>
+  <li><a href="#ߡ" id="toc-ߡ" class="nav-link" data-scroll-target="#ߡ">�ߡ��������</a>
+  <ul class="collapse">
+  <li><a href="#һĺļ㷽" id="toc-һĺļ㷽" class="nav-link" data-scroll-target="#һĺļ㷽">1.��һ�����������ĺ��ļ��㷽��</a></li>
+  <li><a href="#ڶrʵ" id="toc-ڶrʵ" class="nav-link" data-scroll-target="#ڶrʵ">2.�ڶ�������R��ʵ�־������</a></li>
+  <li><a href="#ƕģѡ" id="toc-ƕģѡ" class="nav-link" data-scroll-target="#ƕģѡ">3.��������Ƕ��ģ�͵�ѡ��ָ��</a></li>
+  <li><a href="#ʾ" id="toc-ʾ" class="nav-link" data-scroll-target="#ʾ">4.����������ʾ��</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">��16�� R ��14�� ���ģ�ͽ���</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ǰ" class="level2">
+<h2 class="anchored" data-anchor-id="ǰ">ǰ��</h2>
+<p>R ���ģ�͵Ľ�����ʽ���൱���죬�γ��˴�<strong>ͳһ�ӿڰ�</strong>��<strong>�ض��ṩ�̿ͻ���</strong>��<strong>����ģ�ͼ���</strong>��<strong>��������</strong>��<strong>������ǿ���ɣ�RAG��</strong> ��������̬��</p>
+<p><strong>���Ľ�����ʽ����</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>������ʽ</th>
+<th>������</th>
+<th>���Ķ�λ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ͳһ�ӿ�</strong></td>
+<td><code>ellmer</code>��<code>tidyllm</code>��<code>LLMR</code></td>
+<td>һ�״���������ģ���ṩ��</td>
+</tr>
+<tr class="even">
+<td><strong>ר�ÿͻ���</strong></td>
+<td><code>openai</code>��<code>gemini.R</code>��<code>llm.api</code></td>
+<td>��Ե�һ�ṩ�̵���ȼ���</td>
+</tr>
+<tr class="odd">
+<td><strong>����ģ��</strong></td>
+<td><code>ollamar</code>��<code>rollama</code>��<code>llamaR</code></td>
+<td>�ڱ������п�Դģ�ͣ����� API ��Կ</td>
+</tr>
+<tr class="even">
+<td><strong>������/���ߵ���</strong></td>
+<td><code>corteza</code>��<code>agenticr</code>��<code>LLMAgentR</code></td>
+<td>��ģ�͵��� R ������ִ�д���</td>
+</tr>
+<tr class="odd">
+<td><strong>RAG/Ƕ��</strong></td>
+<td><code>ragnar</code>��<code>RAGFlowChainR</code>��<code>ragR</code></td>
+<td>������ǿ���ɣ����˽��֪ʶ��</td>
+</tr>
+</tbody>
+</table>
+<section id="ͳһӿڰ" class="level3">
+<h3 class="anchored" data-anchor-id="ͳһӿڰ">1.ͳһ�ӿڰ�</h3>
+<p>ͳһ�ӿڰ��ĺ��ļ�ֵ����<strong>���ṩ�̲����װ�����ò�</strong>���о��������������ģ�Ͷ���д��</p>
+<p><strong><code>ellmer</code>��Posit/tidyverse ��Ʒ��</strong> ��Ŀǰ�������ķ�����֧�� OpenAI��Anthropic Claude��Google Gemini��Azure��AWS Bedrock��Databricks��Snowflake ���ڶ��ṩ�̡�ʹ�÷�ʽ��Ϊ��ࡣ</p>
+<p><code>ellmer</code> ���ṩ�� <code>live_console()</code> �� <code>live_browser()</code> ���ڽ���ʽ�Ի����Լ� <code>chat()</code> ���������ڽű��г��򻯵��á�ֵ��������ǣ�<code>chat_anthropic()</code> Ĭ��ʹ�� Claude Sonnet ϵ��ģ�ͣ���ģ�������� R ���뷽�����ͻ����</p>
+<p><strong><code>tidyllm</code></strong> ������� tidyverse ���ġ����� + �ṩ�̡��﷨��0.3.0 �汾��<code>chat()</code>��<code>embed()</code>��<code>send_batch()</code> ��ͨ�ö���ȡ���˾ɵ��ṩ��ר�ú������ṩ��ͨ�� <code>claude()</code>��<code>openai()</code>��<code>ollama()</code> �����ú���ָ������֧�ֶ�ģ̬���루ͼƬ��PDF����Ƶ/��Ƶ������ά���ṹ���ĶԻ���ʷ��</p>
+<p><strong><code>LLMR</code></strong> �����о�����������<strong>��һ���ö���</strong>��<code>llm_config()</code>����<strong>��һ���ú���</strong>��<code>call_llm()</code>������ơ����ص��������˶�<strong>�ṹ�������JSON Schema��</strong> ��һ��֧�֣��Լ������ģ��ʵ��Ĳ������й��� <code>call_llm_par()</code>��</p>
+</section>
+<section id="ضṩͻ" class="level3">
+<h3 class="anchored" data-anchor-id="ضṩͻ">2.�ض��ṩ�̿ͻ���</h3>
+<p>����Ҫ���ʹ��ĳһ�ṩ�̵Ķ��й���ʱ��ר�ÿͻ��˸�Ϊ���ʡ�</p>
+<p><strong><code>openai</code></strong> �� OpenAI API ������ R ��װ������ Chat��Embeddings��Images��DALL-E����Audio��Whisper/TTS����Fine-tuning ��ȫ���˵㡣<strong><code>openaiRtools</code></strong> ���Ƕ� OpenAI Python SDK ��������ֲ��API ����� Python �汾�߶�һ�¡�</p>
+<p><strong><code>gemini.R</code></strong> �ṩ Google Gemini API ��ȫ��ӿڣ�֧�� Gemini ���ı����ɡ���ģ̬�����Լ� TTS�������ϳɣ����ܡ�</p>
+<p><strong><code>llm.api</code></strong> ��һ��<strong>��������</strong>�Ŀͻ��ˣ������� <code>curl</code>��<code>jsonlite</code> �� <code>tinyoauth</code>��֧�� OpenAI��Anthropic Claude��Moonshot Kimi��Ollama �Լ��κ� OpenAI ���ݶ˵㡣���Ķ���֮������������<strong>������ѭ����agent loop���͹��ߵ���</strong>֧�֣��Լ� <strong>Model Context Protocol��MCP���ͻ���</strong>��</p>
+</section>
+<section id="ģͼɣollama" class="level3">
+<h3 class="anchored" data-anchor-id="ģͼɣollama">3.����ģ�ͼ��ɣ�Ollama ��̬</h3>
+<p>�������д�ģ����<strong>������˽���ɱ����ƺͿɸ�����</strong>������в�����������ƣ������ʺϴ��������о����ݻ���Ҫ���ģ���������ϡ�</p>
+<p><strong><code>ollamar</code></strong> ������ R �� Ollama �������ĺ��İ����ṩ <code>generate()</code>���������ɣ��� <code>chat()</code>�����ֶԻ����Ⱥ�����ʹ��ǰ���ڱ��ذ�װ Ollama ����ȡģ�ͣ��� <code>ollama pull llama3.1</code>����Ӳ���ϣ����� 7B ģ��������Ҫ 8GB �ڴ棬13B ģ���� 16GB��33B ģ���� 32GB��</p>
+<p><strong><code>rollama</code></strong> �� <code>ollamar</code> �Ļ�����������<strong>������ģ���������ڹ���</strong>���ܣ����� <code>check_model_installed()</code>��<code>create_model()</code>���� Modelfile �����Զ���ģ�ͣ���<code>chat_history()</code> �� <code>new_chat()</code> �ȣ��ʺ���Ҫ��ϸ���Ʊ���ģ����Ϊ�ĳ�����</p>
+<p><strong><code>llamaR</code></strong> ���ṩ�˶� <code>llama.cpp</code> �ĵײ� R �󶨣�֧��ͨ�� <code>ggmlR</code> ���� GPU ���٣��ʺ϶����������м���Ҫ����û���</p>
+</section>
+<section id="빤ߵãģͳ-r" class="level3">
+<h3 class="anchored" data-anchor-id="빤ߵãģͳ-r">4.�������빤�ߵ��ã���ģ�Ͳ��� R ����</h3>
+<p>���� R ���ģ�ͽ�����<strong>��߱����</strong>�ķ��򡪡�ģ�Ͳ���ֻ�������ı������ǿ���<strong>���� R ��������ȡ�Ự����ִ�д��벢��������</strong>��</p>
+<p><strong><code>corteza</code></strong> ������ֱ��ӳ��Ϊ <strong>R ��������</strong>������ MCP ����������������Դ׷�ٻ��ơ����ṩ������ڣ������� CLI��R ����̨�� REPL ѭ����<code>chat()</code>�����Լ������ⲿ�ͻ��˵� MCP ��������<code>serve()</code>����</p>
+<p><strong><code>agenticr</code></strong> ��Ŀ���Ϊֱ�ӣ��� AI �����塰ס����R ����̨���û���������ʾ���»������ R ���롢��Ȼ���Ի�б���������һ��ʵ������ǣ����û������ API ��Կ�����Զ�ͨ�� Ollama ʹ�ñ��ص� Qwen3-1.7B ģ�ͣ�ʵ��������������</p>
+<p><strong><code>LLMAgentR</code></strong> �ṩ�˻���ͼ��ģ�黯�������ܣ�֧�ֹ����������ɡ����ԡ����ͺ��Ż���ר�� Agent������ OpenAI��Anthropic��Groq �� Ollama��</p>
+<p><code>llm.api</code> �� <code>agent()</code> ����Ҳֵ�ù�ע�����Զ��������ߵ��õ�ѭ����ֱ��ģ�ͷ��ش��ı���ӦΪֹ�����˶��ֹ��߽�����ʵ�֡�</p>
+</section>
+<section id="ƕ-ragģͷʶ" class="level3">
+<h3 class="anchored" data-anchor-id="ƕ-ragģͷʶ">5.Ƕ���� RAG����ģ�ͷ���˽��֪ʶ</h3>
+<p><strong>Ƕ�루Embeddings��</strong> �ǽ��ı�ת��Ϊ������ʾ�Ĺ��̣������������� RAG �Ļ�����</p>
+<p><strong><code>ragnar</code>��tidyverse ��Ʒ��</strong> �ṩ��ͳһ��Ƕ��ӿڣ�֧�� <code>embed_openai()</code>��<code>embed_ollama()</code>��<code>embed_bedrock()</code> �ȣ�Ŀ������ R �û��ܹ���һ�µķ�ʽ�������ṩ�̻�ȡǶ��������</p>
+<p><strong><code>RAGFlowChainR</code></strong> ������������ RAG ��������ʹ�� <strong>DuckDB</strong> ��Ϊ���������洢��֧�� HNSW ������ȫ�ļ������ɶԽ� OpenAI �� Ollama ���ݵ�Ƕ��ģ�ͣ��������˿�ѡ�� <strong>Tavily ��������</strong>��Ϊ�������Դ���������Ŀ���ǶԱ� Python ��̬�е� RAGFlowChain��Ϊ R �û��ṩ�������� RAG �ܵ���</p>
+<p><strong><code>ragR</code></strong> ��������� RAG ��������<strong>���������С���־��¼������</strong>��ʹ�ñ��� RDS �ļ���Ϊ�����洢���ʺ���Ҫ����������ȫ���ػ������ĳ�����</p>
+<p><strong><code>text2vec</code></strong> ��һ����ʷ�ƾõ��ı�����������֧�� GloVe ��Ƕ�롢LDA/LSA ���⽨ģ�Ⱦ��䷽�����ʺϲ������ⲿ API �Ĵ�����Ƕ������</p>
+</section>
+</section>
+<section id="һellmer" class="level2">
+<h2 class="anchored" data-anchor-id="һellmer">һ��ellmer ��</h2>
+<p><code>ellmer</code> �� Posit �Ŷ�Ϊ R ���Դ���� LLM ͳһ�ӿڰ������� R �û�����һ���﷨����ʮ���ִ�ģ�ͣ����޷��������ݷ�����������</p>
+</section>
+<section id="ĺ" class="level2">
+<h2 class="anchored" data-anchor-id="ĺ">1.���Ĺ��ܸ���</h2>
+<ul>
+<li><p><strong>ͳһ�Ķ�ģ�ͽӿ�</strong>��<code>ellmer</code> ͨ�� <code>chat_*()</code> ϵ�к��������˲�ͬ���� API �Ĳ��죬���� OpenAI��Anthropic Claude��Google Gemini��DeepSeek��Ollama �����������̡��л�ģ��ֻ��������������������ಿ�ּ������䡣</p></li>
+<li><p><strong>��ʽ�����Streaming��</strong>��֧�����������ջظ����ڿ���̨�� Shiny Ӧ���ж��ܻ������ ChatGPT ��ʵʱ���顣</p></li>
+<li><p><strong>���ߵ��ã�Tool Calling��</strong>��ͨ�� <code>tool()</code> ���������� R ����ע��Ϊ�����ߡ���LLM ���ڶԻ����Զ�������ã�ʵ�ֲ�ѯ���ݿ⡢ִ�м��㡢��ȡʵʱ��Ϣ�Ȳ�����</p></li>
+<li><p><strong>�ṹ��������ȡ</strong>������ <code>ellmer</code> �����ɫ�Ĺ��ܡ���ֻ���� <code>type_object()</code> �������������ݽṹ������ <code>$chat_structured()</code>��LLM �ͻ�ֱ�Ӵӷǽṹ���ı�����ȡ��Ϣ�������� R �ж�Ӧ�� list �� data.frame�������ֶ����� JSON��</p></li>
+<li><p><strong>�첽�벢��</strong>��<code>$chat_async()</code> �� <code>$stream_async()</code> ���� Promise �����ʺ��������д������� LLM ����������������Ч�ʡ�</p></li>
+<li><p><strong>��̬Эͬ</strong>��<code>ellmer</code> �� Posit AI ����������ڣ����� <code>vitals</code>��ģ����������<code>ragnar</code>��RAG����<code>shinychat</code>��Shiny ����Ӧ�ã���<code>mcptools</code>��MCP Э�飩�Ȱ����ʹ�á�</p></li>
+</ul>
+<section id="װãdeepseekϊ" class="level3">
+<h3 class="anchored" data-anchor-id="װãdeepseekϊ">2.��װ�����ã���DeepSeekΪ����</h3>
+<p><strong>��װ</strong>��CRAN ��ʽ�棩��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ellmer"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>���� DeepSeek API Key</strong>��</p>
+<p>��Ϊ API key �����У�ֱ��д�� R �ű�������й¶���ٷ��Ƽ�����Կд�� <code>.Renviron</code> �ļ���R ����ʱ���Զ����أ�<code>ellmer</code> ���Զ���ȡ��������Ͳ��ó��� key���������£�</p>
+<pre><code># ���û��װ usethis
+install.packages("usethis")
+
+
+# �� .Renviron �ļ�
+usethis::edit_r_environ()
+
+
+# Ȼ���ڴ򿪵��ļ����һ�У�
+DEEPSEEK_API_KEY="�����Կ"
+
+
+# �����ļ���Ȼ������ R / RStudio��
+# ֮���飺
+# Sys.getenv("DEEPSEEK_API_KEY")
+# �������ʾ��� key����˵�����ú��ˡ�
+# �Ժ��� ellmer ���� DeepSeek ʱ��
+# �Ͳ������ֶ�����Կ��ellmer�����Զ���ȡ�������������</code></pre>
+</section>
+<section id="deepseek-ӿ" class="level3">
+<h3 class="anchored" data-anchor-id="deepseek-ӿ">3.DeepSeek �ӿ�</h3>
+<p><code>chat_deepseek()</code> ������ <code>chat_openai_compatible()</code> ֮�ϣ�Ĭ������ DeepSeek �ٷ� API��<a href="https://api.deepseek.com"><code>https://api.deepseek.com</code></a>����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chat_deepseek</span>(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_url =</span> <span class="st">"https://api.deepseek.com"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">credentials =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">params =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_args =</span> <span class="fu">list</span>(),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_headers =</span> <span class="fu">character</span>()</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">models_deepseek</span>(</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">base_url =</span> <span class="st">"https://api.deepseek.com"</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">api_key =</span> <span class="cn">NULL</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">credentials =</span> <span class="cn">NULL</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>���ݹٷ��ĵ���<code>chat_deepseek()</code> <strong>Ŀǰ��֧�ֽṹ��������ȡ��structured data extraction����ͼ������</strong>���������������� <code>$chat_structured()</code> �� <code>type_object()</code>����Ҫ���� <code>chat_openai()</code> �� <code>chat_anthropic()</code> ��֧�ָù��ܵ�ģ�͡�</p>
+</section>
+<section id="ӧð" class="level3">
+<h3 class="anchored" data-anchor-id="ӧð">4.Ӧ�ð�����</h3>
+<p>���°����ı��� R ���Բ�ʿ�Ŷӵ�ʵս��ʾ������չʾ�� <code>ellmer</code> + DeepSeek ����ʵ���ݷ��������е��÷����� DeepSeek ����������˷�� ggplot2 ͼ����</p>
+<p><strong>�����趨��</strong></p>
+<p>����һ�� 2025 ���°����ÿ���������ݣ�<code>trend_data</code>�������� <code>date</code>��<code>sales</code> �� <code>is_peak</code>���Ƿ�߷��գ����С���ϣ�� AI ����һ��<strong>������˷��</strong>�� <code>ggplot2</code> ͼ����Ҫ����ɫ�������޺�ɫ����������Ч�����Զ������塣</p>
+<p><strong>�������룺</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. ģ������ ---</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>trend_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">"2025-07-01"</span>), <span class="fu">as.Date</span>(<span class="st">"2025-12-31"</span>), <span class="at">by =</span> <span class="st">"day"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">base_value =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">500</span>, <span class="at">length.out =</span> <span class="fu">n</span>()),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">noise =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="dv">50</span>),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">sales =</span> <span class="fu">pmax</span>(<span class="dv">0</span>, base_value <span class="sc">+</span> noise),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_peak =</span> sales <span class="sc">&gt;</span> <span class="fu">quantile</span>(sales, <span class="fl">0.95</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. ���� DeepSeek ������� ---</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_deepseek</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">system_prompt =</span> <span class="fu">paste</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"����һλ����� R �������ݿ��ӻ�ר�ң���ͨ tidyverse �� ggplot2��"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"���ó������Ӿ������ǿ��ͼ�������ϸ���ѭ�û������ݽṹ������"</span>,</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"���ɵĴ���������ֱ�����У���Ҫʹ��δ���û������ж����������"</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3. ����������������ĵ� Prompt ---</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>prompt <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����һ����Ϊ `trend_data` �����ݿ򣬰��������У�</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- date (���ڣ�Date ����)</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- sales (ÿ�����۶��ֵ��)</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">"- is_peak (����ֵ���Ƿ�Ϊ���۸߷���)</span><span class="sc">\n\n</span><span class="st">"</span>,</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����ǰ 6 �����£�</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">capture.output</span>(<span class="fu">head</span>(trend_data)), <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>),</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">"</span><span class="sc">\n\n</span><span class="st">��ʹ�� ggplot2 ����һ���������(Cyberpunk)������������ͼ��"</span>,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">"����Ҫ��</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1. ��ɫ�������� #0D0221 ��������ɫ��</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2. ʹ���޺�ɫ��������Ʒ�졢���ϣ���Ϊ�����ͱ�ע��ɫ</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">"3. �߷�������Ŀ�ı�Ǹ���</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">"4. ���ӷ���Ч����ʹ�� ggfx ������Ӱģ�⣩</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">"5. ��������ǩʹ�ÿƼ������壨�� Orbitron���������������޳������壩</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">"6. ��������� R ���룬������Ҫ�� library() ���á�"</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 4. �������󣬻�ȡ���ɵĴ��� ---</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> chat<span class="sc">$</span><span class="fu">chat</span>(prompt)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(response)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><img src="images/16-14-1.png" class="img-fluid"></p>
+<p><strong>��ʾ����ƣ�</strong></p>
+<ul>
+<li><p><strong>System Prompt �Ľ�ɫԼ��</strong>���� <code>chat_deepseek()</code> ��ͨ�� <code>system_prompt</code> �޶� AI �Ľ�ɫ����R ���ӻ�ר�ҡ�������Ϊ׼�򣨡������ֱ�����С������������������������������ٻþ����롣</p></li>
+<li><p><strong>����������ע��</strong>���� <code>head(trend_data)</code> ��ʵ�����Ƕ�� Prompt����ģ�͡���������ʵ�����ݽṹ�����������͡�����ֵ����������ƾ�ղ²⡣���Ǽ�����������Ĺؼ����ɡ�</p></li>
+<li><p><strong>Prompt �������Ӿ����ľ�ȷ����</strong>���ѡ�������˷�񡱲��Ϊ��ִ�еľ���Ҫ�󣨱���ɫ���롢��ɫ����������Ч��ʵ�ַ�ʽ���������ƣ�����ģ������ȷ��ʩ��ͼֽ��</p></li>
+</ul>
+<p>ģ�������</p>
+<p>DeepSeek �᷵����������Ĵ��루������������ģ�ͻ����ʵ�����ݷֲ��Զ����������᷶Χ���߷��λ�úͱ�עϸ�ڣ���ֻ�轫���صĴ���ճ���� R �ű������м��ɡ�</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfx)   <span class="co"># ���ڷ���Ч��</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ��������</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">font_add_google</span>(<span class="st">"Orbitron"</span>, <span class="st">"orbitron"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>()</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(trend_data, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> sales)) <span class="sc">+</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_reference</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#00FFF7"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span>),</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">"line"</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">with_blur</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#FF00E4"</span>, <span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>),</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">sigma =</span> <span class="dv">8</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(trend_data, is_peak),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"#FFD700"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">18</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"#00FFF7"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"#FFD700"</span>)) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"SALES TREND // 2025 H2"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Cyberpunk Visualization"</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"SALES VOLUME"</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_family =</span> <span class="st">"orbitron"</span>) <span class="sc">+</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#0D0221"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#0D0221"</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"#1A1A3E"</span>, <span class="at">linewidth =</span> <span class="fl">0.2</span>),</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#00FFF7"</span>),</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#FF00E4"</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"#B0B0FF"</span>, <span class="at">size =</span> <span class="dv">11</span>)</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="с" class="level3">
+<h3 class="anchored" data-anchor-id="с">5.С��</h3>
+<p><code>ellmer</code> + DeepSeek ������� <strong>�������������ݷ�������</strong>�������Լ۱ȼ��ߣ�DeepSeek �� API �۸�Զ����������ҵģ�ͣ��� <code>ellmer</code> ��ͳһ�ӿ����������������ּ�ࡣ��Ҫע����ǣ����� <code>chat_deepseek()</code> ��ǰ��֧�ֽṹ��������ȡ������������漰���ĵ���������ȡ�ֶβ����� data.frame�����齫ģ���л�Ϊ <code>chat_openai()</code> �� <code>chat_anthropic()</code>������ API �÷���ȫһ�¡�</p>
+</section>
+</section>
+<section id="http-llm-api" class="level2">
+<h2 class="anchored" data-anchor-id="http-llm-api">����ֱ��ͨ�� HTTP ���� LLM API</h2>
+<p>������ R ��û�и���ĳ���˵㣨��<strong>���״�ģ��GLMϵ��</strong>������������Ҫ����ϸ�ؿ�������ͷ����֤��ʽ����ʱ�����ԡ���ʽ��Ӧʱ������ֱ�ӹ��� HTTP ������� LLM API������������Ȼ�ǣ�</p>
+<p><strong>�������� �� ������֤ͷ �� ���������壨ͨ���� JSON���� ���� POST ���� �� ������Ӧ</strong></p>
+<p>�Դ� R �п��õ����ַ�ʽ�ǣ�</p>
+<ul>
+<li><strong>httr2</strong>���ִ����ܵ��Ѻã��Ƽ���ѡ��</li>
+<li><strong>httr</strong>�������ȶ����ܶ�ɴ�������ʹ�ã�</li>
+<li><strong>curl</strong>����ײ㣬�ʺ���Ҫ��ȫ���� HTTP ��Ϊ�ĳ�����</li>
+</ul>
+<section id="httr2ƽʽ" class="level3">
+<h3 class="anchored" data-anchor-id="httr2ƽʽ">1.httr2���Ƽ���ʽ</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://open.bigmodel.cn/api/paas/v4/chat/completions"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, YOUR_API_KEY),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Content-Type</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature=</span><span class="fl">0.5</span>,</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>˵����</p>
+<ul>
+<li><code>request()</code> �����������</li>
+<li><code>req_headers()</code> ������֤ͷ���������ͣ�</li>
+<li><code>req_body_json()</code> �Զ��� R �б�ת�� JSON����Ĭ������ <code>Content-Type: application/json</code>��Ҳ���Զ��������� <code>unbox</code>��</li>
+<li><code>req_perform()</code> ��������</li>
+<li><code>resp_body_json()</code> ����Ӧ�����Ϊ R �б���</li>
+</ul>
+</section>
+<section id="ƚi汾" class="level3">
+<h3 class="anchored" data-anchor-id="ƚi汾">2. ���Ƚ��İ汾</h3>
+<p>���������в�Ҫֻд��Сʾ�����������ټ��ϳ�ʱ�����Ժ�״̬���顣</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://open.bigmodel.cn/api/paas/v4/chat/completions"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, YOUR_API_KEY)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature=</span><span class="fl">0.5</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"����һ���Ͻ������� R ���֡�"</span>),</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="fl">0.2</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">800</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_timeout</span>(<span class="dv">60</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_retry</span>(</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tries =</span> <span class="dv">3</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">is_transient =</span> <span class="cf">function</span>(resp) {</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">resp_status</span>(resp) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">429</span>, <span class="dv">500</span>, <span class="dv">502</span>, <span class="dv">503</span>, <span class="dv">504</span>)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_error</span>(<span class="at">is_error =</span> <span class="cf">function</span>(resp) <span class="cn">FALSE</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">resp_status</span>(resp) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"����ʧ�ܣ�HTTP ״̬�룺"</span>, <span class="fu">resp_status</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">resp_body_string</span>(resp), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>����Ĺؼ��㣺</p>
+<ul>
+<li><code>req_timeout(60)</code>������ 60 �볬ʱ��</li>
+<li><code>req_retry()</code>������������ʱ����������������ԣ�</li>
+<li><code>req_error(is_error = function(resp) FALSE)</code>������ httr2 �Զ��״��������ֶ����״̬��ʹ����壻</li>
+<li><code>simplifyVector = FALSE</code>������Ƕ�� JSON ���б��ṹ�����ڰ��ֶη��ʡ�</li>
+</ul>
+</section>
+<section id="ի" class="level3">
+<h3 class="anchored" data-anchor-id="ի">3. ���ֶԻ�</h3>
+<p>LLM API ͨ��ͨ�� <code>messages</code> ����ά�������ģ�</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>messages <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"system"</span>, <span class="at">content =</span> <span class="st">"����һ�� R ����ר�ҡ�"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"ʲô�����Իع飿"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"assistant"</span>, <span class="at">content =</span> <span class="st">"���Իع��ǡ���"</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"�����һ�� R ʾ����"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://open.bigmodel.cn/api/paas/v4/chat/completions"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(<span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, YOUR_API_KEY)) <span class="sc">|&gt;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> messages,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">temperature =</span> <span class="fl">0.3</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">4. ��������</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_dry_run</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_verbose</span>() <span class="sc">|&gt;</span> <span class="fu">req_perform</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ҳ���Լ�����һ���������Ӧ��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>httr2<span class="sc">::</span><span class="fu">last_request</span>()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>httr2<span class="sc">::</span><span class="fu">last_response</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>�鿴��Ӧ״̬��ͷ��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_status</span>(resp)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_headers</span>(resp)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_body_string</span>(resp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="httrʽ" class="level3">
+<h3 class="anchored" data-anchor-id="httrʽ">5.httr�����䷽ʽ</h3>
+<p>�����ά���ɴ��룬�������� httr ��̬����������д��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">POST</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://open.bigmodel.cn/api/paas/v4/chat/completions"</span>,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_headers</span>(</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Authorization =</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, YOUR_API_KEY)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">content_type_json</span>(),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">body =</span> <span class="fu">toJSON</span>(body, <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">encode =</span> <span class="st">"raw"</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">status_code</span>(resp) <span class="sc">&gt;=</span> <span class="dv">400</span>) {</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stop</span>(<span class="fu">content</span>(resp, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>))</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">content</span>(resp, <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(txt, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Ҫ�㣺</p>
+<ul>
+<li><code>toJSON(..., auto_unbox = TRUE)</code> ����Ҫ�����򵥸��ַ������ܱ���������飻</li>
+<li><code>content_type_json()</code> ���� <code>Content-Type</code>��</li>
+<li><code>encode = "raw"</code> ��ʾ�������Ѿ��� JSON �ַ�����</li>
+<li><code>status_code()</code> ��� HTTP ״̬�롣</li>
+</ul>
+</section>
+<section id="curlײ㷽ʽ" class="level3">
+<h3 class="anchored" data-anchor-id="curlײ㷽ʽ">6.curl����ײ㷽ʽ</h3>
+<p>����Ҫ��ȫ���� HTTP ��Ϊʱ������ʹ�� <code>curl</code> ����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(curl)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">new_handle</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">handle_setheaders</span>(</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  h,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Authorization"</span> <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"Bearer"</span>, YOUR_API_KEY),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Content-Type"</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>body <span class="ot">&lt;-</span> <span class="fu">toJSON</span>(<span class="fu">list</span>(</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm-5.3"</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>), <span class="at">auto_unbox =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">handle_setopt</span>(h, <span class="at">postfields =</span> body)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">curl</span>(<span class="st">"https://open.bigmodel.cn/api/paas/v4/chat/completions"</span>, <span class="at">handle =</span> h)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">readLines</span>(con, <span class="at">warn =</span> <span class="cn">FALSE</span>), <span class="at">collapse =</span> <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a><span class="fu">close</span>(con)</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(txt, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>���ַ�ʽ�ʺϣ�</p>
+<ul>
+<li>�Զ���˵㣻</li>
+<li>�Ǳ�׼��֤��</li>
+<li>���Դ�����TLS��HTTP �汾��</li>
+<li>��Ҫ��ȷ���Ƶײ�������Ϊ��</li>
+</ul>
+</section>
+</section>
+<section id="ǳ" class="level2">
+<h2 class="anchored" data-anchor-id="ǳ">7.�Ǳ�׼�˵�����֤</h2>
+<p>��ͬ���̵� API ������ȫ���� OpenAI������ Anthropic Claude ʹ�� <code>x-api-key</code> �� <code>anthropic-version</code>���˵��������Ҳ��ͬ��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(<span class="st">"https://api.anthropic.com/v1/messages"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_headers</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">x-api-key</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">Sys.getenv</span>(<span class="st">"ANTHROPIC_API_KEY"</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">anthropic-version</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"2023-06-01"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">content-type</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"application/json"</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="st">"claude-3-5-sonnet-latest"</span>,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_tokens =</span> <span class="dv">1024</span>,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��Rдһ�����Իع��ʾ��"</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>content[[<span class="dv">1</span>]]<span class="sc">$</span>text)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>�ܶ౾�����������ṩ OpenAI ���ݶ˵㣬���� Ollama��vLLM��LM Studio��LocalAI �ȡ���ʱͨ��ֻ��Ҫ�� <code>base_url</code>���Ա��ز����OllamaΪ����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENAI_BASE_URL"</span>, <span class="st">"http://localhost:11434"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>model    <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">"OPENAI_MODEL"</span>, <span class="st">"deepseek-r1:8b"</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>req <span class="ot">&lt;-</span> <span class="fu">request</span>(base_url) <span class="sc">|&gt;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_url_path_append</span>(<span class="st">"v1"</span>, <span class="st">"chat"</span>, <span class="st">"completions"</span>) <span class="sc">|&gt;</span>   <span class="co"># ƴ�� /v1/chat/completions</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_method</span>(<span class="st">"POST"</span>) <span class="sc">|&gt;</span>                                  <span class="co"># ָ�� POST</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">req_body_json</span>(<span class="fu">list</span>(</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> model,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">messages =</span> <span class="fu">list</span>(</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(<span class="at">role =</span> <span class="st">"user"</span>, <span class="at">content =</span> <span class="st">"��ã������һ�����Լ���"</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">req_perform</span>(req)</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">resp_body_json</span>(resp, <span class="at">simplifyVector =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(result<span class="sc">$</span>choices[[<span class="dv">1</span>]]<span class="sc">$</span>message<span class="sc">$</span>content)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>������ط�����Ҫ��֤�����Բ��� <code>Authorization</code> ͷ�������Ҫ���򰴷���Ҫ�����ӡ�</p>
+</section>
+<section id="ʵ" class="level2">
+<h2 class="anchored" data-anchor-id="ʵ">8.�������������ʵ��</h2>
+<ul>
+<li><p><strong>��Կ��ҪӲ���룬</strong>ʹ�û��������� <code>.Renviron</code>��</p></li>
+<li><p><strong>����ʹ�� httr2��</strong>httr2 �Ĺܵ�������ԡ�����������ʽ֧�ָ��ִ���httr �ʺϾɴ��룬curl �ʺϵײ���ԡ�</p></li>
+<li><p><strong>��� HTTP ״̬�롣ÿ��</strong>����һ���ɹ���400��401��403��429��500 ��Ӧ�в�ͬ������</p></li>
+<li><p><strong>���ó�ʱ�����ԣ�</strong>LLM ����������ܽ���������<strong><code>req_timeout(60)</code></strong> �� <strong><code>req_retry(max_tries = 3)���Ƚ�</code></strong>��</p></li>
+<li><p><strong>ע�� JSON ���롣</strong>ʹ�� httr2 �� <code>req_body_json()</code> ͨ������Ҫ�ֶ� <strong><code>auto_unbox</code></strong>��ʹ�� httr �� curl ʱ���ǵã�jsonlite::toJSON(x, <strong>auto_unbox = TRUE</strong>)</p></li>
+<li><p><strong>����������</strong>���� 429 ʱ�����Զ�ȡ <code>Retry-After</code> ��Ӧͷ������ʹ��ָ���˱ܡ�</p></li>
+<li><p><strong>��Ҫй¶��Կ��</strong>����ʱ�����ӡ��������ͷ��<code>req_dry_run()</code> �ᾡ������������Ϣ�������������</p></li>
+<li><p><strong>���������绷����</strong>����ͨ�� <code>req_proxy()</code> �򻷾��������ô�����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>req <span class="sc">|&gt;</span> <span class="fu">req_proxy</span>(<span class="st">"http://proxy.example.com"</span>, <span class="dv">8080</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>�ɱ���������ȿ��ƣ�</strong>���� <code>max_tokens</code>��<code>temperature</code> �Ȳ����������������ġ�</p></li>
+<li><p><strong>�������������װ��</strong>�� base URL��ģ��������֤��ʽ����ʱ�����ԡ����������װ�ɺ���������ÿ���ظ�д������롣</p></li>
+</ul>
+<p>��֮��ֱ��ͨ�� HTTP ���� LLM API �����������������Է����κζ˵㡢ʹ���κ���֤��ʽ�������κ�����ϸ�ڡ�</p>
+</section>
+<section id="ollama" class="level2">
+<h2 class="anchored" data-anchor-id="ollama">����Ollama</h2>
+<p><strong>Ollama</strong> ��һ�Դ�ı��ش�����ģ�ͣ�LLM������ƽ̨�����ĺ���Ŀ����<strong>�ô�ģ���� Docker ����һ���������ڸ��˵�����һ�����ء����к͹���</strong>��������ؽ����˱������д�ģ�͵��ż����������������ƶ� API�������ڱ�������ʹ�� DeepSeek��Qwen��Llama ���ϰٸ���Դģ�͡�</p>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">1.��������</h3>
+<p>Ollama ����˴�ͳ�ƶ� AI ����ļ���ʹ�㣬Ϊ�û��ṩ�˸��������� AI ʹ�÷�ʽ��</p>
+<ul>
+<li><strong>��ȫ����뿪Դ</strong>��Ollama ��������֧�ֵ�ģ�;���ѣ����� MIT ����֤������������Ƶ�ʹ�ã�����֧���κ� API ���÷��á�</li>
+<li><strong>������˽�밲ȫ</strong>���������ݴ������ڱ�����ɣ��������������뿪����豸���Ӹ����϶ž������ݱ��������ռ������õķ��գ������ʺϴ���������Ϣ��</li>
+<li><strong>���߿���������</strong>��ģ�����غ󣬿��������绷�������С��㻹���Խ� Ollama ��װ�ھ������ڵķ������ϣ�ʵ�ֶ��豸����ʹ�ã�����������ݮ�ɵȵ͹����豸�����С�</li>
+<li><strong>�ḻ��ģ�Ϳ�������л�</strong>��֧�ֳ��� <strong>150 ��</strong>��Դģ�ͣ����� Llama��DeepSeek��Qwen��Mistral��Gemma �ȣ�����Ը������������л���ͬģ�͡�</li>
+</ul>
+</section>
+<section id="ģϳ" class="level3">
+<h3 class="anchored" data-anchor-id="ģϳ">2.ģ�Ϳ�</h3>
+<p>Ollama ͨ�� <code>ollama.com/library</code> ά��һ���������������Ż���ģ�Ϳ⣬����������Դģ�ͼ��壺</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 39%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ģ�ͼ���</th>
+<th>����ģ��</th>
+<th>�ص�</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Llama</td>
+<td>Llama 2 / 3 / 3.1 / 3.2 / 4</td>
+<td>Meta ��ͨ��ģ��ϵ��</td>
+</tr>
+<tr class="even">
+<td>Gemma</td>
+<td>Gemma 1 / 2 / 3</td>
+<td>Google �ĸ�Ч����ģ��</td>
+</tr>
+<tr class="odd">
+<td>Qwen</td>
+<td>Qwen 2 / 3 / 2.5-VL / 3-VL</td>
+<td>����Ͱ͵�ģ�ͼ��壬����ģ̬����</td>
+</tr>
+<tr class="even">
+<td>Mistral</td>
+<td>Mistral 1/2/3��Mixtral</td>
+<td>Mistral AI ��ģ��</td>
+</tr>
+<tr class="odd">
+<td>DeepSeek</td>
+<td>DeepSeek v3.1��R1</td>
+<td>����ģ��</td>
+</tr>
+<tr class="even">
+<td>Phi</td>
+<td>Phi ϵ��</td>
+<td>΢����С������ģ��</td>
+</tr>
+<tr class="odd">
+<td>CodeLlama</td>
+<td>��</td>
+<td>��������ר��</td>
+</tr>
+</tbody>
+</table>
+<p>ģ��������ѭ�ṹ����ʽ��<code>[host/][namespace/]model[:tag]</code>������ <code>registry.ollama.ai/library/llama3:8b</code>��</p>
+<p><strong>��ǩ��tag��</strong> ���ڱ�ʶģ�Ͱ汾�������������������� <code>7b</code>��<code>q4_0</code>��<code>q8_0</code>����<code>q4_0</code> �� <code>q8_0</code> ��ʡԼ 50% �Դ档</p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">3.���������ܼ���</h3>
+<p>Ollama ��̬��������������<strong>������ AI Ӧ�ÿ�ܵ���Ȼ�����</strong>��</p>
+<p><strong>LangChain ����</strong>��<code>langchain-ollama</code>��Python���� <code>@langchain/ollama</code>��JS���������ٷ�ά���ļ��ɰ����� JS �汾Ϊ����ʵ���� <code>ChatOllama</code> ʱָ��ģ�����Ƽ���ֱ�ӵ��ñ���ģ�ͣ�Ĭ������ <code>http://localhost:11434</code>��Python �������ͨ�� <code>langchain_community.llms.Ollama</code> ��ʹ�� OpenAI ����Э����롣</p>
+<p><strong>MCP��Model Context Protocol��֧��</strong>��Ollama �� MCP �Ľ��ʹ����ģ���ܹ������ⲿ���ߡ��������ж�� MCP ������ʵ�֣�֧�� GitHub API ���ɡ�������Զ�������������˵�ȹ��ܡ����磬һ�� GitHub Bot ���Խ��� PR ������� diff ���͸����� Ollama ģ�ͽ�����飬�ٰ���������Ϊ���۷��زֿ⡣</p>
+<p><strong>RAG ���������ݿ�</strong>��Ollama ����Ϊ RAG ϵͳ�����ɶˣ���� Qdrant��ChromaDB��FAISS ���������ݿ�ʹ�á��������̰�����ʹ�� <code>nomic-embed-text</code> ��Ƕ��ģ�����������������������ݿ������ʱ�� Ollama ���ռ������������Ĳ����ɻش�</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">4.�����ܹ�</h3>
+<p>Ollama �����˾���� <strong>Client-Server���ͻ���-���������ܹ�</strong>��ͨ��ģ�黯��ƽ������Է�װ�ڵײ㡣</p>
+<ul>
+<li><strong>�������</strong>����ܹ����¶��Ͽɷ�Ϊ���㣺
+<ul>
+<li><strong>���������</strong>���ײ����� <strong><code>llama.cpp</code></strong>������һ���� C/C++ ��д�ĸ������������棬������ص�ģ�ͼ��غ;�����㹤����</li>
+<li><strong>�����</strong>��Ollama ������ͨ�� HTTP Э����ͻ���ͨ�ţ��������ṩ <strong>OpenAI ���ݵ� API</strong> �ӿڣ�����ζ�Ŵ������е� AI Ӧ�ú͹��߿����޷�Խ� Ollama��</li>
+<li><strong>�ͻ��˲�</strong>���û�ͨ�������У�CLI��������Ӧ���� Ollama ����������ģ�ͼ��ء��Ի�������</li>
+</ul></li>
+<li><strong>�ؼ�������������Quantization��</strong>��Ollama Ĭ����ȡ���� <strong>Q4_K_M ������</strong>ģ�͡�ͨ����ģ��Ȩ�ش� 16-bit ѹ����Լ 4-bit���ɽ�ģ�������С��ԭ��С�� <strong>1/3</strong>���Ӷ��� 14B �����Ĵ�ģ���ܹ��ڽ� 32GB �ڴ�ļ��õ������������С�</li>
+</ul>
+</section>
+<section id="ٷӿ-sdk" class="level3">
+<h3 class="anchored" data-anchor-id="ٷӿ-sdk">5.�ٷ��ӿ��� SDK</h3>
+<p>Ollama �ṩ<strong>�����㼶�Ľ��뷽ʽ</strong>�����Ǵӿ��ٵ��Ե���ȼ��ɵ�ȫ������</p>
+<p><strong>REST API</strong>������Ĭ�ϼ��� <code>127.0.0.1:11434</code>��ͨ�� <code>curl</code> ����ֱ�ӵ��ã��������������</p>
+<p><strong>�ٷ� Python / JavaScript SDK</strong>��������֤����ʽ���䡢�����������Ͱ�ȫ�ӿڡ�Python ���ṩ <code>generate</code> �� <code>chat</code> ���ֵ���ģʽ��֧�������Ĺ�����ͨ�� <code>context</code> �������ֶ��ֶԻ���������ȡ����JavaScript ��ͬʱ֧�� Node.js ����������������������� TypeScript ���Ͷ��塣</p>
+<p><strong>OpenAI API ���ݲ�</strong>��Ollama �ṩ�� <code>/v1/chat/completions</code> ���ݶ˵㣬���л��� OpenAI ��Ӧ��ֻ�轫 <code>base_url</code> ָ�� <code>http://localhost:11434/v1/</code>��<code>api_key</code> ��������ռλֵ�����޷�Ǩ�ơ�</p>
+<p>���⣬����ά���� SDK ������ .NET��Java �����ԣ�������� OpenAPI �淶�Զ����ɵ� C# SDK ֧��ȫ�� Ollama API �˵㡣</p>
+</section>
+<section id="ĺ-1" class="level3">
+<h3 class="anchored" data-anchor-id="ĺ-1">6.���Ĺ���</h3>
+<p>Ollama �ṩ��һ�������Ĺ�����������������Ͷ���ģ�͡�</p>
+<ul>
+<li><p><strong>�򻯵�ģ�͹���</strong>��ͨ���򵥵���������ģ�͵���ȡ�����С��鿴��ɾ����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ���ز�����һ��ģ��</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> run qwen2.5:7b</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴���������ص�ģ���б�</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> list</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ɾ��һ��ģ��</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="ex">ollama</span> rm qwen2.5:7b</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>ǿ��� Modelfile ����</strong>��<code>Modelfile</code> �� Ollama �ġ���ͼ���������㴴���ͷ����Զ���ģ�͡������ͨ��������ϵͳ��ʾ�ʣ�System Prompt�����������в��������¶ȡ�top_p������������ GGUF �� Safetensors ��ʽ���Զ���ģ�͡�</p></li>
+<li><p><strong>������ API ����̬����</strong>������ REST API��Ollama ���ṩ�� <strong>Python</strong> �� <strong>JavaScript</strong> �⡣�� <strong>OpenAI ���ݽӿ�</strong>��<code>/v1/chat/completions</code>���������ֱ��ʹ�� OpenAI �� SDK �����ñ���ģ�ͣ�ֻ�轫 <code>base_url</code> ָ�� http://localhost:11434/v1/chat/completions ���ɡ�</p></li>
+</ul>
+</section>
+<section id="ӳҫ밲װ" class="level3">
+<h3 class="anchored" data-anchor-id="ӳҫ밲װ">7.Ӳ��Ҫ���밲װ</h3>
+<p>Ollama ֧�� <strong>macOS��Windows �� Linux</strong> ����ƽ̨����װ���̷ǳ��򵥣�ͨ��ֻ�����ذ�װ����һ·����һ�������ɡ�</p>
+<ul>
+<li><strong>������ã������� 7B ģ�ͣ�</strong>��4 �� CPU + 8GB �ڴ档</li>
+<li><strong>�Ƽ����ã��������� 13B+ ģ�ͣ�</strong>��8 �� CPU + 16GB �ڴ� + NVIDIA �Կ���֧�� CUDA����</li>
+<li><strong>GPU ֧��</strong>��Ollama ֧�ּ������� <strong>5.0+</strong> �� NVIDIA GPU�������汾 531+�����Լ�ͨ�� ROCm ��֧�ֵ� AMD GPU���� Apple Silicon Mac �ϣ����������� <strong>MLX</strong> ��ܽ��м��١�</li>
+</ul>
+</section>
+<section id="ȫע" class="level3">
+<h3 class="anchored" data-anchor-id="ȫע">8.��ȫע������</h3>
+<p>Ollama Ĭ�����ô���<strong>δ��Ȩ���ʷ���</strong>������Ĭ�ϱ�¶ RESTful API �˿� 11434��ȱ������������֤��2025 �� 3 �£��������簲ȫͨ���������ʹ˷���ͨ����</p>
+<p>�����͹ٷ������<strong>�ӹ̴�ʩ</strong>���������ַ������ <code>127.0.0.1</code>��ͨ�� Caddy ����������� HTTP Basic Auth������ TLS ���� API ͨ�š��Լ�ͨ�� OAuth2.0 ʵ�ֻ��ڽ�ɫ�ķ��ʿ��ơ�Ollama ����Ҳ���ƶ���Secure Mode�����ԣ��ƻ�ͨ�� <code>--secure</code> ��־�л����ӹ�Ĭ�����ã�����������֤������ʱ�İ�ȫ���档</p>
+<p><strong>Ĭ������£�Ollama ������󶨵����� <code>127.0.0.1</code>���ǰ�ȫ�ġ�</strong> ������̳̻�ָ���û����� <code>OLLAMA_HOST=0.0.0.0</code> �Ա���������ʣ�<strong>���ʹ����¶����������û���κμ�Ȩ����</strong>������δ��Ȩ���ʵķ��ա�</p>
+<p>����Զ�̷��ʣ����ͨ�� <strong>Nginx �������</strong>������ <strong>HTTP Basic Auth</strong> ��֤����ʹ�� <strong>Cloudflare ����</strong>�Ȱ�ȫ��ʽ������ֱ�ӽ� Ollama �˿ڱ�¶�ڹ�����</p>
+</section>
+<section id="λ" class="level3">
+<h3 class="anchored" data-anchor-id="λ">9.��̬��λ</h3>
+<p>����ͬ�๤�ߵĶԱ��У�Ollama �Ķ�λ�ǳ�������</p>
+<ul>
+<li><p><strong>Ollama</strong>��<strong>���˿��������ԭ��</strong>����ѡ��ǿ�����伴�õ�����ͼ򻯵�ģ�͹����� *</p></li>
+<li><p><strong>llama.cpp</strong>��׷��<strong>����������Ӳ������</strong>�ĵײ����棬�ʺ��ڱ�Ե�豸�Ͻ��и߶ȶ��ƻ��Ĳ���</p></li>
+<li><p><strong>vLLM</strong>������<strong>���������ĸ߲�������</strong>��ܣ��ʺ���Ҫ������������ API ����ĳ�����</p></li>
+</ul>
+<p>�ܵ���˵��Ollama �Ǹ��˿����ߡ��о��ߺ� AI ����������Ͳ��𱾵ش�ģ�͵�<strong>������</strong>����ͨ������Ľ�����ǿ��Ĺ��ܣ���ԭ�����ӵı��� AI ����������װ��ͨ����һ���򵥵����顣</p>
+</section>
+</section>
+<section id="ġollama" class="level2">
+<h2 class="anchored" data-anchor-id="ġollama">�ġ���Ollama����</h2>
+<p>��R��������Ollama��������ֱ�ӵķ�ʽ��ʹ��<strong>ר�ŵ�R��</strong>�����Ƿ�װ�˵ײ��HTTP�����������������ͨR����һ��ʹ�ñ��ش�ģ�͡�Ŀǰ������������ѡ���� <strong><code>ollamar</code></strong> �� <strong><code>rollama</code></strong>��</p>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">1.����R������</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">R��</th>
+<th style="text-align: left;">�����ص�</th>
+<th style="text-align: left;">���ó���</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>ollamar</strong></td>
+<td style="text-align: left;">����ȫ�棬��Ollama�ٷ�Python/JS�������ƣ�����<code>httr2</code>���󣬱��ڵ��ԡ�</td>
+<td style="text-align: left;">��Ҫ��ϸ�������󡢽��в��л�������ϣ����ٷ�������һ�µĿ����ߡ�</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>rollama</strong></td>
+<td style="text-align: left;">��װ��Ollama API���ṩ����ChatGPT�ĶԻ����飬֧��<code>query</code>�������ʴ𣩺�<code>chat</code>�����ֶԻ���������</td>
+<td style="text-align: left;">���ٽ��ж��ֶԻ���������ϣ���Ը����ķ�ʽ�����Ի���ʷ��</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>ellmer</strong></td>
+<td style="text-align: left;">Tidyverse����ṩ<code>chat_ollama()</code>������ͳһ������ӿڣ��Զ������Ի�״̬��</td>
+<td style="text-align: left;">�Ѿ�ϰ��ʹ��Tidyverseϵ�а���ϣ����ͳһ��ʽ�����LLM�������û���</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>tidyllm</strong></td>
+<td style="text-align: left;">�ṩTidy���Ĺܵ����������޷켯�ɵ����ݹ������С�</td>
+<td style="text-align: left;">�����ݹܵ�����������LLM���󣬻���Ҫ���ƶ�ģ�ͻ��ʹ�õĳ�����</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>shiny.ollama</strong></td>
+<td style="text-align: left;">�ṩ���伴�õ�R Shinyͼ�ν��棬������뼴����ģ�����졣</td>
+<td style="text-align: left;">ϣ������ӵ��һ������������棬����Ҫ��������ʽAIӦ��ԭ�͵��û���</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ollamar-ϊ" class="level3">
+<h3 class="anchored" data-anchor-id="ollamar-ϊ">2.�������֣��� <code>ollamar</code> Ϊ��</h3>
+<p><strong>1. ��װ��׼��</strong> ���Ȱ�װ������Ollama��Ȼ����R�а�װ<code>ollamar</code>����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��CRAN��װ�ȶ���</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ollamar"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>2. ���Ĳ���ʾ��</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ollamar)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �������ӣ�ȷ��Ollama������������</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">test_connection</span>()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �г����������ص�ģ��</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ����һ����ģ��</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">pull</span>(<span class="st">"llama3.1"</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ı�������httr2��Ӧ����</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">generate</span>(<span class="st">"llama3.1"</span>, <span class="st">"��һ�仰����ʲô��R���ԡ�"</span>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ȡ�ı����</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="fu">resp_process</span>(resp, <span class="st">"text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ļ" class="level3">
+<h3 class="anchored" data-anchor-id="ļ">3.�������ļ��÷�</h3>
+<p><strong><code>rollama</code> �Ķ��ֶԻ�</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ʴ�</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �������ֶԻ����Զ�����������</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"������ô֪���ģ�"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>rollama</code> �� <code>chat()</code> �������Զ�ά���Ի���ʷ��ֱ������� <code>new_chat()</code> ��ʼ�»Ự��</p>
+<p><strong><code>ellmer</code> ��Tidyverse���</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ellmer)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>chat <span class="ot">&lt;-</span> <span class="fu">chat_ollama</span>(<span class="at">model =</span> <span class="st">"llama3.2"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ʼ�Ի�</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>chat<span class="sc">$</span><span class="fu">chat</span>(<span class="st">"���ҽ���������ͳ��ѧ�ҵ�Ц��"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong><code>shiny.ollama</code> һ������ͼ�ν���</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(shiny.ollama)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># �������õ�Shiny����Ӧ��</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">run_app</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>ִ�к���һ����ҳ���棬�����������ѡ��ģ�Ͳ����жԻ���</p>
+</section>
+<section id="ѡ" class="level3">
+<h3 class="anchored" data-anchor-id="ѡ">4.ѡ����</h3>
+<p>ѡ���ĸ���ȡ������ľ�������</p>
+<ul>
+<li><p><strong>׷����ȫ��͹ٷ�����</strong>����ѡ <strong><code>ollamar</code></strong>��</p></li>
+<li><p><strong>���ٿ�ʼ���ֶԻ�</strong>��<strong><code>rollama</code></strong> �� <code>chat()</code> �����ǳ���ݡ�</p></li>
+<li><p><strong>����Tidyverse������</strong>��<strong><code>ellmer</code></strong> �� <strong><code>tidyllm</code></strong> �ǲ�����ѡ��</p></li>
+<li><p><strong>��Ҫͼ�ν���</strong>��ֱ���� <strong><code>shiny.ollama</code></strong> ����Ӧ�á�</p></li>
+</ul>
+<p>���⣬Ollama�����ṩ����OpenAI��API����Ҳ����ֱ���� <code>httr2</code> �Ȱ�����POST���� <a href="http://localhost:11434/v1/chat/completions"><code>http://localhost:11434/v1/chat/completions</code></a>��ʵ�ָ��ײ���Զ��彻����ǰ���Ѿ��������ܡ�</p>
+</section>
+</section>
+<section id="塢rollama" class="level2">
+<h2 class="anchored" data-anchor-id="塢rollama">�塢rollama</h2>
+<p><code>rollama</code> ��һ�� R ���԰���ּ�ڷ�װ Ollama �� API���������� R �������޷����б��ش�����ģ�ͣ��������ʹ�� ChatGPT/OpenAI API �����顣���������ѧ��<strong>�Ա��ء���ԴȨ�ص�ģ��Ϊ���ģ����ȿ�����˽���ɸ����ԺͿ��������������</strong>��</p>
+<section id="װ" class="level3">
+<h3 class="anchored" data-anchor-id="װ">1.��װ��׼��</h3>
+<p><code>rollama</code> ����ֻ�ǿͻ��ˣ�����Ҫ�Ȱ�װ <strong>Ollama ����</strong>��ȷ�������С�</p>
+<p><strong>1. ��װ Ollama ����</strong> �� <a href="https://ollama.com/">Ollama ����</a> ���ز���װ��</p>
+<p><strong>2. ��װ <code>rollama</code> ��</strong> �� R �д� CRAN ��װ�ȶ��棬��� GitHub ��װ�����棺</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �� CRAN ��װ</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rollama"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ��װ�����棨���¸�Ƶ����</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># remotes::install_github("JBGruber/rollama")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>3. ��֤����</strong> ��װ�󣬲��� R �ܷ����ӵ����� Ollama ����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ping_ollama</span>()</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># �ɹ��᷵�أ��7�4 Ollama (v0.17.4) is running at http://localhost:11434!</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>4. ����ģ��</strong> ʹ�� <code>pull_model()</code> ����ģ�ͣ���ָ������ʱ����Ĭ�ϵ� <code>llama3.1:8b</code>��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����Ĭ��ģ��</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ָ��ģ��</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># �г���������ģ��</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ĺܣիģʽ" class="level3">
+<h3 class="anchored" data-anchor-id="ĺܣիģʽ">2.���Ĺ��ܣ����ֶԻ�ģʽ</h3>
+<p><code>rollama</code> �ṩ�� <code>query()</code> �� <code>chat()</code> �������ĺ������ֱ��Ӧ�����ʴ�Ͷ��ֶԻ���</p>
+<p><strong><code>query()</code>�������ʴ�</strong> ÿ�ε��ö��Ƕ�������ģ�Ͳ�������ʷ�Ի���</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"��һ�仰����ʲô��R���ԡ�"</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ����������ȡ���ı�</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">query</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>answer <span class="ot">&lt;-</span> resp<span class="sc">$</span>message<span class="sc">$</span>content</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>output</code> �����ɿ��Ʒ��ظ�ʽ���� <code>"text"</code>�����ı�����<code>"data.frame"</code>�����ݿ򣩡�<code>"list"</code>���б����ȡ�</p>
+<p><strong><code>chat()</code>�����ֶԻ�</strong> �Զ�ά���Ի������ģ�ֱ������ <code>new_chat()</code> ��ʼ�»Ự��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ʼ���ֶԻ�</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"Ϊʲô�������ɫ�ģ�"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"������ô֪���ģ�"</span>)   <span class="co"># ģ�ͼǵ���һ������</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴�Ի���ʷ</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chat_history</span>()</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ʷ�������¶Ի�</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">new_chat</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">3.�����÷�</h3>
+<section id="ȫѡ" class="level4">
+<h4 class="anchored" data-anchor-id="ȫѡ">3.<strong>1.ȫ��ѡ������</strong></h4>
+<p>ͨ�� <code>options()</code> ������Ĭ����Ϊ������ÿ�ε��ö��ظ�ָ����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����Ĭ��ģ��</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_model =</span> <span class="st">"qwen2.5:7b"</span>)    </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ����������ӣ���֤����ɸ���</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_seed =</span> <span class="dv">42</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ָ����������ַ</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_server =</span> <span class="st">"http://localhost:11434"</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Ĭ��ϵͳ��Ϣ</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_config =</span> <span class="st">"You make answers understandable to a 5 year old"</span>)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>rollama_verbose = TRUE</code>��Ĭ�ϣ�����ʾ����ָʾ��������ʱ����Ϊ <code>FALSE</code> ��ø������Ĵ���׷�١�</p>
+</section>
+<section id="ģͳ" class="level4">
+<h4 class="anchored" data-anchor-id="ģͳ">3.<strong>2.����ģ�Ͳ���</strong></h4>
+<p>ͨ�� <code>model_params</code> ������ʱ����ģ����Ϊ�����������ԣ�<code>temperature</code>��������������ȣ�<code>num_predict</code>����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"дһ�׹��ڴ���Ķ�ʫ"</span>,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">model_params =</span> <span class="fu">list</span>(<span class="at">temperature =</span> <span class="fl">0.9</span>, <span class="at">num_predict =</span> <span class="dv">100</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="զģmodelfile" class="level4">
+<h4 class="anchored" data-anchor-id="զģmodelfile">3.<strong>3.�Զ���ģ�ͣ�Modelfile��</strong></h4>
+<p>ʹ�� <code>create_model()</code> ��������ģ�ʹ�������ģ�ͣ��־û�����ϵͳ��ʾ�Ͳ�����</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����һ����Ϊ "mario" ��ģ��</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_model</span>(<span class="st">"mario"</span>,</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">modelfile =</span> <span class="st">"FROM llama3.1</span><span class="sc">\n</span><span class="st">SYSTEM You are mario from Super Mario Bros."</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ���Զ���ģ��</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chat</span>(<span class="st">"��ã�����˭��"</span>, <span class="at">model =</span> <span class="st">"mario"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="ṹjson" class="level3">
+<h3 class="anchored" data-anchor-id="ṹjson">4.�ṹ�������JSON��</h3>
+<p><code>rollama</code> ֧��ǿ��ģ�ͷ��ط���ָ�� JSON Schema �Ľṹ�����ݣ��ʺ���Ҫ�Զ��������ĳ�����Ollama ʹ��<strong>Լ������</strong>������ȷ�����<strong>ʼ��</strong>�Ƿ��� Schema ����Ч JSON��</p>
+<p><strong>���� Schema</strong> <code>create_schema()</code> ����ͨ������������������� Schema��</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><code>rollama</code> ����</th>
+<th style="text-align: left;">R ��Ӧ����</th>
+<th style="text-align: left;">JSON Schema ����</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>type_string()</code></td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;"><code>"string"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>type_boolean()</code></td>
+<td style="text-align: left;">logical</td>
+<td style="text-align: left;"><code>"boolean"</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type_integer()</code></td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;"><code>"integer"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>type_number()</code></td>
+<td style="text-align: left;">double</td>
+<td style="text-align: left;"><code>"number"</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type_enum(values)</code></td>
+<td style="text-align: left;">factor</td>
+<td style="text-align: left;"><code>"string"</code> with enum</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>type_array(items)</code></td>
+<td style="text-align: left;">vector/list</td>
+<td style="text-align: left;"><code>"array"</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>type_object(...)</code></td>
+<td style="text-align: left;">named list</td>
+<td style="text-align: left;"><code>"object"</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ʾ������ȡ������Ϣ</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>country_schema <span class="ot">&lt;-</span> <span class="fu">create_schema</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">type_string</span>(<span class="at">description =</span> <span class="st">"Name of the country"</span>),</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">capital =</span> <span class="fu">type_string</span>(<span class="at">description =</span> <span class="st">"Name of the capital"</span>),</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">population =</span> <span class="fu">type_number</span>(<span class="at">description =</span> <span class="st">"Number of inhabitants"</span>),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">continent =</span> <span class="fu">type_enum</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Asia"</span>, <span class="st">"Africa"</span>, <span class="st">"North America"</span>,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"South America"</span>, <span class="st">"Antarctica"</span>, <span class="st">"Europe"</span>, <span class="st">"Oceania"</span>)),</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">nato_member =</span> <span class="fu">type_boolean</span>(),</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">official_languages =</span> <span class="fu">type_array</span>(<span class="at">items =</span> <span class="fu">type_string</span>())</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># �� Schema ���� format ����</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>input_text <span class="ot">&lt;-</span> <span class="st">"Canada is a country in North America. With a population of over 41 million..."</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(input_text, <span class="at">format =</span> country_schema)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>ģ�ͻ���ı����Զ���������ֶΣ����ؿ�ֱ�ӽ����� JSON��</p>
+</section>
+<section id="ͼעģģ" class="level3">
+<h3 class="anchored" data-anchor-id="ͼעģģ">5.ͼ���ע����ģ̬ģ�ͣ�</h3>
+<p><code>rollama</code> ֧�ֶ�ģ̬ģ�ͣ��� <code>llava</code>��������ͬʱ�����ı���ͼ�����롣</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ��ͼ������</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">query</span>(<span class="st">"��������ͼƬ"</span>,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="st">"llava"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">images =</span> <span class="st">"https://raw.githubusercontent.com/JBGruber/rollama/master/man/figures/logo.png"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ��Ͻṹ���������ϵͳ��ͼ�����</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># �� images ��Ϊ�б����룬�ɷֱ��עÿ��ͼƬ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>����Խ�ͼ���ע��ṹ�������ϣ�ʵ��ϵͳ����ͼ������������</p>
+</section>
+<section id="ıע" class="level3">
+<h3 class="anchored" data-anchor-id="ıע">6.�ı���ע</h3>
+<p><code>rollama</code> �ر��ʺ������ı���ע����ͨ������ϵͳ��ʾ��������ģ���Թ̶���ʽ�����������</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">rollama_config =</span> <span class="st">"You assign texts into categories. Answer with just the correct category."</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># �Զ����ı�������з���</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"the pizza tastes terrible"</span>, <span class="st">"the service is great"</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (text <span class="cf">in</span> texts) {</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">query</span>(<span class="fu">paste0</span>(text, <span class="st">"</span><span class="sc">\n</span><span class="st">categories: positive, neutral, negative"</span>))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>����ģʽ�������ɼ��ɵ� <code>dplyr::mutate()</code> �����ݹܵ��У��Գ�ǧ������ı�����������ע��</p>
+</section>
+<section id="ģ" class="level3">
+<h3 class="anchored" data-anchor-id="ģ">7.ģ�͹���</h3>
+<p><code>rollama</code> �ṩ��һ��������ģ�͹���������</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ģ��</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �г�����ģ��</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">list_models</span>()</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># �鿴ģ�����飨���� Modelfile ���ã�</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="fu">show_model</span>(<span class="st">"qwen2.5:7b"</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co"># ����ģ��</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">copy_model</span>(<span class="st">"qwen2.5:7b"</span>, <span class="st">"qwen2.5-copy"</span>)</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ɾ��ģ��</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="fu">delete_model</span>(<span class="st">"qwen2.5-copy"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ʽ" class="level3">
+<h3 class="anchored" data-anchor-id="ʽ">8.��������ʽ���</h3>
+<p><strong>��ʽ���</strong>��<code>query()</code> �� <code>chat()</code> �� <code>stream</code> ����Ĭ��Ϊ <code>TRUE</code>���𰸻�ʵʱ��ӡ����Ļ�����軺������������ <code>stream = FALSE</code>��</p>
+<p><strong>��������</strong>��Ollama ������֧�ֲ���������������� R ��ʹ�� <code>purrr::map()</code> �Ⱥ������ <code>rollama</code> ����������ͨ�� <code>output = "httr2_request"</code> ��ȡ����ʵ���������е��á�</p>
+</section>
+<section id="section-5" class="level3">
+<h3 class="anchored" data-anchor-id="section-5">9.�ܽ�</h3>
+<p><code>rollama</code> ͨ�����һ�µĺ�����ƣ������ش�ģ�͵�ǿ�������޷켯�ɵ� R �������С����ĺ��ļ�ֵ����<strong>��˽����������ɸ����Լ�������������������</strong>�������ǿ����ʴ𡢶��ֶԻ����Զ���ģ�ͣ����������ı�/ͼ���ע�ͽṹ��������ȡ��<code>rollama</code> ���ṩ��ֱ�۵Ľӿڡ������ͨ�� <code>vignette("rollama")</code> �鿴����ϸ�Ľ̳̺�ʾ����</p>
+</section>
+</section>
+<section id="embedding" class="level2">
+<h2 class="anchored" data-anchor-id="embedding">����Embedding</h2>
+<section id="section-6" class="level3">
+<h3 class="anchored" data-anchor-id="section-6">1.�������</h3>
+<p><strong>Embedding</strong> ���ĳ������<strong>��Ƕ�롱</strong>��<strong>����������</strong>��һ�仰��<strong>�����֡�ͼƬ����Ƶ�ȶ�����һ�������������û����ܼ�������֮����������ƶȡ�</strong></p>
+<p>���硰è���͡�Сè����˼�ӽ�����è���͡���������˼���Զ�������������ֱ�ӱȽ����֣����� embedding ģ�Ͱ�ÿ���ʡ����ӻ��ĵ�ӳ���һ����ά���꣺</p>
+<ul>
+<li><p>��è�� �� <code>[0.2, -1.1, 0.7, ...]</code></p></li>
+<li><p>��Сè�� �� <code>[0.3, -1.0, 0.6, ...]</code></p></li>
+<li><p>�������� �� <code>[-2.0, 0.5, 1.2, ...]</code></p></li>
+</ul>
+<p>��è���͡�Сè�����������������è���͡�����������������Զ������������������ѧ��ʽ�жϡ��������񡱡�</p>
+<p>�Ӽ�����˵��Embedding ��һ������ɢ�������������ռ��ӳ�䡣������ά��ͨ���м��ٵ���ǧά������ 768��1536��3072 ά��ÿһάû��ֱ�۵����ຬ�壬������������׽������������</p>
+<p>�������ƶȼ��㷽ʽ��<strong>�������ƶ�</strong>��Խ�ӽ� 1����ʾԽ���ƣ�Խ�ӽ� 0����ʾԽ����أ��ӽ� -1����ʾ�����෴��</p>
+</section>
+<section id="ѡƕģ" class="level3">
+<h3 class="anchored" data-anchor-id="ѡƕģ">2.ѡ������Ƕ��ģ��</h3>
+<p>�� <code>rollama</code> ���� Embedding��������ʹ�� <code>embed_text()</code> ������������һ��ר�ŵ�Ƕ��ģ�ͣ��� <code>nomic-embed-text</code>����</p>
+<p>Ƕ��������Ҫʹ��ר�ŵ�Ƕ��ģ�ͣ������ǶԻ�ģ�͡�<code>llama3</code> �ȶԻ�ģ����ȻҲ��������������Ч����Ч�ʶ�����ר��ģ�͡�</p>
+<p><strong>�Ƽ�ģ��</strong>��</p>
+<ul>
+<li><p><strong><code>nomic-embed-text</code></strong>�������С�ƽ������õ�ѡ������ <strong>768</strong> ά���������Լ <strong>274MB</strong>��</p></li>
+<li><p><strong><code>mxbai-embed-large</code></strong>���������ߣ����� <strong>1024</strong> ά���������Լ <strong>669MB</strong>��</p></li>
+<li><p><strong><code>all-minilm</code></strong>���������������� <strong>384</strong> ά����������� <strong>45MB</strong>���ʺ���Դ���޳�����</p></li>
+<li><p><strong><code>qwen3-embedding</code></strong>�����׷��������ǿ���ܣ���ѡ��ϵ�У��� <code>:0.6b</code> �� <code>:8b</code>����</p></li>
+</ul>
+<p><strong>����ģ��</strong>��</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># �Ƽ�ʹ�� nomic-embed-text</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pull_model</span>(<span class="st">"nomic-embed-text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ĺembed_text" class="level3">
+<h3 class="anchored" data-anchor-id="ĺembed_text">3.���ĺ�����<code>embed_text()</code></h3>
+<p><code>rollama</code> ͨ�� <code>embed_text()</code> �������ı�ת��Ϊ��ֵ������</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">embed_text</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  text,                     <span class="co"># �ַ���������Ҫ����Ƕ����ı�</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="cn">NULL</span>,             <span class="co"># Ƕ��ģ�����ƣ�Ĭ��ʹ�� rollama_model ѡ��</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">server =</span> <span class="cn">NULL</span>,            <span class="co"># Ollama ��������ַ</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model_params =</span> <span class="cn">NULL</span>,      <span class="co"># �����ģ�Ͳ���</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="fu">getOption</span>(<span class="st">"rollama_verbose"</span>, <span class="at">default =</span> <span class="fu">interactive</span>())</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>����ֵ</strong>��һ�� <strong>tibble</strong>������<strong>ÿһ�ж�Ӧһ�������ı�</strong>��<strong>ÿһ�ж�ӦǶ��������һ��ά��</strong>�����磬ʹ�� <code>nomic-embed-text</code> ���� 3 ���ı�����õ�һ�� 3 �� �� 768 �е� tibble��</p>
+</section>
+<section id="ʾıƕ" class="level3">
+<h3 class="anchored" data-anchor-id="ʾıƕ">4.����ʾ���������ı�Ƕ��</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ׼���ı�</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Here is an article about llamas..."</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"R is a language and environment for statistical computing and graphics."</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"The quick brown fox jumps over the lazy dog."</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ����Ƕ�루ָ��ʹ�� nomic-embed-text ģ�ͣ�</span></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. �鿴���</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(embeddings)</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a><span class="co"># �����һ�� tibble��3 �У�768 �У�dim_1 �� dim_768��</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ÿ�д���һ���ı��� 768 ά������ʾ</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ڷʹƕ" class="level3">
+<h3 class="anchored" data-anchor-id="ڷʹƕ">5.�߼��÷����ڷ���������ʹ��Ƕ��</h3>
+<p>����Ƕ�������Խ�����������������������ࡣ</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)  <span class="co"># ���ڽ�ģ</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ������һ��ѵ�����ݿ� train_df������ text �� rating ����</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Ϊ����ѵ���ı�����Ƕ��</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>train_embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(train_df<span class="sc">$</span>text, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ��Ƕ�����ǩ�ϲ�������ѵ��������</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(train_df, train_embeddings)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ�����ɭ�ֵ�ģ�ͽ���ѵ�����˴�Ϊʾ�⣩</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>rf_spec <span class="ot">&lt;-</span> <span class="fu">rand_forest</span>(<span class="at">mode =</span> <span class="st">"classification"</span>) <span class="sc">%&gt;%</span> <span class="fu">set_engine</span>(<span class="st">"ranger"</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>rf_fit <span class="ot">&lt;-</span> rf_spec <span class="sc">%&gt;%</span> <span class="fu">fit</span>(rating <span class="sc">~</span> ., <span class="at">data =</span> train_data)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Ϊ���ı�����Ƕ��</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>new_embeddings <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(new_texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ʹ��ѵ���õ�ģ�ͽ���Ԥ��</span></span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_fit, <span class="at">new_data =</span> new_embeddings)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ؼע" class="level3">
+<h3 class="anchored" data-anchor-id="ؼע">6.�ؼ�������ע������</h3>
+<ul>
+<li><strong>���ʹ��ר��Ƕ��ģ��</strong>��Ĭ�ϵĶԻ�ģ�ͣ��� <code>llama3.1</code>������ã���ר��ģ�����ٶȡ�����������ά��Ч���Ͼ����������ơ�</li>
+<li><strong>�����ѹ�һ��</strong>��Ollama �� <code>/api/embed</code> �˵�Ĭ�Ϸ��� <strong>L2 ��һ��</strong>����λ���ȣ���������ֱ�������������ƶȼ��㡣�������ֶ���һ��������ĳЩ���� API ����Ϊ��ͬ��</li>
+<li><strong>��������</strong>��<code>embed_text()</code> ԭ��֧������������һ���Դ������ı����ɣ�Ч��Զ����ѭ���������á�</li>
+<li><strong>ģ��ά���ǹ̶���</strong>��ÿ��Ƕ��ģ�����������ά���ǹ̶��ģ��� <code>nomic-embed-text</code> Ϊ 768 ά�����޷�ͨ������������ѡ��ģ��ʱ��ȷ����ά���Ƿ���Ϻ�����;��</li>
+<li><strong>�Ự��Ĭ��ģ��</strong>���������ʹ��ͬһ��Ƕ��ģ�ͣ���������ȫ��ѡ�����ÿ�ε��ö�ָ�� <code>model</code> ������ <code>r     options(rollama_model = "nomic-embed-text")</code></li>
+</ul>
+</section>
+</section>
+<section id="ߡ" class="level2">
+<h2 class="anchored" data-anchor-id="ߡ">�ߡ��������</h2>
+<p>�������ļ����ģ��ѡ��ͨ����ѭһ�����������̣�<strong>�ı� �� ��������Embedding���� �������</strong>��ǰ���������� <code>rollama</code> ����˵�һ����������������μ�������ѡ�����ģ�͡�</p>
+<section id="һĺļ㷽" class="level3">
+<h3 class="anchored" data-anchor-id="һĺļ㷽">1.��һ�����������ĺ��ļ��㷽��</h3>
+<p>���ı�ת��Ϊ�����󣬺������ǡ�������롱�ĳ���ָ�������¼��֣�</p>
+<ul>
+<li><strong>�������ƶ� (Cosine Similarity)</strong>����õ�ָ�꣬�������������нǵ�����ֵ����ֻ��ע���򣬲����ĳ��ȣ��ǳ��ʺ��ı����ݡ�ֵ��Ϊ <code>[-1, 1]</code>��Խ�ӽ� <code>1</code> ��ʾ����Խ���ơ���Ӧ��<strong>���Ҿ���</strong>Ϊ <code>1 - �������ƶ�</code>��</li>
+<li><strong>ŷ����þ��� (Euclidean Distance)</strong>�����������ռ��е�ֱ�߾��롣ֵԽС����ʾԽ���ơ���������������Ӱ��ϴ����ı������в����������ƶȳ��á�</li>
+<li><strong>��� (Dot Product)</strong>�����������������ڻ�����������Ѿ�<strong>L2��һ��</strong>����OllamaĬ�������������Ľ����ͬ���������ƶȡ�</li>
+<li><strong>��������</strong>�����������پ��� (Manhattan)���ɿɷ�˹������ (Minkowski) �ȣ��ɸ��ݾ��峡��ѡ��</li>
+</ul>
+</section>
+<section id="ڶrʵ" class="level3">
+<h3 class="anchored" data-anchor-id="ڶrʵ">2.�ڶ�������R��ʵ�־������</h3>
+<p>��R�У�����Ƕ����������ķ����ǳ��������ֱ��ʹ�û���������Ҳ���Խ���ר�ŵ�R����</p>
+<section id="һʹ-rollama-r" class="level4">
+<h4 class="anchored" data-anchor-id="һʹ-rollama-r">2.1.����һ��ʹ�� <code>rollama</code> �����R����</h4>
+<p>������ֱ�ӵķ�ʽ����ֻ�轫 <code>rollama</code> ���ɵ�Ƕ��������tibble��ʽ��ת��Ϊ����Ȼ���ֶ����㡣</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ����Ƕ��</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>embeddings_tbl <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>embeddings_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(embeddings_tbl)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. �����������ƶȾ��� (ʹ�û���R����)</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ��һ������</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>norm_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))}</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>normalized_embeddings <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(embeddings_mat, <span class="dv">1</span>, norm_vec))</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="co"># �����������ƶȾ���</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>cosine_sim_matrix <span class="ot">&lt;-</span> normalized_embeddings <span class="sc">%*%</span> <span class="fu">t</span>(normalized_embeddings)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ת��Ϊ���Ҿ������</span></span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>cosine_dist_matrix <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> cosine_sim_matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ʹ-text2vec" class="level4">
+<h4 class="anchored" data-anchor-id="ʹ-text2vec">2.2.��������ʹ�� <code>text2vec</code> ��</h4>
+<p><code>text2vec</code> �ṩ�˸�Ч�� <code>sim2()</code> ���������Է���ؼ������ƶȾ���</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(text2vec)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ���� embeddings_mat ���Ѿ����ɵ���������</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># �����ĵ�����������ƶȾ���</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>doc_sim_matrix <span class="ot">&lt;-</span> <span class="fu">sim2</span>(</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> embeddings_mat,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"cosine"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">norm =</span> <span class="st">"l2"</span></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="ʹרð" class="level4">
+<h4 class="anchored" data-anchor-id="ʹרð">2.3.��������ʹ��ר�ð���������������</h4>
+<p>���ڸ����ӵ���������������һЩR���ṩ�˷�װ�õĺ�����</p>
+<ul>
+<li><strong><code>SemanticDistance</code> ��</strong>��ר�����ڼ������������в�ͬԪ�ػ��֮���<strong>�ɶ������������</strong>��֧�ֶԻ������׵ȶ����ı��ṹ�ķ�����</li>
+<li><strong><code>text</code> ��</strong>���ṩ�� <code>textDistance()</code> �� <code>textSimilarity()</code> ����������ֱ����Ƕ�������ϼ�����������������ƶȡ�</li>
+<li><strong><code>conText</code> ��</strong>���ṩ�˻����������ƶ�Ѱ��<strong>����� (Nearest Neighbors)</strong> �Ĺ��ܣ��ʺ����������ͼ�������</li>
+</ul>
+</section>
+</section>
+<section id="ƕģѡ" class="level3">
+<h3 class="anchored" data-anchor-id="ƕģѡ">3.��������Ƕ��ģ�͵�ѡ��ָ��</h3>
+<p>Ƕ��ģ�͵�ѡ��ֱ�Ӿ����������������׼ȷ�Ժ�Ч�ʡ�ѡ��ʱ��������ѭ���¾��߿�ܣ�</p>
+<section id="ȷ" class="level4">
+<h4 class="anchored" data-anchor-id="ȷ">3.1.��ȷ��������������</h4>
+<ul>
+<li><strong>ͨ�öԻ����ı�����</strong>��<code>nomic-embed-text</code> �� <code>mxbai-embed-large</code> ��ͨ�ó����±��־��⡣</li>
+<li><strong>��������</strong>�����ȿ��� <strong><code>bge-large-zh</code></strong> �� <strong><code>bge-m3</code></strong>���������������������רҵ���ﴦ���ϱ��ָ��š�</li>
+<li><strong>�������</strong>����Ҫʹ���ڴ������ר��ѵ����ģ�ͣ��� <strong><code>jina-embeddings-v2</code></strong> �� <strong><code>Qwen3-Embedding</code></strong> ϵ�С�</li>
+<li><strong>�����Գ���</strong>��<code>multilingual-e5-large</code> �� <code>paraphrase-multilingual-MiniLM</code> ��ģ��֧���ϰ������ԡ�</li>
+</ul>
+</section>
+<section id="ȩģά" class="level4">
+<h4 class="anchored" data-anchor-id="ȩģά">3.2.Ȩ��ģ��ά��������</h4>
+<p>Ƕ��������ά��ֱ��Ӱ���˴洢������ɱ����������������</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">ά�ȷ�Χ</th>
+<th style="text-align: left;">�ص�</th>
+<th style="text-align: left;">���ó���</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>384 - 768 ά</strong></td>
+<td style="text-align: left;">���С�������������ٶȿ죬��������ȿ������ޡ�</td>
+<td style="text-align: left;">���ٶ�Ҫ��ߡ���Դ���޵ĳ��������ƶ��˻�ʵʱӦ�á�</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>1024 - 1536 ά</strong></td>
+<td style="text-align: left;">�ڱ���������Ч��֮��ȡ�ýϺ�ƽ�⣬�Ƕ���ͨ��ģ�͵�Ĭ��ά�ȡ�</td>
+<td style="text-align: left;">�����ͨ����������������;�������</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>2048+ ά</strong></td>
+<td style="text-align: left;">������Ϣ��ḻ���ܲ�׽��ϸ΢�������𣬵�ռ���ڴ�������ٶ�����</td>
+<td style="text-align: left;">�Ծ���Ҫ�󼫸ߵĿ��л�רҵ��������</td>
+</tr>
+</tbody>
+</table>
+<p><code>all-MiniLM-L6-v2</code>��384ά����һ������ĸ�Чģ�ͣ�������ΪĬ��ѡ��</p>
+</section>
+</section>
+<section id="ʾ" class="level3">
+<h3 class="anchored" data-anchor-id="ʾ">4.����������ʾ��</h3>
+<p>�ۺ����ϲ��裬һ�������������������������£�</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. ���ذ�</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rollama)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. ׼���ı�����</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>texts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"The cat sat on the mat"</span>, <span class="st">"A dog is playing in the park"</span>, <span class="st">"R is a programming language"</span>)</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. ����Ƕ������ (ʹ��rollama)</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>embeddings_tbl <span class="ot">&lt;-</span> <span class="fu">embed_text</span>(texts, <span class="at">model =</span> <span class="st">"nomic-embed-text"</span>)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>embeddings_mat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(embeddings_tbl)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. �����������ƶȾ��� (ʹ�û���R����)</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>norm_vec <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>normalized_emb <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">apply</span>(embeddings_mat, <span class="dv">1</span>, norm_vec))</span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>cosine_sim_matrix <span class="ot">&lt;-</span> normalized_emb <span class="sc">%*%</span> <span class="fu">t</span>(normalized_emb)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. ��ʽ��Ϊ�ɶ������ƶȱ���</span></span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a>similarity_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cosine_sim_matrix)</span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(similarity_df) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(similarity_df) <span class="ot">&lt;-</span> texts</span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(similarity_df)</span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. �ҵ����ض��ı������Ƶ�����</span></span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>target_text <span class="ot">&lt;-</span> <span class="st">"The cat sat on the mat"</span></span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>similarities <span class="ot">&lt;-</span> similarity_df[target_text, ]</span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(similarities)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>�����������ʱ��<strong>�������ƶ�</strong>����ѡ��ģ��ѡ����Ҫ�ۺϿ���<strong>�������ԡ����Ⱥ�Ч��</strong>��������� <code>rollama</code> ��������Ƕ�룬���û���R������ <code>text2vec</code> �Ȱ����и�Ч�ľ�����㡣</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第16章 R 第13节 网络爬虫.html" class="pagination-link" aria-label="第16章 R 第13节 网络爬虫">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第16章 R 第13节 网络爬虫</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第15节 R与Python交互.html" class="pagination-link" aria-label="第16章 R 第15节 R与Python交互">
+        <span class="nav-page-text">第16章 R 第15节 R与Python交互</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
