@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第2章 因子选股 第5节 其它因子 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第2章 因子选股 第4节 高频数据低频化因子.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第2章 因子选股 第5节 其它因子.html">第2章 因子选股 第5节 其它因子</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一分析师预期数据和因子" id="toc-一分析师预期数据和因子" class="nav-link active" data-scroll-target="#一分析师预期数据和因子">一、分析师预期数据和因子</a>
+  <ul class="collapse">
+  <li><a href="#数据简介" id="toc-数据简介" class="nav-link" data-scroll-target="#数据简介">1.数据简介</a></li>
+  <li><a href="#一致预期因子" id="toc-一致预期因子" class="nav-link" data-scroll-target="#一致预期因子">2.一致预期因子</a></li>
+  <li><a href="#一致预期变化因子" id="toc-一致预期变化因子" class="nav-link" data-scroll-target="#一致预期变化因子">3.一致预期变化因子</a></li>
+  <li><a href="#其它因子" id="toc-其它因子" class="nav-link" data-scroll-target="#其它因子">4.其它因子</a></li>
+  <li><a href="#数据问题" id="toc-数据问题" class="nav-link" data-scroll-target="#数据问题">5.数据问题</a></li>
+  </ul></li>
+  <li><a href="#二公募基金持仓因子" id="toc-二公募基金持仓因子" class="nav-link" data-scroll-target="#二公募基金持仓因子">二、公募基金持仓因子</a>
+  <ul class="collapse">
+  <li><a href="#数据源与获取" id="toc-数据源与获取" class="nav-link" data-scroll-target="#数据源与获取">1.数据源与获取</a></li>
+  <li><a href="#常见因子的定义与计算" id="toc-常见因子的定义与计算" class="nav-link" data-scroll-target="#常见因子的定义与计算">2.常见因子的定义与计算</a></li>
+  </ul></li>
+  <li><a href="#三基于十大股东数据的机构持仓因子" id="toc-三基于十大股东数据的机构持仓因子" class="nav-link" data-scroll-target="#三基于十大股东数据的机构持仓因子">三、基于十大股东数据的机构持仓因子</a>
+  <ul class="collapse">
+  <li><a href="#数据来源十大股东" id="toc-数据来源十大股东" class="nav-link" data-scroll-target="#数据来源十大股东">1.数据来源：十大股东</a></li>
+  <li><a href="#外资机构的识别" id="toc-外资机构的识别" class="nav-link" data-scroll-target="#外资机构的识别">2.外资机构的识别</a></li>
+  <li><a href="#常见因子的定义与计算-1" id="toc-常见因子的定义与计算-1" class="nav-link" data-scroll-target="#常见因子的定义与计算-1">3.常见因子的定义与计算</a></li>
+  </ul></li>
+  <li><a href="#四新闻舆情因子" id="toc-四新闻舆情因子" class="nav-link" data-scroll-target="#四新闻舆情因子">四、新闻舆情因子</a>
+  <ul class="collapse">
+  <li><a href="#数据来源" id="toc-数据来源" class="nav-link" data-scroll-target="#数据来源">1.数据来源</a></li>
+  <li><a href="#数据采集与预处理" id="toc-数据采集与预处理" class="nav-link" data-scroll-target="#数据采集与预处理">2.数据采集与预处理</a></li>
+  <li><a href="#因子构建方法" id="toc-因子构建方法" class="nav-link" data-scroll-target="#因子构建方法">3.因子构建方法</a></li>
+  <li><a href="#因子构建案例" id="toc-因子构建案例" class="nav-link" data-scroll-target="#因子构建案例">4.因子构建案例</a></li>
+  </ul></li>
+  <li><a href="#五mda" id="toc-五mda" class="nav-link" data-scroll-target="#五mda">五、MD&amp;A</a>
+  <ul class="collapse">
+  <li><a href="#文本特征与可读性因子" id="toc-文本特征与可读性因子" class="nav-link" data-scroll-target="#文本特征与可读性因子">1.文本特征与可读性因子</a></li>
+  <li><a href="#情绪与语调因子" id="toc-情绪与语调因子" class="nav-link" data-scroll-target="#情绪与语调因子">2.情绪与语调因子</a></li>
+  <li><a href="#主题与内容挖掘因子" id="toc-主题与内容挖掘因子" class="nav-link" data-scroll-target="#主题与内容挖掘因子">3.主题与内容挖掘因子</a></li>
+  <li><a href="#纵向对比与变化因子" id="toc-纵向对比与变化因子" class="nav-link" data-scroll-target="#纵向对比与变化因子">4.纵向对比与变化因子</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第2章 因子选股 第5节 其它因子</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一分析师预期数据和因子" class="level2">
+<h2 class="anchored" data-anchor-id="一分析师预期数据和因子">一、分析师预期数据和因子</h2>
+<p>前文中，我们介绍了传统的因子，主要来源于两类数据：一类是基于历史交易数据计算的量价因子，二类是基于上市公司财务报表计算的基本面因子。然而，交易数据反映的是过去的价格行为，而财务数据通常是按季度披露，均无法捕捉公司基本面的最新动态。</p>
+<p>分析师预期数据作为一种具有前瞻性的信息来源，弥补这一信息缺口，提供了独特的Alpha。分析师通过其专业研究，对公司的未来盈利、收入、目标价格等关键指标进行预测。这些预测数据综合了行业趋势、公司经营状况、宏观环境等多重信息，具有不可替代的价值。</p>
+<section id="数据简介" class="level3">
+<h3 class="anchored" data-anchor-id="数据简介">1.数据简介</h3>
+<p>国内A股市场的分析师预期数据主要由专业的金融数据服务商提供。这些数据源通过汇总各大券商研究所发布的深度研究报告，提取并结构化了关键的预测信息。核心的数据指标主要包括以下几类：</p>
+<ul>
+<li><p><strong>盈利预测数据：</strong>这是最核心的预期数据，通常包括对未来1-3个财年（即FY1,FY2,FY3）的各项财务指标的预测，包括： 每股收益（EPS）、净利润、营业收入、净资产收益率（ROE）等。</p></li>
+<li><p><strong>目标价格：</strong>分析师在未来特定时间（通常为6-12个月）内对股票公允价值的预估。它综合了分析师对公司盈利能力和估值水平的双重判断。</p></li>
+<li><p><strong>投资评级：</strong>分析师对股票投资价值的定性判断，如“买入”、“增持”、“中性”、“减持”、“卖出”等。这些评级是分析师观点的直接表达。</p></li>
+</ul>
+<p>这些原始数据以“明细”和“一致预期”两种形式存在。<strong>“明细”数据</strong>保留了每一位分析师、每一份报告的原始预测值，而<strong>“一致预期”数据</strong>则是数据服务商对覆盖同一家公司的多位分析师的预测值进行汇总处理后的结果。一致预期通常采用算术平均值或中位数等方法计算，旨在反映市场的普遍看法。</p>
+</section>
+<section id="一致预期因子" class="level3">
+<h3 class="anchored" data-anchor-id="一致预期因子">2.一致预期因子</h3>
+<p>这类因子是最基础也是应用最广泛的分析师预期因子。</p>
+<section id="一致预期增长率因子" class="level4">
+<h4 class="anchored" data-anchor-id="一致预期增长率因子">2.1.一致预期增长率因子</h4>
+<p><strong>定义：</strong>衡量市场一致预期的未来盈利、收入的增长速度。高预期增长通常与未来股价的上涨潜力正相关。</p>
+<p><strong>构建方法：</strong> 以一致预期净利润增长率为例，其计算公式为：</p>
+<p><span class="math inline">\(Factor=(一致预期下一财年净利润/一致预期本财年净利润)-1\)</span></p>
+<p>或使用滚动预测数据来平滑季节性影响。</p>
+<p>类似地，可以构建一致预期EPS增长率和一致预期营业收入增长率因子。</p>
+</section>
+<section id="一致预期净资产收益率因子" class="level4">
+<h4 class="anchored" data-anchor-id="一致预期净资产收益率因子">2.2.一致预期净资产收益率因子：</h4>
+<p><strong>定义：</strong>衡量市场预期的公司未来为股东创造利润的能力。持续高水平的预期ROE是优质公司的标志。</p>
+<p><strong>构建方法：</strong> <span class="math inline">\(Factor=一致预期下一财年净利润/一致预期下一财年净资产\)</span></p>
+</section>
+<section id="预期估值因子" class="level4">
+<h4 class="anchored" data-anchor-id="预期估值因子">2.3.预期估值因子：</h4>
+<p><strong>定义：</strong>使用一致预期盈利数据计算的动态估值指标，比基于历史财报的静态估值指标更具前瞻性。</p>
+<p><strong>构建方法：</strong></p>
+<p>预期市盈率（Forward P/E）：<span class="math inline">\(Factor=当前总市值/一致预期下一财年净利润\)</span>。</p>
+<p>通常使用其倒数。 该指标反映了市场为公司未来一年的盈利愿意支付的价格。</p>
+</section>
+<section id="一致预期目标价因子" class="level4">
+<h4 class="anchored" data-anchor-id="一致预期目标价因子">2.4.一致预期目标价因子</h4>
+<p><strong>目标价（Target Price）</strong>直接决定分析师对股票未来价格的判断，因此基于目标价的因子非常直观。可以计算目标价上涨空间因子。</p>
+<p><strong>定义：</strong>衡量一致预期目标价相对于当前股价的上涨潜力。上涨空间越大，理论上的预期回报越高。</p>
+<p><strong>构建方法：</strong> <span class="math inline">\(Factor=(一致预期目标价/当前股价)-1\)</span></p>
+<p>数据服务商通常会提供计算好的一致预期目标价。其底层算法可能包括：对特定时间窗口内（如过去6个月）所有有效的目标价取算术平均值；或赋予不同分析师或机构不同的权重。权重可以基于分析师的历史预测准确率、所在机构的影响力、报告发布时间的远近等因素。</p>
+</section>
+<section id="一致预期评级因子" class="level4">
+<h4 class="anchored" data-anchor-id="一致预期评级因子">2.5.一致预期评级因子</h4>
+<p>投资评级是分析师观点的浓缩，可以被量化为选股因子。</p>
+<p><strong>定义：</strong>将定性的分析师评级转化为定量的分数，以衡量市场对某只股票的整体推荐强度。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>评级赋值：为不同评级赋予数值。例如：买入=5，增持=4，中性=3，减持=2，卖出=1。</p></li>
+<li><p>计算一致预期得分：对覆盖该股票的所有分析师的评级赋值进行加权平均，权重可等权，或根据分析师影响力、报告时效性等加权。</p>
+<p><span class="math inline">\(Factor=Σ(分析师i的评级赋值*权重i)/Σ(权重i)\)</span></p></li>
+</ol>
+</section>
+</section>
+<section id="一致预期变化因子" class="level3">
+<h3 class="anchored" data-anchor-id="一致预期变化因子">3.一致预期变化因子</h3>
+<p>相比于预期的绝对水平，市场对预期的“变化”更为敏感。这类动态因子往往拥有更强的Alpha预测能力，因为它们捕捉了新信息的流入。</p>
+<section id="盈利预测修正因子" class="level4">
+<h4 class="anchored" data-anchor-id="盈利预测修正因子">3.1.盈利预测修正因子</h4>
+<p>这是分析师预期因子家族中最为经典和有效的因子之一。</p>
+<p><strong>定义：</strong>该因子衡量分析师在特定时间窗口内对公司盈利预测进行调整的方向和幅度。盈利预测的上调通常意味着分析师接收到了关于公司的积极信息，预示着基本面的改善，是强烈的看涨信号。</p>
+<p><strong>构建方法：</strong></p>
+<ul>
+<li><p>修正强度因子： 这是最常用的构建方式，衡量一致预期修正的幅度。以EPS为例：</p>
+<p><span class="math inline">\(Factor_EPS_REV=(当前一致预期EPS - N个月前的一致预期EPS)/abs(N个月前的一致预期EPS)\)</span></p>
+<p>其中，<span class="math inline">\(N\)</span>通常取1、3或6个月。分母取绝对值是为了避免负EPS带来的计算问题，并进行标准化。</p></li>
+<li><p>修正动量因子： 该方法关注上调或下调预测的分析师数量，而非幅度。</p></li>
+<li><p><span class="math inline">\(Factor_EPS_RATIO=(上调EPS预测的分析师数-下调EPS预测的分析师数)/总分析师数\)</span></p>
+<p>时间窗口同样通常取1-3个月。</p></li>
+</ul>
+<p>这个因子衡量了市场情绪的广度，如果大多数分析师都在上调预测，说明看好是普遍共识。 也可计算：上调/下调比率。</p>
+</section>
+<section id="目标价调整因子" class="level4">
+<h4 class="anchored" data-anchor-id="目标价调整因子">3.2.目标价调整因子</h4>
+<p><strong>定义：</strong>衡量分析师群体对股票估值判断的变化。目标价的上调直接提升了股票的预期回报空间。</p>
+<p><strong>构建方法：</strong> 目标价调整动量因子：</p>
+<p><span class="math inline">\(Factor_TP_MOM=(当前一致预期目标价-N个月前的一致预期目标价)/N个月前股价\)</span></p>
+<p>将调整的绝对值用过去的股价进行标准化，可以使其在不同价格的股票之间更具可比性。</p>
+</section>
+<section id="评级变动因子changeinconsensusrating" class="level4">
+<h4 class="anchored" data-anchor-id="评级变动因子changeinconsensusrating">3.3.评级变动因子（ChangeinConsensusRating）</h4>
+<p><strong>定义：</strong>捕捉一致预期评级得分在一段时间内的变化。评级的上调通常是积极信号。</p>
+<p><strong>构建方法：</strong> <span class="math inline">\(Factor=当前一致预期评级得分-N个月前的一致预期评级得分\)</span></p>
+</section>
+<section id="业绩超预期因子" class="level4">
+<h4 class="anchored" data-anchor-id="业绩超预期因子">3.4.业绩超预期因子</h4>
+<p>该因子专注于“预期”与“现实”之间的差距，是事件驱动策略中的一个核心要素。</p>
+<p><strong>定义：</strong>衡量公司实际公布的业绩（如EPS、营收）超出或低于市场一致预期的程度。显著的业绩超预期通常会引发股价在财报发布日及之后一段时间内的积极反应，这种现象被称为<strong>“盈余公告后漂移”（Post-Earnings-Announcement Drift, PEAD）</strong>。</p>
+<p><strong>构建方法：</strong></p>
+<ul>
+<li><p>SUE因子（Standardized Unexpected Earnings）： 这是衡量业绩超预期的经典因子。</p>
+<p><span class="math inline">\(Factor_SUE=(实际公布的EPS-财报发布前的一致预期EPS)/预测的标准差\)</span></p>
+<p>分母使用所有分析师预测值的标准差，起到了标准化的作用。对于预测分歧较大的公司，即使超预期的绝对值很大，其SUE值也可能不高，反之亦然。这使得SUE因子能够更公允地衡量“惊喜”的程度。</p></li>
+<li><p>简化版预期差因子： 对于非盈利数据或难以获取预测标准差的情况，可以使用简化的预期差。</p>
+<p><span class="math inline">\(Factor_Surprise=(实际值-预期值)/abs(预期值)\)</span></p>
+<p>使用股票的历史波动率进行标准化也是一种常见的做法。</p></li>
+</ul>
+<p>业绩超预期打破了市场原有的均衡预期，迫使投资者重新评估公司的价值。由于部分投资者反应迟缓或信息处理不充分，股价的调整过程会延续一段时间，从而为捕捉超额收益提供了机会。</p>
+</section>
+</section>
+<section id="其它因子" class="level3">
+<h3 class="anchored" data-anchor-id="其它因子">4.其它因子</h3>
+<p>除了主流的核心因子和动态因子，我们还可以从分析师数据的更多维度挖掘出一些独特的另类因子，它们与其他因子的相关性较低，能为多因子模型提供良好的补充。</p>
+<section id="分析师预测分歧度因子" class="level4">
+<h4 class="anchored" data-anchor-id="分析师预测分歧度因子">4.1.分析师预测分歧度因子</h4>
+<p><strong>定义：</strong>该因子衡量不同分析师对同一家公司未来盈利或目标价预测的离散程度，即“意见的不统一”程度。</p>
+<p><strong>构建方法：</strong> 通常使用预测值的变异系数（CoefficientofVariation）来度量分歧度：</p>
+<p><span class="math inline">\(Factor_Dispersion=(所有分析师EPS预测值的标准差)/abs(一致预期EPS均值)\)</span></p>
+<p>分母使用均值的绝对值，是为了避免均值为零或接近零时出现问题。</p>
+<p>关于分歧度因子的有效性有两种对立的理论： 根据A股市场的实证研究，低分歧度意味着分析师们的判断高度一致，这表明公司的信息透明度高，未来前景清晰，信息质量更可靠，因此低分歧度的股票未来表现往往更好。</p>
+</section>
+<section id="分析师覆盖度因子" class="level4">
+<h4 class="anchored" data-anchor-id="分析师覆盖度因子">4.2.分析师覆盖度因子</h4>
+<p><strong>定义：</strong>衡量覆盖一家上市公司的分析师数量及其变化。</p>
+<p><strong>构建方法：</strong></p>
+<ul>
+<li><p>覆盖度水平因子：</p>
+<p><span class="math inline">\(Factor\_Coverage\_Level=覆盖该股票的分析师总数\)</span></p></li>
+<li><p>覆盖度变动因子：</p>
+<p><span class="math inline">\(Factor\_Coverage\_Change=当前分析师总数-N个月前的分析师总数\)</span></p></li>
+</ul>
+<p>更多的分析师覆盖通常意味着更高的市场关注度和机构持仓比例。新增的分析师覆盖，特别是首次覆盖，可能会为市场带来新的视角和增量资金，通常被视为一个积极信号</p>
+</section>
+<section id="分析师个体特征因子" class="level4">
+<h4 class="anchored" data-anchor-id="分析师个体特征因子">4.3.分析师个体特征因子</h4>
+<p>定义：这一类因子不再将所有分析师一视同仁，而是试图区分出“优质分析师”，并给予他们的观点更高的权重。</p>
+<p><strong>构建方法：</strong></p>
+<ul>
+<li><p>建立分析师评价体系：基于历史数据，评估每位分析师的预测准确度、报告发布后股票的超额收益、从业年限、是否为“新财富”等获奖分析师等。</p></li>
+<li><p>构建加权一致预期：在计算一致预期（盈利、目标价、评级）时，不再使用等权或简单平均，而是使用基于上述评价体系得出的分析师“能力分数”作为权重。</p></li>
+</ul>
+</section>
+</section>
+<section id="数据问题" class="level3">
+<h3 class="anchored" data-anchor-id="数据问题">5.数据问题</h3>
+<p>与量价数据和财务数据相比，A股市场的分析师预期数据存在一些独特的问题，在构建因子时必须予以重视和谨慎对待：</p>
+<ul>
+<li><p><strong>普遍的乐观偏差：</strong>A股市场的分析师报告整体上倾向于给出乐观的盈利预测和较高的投资评级。这可能与分析师和券商的业务模式有关。直接使用原始预测值可能会引入系统性偏差，因此，关注预测值的“变化”而非“绝对水平”往往更为有效。</p></li>
+<li><p><strong>数据覆盖度的不均衡：</strong>大盘蓝筹股通常被数十位分析师覆盖，而中小市值公司的分析师覆盖度则要低得多，甚至存在数据缺失。这种覆盖度的差异会影响一致预期数据的稳定性和可靠性。</p></li>
+<li><p>某些知名度高、过往业绩优秀的“明星分析师”或来自顶级券商的报告，其发布和调整可能对市场产生<strong>更大的影响力</strong>。在构建因子时，可以考虑对不同分析师的预测赋予差异化的权重。</p></li>
+</ul>
+<p>总之，构建有效的分析师预期因子，是一个系统性工程。它始于对数据特点的深刻理解和精细化的预处理，核心在于对因子经济学逻辑的清晰把握和严谨的数学构建，最终通过科学的标准化、组合与回测验证，才能转化为稳健的投资策略。</p>
+</section>
+</section>
+<section id="二公募基金持仓因子" class="level2">
+<h2 class="anchored" data-anchor-id="二公募基金持仓因子">二、公募基金持仓因子</h2>
+<p>A股市场从“散户化”向“机构化”演进的过程中，机构投资者的影响力与日俱增。机构投资者，包括公募基金、保险、社保、QFII/RQFII、陆港通资金等，凭借其专业的研究团队、庞大的资金规模、严格的风控体系以及更广泛的信息渠道，通常被认为具备信息优势和更强的定价能力。他们的持仓变动不仅反映了对个股基本面和未来前景的集体判断，也往往能引领或强化市场趋势。因此，追踪和分析机构持仓行为，成为量化选股模型中一个极具价值的阿尔法来源。</p>
+<p>公募基金持仓因子，是基于公募基金定期报告中公布的股票持仓明细数据，通过特定算法计算得到的一系列量化指标。这些指标旨在提炼和捕捉基金作为专业投资者，在个股选择、行业配置及市场风格上的集体智慧、行为偏好与主动管理能力，从而将其转化为能够预测未来股票收益的Alpha。</p>
+<p>机构持仓因子的有效性可能源于：</p>
+<ul>
+<li><p>信息不对称理论：机构投资者拥有专业的研究团队和资源，通常有深入的基本面分析和市场研判，能更早、更准确地获取并处理信息，其增持行为可视为对未来正向发展的预判。</p></li>
+<li><p>行为金融学中的“羊群效应”与“共识形成”：机构的“抱团”可能形成重要的资金流，能够影响股票的短期供需和价格，推动股价形成趋势，尤其是在特定赛道或风格上。</p></li>
+<li><p>流动性溢价与关注度溢价：机构重仓股往往能吸引更多市场关注和后续资金流入，改善其流动性，从而可能获得溢价。</p></li>
+</ul>
+<section id="数据源与获取" class="level3">
+<h3 class="anchored" data-anchor-id="数据源与获取">1.数据源与获取</h3>
+<p>公募基金的持仓数据主要来源于其定期报告，包括<strong>季度报告（季报）、中期报告（半年报）和年度报告</strong>。其中，季报频率最高，是构建因子的主要数据源。数据通常可以从各种金融数据供应商处获取结构化数据，或从中国证监会指定的信息披露网站，如巨潮资讯网，爬取PDF报告后解析。</p>
+<p>季报在季度结束后<strong>15个工作日</strong>内披露，半年报和年报时间更长。因此，公募基金持仓因子本质上是低频因子，存一定的信息时滞。例如，4月中下旬才能看到一季度末的<strong>完整持仓</strong>。报告披露<strong>前十大重仓股</strong>，半年报和年报披露全部持股，信息量大。</p>
+</section>
+<section id="常见因子的定义与计算" class="level3">
+<h3 class="anchored" data-anchor-id="常见因子的定义与计算">2.常见因子的定义与计算</h3>
+<section id="持仓因子" class="level4">
+<h4 class="anchored" data-anchor-id="持仓因子">2.1.持仓因子</h4>
+<p>构建方法：计算特定类型机构持仓市值占个股流通市值的比例。</p>
+<p><span class="math inline">\(公募基金持仓比例=Σ(所有公募基金持有该股市值)/个股流通市值\)</span></p>
+<p>也可以指定特定机构计算持仓比例，如仅计算“顶流基金经理”管理产品，业绩排名的产品的持仓比例。</p>
+<p>此外，还可以计算持有基金数因子，即在报告期末，持有某只股票的公募基金产品总数。</p>
+<p>该因子衡量了股票的机构关注广度，值越高表明越多的基金经理看好该股票。</p>
+<p>该因子直接衡量机构对个股的青睐和置信度。高比例通常意味着该股符合机构的选股标准，基本面相对扎实，或已形成一定共识。</p>
+</section>
+<section id="主动超配低配因子" class="level4">
+<h4 class="anchored" data-anchor-id="主动超配低配因子">2.2.主动超配/低配因子</h4>
+<p>构建方法：计算机构持仓中个股的权重与其在基准指数（如沪深300、中证800）中权重的差值。</p>
+<p><span class="math inline">\(主动权重=机构持仓中个股权重-基准指数中个股权重\)</span></p>
+<p>该因子剥离了被动配置的影响，纯粹反映基金经理的主动管理观点。超配代表基金经理看好该股相对于指数的表现，是更强的主观阿尔法信号。</p>
+</section>
+<section id="持仓变动因子" class="level4">
+<h4 class="anchored" data-anchor-id="持仓变动因子">2.3.持仓变动因子</h4>
+<p>构建方法：计算相邻报告期（季报）之间，机构持仓比例或持仓市值的环比变化。</p>
+<p><span class="math inline">\(持仓比例变动=本期持仓比例-上期持仓比例\)</span> <span class="math inline">\(持仓市值变动=本期持仓市值-上期持仓市值\)</span></p>
+<p>该因子反映机构观点的最新变化。增持是看多信号的强化，减持则可能预示观点转向或获利了结。</p>
+</section>
+<section id="持仓分歧因子" class="level4">
+<h4 class="anchored" data-anchor-id="持仓分歧因子">2.4.持仓分歧因子</h4>
+<p>构建方法：衡量不同机构之间对同一只股票看法的差异度。</p>
+<ul>
+<li><p>持仓变动分歧：计算持有该股的所有机构中，增持与减持机构数量的差异，或持仓比例变动的方差。</p></li>
+<li><p>主动权重分歧：计算不同机构对该股主动权重的离散程度。 高分歧通常伴随高波动性和不确定性，可能蕴含错误定价的机会；低分歧则代表共识形成，可能趋势延续。</p></li>
+</ul>
+</section>
+<section id="拥挤度因子" class="level4">
+<h4 class="anchored" data-anchor-id="拥挤度因子">2.5.拥挤度因子</h4>
+<p>构建方法：衡量个股在机构整体持仓中的集中程度，或特定策略（如成长股投资）的拥挤程度。</p>
+<ul>
+<li><p>被动拥挤度：该股在机构持仓总市值中的占比。</p></li>
+<li><p>主动拥挤度：该股在机构主动权重总和中占比。</p></li>
+</ul>
+<p>高拥挤度往往预示着潜在的风险，一旦共识瓦解可能导致踩踏式下跌。该因子常作为风险控制或反向指标使用。</p>
+<p>除了计算各类因子，基于基金披露的持仓数据，可以精确计算基金在各类风格因子 上的暴露，如市值、估值、成长性、盈利能力等。对基金风格的动态监控，也可以指导我们对于风险的控制和配置。</p>
+</section>
+</section>
+</section>
+<section id="三基于十大股东数据的机构持仓因子" class="level2">
+<h2 class="anchored" data-anchor-id="三基于十大股东数据的机构持仓因子">三、基于十大股东数据的机构持仓因子</h2>
+<p>在全球化资本流动日益频繁的今天，包括QFII/RQFII、陆股通资金、其他境外战略投资者等外资机构已成为中国A股市场不可或缺的重要参与者。其投资行为不仅带来了增量资金，更引入了成熟市场的投资理念、估值体系和风险管理方法。因此，追踪外资机构的持仓动向，对于理解市场风格、预判资金流向乃至构建有效的量化策略，具有极高的研究价值和实践意义。</p>
+<p>由于目前北向资金（即通过沪股通、深股通投资A股的境外资金）暂停了对个股层面的每日交易数据披露，上市公司定期报告（季报、中报、年报）中披露的<strong>“前十名股东持股情况”</strong>成为最为公开、权威且历史数据完整的信息来源。尽管其存在频率低、滞后性强等固有缺陷，但因其数据的规范性和强制性，成为实践中最常被用来构建外资机构持仓代理变量的基础。</p>
+<section id="数据来源十大股东" class="level3">
+<h3 class="anchored" data-anchor-id="数据来源十大股东">1.数据来源：十大股东</h3>
+<p>A股上市公司依法定期披露的前十大股东（含流通股与非流通股）名单，包含了股东名称、股东性质（如境外法人、QFII等）、持股数量及占总股本比例等关键信息。这是构建持仓因子的原始矿藏。</p>
+<p>需要明确的是，我们通常关注的是“前十大股东中所有外资股东持股比例”，以此作为该公司外资持股情况的代理变量，虽然这种方法会遗漏未进入前十大的小额外资持仓，但在数据可得性和代表性之间取得了平衡，被广泛采用于学术和实务研究。</p>
+</section>
+<section id="外资机构的识别" class="level3">
+<h3 class="anchored" data-anchor-id="外资机构的识别">2.外资机构的识别</h3>
+<p>准确识别十大股东中的“外资机构”是构建因子的基础。识别方式主要依赖于股东名称和公开标注：</p>
+<ul>
+<li><p>股东名称关键词识别：通过名称中的“香港中央结算有限公司”代表陆股通持股、“摩根士丹利”、“高盛”、“瑞士银行”、“新加坡政府投资公司”、“淡马锡”等国际知名机构名称进行匹配。</p></li>
+<li><p>股东性质标注：财报中有时会直接标注股东性质为“境外法人”、“QFII”、“RQFII”等。</p></li>
+</ul>
+<p>识别过程充满<strong>挑战和干扰</strong>：</p>
+<ul>
+<li><p>部分外资机构使用中文译名或生僻名称，且并不统一；</p></li>
+<li><p>通过多层嵌套结构持股的外资难以追溯；</p></li>
+<li><p>QFII数据更新滞后且不进入前十则无法统计。</p></li>
+</ul>
+<p>因此，构建一个准确、全面的外资机构名称库是一项繁琐的基础工作。</p>
+</section>
+<section id="常见因子的定义与计算-1" class="level3">
+<h3 class="anchored" data-anchor-id="常见因子的定义与计算-1">3.常见因子的定义与计算</h3>
+<section id="绝对持股比例因子" class="level4">
+<h4 class="anchored" data-anchor-id="绝对持股比例因子">3.1.绝对持股比例因子</h4>
+<p>这是最直接的定义，即外资机构在上市公司中的持股权重。</p>
+<p>公式：<span class="math inline">\(Foreign_Ownership_Ratio(t)=Σ(第i个外资股东在报告期t的持股数量)/公司总股本(t)\)</span></p>
+<p>逻辑：反映外资对公司长期价值的认可度和话语权。持股比例越高，可能意味着公司治理更透明、基本面更优质、更符合国际审美。</p>
+</section>
+<section id="相对变化因子" class="level4">
+<h4 class="anchored" data-anchor-id="相对变化因子">3.2.相对变化因子</h4>
+<p>衡量外资持股比例的动态变化，能捕捉外资的主动增减仓行为，通常比静态比例更具信号意义。</p>
+<p>公式：</p>
+<p><span class="math inline">\(Foreign_Ownership_Change(t)=Foreign_Ownership_Ratio(t)-Foreign_Ownership_Ratio(t-1)\)</span></p>
+<ul>
+<li><p><strong>变体1，标准化变动：</strong><span class="math inline">\((当期比例-上期比例)/上期比例\)</span>，或除以流通市值以消除规模影响。</p></li>
+<li><p><strong>变体2，多期变动：</strong>如过去N个报告期（例如4个季度）持股比例的线性斜率或总和，用以识别持续增持或减持的趋势。</p></li>
+</ul>
+</section>
+<section id="机构存在与集中度因子" class="level4">
+<h4 class="anchored" data-anchor-id="机构存在与集中度因子">3.3.机构存在与集中度因子</h4>
+<p>这类因子关注外资参与的“结构”。</p>
+<ul>
+<li><p>外资大股东哑变量：若前十大股东中存在持股比例超过一定阈值（如5%或10%）的外资股东，则取值为1，否则为。这用于识别有深度绑定外资的上市公司。</p></li>
+<li><p>外资股东家数：前十大股东中外资机构（或QFII席位）的数量。家数越多，可能表明公司受到更广泛外资机构的关注。</p></li>
+<li><p>持股集中度：前十大股东持股比例的离散度或赫芬达尔指数，可以计算外资股东之间的持股集中度，或外资持股占前十大股东总持股的比例，以判断外资是“独宠”还是“众筹”。</p></li>
+</ul>
+</section>
+<section id="其它" class="level4">
+<h4 class="anchored" data-anchor-id="其它">3.4.其它</h4>
+<ul>
+<li><p>外资持仓市值因子：<span class="math inline">\(外资持股比例公司总市值\)</span>，直接衡量外资在该公司上投入的绝对资金量。</p></li>
+<li><p>外资持仓的因子暴露：计算外资整体持仓组合（或重仓股组合）在市值、估值（BP）、盈利（ROE）、成长等传统风格因子上的暴露度。例如，通过Barra模型计算外资重仓股组合的市值因子暴露，可以判断外资当前是偏好大盘股还是小盘股。这本身可以作为一个市场风格判断的宏观因子。</p></li>
+</ul>
+<p>总体来说，外资偏好低估值、高ROE、公司治理好的龙头公司。这类因子与经典的质量、价值因子有重叠，但其资金流数据提供了独特的动态视角。</p>
+<p>需要注意的是，并非所有外资资金都是长线配置盘，其中混杂了大量对冲基金、量化基金甚至“假外资”，其短线交易行为会引入噪音。此外，外资流动受美元周期、中美利差、地缘政治等宏观因素影响巨大，这些因素会导致个股层面的Alpha失效。</p>
+</section>
+</section>
+</section>
+<section id="四新闻舆情因子" class="level2">
+<h2 class="anchored" data-anchor-id="四新闻舆情因子">四、新闻舆情因子</h2>
+<p>新闻舆情数据因子是对海量公开文本信息进行系统的处理、分析和量化，构建出能够解释或预测资产价格未来变化的数值指标。文本信息以非结构化的形式存在，传递着市场参与者的情绪、观点、关注点和预期，而且往往领先于财务报表和市场价格信息。计算机和AI技术的发展，尤其是自然语言处理（NLP）的突破，使得机器能够更高效率地“阅读”和“理解”这些文本，将其转化为结构化的、可用于量化模型的情绪标签、热度指数或事件标识。新闻舆情因子在核心价值主要体现在：</p>
+<ul>
+<li><p><strong>提供独立Alpha：</strong>大量研究和实践表明，精细构建的舆情因子与传统量价、基本面因子的相关性较低。这意味着将其加入多因子模型，可以在不显著增加组合风险的情况下，有效提升模型的夏普比率和整体收益。</p></li>
+<li><p><strong>增强风险管理能力：</strong>舆情因子可以作为有效的风险预警系统。通过实时监控与持仓相关的负面新闻或异常舆情，模型可以提前识别潜在的“黑天鹅”事件或声誉风险，及时触发减仓或对冲操作。</p></li>
+<li><p><strong>提升模型动态适应性：</strong>市场风格和结构是不断变化的。舆情因子，特别是高频更新的社交媒体情绪因子，能够敏锐地捕捉到市场情绪的快速转变，为策略的动态调整提供依据，例如在行业轮动策略中，舆情热点可以作为识别新兴热门行业的重要线索。</p></li>
+</ul>
+<section id="数据来源" class="level3">
+<h3 class="anchored" data-anchor-id="数据来源">1.数据来源</h3>
+<ul>
+<li><strong>主流财经媒体与新闻通讯社：</strong>如新浪财经、东方财富、财联社、彭博、路透等。这类数据相对权威、规范，通常是关于宏观经济、行业动态、公司重大公告和深度分析。</li>
+<li><strong>社交媒体平台：</strong>如微博、Twitter等。这类平台信息传播速度快，实时反映大众投资者情绪，是构建高频市场情绪指数和捕捉短期交易机会的理想数据源。</li>
+<li><strong>专业投资社区与论坛贴吧：</strong>如雪球、东方财富股吧、百度贴吧等。这些社区聚集了大量活跃的个人投资者，他们的讨论内容、情绪倾向和关注焦点，对于理解特定股票的散户行为和市场热点具有极高的价值。</li>
+<li><strong>公司官方发布：</strong>包括上市公司发布的公告、业绩说明会纪要、投资者关系活动记录表等。这些是关于公司经营状况最直接、最权威的信息来源。</li>
+<li><strong>专业人士访谈与言论：</strong>如基金经理访谈、券商分析师路演、行业专家访谈等。这些文本蕴含了专业人士对市场、行业和公司的深度见解、投资逻辑和情绪倾向，是挖掘“聪明钱”观点的重要来源。</li>
+</ul>
+</section>
+<section id="数据采集与预处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据采集与预处理">2.数据采集与预处理</h3>
+<p>数据采集主要通过两种方式进行。</p>
+<ol type="1">
+<li><p>利用网络爬虫技术，从目标网站抓取数据；</p></li>
+<li><p>通过数据供应商提供的API接口，直接获取结构化的文本数据。方法二更为常用。</p></li>
+</ol>
+<p>获取原始文本数据后，必须经过一系列预处理过程，包括数据清洗去除原始文本中的“噪音”，分词、去除停用词为后续的NLP任务做准备，将其转化为可供模型分析的“干净”数据。</p>
+<p>详细内容请参考后文文本数据挖掘一章。</p>
+</section>
+<section id="因子构建方法" class="level3">
+<h3 class="anchored" data-anchor-id="因子构建方法">3.因子构建方法</h3>
+<section id="特征工程" class="level4">
+<h4 class="anchored" data-anchor-id="特征工程">3.1.特征工程</h4>
+<p>为了让计算机理解文本，我们需要将词语和句子转化为数值化的向量表示。通常有以下三种方法： 1）传统文本表示方法：词袋模型（Bag-of-Words, BoW）和TF-IDF（Term Frequency-Inverse Document Frequency）。这些方法将文本表示为词频向量，简单直观，但忽略了词序和语义信息。 2）词嵌入（WordEmbedding）：通常使用Word2Vec模型。它将词语映射到一个低维稠密的向量空间中。在向量空间里捕捉词语之间的语义关系。 3）基于Transformer的动态词向量：通常使用BERT模型。与静态的Word2Vec不同，BERT能够根据上下文动态地生成词向量，捕捉词语之间的语义关系。</p>
+</section>
+<section id="情感分析" class="level4">
+<h4 class="anchored" data-anchor-id="情感分析">3.2.情感分析</h4>
+<p>情感分析是舆情因子构建中最核心的技术。通常有以下四种方法：</p>
+<ol type="1">
+<li><p><strong>基于词典的方法：</strong>该方法依赖于一个预先构建好的情感词典，其中每个词都被赋予了一个情感分值，如正面、负面、中性，或-1到+1的连续分数。通过统计文本中情感词的数量和权重，并考虑否定词、程度副词等修饰语，来计算整个文本的情感总分。这种方法简单快速，但缺点是无法理解复杂语境、反讽和新出现的网络用语。</p></li>
+<li><p><strong>基于传统机器学习的方法：</strong>将情感分析看作一个分类任务。首先需要一个大规模的、已标注情感标签的语料库。然后，提取文本的TF-IDF等特征，并使用支持向量机（SVM）等分类器进行模型训练。这种方法比词典法更灵活，但依赖于高质量的标注数据和有效的特征工程。</p></li>
+<li><p><strong>基于深度学习模型：</strong>利用LSTM或Transformer模型，特别是BERT/FinBERT等模型，可以直接端到端地对文本进行情感分类。这些模型强大的上下文理解能力，使其在处理金融文本中常见的复杂句式、隐含情感和专业术语时表现尤为出色。</p></li>
+<li><p><strong>基于大语言模型的方法：</strong>是当前最前沿、效果最好的方法。自2025年以来，基于大型语言模型（LLM）的提示工程（Prompt Engineering）也成为一种新兴且高效的情感分析范式。通过设计精巧的提示词（Prompt），我们可以引导像“deepseek”和“qwen”这样的大模型直接对新闻进行情感标注，甚至可以进行更复杂的情感分析。</p></li>
+</ol>
+</section>
+</section>
+<section id="因子构建案例" class="level3">
+<h3 class="anchored" data-anchor-id="因子构建案例">4.因子构建案例</h3>
+<section id="案例一基于论坛贴吧数据的散户情绪因子" class="level4">
+<h4 class="anchored" data-anchor-id="案例一基于论坛贴吧数据的散户情绪因子">4.1.案例一：基于论坛贴吧数据的散户情绪因子</h4>
+<p><strong>因子定义：</strong>旨在捕捉高频的、由散户主导的市场情绪波动。因子可以定义为“论坛情绪得分”、“帖子热度”或“情绪反转信号”。 数据源：东方财富股吧、雪球、百度贴吧等。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p><strong>数据采集：</strong>以小时甚至分钟级频率爬取热门个股讨论区的帖子标题和内容。</p></li>
+<li><p><strong>情绪量化：</strong>使用针对网络用语和非正式表达优化的FinBERT模型或LLM，对每个帖子进行情绪打分（-1到+1）。</p></li>
+<li><p><strong>热度计算：</strong>统计单位时间内的发帖量、回复数、浏览量，并进行加权，得到“热度分”。</p></li>
+<li><p><strong>因子合成：</strong>计算过去24小时内所有帖子情绪分的加权平均值，得到个股论坛情绪因子。也可以构建一个情绪极化因子，衡量多空双方观点的分歧程度。</p></li>
+</ol>
+<p><strong>应用：</strong>基于散户情绪构建的因子往往是反向指标。当个股论坛情绪达到极端乐观或悲观时，市场可能出现超买或超卖，此时进行反向操作。</p>
+</section>
+<section id="案例二基于个股新闻与重大事件的事件驱动因子" class="level4">
+<h4 class="anchored" data-anchor-id="案例二基于个股新闻与重大事件的事件驱动因子">4.2.案例二：基于个股新闻与重大事件的事件驱动因子</h4>
+<p><strong>因子定义：</strong>旨在捕捉由特定事件驱动的、具有明确基本面逻辑的价格异动。</p>
+<p><strong>数据源：</strong>上市公司公告、主流财经媒体、行业垂直媒体。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p><strong>事件提取与分类：</strong>利用NLP技术，从新闻和公告中自动识别并抽取出结构化的事件信息，如：事件类型（并购、增发、诉讼）、关键角色（收购方、被收购方）、核心要素（交易金额、判决结果）。</p></li>
+<li><p><strong>事件影响量化：</strong>对事件本身进行情感定性（正面/负面/中性）和定量打分。例如，一份超预期的盈利预告是强正面事件，而一份收到监管问询函的公告则是负面事件。结合上文提到的影响衰减模型，对每个事件的影响力进行建模。</p></li>
+<li><p><strong>因子合成：</strong>将特定时期内（如事件公告后5个交易日）所有事件的量化影响得分进行累加，形成事件驱动因子。</p></li>
+</ol>
+<p><strong>应用：</strong>在财报发布前后，构建基于“盈利惊喜”新闻的因子；或监控并购重组公告，构建成功概率因子和潜在收益因子，构建相应的交易策略；或监控“黑天鹅”事件新闻，构建负面信息因子。</p>
+</section>
+<section id="案例三基于基金经理访谈的专家情绪因子" class="level4">
+<h4 class="anchored" data-anchor-id="案例三基于基金经理访谈的专家情绪因子">4.3.案例三：基于基金经理访谈的“专家情绪”因子</h4>
+<p><strong>因子定义：</strong>旨在量化专业投资者“聪明钱”的观点、情绪和投资逻辑的变化，作为传统因子的有效补充。 数据源：基金经理的公开访谈记录、路演文字稿、季报中的“管理人展望”部分、上市公司业绩说明会中机构投资者的提问与管理层的回答。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p><strong>文本获取与对齐：</strong>收集基金经理的访谈文本，并将其与对应的基金经理、管理公司和访谈日期进行精确对齐。</p></li>
+<li><p><strong>深度语义分析：</strong>使用微调后的FinBERT或精心设计的LLM提示，来判断基金经理对宏观经济、特定行业或个股的看多/看空程度、观点确定性以及情绪变化。</p></li>
+<li><p><strong>关键词与主题提取：</strong>识别基金经理反复强调的投资主题，如“人工智能”、“国企改革”、“消费升级”，以及他们关注的核心逻辑，如“自由现金流”、“护城河”、“管理层能力”。</p></li>
+<li><p><strong>因子合成：</strong>对某只股票，汇总所有关注该股票的明星基金经理的访谈情绪分，并根据基金经理的历史业绩或管理规模进行加权。也可计算基金经理本次访谈的情绪分与上一季度的差值，捕捉其观点的边际变化。</p></li>
+</ol>
+<p><strong>应用：</strong>构建“专家情绪”因子，加入多因子模型中，能够提供显著的增量Alpha。</p>
+<p>当前，随着人工智能和大语言模型的快速发展，新闻舆情因子已经从量化投资领域的研究前沿，迅速演变为不可或缺的核心组成部分。它通过将海量的非结构化信息转化为精确的量化信号，极大地拓展了现代投资策略的边界。毫不夸张的说，新闻舆情数据的价值潜力才刚刚开始被发掘和释放。</p>
+</section>
+</section>
+</section>
+<section id="五mda" class="level2">
+<h2 class="anchored" data-anchor-id="五mda">五、MD&amp;A</h2>
+<p><strong>管理层讨论与分析（MD&amp;A）</strong>是近年备受关注的反映基本面的另类数据。MD&amp;A是管理层对公司过去业绩的解释与未来前景的展望，位于A股年报的“第八节”董事会报告，是上市公司年报中管理层对公司过去业绩和未来前景的定性描述部分，内容通常涵盖财务变动分析、核心竞争力、重大投资、关联交易、以及宏观市场应对等维度。</p>
+<p>挖掘MD&amp;A的价值在于：</p>
+<ul>
+<li><p><strong>信息前瞻性：</strong>包含对未来的预测、机遇与风险的判断，领先于历史财务数据。</p></li>
+<li><p><strong>信息增量：</strong>包含无法在财务报表中量化的信息，如竞争格局、战略方向、研发进展。</p></li>
+<li><p><strong>管理层信号：</strong>管理层的语调、用词谨慎程度、信息披露的透明度，可以反映其真实心态和对公司前景的信心/担忧。</p></li>
+<li><p><strong>文本的复杂程度、情绪倾向</strong>、对特定主题，如“创新”、“成本”的强调等信息，可能传递深层信号。</p></li>
+</ul>
+<p>构建MD&amp;A因子，本质是通过文本分析技术，将非结构化的文字转化为可量化、可检验的结构化指标。通常从以下几个方面入手：</p>
+<section id="文本特征与可读性因子" class="level3">
+<h3 class="anchored" data-anchor-id="文本特征与可读性因子">1.文本特征与可读性因子</h3>
+<p><strong>逻辑：</strong>文本越复杂、越冗长、可读性越差，可能意味着管理层在刻意模糊信息、掩盖问题。过于简略也可能意味着披露不充分。</p>
+<ul>
+<li><p><strong>衡量句子长度和复杂词汇比例。</strong>指数越高，可读性越差，与未来股价回报负相关。</p></li>
+<li><p><strong>MD&amp;A章节的总词数或总字符数。</strong>异常增长可能预示更多解释或更多风险。</p></li>
+<li><p><strong>独特词比例</strong>反映文本的信息密度和模板化程度。</p></li>
+</ul>
+</section>
+<section id="情绪与语调因子" class="level3">
+<h3 class="anchored" data-anchor-id="情绪与语调因子">2.情绪与语调因子</h3>
+<p><strong>逻辑：</strong>管理层在描述公司现状和前景时使用的积极或消极词汇，反映了其内心真实看法。</p>
+<ul>
+<li><p>可使用预定义的金融情绪词典，如<strong>Loughran-McDonald词典</strong>，统计<strong>积极词和消极词</strong>的比例：</p>
+<p>净积极语调=(积极词数-消极词数)/总词数</p>
+<p>净积极语调与未来业绩和股价正相关；过高的风险提示和不确定性词汇可能预示未来波动或业绩下滑。</p></li>
+<li><p><strong>不确定性语调：</strong>统计“可能”、“大约”、“不确定”等词汇。</p></li>
+<li><p><strong>风险语调：</strong>统计“风险”、“挑战”、“困难”等词汇。</p></li>
+</ul>
+</section>
+<section id="主题与内容挖掘因子" class="level3">
+<h3 class="anchored" data-anchor-id="主题与内容挖掘因子">3.主题与内容挖掘因子</h3>
+<p><strong>逻辑：</strong>管理层在报告中重点讨论什么，可能预示公司的战略重点和未来资源投入方向。 可统计特定词频，定义主题词袋，例如：</p>
+<ul>
+<li><p><strong>创新主题：</strong>“研发”、“创新”、“专利”、“技术”的词频。</p></li>
+<li><p><strong>效率主题：</strong>“成本控制”、“优化”、“效率”、“自动化”的词频。</p></li>
+<li><p><strong>增长主题：</strong>“增长”、“扩张”、“市场”、“份额”的词频。</p></li>
+<li><p><strong>风险与诉讼：</strong>“诉讼”、“监管”、“调查”、“处罚”的词频。</p></li>
+</ul>
+</section>
+<section id="纵向对比与变化因子" class="level3">
+<h3 class="anchored" data-anchor-id="纵向对比与变化因子">4.纵向对比与变化因子</h3>
+<p><strong>逻辑：</strong>文本特征的变化比绝对值更重要。</p>
+<ul>
+<li><p><strong>语调变化：</strong>本期净积极语调与上一期相比的差值。显著提升可能预示业绩拐点。</p></li>
+<li><p><strong>风险提及变化：</strong>本期风险相关词汇比例与历史均值的偏离度。突然增加是重要预警信号。</p></li>
+<li><p><strong>文本相似度：</strong>本期MD&amp;A与上期MD&amp;A的文本相似度。异常低，内容改动大，可能预示经营发生重大变化。</p></li>
+</ul>
+<p>MD&amp;A因子是将定性叙述定量化的强大工具，它打开了分析公司基本面的新一扇窗。它没有取代传统财务因子，而是作为一个重要的补充和增强维度。随着NLP技术的进步和计算资源的普及，MD&amp;A因子及其衍生出的更广泛的公司文件文本分析因子，正在成为量化基本面策略中越来越重要的Alpha来源。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="pagination-link" aria-label="第2章 因子选股 第4节 高频数据低频化因子">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第2章 因子选股 第4节 高频数据低频化因子</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
