@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第2章 因子选股 第4节 高频数据低频化因子 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第2章 因子选股 第3节 基本面因子.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第2章 因子选股 第4节 高频数据低频化因子.html">第2章 因子选股 第4节 高频数据低频化因子</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一高频数据" id="toc-一高频数据" class="nav-link" data-scroll-target="#一高频数据">一、高频数据</a></li>
+  <li><a href="#二动量反转因子momentum-and-rversal" id="toc-二动量反转因子momentum-and-rversal" class="nav-link" data-scroll-target="#二动量反转因子momentum-and-rversal">二、动量反转因子（Momentum and Rversal）</a>
+  <ul class="collapse">
+  <li><a href="#动量反转因子" id="toc-动量反转因子" class="nav-link" data-scroll-target="#动量反转因子">1.动量/反转因子</a></li>
+  <li><a href="#日内特殊时段的动量反转因子" id="toc-日内特殊时段的动量反转因子" class="nav-link" data-scroll-target="#日内特殊时段的动量反转因子">2.日内特殊时段的动量/反转因子</a></li>
+  <li><a href="#vwap偏离度因子" id="toc-vwap偏离度因子" class="nav-link" data-scroll-target="#vwap偏离度因子">3.VWAP偏离度因子</a></li>
+  </ul></li>
+  <li><a href="#三波动与风险类因子volitility-and-risk" id="toc-三波动与风险类因子volitility-and-risk" class="nav-link" data-scroll-target="#三波动与风险类因子volitility-and-risk">三、波动与风险类因子(Volitility and Risk)</a>
+  <ul class="collapse">
+  <li><a href="#波动率因子" id="toc-波动率因子" class="nav-link" data-scroll-target="#波动率因子">1.波动率因子</a></li>
+  <li><a href="#日内收益分布偏度峰度因子" id="toc-日内收益分布偏度峰度因子" class="nav-link" data-scroll-target="#日内收益分布偏度峰度因子">2.日内收益分布偏度/峰度因子</a></li>
+  <li><a href="#日内极端波动因子" id="toc-日内极端波动因子" class="nav-link" data-scroll-target="#日内极端波动因子">3.日内极端波动因子</a></li>
+  </ul></li>
+  <li><a href="#四流动性类因子liquidity" id="toc-四流动性类因子liquidity" class="nav-link" data-scroll-target="#四流动性类因子liquidity">四、流动性类因子(Liquidity)</a>
+  <ul class="collapse">
+  <li><a href="#日内amihud非流动性因子" id="toc-日内amihud非流动性因子" class="nav-link" data-scroll-target="#日内amihud非流动性因子">1.日内Amihud非流动性因子</a></li>
+  <li><a href="#日内换手波动因子" id="toc-日内换手波动因子" class="nav-link" data-scroll-target="#日内换手波动因子">2.日内换手波动因子</a></li>
+  <li><a href="#高频有效价差因子" id="toc-高频有效价差因子" class="nav-link" data-scroll-target="#高频有效价差因子">3.高频有效价差因子</a></li>
+  </ul></li>
+  <li><a href="#四量价关系" id="toc-四量价关系" class="nav-link" data-scroll-target="#四量价关系">四、量价关系</a>
+  <ul class="collapse">
+  <li><a href="#日内价量同步性因子" id="toc-日内价量同步性因子" class="nav-link" data-scroll-target="#日内价量同步性因子">1.日内价量同步性因子</a></li>
+  <li><a href="#成交量对滞后收益率的反应因子" id="toc-成交量对滞后收益率的反应因子" class="nav-link" data-scroll-target="#成交量对滞后收益率的反应因子">2.成交量对滞后收益率的反应因子</a></li>
+  </ul></li>
+  <li><a href="#五资金流类因子cash-flow-factors" id="toc-五资金流类因子cash-flow-factors" class="nav-link" data-scroll-target="#五资金流类因子cash-flow-factors">五、资金流类因子(Cash Flow Factors)</a>
+  <ul class="collapse">
+  <li><a href="#主动净流入率因子net-activein-flow-rate" id="toc-主动净流入率因子net-activein-flow-rate" class="nav-link" data-scroll-target="#主动净流入率因子net-activein-flow-rate">1.主动净流入率因子(Net ActiveIn flow Rate)</a></li>
+  </ul></li>
+  <li><a href="#六订单簿类因子order-book-factors" id="toc-六订单簿类因子order-book-factors" class="nav-link" data-scroll-target="#六订单簿类因子order-book-factors">六、订单簿类因子(Order Book Factors)</a>
+  <ul class="collapse">
+  <li><a href="#订单簿失衡因子order-imbalance-ratio-oir" id="toc-订单簿失衡因子order-imbalance-ratio-oir" class="nav-link" data-scroll-target="#订单簿失衡因子order-imbalance-ratio-oir">1.订单簿失衡因子(Order Imbalance Ratio, OIR)</a></li>
+  </ul></li>
+  <li><a href="#七注意事项" id="toc-七注意事项" class="nav-link" data-scroll-target="#七注意事项">七、注意事项</a></li>
+  <li><a href="#八前沿与展望" id="toc-八前沿与展望" class="nav-link" data-scroll-target="#八前沿与展望">八、前沿与展望</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第2章 因子选股 第4节 高频数据低频化因子</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>随着A股市场的机构化和有效性不断提升，传统基于低频数据Alpha的拥挤度和衰减都显著增加，因子挖掘也变得日益困难。在这一背景下，如tick级、秒级、分钟级数据等高频数据逐渐成为量化投资领域获取Alpha的重要战场。</p>
+<p>高频数据蕴含着丰富信息，反映了价格瞬时波动、订单流冲击和流动性变化等市场微观结构 ，但其本身具有噪声大的问题，且在时间上与传统因子也不同步，无法直接应用于中低频交易策略。因此，“高频数据低频化”技术应运而生，它旨在将秒级、分钟级的高频信息，通过一系列处理和建模，转化为日度、周度甚至月度的低频因子，以便融入现有的中低频量化投研框架中。本节，我们将系统介绍A股市场高频数据及其低频化因子。</p>
+</section>
+<section id="一高频数据" class="level2">
+<h2 class="anchored" data-anchor-id="一高频数据">一、高频数据</h2>
+<p>高频数据，通常是指以极高时间频率采集的交易或报价数据，例如逐笔成交数据、逐笔委托数据以及行情快照切片数据。与每日仅有开、高、低、收四个价格点的日线数据相比，高频数据以极高的频率记录了市场在交易时段内的每一个细微变化，揭示了价格形成的动态过程。高频数据一般包括：</p>
+<ul>
+<li><p>行情快照数据（Snap shots）：分Level-1和Level-2两种。通常Level-1快照每3秒更新一次，提供了买卖五档的挂单价格和数量、最新成交价、成交量等信息。</p></li>
+<li><p>逐笔委托数据（Tick-by-Tick Orders）：记录了每一笔提交到交易所的委托单信息，包括委托时间、买/卖方向、价格、数量以及订单类型，如限价单、市价单。</p></li>
+<li><p>逐笔成交数据（Tick-by-Tick Trades）：记录了每一笔撮合成交的详细信息，包括成交时间、价格、数量以及买卖双方的委托单号，通过匹配委托数据可以判断交易的主动性。</p></li>
+</ul>
+<p>纯粹的高频数据和高频策略对硬件、网络和算法的要求极高，且容量有限、策略衰减快，并不适合大多数资管规模的机构。</p>
+<p>分钟数据则是对上述Tick数据进行清洗和处理，通过重采样技术，生成分钟级的开盘价、收盘价、最高价、最低价、成交量和成交额等，即OHLCV数据。相较于Tick数据，分钟数据有效降低了数据噪音和存储压力，同时保留了重要的市场微观结构特征，兼具了高频数据的丰富信息与低频数据的处理效率优势，是因子挖掘的理想载体，在当前行业应用中占据更为核心的位置。</p>
+<p>对于主流的中低频选股策略，通常以日度或周度调仓。为了匹配，使用高频数据构造因子通常遵循“高频数据低频化”的技术路径。通常遵循“日内数据计算→日频截面处理→月频因子聚合”三步流程：</p>
+<ol type="1">
+<li><p>首先在一个较低的频率上（如每日），对该周期内全部高频数据进行计算和提炼，将蕴含在日内交易过程中的特定模式或信息，凝聚成一个日频因子。</p></li>
+<li><p>在每日截面，对日频因子进行标准化，剔除市场整体波动影响。对于不同的因子，此步并非必需。</p></li>
+<li><p>在更低频率（如月频）对多个交易日的日频指标进行时序的计算，聚合成一个“高频数据低频化因子”。聚合的方式有多种，包括但不限于：统计量可选择均值、中位数、标准差、最大/最小值；加权方式可选择等权、基于时间加权、成交量加权等；也可基于特定条件采样，例如取最大成交或波动时期。</p></li>
+</ol>
+<p>低频化的<strong>日内因子（Intraday Factor）</strong>将日内独有的微观结构信息注入到传统的低频多因子模型中，有效提升了模型的整体Alpha。他们可以与现有投研框架无缝对接，方便进行因子检验、风险中性化和组合优化等后续处理。相较于纯高频交易，它降低了对交易执行系统速度的极端要求，使得更多机构能够利用高频数据来增强其中长期策略。</p>
+<p>本节我们将对典型的“高频数据低频化”因子进行详细阐述，包括其定义、详细的构建步骤以及在A股市场的应用。</p>
+</section>
+<section id="二动量反转因子momentum-and-rversal" class="level2">
+<h2 class="anchored" data-anchor-id="二动量反转因子momentum-and-rversal">二、动量反转因子（Momentum and Rversal）</h2>
+<p>这类因子是日频数据因子在日内高频数据上的深化。它们主要关注日内价格和成交量的分布及其相互关系模式，捕捉短期的动量、反转和资金博弈行为。</p>
+<section id="动量反转因子" class="level3">
+<h3 class="anchored" data-anchor-id="动量反转因子">1.动量/反转因子</h3>
+<p><strong>因子定义：</strong>衡量股票在一天交易内价格持续上涨或下跌的趋势强度。其背后的逻辑是信息的逐步释放和扩散，或者趋势交易者的行为主导。它剔除了隔夜涨跌影响，比用日线计算更准确，</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的1分钟K线数据。</p></li>
+<li><p>计算分钟收益率：当日交易时间为4小时的240个分钟，计算分钟对数收益率<span class="math inline">\(ret_t=ln(c_t/c_{t-1})\)</span>。得到个股当日的分钟收益率序列<span class="math inline">\([ret_1,ret_2,...,ret_240]\)</span>。</p></li>
+<li><p>因子计算：</p>
+<ul>
+<li><p>因子A，简单累积收益率：计算当日最后一个分钟相对于第一个分钟的累积收益率。</p></li>
+<li><p>因子B，自回归系数：对分钟收益率序列<span class="math inline">\(ret_t\)</span>进行一阶自回归<span class="math inline">\(ret_t=α+β*ret_{t-1}+ε_t\)</span>。回归得到的系数<span class="math inline">\(β\)</span>即可作为动量因子。若<span class="math inline">\(β\)</span>显著为正，说明存在分钟级别的动量效应；若为负，则为反转效应。</p></li>
+</ul></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+<section id="日内特殊时段的动量反转因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内特殊时段的动量反转因子">2.日内特殊时段的动量/反转因子</h3>
+<p><strong>因子定义：</strong>衡量股票在一天某一个特殊的交易时段内价格上涨或下跌的趋势强度。其背后的逻辑是，在日内特殊的交易时段，如临近开盘和收盘，其交易行为更具有指导意义。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的1分钟K线数据。</p></li>
+<li><p>计算特定时段的分钟收益率：如开盘后30分钟和收盘前30分钟的分钟收益率.</p></li>
+<li><p>因子计算： 因子A，开盘后30分钟累积收益率。 因子B，收盘前30分钟累积收益率。</p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+<section id="vwap偏离度因子" class="level3">
+<h3 class="anchored" data-anchor-id="vwap偏离度因子">3.VWAP偏离度因子</h3>
+<p><strong>因子定义：</strong>VWAP即成交量加权平均价，代表了市场在当日平均持仓成本。VWAP偏离度衡量的是股票收盘价相对于其当日VWAP的偏离程度。如果收盘价远高于VWAP，说明买方力量在日内占据主导，并将价格推离了市场平均成本区；反之亦然。这可以看作是日内多空力量对比的结果。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日1分钟K线数据。</p></li>
+<li><p>计算日内VWAP：<span class="math inline">\(VWAP_{day}=Σ(p_iv_i)/Σ(v_i)\)</span>，其中<span class="math inline">\(i\)</span>遍历当日所有分钟。</p></li>
+<li><p>获取收盘价：获取当日的收盘价<span class="math inline">\(Close_{price}\)</span>。</p></li>
+<li><p>因子计算：<span class="math inline">\(Factor\_VWAP\_DIV =(Close_{price}-VWAP_{day})/VWAP_{day}\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+</section>
+<section id="三波动与风险类因子volitility-and-risk" class="level2">
+<h2 class="anchored" data-anchor-id="三波动与风险类因子volitility-and-risk">三、波动与风险类因子(Volitility and Risk)</h2>
+<section id="波动率因子" class="level3">
+<h3 class="anchored" data-anchor-id="波动率因子">1.波动率因子</h3>
+<p><strong>因子定义：</strong>通过对日内分钟收益率数据计算标准差等指标，得出的日内波动率。它消除隔夜波动的影响，比用日线计算的波动率更准确，能更好的反映当日的真实价格波动水平。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的1分钟收盘价数据<span class="math inline">\(p_t\)</span>。</p></li>
+<li><p>计算1分钟收益率：<span class="math inline">\(ret_t=ln(p_t/p_{t-1})\)</span>。</p></li>
+<li><p>因子计算：<span class="math inline">\(Factor\_Volitility=\sqrt{ \sum_{t=1}^{T} ret_t^2 }\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值和标准差。</p></li>
+</ol>
+<p>波动率既是一个风险指标，也可以作为Alpha因子使用，持续低波动的股票可能在未来有更好的表现。 也可参考上述步骤，分别计算上行收益率方差，下行收益率方差，上下行方差之差（或比值）等多个波动类的指标。</p>
+</section>
+<section id="日内收益分布偏度峰度因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内收益分布偏度峰度因子">2.日内收益分布偏度/峰度因子</h3>
+<p><strong>因子定义：</strong>偏度(Skewness)衡量日内收益率分布的对称性。正偏度意味着当日存在更多的小幅下跌和少数的大幅上涨；负偏度则相反，意味着存在“闪崩”的倾向。投资者通常厌恶暴跌风险，因此负偏度高的股票往往有更高的预期收益。峰度(Kurtosis)衡量日内收益率分布的“尖峰”和“肥尾”程度。高锋度意味着当日的收益率大部分时间集中在均值附近，偶尔会出现极端波动和尾部风险。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的分钟收益率序列<span class="math inline">\(ret_t\)</span>。</p></li>
+<li><p>计算日内均值和标准差：<span class="math inline">\(μ\)</span>和<span class="math inline">\(σ\)</span>。</p></li>
+<li><p>因子计算：</p>
+<p>Factor_Skew=<span class="math inline">\(\frac{E[(X - \mu)^3]}{\sigma^3}\)</span></p>
+<p>Factor_Kurt=<span class="math inline">\(\frac{E[(X - \mu)^4]}{\sigma^4}\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+<p>股票分钟收益率的分布依赖于分钟内所有投资者买卖。流动性好的股票，其收益率分布应该服从正态。当收益率偏离正态分布时，可能意味着存在大额投资者的影响，或流动性较差的情况。影响越大，收益率噪音就越偏离正态分布，股票潜在的风险也就越大，市场参与者对股票的风险溢价要求也就越高。</p>
+<p>基于以上逻辑，也可以计算Shapiro-Wilk统计量，判断样本是否来自于正态分布，构建相应的因子。</p>
+</section>
+<section id="日内极端波动因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内极端波动因子">3.日内极端波动因子</h3>
+<p><strong>因子定义：在险价值（Value at Risk, VaR）</strong>是衡量金融资产在一定置信水平和时间间隔内可能遭受的最大损失的统计指标。在日内交易环境下，分钟收益率的VaR能够更精细地捕捉股票的极端风险暴露，反映流动性冲击和大额交易对价格的影响。</p>
+<p><strong>构建方法一：</strong>历史模拟法 直接使用当日分钟收益率的历史分布计算VaR：</p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的分钟收益率序列<span class="math inline">\(ret_t\)</span>。</p></li>
+<li><p>将当日所有分钟收益率按升序排列： <span class="math inline">\(ret_{(1)}\leq ret_{(2)}\leq ...\leq ret_{(T)}\)</span></p></li>
+<li><p>对于置信水平<span class="math inline">\(\alpha\)</span>，通常取95%或99%，计算VaR：</p>
+<p><span class="math inline">\(\text{Factor_VaR}_{\alpha}=-ret_{(k)}\)</span></p>
+<p>其中： <span class="math inline">\(k=\lfloor T\times(1-\alpha)\rfloor\)</span>，<span class="math inline">\(\lfloor\cdot\rfloor\)</span>表示向下取整。</p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+<p><strong>构建方法二：</strong>基于正态假设的参数法</p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的分钟收益率序列<span class="math inline">\(ret_t\)</span>。</p></li>
+<li><p>假设分钟收益率服从正态分布<span class="math inline">\(N(\mu,\sigma^2)\)</span>：</p></li>
+</ol>
+<pre><code>$\text{Factor_VaR}_{\alpha}=-(\mu+z_{\alpha}\cdot\sigma)$
+
+其中： $\mu$：当日分钟收益率均值
+
+$\sigma$：当日分钟收益率标准差
+
+$z_{\alpha}$：标准正态分布在置信水平$\alpha$下的分位数（如$\alpha=95\%$时，$z_{0.95}\approx1.645$）</code></pre>
+<ol start="3" type="1">
+<li>低频化：计算上述因子在过去5日、10日、20的均值。</li>
+</ol>
+<p>日内VaR因子提供了一个独特的视角来量化股票的极端风险特征。这种高频风险测度能够更灵敏地反映市场微观结构。日内VaR识别的是流动性枯竭时刻，这些时刻往往伴随着收益率分布的极端尾部事件。当大额订单冲击市场时，分钟收益率会出现异常波动，VaR能够量化这种冲击的程度。投资者对面临频繁极端下跌风险的股票要求更高的预期回报。</p>
+</section>
+</section>
+<section id="四流动性类因子liquidity" class="level2">
+<h2 class="anchored" data-anchor-id="四流动性类因子liquidity">四、流动性类因子(Liquidity)</h2>
+<p>流动性是指资产在不显著影响其市场价格的情况下迅速买卖的能力。高频数据，特别是订单簿数据，为精确衡量流动性提供了可能。高频流动性因子旨在衡量股票在一天内的交易成本、市场深度和价格冲击等，通常认为流动性差的股票未来预期收益更高。</p>
+<section id="日内amihud非流动性因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内amihud非流动性因子">1.日内Amihud非流动性因子</h3>
+<p><strong>因子定义：</strong>经典的<strong>Amihud非流动性</strong>指标衡量的是单位成交金额所能引起的价格波动的绝对值。其值越大，代表非流动性越强，即较小的成交量就能带来较大的价格冲击。将其应用到高频数据上，可以更精确的度量日内的价格冲击成本。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取当日分钟收益率<span class="math inline">\(ret_t\)</span>和分钟成交额<span class="math inline">\(amount_t\)</span>。</p></li>
+<li><p>计算分钟Amihud指标：对每个成交额不为0有效交易分钟<span class="math inline">\(t\)</span>，计算： <span class="math inline">\(Amihud_t=|ret_t|/amount_t\)</span>。</p></li>
+<li><p>取当日所有分钟Amihud指标的算术平均值。</p></li>
+</ol>
+<pre><code>$Factor\_Amihud=mean([Amihud_1,Amihud_2,...,Amihud_240])$</code></pre>
+<ol start="4" type="1">
+<li><p>数据处理：由于该指标分布可能极度右偏，通常需要进行对数变换<span class="math inline">\(ln(Factor\_Amihud)\)</span>或截尾处理以获得更稳健的因子。</p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+<section id="日内换手波动因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内换手波动因子">2.日内换手波动因子</h3>
+<p><strong>因子定义：</strong>该指标通过计算日内分钟换手率的标准差来度量交易集中度或分散程度。日内换手率的波动率因子衡量的是股票在日内交易活跃度的稳定性和连续性。低波动率，表明交易在日内分布均匀，流动性提供连续稳定；高波动率，表明交易活动集中在特定时间段，可能存在交易冲击或信息不对称的集中释放。</p>
+<p>构建方法：</p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的分钟成交量<span class="math inline">\(volume_t\)</span>和当日流通股本<span class="math inline">\(float_shares\)</span>。</p></li>
+<li><p>计算分钟换手率：对每一分钟<span class="math inline">\(t\)</span>计算：</p>
+<p><span class="math inline">\(turn_t=\frac{volume_t}{float\_shares}\)</span></p></li>
+<li><p>采用标准差形式计算日内换手率的波动率：</p>
+<p><span class="math inline">\(Factor\_TurnoverVol=\sqrt{\frac{1}{N-1}\sum_{t=1}^{N}\left(turn_t-\overline{turn}\right)^2}\)</span></p>
+<p>其中： <span class="math inline">\(N\)</span>：当日有效交易分钟数，剔除无交易的分钟。 <span class="math inline">\(\overline{turn}\)</span>：当日分钟换手率的算术平均值。 使用<span class="math inline">\(N-1\)</span>作为分母计算样本标准差，以获得无偏估计。</p></li>
+<li><p>同时考虑换手率均值水平和波动性，构建比率指标：</p></li>
+<li><p><span class="math inline">\(Factor\_TurnoverCoefficient=\frac{Factor\_TurnoverVol}{\overline{turn}}\)</span></p>
+<p>该指标衡量单位换手率下的波动程度，可进行跨股票比较。</p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+<p>日内换手率的波动率因子从交易活跃度稳定性的角度补充了传统流动性因子体系，提供了衡量市场微观结构质量的新维度。与Amihud非流动性因子（衡量价格冲击）相比，该因子更侧重于交易量分布的连续性，两者结合能够更全面地评估股票的流动性风险特征。</p>
+</section>
+<section id="高频有效价差因子" class="level3">
+<h3 class="anchored" data-anchor-id="高频有效价差因子">3.高频有效价差因子</h3>
+<p><strong>因子定义：</strong>有效价差衡量的是交易者实际执行交易的价格与当时市场中间价的差距，是衡量交易成本的更精确指标。它反映了投资者为立刻成交而付出的流动性成本。有效价差越大，交易成本越高，流动性越差。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日的逐笔成交数据和与之时间最接近的行情快照数据，买一价<span class="math inline">\(bid_price\)</span>，卖一价<span class="math inline">\(ask_price\)</span>。</p></li>
+<li><p>计算买卖中间价：<span class="math inline">\(mid_i=(bid_price_i+ask_price_i)/2\)</span></p></li>
+<li><p>判断交易方向：对每一笔成交<span class="math inline">\(i\)</span>，其成交价为<span class="math inline">\(p_i\)</span>。若<span class="math inline">\(p_i&gt;mid_i\)</span>则为主动性买单；若<span class="math inline">\(p_i&lt;mid_i\)</span>，则为主动性卖单。</p></li>
+<li><p>计算每笔交易的有效价差：</p>
+<p>对于主动性买单<span class="math inline">\(i\)</span>: <span class="math inline">\(EffSpread_i=2(p_i-mid_i)\)</span></p>
+<p>对于主动性卖单<span class="math inline">\(j\)</span>: <span class="math inline">\(EffSpread_j=2(mid_j-p_j)\)</span></p></li>
+<li><p>即对当日所有成交的有效价差进行成交量<span class="math inline">\(v_k\)</span>加权平均。</p>
+<p><span class="math inline">\(Factor\_EffectiveSpread=Σ(EffSpread_k*v_k)/Σ(v_k)\)</span></p>
+<p>为方便比较，通常会再除以当日的平均中间价进行标准化。</p></li>
+</ol>
+<p>有效价差因子是衡量真实交易摩擦的优良指标，其计算依赖于高质量的快照和逐笔数据的精确匹配，对数据处理能力要求较高，应用有一定的难度。</p>
+</section>
+</section>
+<section id="四量价关系" class="level2">
+<h2 class="anchored" data-anchor-id="四量价关系">四、量价关系</h2>
+<section id="日内价量同步性因子" class="level3">
+<h3 class="anchored" data-anchor-id="日内价量同步性因子">1.日内价量同步性因子</h3>
+<p><strong>因子定义：</strong>该因子衡量单个交易日内，每分钟的价格变动与同期成交量变动之间的相关性。它捕捉的是经典的“量价齐升”或“量价背离”现象在微观日内尺度上的强度。理论上，健康的上涨应伴随成交量的同步放大，因此该因子值越高，可能表明当日的价格上涨有坚实的资金推动。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取股票一个交易日内的1分钟K线数据，每个数据点应包含分钟收盘价和分钟成交量。</p></li>
+<li><p>计算序列： 计算每分钟的对数收益率：</p>
+<p><span class="math inline">\(r_t=log(close_t)-log(close_{t-1})\)</span></p>
+<p>计算每分钟的成交量变化率：</p>
+<p><span class="math inline">\(v_t=(volume_t/mean(volume_{day}))-1\)</span></p></li>
+<li><p>计算日度因子值：对于一个交易日内的所有有效分钟数据点<span class="math inline">\((r_t,v_t)\)</span>，计算其person相关系数：</p>
+<p><span class="math inline">\(Factor\_CPV=Corr({r_t},{v_t})\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+<section id="成交量对滞后收益率的反应因子" class="level3">
+<h3 class="anchored" data-anchor-id="成交量对滞后收益率的反应因子">2.成交量对滞后收益率的反应因子</h3>
+<p><strong>因子定义：</strong>该因子衡量单个交易日内，每分钟的价格变动与滞后一分钟成交量之间的相关性。它测试的是市场对“新信息”的反应速度：成交量是迅速跟随确认，还是反应迟钝。较强的正相关性可能意味着信息被快速消化并转化为交易行为，而弱相关性或负相关性可能暗示反应不足或存在分歧。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：同上，获取1分钟K线数据。</p></li>
+<li><p>计算序列：</p>
+<p>计算前一分钟的收益率:<span class="math inline">\(r\_lag\_t=r_{t-1}=log(close_{t-1})-log(close_{t-2})\)</span></p>
+<p>使用当期成交量:<span class="math inline">\(v_t=volume_t\)</span></p></li>
+<li><p>计算日度因子值：对于一个交易日内的所有有效分钟数据点<span class="math inline">\((r\_lag\_t,v_t)\)</span>，计算其person相关系数：</p></li>
+<li><p><span class="math inline">\(Factor\_CPV_lag=Corr({r\_lag\_t},{v_t})\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+</section>
+<section id="五资金流类因子cash-flow-factors" class="level2">
+<h2 class="anchored" data-anchor-id="五资金流类因子cash-flow-factors">五、资金流类因子(Cash Flow Factors)</h2>
+<p>通过分析逐笔成交数据，我们可以将交易划分为主动性买入（买方更急切，主动吃掉卖一甚至更高价位的挂单）和主动性卖出（卖方更急切，主动吃掉买一甚至更低价位的挂单）。资金流类因子正是基于这种划分，统计不同类型投资者（如大单、中单、小单）的主动性交易行为，从而追踪“聪明钱”的流向，判断市场主导力量。</p>
+<section id="主动净流入率因子net-activein-flow-rate" class="level3">
+<h3 class="anchored" data-anchor-id="主动净流入率因子net-activein-flow-rate">1.主动净流入率因子(Net ActiveIn flow Rate)</h3>
+<p><strong>因子定义：</strong>该因子衡量在一天之内，主动性买入的资金规模与主动性卖出资金规模的差额，并进行标准化。主动买入通常被认为是信息更灵通、意愿更强烈的投资者行为，因此持续的主动净流入可能预示着股价的上涨。</p>
+<ol type="1">
+<li><p><strong>构建方法：</strong></p></li>
+<li><p>数据准备：获取个股当日的逐笔成交数据，并与逐笔委托数据或快照数据进行匹配，以判断每笔成交的主动性。</p></li>
+<li><p>快照匹配：对于一笔成交<span class="math inline">\(i\)</span>，其价格为<span class="math inline">\(p_i\)</span>。获取其成交时刻<span class="math inline">\(t_i\)</span>前最新的快照。若<span class="math inline">\(p_i \geq ask_price1\)</span>，则为主动买；若<span class="math inline">\(p_i \leq bid_price1\)</span>，则为主动卖；介于两者之间则为中性盘。</p></li>
+<li><p>计算主动买卖金额：</p>
+<p>对于所有主动买方 <span class="math inline">\(ActiveBuyAmount=Σ(p_iv_i)\)</span></p>
+<p>对于所有主动卖方 <span class="math inline">\(ActiveSellAmount=Σ(p_jv_j)\)</span></p></li>
+<li><p>因子计算：<span class="math inline">\(NetActiveInflow=ActiveBuyAmount-ActiveSellAmount\)</span></p></li>
+<li><p>标准化： <span class="math inline">\(Factor_NetActiveInflowRate=NetActiveInflow/MarketCap\)</span></p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+<p>为了获得更强信号，可以进一步对订单进行拆分。例如，根据单笔成交金额的大小，将资金划分为<strong>特大单、大单、中单、小单</strong>，分别计算其主动净流入率。通常认为，大单和特大单的主动净流入更能代表机构投资者的行为，预测性更强。</p>
+</section>
+</section>
+<section id="六订单簿类因子order-book-factors" class="level2">
+<h2 class="anchored" data-anchor-id="六订单簿类因子order-book-factors">六、订单簿类因子(Order Book Factors)</h2>
+<p>这是最能体现高频数据独特价值的一类因子。它们直接基于买卖盘口的挂单信息（Level-2快照数据）或逐笔委托数据构建，旨在刻画买卖双方的意愿强度和即时供需关系。订单簿上的不平衡状态往往是未来价格变动的直接驱动力。</p>
+<section id="订单簿失衡因子order-imbalance-ratio-oir" class="level3">
+<h3 class="anchored" data-anchor-id="订单簿失衡因子order-imbalance-ratio-oir">1.订单簿失衡因子(Order Imbalance Ratio, OIR)</h3>
+<p>因子定义：订单簿失衡因子直接衡量了在某个时间点上，买方挂单压力与卖方挂单压力的相对大小。其核心逻辑是，订单簿是未来供需关系的直接体现，当买方挂单（需求）远大于卖方挂单（供给）时，价格有上涨的压力；反之亦然。这是微观市场结构理论中的一个核心概念。</p>
+<p><strong>构建方法：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取个股当日所有的行情快照数据，通常为3秒一次。每一条快照包含买一到买五的价格与数量(<span class="math inline">\(bp1..5\)</span>,<span class="math inline">\(bv1..5\)</span>)和卖一到卖五的价格与数量(<span class="math inline">\(ap1..5\)</span>,<span class="math inline">\(av1..5\)</span>)。</p></li>
+<li><p>计算单次快照的Weighted OIR：对每一次快照<span class="math inline">\(t\)</span>，对于不同档位的挂单量，用距离中间价的远近进行加权计算其订单簿失衡率：</p>
+<p><span class="math inline">\(W\_OIR_t=(Σw_i*bvi_t-Σw_j*avj_t)/(Σw_i*bvi_t+Σw_j*avj_t)\)</span></p>
+<p>其中：<span class="math inline">\(w\)</span>是权重，通常离中间价越近的档位权重越高。</p></li>
+<li><p>日内低频化处理：</p>
+<p>方法A(日内均值)：<span class="math inline">\(Factor_OIR_Mean=mean(W\_OIR_t)\)</span>，其中<span class="math inline">\(t\)</span>遍历当日所有快照。</p>
+<p>方法B(日内标准差)：<span class="math inline">\(Factor_OIR_Std=std(W\_OIR_t)\)</span>，衡量订单簿失衡的波动性。</p></li>
+<li><p>低频化：计算上述因子在过去5日、10日、20的均值。</p></li>
+</ol>
+</section>
+</section>
+<section id="七注意事项" class="level2">
+<h2 class="anchored" data-anchor-id="七注意事项">七、注意事项</h2>
+<p>在利用日内分钟数据计算低频选股因子时，数据质量是决定因子有效性的首要前提。核心在于严格的数据清洗，包括必须谨慎对待开盘集合竞价、午间休市及收盘集合竞价的分钟数据；并对涨跌停、脉冲交易等异常值进行识别，进行剔除或缩尾处理；同时需依据当日有效交易分钟数识别并排除停牌日，如少于全天有效分钟数的1/3应视为无效交易日，以确保基础数据的同质性与可靠性。</p>
+<p>在此之上，针对性的序列预处理是提升因子逻辑的关键。由于日内量价数据存在显著的U型模式，开盘尾盘活跃度剧增，直接计算容易产生偏差。应在日内维度上对收益率和成交量序列分别进行标准化，以剥离趋势性影响，使计算出的相关性等指标更能反映纯粹的瞬时协同变化，从而捕捉更稳健的市场微观结构信号。</p>
+<p>此外，还需综合考量数据来源与复权等问题，以及计算效率优化，并在因子检验中关注不同市场状态下的稳健性。整个过程是一个从数据净化、逻辑实现到统计验证的严谨闭环。</p>
+</section>
+<section id="八前沿与展望" class="level2">
+<h2 class="anchored" data-anchor-id="八前沿与展望">八、前沿与展望</h2>
+<p>如低频因子一样，有效的高频因子逻辑一旦被市场熟知，其Alpha也会快速衰减。再加上数据的采购和存储、以及算力成本，高频数据领域的竞争日益激烈。面对挑战，业界和学界也在不断探索新的方向：</p>
+<ul>
+<li><p><strong>机器学习和人工智能的深度融合：</strong>近年来，简单的统计因子正在被基于复杂机器学习模型的因子所取代。 一方面是利用遗传算法等技术带来的特征工程自动化，可以自动探索高频数据中的有效因子表达式；另一方面是使用深度学习模型识别订单簿图像中的模式或捕捉资金流的长期依赖关系，建预测能力更强的因子。</p></li>
+<li><p><strong>多数据源融合：</strong>将高频量价数据与其它数据（如基本面、舆情等）在日内层面进行融合，以期捕捉更基本面的信息驱动的价格变动。混合使用不同类别的高频数据（委托、成交、盘口）本身也能更全面的刻画投资者行为，提升因子效果。</p></li>
+</ul>
+<p>展望未来，A股市场的高频数据低频化因子研究将继续深化。竞争的核心将从“谁拥有数据”转变为“谁能更深刻的理解数据、更高效的处理数据、更有创造力的从数据中提炼信息”。纯粹依赖单一高频因子的时代已经过去，系统性的、多因子、多策略、风险管理精细化的框架将是主流。随着AI技术的进一步发展和计算成本的降低，高频数据这座信息金矿将持续为量化投资贡献新的、更强大的Alpha来源，而驾驭这些数据的能力，将是未来顶尖量化机构的核心竞争力所在。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第2章 因子选股 第3节 基本面因子.html" class="pagination-link" aria-label="第2章 因子选股 第3节 基本面因子">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第2章 因子选股 第3节 基本面因子</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
