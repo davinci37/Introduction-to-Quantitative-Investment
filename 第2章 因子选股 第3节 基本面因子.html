@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第2章 因子选股 第3节 基本面因子 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第2章 因子选股 第2节 量价因子.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第2章 因子选股 第3节 基本面因子.html">第2章 因子选股 第3节 基本面因子</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一价值因子value-factor" id="toc-一价值因子value-factor" class="nav-link" data-scroll-target="#一价值因子value-factor">一、价值因子（Value Factor）</a>
+  <ul class="collapse">
+  <li><a href="#市盈率-price-to-earningsratio-pe" id="toc-市盈率-price-to-earningsratio-pe" class="nav-link" data-scroll-target="#市盈率-price-to-earningsratio-pe">1.市盈率 (Price-to-EarningsRatio, P/E)</a></li>
+  <li><a href="#市净率-price-to-book-ratio-pb" id="toc-市净率-price-to-book-ratio-pb" class="nav-link" data-scroll-target="#市净率-price-to-book-ratio-pb">2.市净率 (Price-to-Book Ratio, P/B)</a></li>
+  <li><a href="#市销率price-to-salesratiops" id="toc-市销率price-to-salesratiops" class="nav-link" data-scroll-target="#市销率price-to-salesratiops">3.市销率(Price-to-SalesRatio,P/S)</a></li>
+  <li><a href="#市现率-price-to-cash-flow-ratio-pcf" id="toc-市现率-price-to-cash-flow-ratio-pcf" class="nav-link" data-scroll-target="#市现率-price-to-cash-flow-ratio-pcf">4.市现率 (Price-to-Cash Flow Ratio, P/CF)</a></li>
+  <li><a href="#企业价值ebitda-evebitda" id="toc-企业价值ebitda-evebitda" class="nav-link" data-scroll-target="#企业价值ebitda-evebitda">5.企业价值/EBITDA (EV/EBITDA)&nbsp;</a></li>
+  <li><a href="#股息率-dividendyield" id="toc-股息率-dividendyield" class="nav-link" data-scroll-target="#股息率-dividendyield">6.股息率 (DividendYield)</a></li>
+  </ul></li>
+  <li><a href="#二成长因子-growth-factors" id="toc-二成长因子-growth-factors" class="nav-link" data-scroll-target="#二成长因子-growth-factors">二、成长因子 (Growth Factors)</a>
+  <ul class="collapse">
+  <li><a href="#收入增长revenue-growth" id="toc-收入增长revenue-growth" class="nav-link" data-scroll-target="#收入增长revenue-growth">1.收入增长(Revenue Growth)</a></li>
+  <li><a href="#盈利增长-earnings-growth" id="toc-盈利增长-earnings-growth" class="nav-link" data-scroll-target="#盈利增长-earnings-growth">2.盈利增长 (Earnings Growth)</a></li>
+  <li><a href="#资本性支出与资产增长" id="toc-资本性支出与资产增长" class="nav-link" data-scroll-target="#资本性支出与资产增长">3.资本性支出与资产增长</a></li>
+  <li><a href="#预期增长expected-growth" id="toc-预期增长expected-growth" class="nav-link" data-scroll-target="#预期增长expected-growth">4.预期增长(Expected Growth)</a></li>
+  </ul></li>
+  <li><a href="#三质量因子quality-factors" id="toc-三质量因子quality-factors" class="nav-link" data-scroll-target="#三质量因子quality-factors">三、质量因子(Quality Factors)</a>
+  <ul class="collapse">
+  <li><a href="#盈利能力profitability" id="toc-盈利能力profitability" class="nav-link" data-scroll-target="#盈利能力profitability">1.盈利能力(Profitability)</a></li>
+  <li><a href="#盈利稳定性earnings-stability" id="toc-盈利稳定性earnings-stability" class="nav-link" data-scroll-target="#盈利稳定性earnings-stability">2.盈利稳定性(Earnings Stability)</a></li>
+  <li><a href="#盈利质量earnings-quality" id="toc-盈利质量earnings-quality" class="nav-link" data-scroll-target="#盈利质量earnings-quality">3.盈利质量(Earnings Quality)</a></li>
+  <li><a href="#经营效率operating-efficiency" id="toc-经营效率operating-efficiency" class="nav-link" data-scroll-target="#经营效率operating-efficiency">4.经营效率(Operating Efficiency)</a></li>
+  <li><a href="#资本结构与财务安全" id="toc-资本结构与财务安全" class="nav-link" data-scroll-target="#资本结构与财务安全">5.资本结构与财务安全</a></li>
+  <li><a href="#现金流cash-flow" id="toc-现金流cash-flow" class="nav-link" data-scroll-target="#现金流cash-flow">6.现金流(Cash Flow)</a></li>
+  </ul></li>
+  <li><a href="#四其它基本面因子" id="toc-四其它基本面因子" class="nav-link" data-scroll-target="#四其它基本面因子">四、其它基本面因子</a>
+  <ul class="collapse">
+  <li><a href="#规模因子size-factor" id="toc-规模因子size-factor" class="nav-link" data-scroll-target="#规模因子size-factor">1.规模因子(Size Factor)</a></li>
+  <li><a href="#另类财务因子" id="toc-另类财务因子" class="nav-link" data-scroll-target="#另类财务因子">2.另类财务因子</a></li>
+  <li><a href="#公司治理因子" id="toc-公司治理因子" class="nav-link" data-scroll-target="#公司治理因子">3.公司治理因子</a></li>
+  <li><a href="#股东行为因子" id="toc-股东行为因子" class="nav-link" data-scroll-target="#股东行为因子">4.股东行为因子</a></li>
+  <li><a href="#附注" id="toc-附注" class="nav-link" data-scroll-target="#附注">5.附注</a></li>
+  </ul></li>
+  <li><a href="#五新兴和另类基本面因子" id="toc-五新兴和另类基本面因子" class="nav-link" data-scroll-target="#五新兴和另类基本面因子">五、新兴和另类基本面因子</a>
+  <ul class="collapse">
+  <li><a href="#esg因子environmental-socialand-governance" id="toc-esg因子environmental-socialand-governance" class="nav-link" data-scroll-target="#esg因子environmental-socialand-governance">1.ESG因子(Environmental, Social,and Governance)</a></li>
+  <li><a href="#新闻舆情因子" id="toc-新闻舆情因子" class="nav-link" data-scroll-target="#新闻舆情因子">2.新闻舆情因子</a></li>
+  <li><a href="#供应链因子" id="toc-供应链因子" class="nav-link" data-scroll-target="#供应链因子">3.供应链因子</a></li>
+  <li><a href="#专利因子" id="toc-专利因子" class="nav-link" data-scroll-target="#专利因子">4.专利因子</a></li>
+  <li><a href="#mda" id="toc-mda" class="nav-link" data-scroll-target="#mda">5.MD&amp;A</a></li>
+  </ul></li>
+  <li><a href="#六基本面因子挖掘" id="toc-六基本面因子挖掘" class="nav-link" data-scroll-target="#六基本面因子挖掘">六、基本面因子挖掘</a>
+  <ul class="collapse">
+  <li><a href="#遍历挖掘" id="toc-遍历挖掘" class="nav-link" data-scroll-target="#遍历挖掘">1.遍历挖掘</a></li>
+  <li><a href="#模型挖掘" id="toc-模型挖掘" class="nav-link" data-scroll-target="#模型挖掘">2.模型挖掘</a></li>
+  </ul></li>
+  <li><a href="#七结论与展望" id="toc-七结论与展望" class="nav-link" data-scroll-target="#七结论与展望">七、结论与展望</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第2章 因子选股 第3节 基本面因子</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>本节，我们将全面系统的梳理和介绍量化投资实践中的各种基本面因子。基本面因子源于公司的财务报表、经营活动和市场价值评估，它们是企业内在价值和经营状况的量化体现。与量价因子不同，基本面因子根植于价值投资理念，其背后具有明确的投资逻辑：即拥有特定基本面特征的公司（例如，估值便宜、盈利能力强、财务健康、成长性好）在长期内能够提供超越市场平均水平的回报。</p>
+<p>我们将详细阐述每个因子的经济学含义、投资逻辑以及其多样的表现形式和衍生指标。本节旨在帮助读者对基本面因子的全貌有一个深刻而广泛的理解，为进一步的量化研究与策略开发奠定坚实的知识基础。</p>
+</section>
+<section id="一价值因子value-factor" class="level2">
+<h2 class="anchored" data-anchor-id="一价值因子value-factor">一、价值因子（Value Factor）</h2>
+<p>价值因子是最古老、最著名且被最广泛研究的因子之一。其核心投资逻辑源于格雷厄姆的价值投资理论：买入价格低于其内在价值的股票。量化模型通过一系列指标来衡量股票的“便宜”程度，预期这些被市场错误定价的低估值股票未来会向其内在价值回归，从而产生超额收益。</p>
+<p><strong>价值溢价（Value Premium）</strong>的存在有多种解释。一是基于风险补偿理论。低估值公司通常是那些经营状况不佳、未来前景不明朗、财务杠杆较高的“困境”公司。投资这些公司承担了更高的破产风险和经营不确定性风险，因此投资者要求获得更高的风险溢价作为补偿。二是基于行为金融学理论。投资者往往对过去表现不佳的公司过度悲观，而对热门的成长股过度乐观，形成一种认知偏差。这种情绪化的反应导致价值股被过度抛售，价格低于其基本面价值；而成长股则被过度追捧，产生泡沫。当市场情绪回归理性，价值股的价格便会修正。</p>
+<p>价值因子的衡量指标通常将公司的市场价格（或企业价值）与某个财务指标进行比较。分母的选择至关重要，因为它定义了价值的“锚”。</p>
+<section id="市盈率-price-to-earningsratio-pe" class="level3">
+<h3 class="anchored" data-anchor-id="市盈率-price-to-earningsratio-pe">1.市盈率 (Price-to-EarningsRatio, P/E)</h3>
+<p><strong>定义：</strong>公司市值/公司净利润。这是最经典、最常用的估值指标。通常使用倒数，净利润/市值(EarningsYield, E/P)，即盈余收益率，作为因子构建的输入，因为E/P越高代表估值越低，与因子收益方向一致。更重要的是可以很好避免净利润为负值带来的非线性问题。</p>
+<p><strong>逻辑：</strong>E/P衡量了投资者为每一单位市值的投资能获得多少公司盈利。高E/P意味着相对较低的估值。</p>
+<p><strong>衍生指标：</strong></p>
+<ul>
+<li><p><strong>静态市盈率(P/E LYR-Last Year Report)：</strong>使用上一年度的净利润。优点是数据确定，缺点是滞后性强。</p></li>
+<li><p><strong>滚动市盈率(P/E TTM-TrailingTwelve Months)：</strong>使用过去四个季度的累计净利润。优点是反映了最近的经营状况，是实践中最常用的形式。</p></li>
+<li><p><strong>动态/预期市盈E(Forward P/E)：</strong>使用分析师对未来12个月或下一财年的预测净利润。优点是具有前瞻性，更能反映市场对未来的预期。缺点是依赖于分析师预测的准确性，存在预测偏差。</p></li>
+<li><p><strong>PEG(Price/Earnings to Growth Ratio)：</strong>市盈率/盈利增长率。虽然它是一个估值指标，但其核心是结合估值与成长性，寻找“合理价格的成长股”即Growth at a Reasonable Price，GARP。</p></li>
+<li><p>此外，还有<strong>周期调整市盈率(CAPE or Shiller P/E)</strong>。该指标由罗伯特·席勒教授提出，使用过去十年经通胀调整后的平均净利润作为分母。优点是平滑了经济周期的影响，能更好的评估长期估值水平。该指标很难用于选股，常用于市场整体估值的判断。</p></li>
+</ul>
+</section>
+<section id="市净率-price-to-book-ratio-pb" class="level3">
+<h3 class="anchored" data-anchor-id="市净率-price-to-book-ratio-pb">2.市净率 (Price-to-Book Ratio, P/B)</h3>
+<p><strong>定义：</strong>公司市值/公司账面价值（净资产）。其倒数账面市值比(Book-to-Market Ratio, B/M)是学术界（如Fama-French三因子模型）和业界构建价值因子的标准形式。高B/M代表低估值。</p>
+<p><strong>逻辑：</strong>衡量了市场对公司净资产的溢价。B/M高意味着市场价格相对于公司历史投入的资本成本（账面价值）较低。</p>
+<p><strong>优点：</strong>净资产比净利润更稳定，不易受短期经营波动或会计准则调整的影响。对于银行、保险、房的产、重工业等重资产行业，P/B是极为重要的估值参考。</p>
+<p><strong>缺点：</strong>忽略无形资产。在知识经济时代，对于科技、医药、消费品等拥有强大品牌、专利、研发能力的轻资产公司，账面价值严重低估了其真实价值，导致P/B指标失效。</p>
+<p>不同的折旧、存货计价方法会影响账面价值的准确性。</p>
+<p><strong>衍生指标：</strong></p>
+<ul>
+<li><strong>市值比有形净资产(Price-to-Tangible Book Value Ratio)：</strong>从净资产中剔除商誉等无形资产，更能反映公司的“硬”资产价值。</li>
+</ul>
+</section>
+<section id="市销率price-to-salesratiops" class="level3">
+<h3 class="anchored" data-anchor-id="市销率price-to-salesratiops">3.市销率(Price-to-SalesRatio,P/S)</h3>
+<p><strong>定义：</strong>公司市值/公司营业收入。通常使用其倒数销售市值比作为因子。</p>
+<p><strong>逻辑：</strong>衡量了投资者为获得每一单位销售收入所愿意支付的价格。</p>
+<p><strong>优点：</strong>对于尚未盈利或利润为负的初创期、周期性行业的公司（如科技、生物医药公司），P/S提供了有效的估值尺度。营业收入比净利润更难被管理层操纵，数据更“干净”。</p>
+<p><strong>缺点：</strong>完全忽略了公司的成本控制能力和盈利能力。两家P/S相同的公司，其利润率可能天差的别，导致其真实价值差异巨大。因此，P/S通常需要与利润率指标结合使用。</p>
+</section>
+<section id="市现率-price-to-cash-flow-ratio-pcf" class="level3">
+<h3 class="anchored" data-anchor-id="市现率-price-to-cash-flow-ratio-pcf">4.市现率 (Price-to-Cash Flow Ratio, P/CF)</h3>
+<p><strong>定义：</strong>公司市值/公司经营活动现金流量。通常使用其倒数现金流市值比作为因子。</p>
+<p><strong>逻辑：</strong>现金流是公司生存和发展的血液，比净利润更难被会计手段粉饰。CF/P高表示公司以较低的市场价格就能产生强劲的现金流。</p>
+<p><strong>衍生指标</strong>：</p>
+<ul>
+<li><p><strong>自由现金流(FreeCashFlow, FCF)：</strong>OCF减去资本性支出。FCF代表了公司在维持或扩张其资产基础后，可以自由分配给股东和债权人的现金。</p></li>
+<li><p><strong>自由现金流收益率(FCFYield,FCF/Price)：</strong>是一个质量非常高的价值因子，因为它同时考虑了盈利的现金质量和未来的资本投入。</p></li>
+</ul>
+</section>
+<section id="企业价值ebitda-evebitda" class="level3">
+<h3 class="anchored" data-anchor-id="企业价值ebitda-evebitda">5.企业价值/EBITDA (EV/EBITDA)&nbsp;</h3>
+<p><strong>定义：</strong>企业价值=市值+总负债-现金。EBITDA即息税折旧摊销前利润。</p>
+<p><strong>逻辑：</strong>这是一个更为全面的估值指标。分子端EV不仅考虑了股权价值，还考虑了债权价值，反映了收购整个公司所需付出的总成本。分母端EBITDA剔除了非现金的折旧摊销以及不同资本结构和税率带来的影响，更纯粹的反映了公司的核心盈利能力。</p>
+<p><strong>优点：</strong>该指标是跨国、跨行业比较的理想工具，尤其适用于资本密集型、高折旧或高杠杆的公司。在私募股权和并购分析中被广泛使用。</p>
+</section>
+<section id="股息率-dividendyield" class="level3">
+<h3 class="anchored" data-anchor-id="股息率-dividendyield">6.股息率 (DividendYield)</h3>
+<p><strong>定义：</strong>每股年度股息/每股股价。</p>
+<p><strong>逻辑：</strong>直接衡量了股东的现金回报。高股息率可能意味着公司估值偏低，或者公司已进入成熟期，拥有稳定的现金流愿意与股东分享。</p>
+<p><strong>优点：</strong>提供了实实在在的现金回报，是收益型投资者的核心考量。</p>
+<p><strong>缺点：</strong>高股息率也可能是“价值陷阱”的信号，即市场预期公司未来盈利将下滑，无法维持现有股息水平。许多高成长公司选择将利润用于再投资而非派息，使用股息率会错过这些优质标的。</p>
+<p><strong>衍生指标：</strong>回购是公司回报股东的另一种方式，可以将<strong>股息和股票回购收益</strong>结合起来计算总回报率，更全面的衡量了公司对股东的现金回报。</p>
+</section>
+</section>
+<section id="二成长因子-growth-factors" class="level2">
+<h2 class="anchored" data-anchor-id="二成长因子-growth-factors">二、成长因子 (Growth Factors)</h2>
+<p>成长因子关注的是公司的增长潜力和速度。其投资逻辑在于，那些能够持续、快速扩张其业务、收入和利润的公司，其内在价值会随之增长，从而推动股价上涨。成长因子与价值因子在很多时候呈现负相关性，代表了两种截然不同的投资哲学。</p>
+<p><strong>成长溢价（Growth Premium）</strong>的核心在于对未来的预期。投资者愿意为高增长公司支付更高的估值（例如高P/E），是因为他们相信公司未来的盈利增长将能够消化当前的高估值，并带来丰厚回报。这种预期的贴现构成了成长股定价的基础。成长因子的构建，主要是衡量公司关键财务指标在历史上的增长率，以及市场对未来增长的预期。</p>
+<section id="收入增长revenue-growth" class="level3">
+<h3 class="anchored" data-anchor-id="收入增长revenue-growth">1.收入增长(Revenue Growth)</h3>
+<p><strong>定义：</strong>衡量公司主营业务扩张速度的指标。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p><strong>营业收入同比增长率(YoY Growth)：</strong>(当期营收-去年同期营收)/去年同期营收，最常用、最重要的指标，剔除了季节性影响。</p></li>
+<li><p><strong>营业收入季度环比增长率(QoQ Growth)：</strong>(当季营收-上季营收)/上季营收，更能捕捉增长的短期拐点，但受季节性影响大。</p></li>
+<li><p><strong>过去N年营收复合年均增长率(CAGR)：</strong>如3年或5年，衡量公司中长期的增长趋势。</p></li>
+</ul>
+</section>
+<section id="盈利增长-earnings-growth" class="level3">
+<h3 class="anchored" data-anchor-id="盈利增长-earnings-growth">2.盈利增长 (Earnings Growth)</h3>
+<p><strong>定义：</strong>衡量公司利润增长速度的指标，是成长性的直接体现。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p><strong>每股收益同比增长率(EPS YoY Growth)：</strong>核心中的核心，综合反映了公司收入增长、成本控制和股本变化的影响。</p></li>
+<li><p><strong>净利润同比增长率(Net Profit YoY Growth)：</strong>与EPS增长类似，但不考虑股本变化，在没有大规模增发或回购时，二者趋势一致。</p></li>
+<li><p><strong>营业利润或息税前利润同比增长率(Operating Profit or EBIT YoY Growth)：</strong>剔除了利息和税收影响，更能反映主营业务盈利能力的增长。</p></li>
+<li><p><strong>过去N年EPS/净利润复合年均增长率(CAGR)：</strong>衡量盈利的中长期增长质量。</p></li>
+</ul>
+</section>
+<section id="资本性支出与资产增长" class="level3">
+<h3 class="anchored" data-anchor-id="资本性支出与资产增长">3.资本性支出与资产增长</h3>
+<p><strong>定义：</strong>衡量公司为未来增长所做的投入。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p><strong>资本性支出增长率(CAPEX Growth)：</strong>资本开支（Capital Expenditure，Capex）是指企业为购买、升级或维护长期资产而发生的支出。包括：不动产、厂房和设备、无形资产（如专利、软件）、土地等。高增长的资本开支通常预示着公司对未来需求的乐观判断和产能扩张计划。</p></li>
+<li><p><strong>总资产增长率(Total Asset Growth)：</strong>反映公司整体规模的扩张速度。但需要警惕的是，过快的资产增长有时也与低效投资和未来较低的回报相关。</p></li>
+</ul>
+</section>
+<section id="预期增长expected-growth" class="level3">
+<h3 class="anchored" data-anchor-id="预期增长expected-growth">4.预期增长(Expected Growth)</h3>
+<p><strong>定义：</strong>基于分析师预测等前瞻性信息，衡量市场对公司未来增长的共识。</p>
+<p><strong>指标：</strong>未来1-2年EPS/净利润一致预期增长率，该指标由多家券商分析师的预测平均得出。这是量化模型中非常重要的前瞻性成长指标。</p>
+</section>
+</section>
+<section id="三质量因子quality-factors" class="level2">
+<h2 class="anchored" data-anchor-id="三质量因子quality-factors">三、质量因子(Quality Factors)</h2>
+<p>质量因子，也称为，旨在识别那些财务状况健康、盈利能力强、经营效率高且治理结构优秀的公司。这类公司通常能够抵御经济周期的冲击，实现长期稳健的价值增长。质量因子是一个多维度的概念，可以细分为盈利能力、盈利稳定性、资本结构、现金流质量等多个方面。</p>
+<p>投资高质量公司的逻辑是，这些公司拥有可持续的竞争优势，能够以较低的风险创造出高于资本成本的回报。市场可能无法完全、及时的将这些质量优势反映在股价中，尤其是在市场恐慌时期，高质量公司的防御属性会凸显，而在市场复苏期，它们又能凭借强大的盈利能力率先反弹。</p>
+<section id="盈利能力profitability" class="level3">
+<h3 class="anchored" data-anchor-id="盈利能力profitability">1.盈利能力(Profitability)</h3>
+<p><strong>定义：</strong>衡量公司利用其资产和资本创造利润的效率。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p><strong>毛利率(Gross Profit Margin)：</strong>(营业收入-营业成本)/营业收入，反映了产品的定价能力和成本控制能力，是衡量公司核心竞争力的关键。</p></li>
+<li><p><strong>营业利润率(Operating Profit Margin)：</strong>营业利润/营业收入，考虑了销售和管理费用，反映了公司的整体经营效率。</p></li>
+<li><p><strong>净利率(NetProfitMargin)：</strong>净利润/营业收入。最终的盈利能力体现，但会受到非经营性损益和税率的影响。</p></li>
+<li><p><strong>股本回报率(Returnon of Equity, ROE)：</strong>净利润/股东权益，衡量了公司为股东创造回报的能力。高且稳定的ROE是强大护城河的标志。</p></li>
+<li><p><strong>总资产回报率(Returnon of Assets, ROA)：</strong>净利润/总资产，衡量公司利用所有资产创造利润的效率，不区分股权和债券。</p></li>
+<li><p><strong>投入资本回报率(Return on Invested Capital, ROIC)：</strong>税后经营利润/投入资本，其中，税后经营利润=营业利润*(1-税率)，投入资本=股东权益+有息负债-现金。ROIC被认为是衡量企业核心盈利能力的“黄金标准”，因为它剔除了不同资本结构的影响，直接衡量了经营资产的盈利效率。一个公司的ROIC长期高于其加权平均资本成本（WACC）是其创造价值的根本。</p></li>
+</ul>
+</section>
+<section id="盈利稳定性earnings-stability" class="level3">
+<h3 class="anchored" data-anchor-id="盈利稳定性earnings-stability">2.盈利稳定性(Earnings Stability)</h3>
+<p><strong>定义：</strong>衡量公司盈利的可持续性和可预测性。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p>盈利波动率(Earnings Volatility)：过去N个季度（如12个季度）EPS或净利润的标准差。波动率越低，盈利越稳定，质量越高。</p></li>
+<li><p>盈利均值/盈利波动率：过去N个季度EPS或净利润的均值除以标准差。</p></li>
+</ul>
+</section>
+<section id="盈利质量earnings-quality" class="level3">
+<h3 class="anchored" data-anchor-id="盈利质量earnings-quality">3.盈利质量(Earnings Quality)</h3>
+<p><strong>定义：</strong>衡量公司盈利中实际获得的比例。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li>应计利润(Accruals)：衡量净利润中非现金部分的大小。过高的应计项目（尤其是相对于经营现金流）可能意味着盈利质量低下，甚至是盈利操纵的信号。通常会将应计利润除以总资产进行标准化，应计比率(AccrualRatio)越低越好。</li>
+</ul>
+</section>
+<section id="经营效率operating-efficiency" class="level3">
+<h3 class="anchored" data-anchor-id="经营效率operating-efficiency">4.经营效率(Operating Efficiency)</h3>
+<p><strong>定义：</strong>衡量公司管理其资产和负债以产生收入的效率。</p>
+<ul>
+<li><p><strong>指标：</strong></p></li>
+<li><p>总资产周转率(Total Asset Turnover)：营业收入/平均总资产。</p></li>
+<li><p>存货周转率(Inventory Turnover)：营业成本/平均存货。</p></li>
+<li><p>应收账款周转率(Accounts Receivable Turnover)：营业收入/平均应收账款。</p></li>
+</ul>
+</section>
+<section id="资本结构与财务安全" class="level3">
+<h3 class="anchored" data-anchor-id="资本结构与财务安全">5.资本结构与财务安全</h3>
+<p><strong>定义：</strong>衡量公司的财务风险和偿债能力。财务稳健是高质量的重要特征。实践中，高杠杆通常被认为一个风险因子，选股策略会剔除高杠杆公司，以寻求更稳健的回报。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p><strong>资产负债率(Debt-to-Asset Ratio)：</strong>总负债/总资产，反映了公司资产中有多少是通过负债筹集的。</p></li>
+<li><p><strong>产权比率(Debt-to-EquityRatio)：</strong>总负债/股东权益，衡量了债权人投入的资本与股东投入资本的相对关系，是衡量杠杆水平的核心指标。</p></li>
+<li><p><strong>流动比率(Current Ratio)：</strong>流动资产/流动负债，衡量企业用全部流动资产偿还全部流动负债的能力，反映短期偿债能力。</p></li>
+<li><p><strong>速动比率(Quick Ratio)：</strong>在流动比率的基础上，剔除流动资产中变现能力差的存货和预付款项，更严苛的考察即时偿债能力。</p></li>
+<li><p><strong>现金比率(Cash Ratio)：</strong>只考虑企业最具流动性的现金及现金等价物与流动负债的对比，衡量企业“随时可以还钱”的极端能力。</p></li>
+<li><p><strong>利息保障倍数(Interest Coverage Ratio)：</strong>EBIT/利息费用，衡量公司盈利支付债务利息的能力。</p></li>
+<li><p><strong>净负债/EBITDA(Net Debt/EBITDA)：</strong>衡量公司需要多少年的经营利润才能还清其净负债，是一个动态的偿债能力指标。</p></li>
+</ul>
+</section>
+<section id="现金流cash-flow" class="level3">
+<h3 class="anchored" data-anchor-id="现金流cash-flow">6.现金流(Cash Flow)</h3>
+<p>现金流因子更加关注公司的现金创造能力，因为现金流是企业生存和发展的命脉，比会计利润更难被操纵。</p>
+<p><strong>指标：</strong></p>
+<ul>
+<li><p>经营活动现金流/市值比：衡量公司经营活动产生的现金相对于其市值的比例。</p></li>
+<li><p>自由现金流/市值比：自由现金流)=经营活动现金流净额-资本支出，是公司在满足再投资需求后剩余的现金流，是真正可以回报给股东的现金。</p></li>
+<li><p>销售现金比率(Cash-to-Sales Ratio)：经营活动现金流净额/营业收入，衡量每单位销售收入能产生多少经营性现金流。</p></li>
+</ul>
+</section>
+</section>
+<section id="四其它基本面因子" class="level2">
+<h2 class="anchored" data-anchor-id="四其它基本面因子">四、其它基本面因子</h2>
+<p>除了上述经典的基本面因子外，还有一些在学术界被广泛验证，并在业界普遍应用的因子，它们在不同维度刻画了股票的风险收益特征。</p>
+<section id="规模因子size-factor" class="level3">
+<h3 class="anchored" data-anchor-id="规模因子size-factor">1.规模因子(Size Factor)</h3>
+<p><strong>总市值(Market Capitalization)：</strong>最直接的衡量指标。在因子构建中，通常取其自然对数以减小极端值的影响，并使其分布更接近正态。</p>
+<p>研究发现，小市值公司的股票长期平均回报高于大市值公司，这种现象被称为“规模溢价”。这被经济学解释为一种风险补偿，小公司通常经营风险更高、信息透明度更低、抗风险能力更弱，投资者要求更高的回报作为补偿；小公司股票流动性较差，也需要流动性的溢价补偿；小公司受到的分析师关注较少，也可能存在更多的错误定价机会。</p>
+<p>近年来，尤其是在美国市场，传统的规模因子溢价现象有所减弱甚至消失。但在许多其他市场以及特定的时间段内，规模因子仍然有效。它更多的被用作一个重要的风险控制因子，在其他因子构建时对规模进行中性化处理，在构建组合时通常保持市值中性。</p>
+</section>
+<section id="另类财务因子" class="level3">
+<h3 class="anchored" data-anchor-id="另类财务因子">2.另类财务因子</h3>
+<section id="预收账款合同负债增长率" class="level4">
+<h4 class="anchored" data-anchor-id="预收账款合同负债增长率">2.1.预收账款/合同负债增长率</h4>
+<p><strong>定义：</strong>分析公司预先收取客户货款或服务款（现为“合同负债”）的增长速度。</p>
+<p><strong>公式：</strong>(本期预收账款余额 - 上期预收账款余额) / 上期预收账款余额</p>
+<p>这前瞻性景气度指标。高速增长通常意味着：1）产品/服务供不应求，议价权强；2）未来业绩的“蓄水池”丰厚，收入确定性高。常见于软件、高端制造、服务行业。</p>
+</section>
+<section id="研发支出占收入比" class="level4">
+<h4 class="anchored" data-anchor-id="研发支出占收入比">2.2.研发支出占收入比</h4>
+<p><strong>定义：</strong>公司投入研究与开发的费用占营业收入的比重。</p>
+<p><strong>公式：</strong>研发支出/营业收入，衡量公司对未来创新和竞争力维持的投入强度。持续高投入（如科技公司常高于10%）是构建技术“护城河”的基础。</p>
+</section>
+<section id="员工薪酬" class="level4">
+<h4 class="anchored" data-anchor-id="员工薪酬">2.3.员工薪酬</h4>
+<p><strong>定义：</strong>公司为员工支付的平均现金薪酬福利。</p>
+<p><strong>公式：</strong>（支付给职工以及为职工支付的现金 + 期末应付职工薪酬 - 期初应付职工薪酬） / 员工总数</p>
+<p>人均薪酬显著高于行业平均，通常意味着公司：在人才市场有竞争力，能吸引优秀人才；并且更由可能属于高附加值行业。</p>
+</section>
+</section>
+<section id="公司治理因子" class="level3">
+<h3 class="anchored" data-anchor-id="公司治理因子">3.公司治理因子</h3>
+<section id="董事会委员数量" class="level4">
+<h4 class="anchored" data-anchor-id="董事会委员数量">3.1.董事会委员数量</h4>
+<p><strong>定义：</strong>指董事会下设立的专门委员会，通常包括审计、薪酬、提名、战略等委员会的总数量。</p>
+<p>委员会设置是公司治理结构规范化、专业化的体现。数量适中（通常3-4个）且运作有效，表明董事会对关键事项，如财务审计、高管薪酬、董事提名等，的监督更深入、独立。</p>
+</section>
+<section id="股东持股比例" class="level4">
+<h4 class="anchored" data-anchor-id="股东持股比例">3.2.股东持股比例</h4>
+<p><strong>定义：</strong>通常指大股东或控股股东的持股比例，也可分析机构投资者持股比例。</p>
+<p><strong>公式：</strong>大股东持股数/公司总股本。</p>
+<p>比例过高（如&gt;50%）可能引发“一股独大”、侵害小股东利益的风险；比例过低则可能导致股权过于分散，管理层缺乏有效监督。通常认为存在一个相对制衡的区间较为理想。</p>
+</section>
+<section id="管理层持股占比" class="level4">
+<h4 class="anchored" data-anchor-id="管理层持股占比">3.3.管理层持股占比</h4>
+<p><strong>定义：</strong>公司高级管理人员，如CEO、CFO等，持有的公司股份比例。</p>
+<p><strong>公式：</strong>管理层持股总数/公司总股本。</p>
+<p>管理层持股是将管理层利益与股东利益进行绑定的核心机制。较高的持股比例意味着管理层更有动力提升公司长期价值。</p>
+</section>
+<section id="员工学历" class="level4">
+<h4 class="anchored" data-anchor-id="员工学历">3.4.员工学历</h4>
+<p><strong>定义：</strong>计算公司高学历员工的相对比例。</p>
+<p><strong>公式：</strong>本科及以上学历人员占比&nbsp;= 本科及以上学历员工数 / 公司员工总数</p>
+<p><strong>逻辑：</strong>代表公司的高端研发、创新和管理能力。尤其适用于科技、医药、高端制造等知识密集型行业。</p>
+<p><strong>公式：</strong>硕士及以上学历人员占比&nbsp;= （硕士人数 + 博士人数）/ 公司员工总数</p>
+<p><strong>逻辑：</strong>代表公司的整体员工素质和标准化执行能力。适用性更广，是基础人力资本质量的指标。</p>
+<p>数据主要来自上市公司年度报告中的“员工情况”部分，通常在“公司治理”或“董事会报告”章节。</p>
+</section>
+</section>
+<section id="股东行为因子" class="level3">
+<h3 class="anchored" data-anchor-id="股东行为因子">4.股东行为因子</h3>
+<p><strong>逻辑：</strong>公司管理层和内部人比外部投资者更了解公司的真实情况。他们的行为，如股票回购和内部人交易，是强烈的公司价值信号。</p>
+<p><strong>指标：股票回购比例(Share Repurchases)：</strong>过去12个月公司用于回购股票的金额/公司总市值。大规模回购通常被市场解读为管理层认为股价被低估。</p>
+<p><strong>内部知情人交易(Insider Trading)：</strong>净买入信号：跟踪公司高管、董事等内部人的股票买卖行为。持续的、多位高管的净买入是一个强烈的看多信号。</p>
+</section>
+<section id="附注" class="level3">
+<h3 class="anchored" data-anchor-id="附注">5.附注</h3>
+<p>财务附注是财务报表的补充说明，包含大量未被传统财务指标直接反映的信息。例如，<strong>应收账款融资余额、坏账准备、预付款项账面价值</strong>等信息，这些信息在传统财务报表中可能未被充分披露，但对投资者决策具有重要参考价值。</p>
+<p>财务附注中的信息可以用于构建选股因子。例如：通过分析财务附注中信息（如货币资金、固定资产、短期借款、薪酬福利等），提取出有效选股因子，例如：资源税占比、固定资产折旧等。</p>
+</section>
+</section>
+<section id="五新兴和另类基本面因子" class="level2">
+<h2 class="anchored" data-anchor-id="五新兴和另类基本面因子">五、新兴和另类基本面因子</h2>
+<p>随着数据科学的发展，尤其是自然语言处理技术和大语言模型的普及，量化投资正在将更多非传统的另类数据源纳入到因子体系，以寻求新的超额收益来源。这些数据虽然“另类”，但其得到的因子本质上仍然是反映公司的基本面。</p>
+<section id="esg因子environmental-socialand-governance" class="level3">
+<h3 class="anchored" data-anchor-id="esg因子environmental-socialand-governance">1.ESG因子(Environmental, Social,and Governance)</h3>
+<p>将公司的环境、社会和公司治理表现作为衡量其长期可持续性和风险管理的标准。高ESG评分的公司可能具有更低的运营风险、更强的品牌声誉和更好的长期财务表现。指标如下：</p>
+<ul>
+<li><p><strong>环境(E)：</strong>碳排放强度、水资源利用效率、绿色收入占比等。</p></li>
+<li><p><strong>社会(S)：</strong>员工满意度、供应链劳工标准、产品安全记录、数据隐私保护等。</p></li>
+<li><p><strong>治理(G)：</strong>董事会独立性、高管薪酬与业绩挂钩程度、股权结构、反腐败政策等。</p></li>
+</ul>
+<p>数据来源仅部分可以从财务报告中获得，主要来源是专业的ESG评级机构，如MSCI、Sustainalytics等，。</p>
+</section>
+<section id="新闻舆情因子" class="level3">
+<h3 class="anchored" data-anchor-id="新闻舆情因子">2.新闻舆情因子</h3>
+<p>利用自然语言处理（NLP）技术，从新闻、社交媒体、公司公告、财报电话会议等海量文本数据中，提取关于公司的情绪和特定主题的信息。常见指标如下：</p>
+<ul>
+<li><p><strong>新闻舆情得分：</strong>对涉及公司的新闻报道进行情感分析（正面/中性/负面）得到的量化分数。</p></li>
+<li><p><strong>管理层语调分析：</strong>分析财报电话会议中管理层答问的语调（如乐观、悲观、不确定性等）。</p></li>
+</ul>
+</section>
+<section id="供应链因子" class="level3">
+<h3 class="anchored" data-anchor-id="供应链因子">3.供应链因子</h3>
+<p>一家公司的基本面受其上下游关系网络的深刻影响。通过分析供应链数据，可以更早的洞察行业趋势和公司经营变化。常见指标如下：</p>
+<ul>
+<li><p>核心客户/供应商依赖度：公司对单一客户或供应商的收入/成本集中度。</p></li>
+<li><p>供应链网络中心度：公司在整个产业链网络中的重要性和影响力。</p></li>
+</ul>
+<p>数据来源可以是公司财务报告中披露的客户信息、行业报告。FactSet的供应链数据，特别是其Revere Supply Chain Relationships数据库，被广泛应用于刻画全球公司的商业关系。</p>
+</section>
+<section id="专利因子" class="level3">
+<h3 class="anchored" data-anchor-id="专利因子">4.专利因子</h3>
+<p>对于科技、医药等行业，创新能力是其长期价值的核心驱动力。可以利用专利数据综合评估公司专利数量、质量、技术影响力的非财务指标。常见指标如下：</p>
+<ul>
+<li><p>专利数量：累计申请、授权数。</p></li>
+<li><p>专利质量：引用次数、专利覆盖领域广度。</p></li>
+<li><p>创新效率：专利数量 / 研发支出。</p></li>
+</ul>
+<p>专利因子可以衡量公司技术护城河深度和创新能力。较高的因子得分意味着技术领先、壁垒高，可能带来定价权优势或成本优势。专利数据来自于专门的数据库。</p>
+</section>
+<section id="mda" class="level3">
+<h3 class="anchored" data-anchor-id="mda">5.MD&amp;A</h3>
+<p><strong>MD&amp;A（管理层讨论与分析）</strong>是上市公司年报中管理层对公司过去业绩和未来展望的定性描述部分。MD&amp;A是近年来备受关注的基本面数据子，属于文本分析和自然语言处理在量化投资中的前沿应用。从公司官方叙述的信息中挖掘出对未来业绩和股价有预测性的内容。其包含对未来的预测、机遇与风险的判断，也包含无法在财务报表中量化的信息，如竞争格局、战略方向、研发进展等。管理层的语调、用词谨慎程度、信息披露的透明度，可以反映其真实心态和对公司前景的信心或担忧。</p>
+</section>
+</section>
+<section id="六基本面因子挖掘" class="level2">
+<h2 class="anchored" data-anchor-id="六基本面因子挖掘">六、基本面因子挖掘</h2>
+<section id="遍历挖掘" class="level3">
+<h3 class="anchored" data-anchor-id="遍历挖掘">1.遍历挖掘</h3>
+<p>上市公司的财务报表所包含的科目是固定且有限的。由这些科目计算出的财务指标的类型和总数也是有限的。大部分财务指标通常有公认的计算方法，和比较明确的经济学和财务逻辑；构造也都比较简单，涉及的只是基础的加减乘除四则运算。这意味着，以目前计算机的能力，遍历这个“有限集”是完全可以实现的，财务指标可以通过“穷举”的方式挖掘。我们可以系统性地遍历每一个财务科目和每一个指标结构，不必担心数据维度的无限膨胀。</p>
+<p>这样做虽然过拟合风险依然存在，但由于财务指标是可以被理解和解释的，我们挑选那些效果显著，且逻辑上合理的指标，回溯其经济含义，判断其有效性是源于基本面价值，这在一定程度上提高了挖掘因子的可信度。</p>
+<p>以估值类因子为例：我们基于“基本面会计科目/价格”的逻辑，对财务报表中的每一个会计科目进行计算，生成数百个候选公式；随后，对每个公式在全市场历史数据上进行严格的回测，从而筛选出那些能稳定预测未来收益、且具备经济学解释的单一因子，最终将这些低相关的有效因子合成一个稳健的综合估值因子。</p>
+<p>总之，正是因为财务数据具备科目有限、逻辑明确、结构简单这三个特性，使得“遍历挖掘”这种方法论在财务因子领域不仅是可行的，而且是极其高效和强大的研究范式。它成功地将基本面分析的逻辑与量化分析的统计检验结合在了一起。当然，最后的成功还依赖于严谨的回测框架、对数据质量的把控以及对市场动态的深刻理解。</p>
+</section>
+<section id="模型挖掘" class="level3">
+<h3 class="anchored" data-anchor-id="模型挖掘">2.模型挖掘</h3>
+<p>遍历法很大程度上仍然依赖于我们根据经验预设的指标结构，如”净利润/营业收入“。而机器学习与遗传规划则是将会计科目的原始数据直接给到模型和算法，让它们自动探索它们之间可能存在的、对股价有预测能力的复杂关系式。</p>
+<section id="基于机器学习模型的挖掘" class="level4">
+<h4 class="anchored" data-anchor-id="基于机器学习模型的挖掘">2.1.基于机器学习模型的挖掘</h4>
+<p><strong>方法：</strong>将三大报表的数十个原始科目作为特征接输入到机器学习模型中，如梯度提升树、神经网络、随机森林，让模型学习这些特征与未来股票收益率之间复杂的、非线性的映射关系。</p>
+<p>产出：</p>
+<p><strong>非线性关系建模：</strong>模型能自动捕捉诸如“营收增长只有在毛利率不恶化时才有正面作用”这类复杂的交互效应。</p>
+<p><strong>特征重要性排序：</strong>模型可以输出各个原始财务科目的重要性评分，能告诉我们市场最关注哪些基本面信息。</p>
+<p><strong>预测信号输出：</strong>模型的预测值可以直接作为选股信号使用。</p>
+</section>
+<section id="基于遗传规划算法的挖掘" class="level4">
+<h4 class="anchored" data-anchor-id="基于遗传规划算法的挖掘">2.2.基于遗传规划算法的挖掘</h4>
+<p><strong>方法：</strong>在量价因子一节，我们介绍过<strong>遗传规划算法（GP）</strong>。这是一种模拟自然进化过程的算法。</p>
+<ol type="1">
+<li><p><strong>初始化：</strong>随机生成一批由基础财务科目和运算符组成的“公式树”，作为初始种群。</p></li>
+<li><p><strong>评估：</strong>在历史数据中回测每一个公式，计算其选股能力（如IC值）作为“适应度”。</p></li>
+<li><p><strong>进化：</strong>选择适应度高的公式，对其进行“交叉”（交换部分子树）和“突变”（随机改变某个节点），产生新一代公式种群。</p></li>
+<li><p><strong>迭代：</strong>重复评估和进化，直至得到适应度足够高、且相对稳定的公式。</p></li>
+</ol>
+<p><strong>产出：</strong>最终能得到全新的、人类可能从未想到过的财务因子表达式。例如，由GP挖掘出的因子”(营业收入的变化-应收账款的变化)/总资产“，它捕捉了营收增长质量的信息。</p>
+<p>相比遍历法，模型挖掘方法的优势在于：</p>
+<ul>
+<li><p><strong>打破线性与预设的局限：</strong>不再局限于人工设定的简单比率，能发现类似于</p>
+<p><span class="math inline">\(log(自由现金流)/(研发费用+销售收入)^2\)</span></p>
+<p>这类复杂、非线性的有效表达式。</p></li>
+<li><p><strong>自动处理交互效应：</strong>能自动发现不同财务科目之间的协同或抵消关系。</p></li>
+<li><p><strong>极高的探索效率：</strong>在庞大的“可能公式空间”中进行启发式搜索，效率远高于完全随机或网格搜索，有望发现隐藏更深的“宝石因子”。</p></li>
+<li><p><strong>遗传规划直接输出可解释公式：</strong>最终结果是一个明确的数学公式，尽管可能复杂，但其结构成分是可理解的，便于研究者进行逻辑上的事后分析。</p></li>
+</ul>
+<p>模型挖掘方法的最大风险仍然在于<strong>过拟合</strong>和<strong>“黑箱”问题</strong>。算法极易找到在历史数据上表现完美、但在未来完全失效的“巧合规律”。虽然GP可以输出公式，但复杂公式的逻辑含义可能更加模糊。</p>
+<p>因此，我们需要更为严格的样本外测试、时间序列交叉验证、保持公式简洁性惩罚、以及经济逻辑合理性检验。一个完全无法解释的复杂公式，即使历史表现好，也应谨慎采用。</p>
+</section>
+</section>
+</section>
+<section id="七结论与展望" class="level2">
+<h2 class="anchored" data-anchor-id="七结论与展望">七、结论与展望</h2>
+<p>本报告系统性的梳理了多因子股票模型中的基本面因子，涵盖了从经典的价值、成长、质量因子，到规模、波动率等风险因子，再到前沿的情绪、行为及另类数据因子。我们可以看到，基本面因子的世界是一个庞大、多元且不断演进的生态系统。</p>
+<p>在实践中，我们的工作不仅是了解这些因子的定义，更重要的是深刻理解它们背后的经济逻辑、局限性以及彼此之间的相互作用。</p>
+<p>成功的量化投资，正是在对这些基本面因子深刻理解的基础上，进行科学的组合、动态的调整和持续的创新，最终将对企业基本面的认知优势，转化为长期、稳健的投资回报。未来的研究应更加关注因子的交互效应、非线性关系以及在不同宏观环境下的动态表现。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第2章 因子选股 第2节 量价因子.html" class="pagination-link" aria-label="第2章 因子选股 第2节 量价因子">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第2章 因子选股 第2节 量价因子</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
