@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第2章 因子选股 第9节 因子正交和因子筛选 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第2章 因子选股 第9节 因子正交和因子筛选.html">第2章 因子选股 第9节 因子正交和因子筛选</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一因子正交" id="toc-一因子正交" class="nav-link active" data-scroll-target="#一因子正交">一、因子正交</a>
+  <ul class="collapse">
+  <li><a href="#因子相关性的负面影响" id="toc-因子相关性的负面影响" class="nav-link" data-scroll-target="#因子相关性的负面影响">1.因子相关性的负面影响</a></li>
+  <li><a href="#主成分分析法principal-component-analysis-pca" id="toc-主成分分析法principal-component-analysis-pca" class="nav-link" data-scroll-target="#主成分分析法principal-component-analysis-pca">2.主成分分析法（Principal Component Analysis, PCA）</a></li>
+  <li><a href="#施密特正交法gram-schmidt-orthogonalization" id="toc-施密特正交法gram-schmidt-orthogonalization" class="nav-link" data-scroll-target="#施密特正交法gram-schmidt-orthogonalization">3.施密特正交法（Gram-Schmidt orthogonalization）</a></li>
+  <li><a href="#对称正交法symmetric-orthogonalization" id="toc-对称正交法symmetric-orthogonalization" class="nav-link" data-scroll-target="#对称正交法symmetric-orthogonalization">4.对称正交法（Symmetric Orthogonalization）</a></li>
+  <li><a href="#应用注意事项" id="toc-应用注意事项" class="nav-link" data-scroll-target="#应用注意事项">5.应用注意事项</a></li>
+  <li><a href="#二因子筛选" id="toc-二因子筛选" class="nav-link" data-scroll-target="#二因子筛选">二、因子筛选</a></li>
+  <li><a href="#过滤法filter-methods" id="toc-过滤法filter-methods" class="nav-link" data-scroll-target="#过滤法filter-methods">1.过滤法（Filter Methods）</a></li>
+  <li><a href="#包装法wrapper-methods" id="toc-包装法wrapper-methods" class="nav-link" data-scroll-target="#包装法wrapper-methods">2.包装法（Wrapper Methods）</a></li>
+  <li><a href="#嵌入法embedded-methods" id="toc-嵌入法embedded-methods" class="nav-link" data-scroll-target="#嵌入法embedded-methods">3.嵌入法（Embedded Methods）</a></li>
+  <li><a href="#实践中的混合应用" id="toc-实践中的混合应用" class="nav-link" data-scroll-target="#实践中的混合应用">4.实践中的混合应用</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第2章 因子选股 第9节 因子正交和因子筛选</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一因子正交" class="level2">
+<h2 class="anchored" data-anchor-id="一因子正交">一、因子正交</h2>
+<p>前文介绍的加权方式都要求因子间低相关性。然而，理论上的“低相关性”在现实中极为罕见。例如，不同的价值因子，如市盈率P/E、市净率P/B、股息率，往往高度相关，因为它们都试图从不同角度捕捉“便宜”这一共同的经济概念。</p>
+<p>同样，在市场繁荣时期，成长因子和动量因子也可能表现出强相关性。这种相关性并非总是静态的，它会随着市场环境和宏观经济周期的变化而动态演变。</p>
+<section id="因子相关性的负面影响" class="level3">
+<h3 class="anchored" data-anchor-id="因子相关性的负面影响">1.因子相关性的负面影响</h3>
+<section id="对策略性能的影响" class="level4">
+<h4 class="anchored" data-anchor-id="对策略性能的影响">1.1.对策略性能的影响</h4>
+<ul>
+<li><p><strong>信息冗余与模型过拟合：</strong>当模型中包含多个高度相关的因子时，这些因子实际上提供了大量重复或冗余的信息。这不仅无助于提升模型的预测能力，反而可能因为引入了额外的噪声而降低模型的泛化能力，导致过拟合。模型可能会在历史回测中表现优异，但在样本外数据上表现不佳。</p></li>
+<li><p><strong>多重共线性问题：</strong>这是因子相关性在统计学上最直接的后果。在多因子回归模型中，多重共线性使得模型难以准确估计每个因子的独立贡献，即因子收益率。这会导致回归系数（因子暴露）的估计值非常不稳定，方差增大。</p></li>
+<li><p><strong>因子有效性归因困难：</strong>当因子A和因子B高度相关时，我们观察到的超额收益究竟是来自A还是B，或者两者共同作用的结果？这变得难以解释。这使得我们无法准确评估单个因子的真实有效性，也给后续的因子优化和迭代带来了巨大的挑战。</p></li>
+</ul>
+</section>
+<section id="对风险管理的影响" class="level4">
+<h4 class="anchored" data-anchor-id="对风险管理的影响">1.2.对风险管理的影响</h4>
+<ul>
+<li><p><strong>降低投资组合的分散化效果：</strong>多因子投资的核心优势之一是通过在不同风险源上分散投资来降低组合的整体波动率。例如，价值因子和成长因子在历史上通常呈现弱相关甚至负相关，将它们结合可以在不同市场风格中平滑收益曲线。但如果一个组合中的大部分因子都高度正相关，它们很可能会在市场环境发生变化时同涨同跌。这意味着组合的风险并未得到有效分散，当这些因子集体失效时，组合将面临巨大的回撤风险。</p></li>
+<li><p><strong>风险暴露的隐性集中：</strong>一个名义上分散投资于多个因子的组合，可能因为因子间的高度相关性，而实际上将风险隐性地集中在某一个或少数几个更深层次的“元因子”上。例如，一个同时投资于低市盈率、低市净率和高股息率因子的组合，看似分散，实则其风险高度集中于单一的“价值”风险暴露上。风险模型若未能识别这种相关性，将严重低估组合的真实风险水平。</p></li>
+<li><p><strong>风险模型不稳定：</strong>量化风险模型严重依赖于对资产收益协方差矩阵的准确估计。因子相关性是协方差矩阵结构的核心组成部分。不稳定或时变的因子相关性会直接导致风险模型的预测失效，使得基于该模型进行的风险预算、组合优化等决策变得不可靠。</p></li>
+</ul>
+<p>综上所述，有效识别并管理因子相关性，是从“发现有效因子”到“构建成功策略”之间必须跨越的关键一步。<strong>因子正交化（Factor Orthogonalization）</strong>技术即是为了解决因子相关性带来的问题。其核心目标是将一组线性相关的因子转换为一组线性无关（即正交）的因子，同时尽可能保留原始因子的有效信息。</p>
+</section>
+</section>
+<section id="主成分分析法principal-component-analysis-pca" class="level3">
+<h3 class="anchored" data-anchor-id="主成分分析法principal-component-analysis-pca">2.主成分分析法（Principal Component Analysis, PCA）</h3>
+<section id="核心思想与数学原理" class="level4">
+<h4 class="anchored" data-anchor-id="核心思想与数学原理">2.1.核心思想与数学原理</h4>
+<p><strong>主成分分析（PCA）</strong>是一种经典的多元统计方法，其核心思想是通过线性变换，将原始的多个相关变量（因子）重新组合成一组新的、互不相关的综合变量，即主成分（Principal Components）。</p>
+<p>PCA的目标是最大化保留原始数据的信息（方差），即第一个主成分解释了原始数据中最大的方差，第二个主成分在与第一个正交的前提下解释了剩余方差中的最大部分，以此类推。由于主成分在数学构造上是相互正交的，因此它们天然就是一组不相关的“新因子”。</p>
+<p>从数学角度看，PCA通过对因子协方差矩阵进行<strong>特征值分解（Eigenvalue Decomposition）</strong>来实现。协方差矩阵的特征向量构成了新的正交坐标系，而特征值则代表了每个主成分所能解释的方差大小。</p>
+</section>
+<section id="计算步骤" class="level4">
+<h4 class="anchored" data-anchor-id="计算步骤">2.2.计算步骤</h4>
+<p>假设我们有<span class="math inline">\(k\)</span>个原始因子，对于<span class="math inline">\(n\)</span>个资产的因子暴露矩阵<span class="math inline">\(F\)</span>，其维度为<span class="math inline">\(n \times k\)</span>。</p>
+<ol type="1">
+<li><p><strong>数据标准化：</strong>对矩阵<span class="math inline">\(F\)</span>的每一列（每个因子）进行标准化（减去均值除以标准差）处理，使其均值为0，方差为1。这是为了消除不同因子量纲的影响。</p></li>
+<li><p><strong>计算协方差矩阵：</strong>计算标准化后因子矩阵<span class="math inline">\(F_{std}\)</span>的协方差矩阵<span class="math inline">\(C\)</span>。由于数据已标准化，协方差矩阵等同于相关系数矩阵：</p>
+<p><span class="math inline">\(C=\frac{1}{n-1}F_{std}^TF_{std}\)</span>。</p></li>
+<li><p><strong>特征值分解：</strong>对协方差矩阵<span class="math inline">\(C\)</span>进行特征值分解，得到<span class="math inline">\(k\)</span>个特征值<span class="math inline">\(\lambda_1,\lambda_2,...,\lambda_k\)</span>和对应的特征向量<span class="math inline">\(v_1,v_2,...,v_k\)</span>。通常将特征值按从大到小排序。</p></li>
+<li><p><strong>构建主成分因子：</strong>将特征向量作为列，构建一个变换矩阵<span class="math inline">\(V\)</span>。维度为<span class="math inline">\(k\times k\)</span>。新的、正交的主成分因子矩阵<span class="math inline">\(F_{pca}\)</span>可以通过原始标准化因子矩阵左乘变换矩阵得到：</p></li>
+</ol>
+<pre><code>$F_{pca}=F_{std} \cdot V$。
+
+其中，$F_{pca}$的每一列就是一个主成分因子，它们之间相互正交。</code></pre>
+</section>
+<section id="优缺点与适用场景" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点与适用场景">2.3.优缺点与适用场景</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>彻底正交：生成的各主成分因子之间完全线性无关，彻底消除了多重共线性问题。</p></li>
+<li><p>降维能力：可以通过选择方差贡献率最大的前几个主成分来对因子空间进行降维，用更少的因子捕捉原始信息的大部分。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>可解释性差：这是PCA在量化投资中应用的最大障碍。每个主成分都是所有原始因子的线性组合，其具体的经济含义变得模糊不清。</li>
+</ul>
+<p><strong>适用场景：</strong></p>
+<p>当首要目标是降维和消除共线性，而非保持单个因子的经济可解释性时，PCA是一种有效的工具。 在构建风险模型时，PCA可以用来提取共同的风险因子。</p>
+</section>
+</section>
+<section id="施密特正交法gram-schmidt-orthogonalization" class="level3">
+<h3 class="anchored" data-anchor-id="施密特正交法gram-schmidt-orthogonalization">3.施密特正交法（Gram-Schmidt orthogonalization）</h3>
+<section id="核心思想与数学原理-1" class="level4">
+<h4 class="anchored" data-anchor-id="核心思想与数学原理-1">3.1.核心思想与数学原理</h4>
+<p>施密特正交法是一种迭代算法，它将一组线性无关的向量（因子）转换为一组正交向量。</p>
+<p>其核心思想是“逐个修正”：它保留第一个因子不变，然后从第二个因子中剔除其与第一个因子相关的成分，再从第三个因子中剔除其与前两个已正交化因子相关的成分，以此类推，直到处理完所有因子。</p>
+<p>数学上，这个“剔除”过程就是将一个向量向另一个向量（或由多个向量张成的子空间）做投影，然后用原向量减去这个投影向量，得到的残差向量就与之前的向量正交。</p>
+</section>
+<section id="计算步骤-1" class="level4">
+<h4 class="anchored" data-anchor-id="计算步骤-1">3.2.计算步骤</h4>
+<p>假设原始因子向量为<span class="math inline">\(f_1,f_2,...,f_k\)</span>。正交化后的因子向量为<span class="math inline">\(u_1,u_2,...,u_k\)</span>。</p>
+<ol type="1">
+<li><p>第一个因子：保留第一个因子不变。 <span class="math inline">\(u_1=f_1\)</span></p></li>
+<li><p>第二个因子：将<span class="math inline">\(f_2\)</span>对<span class="math inline">\(u_1\)</span>做投影，然后从<span class="math inline">\(f_2\)</span>中减去该投影，得到与<span class="math inline">\(u_1\)</span>正交的新因子<span class="math inline">\(u_2\)</span>。</p>
+<p><span class="math inline">\(u_2=f_2-\frac{u_1^Tf_2}{u_1^Tu_1}u_1\)</span></p></li>
+<li><p>第三个因子：将<span class="math inline">\(f_3\)</span>分别对<span class="math inline">\(u_1\)</span>和<span class="math inline">\(u_2\)</span>做投影，并从<span class="math inline">\(f_3\)</span>中减去这两个投影，得到与<span class="math inline">\(u_1\)</span>和<span class="math inline">\(u_2\)</span>都正交的新因子<span class="math inline">\(u_3\)</span>：</p>
+<p><span class="math inline">\(u_3=f_3-\frac{u_1^Tf_3}{u_1^Tu_1}u_1-\frac{u_2^Tf_3}{u_2^Tu_2}u_2\)</span></p></li>
+<li><p>以此类推，对于第<span class="math inline">\(k\)</span>个因子：</p>
+<p><span class="math inline">\(u_k=f_k-\sum_{j=1}^{k-1}\frac{u_j^Tf_k}{u_j^Tu_j}u_j\)</span></p></li>
+<li><p>在实践中，这等价于一系列的回归取残差操作：<span class="math inline">\(f_2\)</span>对<span class="math inline">\(f_1\)</span>回归，取残差作为<span class="math inline">\(u_2\)</span>；<span class="math inline">\(f_3\)</span>对<span class="math inline">\(f_1\)</span>和<span class="math inline">\(u_2\)</span>（或<span class="math inline">\(f_1,f_2\)</span>）回归，取残差作为<span class="math inline">\(u_3\)</span>，等等。</p></li>
+</ol>
+</section>
+<section id="优缺点与适用场景-1" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点与适用场景-1">3.3.优缺点与适用场景</h4>
+<p>优点：</p>
+<ul>
+<li><p>算法直观：概念上比PCA和对称正交法更简单，易于理解和实现。</p></li>
+<li><p>保留核心因子：第一个因子的信息被完整保留，后续因子可以被解释为在剔除了先前因子影响后的“纯净”版本。</p></li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>强烈的顺序依赖性：这是施密特正交法最致命的弱点。正交化的结果完全取决于因子的处理顺序。将价值因子放在第一位还是动量因子放在第一位，会得到完全不同的正交因子集。排在前面的因子会“吸收”掉大部分共有的信息，使得排在后面的因子信息量大幅衰减，其经济意义也可能被扭曲。这种主观性可能导致模型过拟合和参数敏感性。</p></li>
+<li><p>数值不稳定性：当原始因子接近线性相关时，标准的施密特算法在数值计算上可能不稳定，容易产生较大误差。</p></li>
+</ul>
+<p>适用场景：</p>
+<ul>
+<li><p>当因子之间存在明确的逻辑或经济上的主次关系时。例如，在构建多因子模型时，我们可能希望首先剔除市场因子（Beta）的影响，然后再分析其他Alpha因子。</p></li>
+<li><p>在这种场景下，将市场因子放在第一个进行施密特正交是合理的。</p></li>
+</ul>
+</section>
+</section>
+<section id="对称正交法symmetric-orthogonalization" class="level3">
+<h3 class="anchored" data-anchor-id="对称正交法symmetric-orthogonalization">4.对称正交法（Symmetric Orthogonalization）</h3>
+<section id="核心思想与数学原理-2" class="level4">
+<h4 class="anchored" data-anchor-id="核心思想与数学原理-2">4.1.核心思想与数学原理</h4>
+<p>对称正交法，也常被称为<strong>Löwdin正交法</strong>，旨在克服施密特正交法的顺序依赖问题。</p>
+<p>它的核心思想是“平等对待”所有因子，寻求一个变换，使得新的正交因子组在整体上与原始因子组“最接近”。这里的“最接近”通常是用矩阵的Frobenius范数来衡量的，即最小化原始因子矩阵和正交后因子矩阵之间的距离。</p>
+<p>与施密特正交法“一个一个来”的修正方式不同，对称正交法是同时对所有因子进行“民主”的调整，将相关性均匀地分布到所有变换后的因子中，从而更好地保持了原始因子的特性和可解释性。</p>
+<p>数学上，这是通过寻找一个变换矩阵<span class="math inline">\(T\)</span>来实现的，使得新的因子矩阵<span class="math inline">\(F_{new}=F \cdot T\)</span>的列向量是正交的。这个最优的变换矩阵<span class="math inline">\(T\)</span>被证明是原始因子Gram矩阵（<span class="math inline">\(S=F^TF\)</span>）的负二分之一次幂，即<span class="math inline">\(T=S^{-1/2}\)</span>。</p>
+</section>
+<section id="计算步骤-2" class="level4">
+<h4 class="anchored" data-anchor-id="计算步骤-2">4.2.计算步骤</h4>
+<p>假设我们有标准化的因子矩阵<span class="math inline">\(F\)</span>，维度为<span class="math inline">\(n \times k\)</span>。</p>
+<ol type="1">
+<li><p>计算Gram矩阵：计算因子矩阵的Gram矩阵<span class="math inline">\(S\)</span>。</p>
+<p>这等价于因子的协方差矩阵（如果F已标准化等价于相关系数矩阵）：</p>
+<p><span class="math inline">\(S=F^TF\)</span></p></li>
+<li><p>对Gram矩阵进行特征值分解：</p>
+<p><span class="math inline">\(S=U \Lambda U^T\)</span></p>
+<p>其中<span class="math inline">\(U\)</span>是由特征向量构成的正交矩阵，<span class="math inline">\(\Lambda\)</span>是由特征值构成的对角矩阵。</p></li>
+<li><p>计算<span class="math inline">\(S^{-1/2}\)</span>。通过对特征值矩阵进行运算来计算Gram矩阵的负二分之一次幂。</p>
+<p><span class="math inline">\(\Lambda^{-1/2}\)</span> 是一个对角矩阵，其对角线元素是<span class="math inline">\(\Lambda\)</span>对角线元素的-1/2次方，即<span class="math inline">\(1/\sqrt{\lambda_i}\)</span>。</p>
+<p><span class="math inline">\(S^{-1/2}=U\Lambda^{-1/2}U^T\)</span> 。</p></li>
+<li><p>构建对称正交因子：将原始因子矩阵<span class="math inline">\(F\)</span>右乘变换矩阵<span class="math inline">\(S^{-1/2}\)</span>。</p>
+<p><span class="math inline">\(F_{symm} = F \cdot S^{-1/2} = F \cdot (U \Lambda ^{-1/2} U^T)\)</span></p>
+<p><span class="math inline">\(F_{symm}\)</span>的各列就是相互正交的、经过对称变换的新因子。</p></li>
+</ol>
+</section>
+<section id="优缺点与适用场景-2" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点与适用场景-2">4.3.优缺点与适用场景</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>顺序无关性：结果不依赖于因子的排列顺序，所有因子被平等对待，避免了施密特正交法的主观性和偏见。</p></li>
+<li><p>保持原始信息：通过最小化与原始矩阵的距离，变换后的因子在最大程度上保留了原始因子的特征，可解释性强于PCA，也通常优于施密特正交法中排在后面的因子。</p></li>
+<li><p>计算稳健：通常比施密特正交法有更好的数值稳定性。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>所有因子均被改变：与施密特正交法不同，没有任何一个原始因子被完整保留下来，所有因子都受到了调整。</p></li>
+<li><p>数学概念稍显抽象：相比于回归取残差，其背后的矩阵运算原理对初学者来说可能不够直观。</p></li>
+</ul>
+<p><strong>适用场景：</strong></p>
+<ul>
+<li>这是最常用且通常最被推荐的因子正交化方法，尤其适用于当所有因子都被认为是同等重要，且没有明确的逻辑主次关系时。在大多数多因子模型构建中，对称正交法提供了一个稳健、公平且能较好保留因子经济含义的解决方案。</li>
+</ul>
+</section>
+</section>
+<section id="应用注意事项" class="level3">
+<h3 class="anchored" data-anchor-id="应用注意事项">5.应用注意事项</h3>
+<ul>
+<li><p><strong>正交化是一个纯粹的数学过程。</strong>过度使用或不恰当地使用可能会损害因子的经济可解释性。例如，对两个本就弱相关的因子强行正交化，可能毫无意义，反而扭曲了它们。</p></li>
+<li><p><strong>没有一劳永逸的最佳方法。</strong>如前所述，方法的选择应与投资逻辑和目标相匹配。施密特正交法适用于有明确主次之分的场景，而对称正交法更适用于因子地位平等的场景。</p></li>
+<li><p><strong>正交化过程可能会改变因子值的分布和尺度。</strong>因此通常在正交化之后需要对新因子再次进行标准化处理，以确保它们在进入下一个模型或组合优化时也具有可比性。</p></li>
+</ul>
+</section>
+<section id="二因子筛选" class="level3">
+<h3 class="anchored" data-anchor-id="二因子筛选">二、因子筛选</h3>
+<p>学术界和业界的研究者们已经发现了数以千计的潜在因子，这一现象被戏称为“因子动物园”（FactorZoo）。数量庞大的因子库虽然提供了丰富的阿尔法来源，但也带来了巨大的挑战：</p>
+<ul>
+<li><p><strong>过拟合风险：</strong>模型中包含的因子过多，会导致模型过度拟合样本内数据的噪声，而非真正的市场规律。这样的模型在历史回测中表现优异，但在样本外或实盘交易中却表现糟糕。</p></li>
+<li><p><strong>因子冗余性：</strong>许多因子之间存在高度相关性，例如不同的估值指标往往传递相似的信息。在模型中纳入大量冗余因子会增加模型复杂度，降低模型的稳健性和解释性。</p></li>
+<li><p><strong>维度灾难：</strong>随着因子数量的增加，模型所需的样本量呈指数级增长，才能维持相同的统计置信度。当因子数量（即维度）远超观测样本数量时，模型的估计会极不稳定，泛化能力下降。</p></li>
+<li><p>计算资源消耗：对海量因子进行回测、建模，需要消耗巨大的计算资源和时间成本。</p></li>
+</ul>
+<p>因此，建立一套系统化、科学化的因子精选方法论，是应对上述挑战、提升量化策略研发效率和最终投资绩效的关键所在。这不仅是数据预处理的一个步骤，更是整个量化投研体系的核心竞争力体现。</p>
+<p>传统的因子评估，如IC、ICIR、分层回测等，虽然直观有效，但在处理高维、非线性、交互效应等复杂问题时显得力不从心。</p>
+<p>近年来，机器学习技术的<strong>特征选择（Feature Selection）</strong>理论体系为因子精选提供了全新的视角和工具集。特征选择旨在从原始特征集合中挑选出一个最优子集，以构建性能更优、更简洁的预测模型。其三大核心方法论包括：过滤法、包装法与嵌入法，为量化研究员提供了一个强大且逻辑严谨的框架，用于系统性地筛选和优化因子。虽然这些术语直接源于机器学习文献，但它们所代表的思想和技术已深度融入前沿的量化投资实践中，构成了现代因子筛选方法论的核心。</p>
+</section>
+<section id="过滤法filter-methods" class="level3">
+<h3 class="anchored" data-anchor-id="过滤法filter-methods">1.过滤法（Filter Methods）</h3>
+<p>过滤法是最直观、计算效率最高的一类因子精选方法。其核心思想是，在构建任何具体的预测模型之前，独立地对每个因子进行评估，根据其内在的统计属性或与目标变量（如未来收益率）的相关性，设定一个阈值或标准，过滤掉“不合格”的因子。它就像一个大规模的、自动化的初筛器，能够快速地从成千上万的候选因子中剔除大量无效和冗余的因子。</p>
+<p>过滤法的关键在于其模型无关性。它不依赖于任何特定的学习算法，而是通过计算因子自身的统计指标来打分和排序。这使得过滤法具有极高的计算效率和普适性。其评估标准主要分为两大类：</p>
+<ul>
+<li><p>单变量评估：独立考察每个因子与目标变量之间的关系强度；</p></li>
+<li><p>多变量评估：考察因子之间的关系，主要用于剔除冗余因子。</p></li>
+</ul>
+<p>在量化投资实践中，过滤法的应用形式多样，许多传统因子测试方法本质上就属于过滤法的范畴。</p>
+<section id="基于信息系数ic的筛选" class="level4">
+<h4 class="anchored" data-anchor-id="基于信息系数ic的筛选">1.1.基于信息系数IC的筛选</h4>
+<p>IC值衡量的是因子预测值与未来真实收益率之间的相关性，通常使用Spearman秩相关系数RankIC来计算，以降低异常值的影响。</p>
+<p><strong>实现步骤：</strong></p>
+<ol type="1">
+<li><p>数据准备：获取每个交易周期（如月度、周度）所有股票的因子值和下一期的收益率。</p></li>
+<li><p>计算截面IC：在每个截面期，计算所有股票的因子值与未来收益率的秩相关系数，得到一个IC值时间序列。</p></li>
+<li><p>计算评估指标：计算IC时间序列的均值MeanIC和标准差，并计算信息比率ICIR，以及IC&gt;0比例。</p></li>
+<li><p>设定阈值，筛选因子：设定上述指标的最低标准，例如<code>|MeanIC|&gt;0.02</code>且<code>|ICIR&gt;0.5|</code>，不满足条件的因子将被直接过滤掉。</p></li>
+</ol>
+</section>
+<section id="基于方差的筛选" class="level4">
+<h4 class="anchored" data-anchor-id="基于方差的筛选">1.2.基于方差的筛选</h4>
+<p>该方法旨在剔除那些在所有样本上几乎没有变化的因子。如果一个因子在不同股票、不同时间上的取值都非常接近，那么它几乎不包含任何区分性的信息，也就失去了预测能力。例如，在处理某些财务比率因子时，可能会因为行业特性或计算方式导致某些因子在特定时期内对所有股票的取值都非常相似。方差过滤能有效识别并剔除这些无效的因子。</p>
+<p><strong>实现步骤：</strong></p>
+<ol type="1">
+<li><p>对每个因子在所有样本（时间和股票）上的值进行计算。</p></li>
+<li><p>计算每个因子的方差。</p></li>
+<li><p>设定一个极小的方差阈值（如1e-5），剔除方差低于此阈值的因子。</p></li>
+</ol>
+</section>
+<section id="基于相关性的筛选" class="level4">
+<h4 class="anchored" data-anchor-id="基于相关性的筛选">1.3.基于相关性的筛选</h4>
+<p>此方法用于解决因子冗余问题。如果两个因子的相关性极高（例如，相关系数的绝对值&gt;0.9），我们通常认为它们携带了高度重叠的信息。保留两者会增加模型的多重共线性风险，并不能带来额外的信息增益</p>
+<p>。例如，因子库中同时包含了“市盈率倒数（E/P）”和“盈利收益率（EY）”，两者数学等价，数值相关性超0.99。基于相关性的筛选，根据IC差异或因子稳定性，保留其中一个，例如保留更经典的E/P因子。</p>
+<p><strong>实现步骤：</strong></p>
+<ol type="1">
+<li><p>计算初步因子库中所有因子两两之间的相关系数矩阵。</p></li>
+<li><p>设定一个高相关性阈值（如0.9）。</p></li>
+<li><p>遍历相关系数矩阵，当发现一对因子的相关性绝对值超过阈值时，需要剔除其中一个。</p></li>
+<li><p>剔除标准：IC值更高、ICIR值更高、或者经济逻辑更强、更稳定的那个因子。</p></li>
+</ol>
+</section>
+<section id="优缺点和适用条件" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点和适用条件">1.4.优缺点和适用条件</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>计算效率极高：算法简单，计算复杂度低，可以快速处理海量因子，是大规模因子初筛的理想选择。</p></li>
+<li><p>模型无关性：筛选结果不依赖于后续要使用的具体预测模型，具有很强的通用性。</p></li>
+<li><p>不易过拟合：由于其简单的统计特性，相比于复杂的模型，过滤法自身引入过拟合的风险较低。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>忽略因子间的交互效应：过滤法通常是单变量评估，无法识别出那些单独看效果不佳，但与其他因子组合后能产生强大预测能力的因子，即“交互效应”。例如，“低波动”因子可能在“高价值”股票中表现尤为出色。 筛选标准的主观性：阈值的设定（如IC&gt;0.02,相关性&lt;0.8）带有一定的主观性，不同的阈值选择可能导致完全不同的因子子集。</p></li>
+<li><p>可能不是全局最优解：由于没有与最终模型结合，过滤法选出的因子子集对于某个特定模型来说，不一定是最优的组合。</p></li>
+</ul>
+<p><strong>适用条件：</strong></p>
+<ul>
+<li>过滤法在现代量化投研工作流中，通常扮演“第一道防线”和“海选”的角色。它适用于因子挖掘的初始阶段，从一个包含成千上万个潜在因子的“原始因子库”中，快速筛选出一个规模可控、质量较高的“候选因子池”（例如从5000个缩减到500个）。这个候选池将作为后续更精细化、计算成本更高的包装法或嵌入法筛选的输入。</li>
+</ul>
+</section>
+</section>
+<section id="包装法wrapper-methods" class="level3">
+<h3 class="anchored" data-anchor-id="包装法wrapper-methods">2.包装法（Wrapper Methods）</h3>
+<p>包装法，也翻译成包裹法。<strong>“Wrapper”</strong>形象地描述了这类方法的工作机制：将特征选择过程”包装”在模型训练的外部循环中，不断尝试不同的特征子集，用模型性能作为反馈来挑选最优特征组合。</p>
+<p>该方法将因子选择过程与最终要使用的预测模型紧密捆绑，直接以模型的预测性能作为评价因子子集优劣的标准。它将因子选择问题转化为一个搜索优化问题，即在所有可能的因子组合中，寻找能使特定模型性能达到最优的那个子集。</p>
+<p>其工作流程可以概括为三个步骤：</p>
+<ol type="1">
+<li><p><strong>子集生成：</strong>采用某种搜索策略，生成一个候选的因子子集。</p></li>
+<li><p><strong>模型评估：</strong>使用这个因子子集训练一个特定的预测模型，并在独立的验证集，或通过交叉验证的方式，评估该模型的性能，例如，预测准确率、均方误差、或回的测夏普比率等。</p></li>
+<li><p><strong>迭代寻优：</strong>根据模型的性能反馈，调整搜索策略，生成新的候选子集，重复上述过程，直到找到性能最优的因子子集或满足停止条件。</p></li>
+</ol>
+<p>包装法典型算法包括：<strong>递归特征消除（Recursive Feature Elimination, RFE）、序列特征选择（Sequential Feature Selection, SFS）</strong>等。</p>
+<p>该方法最大的优势在于它直接优化了最终模型的性能，并且能够有效地捕捉因子之间的交互作用。因为模型的性能是基于因子组合来评估的，所以那些能够互补、增强的因子组合更容易被选中。但它需要反复训练和评估模型，因而算成本极高。因此，在实践中，通常采用一些启发式的搜索算法，而不是暴力遍历所有可能的因子组合。</p>
+<section id="递归特征消除" class="level4">
+<h4 class="anchored" data-anchor-id="递归特征消除">2.1递归特征消除</h4>
+<p><strong>递归特征消除 RFE</strong> 是一种非常流行且直观的包装法算法，它通过迭代地剔除最不重要的因子来进行筛选。</p>
+<p><strong>实现步骤：</strong></p>
+<ol type="1">
+<li><p>初始训练：使用全部N个候选因子训练一个模型，如线性回归、支持向量机、或LightGBM等能够提供因子重要性排序的模型。</p></li>
+<li><p>重要性排序：获取模型输出的因子重要性分数，例如，线性回归的系数绝对值、树模型的特征重要性。</p></li>
+<li><p>剔除最弱因子：移除重要性得分最低的一个或多个因子。</p></li>
+<li><p>迭代：在剩余的因子集上重复步骤1-3，直到因子数量达到预设的目标，或者模型性能在验证集上达到最优。</p></li>
+<li><p>最优子集选择：比较每次迭代中剔除因子后模型的性能，选择性能最优时所对应的因子子集。</p></li>
+</ol>
+<p><strong>应用案例：</strong></p>
+<p>在过滤法筛选出的200个因子中，希望为月度选股的梯度提升树（GBT）模型挑选出最优的50个因子。</p>
+<ol type="1">
+<li><p>可以采用RFE： 用200个因子训练GBT模型，得到每个因子的重要性。</p></li>
+<li><p>剔除最不重要的5个因子，剩下195个。</p></li>
+<li><p>用195个因子重新训练模型，记录模型在验证集上的IC或夏普比率。</p></li>
+<li><p>重复此过程，每次剔除5个，直到因子数量为50。</p></li>
+<li><p>最终，在因子数量为85个时，模型的验证集夏普比率最高。因此，选择这85个因子作为最终的因子组合。</p></li>
+</ol>
+</section>
+<section id="序列特征选择sequential-feature-selection-sfs" class="level4">
+<h4 class="anchored" data-anchor-id="序列特征选择sequential-feature-selection-sfs">2.2.序列特征选择（Sequential Feature Selection, SFS）</h4>
+<p>序列特征选择 SFS 是另一类经典的搜索策略，包括<strong>前向选择（Forward Selection）</strong>和<strong>后向消除（Backward Elimination）</strong>。</p>
+<p><strong>前向序列选择：</strong></p>
+<ol type="1">
+<li><p>从一个空集开始。</p></li>
+<li><p>遍历所有尚未被选入的因子，将每个因子单独加入当前子集，训练模型并评估性能。</p></li>
+<li><p>选择那个能使模型性能提升最大的因子，将其永久性地加入子集。</p></li>
+<li><p>重复步骤2-3，直到因子数量达到预设目标，或者模型性能不再显著提升。</p></li>
+</ol>
+<p><strong>后向序列选择：</strong></p>
+<ol type="1">
+<li><p>从包含所有因子的全集开始。</p></li>
+<li><p>遍历当前子集中的所有因子，尝试移除每一个因子，训练模型并评估性能。</p></li>
+<li><p>选择那个被移除后模型性能下降最小（甚至可能提升）的因子，将其永久性地剔除。</p></li>
+<li><p>重复步骤2-3，直到因子数量达到预设目标。</p></li>
+</ol>
+</section>
+<section id="遗传算法搜索" class="level4">
+<h4 class="anchored" data-anchor-id="遗传算法搜索">2.3.遗传算法搜索</h4>
+<p>对于更高维的因子空间，简单的序列搜索可能陷入局部最优。此时，可以引入<strong>遗传算法（Genetic Algorithms）</strong>等更复杂的全局优化算法来搜索因子子集空间。这些算法随着计算机算力的提升，正变得越来越实用。</p>
+</section>
+<section id="优缺点和适用条件-1" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点和适用条件-1">2.4.优缺点和适用条件</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>性能导向，精度高：直接与特定模型结合，以模型最终性能为目标，因此选出的因子子集通常能带来非常好的预测效果。</p></li>
+<li><p>捕捉交互效应：能够识别出因子间的协同或抑制关系，找到“1+1&gt;2”的因子组合。</p></li>
+<li><p>模型适应性强：能够为任何给定的预测模型找到量身定制的最优因子集。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>计算成本极高：核心缺陷在于需要反复训练模型，当因子数量较多或模型训练耗时较长时，计算开销是巨大的。</p></li>
+<li><p>过拟合风险高：因子选择过程本身深度依赖于模型的训练和验证，如果数据划分不当或数据量不足，很容易在验证集上过拟合，导致选出的因子集在未来的实盘中表现不佳。</p></li>
+<li><p>通用性差：为模型A选出的最优因子子集，对于模型B来说可能并非最优，缺乏过滤法的普适性。</p></li>
+</ul>
+<p>适用条件：</p>
+<ul>
+<li>包装法通常位于因子精选流程的中间环节或精细打磨阶段。它不适用于初始筛选成千上万的原始因子，而是用于对经过过滤法初筛后的、规模在几十到几百个的“候选因子池”进行精细化筛选。它旨在为特定的收益预测模型找到一个性能最优、最稳健的因子组合。</li>
+</ul>
+</section>
+</section>
+<section id="嵌入法embedded-methods" class="level3">
+<h3 class="anchored" data-anchor-id="嵌入法embedded-methods">3.嵌入法（Embedded Methods）</h3>
+<p>嵌入法是一种巧妙的折中方案，它试图融合过滤法的高效率和包装法的高精度。其核心思想是将因子选择的过程“嵌入”到模型的学习（训练）过程之中，使得模型在学习参数的同时，自动地完成对因子的筛选。</p>
+<p>这种方法既不像过滤法那样与模型完全分离，也不像包装法那样需要反复迭代训练，从而在计算效率和选择精度之间取得了出色的平衡。</p>
+<p>嵌入法依赖于那些本身就具有特征选择能力的学习算法。这些算法通过在模型的损失函数中引入<strong>正则化（Regularization）</strong>或利用算法内在的机制（如树的分裂准则）来评估和筛选特征。</p>
+<ul>
+<li><p><strong>正则化：</strong>通过在损失函数后添加一个惩罚项，来约束模型参数（在因子模型中即因子权重）的大小。某些类型的正则化，如L1正则化，能够将不重要的因子的权重精确地压缩到零，从而实现自动的因子选择。</p></li>
+<li><p><strong>内在机制：</strong>某些模型，如决策树及其集成模型，在构建过程中会自然地评估每个特征对模型性能的贡献度，这个贡献度可以直接用作因子重要性的度量。</p></li>
+</ul>
+<section id="lasso回归模型" class="level4">
+<h4 class="anchored" data-anchor-id="lasso回归模型">3.1.LASSO回归模型</h4>
+<p><strong>LASSO（Least Absolute Shrinkageand Selection Operator）</strong>回归是嵌入法最经典的代表。它在传统的线性回归（OLS）的损失函数基础上，增加了一个L1范数惩罚项。</p>
+<p><strong>目标函数：</strong></p>
+<p><span class="math inline">\(Minimize{||y-Xβ||²+λ||β||₁}\)</span></p>
+<p><span class="math inline">\(y\)</span>是未来收益率向量。 <span class="math inline">\(X\)</span>是因子暴露矩阵。 <span class="math inline">\(β\)</span>是因子权重（回归系数）向量。 <span class="math inline">\(λ\)</span>是正则化强度参数，控制着惩罚的力度。 <span class="math inline">\(||β||₁\)</span>是β向量的L1范数，即所有系数绝对值之和。</p>
+<p><strong>实现原理：</strong></p>
+<p>L1惩罚项的特性使得在优化过程中，模型倾向于将对预测贡献不大的因子的系数<span class="math inline">\(βᵢ\)</span>直接压缩为0。因此，当模型训练完成后，那些系数不为零的因子，就是被LASSO模型自动选择出来的有效因子。</p>
+<p><strong>实现步骤：</strong></p>
+<ol type="1">
+<li><p>数据准备：准备好标准化的因子暴露矩阵X和对应的未来收益率y。</p></li>
+<li><p>超参数调优：通过交叉验证来选择最优的正则化强度<span class="math inline">\(λ\)</span>。<span class="math inline">\(λ\)</span>越大，惩罚越强，最终选出的因子就越少，模型越稀疏。</p></li>
+<li><p>模型训练：使用最优的<span class="math inline">\(λ\)</span>训练LASSO回归模型。</p></li>
+<li><p>因子筛选：提取模型中系数不为零的因子，构成最终的因子子集。</p></li>
+</ol>
+<p><strong>应用案例：</strong></p>
+<p>构建一个稳健的多因子线性模型来预测股票的超额收益。将500个候选因子作为输入，使用LASSO回归进行训练。</p>
+<p>通过交叉验证确定了最优的<span class="math inline">\(λ\)</span>后，训练得到的模型最终只有65个因子的系数不为零。这65个因子就构成了最终的、稀疏化的多因子模型，该模型不仅预测能力强，而且因为因子数量少，解释性好，也更不容易过拟合。</p>
+</section>
+<section id="基于树的集成模型" class="level4">
+<h4 class="anchored" data-anchor-id="基于树的集成模型">3.2基于树的集成模型</h4>
+<p><strong>随机森林（Random Forest）</strong>和<strong>梯度提升树（GBT模型，如LightGBM, XGBoost）</strong>等集成学习模型，在量化领域应用极为广泛。它们在训练过程中，天然地提供了每个因子的重要性度量。</p>
+<p>在树模型中，因子特征的重要性通常根据其在所有决策树中被用作分裂节点的次数、以及每次分裂带来的不纯度减少量来计算，如基尼不纯度或信息增益。一个因子越频繁地被用于关键的决策分裂，并且每次分裂都能有效地将好坏样本分开，其重要性得分就越高。</p>
+<p><strong>实现步骤：</strong></p>
+<ul>
+<li><p>模型训练：使用全部候选因子训练一个随机森林或GBT模型，目标变量为未来收益率。</p></li>
+<li><p>提取重要性：从训练好的模型中直接提取出每个因子的重要性分数。</p></li>
+<li><p>筛选因子：设定一个重要性阈值，例如，保留重要性排名前10%的因。</p></li>
+</ul>
+<p><strong>应用案例：</strong></p>
+<p>构建一个预测未来5日收益率的模型。我们用上百个价量因子训练了一个XGBoost模型。</p>
+<p>训练完成后，发现其中的几个因子的重要性得分远高于其他因子。此时，可以考虑围绕这些核心因子构建更简洁、响应更快的模型。</p>
+</section>
+<section id="优缺点和适用条件-2" class="level4">
+<h4 class="anchored" data-anchor-id="优缺点和适用条件-2">3.4.优缺点和适用条件</h4>
+<p><strong>优点：</strong></p>
+<ul>
+<li><p>效率与精度的平衡：计算效率远高于包装法，因为因子选择和模型训练一次完成；</p></li>
+<li><p>同时，由于考虑了因子在模型中的实际作用，其选择效果通常优于过滤法。</p></li>
+<li><p>内在抗过拟合性：正则化本身就是一种防止过拟合的技术。树的集成方法也具有很好的抗过拟合能力。</p></li>
+<li><p>能处理高维数据：特别是LASSO和树模型，非常适合处理因子数量远大于样本数量的问题。</p></li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>模型依赖性：筛选结果与所使用的嵌入模型强相关。使用LASSO和使用随机森林选出的因子集可能会有很大差异。</p></li>
+<li><p>需要调参：嵌入法的效果依赖于模型超参数的设定，需要通过严谨的交叉验证来确定最优参数。</p></li>
+<li><p>对于某些模型可能是黑箱：虽然可以得到因子重要性排序，但对于复杂的集成模型，因子之间具体的交互方式可能仍然不够透明。</p></li>
+</ul>
+<p><strong>适用条件：</strong></p>
+<p>嵌入法是模型构建与因子筛选一体化的解决方案。它适用于以下场景：</p>
+<ol type="1">
+<li><p>直接从几百到上千的因子池中，构建最终的预测模型。</p></li>
+<li><p>当模型的目标是追求稀疏性，即用尽可能少的因子来解释收益，并且强泛化能力，基LASSO模型的嵌入法是首选。</p></li>
+<li><p>当需要处理复杂的非线性关系和交互效应时，基于GBT模型的嵌入法是首选。</p></li>
+<li><p>当因子池数量上千，LASSO模型的计算效率通常低于GBT模型。</p></li>
+</ol>
+</section>
+</section>
+<section id="实践中的混合应用" class="level3">
+<h3 class="anchored" data-anchor-id="实践中的混合应用">4.实践中的混合应用</h3>
+<p>过滤法、包装法和嵌入法并非相互排斥，而是在因子精选的不同阶段各有所长。一个成熟的的量化投研流程，往往会将这三者有机地结合起来，形成一个多阶段、层层递进的混合筛选策略。一个高效的因子精选流程可以设计如下：</p>
+<section id="第一阶段海选过滤法主导" class="level4">
+<h4 class="anchored" data-anchor-id="第一阶段海选过滤法主导">第一阶段：海选，过滤法主导</h4>
+<p><strong>目标：</strong></p>
+<p>从数千甚至上万的原始因子中，快速剔除大量无效、失效和高度冗余的因子。</p>
+<p><strong>方法：</strong></p>
+<ol type="1">
+<li><p>有效性初筛：使用IC均值、ICIR等指标，过滤掉历史表现不佳的因子。</p></li>
+<li><p>稳定性筛选：剔除IC值波动过大的因子。</p></li>
+<li><p>冗余性剔除：计算因子间的相关系数矩阵，对于高度相关的因子对，保留IC表现更好或经济逻辑更强的那个。</p></li>
+<li><p>产出：一个规模可控、初步验证有效的“候选因子池”。</p></li>
+</ol>
+</section>
+<section id="第二阶段精选包装法或嵌入法主导" class="level4">
+<h4 class="anchored" data-anchor-id="第二阶段精选包装法或嵌入法主导">第二阶段：精选，包装法或嵌入法主导</h4>
+<p><strong>目标：</strong></p>
+<p>从候选因子池中，为特定的投资策略或预测模型挑选出性能最优的因子组合。</p>
+<p><strong>方法：</strong></p>
+<ol type="1">
+<li><p>采用<strong>包装法</strong>精选：适用于“候选因子池”保留的因子数据量不多，对计算效率要求不高或没有要求，目标在于找到能使预测模型在交叉验证中表现最好的因子子集。</p></li>
+<li><p>采用<strong>嵌入法</strong>精选：适用于“候选因子池”保留的因子数据量仍然较多，并且对计算效率由要求，则可直接使用 LASSO 或 LightGBM 对候选因子池进行训练，模型本身会输出一个稀疏的或有明确重要性排序的因子集。</p></li>
+<li><p>产出：一个高度优化、数量较少（例如100个以内）的“核心因子集”。</p></li>
+</ol>
+</section>
+<section id="第三阶段建模与验证" class="level4">
+<h4 class="anchored" data-anchor-id="第三阶段建模与验证">第三阶段：建模与验证</h4>
+<p>将筛选出的“核心因子集”用于建模，生成最终的投资模型，并进行严格的样本外测试。可进行多轮迭代，直至效果令人满意。</p>
+<p>通过这个“三步”流程，充分利用了每种方法的优势：用<strong>过滤法</strong>应对规模，用<strong>包装法/嵌入法</strong>进一步精简，最后落实<strong><code>预测模型</code></strong>进行验证，如此迭代循环，形成了一个兼顾效率和稳健性的因子筛选系统。</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="pagination-link" aria-label="第2章 因子选股 第8节 基于数据和模型的因子合成">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
