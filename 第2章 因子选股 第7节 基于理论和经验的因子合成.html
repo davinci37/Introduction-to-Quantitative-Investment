@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第2章 因子选股 第7节 基于理论和经验的因子合成 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第2章 因子选股 第6节 数据处理.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html">第2章 因子选股 第7节 基于理论和经验的因子合成</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一传统量化选股方法" id="toc-一传统量化选股方法" class="nav-link" data-scroll-target="#一传统量化选股方法">一、传统量化选股方法</a>
+  <ul class="collapse">
+  <li><a href="#定义" id="toc-定义" class="nav-link" data-scroll-target="#定义">1.定义</a></li>
+  <li><a href="#实践" id="toc-实践" class="nav-link" data-scroll-target="#实践">2.实践</a></li>
+  <li><a href="#优势" id="toc-优势" class="nav-link" data-scroll-target="#优势">3.优势</a></li>
+  </ul></li>
+  <li><a href="#二buffetts-alpha" id="toc-二buffetts-alpha" class="nav-link" data-scroll-target="#二buffetts-alpha">二、“Buffett’s Alpha”</a>
+  <ul class="collapse">
+  <li><a href="#巴菲特的投资哲学" id="toc-巴菲特的投资哲学" class="nav-link" data-scroll-target="#巴菲特的投资哲学">1.巴菲特的投资哲学</a></li>
+  <li><a href="#选股因子" id="toc-选股因子" class="nav-link" data-scroll-target="#选股因子">2.选股因子</a></li>
+  <li><a href="#选股流程" id="toc-选股流程" class="nav-link" data-scroll-target="#选股流程">3.选股流程</a></li>
+  </ul></li>
+  <li><a href="#三pb-roe策略" id="toc-三pb-roe策略" class="nav-link" data-scroll-target="#三pb-roe策略">三、PB-ROE策略</a>
+  <ul class="collapse">
+  <li><a href="#定义-1" id="toc-定义-1" class="nav-link" data-scroll-target="#定义-1">1.定义</a></li>
+  <li><a href="#选股因子-1" id="toc-选股因子-1" class="nav-link" data-scroll-target="#选股因子-1">2.选股因子</a></li>
+  <li><a href="#选股流程-1" id="toc-选股流程-1" class="nav-link" data-scroll-target="#选股流程-1">3.选股流程</a></li>
+  <li><a href="#优缺点和适用场景" id="toc-优缺点和适用场景" class="nav-link" data-scroll-target="#优缺点和适用场景">4.优缺点和适用场景</a></li>
+  </ul></li>
+  <li><a href="#四garp策略" id="toc-四garp策略" class="nav-link" data-scroll-target="#四garp策略">四、GARP策略</a>
+  <ul class="collapse">
+  <li><a href="#定义-2" id="toc-定义-2" class="nav-link" data-scroll-target="#定义-2">1.定义</a></li>
+  <li><a href="#选股因子-2" id="toc-选股因子-2" class="nav-link" data-scroll-target="#选股因子-2">2.选股因子</a></li>
+  <li><a href="#选股流程-2" id="toc-选股流程-2" class="nav-link" data-scroll-target="#选股流程-2">3.选股流程</a></li>
+  <li><a href="#优缺点与适用场景" id="toc-优缺点与适用场景" class="nav-link" data-scroll-target="#优缺点与适用场景">4.优缺点与适用场景</a></li>
+  </ul></li>
+  <li><a href="#五戴维斯双击" id="toc-五戴维斯双击" class="nav-link" data-scroll-target="#五戴维斯双击">五、戴维斯双击</a>
+  <ul class="collapse">
+  <li><a href="#定义-3" id="toc-定义-3" class="nav-link" data-scroll-target="#定义-3">1.定义</a></li>
+  <li><a href="#选股因子-3" id="toc-选股因子-3" class="nav-link" data-scroll-target="#选股因子-3">2.选股因子</a></li>
+  <li><a href="#选股流程-3" id="toc-选股流程-3" class="nav-link" data-scroll-target="#选股流程-3">3.选股流程</a></li>
+  <li><a href="#优缺点与适用场景-1" id="toc-优缺点与适用场景-1" class="nav-link" data-scroll-target="#优缺点与适用场景-1">4.优缺点与适用场景</a></li>
+  </ul></li>
+  <li><a href="#六canslim法则" id="toc-六canslim法则" class="nav-link" data-scroll-target="#六canslim法则">六、CANSLIM法则</a>
+  <ul class="collapse">
+  <li><a href="#定义-4" id="toc-定义-4" class="nav-link" data-scroll-target="#定义-4">1.定义</a></li>
+  <li><a href="#选股因子-4" id="toc-选股因子-4" class="nav-link" data-scroll-target="#选股因子-4">2.选股因子</a></li>
+  <li><a href="#选股流程-4" id="toc-选股流程-4" class="nav-link" data-scroll-target="#选股流程-4">3.选股流程</a></li>
+  </ul></li>
+  <li><a href="#六其它经典选股策略" id="toc-六其它经典选股策略" class="nav-link" data-scroll-target="#六其它经典选股策略">六、其它经典选股策略</a>
+  <ul class="collapse">
+  <li><a href="#红利低波选股策略" id="toc-红利低波选股策略" class="nav-link" data-scroll-target="#红利低波选股策略">1.红利低波选股策略</a></li>
+  <li><a href="#现金流选股策略" id="toc-现金流选股策略" class="nav-link" data-scroll-target="#现金流选股策略">2.现金流选股策略</a></li>
+  </ul></li>
+  <li><a href="#七传统方法和现在技术的融合" id="toc-七传统方法和现在技术的融合" class="nav-link" data-scroll-target="#七传统方法和现在技术的融合">七、传统方法和现在技术的融合</a>
+  <ul class="collapse">
+  <li><a href="#传统方法的劣势" id="toc-传统方法的劣势" class="nav-link" data-scroll-target="#传统方法的劣势">1.传统方法的劣势</a></li>
+  <li><a href="#人机协同的模式" id="toc-人机协同的模式" class="nav-link" data-scroll-target="#人机协同的模式">2.人机协同的模式</a></li>
+  <li><a href="#人类角色的转变" id="toc-人类角色的转变" class="nav-link" data-scroll-target="#人类角色的转变">3.人类角色的转变</a></li>
+  <li><a href="#对投资者技能的要求" id="toc-对投资者技能的要求" class="nav-link" data-scroll-target="#对投资者技能的要求">4.对投资者技能的要求</a></li>
+  <li><a href="#未来展望" id="toc-未来展望" class="nav-link" data-scroll-target="#未来展望">5.未来展望</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第2章 因子选股 第7节 基于理论和经验的因子合成</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>本节，我将探讨一个在当前金融科技浪潮中至关重要的问题：在机器学习与人工智能技术已高度发达和深度渗透的现代量化投资领域，依赖个人经验和主观判断来选择因子并主观赋予权重的传统量化选股方法，是否还有存在的价值？当计算机能够以毫秒级的速度分析全市场亿万数据，构建出包含数千个变量的复杂预测模型时，这种“陈久”的、看似缺乏“科学”的投资决策方式，是否已沦为一种低效且充满主观偏见的落后生产力？本节我将给出我个人的看法，供大家参考。</p>
+</section>
+<section id="一传统量化选股方法" class="level2">
+<h2 class="anchored" data-anchor-id="一传统量化选股方法">一、传统量化选股方法</h2>
+<section id="定义" class="level3">
+<h3 class="anchored" data-anchor-id="定义">1.定义</h3>
+<p>传统的量化选股方法，或简称为主观量化，是“凭借经验选择因子，并主观指定权重”的量化选股方法，是根植于人类认知与判断的投资决策框架。其核心特征可以概括为以下几点：</p>
+<ul>
+<li><p><strong>主观选择因子：</strong>投资者基于其对宏观经济、行业周期、商业模式以及多年市场经验的理解，主观地挑选出其认为在当前或未来一段时间内能够驱动股票超额收益的关键因子。这些因子既可以包括传统的量化指标（如PE、ROE），也可以涵盖难以量化的“软”因素，如管理层的前瞻性、企业文化的竞争力、品牌护城河的坚固程度等。</p></li>
+<li><p><strong>主观分配权重：</strong>在确定了核心因子后，投资者会根据其对各因子重要性的判断，直观地为其分配权重。这种权重分配并非基于严格的数学优化，而是更多地依赖于一种“信念权重”。例如，投资者更看中企业从成长性，便给成长因子更多权重；或者预期经济复苏，主观调高“盈利增长”和“周期性”因子的权重。</p></li>
+<li><p><strong>经验驱动的动态调整：</strong>整个投资组合的构建和调整过程是动态且灵活的。投资者会持续不断地将新的信息和见解融入决策框架，对因子选择和权重分配进行调整。这种调整的依据并非预设的算法规则，而是他对市场“体感”的变化和经验判断。</p></li>
+</ul>
+<p>与此相对，纯粹的量化或AI驱动方法则强调系统性、客观性和可复现性。它们试图通过对历史数据进行统计建模，找出能够稳定预测收益的因子，并运用数学模型来确定因子权重，力求排除人的主观偏见和认知限制。</p>
+</section>
+<section id="实践" class="level3">
+<h3 class="anchored" data-anchor-id="实践">2.实践</h3>
+<p>在实际操作中，一位采用传统量化方法的投资者，其工作流程通常如下：</p>
+<ol type="1">
+<li><p>首先，通过广泛的宏观、行业和公司研究，形成对市场的整体观点和对特定投资机会的判断。</p></li>
+<li><p>随后，他们会提炼出支撑其投资逻辑的核心驱动因子。例如，一位看好人工智能产业长期发展的投资者，可能会选择“研发投入占比”、“AI技术专利数量”、“数据资源优势”以及“管理团队的行业背景”作为核心评价因子。</p></li>
+<li><p>在因子合并时，他会根据经验决定不同因子的权重，为符合这些标准的公司进行打分排序。一家在所有核心因子上都表现优秀的公司，会获得最高的评分。这个过程充满了艺术性，他的经验、对市场的感知，都深刻地影响着最终的决策。</p></li>
+<li><p>当市场环境发生变化，比如出现颠覆性的新技术或重大的政策调整，他会凭借其直觉和专业判断，迅速评估这些环境变化对原有投资逻辑的冲击，并对因子和权重进行灵活调整。</p></li>
+</ol>
+</section>
+<section id="优势" class="level3">
+<h3 class="anchored" data-anchor-id="优势">3.优势</h3>
+<section id="灵活性与非结构化信息处理能力" class="level4">
+<h4 class="anchored" data-anchor-id="灵活性与非结构化信息处理能力">3.1.灵活性与非结构化信息处理能力</h4>
+<p>金融市场是一个复杂的适应性系统，充满了算法难以捕捉的、非量化的信息。人类在这方面拥有天然的优势。AI模型的核心是基于历史数据的模式学习。当市场出现前所未有的结构性断裂或“黑天鹅”事件时，例如，突发的全球公共卫生危机、颠覆性技术的意外突破，历史数据可能会失效，导致AI模型做出错误的判断。而人类运用逻辑推理、第一性原理思考和跨领域知识，对新情况进行快速评估和适应，可以灵活地调整投资框架，而不是被过时的模型所束缚。</p>
+</section>
+<section id="基于长期经验的深刻洞察力" class="level4">
+<h4 class="anchored" data-anchor-id="基于长期经验的深刻洞察力">3.2.基于长期经验的深刻洞察力</h4>
+<p>人类的“直觉”并非神秘的超能力，而是长期经验在潜意识层面的结晶。资深投资者在其职业生涯中经历了多个完整的经济周期和市场风格切换，这种沉淀下来的经验赋予了他们独特的洞察力。</p>
+<p>他们能够超越短期的数据噪音，识别出驱动市场数十年的宏大叙事，例如人口结构变迁、能源转型或技术革命。这种对长期趋势的把握，使得他们能够进行更具前瞻性的布局，而不仅仅是追逐短期因子alpha的衰减。</p>
+<p>在市场情绪极度悲观或乐观时，他们更可能采取逆向操作，能够凭借经验判断出市场的非理性程度，并在资产价格与内在价值出现极端偏离时果断行动。AI模型由于缺乏对“价值”的哲学理解，更容易在顺应市场趋势，表现出顺势而为的“羊群效应”。</p>
+<p>传统方法的核心是深度基本面研究。这意味着他们不仅仅是看财务数据，更是要深刻理解一家公司的商业模式、竞争优势和成长驱动力。这种对商业本质的理解，是单纯依赖数据挖掘的AI模型难以做到的。</p>
+</section>
+<section id="适应性与创造性思维" class="level4">
+<h4 class="anchored" data-anchor-id="适应性与创造性思维">3.3.适应性与创造性思维</h4>
+<p>市场是不断演化的，有效的投资因子和策略也在不断变化。传统方法的适应性和创造性使其能够更好地应对这一挑战。</p>
+<p>他们可以根据对市场“主要矛盾”的判断，动态地调整其关注的因子和赋予的权重。例如，在科技泡沫时期，他们可能会降低对“估值”因子的关注，转而更看重“用户增长”；而在通胀高企的环境下，则会更加关注企业的“定价权”。这种基于宏观叙事和市场逻辑的动态调整，比固定的多因子模型更具适应性。</p>
+<p>当旧的投资范式不再有效时，他们可以从经验和观察中汲取灵感，构建出全新的分析框架和选股模型来理解市场。这种从0到1的创造力，是目前AI所不具备的。</p>
+</section>
+<section id="可溯源性与决策透明度" class="level4">
+<h4 class="anchored" data-anchor-id="可溯源性与决策透明度">3.4.可溯源性与决策透明度</h4>
+<p>传统投资模式能够清晰地阐述其投资决策背后的逻辑和信念。这种叙事能力和可溯源性对于建立和维持对模型的信任至关重要。当模型出现回撤，一个有说服力的解释能够帮助投资者保持耐心，坚持长期投资，做长期正确的事。</p>
+<p>许多先进的模型，特别是深度网络，本质上是“黑箱”。即使模型表现出色，人们也很难完全理解其决策的具体原因。这在风险管理带来了巨大挑战。如果一个AI模型突然开始做出异常的投资决策，导致了巨大亏损，我们该如何排查问题，是否或者怎样做出改变？传统的方法，归因链条清晰，决策过程透明，更易于理解。尽管可解释AI技术正在发展，它在复杂金融模型中的应用仍面临诸多挑战。</p>
+<p>综上，尽管AI在数据处理、效率和客观性上展现出巨大优势，但传统方法在处理非结构化信息、应对市场突变、提供深度洞察以及确保决策可解释性方面，依然拥有不可替代的价值。接下来，我将重点介绍几个经典案例，供读者参考。</p>
+</section>
+</section>
+</section>
+<section id="二buffetts-alpha" class="level2">
+<h2 class="anchored" data-anchor-id="二buffetts-alpha">二、“Buffett’s Alpha”</h2>
+<p>我们先以沃伦·巴菲特的价值投资哲学为指导，通过量化的方法，构建了一个具体、可操作的量化选股模型。</p>
+<p>学术界曾对巴菲特的投资风格进行了深入的量化研究。Frazzini 等人的论文《Buffett’s Alpha》指出，从1976年到2011年，伯克希尔·哈撒韦公司的夏普比率高达0.76，远超市场平均水平。本节中，我们尝试通过定义多个定量的关键因子的筛选流程和综合评分，构建综合打分模型，以识别出那些在财务特征上最接近巴菲特标准的公司。</p>
+<section id="巴菲特的投资哲学" class="level3">
+<h3 class="anchored" data-anchor-id="巴菲特的投资哲学">1.巴菲特的投资哲学</h3>
+<p>在构建任何量化模型之前，我们必须深刻理解其所模拟的底层投资哲学。巴菲特的投资体系并非简单的低市盈率或低市净率投资，更强调以合理的价格买入卓越的企业并长期持有。我们可以将其投资框架分解为三个核心支柱。</p>
+<section id="寻找具有持久竞争优势的好公司" class="level4">
+<h4 class="anchored" data-anchor-id="寻找具有持久竞争优势的好公司">1.1.寻找具有持久竞争优势的“好公司”</h4>
+<p>巴菲特寻找的是那些能够在未来数十年内持续创造高额利润、抵御竞争对手侵蚀的企业。这种持久的竞争优势，他形象地称之为“经济护城河”。护城河的定性特征包括：</p>
+<ul>
+<li><p>无形资产：强大的品牌、专利或许可证，能够形成消费者粘性或法律壁垒。</p></li>
+<li><p>成本优势：由于规模、流程或地理位置等因素，能以比竞争对手更低的成本生产和销售。</p></li>
+<li><p>转换成本：客户更换供应商或服务商的成本高昂，导致客户被锁定。</p></li>
+<li><p>网络效应：产品或服务的价值随着用户数量的增加而增加，形成赢家通吃的局面。</p></li>
+</ul>
+</section>
+<section id="评估管理层的诚信与能力" class="level4">
+<h4 class="anchored" data-anchor-id="评估管理层的诚信与能力">1.2.评估管理层的诚信与能力</h4>
+<p>巴菲特极其看重管理层的品质。他认为，优秀的管理层不仅要诚实守信，更要具备卓越的资本配置能力。</p>
+<ul>
+<li><p>诚信：管理层是否坦诚面对问题，是否将股东利益置于首位。</p></li>
+<li><p>理性：管理层是否能够理性地进行资本配置决策，例如，在股价被低估时回购股票，在没有好的投资机会时将利润以股息形式返还股东，而不是盲目进行价值毁灭性的并购。</p></li>
+</ul>
+</section>
+<section id="以合理的价格买入" class="level4">
+<h4 class="anchored" data-anchor-id="以合理的价格买入">1.3.以合理的价格买入</h4>
+<p>巴菲特的名言是：“以合理的价格买入一家优秀的公司，远胜于以便宜的价格买入一家普通的公司。”这意味着价格是重要的，但它必须与公司的内在价值相结合进行考量。他追求的是“物有所值”，而非单纯的“便宜”。巴菲特认为，企业的内在价值是其未来自由现金流的折现值。这是一个复杂的估值过程，依赖于对未来的预测。买入价格需要显著低于其估算的内在价值，即“安全边际”，为未来的不确定性提供缓冲。</p>
+</section>
+</section>
+<section id="选股因子" class="level3">
+<h3 class="anchored" data-anchor-id="选股因子">2.选股因子</h3>
+<p>基于以上分析，我们将上述三大支柱转化为具体的、可量化的财务因子，这些因子共同构成我们的“巴菲特因子库”。</p>
+<section id="衡量好公司的盈利能力与护城河因子" class="level4">
+<h4 class="anchored" data-anchor-id="衡量好公司的盈利能力与护城河因子">2.1.衡量“好公司”的盈利能力与护城河因子</h4>
+<p>巴菲特认为，卓越的盈利能力和宽阔的护城河是“好公司”最直接的财务体现。</p>
+<ul>
+<li><p>因子1：<strong>净资产收益率（ROE）</strong>。ROE是巴菲特最为看重的财务指标。它衡量的是公司利用股东投入的资本创造利润的效率。持续的高ROE意味着公司拥有强大的盈利能力和有效的资本运用，这通常是宽阔护城河的直接结果。为了排除周期性行业或偶然性因素带来的干扰，我们增加一个稳定性要求：过去10年中，没有任何一年的ROE低于15%。这一标准强调了盈利能力的持续性和稳定性，是巴菲特思想的精。</p></li>
+<li><p>因子2：<strong>毛利率</strong>。高毛利率直接反映了公司的定价权和成本控制能力。一个拥有强大品牌或独特产品的公司，可以在不流失客户的情况下提高售价，从而维持高毛利率。这同样是经济护城河的有力证据。</p></li>
+<li><p>因子3：<strong>净利率</strong>。净利率衡量的是公司在支付所有成本和费用（包括税收）后，将收入转化为实际利润的能力。它反映了公司的综合运营效率和费用控制水平。</p></li>
+<li><p>因子4：<strong>自由现金流（Free Cash Flow, FCF）。</strong>巴菲特非常关注自由现金流，因为这是企业在维持或扩大其资产基础后，真正可以由管理层自由支配、用于回购股票、派发股息或进行新投资的现金。持续增长的自由现金流是企业健康和价值创造能力的终极体现。</p></li>
+</ul>
+</section>
+<section id="评估稳健经营的财务健康因子" class="level4">
+<h4 class="anchored" data-anchor-id="评估稳健经营的财务健康因子">2.2.评估“稳健经营”的财务健康因子</h4>
+<p>巴菲特厌恶高杠杆经营的企业，偏好那些依靠内生性增长而非大量负债来驱动发展的公司。</p>
+<ul>
+<li><p>因子5：<strong>资产负债率（Debt-to-Asset Ratio）</strong>。过高的负债会带来巨大的财务风险，尤其是在经济下行周期，高杠杆可能成为压垮公司的最后一根稻草。稳健的财务结构是企业能够穿越周期的保障。</p></li>
+<li><p>因子6：<strong>流动比率（CurrentRatio）</strong>。流动比率衡量公司短期偿债能力。一个健康的流动比率确保公司有足够的流动资产来覆盖短期负债，避免因短期资金链断裂而陷入困境。</p></li>
+</ul>
+</section>
+<section id="寻找合理价格的估值因子" class="level4">
+<h4 class="anchored" data-anchor-id="寻找合理价格的估值因子">2.3.寻找“合理价格”的估值因子</h4>
+<p>最后一步是评估其价格是否合理。</p>
+<ul>
+<li><p>因子7：<strong>市盈率（PE）</strong>。市盈率是最常用的估值指标之一。巴菲特并非寻找绝对低PE的公司，而是寻找相对于其盈利能力和增长前景而言PE合理的公司。</p></li>
+<li><p>因子8：<strong>市净率（PB）</strong>。市净率对于重资产行业有较好的参考意义。对于高ROE的公司，PB通常不会很低。巴菲特关注的是PB与ROE的匹配度，即所谓的PB-ROE模型。高ROE理应享有高PB。</p></li>
+</ul>
+</section>
+</section>
+<section id="选股流程" class="level3">
+<h3 class="anchored" data-anchor-id="选股流程">3.选股流程</h3>
+<p>基于上述因子库，我们设计一个多层次、系统化的量化选股流程。此过程旨在模拟巴菲特由内而外、先质量后价格的思维方式。</p>
+<ul>
+<li><p><strong>步骤一：定义投资范围 以中国A股市场为例。</strong>初步剔除：</p>
+<ul>
+<li><p>剔除所有ST、ST及即将退市的公司。</p></li>
+<li><p>剔除上市时间不足5年的公司（确保有足够的财务数据进行长期评估）。</p></li>
+<li><p>剔除金融行业和公用事业公司（它们的财务报表结构和商业模式特殊，不适用于通用财务指标）。</p></li>
+</ul></li>
+<li><p><strong>步骤二：财务健康初筛</strong></p>
+<ul>
+<li><p>资产负债率&lt;50%</p></li>
+<li><p>流动比率&gt;1.5</p></li>
+<li><p>过去5年，至少4年营业收入为正增长。</p></li>
+<li><p>过去10年，自由现金流为正的年份不少于8年。</p></li>
+</ul>
+<p>通过这一层筛选，保留的公司已具备基本的财务稳健性。</p></li>
+<li><p><strong>步骤三：盈利能力与护城河筛选</strong></p>
+<ul>
+<li><p>过去10年平均ROE&gt;20%</p></li>
+<li><p>过去10年最低年度ROE&gt;15%</p></li>
+<li><p>过去5年平均毛利率&gt;40%</p></li>
+<li><p>过去5年平均净利率&gt;5%</p></li>
+</ul>
+<p>通过这一层筛选，保留的公司在财务数据上展现出了巴菲特所青睐的“护城河”特征。</p></li>
+<li><p><strong>步骤四：综合评分</strong> 对于通过了所有筛选标准的公司，我们引入一个综合评分机制，以便在多个优秀标的中进行优中选优。这是一个典型的多因子模型应用。</p>
+<p><strong>因子选择：</strong></p>
+<ul>
+<li><p>质量因子：近3年平均ROE、近3年平均毛利率、自由现金流/营业收入比率。</p></li>
+<li><p>成长因子：近3年营业收入复合增长率、近3年净利润复合增长率。</p></li>
+<li><p>估值因子：当前PE在其历史5年百分位中的位置、当前PB在其历史5年百分位中的位置。</p></li>
+</ul>
+<p><strong>评分方法：</strong></p>
+<ul>
+<li><p>对每个公司的每个因子值，在截面上所有候选公司进行排序，并转换为百分位排名（0-100）。对于估值等负向指标，则进行反向排序。</p></li>
+<li><p>为不同类别的因子分配权重。遵循巴菲特的理念，质量因子应占据最高权重。一个可能的权重分配方案： 质量因子权重：40% 成长因子权重：30% 估值因子权重：30%</p></li>
+<li><p>计算总分：将每个公司的各因子得分乘以对应权重后相加，得到最终的综合得分。</p></li>
+<li><p>最终排名：根据综合得分对所有候选公司进行降序排名。</p></li>
+</ul></li>
+<li><p><strong>步骤五：构建投资组合和定期再平衡</strong></p>
+<p>根据巴菲特集中投资的理念，选择综合排名前10至20位的股票构建投资组合。采用综合得分加权策略，得分越高，权重越大。</p>
+<p>为控制风险，设置单个股票的持仓上限不超过15%。</p>
+<p>巴菲特的投资周期非常长，过于频繁的调仓违背其理念，并增加交易成本，因此在所有公司年报发布后进行调仓，是一个比较合适的频率。</p></li>
+</ul>
+</section>
+</section>
+<section id="三pb-roe策略" class="level2">
+<h2 class="anchored" data-anchor-id="三pb-roe策略">三、PB-ROE策略</h2>
+<p>PB-ROE策略是一种经典的价值投资选股策略，其核心在于同时运用<strong>市净率（Price-to-Book Ratio,PB）</strong>和<strong>净资产收益率（Return on Equity, ROE）</strong>两个指标来筛选股票。它完美地诠释了价值投资的精髓：<strong>以合理甚至低廉的价格，买入优质的公司</strong>。</p>
+<section id="定义-1" class="level3">
+<h3 class="anchored" data-anchor-id="定义-1">1.定义</h3>
+<p>PB-ROE模型是一个二维选股框架，它旨在寻找那些具有高净资产收益率（高ROE）但估值水平较低（低PB）的公司。PB-ROE模型的内在逻辑根植于对价值的深刻理解。</p>
+<p>PB衡量的是公司市值相对于其净资产的倍数。一个较低的PB通常意味着股票价格相对于其账面价值存在折价，可能被市场低估，为投资者提供了安全边际。如果公司经营状况没有恶化，极低的PB本身就限制了股价进一步下跌的空间，并为未来的估值修复创造了可能。</p>
+<p>ROE衡量的是公司利用自有资本为股东创造利润的能力。一个持续高水平的ROE是公司盈利能力强、商业模式优秀、护城河宽阔的体现，是“好公司”的重要标志。这帮助我们避开“价值陷阱”，即避开那些因为基本面持续恶化而变得便宜的公司。</p>
+<p>当一个“低PB、高ROE”的公司被市场发现时，其价值回归的过程往往伴随着“戴维斯双击”的效应。一方面，公司持续的高ROE会驱动其每股净资产不断增长；另一方面，市场对其优秀基本面的认可会给予其更高的估值，即PB倍数的提升。股价将在这两个因素的共同推动下实现乘数效应的上涨。</p>
+</section>
+<section id="选股因子-1" class="level3">
+<h3 class="anchored" data-anchor-id="选股因子-1">2.选股因子</h3>
+<p>PB-ROE模型的量化因子相对简洁明了，主要围绕PB和ROE两个核心指标展开。</p>
+<ul>
+<li><p>核心因子1：<strong>市净率(PB)</strong></p>
+<p>阈值设定：通常要求PB低于某个绝对值（例如，小于2或1.5），或者低于其所在行业的平均水平，或者处于其自身历史PB波动的较低分位。</p>
+<p>寻找估值洼地是此因子的主要目的。</p></li>
+<li><p>核心因子2：<strong>净资产收益率(ROE)</strong></p>
+<p>阈值设定：通常要求ROE高于某个绝对值，例如，持续三年ROE大于15%。</p>
+<p>这个标准源于沃伦·巴菲特等价值投资大师的实践，认为ROE低于15%的公司很难称得上是优秀的生意。</p></li>
+<li><p>其它辅助因子包括：</p>
+<ul>
+<li><p><strong>行业属性：</strong>PB指标在重资产行业（如银行、地产、制造业）更为有效，而在轻资产行业（如科技、医药研发）可能失真。因此，在应用时常需分行业进行比较。</p></li>
+<li><p><strong>财务健康度：</strong>高ROE有时可能源于高财务杠杆。因此，需要加入资产负债率等指标进行排雷，剔除那些靠高负债驱动高ROE的公司。</p></li>
+<li><p><strong>历史稳定性：</strong>要求过去数年（如3-5年）的ROE保持稳定或稳步提升，以确保公司盈利能力的持续性，而非短期波动。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="选股流程-1" class="level3">
+<h3 class="anchored" data-anchor-id="选股流程-1">3.选股流程</h3>
+<ol type="1">
+<li><p><strong>确定初始股票池：</strong>从全市场股票中剔除ST、ST股票、上市未满一年的新股以及金融、地产等行业（这些行业的估值逻辑特殊，PB-ROE模型可能不完全适用）。</p></li>
+<li><p><strong>质量筛选：</strong> ROE标准：筛选出过去三年平均ROE大于15%的公司。 财务健康标准：剔除资产负债率过高（例如，大于60%）的公司。</p></li>
+<li><p><strong>估值筛选：</strong> 在满足第一轮筛选的“优质公司池”中，按PB进行排序。可根据不同的筛选方法进一步精选： 绝对PB法：选取PB小于1.5或2的股票。 相对PB法：选取PB低于其所在行业中位数的股票。</p></li>
+<li><p><strong>注意：</strong>静态的ROE&gt;15%、PB&lt;2的标准，在牛市中可能过于严苛，筛不出任何股票；在熊市中又可能过于宽松，要根据市场整体估值水平和宏观环境，动态地调整PB和ROE的筛选阈值，使策略更具适应性。</p></li>
+<li><p><strong>综合排序：</strong>将PB和ROE分别进行排序，赋予权重（例如，PB权重40%，ROE权重60%）计算综合得分，选取得分最高的股票。</p></li>
+<li><p><strong>构建组合并定期调仓：</strong>筛选出的10-20只股票构建等权重或市值加权的投资组合。每季度或每半年根据最新的财务数据重新执行上述筛选流程，进行调仓。</p></li>
+</ol>
+</section>
+<section id="优缺点和适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="优缺点和适用场景">4.优缺点和适用场景</h3>
+<ul>
+<li><p><strong>优点：</strong></p>
+<ul>
+<li><p>攻守兼备：高ROE保证了公司的长期价值创造能力，低PB提供了下跌保护和估值修复的潜力。</p></li>
+<li><p>历史表现稳健：在多数市场长期来看，低估值、高质量的股票组合能取得不错的超额收益。</p></li>
+</ul></li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li><p>可能忽略成长性：过于关注当前静态的PB和ROE，可能会错失那些处于发展初期、ROE尚未提高但未来成长空间巨大的公司。</p></li>
+<li><p>价值陷阱风险：需要警惕因行业衰退或技术颠覆导致公司基本面永久性恶化而出现的低PB。</p></li>
+<li><p>行业局限性：PB指标对轻资产、高研发投入的科技和服务型公司可能失效。</p></li>
+</ul></li>
+<li><p><strong>适用场景：</strong></p>
+<ul>
+<li><p>适合寻找传统行业、制造业、金融业等重资产领域的价值股。</p></li>
+<li><p>在市场整体低迷、估值普遍偏低的时期，该策略更容易找到便宜的好公司。</p></li>
+<li><p>适合风险偏好较低、追求长期稳健回报的价值投资者。</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="四garp策略" class="level2">
+<h2 class="anchored" data-anchor-id="四garp策略">四、GARP策略</h2>
+<p>GARP（Growthata Reasonable Price），即“合理价格成长”模型，是融合了成长投资和价值投资优点的混合型投资策略。GARP策略的代表人物彼得·林奇，是全球最富盛名的基金经理之一，在他执掌富达麦哲伦基金的13年间，创造了年化29.2%的传奇回报。他最早提出了PEG指标，是其GARP的估值体系的核心。</p>
+<section id="定义-2" class="level3">
+<h3 class="anchored" data-anchor-id="定义-2">1.定义</h3>
+<p>GARP策略的核心是寻找那些盈利增长持续、稳定，但当前估值水平相对其增长率而言并不昂贵的公司。它试图在“成长性”和“价格”这两个维度上找到一个最佳的结合点。GARP的逻辑基础是，股票的长期回报主要由两个因素驱动：<strong>公司的盈利增长和买入时的估值水平</strong>。</p>
+<p>GARP投资者坚信，公司的内在价值会随着其盈利能力的增长而增长。因此，他们积极寻找那些具备可持续增长潜力的公司，这些公司通常拥有强大的品牌、领先的技术、广阔的市场或优秀的管理团队。</p>
+<p>GARP投资者对估值有着严格的纪律。他们认识到，即使是最好的公司，如果买入价格过高，支付过高的估值意味着透支了未来多年的增长，一旦增长不及预期，将面临盈利和估值的“戴维斯双杀”。因此，GARP策略也强调“合理价格”。</p>
+<p><strong>PEG（Price Earnings to Growth Ratio，市盈率相对盈利增长比率）</strong>指标是GARP策略的灵魂。其计算公式为：</p>
+<p>PEG=PE/(盈利年增长率×100)</p>
+<p>PEG指标将估值水平（PE）和盈利增长能力（G）联系起来。一般认为，当PEG=1时，估值与成长性相匹配，是合理的；当PEG&lt;1时，表明该股票的估值相对其成长性可能被低估，是GARP策略重点关注的目标；当PEG&gt;1.5甚至2时，则意味着估值可能偏高。</p>
+</section>
+<section id="选股因子-2" class="level3">
+<h3 class="anchored" data-anchor-id="选股因子-2">2.选股因子</h3>
+<ul>
+<li><p><strong>成长因子：</strong></p>
+<ul>
+<li><p>历史每股收益（EPS）增长率：要求过去3-5年的年均EPS增长率处于一个稳健的区间，例如15%-30%。增长过慢不符合成长要求，增长过快（如&gt;50%）可能难以持续。</p></li>
+<li><p>预期EPS增长率：利用分析师一致预期数据，筛选未来1-3年预期EPS增长率较高的公司。</p></li>
+<li><p>营业收入增长率：要求收入增长与利润增长相匹配，避免单纯依靠削减成本或财务技巧带来的“伪增长”。</p></li>
+</ul></li>
+<li><p><strong>估值因子：</strong></p>
+<ul>
+<li><p>PEG比率：核心筛选指标，通常要求PEG≤1]。</p></li>
+<li><p>市盈率(PE)：有绝对和相对的限制。例如，PE不高于40倍，且低于行业平均水平或其自身历史高位。</p></li>
+<li><p>市净率(PB)：作为辅助估值指标，避免买入PB过高的公司。</p></li>
+</ul></li>
+<li><p><strong>质量因子：</strong></p>
+<ul>
+<li><p>净资产收益率(ROE)：要求ROE持续高于15%，以证明公司具有优秀的盈利能力和护城河。</p></li>
+<li><p>财务稳健性：资产负债率不宜过高，经营性现金流需保持健康、充裕。</p></li>
+<li><p>盈利稳定性：要求过去几年的盈利增长轨迹平稳，避免大起大落。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="选股流程-2" class="level3">
+<h3 class="anchored" data-anchor-id="选股流程-2">3.选股流程</h3>
+<p>一个结构化的GARP量化选股流程可以设计如下：</p>
+<ol type="1">
+<li><p><strong>初步筛选：</strong>剔除ST股、PT股、最近一年亏损的公司，并筛选出流动性较好的股票，如日均成交额大于一定数额。</p></li>
+<li><p><strong>成长性筛选：</strong> 筛选过去三年年均EPS增长率在[15%,50%]区间的公司。 筛选过去三年年均营业收入增长率大于10%的公司。</p></li>
+<li><p><strong>质量筛选：</strong> 在满足成长性标准的公司中，筛选过去三年平均ROE大于15%的公司。 筛选最新一期资产负债率小于60%的公司。</p></li>
+<li><p><strong>估值筛选：</strong> 计算筛选后公司的PE（TTM）和预期EPS增长率（G，可采用未来一年的分析师一致预期增长率）。 计算PEG=PE/(G×100)，筛选出PEG≤1的股票。 可以增加一个PE的绝对上限，如PE≤40。</p></li>
+<li><p><strong>精选与定性分析：</strong> 对通过所有量化筛选的股票池进行深入的定性分析。研究公司的商业模式、行业地位、竞争优势（护城河）、管理层能力等。确认其增长逻辑是否坚实可靠。</p></li>
+<li><p><strong>构建与调整：</strong>将最终选定的股票构建投资组合，并每季度定期回顾和调整，剔除那些增长放缓或估值变得昂贵的股票，补充新的符合标准的股票。</p></li>
+</ol>
+</section>
+<section id="优缺点与适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="优缺点与适用场景">4.优缺点与适用场景</h3>
+<ul>
+<li><p><strong>优点：</strong></p>
+<ul>
+<li><p>攻守兼备：既能享受到公司成长带来的股价上涨，又通过估值纪律控制了下行风险，使得投资组合的风险收益比更优。</p></li>
+<li><p>适用性广：相比纯粹的价值或成长策略，GARP策略在多种市场环境下都能表现良好。</p></li>
+</ul></li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li><p>对盈利预测依赖度高：PEG的计算高度依赖对未来盈利增长率G的预测。</p></li>
+<li><p>在风格极致的市场中，例如2020-2021年的成长股狂热或2022年的价值股回归，GARP策略的表现逊色于纯粹的成长策略和价值策略。</p></li>
+<li><p>对于“合理价格”的界定存在一定主观性，PEG=1只是一个经验法则，并非金标准。</p></li>
+</ul></li>
+<li><p><strong>适用场景：</strong></p>
+<ul>
+<li><p>适合寻求长期稳健增长，风险承受能力中等的投资者。</p></li>
+<li><p>在市场平稳或温和上涨的时期，GARP策略往往能发挥最大效用。</p></li>
+<li><p>那些处于成长期中后段、盈利模式已经验证、但估值尚未泡沫化的行业龙头公司，是GARP策略的理想标的。</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="五戴维斯双击" class="level2">
+<h2 class="anchored" data-anchor-id="五戴维斯双击">五、戴维斯双击</h2>
+<p><strong>“戴维斯双击”（Davis Double Play）</strong>由美国著名投资人斯尔必·库洛姆·戴维斯家族的投资实践而得名。其核心是同时赚取企业盈利增长和市场估值提升两份钱，实现收益的乘数效应。</p>
+<section id="定义-3" class="level3">
+<h3 class="anchored" data-anchor-id="定义-3">1.定义</h3>
+<p>戴维斯双击指的是，投资者在一家公司的市盈率（PE）较低时买入，之后该公司通过持续的盈利增长（EPS增长）证明了其价值，市场情绪也随之转变，给予其更高的估值（PE提升）。投资者在PE较高时卖出，其投资收益是EPS增长和PE提升的乘积，从而获得远超公司自身盈利增长的丰厚回报。戴维斯双击的实现，就是EPS和PE两个变量同时实现正向增长的过程。</p>
+<p>盈利增长：公司必须具备强大的内生成长动力，能够通过其经营活动持续提升每股收益（EPS）。这是投资者赚的“企业成长的钱”。</p>
+<p>估值提升：当公司的成长性逐渐被市场所认知和接受后，市场会修正原先对其的悲观或保守预期，愿意为其未来的增长支付更高的溢价。这表现为市盈率（PE）的扩张，比如从10倍PE提升到30倍PE。这是投资者赚的“市场情绪的钱”或“估值修复的钱”。</p>
+<p>与之相对的是“戴维斯双杀”，即公司盈利下滑（EPS下降）和市场估值收缩（PE下降）同时发生，导致股价呈乘数级暴跌，是投资者的噩梦。</p>
+</section>
+<section id="选股因子-3" class="level3">
+<h3 class="anchored" data-anchor-id="选股因子-3">2.选股因子</h3>
+<p>要捕捉到“戴维斯双击”的机会，选股因子必须同时兼顾“低估值”和“高成长潜力”。这在本质上是GARP策略的极致化和前瞻性应用。</p>
+<ul>
+<li><p>低估值因子：</p>
+<ul>
+<li><p>低市盈率(PE)：是寻找双击起点的关键。筛选标准可以是PE低于市场平均水平、行业平均水平，或低于一个绝对数值（如15倍甚至10倍）。 低市净率(PB)：作为PE的补充，尤其对于周期性行业，低PB可以提供更强的安全边际。</p></li>
+<li><p>低PEG：PEG远小于1（如&lt;0.7）可能预示着市场对公司未来的成长性定价严重不足，是潜在双击机会的强烈信号。</p></li>
+</ul></li>
+<li><p>高成长潜力因子：</p>
+<ul>
+<li><p>预期EPS高增长：由于双击是面向未来的，因此对未来盈利增长的判断至关重要。需要筛选未来2-3年预期EPS复合增长率较高的公司（例如&gt;20%或30%）。</p></li>
+<li><p>业绩拐点信号：关注那些盈利刚刚由负转正，或增长率刚刚开始加速的公司。这些“业绩拐点”往往是估值修复的催化剂。可以通过“业绩加速度”，即当季盈利增长率减去上一季盈利增长率，等指标来捕捉。</p></li>
+<li><p>高研发投入：对于科技和医药行业，高研发投入可能是未来盈利爆发式增长的前兆。</p></li>
+</ul></li>
+<li><p>质量与催化剂因子：</p>
+<ul>
+<li><p>稳健的基本面：公司必须拥有健康的财务状况（低负债）、良好的现金流和可持续的商业模式，以支撑其未来的高增长。</p></li>
+<li><p>潜在催化剂：寻找可能触发市场重新评估公司价值的事件，如新产品发布、行业政策利好、管理层换届等。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="选股流程-3" class="level3">
+<h3 class="anchored" data-anchor-id="选股流程-3">3.选股流程</h3>
+<ol type="1">
+<li><p>寻找估值洼地的成长种子：在全市场中，筛选出PE（TTM）小于15倍，且PB小于2倍的股票，形成一个“低估值股票池”。 利用分析师一致预期数据，在上述股票池中，筛选出未来两年预期EPS复合增长率大于20%的股票。 计算这些股票的PEG，并进一步筛选出PEG小于0.8的股票。</p></li>
+<li><p>验证成长逻辑的可靠性：对初筛出的少数公司进行逐一的、自下而上的深度基本面研究。深入理解公司的业务、产品和技术，评估其所在行业的空间和竞争格局。分析公司的护城河有多深，与管理层、行业专家、上下游供应商进行交流，判断其高增长的可持续性。</p></li>
+<li><p>买入与持有，耐心等待“双击” ：在确信市场存在“错误定价”后，在低估值区域分批买入。 买入后需要极大的耐心。估值的修复和盈利的兑现可能需要数年时间。期间需要紧密跟踪公司的基本面变化，以确认最初的投资逻辑未被破坏。</p></li>
+<li><p>卖出时机：戴维斯双击策略强调在“高市盈率时卖出”。当公司的成长故事被市场广泛接受，分析师报告铺天盖地，股价和PE都达到历史高位时，往往就是双击完成、应该考虑获利了结的时刻。</p></li>
+</ol>
+</section>
+<section id="优缺点与适用场景-1" class="level3">
+<h3 class="anchored" data-anchor-id="优缺点与适用场景-1">4.优缺点与适用场景</h3>
+<ul>
+<li><p><strong>优点：</strong></p>
+<ul>
+<li>极高的潜在回报：一旦成功，戴维斯双击能带来数倍甚至数十倍的惊人回报，是实现投资组合跨越式增长的利器。</li>
+</ul></li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li><p>实现难度极高：双击机会非常稀少，且对投资者的前瞻性判断能力、深度研究能力和逆向思考能力提出了极高的要求。</p></li>
+<li><p>高风险：判断失误的后果是严重的。如果预期的成长没有到来，低估值可能演变成“价值陷阱”。</p></li>
+<li><p>时间成本高：从买入到实现双击，往往需要漫长的等待周期，考验投资者的耐心和定力。</p></li>
+</ul></li>
+<li><p><strong>适用场景：</strong></p>
+<ul>
+<li><p>更适合具有专业研究能力、能够进行长期投资的专业投资者或资深个人投资者。</p></li>
+<li><p>在熊市末期、经济复苏初期，市场普遍悲观，此时更容易找到被错杀的成长股，是布局戴维斯双击的黄金时期。</p></li>
+<li><p>对于那些处于新兴行业早期，商业模式尚未被大众完全理解，但成长路径清晰的公司，也可能存在双击机会。</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="六canslim法则" class="level2">
+<h2 class="anchored" data-anchor-id="六canslim法则">六、CANSLIM法则</h2>
+<p>CANSLIM法则是美国投资家、企业家威廉·欧奈尔（William J. O’Neil）在其著作《笑傲股市》（How to Make Money in Stocks）中提出的一套完整的成长股投资体系。与前述侧重价值和估值的策略不同，CANSLIM是一套典型的趋势动量策略，它不试图“买得便宜”，而是追求“买入强者并跟随趋势”，旨在捕捉那些处于主升浪的超级大牛股。</p>
+<section id="定义-4" class="level3">
+<h3 class="anchored" data-anchor-id="定义-4">1.定义</h3>
+<p>CANSLIM是七个选股标准的首字母缩写，每个字母代表了欧奈尔通过研究历史上数百只超级牛股总结出的共同特征。它是一个结合了基本面分析（C,A,N）和技术面/市场分析（S,L,I,M）的综合性选股系统。其逻辑基础是，股价的巨大涨幅背后，必然有其根本原因，即公司基本面的爆发式增长和市场上强大的购买力量。该策略试图在股价加速上涨的早期阶段介入，分享最肥美的一段行情。</p>
+</section>
+<section id="选股因子-4" class="level3">
+<h3 class="anchored" data-anchor-id="选股因子-4">2.选股因子</h3>
+<ul>
+<li><p><strong>C=Current Quarterly Earnings Per Share (当季每股收益)</strong></p>
+<p>量化标准：最近一个季度的EPS同比增长率应非常出色，欧奈尔建议至少在18-20%以上，但真正的大牛股往往能达到50%、100%甚至更高。同时，营收也应同步大幅增长。</p></li>
+<li><p><strong>A=Annual Earnings Per Share (年度每股收益)</strong></p>
+<p>量化标准：过去三年的年度EPS应持续增长，年均复合增长率至少在25%以上。同时，ROE应高于17%。</p></li>
+<li><p><strong>N=New Products, NewManagement, New Highs (新产品、新管理层、股价新高)</strong></p>
+<p>量化标准：这是一个定性与定量结合的因子。定性上，关注公司是否有颠覆性新产品或重大管理层变动。定量上，要求股价接近或正在创下52周新高。股价突破前期盘整平台是强烈的买入信号。</p></li>
+<li><p><strong>S=Supplyand Demand( 供给与需求)</strong></p>
+<p>量化标准：偏好流通股本较小的公司，因为较少的供给更容易在需求增加时产生价格弹性。同时，关注公司是否有大规模的股票回购计划，这是需求强劲的信号。</p></li>
+<li><p><strong>L=Leader or Laggard (领军股或落后股)</strong></p>
+<p>量化标准：选择行业内的龙头。可以通过相对强度指数（RSI）来衡量，选择RSI排名在市场前列的股票。此外，行业市占率、品牌知名度也是判断标准。</p></li>
+<li><p><strong>I=Institutional Sponsor ship (机构认同度)</strong></p>
+<p>量化标准：股票应有一定数量的机构投资者持有，特别是那些历史业绩优良的知名基金。这表明公司的价值得到了专业投资者的认可。但机构持股数量不宜过多，否则可能意味着股价已被充分挖掘，后续上涨空间有限。</p></li>
+<li><p><strong>M=Market Direction (市场趋势)</strong></p>
+<p>量化标准：这是决定是否入市的“总开关”。通过分析主要市场指数（如上证指数、标普500）的日线和周线图，判断市场是处于上升趋势（牛市）、下降趋势（熊市）还是盘整阶段。只有在明确的上升趋势中，才应积极使用CANSLIM策略选股。</p></li>
+</ul>
+</section>
+<section id="选股流程-4" class="level3">
+<h3 class="anchored" data-anchor-id="选股流程-4">3.选股流程</h3>
+<ul>
+<li><p>判断市场趋势</p>
+<ul>
+<li>算法实现：计算主要市场指数的50日均线和200日均线。当指数位于200日均线之上，且50日均线在200日均线之上（形成“黄金交叉”）时，定义为牛市。反之（形成“死亡交叉”）则为熊市。这是执行后续步骤的前提。</li>
+</ul></li>
+<li><p>基本面初筛</p>
+<ul>
+<li><p>筛选<span class="math inline">\(最新单季EPS同比增长率&gt;25%\)</span> 的股票。</p></li>
+<li><p>筛选<span class="math inline">\(过去三年EPS年均复合增长率&gt;25%\)</span> 的股票。</p></li>
+<li><p>筛选<span class="math inline">\(最新年报ROE&gt;17%\)</span> 的股票。</p></li>
+<li><p>将满足以上条件的股票取交集，形成初步的“高成长池”。</p></li>
+</ul></li>
+<li><p>技术面与市场面筛选，对“高成长池”中的股票进行进一步筛选。</p>
+<ul>
+<li><p>筛选<span class="math inline">\(当前股价/52周内最高价&gt;0.9\)</span>的股票。</p></li>
+<li><p>计算所有股票的90日相对强度（RS），筛选<span class="math inline">\(RS值排名在前20%\)</span>的股票。</p></li>
+<li><p>筛选<span class="math inline">\(持股机构家数在10家到200家之间\)</span>，且<span class="math inline">\(近一季度机构持仓比例增加\)</span>的股票。</p></li>
+<li><p>筛选<span class="math inline">\(流通股本\)</span>适中的公司。</p></li>
+</ul></li>
+<li><p>技术图形分析，寻找精确买</p>
+<ul>
+<li><p>对通过所有筛选的股票，分析其K线图，寻找经典的“杯柄形态”。</p></li>
+<li><p>当股价放量突破“杯柄”的柄部高点时，程序自动发出买入信号。 设置止损规则和止盈规则。</p></li>
+</ul></li>
+</ul>
+<p>4.优缺点与适用场景</p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li><p>提供了一套从宏观到微观、从基本面到技术面的完整操作框架，纪律性强。</p></li>
+<li><p>该策略旨在捕捉市场中最强劲的股票，一旦成功，短期内能获得极高的回报。</p></li>
+</ul></li>
+<li><p>缺点：</p>
+<ul>
+<li><p>高度依赖牛市，在熊市或震荡市中使用该策略，容易因频繁的假突破和止损而遭受重大亏损。</p></li>
+<li><p>追高风险：“买入新高”的特性决定了其买入点通常不便宜，一旦判断失误或市场转向，回撤会非常大。</p></li>
+<li><p>部分标准主观性强：对新产品/新管理的判断和对技术图形的识别需要相当的经验，难以完全量化。 严格的止损规则可能导致较高的交易频率和交易成本。</p></li>
+</ul></li>
+<li><p>适用场景：</p>
+<ul>
+<li><p>明确的牛市行情是使用CANSLIM策略的最佳土壤。</p></li>
+<li><p>适合风险偏好较高，能够承受较大波动，并严格遵守交易纪律的趋势交易者和动量投资者。</p></li>
+<li><p>对于科技、医药、新兴消费等创新驱动、容易产生爆发式增长的行业，CANSLIM尤其有效。</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="六其它经典选股策略" class="level2">
+<h2 class="anchored" data-anchor-id="六其它经典选股策略">六、其它经典选股策略</h2>
+<section id="红利低波选股策略" class="level3">
+<h3 class="anchored" data-anchor-id="红利低波选股策略">1.红利低波选股策略</h3>
+<p>红利低波策略的理论基础源于两个在金融学界被广泛研究的经典因子：</p>
+<p><strong>红利因子（Dividend Factor）：</strong>长期以来，高股息率被视为价值投资的一个重要信号。能够持续稳定支付现金股息的公司，通常被认为经营稳健、现金流充裕、治理结构良好，并且管理层对公司未来发展充满信心。股息也是投资者获得确定性回报的重要来源。</p>
+<p><strong>低波动异象（Low Volatility Anomaly）：</strong>大量的实证研究发现，在长期中，低波动性股票的风险调整后收益甚至优于高波动性股票。这被称为“低波动异象”。投资低波动股票，可以在不牺牲过多长期回报的前提下，显著降低投资组合的波动和回撤。</p>
+<p>红利低波策略巧妙地将这两个因子结合起来。它并非简单地相加，而是形成了一种互补和强化的关系。例如，高股息策略本身可能存在“股息率陷阱”，即某些公司因为股价大幅下跌导致股息率被动飙升，但其基本面可能已经恶化，未来分红不可持续。引入低波动等因子，可以有效过滤掉这类基本面不佳、股价剧烈波动的“伪高息股”，提高组合的质量和稳健性。</p>
+<p>红利低波策略的主要筛选指标包括：</p>
+<ul>
+<li><p>股息率（Dividend Yield）：这是最重要的核心指标，通常使用过去一年或过去三年的平均税后现金股息率进行衡量。 持续分红记录：为确保分红的稳定性，指数通常要求公司在过去数年（例如，连续三年）都有现金分红记录。</p></li>
+<li><p>分红支付率（Payout Ratio）：为了排除异常分红，如变卖资产后的一次性高分红，会剔除分红支付率过高的公司。 历史波动率：这是衡量波动性的核心指标。通常计算股票在过去一段时间（例如，过去一年或250个交易日）的日度收益率的标准差。</p></li>
+</ul>
+<p>红利低波策略选股流程：</p>
+<ol type="1">
+<li><p><strong>初始筛选</strong></p>
+<p>样本空间：如沪深A股。</p>
+<p>流动性筛选：剔除日均成交额或市值排名靠后的股票，保证可投资性。</p>
+<p>持续分红筛选：筛选出在过去N年（如3年）连续支付现金股息，且每年股息率大于0的股票。</p></li>
+<li><p><strong>双因分步筛选</strong></p>
+<p>红利筛选：在通过初始筛选的股票池中，按照股息率从高到低进行排名，选取排名前M名的股票（例如，排名前200名）作为高股息候选池。</p>
+<p>低波筛选：在上述高股息候选池中，再按照年化波动率从低到高进行排名，选取排名前K名的股票（例如，排名前50或100名）作为最终的指数成分股。</p>
+<p>补充筛选：可引入额外的质量或成长因子进行微调，例如要求过去几年的净资产收益率（ROE）为正或达到一定水平，以进一步提升成分股的质量。</p></li>
+<li><p><strong>指数加权与定期调整</strong></p>
+<p>权重分配方法：红利低波指数通常采用股息率加权的方式进行加权。即成分股的股息率越高，其在指数中所占的权重也越大。为了分散风险，也会设置个股的权重上限。</p>
+<p>定期调整：指数成分股和权重会进行定期审核和调整，以反映最新的市场和公司数据。调整频率通常为每年一次或每半年一次。</p></li>
+</ol>
+</section>
+<section id="现金流选股策略" class="level3">
+<h3 class="anchored" data-anchor-id="现金流选股策略">2.现金流选股策略</h3>
+<p>现金流选股策略的核心是<strong>“自由现金流”（Free Cash Flow, FCF）</strong>概念。学者认为，传统的会计利润（如净利润）容易受到会计准则、折旧方法、非现金项目等因素的操纵和扭曲，无法真实反映企业为股东创造价值的能力。自由现金流是指企业在支付了所有运营成本和维持现有资产规模所需的资本性支出后，能够完全自由支配的现金部分。这部分现金可以用于偿还债务、支付股息、进行再投资或回购股票，是企业内在价值最直接、最真实的体现。因此，自由现金流是衡量企业真实的“赚钱能力”和财务健康状况的黄金标准。</p>
+<p><strong>现金流选股策略的核心选股指标包括：</strong></p>
+<ul>
+<li><strong>自由现金流(FCF)的计算公式：</strong></li>
+</ul>
+<p><span class="math inline">\(自由现金流=经营活动产生的现金流量净额-资本性支出(包括购建固定资产、无形资产和其他长期资产支付的现金)\)</span></p>
+<p>为了在不同规模公司之间进行比较，通常会使用企业价值(EV)构建相对估值指标。其计算公式通常为：</p>
+<p><span class="math inline">\(企业价值(EV)=总市值+带息负债总额-货币资金\)</span></p>
+<p>企业价值代表了收购整个公司所需支付的总成本，考虑了股权和债权价值。</p>
+<ul>
+<li><strong>自由现金流收益率(FCF Yield)：</strong></li>
+</ul>
+<p>衡量了每一单位企业价值能够产生多少自由现金流，类似于股票的“现金收益率”。计算公式为：</p>
+<p><span class="math inline">\(自由现金流收益率=自由现金流/企业价值\)</span></p>
+<p>该比率越高，通常意味着公司的估值越具吸引力，或者其现金生成能力越强。</p>
+<p><strong>现金流策略选股流程：</strong></p>
+<ul>
+<li><p>确定样本空间：定义选股范围，A股市场中所有上市时间超过一年的股票。</p></li>
+<li><p>流动性筛选：剔除流动性较差的股票，以保证指数的可投资性。筛选标准通常是基于一段时间内的日均成交金额或日均总市值排名，例如，剔除排名后20%的股票。</p></li>
+<li><p>行业剔除：剔除金融和房地产业的股票。因为这些行业的商业模式和财务报表结构具有特殊性，其现金流的含义与其他行业有很大不同。</p></li>
+<li><p>基本面质量筛选，剔除那些现金流不稳定或盈利质量差的公司： 持续的经营现金流：要求公司在过去数个会计年度（例如，过去三年）的经营活动现金流量净额均为正。 盈利质量要求：要求公司最近一个会计年度的净利润为正，排除仍在亏损的企业。</p></li>
+<li><p>核心因子排序：在通过上述所有筛选后，对剩余的合格股票，按照自由现金流收益率指标进行降序排序。</p></li>
+<li><p>选取成分股：从排名靠前的股票中，选取预定数量的股票作为指数成分股，例如，选取排名前50或前100名的股票。</p></li>
+<li><p>权重分配方法：采用自由现金流加权的方式,即，成分股在指数中的权重由其自由现金流的绝对金额大小决定。这种加权方式区别于传统的市值加权，使得指数的配置更侧重于那些现金创造能力最强的企业。同时，为了避免单一个股权重过高带来的集中度风险，通常会设置个股的权重上限（例如，不超过10%）。</p></li>
+<li><p>定期调整：每季度或每半年进行调整，根据最新的财务数据和市场数据，重新执行上述完整的选股和加权流程。</p></li>
+</ul>
+<p>经典永不过时。如果说投资是在大海中航行，这些经典选股方法，就是航线中的智慧灯塔。但对于投资者而言，最重要的并非是盲目地复制某一套现成的公式，而是通过学习和实践，理解这些方法背后的深刻逻辑。</p>
+<p>随着机器学习、人工智能等前沿技术正在重塑量化生态，这些由投资大师们提出并被时间所验证的经典选股框架，依然闪耀着智慧的光芒。它们不仅是构建复杂量化模型的重要思想源泉，其本身经过适当的量化改造后，依然是强大而实用的投资工具</p>
+</section>
+</section>
+<section id="七传统方法和现在技术的融合" class="level2">
+<h2 class="anchored" data-anchor-id="七传统方法和现在技术的融合">七、传统方法和现在技术的融合</h2>
+<section id="传统方法的劣势" class="level3">
+<h3 class="anchored" data-anchor-id="传统方法的劣势">1.传统方法的劣势</h3>
+<p>我们正处在一个信息爆炸的时代，投资决策所需处理的数据量和复杂度呈指数级增长。人类在这方面已经远远落后于机器。一个人或一个团队能够阅读的研报、分析的财报、关注的新闻都是有限的。他们无法同时处理成千上万家公司的实时数据流和高频市场行情。机器则可以不知疲倦地7x24小时处理和分析这些的数据，从中发现人类分析师可能永远无法察觉的微弱信号和复杂关联。</p>
+<ul>
+<li><p>传统的研究，从发现投资线索、进行深度研究到最终做出投资决策，可能需要数周甚至数月的时间。在瞬息万变的市场中，这种延迟可能导致错失良机或无法及时规避风险。AI策略则可以实现对市场信息的实时分析和快速响应。</p></li>
+<li><p>市场在不断演化，旧的alpha因子会逐渐拥挤和失效。依靠人类经验很难系统性地从海量数据中挖掘出全新的、有效的alpha因子。而机器学习技术，它们能够自动地在复杂的非线性关系中发现新的收益预测源。</p></li>
+<li><p>“直觉”分配的权重虽然反映了投资经理的信念，但几乎可以肯定，它并非在数学意义上最优的。它没有系统性地考虑各个资产之间的相关性、组合的整体波动率、尾部风险等因素。机器可以运用先进的优化算法，在给定风险预算和约束条件下，找到夏普比率更高、回撤更小的投资组合权重方案。</p></li>
+<li><p>人类决策过程最大的敌人，是深植于我们基因中的各种认知偏见。投资者容易受到一系列认知偏见的影响，如过度自信、损失厌恶、处置效应以及羊群效应等。这些偏见会导致系统性的投资失误。</p>
+<p>在市场压力下，即使是经验丰富的经理也可能偏离其既定的投资风格和原则，追逐短期热点或在恐慌中抛售。这种缺乏纪律性的行为往往是长期业绩不佳的主要原因。算法模型基于严格的算法和数据进行决策，天然地规避了这些情绪和偏见驱动的行为。它能够严格执行预设的规则，保持投资纪律的一致性。</p></li>
+</ul>
+</section>
+<section id="人机协同的模式" class="level3">
+<h3 class="anchored" data-anchor-id="人机协同的模式">2.人机协同的模式</h3>
+<p>传统方法与AI驱动方法并非简单的零和博弈，而是一个典型的优势互补的组合。传统方法拥有深度、智慧和灵活性，而AI拥有广度、速度和纪律性。人机协同的“混合模式”正成为越来越多顶尖资产管理机构的共识和实践方向。</p>
+<p>在这种模式下，人与AI不再是竞争对手，而是共生的合作伙伴，各自在决策链中扮演最擅长的角色。AI用来赋能人类，而非取代他们。AI负责处理海量数据，进行初步筛选，识别异常信号，生成投资创意，以及对投资组合进行压力测试和情景分析。这极大地扩展了人类的信息处理边界，使其能够从繁重的低层次数据工作中解放出来。</p>
+<p>人类作为“最终决策者”，则处于决策的核心，扮演着战略制定者、风险把控者和最终裁判的角色。人类必须负责：</p>
+<ul>
+<li><p>设定投资哲学与框架：定义投资的目标、价值观和基本原则。</p></li>
+<li><p>解读AI的输出：结合自己的经验和对宏观环境的理解，评估AI生成结果的合理性，判断是接受、拒绝还是修正。</p></li>
+<li><p>注入情境感知：将AI无法理解的定性信息、地缘政治风险、市场情绪等“情境”因素，融入到最终的决策中。</p></li>
+<li><p>承担最终责任：为投资决策的最终结果负责。</p></li>
+</ul>
+</section>
+<section id="人类角色的转变" class="level3">
+<h3 class="anchored" data-anchor-id="人类角色的转变">3.人类角色的转变</h3>
+<p>在人机协同的新范式下，人类的经验和直觉并未消失，而是发生了角色的演进和升华。它不再是关于“拍脑袋”式的决策，而是转化为更高层次的智慧。</p>
+<ul>
+<li><p><strong>从“执行者”到“监督者”：</strong>人类的角色从亲自执行每一个分析和交易任务，转变为设计、监督和引导AI系统。他们需要深刻理解AI模型的假设、偏见和适用边界，知道在什么情况下可以信任模型，在什么情况下需要人为干预。</p></li>
+<li><p><strong>从“答案寻找者”到“问题定义者”：</strong>AI擅长在给定的框架下寻找最优解，但人类的创造力在于提出正确且有价值的问题。未来投资经理的核心竞争力之一，将是如何创造性地定义投资问题，设计独特的另类数据集，以及构建能够捕捉市场新动态的分析框架，然后让AI去高效地求解。</p></li>
+<li><p><strong>从“信息处理”到“意义整合”：</strong>人类的认知优势将更多地体现在对信息的“意义”层面的整合上。他们需要将AI输出的冰冷数据，与宏观经济叙事、产业演化逻辑、社会文化变迁等宏大背景相结合，形成一个连贯且有深度的投资论点。</p></li>
+</ul>
+</section>
+<section id="对投资者技能的要求" class="level3">
+<h3 class="anchored" data-anchor-id="对投资者技能的要求">4.对投资者技能的要求</h3>
+<p>这种角色的演变，对2026年及未来的投资专业人士提出了全新的技能要求。未来的顶尖人才将不再是纯粹的金融专家或技术专家，而是两者兼备的“复合型人才”，或被业界称为“量化基本面”投资者。他们需要具备“双语能力”：既要懂金融，也要懂代码。这意味着他们不仅需要深厚的财务分析、估值建模和宏观经济理解能力，还需要掌握数据科学、机器学习基础和至少一种编程语言。</p>
+<p>此外，随着机器承担了越来越多的分析工作，批判性思维、创造力、沟通能力和适应性等“软技能”，其重要性将不降反升。</p>
+</section>
+<section id="未来展望" class="level3">
+<h3 class="anchored" data-anchor-id="未来展望">5.未来展望</h3>
+<p>展望未来，投资领域的竞争将不再是“人类基金经理”与“AI基金经理”之间的竞赛，而是“掌握了AI的人类”与“尚未掌握AI的人类”之间的竞赛。最成功的投资机构，将是那些能够构建起高效、深度的人机协同文化和流程的机构和团队。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第2章 因子选股 第6节 数据处理.html" class="pagination-link" aria-label="第2章 因子选股 第6节 数据处理">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第2章 因子选股 第6节 数据处理</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
