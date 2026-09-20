@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第3章 择时 第3节 宏观经济 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第3章 择时 第2节 技术指标和技术分析.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第3章 择时 第3节 宏观经济.html">第3章 择时 第3节 宏观经济</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一宏观量化择时的理论基础" id="toc-一宏观量化择时的理论基础" class="nav-link" data-scroll-target="#一宏观量化择时的理论基础">一、宏观量化择时的理论基础</a>
+  <ul class="collapse">
+  <li><a href="#量化择时的核心" id="toc-量化择时的核心" class="nav-link" data-scroll-target="#量化择时的核心">1.量化择时的核心</a></li>
+  <li><a href="#宏观经济影响资产定价的传导机制" id="toc-宏观经济影响资产定价的传导机制" class="nav-link" data-scroll-target="#宏观经济影响资产定价的传导机制">2.宏观经济影响资产定价的传导机制</a></li>
+  <li><a href="#宏观量化择时方法的演进" id="toc-宏观量化择时方法的演进" class="nav-link" data-scroll-target="#宏观量化择时方法的演进">3.宏观量化择时方法的演进</a></li>
+  </ul></li>
+  <li><a href="#二核心宏观经济指标及" id="toc-二核心宏观经济指标及" class="nav-link" data-scroll-target="#二核心宏观经济指标及">二、核心宏观经济指标及</a>
+  <ul class="collapse">
+  <li><a href="#经济增长和经济景气度" id="toc-经济增长和经济景气度" class="nav-link" data-scroll-target="#经济增长和经济景气度">1.经济增长和经济景气度</a></li>
+  <li><a href="#通货膨胀和物价水平" id="toc-通货膨胀和物价水平" class="nav-link" data-scroll-target="#通货膨胀和物价水平">2.通货膨胀和物价水平</a></li>
+  <li><a href="#货币政策与流动性" id="toc-货币政策与流动性" class="nav-link" data-scroll-target="#货币政策与流动性">3.货币政策与流动性</a></li>
+  <li><a href="#情绪与预期" id="toc-情绪与预期" class="nav-link" data-scroll-target="#情绪与预期">4.情绪与预期</a></li>
+  </ul></li>
+  <li><a href="#三数据获取和数据处理" id="toc-三数据获取和数据处理" class="nav-link" data-scroll-target="#三数据获取和数据处理">三、数据获取和数据处理</a>
+  <ul class="collapse">
+  <li><a href="#宏观数据来源" id="toc-宏观数据来源" class="nav-link" data-scroll-target="#宏观数据来源">1.宏观数据来源</a></li>
+  <li><a href="#宏观数据处理的技术流程" id="toc-宏观数据处理的技术流程" class="nav-link" data-scroll-target="#宏观数据处理的技术流程">2.宏观数据处理的技术流程</a></li>
+  <li><a href="#特殊处理" id="toc-特殊处理" class="nav-link" data-scroll-target="#特殊处理">3.特殊处理</a></li>
+  </ul></li>
+  <li><a href="#四常用的模型和方法" id="toc-四常用的模型和方法" class="nav-link" data-scroll-target="#四常用的模型和方法">四、常用的模型和方法</a>
+  <ul class="collapse">
+  <li><a href="#专家规则" id="toc-专家规则" class="nav-link" data-scroll-target="#专家规则">1.专家规则</a></li>
+  <li><a href="#宏观多因子模型" id="toc-宏观多因子模型" class="nav-link" data-scroll-target="#宏观多因子模型">2.宏观多因子模型</a></li>
+  <li><a href="#经典计量经济学模型和方法" id="toc-经典计量经济学模型和方法" class="nav-link" data-scroll-target="#经典计量经济学模型和方法">3.经典计量经济学模型和方法</a></li>
+  <li><a href="#状态转换模型" id="toc-状态转换模型" class="nav-link" data-scroll-target="#状态转换模型">4.状态转换模型</a></li>
+  <li><a href="#机器学习模型" id="toc-机器学习模型" class="nav-link" data-scroll-target="#机器学习模型">5.机器学习模型</a></li>
+  <li><a href="#谨慎使用复杂模型" id="toc-谨慎使用复杂模型" class="nav-link" data-scroll-target="#谨慎使用复杂模型">6.谨慎使用复杂模型</a></li>
+  </ul></li>
+  <li><a href="#五一个简单的宏观择时模型案例" id="toc-五一个简单的宏观择时模型案例" class="nav-link" data-scroll-target="#五一个简单的宏观择时模型案例">五、一个简单的宏观择时模型案例</a>
+  <ul class="collapse">
+  <li><a href="#宏观择时模型构建流程" id="toc-宏观择时模型构建流程" class="nav-link" data-scroll-target="#宏观择时模型构建流程">1.宏观择时模型构建流程</a></li>
+  <li><a href="#模型风险" id="toc-模型风险" class="nav-link" data-scroll-target="#模型风险">2.模型风险</a></li>
+  </ul></li>
+  <li><a href="#六主观投资者如何分析宏观" id="toc-六主观投资者如何分析宏观" class="nav-link" data-scroll-target="#六主观投资者如何分析宏观">六、主观投资者如何分析宏观</a>
+  <ul class="collapse">
+  <li><a href="#宏观分析什么" id="toc-宏观分析什么" class="nav-link" data-scroll-target="#宏观分析什么">1.宏观，分析什么？</a></li>
+  <li><a href="#宏观分析的一般流程" id="toc-宏观分析的一般流程" class="nav-link" data-scroll-target="#宏观分析的一般流程">2.宏观分析的一般流程</a></li>
+  <li><a href="#中美宏观分析的五大差异" id="toc-中美宏观分析的五大差异" class="nav-link" data-scroll-target="#中美宏观分析的五大差异">3.中美宏观分析的五大差异</a></li>
+  <li><a href="#对量化的启示" id="toc-对量化的启示" class="nav-link" data-scroll-target="#对量化的启示">4.对量化的启示</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第3章 择时 第3节 宏观经济</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>进入2026年，全球资本市场正处于一个由宏观经济基本面、货币和财政政策转向和技术革命共同塑造的复杂环境中。在经历了前几年的高波动和不确定性后，投资者对于能够有效识别市场周期、规避系统性风险并捕捉趋势性机会的策略需求更加迫切。在这一背景下，基于宏观经济分析的量化择时策略，正从传统的辅助工具，演变为现代投资管理的核心组成部分。</p>
+<p>本节，我们将系统性的介绍宏观经济变量在量化择时中的应用。我们将深入探讨宏观经济如何通过影响企业盈利、市场流动性及投资者情绪等三大渠道，最终作用于资产价格。我们将详细拆解经济增长、通货膨胀、货币政策与流动性、市场情绪等维度的核心宏观指标，并阐述其在量化择时模型中的应用逻辑与实践方法。</p>
+</section>
+<section id="一宏观量化择时的理论基础" class="level2">
+<h2 class="anchored" data-anchor-id="一宏观量化择时的理论基础">一、宏观量化择时的理论基础</h2>
+<section id="量化择时的核心" class="level3">
+<h3 class="anchored" data-anchor-id="量化择时的核心">1.量化择时的核心</h3>
+<p>前文中我们介绍，量化择时是一种投资策略，其核心目标是通过构建系统化、纪律化的数量模型，来预测未来特定时间周期内市场的整体走势，从而做出战略性的资产配置决策。量化择时强调决策的客观性、可重复性和风险可控性。量化择时的关键基础是挖掘并利用能够预示市场未来方向的关键信息。</p>
+<p><strong>宏观经济指标</strong>之所以在量化择时中扮演着至关重要的角色，是因为它是宏观经济各个维度的直接度量和刻画。而股票市场的整体表现，本质上是对实体经济健康状况的映射与定价。因此，通过合理的量化分析宏观经济数据，我们能够识别<strong>经济周期</strong>与<strong>市场周期</strong>之间的领先、同步或滞后关系，从而实现对市场方向的提前预判。</p>
+</section>
+<section id="宏观经济影响资产定价的传导机制" class="level3">
+<h3 class="anchored" data-anchor-id="宏观经济影响资产定价的传导机制">2.宏观经济影响资产定价的传导机制</h3>
+<p>宏观经济变量并非直接的作用于股票价格，而是通过一系列复杂的渠道进行传导。理解这些传导机制，是构建有效宏观择时模型的理论前提。总体来说有以下三个方面：</p>
+<ul>
+<li><p><strong>基本面：即企业盈利。</strong>这是最直接的传导路径。</p>
+<p>宏观经济的景气度直接决定了上市公司的整体盈利能力。例如，较高的GDP增长率、强劲的制造业PMI指数通常意味着企业收入和利润的增长前景良好，从而支撑股市整体估值上行。反之，经济衰退则会侵蚀企业盈利，引发市场下跌。</p></li>
+<li><p><strong>流动性：即资金松紧。</strong>中央银行的货币政策是影响市场流动性的决定性因素。</p>
+<p>利率水平、货币供应量（M1、M2）、社会融资规模等指标，共同决定了金融体系内可用于投资的资金总量。当货币政策宽松，市场利率下行，M2增速加快时，充裕的流动性会推高风险资产的价格，引发估值扩张，即所谓的“水牛”行情。</p></li>
+<li><p><strong>市场情绪：即投资者风险偏好。</strong>宏观经济数据会显著影响投资者的预期和风险偏好。</p>
+<p>例如，持续向好的就业数据和消费者信心指数会提振市场乐观情绪，促使投资者更愿意承担风险，将资金从低风险的债券、货币市场转向高风险的股票市场。反之，通胀高企、经济前景不明朗则会引发避险情绪，导致资金流出股市。</p></li>
+</ul>
+<p>这三个维度相互交织，共同作用于市场。一个有效的宏观择时模型，必须能够综合考量这三方面的影响，而不仅仅是依赖单一维度的指标。</p>
+</section>
+<section id="宏观量化择时方法的演进" class="level3">
+<h3 class="anchored" data-anchor-id="宏观量化择时方法的演进">3.宏观量化择时方法的演进</h3>
+<p>宏观量化择时的发展历程，是经济学、金融学和计算机科学不断融合的缩影。</p>
+<ul>
+<li><p>早期阶段，宏观量化择时以简单的线性回归模型为主，试图找到单一宏观指标（如利率）与股指收益之间的线性关系。例如，著名的“美联储模型”（Fed Model）将股票市场的盈利收益率（Earnings Yield，即市盈率倒数）与长期国债收益率进行比较，用于判断股票市场的相对吸引力。</p>
+<p>该模型逻辑简单直观，为股债配置提供简单的量化锚点；而局限在于，忽略了盈利增长预期、风险溢价波动、通胀环境差异等因素，也无法解释科技股泡沫等极端估值现象。</p></li>
+<li><p>随着计量经济学的发展，更复杂的模型被引入。时间序列分析（ARIMA模型）、状态空间模型以及能够捕捉市场“牛市”和“熊市”不同行为模式的状态转换模型（Regime Switching Models）开始流行。</p>
+<p>例如，SWARCH模型，它是一个用于分析金融市场波动状态的统计模型，它假设市场波动会在不同的状态（如“低波动”和“高波动”）之间进行切换；该模型采用了马尔可夫状态转换机制，通过一个不可观测的状态变量允许模型参数在不同波动状态间切换。通过识别这些状态及其转换概率，该模型不仅能精准定位历史上的重大波动事件，还能有效提升风险预测的准确性。</p></li>
+<li><p>现在，我们正处于一个全新的时代，人工智能与机器学习全面渗透，支持向量机（SVM）、决策树、神经网络等算法被广泛应用于宏观择时，以更好地捕捉宏观变量与市场之间复杂、非线性的映射关系；同时，策略的构建也从依赖少数几个指标，转向融合数十甚至数百个指标的多因子框架。</p>
+<p>越来越多的人正在利用AI和NLP技术挖掘和验证新的宏观因子，如政策文件、新闻舆情等。基于<strong>多模态</strong>融合技术，模型能够同时理解和处理来自数值（宏观指标）、文本（研报）、图像（K线图）等多种来源的信息，形成更立体和全面的判断。宏观量化择时正变得越来越精细、复杂、立体和智能。</p></li>
+</ul>
+</section>
+</section>
+<section id="二核心宏观经济指标及" class="level2">
+<h2 class="anchored" data-anchor-id="二核心宏观经济指标及">二、核心宏观经济指标及</h2>
+<p>构建宏观择时模型的第一步，是选择并深刻理解一系列核心宏观经济指标。我们将它们分为以下几个维度进行详细解读。</p>
+<section id="经济增长和经济景气度" class="level3">
+<h3 class="anchored" data-anchor-id="经济增长和经济景气度">1.经济增长和经济景气度</h3>
+<p>这类指标反映了实体经济的产出和活跃程度，直接关系到企业的盈利状况。经济增长意味着社会总需求旺盛。对企业而言，这直接体现为订单增加、产能利用率提升，从而转化为更高的营业收入和利润。盈利是股价的基石，景气度上行往往伴随着上市公司基本面的实质性改善。强劲的经济景气度数据也会增强投资者对未来企业盈利的信心，吸引资金流入。这种乐观情绪会迅速反映在股价上涨中，使得市场表现与经济周期高度同步，即”顺周期性”。</p>
+<section id="国内生产总值gdp增长率" class="level4">
+<h4 class="anchored" data-anchor-id="国内生产总值gdp增长率">1.1.国内生产总值（GDP）增长率</h4>
+<p>指标解读：GDP是衡量一个国家经济总量和增长的最终指标。其季度和年度增长率是判断经济周期的核心依据。</p>
+<p>应用逻辑：GDP数据是低频数据（季度发布），且存在一定的发布延迟，因此不适合用于高频择时。但它为判断长周期市场趋势提供了基准锚。</p>
+<p>在模型中，通常使用GDP的预期值、实际值与预期值的差值（Surprise）或者其同比/环比增速的趋势作为输入。</p>
+</section>
+<section id="工业增加值" class="level4">
+<h4 class="anchored" data-anchor-id="工业增加值">1.2.工业增加值</h4>
+<p>指标解读：衡量制造业、采矿业和公用事业等工业部门的总产出，是月度数据，比GDP更为高频。</p>
+<p>应用逻辑：工业增加值同比增速是观察经济短期动能的绝佳指标。其加速增长通常与股市上行周期同步或略有领先。</p>
+<p>在构建择时信号时，可以将工业增加值增速与其自身的移动平均线进行比较，形成“金叉/死叉”信号，或者观察其连续超预期的月份数。</p>
+</section>
+<section id="采购经理人指数pmi" class="level4">
+<h4 class="anchored" data-anchor-id="采购经理人指数pmi">1.3.采购经理人指数（PMI）</h4>
+<p>指标解读：PMI是领先指标，通过对企业采购经理的月度调查结果来编制，综合反映了制造业或服务业的整体健康状况。通常以50为荣枯分界线。</p>
+<p>应用逻辑：PMI因其高频（月度发布）、前瞻性和及时性（月初发布），成为宏观量化择时模型中最受欢迎的指标之一。PMI指数本身、其新订单分项、新出口订单分项以及产出分项等，都可作为模型的关键输入。</p>
+<p>例如，一个经典的择时规则是：当PMI连续三个月站上50并持续回升时，视为买入信号；反之，跌破50并持续下行则为卖出信号。更复杂的模型会结合PMI的绝对水平和其环比变化（动量）来生成更平滑的仓位建议。</p>
+</section>
+</section>
+<section id="通货膨胀和物价水平" class="level3">
+<h3 class="anchored" data-anchor-id="通货膨胀和物价水平">2.通货膨胀和物价水平</h3>
+<p>通胀水平不仅影响企业成本和居民购买力，更是中央银行制定货币政策的核心依据。现代中央银行的核心职责和目标就是是维持物价稳定，以及促进充分就业。通胀水平直接衡量了货币的对内价值，是判断货币政策”松紧”是否合适的最终标尺。通胀上行通常意味着总需求过热或货币发行过量，需要收紧政策来为经济降温；反之则需要宽松来刺激。更重要的是，央行需要通过调节政策来”锚定”公众的通胀预期，防止预期脱锚引发工资和物价的螺旋式上涨，从而导致经济失控。</p>
+<section id="居民消费价格指数cpi" class="level4">
+<h4 class="anchored" data-anchor-id="居民消费价格指数cpi">2.1.居民消费价格指数（CPI）</h4>
+<p>指标解读：衡量一篮子消费品和服务价格的变化，是衡量通货膨胀的主要指标。</p>
+<p>应用逻辑：温和的通胀（例如13%）通常被视为经济健康的标志，有利于企业盈利传导，对股市是积极的。然而，过高的通胀会侵蚀企业利润，并迫使央行采取紧缩政策（加息），从而对股市估值构成双重打击。</p>
+<p>在模型中，CPI的同比增速、其拐点以及核心CPI（剔除食品和能源）的趋势都非常重要。当CPI同比增速过高并形成加速上行趋势时，通常是减仓的警示信号。</p>
+</section>
+<section id="工业生产者出厂价格指数ppi" class="level4">
+<h4 class="anchored" data-anchor-id="工业生产者出厂价格指数ppi">2.2.工业生产者出厂价格指数（PPI）</h4>
+<p>指标解读：衡量工业企业产品首次出售时的价格变化，反映了上游生产领域的成本压力。</p>
+<p>应用逻辑：PPI通常被视为CPI的领先指标。PPI的快速上行意味着中下游企业的成本压力增大。</p>
+</section>
+<section id="ppi-cpi剪刀差" class="level4">
+<h4 class="anchored" data-anchor-id="ppi-cpi剪刀差">2.3.PPI-CPI剪刀差</h4>
+<p>指标解读：即PPI同比增速与CPI同比增速之差。</p>
+<p>应用逻辑：这个指标对判断中国A股的中上游周期性行业和下游消费行业的相对表现极具价值。当“剪刀差”扩大时（PPI增速远高于CPI增速），意味着利润从下游向上游转移，有利于原材料、能源等周期股。当“剪刀差”收窄或为负时，下游消费品和服务业的利润空间得到改善。</p>
+<p>在择时层面，持续扩大的剪刀差往往预示着经济面临成本推动型通胀压力，可能引发政策收紧，对市场整体构成利空。</p>
+</section>
+</section>
+<section id="货币政策与流动性" class="level3">
+<h3 class="anchored" data-anchor-id="货币政策与流动性">3.货币政策与流动性</h3>
+<p>流动性是驱动资产价格的直接动力。无论基本面如何，资金的充裕与否都直接决定了市场的短期表现。一方面，当资金供给充足，流动性充裕，追逐既定数量资产的钱变多，根据供需关系，资产价格自然上涨；反之则下跌。另一方面， 充裕的流动性降低了资金成本，即利率，促使投资者更敢于加杠杆和承担风险。这不仅提高了市场的整体购买力，还通过提升风险偏好，使得资金更愿意流入风险资产，从而直接推高其价格。</p>
+<section id="利率" class="level4">
+<h4 class="anchored" data-anchor-id="利率">3.1.利率</h4>
+<p>指标解读：包括中央银行的政策利率（如LPR）、市场化的货币市场利率（如SHIBOR、国债回购利率）以及长期国债收益率。</p>
+<p>应用逻辑：利率是资金的价格。利率上行，意味着融资成本增加，企业投资意愿下降，同时无风险收益率的提高会降低股票的吸引力，对股市估值形成压制。</p>
+<p>在模型中，十年期国债收益率常被用作无风险利率的代理，其与股指盈利收益率的比较（即股债性价比）是经典的大类资产配置择时指标。当股债性价比处于历史高位时，是配置股票的较好时机。</p>
+</section>
+<section id="货币供应量m1m2" class="level4">
+<h4 class="anchored" data-anchor-id="货币供应量m1m2">3.2.货币供应量（M1,M2）</h4>
+<p>指标解读：M2代表广义货币供应量，反映了全社会的潜在购买力。M1主要由现金和企业活期存款构成，反映了现实购买力，其增速变化与企业经营活跃度高度相关。</p>
+<p>应用逻辑：M2增速是衡量市场宏观流动性的关键指标。历史上，A股的牛市往往伴随着M2增速的显著提升。而“M1-M2剪刀差”（M1同比增速-M2同比增速）则是一个更敏感的领先指标。</p>
+<p>剪刀差由负转正并扩大，通常意味着企业将定期存款转为活期存款，预示着企业经营活动趋于活跃，对股市是积极信号。反之，剪刀差收窄或转负则可能是经济降温的信号。</p>
+</section>
+<section id="社会融资规模" class="level4">
+<h4 class="anchored" data-anchor-id="社会融资规模">3.3.社会融资规模</h4>
+<p>指标解读：社会融资规模是指实体经济（如企业和个人）从整个金融体系获得的总资金支持，是一个能全面反映金融对实体经济输血力度的关键指标。它记录了通过各种渠道（从银行贷款到发行股票债券）流入实体经济的资金总量，是中央银行制定货币政策时重点监测的核心依据之一。它包括人民币贷款、外币贷款、委托贷款、信托贷款、未贴现的银行承兑汇票、企业债券、政府债券、非金融企业境内股票融资等。</p>
+<p>应用逻辑：社融存量增速是判断“信用周期”的核心指标。其走势通常领先于经济周期。社融增速的企稳回升，往往预示着宽信用政策开始见效，实体经济融资需求改善，是市场见底回升的重要领先信号。</p>
+<p>在择时模型中，社融增速的拐点是极其关键的输入变量。</p>
+</section>
+<section id="居民中长期贷款" class="level4">
+<h4 class="anchored" data-anchor-id="居民中长期贷款">3.4.居民中长期贷款</h4>
+<p>指标解读：居民中长期贷款是社会融资规模的重要组成，它主要指金融结构向个人发放的、期限在一年以上的贷款。它主要由三部分组成：住房抵押贷款、中长期消费贷（如车贷）和中长期经营贷。尽管近年来经营贷和消费贷的占比有所提升，但从存量上看，住房按揭贷款仍占主体地位（约70%）。</p>
+<p>应用逻辑：由于房贷占大头，这个指标的增减，直接反映了居民的购房意愿和房地产市场的冷暖。同时，它也是衡量居民部门加杠杆意愿和消费信心的重要窗口，如果该指标持续增长，通常意味着居民对未来收入和经济前景较为乐观。</p>
+</section>
+</section>
+<section id="情绪与预期" class="level3">
+<h3 class="anchored" data-anchor-id="情绪与预期">4.情绪与预期</h3>
+<p>宏观经济影响股票市场另一关键路径是影响投资者情绪。 情绪的波动会改变投资者对未来的主观预期，情绪驱动的集体行为会直接改变短期的买卖力量对比。当情绪乐观时，即使基本面未变，人们也倾向于相信未来会更好，并据此买入，最终因买入行为本身推涨了价格，反过来又验证了当初的乐观预期，形成一个正反馈循环。同时，在羊群效应的驱使下，一众跟风交易者会进一步强化这一趋势。</p>
+<section id="消费者信心指数" class="level4">
+<h4 class="anchored" data-anchor-id="消费者信心指数">4.1.消费者信心指数</h4>
+<p>指标解读：反映消费者对经济形势、就业和收入的信心，以及未来的消费意愿。</p>
+<p>应用逻辑：作为经济的先行指标，消费者信心指数的持续提升预示着未来消费支出的增加，利好消费类行业并提振整体市场情绪。其大幅、意外的下滑，则可能是经济即将放缓的警示。</p>
+</section>
+<section id="投资者情绪指标" class="level4">
+<h4 class="anchored" data-anchor-id="投资者情绪指标">4.2.投资者情绪指标</h4>
+<p>指标解读：这类指标没有官方的统计指标发布，甚至没有统一的指标和计算方法，通常由研究者根据个人需要自主构建。</p>
+<p>例如，可以通过统计市场成交量、成交额、换手率、散户开户数、融资融券余额、股指期货基差、甚至是利用NLP技术分析财经新闻和社交媒体的文本语调来合成。</p>
+<p>应用逻辑：情绪指标常作为反向指标使用。当市场情绪极度亢奋（如成交额创天量，散户开户数激增），往往是市场阶段性见顶的信号。反之，当情绪极度悲观，市场“一片哀鸿”，通常是逆势布局的良机。</p>
+<p>在模型中，情绪指标可以作为触发买卖操作的过滤器或调节仓位大小的权重。</p>
+</section>
+</section>
+</section>
+<section id="三数据获取和数据处理" class="level2">
+<h2 class="anchored" data-anchor-id="三数据获取和数据处理">三、数据获取和数据处理</h2>
+<section id="宏观数据来源" class="level3">
+<h3 class="anchored" data-anchor-id="宏观数据来源">1.宏观数据来源</h3>
+<ul>
+<li><p><strong>官方统计机构：</strong>中国的国家统计局、中国人民银行、海关总署等是核心数据的权威发布方。</p>
+<p>美国的经济分析局（BEA）、劳工统计局（BLS）、美联储（FED）等也同样重要。</p>
+<p>FRED（Federal Reserve Economic Data）数据库是全球宏观研究者广泛使用的免费、高质量数据源。</p></li>
+<li><p><strong>国际组织：</strong>国际货币基金组织（IMF）、世界银行（World Bank）、经济合作与发展组织（OECD）等提供跨国比较的宏观数据。</p></li>
+<li><p><strong>商业数据提供商：</strong>万得（Wind）、同花顺（iFind）、彭博（Bloomberg）、FactSet、Haver等商业数据库一般是专业投资机构的标配，它们提供的数据更全面、更新更及时，并经过了初步的清洗和标准化。</p></li>
+<li><p><strong>另类数据和网络爬虫：</strong>随着技术发展，卫星图像用于监测港口吞吐量预测工厂开工率、信用卡交易数据用于预测消费、网络爬虫获取各种数据，都广泛用于更高频地追踪宏观经济动向。</p></li>
+</ul>
+</section>
+<section id="宏观数据处理的技术流程" class="level3">
+<h3 class="anchored" data-anchor-id="宏观数据处理的技术流程">2.宏观数据处理的技术流程</h3>
+<p>原始的宏观数据往往是“粗糙”的，无法直接用于量化模型，需要进行严格的数据预处理。</p>
+<ol type="1">
+<li><p><strong>数据清洗：</strong>处理缺失值、异常值和数据错误。例如，对于缺失的数据点，可以采用前值填充、后值填充或线性插值等方法。</p></li>
+<li><p><strong>时间和频率对齐：</strong>宏观数据频率不一，有月度的PMI、季度的GDP、每日的利率。在构建模型时，必须将它们统一到同一个频率上（通常是月度或周度）。高频数据向低频转化较为简单（如取期末值或平均值），而低频向高频转化则需要更复杂的插值技术，以生成更平滑、合理的序列。</p></li>
+<li><p><strong>季节性调整：</strong>许多经济指标，如GDP、失业率和零售数据等，往往会受到季节性因素的影响，使得数据在不同时间周期内呈现周期性的波动。为了更准确地反映经济趋势，通常需要对这些数据进行季节性调整。</p>
+<p><strong>X-12-ARIMA模型</strong>就是一个被广泛应用的季节性调整工具。需要注意的是，该方法是由美国当局开发的季节性调整工具，未考虑像春节这样随阴历变化的移动假日，用于国内应使用经过本土化改造的版本，如中国人民银行开发的PBC版。</p></li>
+<li><p><strong>平稳性处理：</strong>许多宏观经济时间序列（如GDP总量）是非平稳的，即其均值和方差随时间变化。直接使用非平稳序列进行回归可能导致“伪回归”问题。因此，需要通过差分或计算其百分比变化率（如同比增长率）来将其转换为平稳序列。</p></li>
+<li><p><strong>数据标准化：</strong>当模型需要输入多个量纲不同的指标时，需要将它们进行标准化（如Z-Score标准化），使其处于同一可比的尺度上，避免模型被某些数值范围大的指标所主导。</p></li>
+</ol>
+</section>
+<section id="特殊处理" class="level3">
+<h3 class="anchored" data-anchor-id="特殊处理">3.特殊处理</h3>
+<p>宏观指标在中国市场用于量化择时，需要重点考虑一些重要的因素：</p>
+<ul>
+<li><p><strong>春节效应：</strong>春节是中国最重要的传统节日，但其时间在公历上在1月下旬至2月中旬漂浮不定，这给宏观经济数据的处理带来了巨大挑战。由于春节假期期间企业停产、工地停工、消费集中释放，每年1月和2月的工业增加值、固定资产投资、社会消费品零售总额等数据会产生剧烈波动。直接比较同比数据往往失真。</p>
+<p>实践中，常用的处理方法是将1-2月数据合并发布和解读（中国统计局也常采用此方式），或使用上文提到的X-12-ARIMA等模型进行专门的春节效应调整。</p></li>
+<li><p><strong>数据质量与透明度：</strong>尽管近年来中国宏观统计数据的规范性和透明度已有显著提升，但部分历史数据的质量和统计口径的调整，仍可能给建模工作带来影响。</p>
+<p>中国的宏观经济统计体系处于不断演进之中。一些统计口径的调整会导致历史序列出现结构性断点，对此需要进行拼接或修正。部分历史时期的地方数据可能存在质量参差不齐的问。</p>
+<p>实践中，优选权威部门发布的、经过审计的数据库，并在模型中加入对异常发布事件的稳健性处理，避免过度拟合有瑕疵的数据点。</p></li>
+<li><p><strong>中国市场的“政策市”特征：</strong>这意味着宏观择时模型不能仅局限于经济数据本身，更应该引入对政策信号的解读，例如：货币政策（如降准降息）、财政政策（如消费刺激），产业政策（如房地产、新能源）。政策的转向往往比经济数据本身更能驱动市场的方向性变动。例如，中央经济工作会议和每年两会所定下的经济基调，往往奠定了未来一个季度的市场主线。</p>
+<p>如何将这些政策文本转化为模型的输入信号，是当前量化研究的前沿领域。利用<strong>自然语言处理（NLP）</strong>技术，可以对上述政策文件的文本进行情感分析和建模，构建相应的指数用于择时预测。将这些非结构化数据与传统宏观数据相结合，才能更全面地刻画中国市场的驱动逻辑。</p></li>
+</ul>
+</section>
+</section>
+<section id="四常用的模型和方法" class="level2">
+<h2 class="anchored" data-anchor-id="四常用的模型和方法">四、常用的模型和方法</h2>
+<section id="专家规则" class="level3">
+<h3 class="anchored" data-anchor-id="专家规则">1.专家规则</h3>
+<p>专家规则是将经济学理论、历史经验与市场直觉编码为显式决策条件的宏观择时方法，表现为”若A且B则C”的逻辑形式，与数据驱动的机器学习形成鲜明对比。</p>
+<p>其核心优势在于完全透明可解释，可直接追溯至经济第一性原理，且对样本量需求极低，不易过拟合。</p>
+<p>经典体系包括：收益率曲线倒挂（如10Y-2Y利差为负预示衰退）、明斯基信用周期（债务增速与偿债成本双重阈值）、库存周期四阶段模型，以及融合多维度指标的NBER式衰退确认规则等等。</p>
+<p>然而，专家规则也存在主观性强、信号滞后以及难以适应复杂市场结构变化等局限，有的规则则刻意采用模糊阈值与失效模式界定，以应对机制转变。</p>
+<p>在现代量化实践中，它常与机器学习等技术融合，例如将经典规则作为输入特征，或用作策略的过滤器，从而实现经验逻辑与数据挖掘的优势互补。这种结合既保留了决策的可解释性，又增强了对市场动态的适应能力。</p>
+</section>
+<section id="宏观多因子模型" class="level3">
+<h3 class="anchored" data-anchor-id="宏观多因子模型">2.宏观多因子模型</h3>
+<p>多因子模型是现代量化投资的基石，也是仍在被广泛采纳的主流框架。宏观指标作为一类重要的因子整合进这个框架中。</p>
+<p>选择一系列能够反映经济增长、通胀和货币政策的宏观指标。这些指标分别代表了几个具有明确经济含义的“宏观因子”，例如“经济增长因子”包括GDP、PMI、工业增加值等；“通胀因子”包括CPI、PPI等；“流动性因子”包括M2、利率、社融等。分析这些宏观指标与市场整体收益的关系，来进行择时。</p>
+<p>使用宏观指标构建量化择时策略，一般逻辑是，宏观经济本身存在<strong>趋势性</strong>。对各指标计算其动量，例如：计算当前值与其过去12个月移动平均值的差值。</p>
+<p>然后，将这些动量信号分类进行加权汇总，合成一个综合的宏观指标。当该综合指标持续上行时，表明宏观基本面在改善，增持风险资产；当指标持续下行时，则表明宏观环境恶化，减持风险资产。这种方法的好处是平滑了单一指标的噪音，捕捉了宏观经济的整体趋势。</p>
+</section>
+<section id="经典计量经济学模型和方法" class="level3">
+<h3 class="anchored" data-anchor-id="经典计量经济学模型和方法">3.经典计量经济学模型和方法</h3>
+<p>经典的计量经济学模型，理论框架完善，模型结构清晰，经济学含义明确，是宏观量化择时的基础，也是目前应用比较广泛的方法。例如，通过建立股指收益率与一个或者多个宏观变量之间的线性回归模型，来预测未来收益。例如：</p>
+<p><span class="math inline">\(股指未来一个月收益率=a+b1*PMI变化+b2*利率变化+b3*M1M2剪刀差+ε\)</span>。</p>
+<p>当择时目标不是预测收益率，而是预测市场的涨跌方向（二元变量）时，可以使用Logit或Probit模型。模型的输出是市场在下一期上涨的概率，可以据此设定阈值来产生买卖信号。</p>
+<p>在备选指标很多的情况下，可以借助逐步回归的方法从大量备选指标中筛选出最显著的几个。这类模型的优点是简单、易于解释，但缺点是无法捕捉非线性关系和结构性变化。</p>
+</section>
+<section id="状态转换模型" class="level3">
+<h3 class="anchored" data-anchor-id="状态转换模型">4.状态转换模型</h3>
+<p>这类模型的核心思想是，市场是在不同的“状态”之间进行切换，如“牛市”和“熊市”，或“高波动”和“低波动”。比较常用的是马尔可夫状态转换模型（Markov Regime-Switching Model）。</p>
+<p>该模型假定市场的状态转换遵循一个马尔可夫链，并能同时估计出每个状态下的模型参数（如均值、波动率）以及当前处于各个状态的概率。择时决策基于模型对于当前市场状态的判断概率。</p>
+<p>这类模型的特点在于，在不同状态下，各宏观变量对市场的影响可以是不同的，例如：模型可能发现，在牛市状态下，PMI的提升对股指有很强的正向驱动；而在熊市状态下，流动性（M2）的边际改善更为重要。</p>
+</section>
+<section id="机器学习模型" class="level3">
+<h3 class="anchored" data-anchor-id="机器学习模型">5.机器学习模型</h3>
+<p>传统模型的范式是逻辑驱动，即有经济学逻辑引导和约束数据关系的拟合和构建。而机器学习模型的范式则是“数据驱动”，即让模型自己从海量、多维度的数据中学习和发现能够预测市场走势的复杂模式。</p>
+<p>一般认为，机器学习模型的优势在于：处理数高维度数据，不会轻易陷入维度灾难；并擅长捕捉非线性关系；以及不知疲倦的自主挖掘新的因子。</p>
+<p>目前，机器学习模型应用于宏观量化择时比较常见的案例如下：</p>
+<ul>
+<li><p>利用<strong>遗传算法</strong>等自动地从海量数据中挖掘、组合和测试新的择时因子，形成一个不断新陈代谢的动态因子库。</p></li>
+<li><p><strong>随机森林和梯度提升决策树（GBDT，如XGBoost，LightGBM）</strong>等集成模型，是目前宏观量化择时领域最受欢迎的算法。它们通过集成多个弱学习器的预测，获得了比单一模型更高的准确性和稳健性，且对数据噪声不敏感，并保留了一定的可解释性。</p></li>
+<li><p><strong>深度学习</strong>中，长短期记忆网络（LSTM）等循环神经网络（RNN）变体，以及带有自注意力机制的Transformer模型等，适合处理时间序列数据，用于捕捉宏观时间序列中复杂的数据规律。</p></li>
+</ul>
+<p>市场结构是动态变化的，这要求模型也应该具有自适应性与进化能力。机器学习模型系统可以被设计成能够持续学习和自我优化的动态系统，不断适应新的市场环境。</p>
+</section>
+<section id="谨慎使用复杂模型" class="level3">
+<h3 class="anchored" data-anchor-id="谨慎使用复杂模型">6.谨慎使用复杂模型</h3>
+<p>本书中，我不厌其烦的反复强调着机器学习模型应用于量化投资模型的<strong>局限性</strong>。与机器学习在图像识别、自然语言处理或高频微观结构交易中的巨大成功相比，其在宏观择时领域的落地效果往往不及预期。</p>
+<ul>
+<li><p><strong>宏观数据的低频、低信噪比与样本量不足，与需要高数据量的模型形成根本矛盾。</strong></p>
+<p>宏观数据是典型的低频数据。大多数关键指标，如GDP、CPI、PMI、失业率等，以月度或季度频率发布。这与“高频交易”领域形成鲜明对比。在高频领域，每秒数千笔的Tick数据为模型提供了海量训练样本；而对于宏观择时，即使回溯10年，一个月频指标也仅有120个数据点。这对于动辄需要数百万样本进行训练的深度学习模型而言，是杯水车薪。</p>
+<p>由于缺乏逻辑引导和约束，模型会在高维空间中寻找任何能够降低训练集误差的模式。宏观数据样本量有限，而模型的复杂度可能远超样本数量。模型确实完美拟合了这些数据点，但它学到的不是数据背后的规律，而是每个点自身的噪音。当新数据出现时，这条过度扭曲的曲线往往会做出极其离谱的预测。即便使用交叉验证，由于宏观时间序列的独特性和非独立性，传统的交叉验证方法也容易高估模型的泛化能力。</p>
+<p>宏观数据是高度聚合的统计结果，发布前经过了人为的修订和去噪。更重要的是，资产价格的波动主要受“预期差”驱动，而非宏观数据本身。当宏观数据发布时，其信息早已被市场预期所消化。模型试图从已经被市场消化的、低频率、且包含大量修订噪音的数据中，要提取出能够预测未来收益的纯净信号，其难度无异于大海捞针。信号被淹没在政策噪音、预期噪音、测量误差和众多无法观测的宏观变量噪音之中。</p></li>
+<li><p><strong>缺乏逻辑约束与因果推断，导致“伪相关”与过拟合风险高企。</strong></p>
+<p>机器学习本质上是拟合历史数据中的统计相关性，而非理解经济运行的内在机理。宏观经济学建立在逻辑框架之上，这些框架为变量间的关系提供了因果指引。然而，缺乏理论的指引，机器学习模型更多捕捉到一些在样本内统计显著、但在经济学逻辑上站不住脚的伪相关。</p>
+<p>择时的本质是判断“如果X发生，那么Y发生的概率会增加”，这是一种因果关系的探寻。但标准的机器学习模型只能回答“当X出现时，Y也出现的概率是多少”，这是一种相关性描述。宏观系统中，变量互为因果、存在大量混淆因素。机器学习模型缺乏识别这种因果结构的能力，很容易将噪音当作信号。</p>
+<p>宏观系统最大的特征在于其<strong>非平稳性</strong>和<strong>结构性突变</strong>，例如2008年金融危机、2020年疫情、地缘政治冲突等。这些突变是择时的最大机会和风险所在。然而，机器学习模型本质上是基于“历史会重演”的假设。对于历史上从未出现过或仅出现过一两次的极端事件，模型没有足够的数据去学习，其预测往往是外推历史均值，导致在关键时刻完全失效。传统的经济模型至少能提供一个基于理论冲击的定性分析框架。</p></li>
+<li><p><strong>在实际效果上，对传统的线性模型和简洁的打分模型并为体现出优势。</strong></p>
+<p>大量学术研究和业界实践表明，在宏观择时领域，复杂的机器学习模型（如LSTM、XGBoost）相对于简单的线性回归模型或逻辑回归，其预测准确率的提升极其有限，甚至在很多情况表现更差。而传统的扩散指数（Diffusion Index）、经济领先指标（LEI）通过简单加权或投票机制，或基于主观的专家规则（如“收益率曲线倒挂+信贷紧缩+库存周期”），往往表现比黑箱模型更加稳健。</p>
+<p>宏观金融时间序列是否真的存在复杂、稳定且可预测的非线性关系，本身就是一个巨大的疑问。宏观变量与资产价格之间的关系，在很大程度上可以通过线性模型和状态转换来近似描述。机器学习模型强行挖掘出的非线性，往往是对历史噪音的过度拟合，而非对真实世界复杂性的准确刻画。</p>
+<p>传统的打分模型或线性因子模型具有高度的透明性和可解释性。它们基于明确的逻辑构建，参数极少，对样本外数据的适应能力往往更强。它们的决策边界是光滑且稳定的。相比之下，机器学习模型的高波动性和不稳定性，使得它在实际投资组合中难以被信任和依赖。一个逻辑清晰、结构简单的线性模型，即便失效也是可解释的，更容易进行人为干预和调整。</p></li>
+</ul>
+<p>综上所述，将机器学习应用于宏观量化择时，本质上是试图用擅长处理“高维、高频、高信噪比、相对平稳”数据的工具，去解决一个“低维、低频、低信噪比、非平稳、充满结构突变”的问题。这种范式上的不匹配，导致了上述三个根本性的局限性。</p>
+<p>但这并未是彻底否定机器学习。当前更为务实的做法，是将其作为辅助工具，融入到传统的宏观分析框架中：</p>
+<ul>
+<li><p>特征提取：利用机器学习从海量文本数据中提取市场情绪或政策意图。</p></li>
+<li><p>非线性校准：在传统线性模型的基础上，用机器学习捕捉变量间残留的、稳定的非线性关系。</p></li>
+<li><p>情景分析与压力测试：利用生成模型模拟不同宏观情景下的资产价格路径。</p></li>
+<li><p>增强可解释性：在使用复杂模型的同时，结合SHAP值等方法，剖析模型背后的主要驱动因素，并与经济学逻辑进行对照验证，只有那些符合逻辑的“机器学习信号”，才值得被纳入最终的决策考量。</p></li>
+</ul>
+</section>
+</section>
+<section id="五一个简单的宏观择时模型案例" class="level2">
+<h2 class="anchored" data-anchor-id="五一个简单的宏观择时模型案例">五、一个简单的宏观择时模型案例</h2>
+<section id="宏观择时模型构建流程" class="level3">
+<h3 class="anchored" data-anchor-id="宏观择时模型构建流程">1.宏观择时模型构建流程</h3>
+<p>实践中，一个完整的宏观择时模型构建流程如下：</p>
+<ol type="1">
+<li><p><strong>确定投资目标与约束：</strong>明确策略的目标是进行高频的波段操作还是低频的战略资产配置？标的是宽基指数（如沪深300）还是特定行业/风格（如小微盘指数）？这决定了选择哪些指标作为择时因子。</p></li>
+<li><p><strong>构建指标体系：</strong>从前述的经济增长、通胀、流动性、情绪四大维度，筛选出一篮子核心指标。</p></li>
+<li><p><strong>选择与构建模型：</strong></p>
+<p>简单模型：可以从一个简单的评分卡模型开始。为每个指标设定阈值和评分规则（例如，PMI&gt;52得2分，50-52得1分，&lt;50得-1分），然后汇总总分。根据总分的高低来决定股票仓位（例如，总分&gt;5，满仓；总分0-5，半仓；总分&lt;0，空仓）。</p>
+<p>复杂模型：采用XGBoost或LSTM等机器学习模型。将所有处理好的宏观指标作为特征（X），将未来一个月股指的涨跌幅或涨跌方向作为标签（Y），对历史数据进行训练和验证。</p></li>
+<li><p><strong>回测与评估：</strong>在足够长的历史数据上进行严格的回测，评估策略的夏普比率、最大回撤、年化收益、胜率等指标。必须进行样本外测试，以检验模型的泛化能力。</p></li>
+<li><p><strong>实盘模拟与执行：</strong>在实盘交易前，进行一段时间的模拟盘交易，以检验模型的实际表现和交易执行中的问题。建立纪律化的交易执行系统，严格遵守模型发出的信号。</p></li>
+</ol>
+</section>
+<section id="模型风险" class="level3">
+<h3 class="anchored" data-anchor-id="模型风险">2.模型风险</h3>
+<p>宏观量化择时并非没有风险，投资者必须清醒地认识到其局限性：</p>
+<ol type="1">
+<li><p><strong>数据延迟与修订：</strong>宏观数据存在发布延迟，且后续可能会被修订，这使得实盘中看到的“实时”数据与最终数据存在差异，从而影响模型决策的准确性。在回测中必须使用“时点”数据，即在每个决策时点只使用当时已经发布且可知的数据。</p></li>
+<li><p><strong>模型过拟合：</strong>所有量化策略共同的“潜在风险”。模型在回测中表现完美，但在实盘中却一败涂地，通常是因为模型过度拟合了历史数据的噪音而非真实的规律。规避的方法包括：保持模型的简约性、增加数据量、使用交叉验证和样本外测试、关注模型的经济学可解释性等等。</p></li>
+<li><p><strong>宏观范式突变：</strong>模型基于历史数据学习到的规律，可能在未来发生根本性改变。例如，一次全球性的金融危机或技术革命，可能彻底改变某些宏观变量与市场的关系。应对策略是：模型中应包含能识别结构性断点的模块，并定期对模型进行重新审视和校准。同时，构建多个基于不同逻辑和数据的子策略，以分散单一模型失效的风险。</p></li>
+<li><p><strong>策略拥挤：</strong>随着量化投资的普及，如果大量资金都在使用相似的宏观指标和模型进行择时，可能会导致信号的同质化，使得策略收益衰减，甚至答复回撤。应对之道是不断创新，挖掘独特的另类数据源和更先进的模型。</p></li>
+</ol>
+</section>
+</section>
+<section id="六主观投资者如何分析宏观" class="level2">
+<h2 class="anchored" data-anchor-id="六主观投资者如何分析宏观">六、主观投资者如何分析宏观</h2>
+<p>作为资深量化从业人员，我深刻的认识到自己的一个重要短板就是宏观分析。所以，本节最后，我想引用一篇我认为非常好的文章，与读者一起学习和了解，主观投资者如何分析宏观。本文主要内容来自微信公众号”东八区的脆西”文章。原文链接：</p>
+<p>https://mp.weixin.qq.com/s/at9UQGuq0SKUaD6mw3a81A</p>
+<p>文章作者结合多年研究与实战经验，系统性地分享了一套宏观分析框架，包含“四条主线、一个约束、六个步骤”。读完本文，您将获得清晰的宏观分析思路，掌握一套可复现的宏观分析方法，同时了解中美两大经济体的分析逻辑差异。</p>
+<p>我对内容稍作整理，保留了原文的核心框架，同时调整了论述细节，使其更具可读性，为量化投研人员学习宏观分析提供参考。</p>
+<section id="宏观分析什么" class="level3">
+<h3 class="anchored" data-anchor-id="宏观分析什么">1.宏观，分析什么？</h3>
+<p>在深入具体指标之前，我们需要厘清宏观分析的四个层次：</p>
+<ul>
+<li><p><strong>事实层：当前经济是什么样的？</strong></p>
+<p>这是分析的起点，刻画宏观经济的当前状态。主要通过两类核心指标观测：</p>
+<ul>
+<li><p>增长类指标：如GDP、PMI、工业增加值、社会消费品零售总额、失业率等，它们是衡量经济运行的景气程度。</p></li>
+<li><p>通胀/价格类指标：如CPI、核心CPI、PPI，它们反映的是物价水平。</p></li>
+</ul></li>
+<li><p><strong>机制层：为什么会这样？</strong></p>
+<p>分析宏观经济背后的驱动力，拆解经济的动力结构，揭示问题所在：</p>
+<ul>
+<li><p>需求端：宏观经济的“三驾马车”中，是消费、投资还是出口在拉动或拖累经济？</p></li>
+<li><p>供给端：产能利用率如何？生产成本（如原材料、工资）是否形成压力？</p></li>
+</ul></li>
+<li><p><strong>政策层：政府与央行会如何反应？</strong></p>
+<p>理解了经济面临的问题，就需要对政策进行预判：</p>
+<ul>
+<li><p>货币政策：央行倾向于加息、降息还是维持不变？</p></li>
+<li><p>财政政策：财政部是否会加大支出、减税降费？</p></li>
+</ul></li>
+<li><p><strong>定价层：市场已经“提前反应”了吗？</strong></p>
+<p>金融市场通常是“提前反应”。利率、汇率、信用利差、股指波动等，都包含了市场参与者对未来宏观图景的预期。分析市场定价，也是检验我们自身判断的重要一环。</p></li>
+</ul>
+<p>这四个层次串联起来，就形成了一个完整的宏观分析闭环：数据（增长+通胀）→政策（货币+财政）→金融条件（流动性的松紧）→资产价格与实体经济预期→真实的消费与投资行为→再回到下一轮数据。</p>
+<p>而贯穿这条主线的，是一个永恒的约束条件，风险。无论是地缘政治，还是重大自然灾害，都可能随时打断经济运行的正常节奏。</p>
+</section>
+<section id="宏观分析的一般流程" class="level3">
+<h3 class="anchored" data-anchor-id="宏观分析的一般流程">2.宏观分析的一般流程</h3>
+<p>面对错综复杂的数据，如何像专业的宏观分析师一样抽丝剥茧，形成有说服力的结论？以下是标准化的六步流程：</p>
+<ol type="1">
+<li><p><strong>定义任务，明确分析目标</strong></p>
+<p>在打开任何数据前，先问自己：我这次分析是为了回答什么问题？是判断未来1-2个季度的景气度？是预测央行下一次会议的行动？还是评估宏观环境对个人资产配置的影响？目标不清晰，就容易被数据牵着鼻子走。</p>
+<p>输出示例：【我要回答：未来两个季度，中国经济是“修复”还是“继续走弱”，以及宏观政策会更“宽松”还是“维持”。】</p></li>
+<li><p><strong>收集、整理、分析数据</strong></p>
+<p>将纷繁散落的数据收拢成一张简洁的“三要素”表格，帮助我们快速把握当下宏观经济状态。</p>
+<p>经济增长： 中国：重点看PMI（制造业与服务业景气度，50荣枯线）、工业增加值（工业生产活力）、社零（消费意愿）、固定资产投资（基建、地产、制造业三大引擎）。 欧美：同样看PMI，但更侧重于就业数据（失业率、新增非农就业，体现居民收入）和零售销售（消费动能）。</p>
+<p>通货膨胀： 中国：同时关注CPI（居民消费价格，体现下游需求）和PPI（工业生产者价格，体现上游成本与企业利润压力）。“CPI-PPI”剪刀差常用来衡量企业盈利空间。 欧美：核心是核心CPI和薪资增速，因为服务消费占主导，工资-通胀的螺旋效应更强，决定了通胀的“粘性”。</p>
+<p>金融条件： 中国：观察政策利率（如7天逆回购利率）、市场基准利率（如DR007，银行间流动性“水温计”）、社融存量增速（全社会总融资需求）以及人民币汇率。 欧美：主要看国债收益率曲线（2年期对政策利率敏感，10年期对增长预期敏感）、信用利差（企业债与国债的息差，反映风险偏好）和美元指数。</p>
+<p>输出示例：【目前经济：偏冷；通胀：偏弱下行；金融条件：中性偏松。】</p></li>
+<li><p><strong>定位宏观象限</strong></p>
+<p>将“增长（强/弱）”与“通胀（高/低）”组合，就能定位经济处于哪个象限。这能帮助我们迅速理解政策的核心矛盾。</p>
+<p>象限I（复苏）：增长↑，通胀↓。政策通常维持宽松，权益资产占优。</p>
+<p>象限II（过热）：增长↑，通胀↑。政策倾向于收紧，商品往往表现强势。</p>
+<p>象限III（滞胀）：增长↓，通胀↑。政策陷入两难，现金或短久期债券是较好选择。</p>
+<p>象限IV（衰退）：增长↓，通胀↓。政策趋于宽松，债券是明确的多头品种。</p>
+<p>中美差异：美国经济由消费主导，其周期切换更多由核心通胀驱动利率变化；而中国经济更依赖投资和政策调度，其周期切换往往体现为信用扩张能否顺利传导至实体投资。</p>
+<p>输出示例：【目前更像第IV象限（衰退），因此政策约束主要来自“稳增长”压力，而非通胀。】</p></li>
+<li><p><strong>拆解宏观指标各分项</strong></p>
+<p>以GDP为例：GDP是一个总数，我们必须拆开来看，谁在贡献，谁在拖累。</p>
+<p>核心公式：GDP=消费+投资+政府支出+净出口。</p>
+<p>中国：投资驱动型“调度系统”。重点拆解投资（地产、基建、制造业）和出口。消费（社零）往往是就业和收入改善后的“后周期”结果。分析中国增长，核心是追踪信用传导机制：政策发力→银行信贷扩张→资金投向基建和制造业→带动就业与需求。</p>
+<p>欧美：消费驱动型“跑车”。美国消费占GDP近七成，因此增长的韧性取决于就业-薪资-消费这个主链条能否持续。分析欧美增长，核心是追踪居民部门的“三件套”：就业与工资（消费预期）、信贷成本（房贷、信用卡利率）、居民与企业的资产负债表健康度。</p>
+<p>中美差异：同样是“增长偏弱”，美国常见原因是“消费降温”（利率高、贷款贵、就业走弱）；中国常见原因是“投资链条慢/信用传导不畅”（地产链条、项目落地节奏、企业信心）。</p>
+<p>输出示例：【需求端：主要拉动来自“制造业投资”和“出口”，主要拖累来自“房地产投资”，可持续性取决于“外需韧性与企业设备更新意愿”。】</p></li>
+<li><p><strong>预判政策走向</strong></p>
+<p>基于现状与驱动力的分析，下一步是对政策进行预判。</p>
+<p>中国，多目标权衡： 核心问题：①信用传导通不通？（社融结构是否优化，钱是否流向了实体经济）；②地产链条稳不稳？（销售、开工、融资有无企稳信号）；③外部约束强不强？（汇率压力、跨境资本流动）。 预判方向：不仅是“降不降息”，更要判断财政政策（特别国债、专项债）是否会加码、地产政策是否会进一步优化、结构性货币政策工具（如科技创新再贷款）是否会发力。</p>
+<p>欧美，通胀-就业双目标： 核心问题：①通胀是否朝着目标持续回落？；②就业市场是否出现实质性降温？（失业率上升、薪资增速放缓）。 预判方向：焦点是利率路径：何时停止加息、何时开始降息、降息幅度和节奏如何。</p>
+<p>输出示例：【下一阶段政策更可能在“财政加码”和“地产优化”上发力，主要因为“内生增长动能偏弱”，但掣肘是“银行净息差收窄”和“汇率稳定压力”。】</p></li>
+<li><p><strong>寻求市场验证</strong></p>
+<p>观察市场的“投票结果”，验证我们的判断，并检查是否存在预期差。 关键观察指标有：</p>
+<p>国债利率：资金的基础价格，反映对增长和通胀的预期。</p>
+<p>信用利差：反映企业融资难易度和市场整体风险偏好。</p>
+<p>汇率：尤其对新兴市场，汇率是外部约束和资本流向的集中体现。</p>
+<p>股市涨跌：反映投资者风险偏好变化。</p>
+<p>股市风格：价值与成长、顺周期与防御板块的相对表现，也在反映宏观预期。</p>
+<p>中美差异： 中国重点：利率与信用环境、人民币、风险偏好、企业融资情况。 欧美重点：2Y/10Y利率、信用利差、美元、股市。</p>
+<p>输出示例：【市场定价与我的判断不一致。最大的分歧点在于，我认为增长偏弱需要政策宽松，但市场利率（如10年期国债收益率）却在上升，可能反映了市场对“财政供给冲击”或“通胀预期回升”的担忧。】</p></li>
+<li><p><strong>情景推演与风险清单，为不确定性做好准备</strong></p>
+<p>最后一步，也是最关键的一步，是列出可能颠覆我们判断的风险因素，并推演其传导路径。 四类核心风险：</p>
+<p>金融风险：信用事件爆发、流动性突然收紧。</p>
+<p>财政风险：主权债务压力、大规模发债冲击市场利率。</p>
+<p>外部风险：地缘冲突、关税壁垒、大宗商品价格冲击。</p>
+<p>内部结构风险：中国的地产与人口问题，欧美的服务通胀粘性。</p>
+<p>中美差异： 中国最大风险：地产成交再明显走弱（地产—地方财政—银行风险偏好联动）；地方财政/化债节奏不及预期，信用扩张效率低（钱到不了长期需求端）；地产链条企稳不及预期 ；外部摩擦升级影响出口订单。 欧美最大风险： 核心通胀重新抬头，通胀粘性导致“高利率更久”；财政赤字与国债供给推高长端利率，长端利率大幅上行导致金融条件骤紧；信用利差走阔引发融资收缩。</p>
+<p>输出示例：【最大风险触发器是“核心通胀超预期反弹”；一旦发生，将通过“强化美联储鹰派立场→美债利率飙升→全球金融条件收紧→打压新兴市场风险偏好”的链条，影响中国资产估值。】</p></li>
+</ol>
+</section>
+<section id="中美宏观分析的五大差异" class="level3">
+<h3 class="anchored" data-anchor-id="中美宏观分析的五大差异">3.中美宏观分析的五大差异</h3>
+<p>在全球宏观分析中，最常犯的错误就是将一套框架生搬硬套到所有国家。中美经济金融结构的本质差异，决定了我们必须建立两套略有不同的分析范式。</p>
+<ul>
+<li><p>增长引擎差异： 美国：是典型的消费驱动。分析核心是“就业-收入-消费”的循环。 中国：是投资与制造业驱动的“调度型”经济。分析核心是“政策-信用-投资”的传导效率。</p></li>
+<li><p>通胀结构差异： 美国：服务消费占比高，使得通胀（尤其是核心通胀）更具粘性，薪资是关键变量。 中国：商品消费比重大，且工业体系完整，因此需同时关注CPI（需求）和PPI（利润），“猪周期”和“工业品价格”是重要影响因素。</p></li>
+<li><p>金融体系差异： 美国：以直接融资和市场定价为主。美联储通过调节利率，直接影响整个市场的资金成本（价格型调控）。 中国：以间接融资和银行体系为主。央行更依赖数量型工具（如降准、MLF）和窗口指导，来影响银行的信贷投放能力和意愿（数量与结构型调控）。</p></li>
+<li><p>政策目标函数差异： 美联储：目标相对聚焦，即充分就业与物价稳定的双重使命。 中国央行：呈现典型的多目标权衡，包括：增长、就业、通胀、国际收支平衡、金融稳定，甚至包括特定时期的产业结构调整支持。</p></li>
+<li><p>地产角色差异： 美国：房地产是经济的重要组成部分，其波动主要通过利率→购房成本→投资与消费的渠道传导，相对市场化。 中国：房地产深度捆绑居民资产负债表、地方财政收入和银行信用扩张，具有牵一发而动全身的系统重要性。因此，分析中国地产，不能只看销量，更要看它对信用创造和信心的影响。</p></li>
+</ul>
+</section>
+<section id="对量化的启示" class="level3">
+<h3 class="anchored" data-anchor-id="对量化的启示">4.对量化的启示</h3>
+<p>主观投资者的宏观分析框架，对量化投资者来说，是一座宝贵的“思想金矿”。量化投资通常依赖历史数据和统计规律，但在面对宏观经济的“非稳态”变化（如突发政策转向、地缘冲突）时，往往会失效。主观分析的逻辑推演和因果思维，恰好可以弥补量化模型的这一短板。主观宏观分析能给量化投资者带来的以下启示：</p>
+<ul>
+<li><p>从“相关性交易”转向“因果性验证”</p>
+<p>量化模型擅长发现相关性，但宏观分析的核心是因果逻辑。对量化而言，不要只挖因子，更要构建“因果检验”。</p>
+<p>例如，如果模型发现“油价上涨”与“航空股下跌”高度相关，可以引入宏观逻辑来验证：这一轮油价上涨是因为需求拉动（全球经济向好，此时航空股可能不跌反涨），还是供给冲击（地缘政治风险，成本上升挤压利润）？量化模型可以引入“归因标签”，针对不同类型的油价上涨触发不同的交易规则。</p></li>
+<li><p>构建“状态切换”模型</p>
+<p>主观投资者时刻在判断经济处于周期的哪个阶段（衰退、复苏、过热、滞胀）。量化模型如果只用单一参数跑全场，很容易在宏观拐点处被反复打脸。对量化而言，将主观的“宏观情境”量化成“状态变量”。</p>
+<p>例如，不再使用一套固定的因子权重。可以设计一个“宏观状态识别模块”，利用宏观数据（如通胀趋势、利率曲线、PMI）将市场划分为不同的宏观场景。当模型判定当前处于“衰退+宽松”状态时，自动提高债券因子的权重，降低周期股因子的权重；当判定为“过热+紧缩”时，自动增加商品因子的权重。</p></li>
+<li><p>提升对“尾部风险”的定价能力</p>
+<p>主观投资者总是在思考“黑天鹅”或“政策突变”。而纯量化模型基于历史数据，往往会低估那些从未发生或极少发生的事件。对量化而言，应引入“情景分析”和“压力测试”。</p>
+<p>例如，量化模型可以不再单纯依赖历史回测，而是输入“假设性情景”。例如，利用主观分析的逻辑推演，设计“如果中东冲突升级导致油价翻倍”或“如果美联储紧急降息”等极端情景，然后通过量化模型模拟投资组合在这些情景下的表现。这有助于优化投资组合的尾部风险对冲。</p></li>
+<li><p>引入“预期差”因子</p>
+<p>主观投资的核心是寻找市场预期与实际情况的偏差。量化模型通常只处理已公布的数据，而不处理“市场对数据的看法”。对量化而言，应增加“宏观情绪/预期差因子”。</p>
+<p>例如，量化模型可以不仅看CPI数据本身，而是抓取分析师的预测中值，计算“实际公布值vs.预期值”的偏差。当偏差极大时，往往是市场波动最剧烈、趋势最强的时刻。这种“宏观惊喜指标”就是一种将主观的“预期差”概念量化的产物。</p></li>
+<li><p>其他</p>
+<p>扩展数据边界，接入央行政策文件文本、地缘政治事件、社交媒体情绪等非结构化数据；</p>
+<p>学习主观投资者的”耐心”，避免过度交易，设计基于宏观确认信号的交易触发机制；</p>
+<p>保留”人工否决权”，在模型与常识严重冲突时，允许主观干预。</p></li>
+</ul>
+<p>总之，用量化模型的高效运算能力去处理数据，同时用主观宏观的逻辑框架去约束模型的边界、识别当下的周期位置，并在极端风险到来前通过“情景预设”提前做好布局。量化投资者不应试图完全复制主观判断，而应将主观洞察转化为可量化、可验证、可系统执行的规则，在”艺术”与”科学”之间找到平衡。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="pagination-link" aria-label="第3章 择时 第2节 技术指标和技术分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第3章 择时 第2节 技术指标和技术分析</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
