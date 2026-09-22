@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第3章 择时 第5节 期权和期货指标 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第3章 择时 第4节 投资者情绪.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第3章 择时 第5节 期权和期货指标.html">第3章 择时 第5节 期权和期货指标</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#第一部分期权指标" id="toc-第一部分期权指标" class="nav-link active" data-scroll-target="#第一部分期权指标">第一部分：期权指标</a>
+  <ul class="collapse">
+  <li><a href="#引言" id="toc-引言" class="nav-link" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一波动率类指标" id="toc-一波动率类指标" class="nav-link" data-scroll-target="#一波动率类指标">一、波动率类指标</a>
+  <ul class="collapse">
+  <li><a href="#隐含波动率与恐慌指数" id="toc-隐含波动率与恐慌指数" class="nav-link" data-scroll-target="#隐含波动率与恐慌指数">1.隐含波动率与恐慌指数</a></li>
+  <li><a href="#隐含波动率曲面与结构因子" id="toc-隐含波动率曲面与结构因子" class="nav-link" data-scroll-target="#隐含波动率曲面与结构因子">2.隐含波动率曲面与结构因子</a></li>
+  </ul></li>
+  <li><a href="#二成交和持仓类择时指标" id="toc-二成交和持仓类择时指标" class="nav-link" data-scroll-target="#二成交和持仓类择时指标">二、成交和持仓类择时指标</a>
+  <ul class="collapse">
+  <li><a href="#pcr的定义与分类" id="toc-pcr的定义与分类" class="nav-link" data-scroll-target="#pcr的定义与分类">1.PCR的定义与分类</a></li>
+  <li><a href="#择时原理与逻辑" id="toc-择时原理与逻辑" class="nav-link" data-scroll-target="#择时原理与逻辑">2.择时原理与逻辑</a></li>
+  <li><a href="#信号构建" id="toc-信号构建" class="nav-link" data-scroll-target="#信号构建">3.信号构建</a></li>
+  </ul></li>
+  <li><a href="#三尾部风险与高阶矩因子" id="toc-三尾部风险与高阶矩因子" class="nav-link" data-scroll-target="#三尾部风险与高阶矩因子">三、尾部风险与高阶矩因子</a>
+  <ul class="collapse">
+  <li><a href="#隐含偏度" id="toc-隐含偏度" class="nav-link" data-scroll-target="#隐含偏度">1.隐含偏度</a></li>
+  <li><a href="#隐含峰度" id="toc-隐含峰度" class="nav-link" data-scroll-target="#隐含峰度">2.隐含峰度</a></li>
+  </ul></li>
+  <li><a href="#四总结" id="toc-四总结" class="nav-link" data-scroll-target="#四总结">四、总结</a></li>
+  </ul></li>
+  <li><a href="#第二部分期货指标" id="toc-第二部分期货指标" class="nav-link" data-scroll-target="#第二部分期货指标">第二部分：期货指标</a>
+  <ul class="collapse">
+  <li><a href="#引言-1" id="toc-引言-1" class="nav-link" data-scroll-target="#引言-1">引言</a></li>
+  <li><a href="#一差类择时指标" id="toc-一差类择时指标" class="nav-link" data-scroll-target="#一差类择时指标">一、差类择时指标</a>
+  <ul class="collapse">
+  <li><a href="#基差的定义与内涵" id="toc-基差的定义与内涵" class="nav-link" data-scroll-target="#基差的定义与内涵">1.基差的定义与内涵</a></li>
+  <li><a href="#年化基差率" id="toc-年化基差率" class="nav-link" data-scroll-target="#年化基差率">2.年化基差率</a></li>
+  <li><a href="#择时应用" id="toc-择时应用" class="nav-link" data-scroll-target="#择时应用">3.择时应用</a></li>
+  <li><a href="#市场机制解析" id="toc-市场机制解析" class="nav-link" data-scroll-target="#市场机制解析">4.市场机制解析</a></li>
+  </ul></li>
+  <li><a href="#二期限结构类择时指标" id="toc-二期限结构类择时指标" class="nav-link" data-scroll-target="#二期限结构类择时指标">二、期限结构类择时指标</a>
+  <ul class="collapse">
+  <li><a href="#期限结构的定义" id="toc-期限结构的定义" class="nav-link" data-scroll-target="#期限结构的定义">1.期限结构的定义</a></li>
+  <li><a href="#期限结构斜率" id="toc-期限结构斜率" class="nav-link" data-scroll-target="#期限结构斜率">2.期限结构斜率</a></li>
+  <li><a href="#基差动量" id="toc-基差动量" class="nav-link" data-scroll-target="#基差动量">3.基差动量</a></li>
+  <li><a href="#期限结构择时的逻辑框架" id="toc-期限结构择时的逻辑框架" class="nav-link" data-scroll-target="#期限结构择时的逻辑框架">4.期限结构择时的逻辑框架</a></li>
+  <li><a href="#期限结构指标的应用细节" id="toc-期限结构指标的应用细节" class="nav-link" data-scroll-target="#期限结构指标的应用细节">5.期限结构指标的应用细节</a></li>
+  </ul></li>
+  <li><a href="#三持仓类择时指标" id="toc-三持仓类择时指标" class="nav-link" data-scroll-target="#三持仓类择时指标">三、持仓类择时指标</a>
+  <ul class="collapse">
+  <li><a href="#多空持仓比" id="toc-多空持仓比" class="nav-link" data-scroll-target="#多空持仓比">1.多空持仓比</a></li>
+  <li><a href="#净持仓变化" id="toc-净持仓变化" class="nav-link" data-scroll-target="#净持仓变化">2.净持仓变化</a></li>
+  <li><a href="#主力合约持仓集中度" id="toc-主力合约持仓集中度" class="nav-link" data-scroll-target="#主力合约持仓集中度">3.主力合约持仓集中度</a></li>
+  <li><a href="#持仓结构指标的解析" id="toc-持仓结构指标的解析" class="nav-link" data-scroll-target="#持仓结构指标的解析">4.持仓结构指标的解析</a></li>
+  </ul></li>
+  <li><a href="#四指标的局限性与风险" id="toc-四指标的局限性与风险" class="nav-link" data-scroll-target="#四指标的局限性与风险">四、指标的局限性与风险</a>
+  <ul class="collapse">
+  <li><a href="#市场结构性变化带来的失效" id="toc-市场结构性变化带来的失效" class="nav-link" data-scroll-target="#市场结构性变化带来的失效">1.市场结构性变化带来的失效</a></li>
+  <li><a href="#极端行情下的模型崩溃" id="toc-极端行情下的模型崩溃" class="nav-link" data-scroll-target="#极端行情下的模型崩溃">2.极端行情下的模型崩溃</a></li>
+  <li><a href="#数据噪音与虚假信号" id="toc-数据噪音与虚假信号" class="nav-link" data-scroll-target="#数据噪音与虚假信号">3.数据噪音与虚假信号</a></li>
+  <li><a href="#信号拥挤与策略衰减" id="toc-信号拥挤与策略衰减" class="nav-link" data-scroll-target="#信号拥挤与策略衰减">4.信号拥挤与策略衰减</a></li>
+  <li><a href="#应对策略" id="toc-应对策略" class="nav-link" data-scroll-target="#应对策略">5.应对策略</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第3章 择时 第5节 期权和期货指标</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="第一部分期权指标" class="level1">
+<h1>第一部分：期权指标</h1>
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>期权市场作为衍生品市场，其价格不仅反映了对标的资产未来价格的预期，更蕴含了市场对波动率、尾部风险等高阶矩特征的定价。国内期权市场，特别是上证50ETF期权自2015年上市以来，沪深300股指期权、中证1000股指期权等品种的陆续推出，为构建本土化的期权择时因子提供了丰富的数据基础。</p>
+<p>与传统的线性因子不同，期权择时因子构建原理植根于期权定价理论、风险中性概率测度以及市场微观结构理论。期权因子能够捕捉市场情绪的非对称性、极端风险溢价以及机构投资者的对冲行为。比较常见的用于择时的指标因子包括：隐含波动率类指标（如VIX）、情绪类指标（如PCR）、尾部风险类指标（如SKEW、风险中性偏度与峰度）、以及波动率曲面结构因子。</p>
+</section>
+<section id="一波动率类指标" class="level2">
+<h2 class="anchored" data-anchor-id="一波动率类指标">一、波动率类指标</h2>
+<p>波动率是期权定价的核心要素，也是连接期权市场与现货市场的桥梁。基于期权数据计算的隐含波动率指标，是应用最为广泛的择时因子。</p>
+<section id="隐含波动率与恐慌指数" class="level3">
+<h3 class="anchored" data-anchor-id="隐含波动率与恐慌指数">1.隐含波动率与恐慌指数</h3>
+<section id="定义与择时原理" class="level4">
+<h4 class="anchored" data-anchor-id="定义与择时原理">1.1.定义与择时原理</h4>
+<p>隐含波动率是指根据期权市场价格，通过期权定价模型（如 Black-Scholes 模型）反推得出的标的资产未来波动率预期。它代表了市场对未来不确定性的定价。</p>
+<p>中国波指，又称“中国版的VIX”或iVIX，是基于上证50ETF期权价格编制的波动率指数，用于衡量上证50ETF未来30日的预期波动。iVIX的数值越高，表示市场预期波动加剧，投资者情绪越不安；反之则表示市场情绪平稳。</p>
+</section>
+<section id="择时原理" class="level4">
+<h4 class="anchored" data-anchor-id="择时原理">1.2.择时原理</h4>
+<p>iVIX的择时逻辑源于“恐惧与贪婪”的市场周期。</p>
+<ul>
+<li><p>反向指标属性：当市场极度恐慌时，避险需求激增，推高认沽期权价格，进而导致iVIX飙升。极高的iVIX往往对应市场底部，预示反弹机会，因此iVIX常被视为反向指标。</p></li>
+<li><p>风险溢价视角：高波动率意味着高风险溢价，未来预期收益可能较高。</p></li>
+<li><p>均值回归特性：波动率具有显著的均值回归特征，当iVIX偏离长期均值过远时，往往预示着市场风格的转换。</p></li>
+</ul>
+</section>
+<section id="计算方法" class="level4">
+<h4 class="anchored" data-anchor-id="计算方法">1.3.计算方法</h4>
+<p>iVIX的计算并非简单加权，而是基于方差互换原理。方差互换是一种允许投资者交易未来实现方差与协定方差差额的衍生品，其核心优势在于不依赖于特定的定价模型。学术界与业界普遍参考CBOE的VIX编制手册进行计算。计算过程主要包含以下关键步骤：</p>
+<p><strong>步骤一：</strong>期权合约筛选 选取近月（<span class="math inline">\(T_1\)</span>）和次近月（<span class="math inline">\(T_2\)</span>）两个到期月份的期权合约。一般选择到期日在7天至6个月之间的合约，剔除流动性差或报价异常的合约。筛选范围覆盖平值期权附近的虚值认沽期权和认购期权。</p>
+<p><strong>步骤二：</strong>确定无风险利率与到期时间 选取与期权剩余期限相匹配的无风险利率。在国内实践中，常采用SHIBOR（上海银行间同业拆借利率）进行插值获取对应期限的利率。到期时间需精确到分钟级别，以年化形式表示。</p>
+<p><strong>步骤三：</strong>计算标的远期价格 利用认购-认沽平价公式估算标的资产的远期价格<span class="math inline">\(F\)</span>： <span class="math inline">\(F=K_0+e^{rT}\times(Call(K_0)-Put(K_0))\)</span> 其中<span class="math inline">\(K_0\)</span>为平值期权的执行价，<span class="math inline">\(Call(K_0)\)</span>和<span class="math inline">\(Put(K_0)\)</span>分别为平值认购与认沽期权的价格。</p>
+<p><strong>步骤四：</strong>计算方差贡献与方差 对于虚值期权，其对方差的贡献权重不同。核心公式涉及期权价格与执行价的二阶导数关系： <span class="math inline">\(\sigma^2=\frac{2}{T}\sum_{i}\frac{\Delta K_i}{K_i^2}e^{rT}Q(K_i)-\frac{1}{T}\left(\frac{F}{K_0}-1\right)^2\)</span> 其中，<span class="math inline">\(\Delta K_i\)</span>为执行价间隔，<span class="math inline">\(Q(K_i)\)</span>为期权中间价（买价与卖价的均值）。该公式的核心思想是利用期权组合复制出方差互换的支付结构[[11]]。</p>
+<p><strong>步骤五：</strong>指数合成与年化 分别计算近月方差<span class="math inline">\(\sigma_1^2\)</span>和次近月方差<span class="math inline">\(\sigma_2^2\)</span>，通过线性插值合成30日标准期限的波动率： <span class="math inline">\(iVIX=100\times\sqrt{\left[T_1\sigma_1^2\frac{N_{T2}-N_{30}}{N_{T2}-N_{T1}}+T_2\sigma_2^2\frac{N_{30}-N_{T1}}{N_{T2}-N_{T1}}\right]\times\frac{365}{30}}\)</span></p>
+<p>最终乘以100，将其转化为百分比形式的指数点数。</p>
+</section>
+<section id="应用与实证表现" class="level4">
+<h4 class="anchored" data-anchor-id="应用与实证表现">1.4.应用与实证表现</h4>
+<p>很多A股市场的实证研究认为，iVIX具有显著的择时价值，证明了VIX指数与股指涨跌存在较强的相关性。</p>
+<p>但是，包括我个人在内的很多研究也认为，A股市场VIX指标作为择时指标的效果有时较弱，尤其是在趋势性行情中，波动率可能与指数同涨同跌，导致传统反向策略失效。因此，量化策略更倾向于结合趋势指标使用iVIX，或者构建VIX_call等衍生指标进行优化。</p>
+</section>
+</section>
+<section id="隐含波动率曲面与结构因子" class="level3">
+<h3 class="anchored" data-anchor-id="隐含波动率曲面与结构因子">2.隐含波动率曲面与结构因子</h3>
+<section id="定义与构建" class="level4">
+<h4 class="anchored" data-anchor-id="定义与构建">2.1定义与构建</h4>
+<p>隐含波动率曲面是以期权执行价（或价值状态）和到期期限为坐标轴构建的三维曲面。它比单一的iVIX指标包含了更丰富的信息，如波动率微笑、期限结构等。在国内研究中，构建隐含波动率曲面通常采用Spline插值法（样条插值法）。相比简单的线性插值，Spline插值能更好地拟合波动率曲线的平滑特征，避免插值震荡。</p>
+</section>
+<section id="曲面择时因子" class="level4">
+<h4 class="anchored" data-anchor-id="曲面择时因子">2.2.曲面择时因子</h4>
+<p>PCIVD 从波动率曲面中可以提取更具深度的择时因子，其中最具代表性的是看跌看涨隐含波动率差。</p>
+<p>定义：PCIVD计算的是相同执行价（通常选取平值附近）下，看跌期权与看涨期权隐含波动率的差值。</p>
+<p>原理：在Black-Scholes框架下，同执行价的看跌与看涨期权隐含波动率应相等（由平价公式决定）。然而，在实际市场中，由于供需失衡，看跌期权的隐含波动率通常高于看涨期权，形成“波动率偏斜”。</p>
+</section>
+<section id="应用" class="level4">
+<h4 class="anchored" data-anchor-id="应用">2.3.应用</h4>
+<p>PCIVD直接反映了市场的对冲压力。当机构投资者大量买入看跌期权进行避险时，PCIVD走阔，隐含市场谨慎情绪；反之，PCIVD收窄甚至倒挂，可能意味着市场投机氛围浓厚或看涨情绪强烈。</p>
+<p>包括我在内的很多实证研究结果都表明，基于Spline插值构建的隐含波动率曲面能提供比传统VIX指标更稳定和有效的择时信息。</p>
+</section>
+</section>
+</section>
+<section id="二成交和持仓类择时指标" class="level2">
+<h2 class="anchored" data-anchor-id="二成交和持仓类择时指标">二、成交和持仓类择时指标</h2>
+<p>如果说波动率指标侧重于度量市场的不确定性，那么认沽认购比（PCR）指标则直接反映了市场参与者的多空博弈行为。</p>
+<section id="pcr的定义与分类" class="level3">
+<h3 class="anchored" data-anchor-id="pcr的定义与分类">1.PCR的定义与分类</h3>
+<p>认沽认购比是衡量期权市场情绪的经典指标，其定义为认沽期权与认购期权交易量或持仓量的比率。 根据计算依据不同，PCR主要分为两类：</p>
+<section id="成交量pcrvolume-pcr-pcr_vol" class="level4">
+<h4 class="anchored" data-anchor-id="成交量pcrvolume-pcr-pcr_vol">1.1.成交量PCR（Volume PCR, PCR_VOL）</h4>
+<p><span class="math inline">\(PCR_{VOL}=\frac{总交易量（认沽期权）}{总交易量（认购期权）}\)</span></p>
+<p>成交量PCR反映了短期内的交易活跃度对比，对短线投机情绪更为敏感。</p>
+</section>
+<section id="持仓量pcropeninterestpcr-pcr_oi" class="level4">
+<h4 class="anchored" data-anchor-id="持仓量pcropeninterestpcr-pcr_oi">1.2.持仓量PCR（OpenInterestPCR, PCR_OI）</h4>
+<p><span class="math inline">\(PCR_{OI}=\frac{总持仓量（认沽期权）}{总持仓量（认购期权）}\)</span></p>
+<p>持仓量PCR反映了资金存量的布局，通常被视为中长期市场情绪的代理变量，更能体现机构投资者的对冲持仓特征。</p>
+</section>
+</section>
+<section id="择时原理与逻辑" class="level3">
+<h3 class="anchored" data-anchor-id="择时原理与逻辑">2.择时原理与逻辑</h3>
+<p>PCR指标的择时逻辑在学术界与实务界存在两种截然不同的解读，这构成了该因子应用的辩证法。</p>
+<section id="观点一反向指标" class="level4">
+<h4 class="anchored" data-anchor-id="观点一反向指标">2.1.观点一：反向指标</h4>
+<p>这是最为传统的应用逻辑。当PCR过高时，意味着认沽期权的成交或持仓显著高于认购期权，市场充斥着强烈的看空情绪和对冲需求。在“逆向投资”理论下，当市场情绪极度悲观时，往往预示着卖压衰竭，市场即将见底反弹。反之，极低的PCR意味着市场过度乐观，可能是见顶信号。有实证研究支持PCR作为短期市场预测的反向参考。</p>
+</section>
+<section id="观点二知情交易者信号" class="level4">
+<h4 class="anchored" data-anchor-id="观点二知情交易者信号">2.2.观点二：知情交易者信号</h4>
+<p>这一逻辑主要针对持仓量PCR。期权市场尤其是深虚值期权，往往吸引专业机构进行低成本的对冲或策略布局。当PCR持续攀升，可能意味着“聪明的资金”正在大规模建立下行保护，这种持仓结构的变化往往是市场下跌的先导信号。</p>
+<p>在A股市场中，上证50ETF期权的PCR走势有时与标的指数呈现正相关关系，即“指数涨，PCR涨”。这反映了机构在上涨过程中不断加仓买入认沽期权进行“备兑”或“避险”，这种上涨过程中的谨慎反而支撑了行情的持续性。因此，PCR的绝对值高低并非唯一信号，其变化趋势更为关键。</p>
+</section>
+</section>
+<section id="信号构建" class="level3">
+<h3 class="anchored" data-anchor-id="信号构建">3.信号构建</h3>
+<p>量化策略中常采用分位数阈值法或均值回归法生成信号。</p>
+<ul>
+<li><p>分位数阈值：设定历史分位数（如80%和20%）作为高估与低估的边界。例如，当PCR上穿80%分位数时，视为极度恐慌（买入信号）；下穿20%分位数时，视为极度乐观（卖出信号）。</p></li>
+<li><p>均线策略：利用PCR的移动平均线生成趋势信号。有研究构建了基于期权持仓PCR值的择时系统，包含具体的做多、做空、平仓信号条件。</p></li>
+<li><p>日变化率：关注PCR的日度变化（PCRD），捕捉情绪边际变化。</p></li>
+</ul>
+<p>在计算上，除了全市场PCR外，还可以计算特定执行价区间的PCR（如平值PCR、虚值PCR）。</p>
+<p>虚值期权的PCR往往包含更多的投机情绪。 根据实证研究回测数据，PCR择时策略在A股市场展现出较高的夏普比率，证明了PCR作为择时因子的有效性。</p>
+</section>
+</section>
+<section id="三尾部风险与高阶矩因子" class="level2">
+<h2 class="anchored" data-anchor-id="三尾部风险与高阶矩因子">三、尾部风险与高阶矩因子</h2>
+<p>现实的金融市场中，收益率分布往往呈现“尖峰厚尾”和“偏态”特征。期权价格中蕴含了标的资产收益分布的高阶矩信息，这些信息对于捕捉极端市场行情（尾部风险）具有极高的价值。</p>
+<section id="隐含偏度" class="level3">
+<h3 class="anchored" data-anchor-id="隐含偏度">1.隐含偏度</h3>
+<p>偏度（skewness）衡量了收益率分布的不对称性。正偏度表示右尾较长（大涨概率高），负偏度表示左尾较长（大跌概率高）。 隐含偏度是指市场根据期权价格推导出的未来收益分布偏度。CBOE推出的SKEW指数，旨在衡量市场对极端负面事件（尾部风险）的担忧程度，与VIX指数互为补充。</p>
+<p>在国内市场，目前尚无官方发布的SKEW指数，但学术界和机构普遍利用上证50ETF期权数据自行编制中国版SKEW指数。SKEW指数通常以100为基准，数值越高，表明市场预期未来尾部风险（特别是下行风险）越大。</p>
+<p>计算风险中性偏度最权威的方法是Bakshi, Kapadia, and Madan (2003) 提出的BKM方法，该方法无需假设特定的收益率分布模型，属于“无模型”方法。根据BKM理论，风险中性偏度可以通过期权价格积分求得。其核心公式推导基于复制风险中性矩的思想。</p>
+<p>风险中性偏度<span class="math inline">\(SKEW(t,\tau)\)</span>的计算公式：</p>
+<p><br>
+<span class="math inline">\(SKEW(t,\tau)=\frac{e^{r\tau}\mu_3(t,\tau)-3\mu(t,\tau)e^{r\tau}V(t,\tau)+2\mu(t,\tau)^3}{\left[e^{r\tau}V(t,\tau)-\mu(t,\tau)^2\right]^{3/2}}\)</span></p>
+<p>其中： <span class="math inline">\(r\)</span>为无风险利率。 <span class="math inline">\(\tau\)</span>为剩余期限。 <span class="math inline">\(\mu(t,\tau)\)</span>为一阶矩（期望收益），可通过虚值认购期权价格积分计算。 <span class="math inline">\(V(t,\tau)\)</span>为二阶矩（方差），即VIX计算的核心部分。 <span class="math inline">\(\mu_3(t,\tau)\)</span>为三阶矩，需利用期权价格的三阶导数性质进行计算。</p>
+<p>具体计算步骤如下：</p>
+<ol type="1">
+<li><p>数据准备：收集虚值认购期权和认沽期权价格。</p></li>
+<li><p>矩计算：利用积分公式计算到期时刻的一阶、二阶、三阶风险中性矩。</p></li>
+<li><p>标准化：利用上述公式将三阶矩标准化为偏度指标。</p></li>
+</ol>
+<p>SKEW指数作为择时因子，主要用于捕捉市场的尾部风险溢价。SKEW指数的飙升往往先于市场大跌。当SKEW处于高位，意味着期权市场正在为潜在的“黑天鹅”事件定价，投资者应降低仓位或增加对冲。也有案例显示，SKEW指数可作为判断行情拐点的反向指标。当SKEW极高时，意味着市场过度悲观，可能也是买入良机。</p>
+<p>研究发现，中国市场的SKEW指数呈现右偏特性，且绝对值低于美国市场，这反映了A股市场非理性情绪更浓厚，以及做空机制受限导致的市场结构差异。</p>
+</section>
+<section id="隐含峰度" class="level3">
+<h3 class="anchored" data-anchor-id="隐含峰度">2.隐含峰度</h3>
+<p>峰度衡量了收益率分布的“肥尾”程度。隐含峰度反映了市场对未来极端收益（无论大涨还是大跌）发生概率的预期。利用BKM方法，风险中性峰度<span class="math inline">\(KURT(t,\tau)\)</span>的计算公式同样基于各阶矩的组合：</p>
+<p><span class="math inline">\(KURT(t,\tau)=\frac{e^{r\tau}\mu_4(t,\tau)-4\mu(t,\tau)e^{r\tau}\mu_3(t,\tau)+6\mu(t,\tau)^2e^{r\tau}V(t,\tau)-3\mu(t,\tau)^4}{\left[e^{r\tau}V(t,\tau)-\mu(t,\tau)^2\right]^2}\)</span></p>
+<p>其中<span class="math inline">\(\mu_4(t,\tau)\)</span>为四阶矩。</p>
+<p>隐含峰度是衡量市场脆弱性的重要指标。高隐含峰度意味着市场预期未来可能出现极端行情，波动率结构呈现“尖峰厚尾”。这通常发生在市场面临重大不确定性（如政策会议、黑天鹅事件前夕）时。当隐含峰度处于高位时，传统的正态分布假设下的风险管理模型（如VaR）可能失效。</p>
+<p>择时策略上，高峰度往往对应着市场的不稳定状态，此时做多波动率策略（如买入跨式组合）可能获益，而单纯的Delta择时面临较大噪音。</p>
+</section>
+</section>
+<section id="四总结" class="level2">
+<h2 class="anchored" data-anchor-id="四总结">四、总结</h2>
+<p>综上所述，国内期权市场数据为股票指数择时提供了多维度的前瞻性信息。从反映市场不确定性的iVIX，到刻画多空博弈的PCR，再到度量尾部风险的SKEW与峰度，这些因子共同构建了立体化的市场监测体系。</p>
+<p>期权择时因子的核心竞争力在于其“由衍生品到现货”的传导逻辑，以及其内含的风险中性测度视角。这种视角剥离了投资者的风险偏好差异，更纯粹地反映了市场对未来概率分布的定价。</p>
+<p>随着国内期权品种的丰富（如中证1000期权、创业板ETF期权等）以及数据处理技术的进步（如利用深度学习拟合波动率曲面），期权择时因子的挖掘空间将更加广阔。对于量化投资者而言，深入理解并应用这些期权数据指标，是在日益竞争激烈的A股市场中获取超额收益的关键路径。</p>
+</section>
+</section>
+<section id="第二部分期货指标" class="level1">
+<h1>第二部分：期货指标</h1>
+<section id="引言-1" class="level2">
+<h2 class="anchored" data-anchor-id="引言-1">引言</h2>
+<p>随着我国金融期货市场的蓬勃发展，股指期货作为风险管理的核心工具，其价格行为蕴含了丰富的市场信息。期货市场由于具备高杠杆、T+0交易、多空双向机制等特点，吸引了大量专业机构和知情交易者参与，使其在信息传递效率上往往领先于现货市场。因此，挖掘期货市场数据中隐含的预测信息，构建股票指数择时因子，具有重要的理论价值与实践意义。</p>
+<p>基于期货数据进行股票指数择时，其核心逻辑建立在“价格发现”与“风险溢价”两大基石之上。</p>
+<ul>
+<li><p>价格发现功能意味着期货价格反映了市场对未来现货价格的预期。由于期货交易成本低、杠杆高，新信息往往率先在期货市场反映，进而传导至现货市场。通过分析期货与现货的价格差异（基差）以及不同期限合约间的价格关系（期限结构），可以推断市场参与者的预期变化。</p></li>
+<li><p>风险溢价理论认为，期货价格与现货价格的偏离并非完全是预期偏差，还包含了风险补偿。不同类型的交易者（套保者、投机者、套利者）在市场中的力量对比，决定了风险溢价的水平与方向，这为通过持仓结构数据预测市场走势提供了依据。</p></li>
+</ul>
+</section>
+<section id="一差类择时指标" class="level2">
+<h2 class="anchored" data-anchor-id="一差类择时指标">一、差类择时指标</h2>
+<p>基差是期货市场最核心的概念之一，也是连接现货与期货市场的桥梁。基差类指标通过量化期货价格与现货价格之间的偏离程度，揭示市场情绪与套利机会，是股票指数择时的重要风向标。</p>
+<section id="基差的定义与内涵" class="level3">
+<h3 class="anchored" data-anchor-id="基差的定义与内涵">1.基差的定义与内涵</h3>
+<p>基差是指某一特定商品在某一特定时间和地点的现货价格与该商品在期货市场上的近期合约价格之差。对于股指期货而言，基差的计算公式为：</p>
+<p><span class="math inline">\(Basis_t=F_t-S_t\)</span></p>
+<p>其中，<span class="math inline">\(F_t\)</span>为t时刻的股指期货价格，<span class="math inline">\(S_t\)</span>为t时刻的股票指数现货价格。</p>
+<p>基差的存在与波动并非随机现象，而是由持有成本、市场预期以及供需关系共同决定的。在无风险套利机制下，基差应收敛于持有成本。</p>
+<p>然而，在现实市场中，由于套利限制、流动性冲击以及投资者情绪波动，基差会围绕理论持有成本上下波动。当期货价格高于现货价格时（<span class="math inline">\(F_t&gt;S_t\)</span>），称为“正向市场”或“期货升水”，表明市场整体预期未来价格将上涨，或多头力量较强。反之，当期货价格低于现货价格时（<span class="math inline">\(F_t&lt;S_t\)</span>），称为“反向市场”或“期货贴水”，表明市场预期悲观，或套保压力较大。</p>
+</section>
+<section id="年化基差率" class="level3">
+<h3 class="anchored" data-anchor-id="年化基差率">2.年化基差率</h3>
+<p>虽然绝对基差能够反映期现价差，但不同时间节点、不同到期日的合约，其基差数值缺乏直接可比性。因此，在量化择时实践中，更为常用的是年化基差率。年化基差率是将基差标准化为年化收益率的形式，消除了到期期限长短的影响，便于跨期比较和设定择时阈值。</p>
+<p>年化基差率的计算方法如下：</p>
+<p><br>
+<span class="math inline">\(年化基差率=\frac{F_t-S_t}{S_t}\times\frac{250}{T-t}\)</span></p>
+<p>其中，<span class="math inline">\(T\)</span>为期货合约到期日，<span class="math inline">\(t\)</span>为当前时刻，<span class="math inline">\(T-t\)</span>为合约剩余天数。</p>
+</section>
+<section id="择时应用" class="level3">
+<h3 class="anchored" data-anchor-id="择时应用">3.择时应用</h3>
+<p>年化基差率本质上是一个衡量市场情绪强弱的指标。 当年化基差率显著为正且处于历史高位时，意味着市场情绪极度乐观，期货市场给予现货较高的升水，可能预示着市场短期过热，存在回调风险。</p>
+<p>当年化基差率显著为负且处于历史低位时，意味着市场情绪极度悲观，期货市场深度贴水。根据均值回归原理，若过度悲观情绪得到修复，或者期货价格在到期日强制收敛的机制下，未来现货价格可能相对抗跌，或者基差收敛将带来买入机会。</p>
+<p>在实践中，基于年化基差率的择时策略通常采用“分位数法”或“阈值法”生成信号。</p>
+<ul>
+<li><p>逆向择时逻辑：当年化基差率低于历史N%分位数（如5%分位数）时，视为市场过度悲观，生成买入信号；反之，当高于历史(100-N)%分位数时，生成卖出或减仓信号。这一逻辑基于“物极必反”的行为金融学原理。</p></li>
+<li><p>趋势确认逻辑：在某些趋势性较强的市场中，基差的持续扩大可能伴随价格的持续上涨。此时，基差率可作为趋势的确认指标，只有当基差率与价格走势同向变动时，才确认趋势有效。</p></li>
+</ul>
+</section>
+<section id="市场机制解析" class="level3">
+<h3 class="anchored" data-anchor-id="市场机制解析">4.市场机制解析</h3>
+<p>基差类指标之所以有效，源于期货市场独特的微观结构。</p>
+<ul>
+<li><p>套利机制与均值回归：基差波动并非无限。当基差偏离持有成本过远时，将触发期现套利机制。套利者会“买入低估、卖出高估”，从而推动基差回归均衡水平[[9]][[10]]。这种套利力量保证了基差的稳定性与可预测性，是基差择时策略获利的理论基础。</p></li>
+<li><p>信息含量与知情交易：股指期货市场聚集了大量专业机构投资者。这些“知情交易者”往往基于私有信息或深度研究成果进行交易，其买卖行为首先反映在流动性更好的期货市场。因此，基差的变动可能领先于现货价格的变动，具有预测功能。</p></li>
+<li><p>投资者情绪与行为偏差：基差的极端值往往对应着市场情绪的极端状态。根据行为金融学理论，投资者容易产生过度反应。期货市场的过度升水或贴水，正是这种过度反应的体现。当情绪修复时，市场走势往往会发生逆转，这为择时提供了契机。</p></li>
+</ul>
+</section>
+</section>
+<section id="二期限结构类择时指标" class="level2">
+<h2 class="anchored" data-anchor-id="二期限结构类择时指标">二、期限结构类择时指标</h2>
+<p>期限结构类指标则聚焦于期货市场内部不同期限合约之间的价格关系。这一类指标通过分析远期价格曲线的形态，推断市场对未来不同时间段的预期，从而指导择时决策。</p>
+<section id="期限结构的定义" class="level3">
+<h3 class="anchored" data-anchor-id="期限结构的定义">1.期限结构的定义</h3>
+<p>期限结构，又称“远期价格曲线”，描述了标的资产不同到期期限的期货合约价格之间的关系。常见的期限结构包括以下形态：</p>
+<ul>
+<li><p>正向市场：远期合约价格高于近期合约价格，价格曲线向上倾斜。通常表示市场预期未来价格将上涨，或持有成本为正（如仓储费、资金成本）。</p></li>
+<li><p>反向市场：远期合约价格低于近期合约价格，价格曲线向下倾斜。通常表示近期现货供需紧张，或市场预期未来价格将下跌。</p></li>
+</ul>
+<p>在股指期货市场中，期限结构主要受利率成本、分红预期及市场情绪影响。由于股票指数成分股会定期分红，而分红会导致指数自然回落，因此股指期货的期限结构通常会在分红集中月份出现凹陷。</p>
+</section>
+<section id="期限结构斜率" class="level3">
+<h3 class="anchored" data-anchor-id="期限结构斜率">2.期限结构斜率</h3>
+<p>期限结构斜率是量化远期价格曲线陡峭程度的指标。斜率的绝对值越大，意味着不同期限合约间的价差越大。最常用的计算方法是选取两个具有代表性的合约（如近月合约与次近月合约，或当季合约与下季合约）进行差分或比率计算。</p>
+<p><span class="math inline">\(Slope_t=\frac{F_{t,T_2}-F_{t,T_1}}{T_2-T_1}\)</span></p>
+<p>其中，<span class="math inline">\(F_{t,T_2}\)</span>和<span class="math inline">\(F_{t,T_1}\)</span>分别代表远月合约和近月合约的价格，<span class="math inline">\(T_2\)</span>和<span class="math inline">\(T_1\)</span>分别代表对应的到期天数。</p>
+<p>另一种简化的计算方法是直接计算价格差或收益率差： <span class="math inline">\(Slope_t=F_{t,far}-F_{t,near}\)</span></p>
+<p>再或者，可以计算近月与次近月价格变动比例的年化处理，作为期限结构斜率的代理变量。</p>
+</section>
+<section id="基差动量" class="level3">
+<h3 class="anchored" data-anchor-id="基差动量">3.基差动量</h3>
+<p>期限结构不仅具有静态的形态，还具备动态变化的特征。基差动量指标捕捉的正是期限结构斜率的变化趋势。定义：基差动量是指近月合约和远月合约在过去一段时间内累计收益率的差异。计算公式：</p>
+<p><span class="math inline">\(BasisMomentum_t=R_{t,near}-R_{t,far}\)</span></p>
+<p>其中，<span class="math inline">\(R_{t,near}\)</span>和<span class="math inline">\(R_{t,far}\)</span>分别代表近月合约和远月合约在过去R个交易日的累计收益率。</p>
+<p>基差动量反映了市场预期调整的速度与方向。若近月合约收益率持续高于远月合约（基差动量为正），意味着市场近期情绪改善快于远期，或者近月合约受到更强的买盘支撑，这可能预示着短期行情偏强。反之，若基差动量持续为负，则可能意味着市场对近期前景更为悲观。</p>
+</section>
+<section id="期限结构择时的逻辑框架" class="level3">
+<h3 class="anchored" data-anchor-id="期限结构择时的逻辑框架">4.期限结构择时的逻辑框架</h3>
+<p>期限结构类指标在股票指数择时中的应用，主要基于以下逻辑：</p>
+<ul>
+<li><p>预期分歧的识别：期限结构斜率的极端值往往对应着市场预期的极大分歧。例如，极度陡峭的正向曲线可能意味着市场过度乐观，已将大量利好预期计入远期价格，此时市场可能面临“利好出尽”的风险。反之，极度平坦甚至倒挂的曲线可能意味着市场过度悲观，反弹概率增加。</p></li>
+<li><p>动量与反转的判断：通过结合期限结构斜率的变化（基差动量），可以判断当前的市场趋势是否具有持续性。若期限结构斜率与现货价格同步上行，说明市场上涨具备远期预期的支撑，趋势较为稳固。若现货价格创新高但期限结构斜率走平或下行，则可能产生“背离”信号，预示趋势衰竭。</p></li>
+<li><p>跨期套利边界的警示：期限结构斜率的大小直接决定了跨期套利的空间。当斜率过大时，会吸引跨期套利资金介入，通过买低卖高平抑价差。这种套利力量也会间接影响近期合约的价格走势，从而对现货指数产生影响。</p></li>
+</ul>
+</section>
+<section id="期限结构指标的应用细节" class="level3">
+<h3 class="anchored" data-anchor-id="期限结构指标的应用细节">5.期限结构指标的应用细节</h3>
+<p>在实践应用中，期限结构类指标需要注意以下细节：</p>
+<ul>
+<li><p>分红因素的处理：股指期货的期限结构受成分股分红影响显著。在年报分红季（通常为5-8月），远月合约价格会因预期分红而自然贴水。因此，在使用期限结构斜率作为择时指标时，必须剔除分红点数的影响，否则会得到错误的信号。常用的方法是计算“经分红调整后的期限结构”。</p></li>
+<li><p>主力合约切换的影响：股指期货主力合约通常在交割月前一个月的中下旬进行切换。在切换期间，近月合约流动性骤降，远月合约成为新的主力。这一过程中，期限结构会发生结构性跳变，择时模型需设计专门逻辑进行处理，避免生成虚假信号。</p></li>
+<li><p>多品种综合研判：除了关注单一指数（如沪深300）的期限结构，还可以对比不同指数（如上证50、中证500、中证1000）的期限结构差异。若上证50期货期限结构显示乐观，而中证1000期货期限结构显示悲观，则可能预示着市场风格将发生切换。</p></li>
+</ul>
+<p>期货市场不仅是价格博弈的场所，更是多空力量对决的战场。持仓结构类指标通过剖析市场参与者的持仓数据，揭示“谁在买、谁在卖、力量对比如何”，为择时决策提供了独特的“显微镜”视角。</p>
+</section>
+</section>
+<section id="三持仓类择时指标" class="level2">
+<h2 class="anchored" data-anchor-id="三持仓类择时指标">三、持仓类择时指标</h2>
+<p>期货会员持单比通常指某一特定群体（如前N名会员）的多头持仓量与空头持仓量的比值，或其持仓量占总持仓量的比例。</p>
+<p>国内商品期货交易所（上期所、大商所、郑商所）及中国金融期货交易所（中金所）每日均会公布持仓排名数据，主要包括各合约多头、空头持仓量前N名（通常为前20名）会员的持仓数据。持</p>
+<p>仓数据被视为市场“温度计”，反映了机构资金的动向。通过跟踪主力资金的持仓变化，可以推测市场主流预期的转变。根据搜索结果，引入期货会员持单比数据构建因子是常见做法。</p>
+<section id="多空持仓比" class="level3">
+<h3 class="anchored" data-anchor-id="多空持仓比">1.多空持仓比</h3>
+<p>计算公式：</p>
+<p><span class="math inline">\(Ratio_t=\frac{\sum_{i=1}^{N}Long_{i,t}}{\sum_{i=1}^{N}Short_{i,t}}\)</span></p>
+<p>其中，<span class="math inline">\(Long_{i,t}\)</span>和<span class="math inline">\(Short_{i,t}\)</span>分别代表第i名会员的多头和空头持仓量。</p>
+<p>当该比率大于1时，表明前N名会员多头持仓占优；小于1时，空头占优。</p>
+</section>
+<section id="净持仓变化" class="level3">
+<h3 class="anchored" data-anchor-id="净持仓变化">2.净持仓变化</h3>
+<p>计算公式：</p>
+<p><span class="math inline">\(NetChange_t=(\sum_{i=1}^{N}Long_{i,t}-\sum_{i=1}^{N}Short_{i,t})-(\sum_{i=1}^{N}Long_{i,t-1}-\sum_{i=1}^{N}Short_{i,t-1})\)</span></p>
+<p>该指标关注主力资金净持仓的边际变化，判断市场预期的转向。</p>
+<p>该指标的有效性建立在“聪明钱”假说与“套保压力”理论之上。</p>
+<ul>
+<li><p>聪明钱假说：排名前列的会员通常是大型金融机构或专业投资者，具有更强的信息获取与分析能力。其持仓方向往往代表了“聪明钱”的流向，对未来走势有预测能力。跟随主力资金的方向进行交易，可能获得超额收益。</p></li>
+<li><p>套保压力理论：在商品期货中较为常见，但在股指期货中也同样存在。若市场存在大量套保盘（空头），会对期货价格形成压制，产生贴水；反之，若套保盘减少或投机多头增加，则推动价格上涨。通过监测持仓结构，可以评估套保压力的变化。</p></li>
+</ul>
+</section>
+<section id="主力合约持仓集中度" class="level3">
+<h3 class="anchored" data-anchor-id="主力合约持仓集中度">3.主力合约持仓集中度</h3>
+<p>主力合约持仓集中度衡量的是持仓量是否集中在少数几个会员手中，反映了市场筹码的分布状况。可以使用赫芬达尔-赫希曼指数（HHI）进行度量，计算公式如下：</p>
+<p><span class="math inline">\(HHI_t=\sum_{i=1}^{N}(\frac{Pos_{i,t}}{TotalPos_t})^2\)</span></p>
+<p>其中，<span class="math inline">\(Pos_{i,t}\)</span>为第i名会员的持仓量，<span class="math inline">\(TotalPos_t\)</span>为总持仓量。</p>
+<p>高集中度：当持仓高度集中时，表明市场观点高度一致，或少数机构对价格有较强掌控力。此时市场趋势可能延续，但也容易在分歧出现时发生剧烈反转。</p>
+<p>低集中度：当持仓分散时，市场观点混乱，多空博弈激烈，价格可能维持震荡，难以形成单边趋势。</p>
+</section>
+<section id="持仓结构指标的解析" class="level3">
+<h3 class="anchored" data-anchor-id="持仓结构指标的解析">4.持仓结构指标的解析</h3>
+<p>持仓结构类指标在择时中的应用并非简单的“跟随”或“反向”，而需结合市场环境进行深度解读。</p>
+<ul>
+<li><p>区分套保与投机：股指期货的主要功能之一是风险对冲。因此，持仓数据中的空头持仓往往包含大量套保盘。若观察到空头持仓增加，不一定代表机构看空后市，而可能仅仅是其在现货端有新增持仓需要进行对冲。因此，在解读持仓数据时，需结合现货市场资金流向、基金发行数据等信息，综合判断持仓变化的真实动机。</p></li>
+<li><p>关注持仓与价格的背离：当价格创新高但主力多头持仓减少，或价格创新低但主力空头持仓减少，这种“价仓背离”往往预示着趋势动量的衰竭。持仓量代表了市场的“燃料”，若燃料耗尽，趋势难以持续。</p></li>
+<li><p>极端持仓的风险预警：当多空持仓比达到历史极端水平时，往往意味着市场情绪过热。例如，多头持仓极度拥挤时，市场已无新增买盘，一旦有风吹草动，容易发生“多杀多”的踩踏行情。</p></li>
+</ul>
+</section>
+</section>
+<section id="四指标的局限性与风险" class="level2">
+<h2 class="anchored" data-anchor-id="四指标的局限性与风险">四、指标的局限性与风险</h2>
+<section id="市场结构性变化带来的失效" class="level3">
+<h3 class="anchored" data-anchor-id="市场结构性变化带来的失效">1.市场结构性变化带来的失效</h3>
+<ul>
+<li><p>监管政策变动： 股指期货市场曾经历过严格的政策管控（如2015年股灾后的限仓、提高保证金）。这些政策变化直接改变了市场的流动性结构、套利成本和参与者结构，导致此前有效的基差、持仓规律发生根本性改变，历史回测表现无法复现[[35]]。</p></li>
+<li><p>参与者结构演变： 随着市场发展，量化对冲产品、指数增强基金、外资机构等参与者的占比不断变化。不同类型的交易者具有不同的行为模式和交易频率。当市场主导力量发生变化时，指标的统计特征也会随之漂移。</p></li>
+<li><p>新品种的冲击： 随着股指期权、ETF期权的推出，投资者的风险管理工具更加丰富，风险溢价的定价逻辑更加复杂，单一的股指期货择时指标可能失效。</p></li>
+</ul>
+</section>
+<section id="极端行情下的模型崩溃" class="level3">
+<h3 class="anchored" data-anchor-id="极端行情下的模型崩溃">2.极端行情下的模型崩溃</h3>
+<ul>
+<li><p>在市场发生系统性风险、流动性危机或“黑天鹅”事件时，常规的统计规律往往失效。</p></li>
+<li><p>流动性枯竭：在市场恐慌性下跌时，期货可能出现跌停或流动性枯竭，导致无法按照模型信号进行交易，或交易价格严重偏离理论价格。</p></li>
+<li><p>基差异常：在极端行情下，基差可能长期处于深度贴水状态，且不收敛。若模型机械地依据基差回归逻辑买入，可能面临巨大亏损。</p></li>
+<li><p>相关性失效：在危机时刻，不同资产间的相关性往往趋于1，导致分散化策略失效。期货与现货之间的价格发现关系也可能暂时中断。</p></li>
+</ul>
+</section>
+<section id="数据噪音与虚假信号" class="level3">
+<h3 class="anchored" data-anchor-id="数据噪音与虚假信号">3.数据噪音与虚假信号</h3>
+<ul>
+<li><p>高频噪音：期货市场交易活跃，短期价格波动包含大量噪音。基于短期数据的指标（如日内基差变化）容易产生虚假信号，导致频繁交易和磨损。</p></li>
+<li><p>季节性干扰：股指期货基差受分红季节性影响显著。若模型未准确剔除分红因素，在分红集中月份可能误判基差水平，产生错误信号。</p></li>
+</ul>
+</section>
+<section id="信号拥挤与策略衰减" class="level3">
+<h3 class="anchored" data-anchor-id="信号拥挤与策略衰减">4.信号拥挤与策略衰减</h3>
+<ul>
+<li><p>信号拥挤：当大量资金依据同一信号进行同向操作时，会导致价格快速反应，抹平套利空间，甚至产生“抢跑”现象，导致因子收益衰减。</p></li>
+<li><p>过度拟合风险：研究者可能通过过度优化参数，在样本内获得漂亮的回测结果，但这只是对历史噪音的拟合，缺乏样本外的预测能力。这是量化研究中最常见、也最致命的问题。</p></li>
+</ul>
+</section>
+<section id="应对策略" class="level3">
+<h3 class="anchored" data-anchor-id="应对策略">5.应对策略</h3>
+<p>面对上述风险，量化投资者应建立完善的应对机制：</p>
+<ul>
+<li><p>多因子多周期框架：不依赖单一指标，而是构建多维度（基差、持仓、情绪、趋势）的组合信号。同时，结合不同周期（短期、中期、长期）的信号，降低噪音干扰。</p></li>
+<li><p>动态参数与自适应模型：避免固定参数，采用滚动优化或机器学习方法，使模型参数适应市场环境的变化。</p></li>
+<li><p>严格的风险管理：设定止损线、最大回撤控制、仓位限制，在模型失效时及时干预。</p></li>
+<li><p>基本面结合：将量化择时信号与宏观经济周期、政策环境判断相结合，进行逻辑验证。当量化信号与基本面逻辑严重背离时，保持谨慎。</p></li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第3章 择时 第4节 投资者情绪.html" class="pagination-link" aria-label="第3章 择时 第4节 投资者情绪">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第3章 择时 第4节 投资者情绪</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
