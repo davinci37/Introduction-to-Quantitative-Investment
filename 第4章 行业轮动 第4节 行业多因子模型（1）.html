@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第4章 行业轮动 第4节 行业多因子模型（1） – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第4章 行业轮动 第3节 宏观模型.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html">第4章 行业轮动 第4节 行业多因子模型（1）</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一因子体系" id="toc-一因子体系" class="nav-link" data-scroll-target="#一因子体系">一、因子体系</a>
+  <ul class="collapse">
+  <li><a href="#基本面因子" id="toc-基本面因子" class="nav-link" data-scroll-target="#基本面因子">1.基本面因子</a></li>
+  <li><a href="#景气度因子" id="toc-景气度因子" class="nav-link" data-scroll-target="#景气度因子">2.景气度因子</a></li>
+  <li><a href="#宏观因子" id="toc-宏观因子" class="nav-link" data-scroll-target="#宏观因子">3.宏观因子</a></li>
+  <li><a href="#量价和技术指标因子" id="toc-量价和技术指标因子" class="nav-link" data-scroll-target="#量价和技术指标因子">4.量价和技术指标因子</a></li>
+  <li><a href="#资金流因子" id="toc-资金流因子" class="nav-link" data-scroll-target="#资金流因子">5.资金流因子</a></li>
+  </ul></li>
+  <li><a href="#二因子合成" id="toc-二因子合成" class="nav-link" data-scroll-target="#二因子合成">二、因子合成</a>
+  <ul class="collapse">
+  <li><a href="#静态权重法分类等权合成" id="toc-静态权重法分类等权合成" class="nav-link" data-scroll-target="#静态权重法分类等权合成">1.静态权重法：分类等权合成</a></li>
+  <li><a href="#动态权重法ic加权与icir加权" id="toc-动态权重法ic加权与icir加权" class="nav-link" data-scroll-target="#动态权重法ic加权与icir加权">2.动态权重法：IC加权与ICIR加权</a></li>
+  <li><a href="#模型拟合法基于统计和机器学习模型" id="toc-模型拟合法基于统计和机器学习模型" class="nav-link" data-scroll-target="#模型拟合法基于统计和机器学习模型">3.模型拟合法：基于统计和机器学习模型</a></li>
+  </ul></li>
+  <li><a href="#三行业多因子模型的特殊性" id="toc-三行业多因子模型的特殊性" class="nav-link" data-scroll-target="#三行业多因子模型的特殊性">三、行业多因子模型的特殊性</a></li>
+  <li><a href="#四研究前沿" id="toc-四研究前沿" class="nav-link" data-scroll-target="#四研究前沿">四、研究前沿</a>
+  <ul class="collapse">
+  <li><a href="#ai驱动的因子挖掘" id="toc-ai驱动的因子挖掘" class="nav-link" data-scroll-target="#ai驱动的因子挖掘"><strong>1.AI驱动的因子挖掘</strong></a></li>
+  <li><a href="#大语言模型llm解锁非结构化数据的价值" id="toc-大语言模型llm解锁非结构化数据的价值" class="nav-link" data-scroll-target="#大语言模型llm解锁非结构化数据的价值"><strong>2.大语言模型（LLM）：解锁非结构化数据的价值</strong></a></li>
+  <li><a href="#多模态" id="toc-多模态" class="nav-link" data-scroll-target="#多模态"><strong>3.多模态</strong></a></li>
+  <li><a href="#前沿的技术流程" id="toc-前沿的技术流程" class="nav-link" data-scroll-target="#前沿的技术流程"><strong>4.前沿的技术流程</strong></a></li>
+  </ul></li>
+  <li><a href="#五总结和结论" id="toc-五总结和结论" class="nav-link" data-scroll-target="#五总结和结论"><strong>五、总结和结论</strong></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第4章 行业轮动 第4节 行业多因子模型（1）</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>随着市场日益成熟和定价效率的不断提升，前文所介绍的传统行业轮动策略，无论是基于宏观经济周期的美林时钟模型，还是基于基本面的择时策略，其创造稳定超额收益的能力正面临前所未有的挑战。市场博弈的复杂性与信息传播速度的加快，使得任何单一维度的决策框架都难以适应快速变化的市场环境。正是在这样的背景下，行业轮动的策略范式经历了一场深刻的演进。从单一逻辑框架走向系统化的多因子模型，已成为业界主流的演进方向。</p>
+<p>行业多因子模型，本质上是股票多因子模型在行业配置这一更高资产颗粒度层面的方法论延伸。其核心思想一脉相承，遵循着量化投资的基本逻辑：将复杂的投资标的（在此处即为行业）进行“画像”解构，将其在未来一段时间内的收益分解为多个可观测、可测度的因子维度。通过对每个行业在各个因子维度上进行系统化的打分，最终合成一个综合评分，以此评估其在所有行业截面上的相对强弱，并据此进行投资组合配置。</p>
+<p>然而，将股票多因子的范式直接移植到行业层面，会遭遇一系列问题和挑战，这源于研究对象的本质差异。这迫使行业多因子体系必须发展出专门的方法论体系，贯穿于模型构建的每一个环节，包括：样本量的稀缺性（全市场一级行业仅30个左右）、数据的聚合问题（行业数据需由成分股自下而上合成）、指标可比性（不同行业财务指标含义迥异）、时间序列特征的显著差异（行业层面呈现中短期动量而非个股层面的短期反转）、以及风格因子的耦合（行业标签与成长、价值等风格标签天然绑定）。</p>
+<p>本节我们将全面、系统地剖析行业轮动多因子模型的理论框架、构建细节、核心挑战与前沿实践。我们将从因子体系的构建出发，深入探讨景气度、宏观、量价技术和资金流等因子维度的逻辑、构建方法与独特价值。我们将聚焦于因子合成与组合优化这两个关键环节，解析不同方法的优劣以及行业模型在该环节的特殊处理。最后，本报告将系统总结行业多因子的特殊性，并结合前沿的机器学习、另类数据等趋势，展望该领域的未来发展方向。我们的目标是为资者提供一个理解并应用行业轮动多因子模型的完整知识图谱。</p>
+</section>
+<section id="一因子体系" class="level2">
+<h2 class="anchored" data-anchor-id="一因子体系">一、因子体系</h2>
+<p>一个稳健且成熟的行业多因子体系，其核心竞争力源于其因子框架的完备性与多元性。它需要整合来自不同逻辑源头的信号，包括但不限于宏观环境、景气周期、市场微观结构和资金博弈等多个维度，共同刻画一个行业在当前市场环境下的综合相对强弱。</p>
+<p>不同维度信号各有适用的市场环境，也各有其短板和无法覆盖的盲区，没有任何一个因子能够在所有市场环境中持续有效。多因子模型的核心理念并非找到一个“圣杯”因子，而是通过将多个相关性较低的有效信号进行科学叠加，使得组合的整体稳健性和环境适应性显著优于任何单一信号。一个比较完备的行业轮动因子框架，应至少涵盖以下几个维度。</p>
+<section id="基本面因子" class="level3">
+<h3 class="anchored" data-anchor-id="基本面因子">1.基本面因子</h3>
+<section id="核心逻辑" class="level4">
+<h4 class="anchored" data-anchor-id="核心逻辑">1.1.核心逻辑</h4>
+<p>基本面因子是行业轮动模型中衡量行业“内在质地”的核心因子，其逻辑在于：盈利能力强、财务状况健康、经营效率高、稳定持续成长的行业，其内在价值更为坚实，抵御宏观冲击和行业竞争的能力也更优，长期来看更倾向于为投资者带来持续的超额回报。</p>
+<p>从行为金融学的视角看，市场对行业基本面的深度认知存在渐进过程：高质量的基本面数据（如持续高ROE、稳定毛利率）通过财报披露后，需要经过卖方研究的深度解读、买方机构的内部分析、以及长期资金的反复校验，才会逐步被市场充分定价。因此，行业层面的基本面因子不仅具有截面上的选股区分度，在时间上也展现出一定的持续性。</p>
+</section>
+<section id="常用指标" class="level4">
+<h4 class="anchored" data-anchor-id="常用指标">1.2.常用指标</h4>
+<p>行业基本面因子的指标体系主要涵盖三大维度，每一维度均可从绝对水平和边际变化两个角度进行考察，以兼顾“质量”与“趋势”：</p>
+<ul>
+<li><p><strong>盈利能力：</strong>核心指标包括净资产收益率（ROE）、总资产回报率（ROA）、毛利率和净利率。其中ROE与ROA衡量行业运用股东权益和总资产创造利润的效率，是判断行业商业模式壁垒和资本回报水平的最综合尺度；毛利率与净利率则反映行业的定价能力与成本控制水平，尤其对于消费、制造类行业具有重要区分意义。</p>
+<p>在实战中，除关注指标的绝对水平外，其同比和环比的变动方向同样值得重视，盈利能力的持续改善往往预示着行业竞争格局正在优化。</p></li>
+<li><p><strong>成长性：</strong>以净利润同比增长率和营业收入同比增长率为代表，直接衡量行业业务规模的扩张速度。相较于景气度因子中强调的“超预期”和“分析师上调”，基本面因子框架下的成长性指标更侧重于实际已兑现的历史增长，是评估行业所处生命周期阶段（导入期、成长期、成熟期、衰退期）的关键依据。</p>
+<p>对于成长型行业，营收和利润的高增长是维持高估值的基础；对于成熟型行业，稳定的增长预期则是红利策略的前置条件。</p></li>
+<li><p><strong>运营效率：</strong>包括总资产周转率、存货周转率、应收账款周转率等指标，反映行业对资产、库存和回款的管理效率。这些指标在周期类（如制造业、商贸零售）和重资产类（如电力、交运）行业中尤为重要。</p>
+<p>高周转率意味着行业能够高效利用有限资源创造收入，而周转率的显著下滑则可能预示着需求萎缩或渠道库存积压等潜在风险。运营效率的边际恶化往往是行业景气下行的早期预警信号。</p></li>
+</ul>
+<p>在因子构建时，注意根据各行业的商业模式特征对指标进行差异化使用，例如金融行业更侧重ROE与净息差，消费行业更关注毛利率与周转率，科技行业则侧重营收增速与研发费用率等。</p>
+</section>
+<section id="构建方法" class="level4">
+<h4 class="anchored" data-anchor-id="构建方法">1.3.构建方法</h4>
+<p>行业基本面指标的合成面临自下而上的聚合问题。由于行业本身不具备独立的财务报表，所有基本面数据必须通过成分股财务数据进行聚合。行业轮动实践中常用的合成方式包括以下四种，各有其适用场景和优劣取舍：</p>
+<ul>
+<li><p><strong>整体法：</strong>将行业内所有成分股的核心财务数据（如净利润、营业收入、股东权益）直接加总，再计算行业层面的衍生指标（如行业整体ROE=行业总净利润/行业总股东权益）。</p>
+<p>此方法严格遵循财务报表的合并逻辑，数据口径最为统一，能真实反映行业作为一个“虚拟实体”的综合财务状况。其不足之处在于，个别巨亏或异常盈利的公司可能对整体结果产生较大扰动，且需要等待所有成分股财报披露完毕，存在一定及时性的损失。</p></li>
+<li><p><strong>流通市值加权法：</strong>以各成分股的流通市值为权重，对其指标进行加权平均，得到行业加权值。</p>
+<p>该方法与主流行业指数的编制逻辑一致，赋予了大市值龙头企业更高的影响力，更好地反映了机构投资者的实际配置视角和市场的资本权重分布。其隐含假设是龙头的财务表现对行业整体定价具有决定性作用，适用于机构资金占比较高、龙头效应显著的行业环境。</p></li>
+<li><p><strong>龙头股法：</strong>仅选取行业内市值排名前10%或固定数量（如前5家）的龙头公司，计算其平均或加权基本面指标来表征行业整体。</p>
+<p>该方法的核心理念在于，龙头公司的基本面变化往往具有领先性，它们凭借更强的规模效应、定价能力和融资便利，对行业需求拐点和成本波动的感知早于中小公司，因此龙头股财务数据的边际变化可作为行业整体趋势的先行指标。</p>
+<p>这一方法对提升因子的前瞻性和及时性有明显帮助，但对龙头股的选择标准和数量的稳定性要求较高。</p></li>
+<li><p><strong>中位数法：</strong>计算行业内所有成分股对应指标的中位数，作为行业的代表值。</p>
+<p>此方法的核心优势在于极强的抗极端值干扰能力。当行业内出现个别公司巨额亏损、财务数据异常或会计处理变动时，中位数法能够有效避免这些“噪音”对行业整体判断的扭曲，尤其在成分股数量较多、个体差异较大的行业中表现稳健。但同时也可能因忽视尾部信息而损失部分预测灵敏度。</p></li>
+</ul>
+<p>实践中，不同合成方式的选择需要结合因子类型、行业特征和回测验证结果综合判断，并不存在普适的最优解。例如，盈利能力类因子（ROE、毛利率）通常可采用整体法与中位数法相结合的方式以兼顾稳健性与抗干扰性，而成长性类因子（营收增速、利润增速）则更倾向于采用龙头股法或市值加权法以捕捉核心驱动力量。</p>
+<p>在多因子模型的最终环节，还可以根据不同行业的市值结构、机构持股比例等特征动态调整合成权重，以最大限度释放基本面因子的预测效能。</p>
+</section>
+</section>
+<section id="景气度因子" class="level3">
+<h3 class="anchored" data-anchor-id="景气度因子">2.景气度因子</h3>
+<section id="核心逻辑-1" class="level4">
+<h4 class="anchored" data-anchor-id="核心逻辑-1">2.1. 核心逻辑</h4>
+<p>正如前面章节所介绍的，景气度是行业轮动模型中最为核心的因子之一，其理论基础深植于学术界所称的“盈余动量效应”。这一效应描述了盈利增长超预期的公司或行业，在未来一段时间内股价往往会延续强势表现的现象。</p>
+<p>景气度因子的核心逻辑在于，一个行业基本面景气度的重大变化，并不会在信息出现的一瞬间被市场完全、高效地定价。相反，其信息的消化和价格的反映是一个渐进式的过程。这个过程通常表现为一个强有力的正反馈循环：</p>
+<ol type="1">
+<li><p>景气改善：行业受到技术突破、需求扩张或政策扶持等因素驱动，盈利能力出现实质性改善，反映在季度财报中的营收、利润增速超预期。</p></li>
+<li><p>盈利上调：初步的超预期数据引发了卖方分析师的关注。分析师通过产业链调研、高频数据验证，逐步确认景气趋势的持续性，并开始系统性地上调对该行业的盈利预测。</p></li>
+<li><p>资金涌入：持续上调的盈利预测和积极的研究报告，吸引了机构投资者的目光。他们基于对未来更高景气度的预期，开始主动增配该行业，导致资金持续净流入。</p></li>
+<li><p>股价上涨：增量资金的涌入推动了行业内相关股票价格的上涨，形成了显著的超额收益，即市场所观察到的“行业动量”。 5）循环强化：股价的上涨进一步强化了市场对该行业高景气度的信心，吸引更多资金关注，同时景气度的持续又在下一期财报中得到验证，从而开启新一轮循环。</p></li>
+</ol>
+<p>这种动量效应的驱动力，正是信息的渐进式传播。行业景气度的确立需要时间，通过财报、分析师报告、高频数据等多重信息源逐渐的验证和强化。因此，一个进入高景气周期的行业，其领先优势往往能够持续数个季度。统计规律表明，行业层面的动量效应在持续性和强度上，通常优于个股层面的动量效应，从侧面验证了行业景气周期的趋势性。因此，景气度因子在行业多因子模型中的战略地位，天然地高于其在股票模型中的分量。</p>
+</section>
+<section id="景气度因子与基本面因子的区别与联系" class="level4">
+<h4 class="anchored" data-anchor-id="景气度因子与基本面因子的区别与联系">2.2. 景气度因子与基本面因子的区别与联系</h4>
+<p>在行业轮动的多因子架构中，基本面因子与景气度因子都属于基本面因子，但二者在分析视角、底层逻辑和功能定位上存在一定差异，同时又通过财务数据的同源性形成紧密的内在关联，甚至有一定的重叠。</p>
+<ul>
+<li><p>基本面因子的核心视角是截面比较，衡量行业在当前时点“有多好”，聚焦于盈利能力的绝对水平、财务结构的稳健程度和经营效率的优劣等多个维度。它回答的是“哪个行业质地最扎实”的问题，本质上是一种状态描述。</p>
+<p>景气度因子的核心视角则是时间序列上的边际变动，衡量行业相较于过去“变得多好”，聚焦于盈利增长的加速度、分析师预测的上调幅度和超预期的程度。它回答的是“哪个行业正在加速变好”的问题，本质上是一种变化检测。</p></li>
+<li><p>基本面因子根植于价值投资和质量溢价的逻辑：高ROE、高毛利率的行业因其深厚的护城河和可持续的竞争优势，在市场下行时具备更强的防御性和估值修复能力，长期能够穿越周期。这类因子更适合作为组合的底仓配置和风险缓冲。</p>
+<p>景气度因子则根植于盈余动量和预期差理论：当行业盈利增长超预期时，市场对其内在价值的重估是一个渐进过程，这一过程中的价格发现为投资者创造了超额收益。景气度因子本质上是趋势跟踪在基本面维度的投射，更适合作为组合的进攻利器和弹性来源。</p></li>
+<li><p>基本面因子依赖财务报表数据，季度更新，数据质量高、噪音低，滞后性明显，因此基本面因子更适合中长周期的配置决策。</p>
+<p>景气度因子除财报数据外，还可以纳入分析师预测调整、产业链数据（如产品价格、出货量、开工率）等更高频的信息来源，其更新频率可达月频甚至周频，对景气拐点的反应更为灵敏。这使得景气度因子在中短周期的轮动中优势突出。</p></li>
+<li><p>景气度是基本面的“先行指标”与“加速器”。从行业生命周期的动态演进来看，两者存在清晰的逻辑递进关系：景气度变化最终会沉淀为基本面的改变。一个行业若持续保持高景气，其ROE和毛利率会随着规模效应的释放而逐步提升，运营效率也会因产能利用率的改善而优化。</p>
+<p>换言之，长期的高景气必然转化为高质量的基本面。基本面是景气度持续性的“安全垫”：高ROE、高毛利率的行业，即便短期景气度有所回落，其扎实的盈利基础仍能支撑较高的估值底线，景气下行的冲击相对温和；而低质量基本面的行业，即便阶段性景气飙升，一旦景气逆转，盈利和估值的双杀将极为惨烈。</p></li>
+<li><p>基本面因子中的成长因子，可以算时一种景气度因子，其原始数据来自行业内成分股的财务报表，在数据处理和因子计算环节具有相同的技术路径。</p>
+<p>在传统的财务基本面指标之外，景气度因子的构建还有两条重要的扩展路径：一是分析师预期类因子，二是基于行业高频数据合成的因子。前者将信息窗口从“过去”延伸至“未来”，后者则将数据频率从“季度”提升至“周度/日度”，二者共同解决了传统财报数据低频滞后的问题。</p></li>
+</ul>
+</section>
+<section id="分析师预期类因子" class="level4">
+<h4 class="anchored" data-anchor-id="分析师预期类因子">2.3.分析师预期类因子</h4>
+<p>分析师预期数据的核心价值在于其前瞻性。财报反映的是“已经发生”的盈利，而分析师一致预期则刻画市场对“将要发生”的盈利走势的判断。在景气度量化体系中，这一维度被定位为“未来景气度”，与基于财报的“当前景气度”和基于趋势的“历史景气度”形成互补。</p>
+<p>常见的分析师预期类景气度因子主要包括：</p>
+<ul>
+<li><p><strong>预期EPS/净利润/营收的变动：</strong>通过跟踪分析师对行业未来一年EPS、净利润、营业收入等核心盈利指标的预测值及其环比、同比变动幅度，衡量行业盈利预期的边际改善程度。</p></li>
+<li><p><strong>预期ROE的变动：</strong>关注分析师对行业净资产收益率预测值的上调或下调，ROE作为衡量资本回报效率的综合指标，其预期变化往往预示着行业盈利模式或竞争格局的深层转变。</p></li>
+<li><p>分<strong>析师覆盖度：</strong>跟踪某一行业被分析师覆盖的数量变化。景气改善的行业往往会吸引更多卖方研究资源的关注，覆盖度的上升本身即可视为景气度提升的间接信号。</p></li>
+<li><p><strong>上调强度与上调幅度：</strong>不仅关注盈利预测是否上调，还进一步区分上调的“强度”（上调分析师的比例）与“幅度”（上调的百分比），二者结合能更精细地刻画预期改善的确定性与力度。</p></li>
+</ul>
+<p>在行业层面的合成方式上，分析师预期因子同样面临自下而上的聚合问题。常见的做法类似，包括：整体法、加权法、中位数法等。</p>
+<p>由于不同行业的分析师覆盖密度差异较大，部分研究还会对分析师覆盖度指标进行市值中性化处理，以剔除覆盖度本身受市值规模驱动的成分。</p>
+<p>分析师预期类因子从“前瞻”维度对传统基本面景气度因子进行了有效扩展。分析师预期因子捕捉的是市场对未来盈利的边际定价，其信号建立在卖方研究的深度跟踪基础之上，兼具前瞻性与专业性。</p>
+</section>
+<section id="基于行业高频数据合成的景气度因子" class="level4">
+<h4 class="anchored" data-anchor-id="基于行业高频数据合成的景气度因子">2.4.基于行业高频数据合成的景气度因子</h4>
+<p>行业高频数据解决的则是“及时性”问题。财报季度披露一次，而高频数据可以做到日频、周频更新，能够更早捕捉景气拐点。</p>
+<p>行业高频数据因子的核心逻辑在于：行业的真实景气状态会实时映射到其产品价格、产销量、开工率、库存水平等高频经营指标上。通过系统性地采集和合成这些指标，可以在财报发布之前就对行业景气度的边际变化做出判断。</p>
+<p>在指标体系上，高频景气因子通常沿“量—价—库存”三维度展开构建：</p>
+<ul>
+<li><p>量：包括产量、销量、出货量、开工率、工程机械销量及开工小时数等实物量指标。</p></li>
+<li><p>价：包括产品价格、价格指数、价差等。</p></li>
+<li><p>库存：包括库存量、库容比、库存周转天数等。</p></li>
+</ul>
+<p>不同行业的高频指标选取差异显著。例如，建材行业关注磨机运转率、熟料库容比、水泥煤炭价格差；建筑工程行业关注螺纹钢价格与产量、工程机械开工小时数；制造业关注PMI分项中的新订单、生产、原材料库存等。</p>
+<p>在合成方法上，构建行业高频景气因子通常遵循以下步骤：</p>
+<ol type="1">
+<li><p>指标采集与清洗：针对每个细分行业，采集其对应的量、价、库存类高频指标，建立覆盖数百乃至上千个指标的底层数据库。</p></li>
+<li><p>去量纲化处理：对各高频指标计算其历史分位数或进行标准化处理，消除不同指标量纲差异带来的不可比性问题。</p></li>
+<li><p>指标合成：将同一维度等权或按相关性加权合成，再将量、价、库存三个维度指数按一定权重加权，得到该行业的综合景气指数。权重的确定方式包括等权法，或基于各指标与行业基本面指标的相关系数进行差异赋权。</p></li>
+<li><p>数据对齐：将各行业的景气指数进行汇总，实现与投资标的的最终对齐。</p></li>
+</ol>
+<p>很多研究引入了Nowcasting 框架，以行业基本面数据作为追踪目标变量，利用可得的宏观与行业的高频数据对其进行建模和预测，从而生成高频的、实时更新的行业景气度因子。</p>
+<p>高频数据类因子从“高频”的维度对传统基本面景气度因子进行了有效扩展。高频数据因子捕捉的是产业层面实时运行的景气状态，其信号更为客观、频率更高，尤其适合对缺乏分析师覆盖或财报季节性明显的行业进行补充跟踪。</p>
+</section>
+</section>
+<section id="宏观因子" class="level3">
+<h3 class="anchored" data-anchor-id="宏观因子">3.宏观因子</h3>
+<p>宏观因子在行业轮动模型中扮演着一个独特且不可或缺的角色。它试图将宏观经济与不同行业的表现联系起来，实现从宏观经济数据或预期到具体行业配置的映射。</p>
+<section id="核心逻辑-2" class="level4">
+<h4 class="anchored" data-anchor-id="核心逻辑-2">3.1.核心逻辑</h4>
+<p>宏观因子的基本假设是：不同行业由于其商业模式、产业链位置和需求来源的差异，对宏观经济变量（如经济增长、通胀、利率、流动性等）的敏感度存在系统性的、稳定的差异。这种差异性，正是构建行业在宏观维度上相对吸引力评分的基础。</p>
+<ul>
+<li><p>经济增长：指标如PMI、工业增加值。当PMI数据超预期上行时，通常意味着经济复苏或扩张，此时处于产业链上游的周期性行业（如钢铁、有色、化工）会因需求率先复苏而最先受益。</p></li>
+<li><p>通货膨胀：指标如CPI、PPI。当通胀预期升温，尤其是PPI大幅上行时，拥有定价权的资源品行业（如石油、煤炭、贵金属）的盈利能力会得到显著改善。</p></li>
+<li><p>利率水平：指标如十年期国债收益率、Shibor利率。利率下行周期中，金融（尤其是保险和券商）和地产等对利率高度敏感的行业，其资产估值和盈利预期会得到提振。</p></li>
+<li><p>流动性环境：指标如M2、社会融资规模。在流动性宽松的环境下，高估值、高成长性的行业（如科技、传媒、生物医药）更容易受益于信贷扩张和估值提升，其股价弹性更大。</p></li>
+</ul>
+</section>
+<section id="构建方法-1" class="level4">
+<h4 class="anchored" data-anchor-id="构建方法-1">3.2.构建方法</h4>
+<p>宏观因子的构建通常分为两步：</p>
+<ul>
+<li><p><strong>第一步，测算敏感度系数：</strong>通过历史数据，采用时间序列回归等统计方法，测算每一个行业指数的超额收益率对各个宏观经济变量的历史敏感度系数（Beta）。</p>
+<p>例如，以某行业相对于全市场行业均值的月度超额收益为因变量，以PMI、CPI、M2增速，或“超预期”程度（Surprise，即实际值与市场预期值的差值）等宏观变量的月度变化值为自变量，进行多元线性回归。</p>
+<p>回归得到的系数，就量化了该行业对相应宏观变量的敏感程度。这个过程最终得到一个<strong>“行业-宏观因子敏感度矩阵”</strong>。</p></li>
+<li><p><strong>第二步，构建当期宏观因子分：</strong>将最新的宏观变量数据，与第一步中计算出的各行业敏感度系数相乘，即可得到每个行业在当期宏观环境下的预期收益影响。</p>
+<p>将所有宏观维度的影响加总，就构成了该行业的宏观因子综合得分。</p></li>
+</ul>
+</section>
+<section id="独立的增量信息" class="level4">
+<h4 class="anchored" data-anchor-id="独立的增量信息">3.3.独立的增量信息</h4>
+<p>宏观因子的独特价值在于，它为多因子体系引入了与行业自身基本面和景气度因子相互独立的外部环境视角。景气度因子捕捉的是行业内生的、自下而上的变化，而宏观因子则补充了外部宏观环境对不同行业的差异化冲击。这两者形成了完美的互补。</p>
+<p>更重要的是，这一维度在股票多因子模型中几乎不存在直接的对应物。<strong>在个股层面，</strong>宏观变量通常被视为影响所有股票的系统性风险，需要通过Beta进行剥离，而很难成为在截面上提供Alpha的来源。因为个股对宏观变量的敏感度差异虽存在，但噪音过大，不稳定；然而<strong>在行业层面，</strong>由于行业是大量个股的集合，其商业模式的共性使得它们对宏观变量的敏感度差异足够大，且在时间序列上足够稳定。这使得宏观因子能够在行业截面上提供真实、独立的区分能力，成为行业轮动模型相较于股票模型的一个特有优势。</p>
+</section>
+</section>
+<section id="量价和技术指标因子" class="level3">
+<h3 class="anchored" data-anchor-id="量价和技术指标因子">4.量价和技术指标因子</h3>
+<p>量价与技术指标因子是行业轮动模型中不可或缺的一类因子，与基本面因子形成鲜明互补。基本面因子立足基本面“景气预期差”的渐进传播，而基于量价数据计算的因子则直接捕捉市场参与者交易行为的实时痕迹。在行业轮动的因子体系中，量价和技术指标因子不仅是基本面因子的重要补充，更是在基本面数据真空期或景气信号模糊时，最具时效性的决策锚点。</p>
+<section id="核心逻辑-3" class="level4">
+<h4 class="anchored" data-anchor-id="核心逻辑-3">4.1.核心逻辑</h4>
+<p>量价和技术指标因子在行业层面的有效性，根植于A股市场独特的微观结构特征与投资者行为偏差。其核心逻辑可从以下三个维度展开：</p>
+<ul>
+<li><p><strong>行业动量效应</strong></p>
+<p>大量实证研究表明，A股市场的行业动量效应显著强于个股动量效应。这一现象的成因在于：行业层面的趋势往往由宏观经济周期、产业政策、产业链景气传导等系统性力量驱动，其持续性天然强于个股层面的波动。</p>
+<p>当一个行业进入上行通道时，往往伴随着机构资金的系统性增配、ETF份额持续扩张、以及卖方覆盖密度的提升，这些正向反馈机制使得行业级别的动量效应在3~12个月的时间窗口内表现出高度的统计显著性。相较之下，个股动量容易因为资深体量太小、交易量的限制，加之公司治理、业绩暴雷、资金操纵等因素而失效。因此，在行业轮动中赋予动量因子适当权重，具备坚实的实证依据。</p></li>
+<li><p><strong>市场情绪</strong></p>
+<p>基本面因子的天然缺陷在于低频与滞后。而量价数据是日频、甚至分钟频的，其变化先于基本面数据被市场消化。</p>
+<p>量价因子因此扮演着“市场情绪的代理变量”的角色：一个行业的放量上涨，可能预示着有先知先觉的资金已经提前获知了即将发布的利好数据；一个行业的缩量阴跌，则可能反映产业层面的隐性利空正在被内部人逐步兑现。</p>
+<p>在景气度因子信号尚不明朗的阶段，量价因子能够提供极具价值的先行指引。</p></li>
+<li><p><strong>交易活跃度与拥挤度</strong></p>
+<p>波动率、成交额与换手率既是交易活跃度的度量，也是判断行业运行健康程度和拥挤风险的核心工具。</p>
+<p>当行业成交量持续萎缩、换手率处于历史后20%分位、且波动率长期低迷时，往往意味着该行业已淡出主流资金视野，缺乏新增边际买盘。即便估值处于历史底部，也可能因“流动性折价”而长期趴底，趋势性反转需等待强力外生催化。</p>
+<p>成交额平稳放大、换手率温和抬升、波动率维持在中枢附近，表明行业正获得增量资金有序关注。此时市场分歧尚存，并未形成一致预期的极端拥挤，股价趋势往往具备较好的延续性，是动量策略最为舒适的参与区间。</p>
+<p>一旦成交额和换手率骤升至历史90%以上高分位，同时波动率急剧放大，则表明行业已进入“交易过度拥挤”状态。此时，看多逻辑已被充分演绎，持仓者高度同质化，边际买盘接近枯竭。任何低于预期的基本面消息或流动性边际收紧，都可能引发踩踏式多杀多，导致剧烈反转。该阶段应果断规避或减配。</p></li>
+</ul>
+<p>上述逻辑表明，量价因子并非简单的“追涨杀跌”的工具，而是一套涵盖趋势识别、状态划分和风险预警的多层次决策系统。</p>
+</section>
+<section id="构建方法-2" class="level4">
+<h4 class="anchored" data-anchor-id="构建方法-2">4.2.构建方法</h4>
+<p>量价因子与技术因子在数据源上同根同源，均基于量价数据计算，二者的区别更多体现在计算复杂度与信息层级上。</p>
+<p>量价因子通常指从收益率、波动率、换手率等基础数据直接构造的因子，如动量、反转、波动；而技术因子则指依托技术分析框架、形态识别等方法构造的更为复杂的衍生指标，如RSI、乖离率、MACD等。在因子构建上，主要存在两种技术路径：</p>
+<ul>
+<li><p><strong>路径一：直接基于行业指数计算。</strong>直接取用行业指数或ETF的价量数据，计算其动量、波动率及各类技术指标。其优势在于逻辑清晰、干扰较少，能纯粹反映行业整体作为“一个交易标的”的量价趋势变化。它避免了成分股内极端值的影响，适合于判断内生一致性较强的行业。</p></li>
+<li><p><strong>路径二：以个股为单位计算，再聚合为行业因子。</strong>先计算行业内所有成分股的个股因子（如个股RSI、个股换手率），再通过市值加权或等权方式合成行业因子。这种方式能有效挖掘行业内部分化的微观结构。例如，若行业指数涨幅不大，但内部龙头股纷纷放量突破，通过个股聚合的因子能更早捕捉到这种细微变化。</p></li>
+</ul>
+<p>在实际应用中，两种方法各有侧重和优势，实际应用中常将两者结合以相互验证，从而更全面地刻画行业的真实状态。</p>
+<p>在构建行业量价因子时，同样面临与景气度因子类似的“合成方式”抉择，同时还需额外处理量价指标的特性参数设定问题。以下是系统化的构建框架：</p>
+</section>
+<section id="动量因子" class="level4">
+<h4 class="anchored" data-anchor-id="动量因子">4.3.动量因子</h4>
+<p>动量因子的核心逻辑是“趋势延续”和”强者恒强”，即过去表现优异的行业，在未来一段时期内往往仍有超额收益。</p>
+<ul>
+<li><p>最常见的动量因子是<strong>一年期收益率动量</strong>，计算方法非常简单，就是直接计算行业指数在过去12个月（约240个交易日）的累计收益率，作为动量强度的衡量指标。</p>
+<p>对于该因子可以做一些参数优化，主要集中在回望期和剔除期两个方面，回望期就是用来计算动量的时间窗口，一般集中在6-12个月左右表现较优；剔除期则是调仓前需要剔除的时间窗口，设置为1个月，可以避免短期反转效应的影响。</p></li>
+<li><p><strong>残差动量因子</strong>的设计逻辑是为了解决传统动量因子容易受到市场整体波动干扰的问题。它的核心思路是先通过回归分析分离出行业收益中与市场收益、风格因子相关部分，将剩余无法被解释的残差部分作为真正的行业独特动量。</p>
+<p>计算时先建立行业收益与市场和风格收益的回归模型，然后提取回归残差序列，再对残差序列计算动量。</p>
+<p>此外，改进版本的动量因子还可以尝试引入波动率反转效应，即对日波动率较高月份对应的收益率进行反转处理，认为这些高波动往往预示着短期反转风险，从而提高因子预测的准确性。</p></li>
+<li><p><strong>龙头股动量因子</strong>的逻辑基础是行业龙头对板块的引领作用。即先识别出每个行业的龙头企业，然后计算龙头股与行业整体走势的差异度，差异越大说明领先效应越强。</p>
+<p>具体计算方法是，在每个行业内个股按总市值或成交活跃度进行排序，选取排名前50%的公司作为龙头股，然后计算这些龙头股平均相对于整个行业平均的超额涨跌幅，作为行业龙头股动量指标。</p>
+<p>该因子的关键点在于”龙头领先程度”的概念，即量化龙头股引领市场的幅度，当龙头股涨幅明显超过行业内其他股票时，说明龙头的先行信号较强，未来同行业其他股票补涨或补跌的空间就更大。</p></li>
+</ul>
+<p>通过以上改进和优化的动量因子，能够很好的捕捉到那些无法被常规数据描述的因素，如产业政策变化、技术革新、资金流向等隐性驱动因素。</p>
+</section>
+<section id="拥挤度因子" class="level4">
+<h4 class="anchored" data-anchor-id="拥挤度因子">4.4.拥挤度因子</h4>
+<p>拥挤度因子的核心逻辑在于：行业价格、波动、成交量（额）、与正常的交易行为的极端偏离，往往表明资金过度涌入该行业，形成了拥挤的状态，后续面临均值回归的压力。</p>
+<p>表征拥挤度的因子可以有很多，但计算方法一般遵循统一的范式：先计算行业的某个指标，再计算指标当前值相对其过去2~4年历史分布的分位数。当指标分位数超过特定阈值（通常为90%或95%）时，视为触发拥挤信号，取因子值为1；低于阈值阶段取因子值为0。不同的拥挤度因子区别主要体现在指标计算上。</p>
+<ul>
+<li><p><strong>波动率</strong>是最简单的拥挤度指标，例如最简单的，使用行业指数过去N日收益率的标准差作为指标，再计算指标当前值相对其过去2~4年历史分布的分位数，以此衡量行业的拥挤度。</p>
+<p>该指标基于“已实现波动”而非“未来波动”，因此可以尝试一种改进，引入GARCH模型，构造预期波动率，即先以回归模型剔除市场与风格的影响，再对残差项进行条件异方差建模，以此捕捉行业自身独有的脆弱性。</p>
+<p>另一方面，可尝试引入N日收益率的峰度系数和偏度系数，衡量价格分布的尾部风险，作为波动率的有效补充。</p></li>
+<li><p>对于<strong>成交额与换手率因子</strong>，因为成交额受行业整体扩容影响存在趋势性，容易产生虚假信号，实践中的更多采用的是行业指数换手率（行业成交额/行业流通市值）的历史分位数来表征行业拥挤程度。</p>
+<p>一种改进是采用相对换手率，即行业换手率/全市场换手率，剔除流动性中枢上移的干扰。</p>
+<p>此外，量价结合指标也是比较重要的指标，即滚动计算行业指数收益率与成交金额的相关系数，当量价正相关性异常升高时，意味着追涨资金高度趋同。</p>
+<p>另一种比较常用的成交额的指标是，交易集中度指标，即行业内最活跃的前20%成分股的行业总成交额占比，以此衡量筹码是否过度集中于龙头。</p></li>
+<li><p>对于行业成分股的<strong>涨跌与成交的一致性</strong>，基本逻辑是：当行业内个股同涨同跌时，说明市场形成了高度共识，拥挤度上升。最简单的方法是，计算行业内个股间两两配对相关系数的平均值，再取其历史分位数来表征行业拥挤程度。</p>
+<p>不过，直接计算配对相关性易受行业贝塔干扰，改进方法分是，剥离市场与风格因子影响，对个股收益率做正交化处理后，再计算行业内相关系数，即提取“特质一致性”。</p></li>
+</ul>
+<p>实证中常采用多指标门限机制，例如，可以同时监控波动率、换手率、成交集中度、量价相关性等多个维度，同时满足3个以上指标突破阈值才确认高拥挤。当多个拥挤度指标都处于历史高位时，行业拥挤信号的可信度会显著提高。</p>
+</section>
+</section>
+<section id="资金流因子" class="level3">
+<h3 class="anchored" data-anchor-id="资金流因子">5.资金流因子</h3>
+<section id="核心逻辑-4" class="level4">
+<h4 class="anchored" data-anchor-id="核心逻辑-4">5.1.核心逻辑</h4>
+<p>资金流因子专注于市场上不同性质资金的博弈与流向，试图通过刻画市场各种类型投资者的买卖行为与配置倾向，捕捉行业层面尚未完全反映在价格中的信息。其有效性建立在机构、外资等“聪明钱”拥有相对成熟的研究框架和更及时的基本面判断之上，其行业层面的资金流入与流出往往具备领先于价格或基本面确认的特性。识别和追踪这些“聪明钱”的流向，以此来判断行业的未来走向。</p>
+<p>行业轮动中资金流因子的底层逻辑，源于市场微观结构中信息传递的非完全有效性与参与者结构的异质性。当某一行业的基本面出现边际改善或景气度预期提升，拥有研究优势和信息优势的投资机构会率先介入，其持续买入行为将推升行业成交量和价格上的相对优势，形成资金与价格的正向螺旋。</p>
+<p>资金流因子的作用是捕捉“聪明钱”的早期趋势，而非单纯追随价格动量，在行业轮动因子框架中，它既可作为动量代理，又因其行为金融内涵具备独立性。</p>
+</section>
+<section id="公募基金持仓因子" class="level4">
+<h4 class="anchored" data-anchor-id="公募基金持仓因子">5.2.公募基金持仓因子</h4>
+<p>公募基金等境内主流投资机构的行业配置，是资金流因子中逻辑最为稳固的部分。其逻辑在于，公募基金作为最熟悉本土经济脉络的机构力量，其行业加仓行为往往领先于行业盈利拐点的公开确认，资金流的持续涌入可视为行业基本面实质改善的前奏，因此在行业轮动中具有重要的中长期的指示意义。</p>
+<p>尽管持仓数据存在披露频率低和滞后的问题，但其背后反映的是基金经理和研究员经过深度基本面调研后形成的行业观点，这种配置调整通常具备趋势性和持续性。</p>
+<p>实际构建因子时，可以直接基于季度重仓数据计算行业超配比例及其环比变化，衡量机构的加仓意愿。更有效的做法是，通过净值回归和持仓补全的算法，将低频披露信息升频为更高频的基金行业仓位估算序列，从中提取出机构资金在行业层面的边际流向。</p>
+</section>
+<section id="北上资金持仓因子" class="level4">
+<h4 class="anchored" data-anchor-id="北上资金持仓因子">5.3.北上资金持仓因子</h4>
+<p>陆股通北上资金提供了一套高频、透明且完全基于市场行为的行业层面资金流信号，其配置逻辑与本士机构形成有效互补。</p>
+<p>外资通常基于深入的全球宏观和产业研究，对行业进行系统性的超配和低配操作。其资金流具备较强的趋势性和基本面确定性，重视中长期投资，较少参与短期题材博弈。因此，追踪北向资金净流入较高的行业可以获得超额收益。</p>
+<p>具体而言，<strong>北上资金的静态持仓因子</strong>可以从多个角度衡量北向资金的持仓偏好，主要包括<strong>持仓市值、持仓比例（北向资金持仓市值除以对应行业标的股流通市值）、配置比例（北向资金持仓市值除以北向持仓总市值）和超配比例（北向资金在行业的配置比例减去该行业本身流通市值占市场的比例）</strong>四个维度。</p>
+<p><strong>动态流入因子</strong>则关注北向资金的变化，包括<strong>净流入因子、持仓变化因子以及正向净流入天数占比</strong>等指标。</p>
+<p>例如，通常使用一段时期内，行业日度净买入金额占该全市场金额的比例，构建北上资金流入强度因子，捕捉外资对特定行业的偏好。</p>
+<p>有研究对因子做了进一步改进，结合港交所披露的中央结算系统持股数据，可以将北向资金主体分为<strong>北向资金整体、银行类资金和券商类资金</strong>三类，不同类型的资金表现出不同的投资偏好和风险特征。</p>
+<p>该因子之所以有效，在于外资的行为模式更倾向于稳定持有和基本面驱动，当某个行业出现持续北上资金净流入时，往往与宏观周期、全球产业链重塑、政策红利或行业龙头盈利上调等深层次逻辑相呼应，这种资金流的趋势有很强的持续性，可为行业轮动提供长周期配置信号。</p>
+</section>
+<section id="大单主动买入因子" class="level4">
+<h4 class="anchored" data-anchor-id="大单主动买入因子">5.4.大单主动买入因子</h4>
+<p>此外，比较间接的方法是，基于日内高频成交数据，计算机构主动买入因子，试图从微观交易数据中还原专业资金的意图，是资金流因子中更具时效性的信号。</p>
+<p>其构造过程一般分为三步：首先，依据订单簿与成交价的相对位置，将每笔成交界定为主动买入或主动卖出，从而构建反映买卖主动权的净主动买入序列；然后，运用大单识别算法，将其中具有机构行为特征的大单交易分离出来，在个股层面聚合出机构主动净买入金额。最后，将这些数值按行业汇总，即形成行业维度的机构主动买入因子。</p>
+<p>该因子的核心优势在于信息效率极高，机构的交易行为以大单主动成交的方式即刻留下痕迹，远早于持仓披露数据。在行业轮动模型中，它能显著提升模型对于短期市场热点的兴起和切换的捕捉能力。但另一方面，必须警惕的是，越来越普及的做市行为和拆单算法也给因子带来了更多噪音。</p>
+<p>在A股市场，个人投资者占比较高、市场情绪影响较大。机构投资者通常基于深入的研究做出的中长期的判断，其调仓行为具有较强的趋势性和持续性，不会因短期市场波动而频繁改变。因此，正确的区分机构投资者和散户投资者，主动资金流与被动资金流显得尤为重要。</p>
+<p>幸运的是，与个股层面相比，行业层面的资金流信号往往更为清晰、稳定。通过构建以上资金流因子，可以相对可靠地追踪机构资金在行业间的流转，能够为行业轮动模型提供一个独特的、基于市场博弈层面的视角，有效补充了基于基本面和量价的传统因子。</p>
+<p>然而需要注意的是，无论是北向资金还是公募持仓模型，均存在受市场风格影响较大的共同缺陷。当市场风格为大市值股票抱团的风格时，模型表现较好；而当抱团瓦解的年份（如2022年），模型会遭遇一定程度的失效。这是因为机构资金的属性决定了其在跟踪类似大资金进行行业配置时，难以完全规避风格漂移带来的影响。</p>
+</section>
+</section>
+</section>
+<section id="二因子合成" class="level2">
+<h2 class="anchored" data-anchor-id="二因子合成">二、因子合成</h2>
+<p>当基本面、景气度、宏观、量价、和资金流等多个因子各自为30个行业给出了独立的评分和排序后，如何将这些来自不同维度的的信号，科学地合成为一个指导最终投资决策的综合得分？这就是因子合成环节需要解决的问题。在这一环节中，因子权重的配置方式直接决定了模型在不同市场环境下的适应性和最终表现。</p>
+<p>必须特别强调的是，行业多因子模型对因子合成机制的依赖程度，远高于股票多因子模型。其根本原因在于行业因子自身的特性：</p>
+<ul>
+<li><p>一方面，由于行业样本量稀少，一级行业仅有30个左右，任何单一因子在单期的信息系数（IC）都极易受到个别行业极端表现的影响，导致因子的IC序列的波动性远大于股票模型。</p></li>
+<li><p>另一方面，当宏观环境和市场风格快速切换，驱动行业轮动的主导逻辑也会频繁变化，单一行业因子的有效窗口期更短。因此，在拥有数千个样本的股票模型中，由于大数定律效应，很容易得到一个效果稳健的模型；而在行业模型中，这种高噪声、低信噪比、非平稳的数据特征，使得行业模型对因子合成机制的要求远高于股票模型。</p></li>
+</ul>
+<section id="静态权重法分类等权合成" class="level3">
+<h3 class="anchored" data-anchor-id="静态权重法分类等权合成">1.静态权重法：分类等权合成</h3>
+<p>分类等权合成是最朴素、最简单的因子合成方法。其操作是将所有因子按照逻辑划分为几大类，如基本面、景气度、宏观、动量、资金流等，首先在每一大类内部对所有因子进行等权合成，得到大类因子分，然后再对几个大类因子进行等权合成，得到最终的综合分。</p>
+<p>这种方法的优点是：方法简单直观，易于理解和实现；由于不需要在历史数据上估计任何参数，因此从根本上避免了模型过拟合的问题；在因子数量较多且各类因子长期表现较为均衡时，等权是一种有效的分散化投资，能够降低依赖单一因子的风险。</p>
+<p>这种方法的主要缺陷在于一个隐含的强假设，即假定所有因子在任何市场阶段都具有同等的预测能力。这显然与事实不符。不同因子的长期有效性本就存在差异，等权处理无法体现这种差异。</p>
+<p>当宏观经济和市场环境发生剧烈变化时，各类因子的有效性也会发生显著的、结构性的变化。例如，宏观经济从“衰退”切换到“复苏”，宏观和景气因子由于最能捕捉这种变化，其有效性会大幅提升；而动量因子由于仍延续过去较长时期的状态和趋势，可能出现暂时失效的风险。静态的等权方法无法对这种变化做出适应和调整。在行业层面，由于因子IC波动剧烈，这种不适应性会被进一步放大，模型可能面临较长期的失效和回撤。</p>
+</section>
+<section id="动态权重法ic加权与icir加权" class="level3">
+<h3 class="anchored" data-anchor-id="动态权重法ic加权与icir加权">2.动态权重法：IC加权与ICIR加权</h3>
+<p>为了克服静态权重的弊端，业界发展出了一系列基于因子历史表现进行动态赋权的系列方法，其中最经典、最常用的便是IC加权和ICIR加权。</p>
+<ul>
+<li><p><strong>IC加权（Information Coefficient Weighting）：</strong>用因子过去的表现来预测其未来的表现。具体操作是，计算每个因子在过去一个滚动窗口期内（如过去12个月）的IC序列的平均值，然后以这个平均IC值为权重，对各因子进行加权合成。</p>
+<p>该方法的优点是实现了权重的动态调整，能够给近期表现更好，即IC值更高的因子赋予更高的权重，从而适应市场的变化。缺点是IC均值本身可能不稳定。举个比较极端却在行业模型中常见的例子：一个因子可能在过去12个月里有11个月IC为-0.1，但仅有1个月因为踩中一个极端行情使得IC飙升至0.5，导致其平均IC虚高。这样的因子实际上非常不稳定，不应被赋予高权重。</p></li>
+<li><p><strong>ICIR加权（Information Coefficient Information Ratio Weighting）：</strong>是对IC加权的进一步优化。它在考虑因子平均有效性的同时，加入了对稳定性的惩罚。即用因子过去滚动窗口期内IC的均值，除以其IC的标准差。</p>
+<p>该方法的优点是，ICIR加权组合的权重稳定性通常优于纯粹的IC加权。它能有效识别并惩罚那些IC大起大落、表现不稳定的“噪声”因子。这尤其适合行业层面因子IC天生波动大的特征。通过惩罚高波动因子，实际上是在抑制那些在小样本中容易因个别极端值而出现IC虚高的因子，从而提升了合成后因子的稳健性。</p></li>
+</ul>
+<p>上述方法的共同前提是：假定因子未来的预测能力与历史呈线性延续，合成评分是各因子评分的线性组合。线性加权结构清晰、解释性强，且在相对平稳的市场环境下具备相当的稳健性。</p>
+<p>两种方法都存在一个无法回避的核心难题：<strong>滚动窗口期的选择</strong>。如果选择24个月至48个月的长窗口，优点是IC和ICIR的估计值会更平滑，统计噪声被有效过滤，权重分配更为稳定；缺点是，当市场风格发生急剧、结构性的转变时，基于长窗口计算的权重会表现出明显的滞后性，无法及时捕捉到因子有效性的新变化。如果选择6个月至12个月的短期窗口，优点是权重调整更为灵敏，能更快地适应市场变化；缺点是，在短窗口内，IC和ICIR的估计值本身包含大量统计噪声，容易受到极端值的影响，导致权重分配的波动过大，反而降低了模型的稳定性。</p>
+<p>在行业因子有效性本就偏弱的背景下，这种行业模型时滞性与时敏性的权衡问题，比在股票模型中更为尖锐和突出。设计更优的动态赋权机制，是行业多因子模型在因子合成方法上持续探索和改进的重要方向。例如很多研究尝试引入<strong>指数加权移动平均（EWMA）</strong>来计算ICIR，或者结合市场状态判断来动态调整窗口期长度。</p>
+</section>
+<section id="模型拟合法基于统计和机器学习模型" class="level3">
+<h3 class="anchored" data-anchor-id="模型拟合法基于统计和机器学习模型">3.模型拟合法：基于统计和机器学习模型</h3>
+<p>行业轮动背后的逻辑通常是动态变化的，且高度非线性和强交互。宏观周期的切换、政策事件的冲击、产业链的传导、市场情绪的波动，会使得同一因子表现出截然不同的效力；因子之间也普遍存在复杂的互补或替代关系。线性加权很难刻画因子间的交互效应，亦无法捕捉因子有效性随宏观和产业周期、市场情绪的变化。这便为机器学习模型提供了理论上的切入点。</p>
+<p>机器学习模型，试图通过回归类模型、树模型以及梯度提升树等集成算法，从历史数据中自动挖掘行业因子到未来行业收益之间的映射关系。</p>
+<p>具体而言，将各个行业因子作为模型的输入特征（X），将行业未来收益作为模型的预测目标（y），使用过去较长时期的历史数据训练模型，学习因子与收益之间线性和非线性的关系，以及因子之间的交互效应。将最新的因子数据输入训练好的模型，可以直接得到每个行业未来收益的预测值。这个预测值本身就可以作为一个高度综合、信息丰富的“合成因子”用于指导组合构建。</p>
+<p>机器学习模型的核心优势在于，模型可以学习到极其灵活的函数形，而不再预设线性形式。比如，深度较浅的决策树能够捕捉因子间的分段线性或阈值效应，随机森林和梯度提升树则进一步通过集成学习平滑个体树的过拟合倾向，并识别出复杂的交互结构。</p>
+<p>理论上，这类方法有能力刻画出一幅更精细的“市场状态-因子效力”图景。例如：当宏观指标突破某个水平时，量价因子的方向性可能会发生翻转；或者，只有在动量因子与质量因子同时给出正向信号时，行业收益的胜率才会显著提升。这些相对复杂逻辑在现实是普遍存在的，但在传统线性加权中很难被表达。因此，在理论上，机器学习模型的模式识别能力确实强于单纯的线性加权，显示出处理非平稳、非线性问题的潜力。</p>
+<p>然而，将这种思路落地到现实的行业轮动场景中，面临的是近乎严苛的<strong>样本量约束</strong>。行业层面的有效样本量极为有限，即便拉长时间维度，一级行业不过三十个上下，横截面远小于个股；而时间序列上，市场状态的结构性变迁又使得过于久远的历史数据与当下的生态几乎不可比，真正可用的样本点可能只有几十期甚至更少。在这般小样本下贸然引入具备高度灵活性的非线性模型，结果就是模型极易捕捉数据中的噪声而非真实规律，陷入经典的过拟合陷阱。</p>
+<p>更棘手的是，行业因子本身的IC波动剧烈，<strong>有效窗口期偏短</strong>，意味着因子信号中本身就交织着大量偶然与暂时的成分。机器学习模型在搜寻模式时，会不加分辨地将这些短暂的伪规律也固化进复杂的非线性结构里，看似样本内回测曲线优美，一旦推至未来，那些曾被精心拟合的噪声关系立刻瓦解，样本外表现往往出现断崖式下跌。</p>
+<p>大量的实证研究和实践经验都表明，在行业轮动这类典型的小样本非平稳任务上，深度神经网络或高度复杂的提升树模型，其样本外超额收益和稳健性普遍落后于等权、ICIR加权等结构简单的线性方法。</p>
+<p>简单的线性加权虽然拟合能力弱，但方差也小，对噪声的容忍度更高，并且其简洁性天然地嵌入了“信号大致线性有效”的强先验约束，反而起到正则化效果，避免了模型被样本内过高的随机成分所误导。</p>
+<p>这一现象并非对机器学习方法的否定，而是再次印证了在量化投资中，方法论的选择必须与数据生成过程的特征相匹配：当数据稀疏且信噪比极低时，克制与简约本身，就是最重要的风险控制和收益保障。</p>
+</section>
+</section>
+<section id="三行业多因子模型的特殊性" class="level2">
+<h2 class="anchored" data-anchor-id="三行业多因子模型的特殊性">三、行业多因子模型的特殊性</h2>
+<p>行业轮动多因子体系，是股票多因子模型这一成熟范式在行业配置层面的系统性延伸，但它远非一次简单的技术移植。它继承了多因子框架将决策对象“画像”分解为多维度、通过量化打分进行截面比较的基本逻辑，但在因子构建、权重合成、组合优化和风险控制的每一个环节，都因应行业配置所面临的四大特殊挑战，而发展出了专门的方法论和应对方案。</p>
+<p>理解行业多因子体系，关键在于认识到它与股票模型并非规模上的缩放，而是研究对象本质差异所决定的、需要专门方法论支撑的独立领域。这些特殊性集中体现在以下四个方面。</p>
+<ul>
+<li><p><strong>首先是样本量的稀少。</strong>股票多因子模型在全市场范围内拥有数千个截面样本，统计推断的可靠性较高，因子信息系数的估计相对稳定。而行业多因子模型即便采用二级行业分类，通常也不过百个左右的观测截面。</p>
+<p>这一数量级的差异带来的后果是深远的：因子的统计显著性普遍偏弱，信息系数的波动大幅放大，单期的预测方向和幅度都可能被少数几个行业的极端表现所主导。在如此小的样本中，随机噪声往往掩盖真实信号，任何单一因子的截面预测能力都相当脆弱。策略表现天然不如股票模型稳定，这就要求行业模型在因子合成与风险控制上采取更为保守和分散化的策略。</p></li>
+<li><p><strong>其次是数据的合成与可比性问题。</strong>股票因子直接使用公司层面的财务与交易数据，数据归属清晰、口径统一。而行业层面，几乎所有的基本面指标都需要通过成分股向上聚合。聚合方式的选择，是采用整体法、中位数法、市值加权法还是龙头股法，直接影响因子的截面排序，且不存在一个在所有情境下都最优的通用方案。</p>
+<p>更棘手的是，不同行业之间的业务逻辑差异巨大：银行业的净资产收益率与半导体行业的净资产收益率，其经济含义和可持续性不可直接类比；周期性行业的库存周转率与消费品行业的存货周转率，其波动特征和预测含义也迥然不同。</p>
+<p>用一套统一的指标体系对所有行业进行跨截面比较，本身就带有逻辑上的不完全合理性。这要求构建者针对不同行业类别设计差异化的因子构造方案，或者在合成后进行行业内标准化处理。</p></li>
+<li><p><strong>第三是时间序列特征的差异。</strong>个股层面，反转效应长期占据主导地位：前期涨幅过大的个股在未来一段时间内倾向于均值回归，这一规律构成了许多选股模型中反转因子有效性的基础。然而在行业层面，呈现出的却是截然不同的“中短期动量、长期反转”特征。</p>
+<p>行业景气度的变化需要时间在产业链中传导，资金对行业的配置行为具有延续性，这使得强势行业往往能够维持数月之久的相对优势。因此，动量类因子在行业多因子体系中的权重和地位，远高于其在股票模型中的角色；而反转策略在行业层面需要更长的观察窗口才能生效，短周期的反转信号往往是噪音而非信号。</p></li>
+<li><p><strong>第四是风格耦合的隐蔽性</strong>。在股票多因子模型中，行业暴露本身就是需要作为风险因子加以控制的对象之一。但在行业模型中，行业与风格的深度纠缠意味着：看似在配置行业，实则在无意识中大幅暴露于某种风格。如果不通过组合优化中的风格中性约束来剥离这一隐性暴露，行业轮动策略就会在风格切换时承受远超预期的回撤。</p>
+<p>这种耦合的隐蔽性在于，它不会直接体现在行业组合的持仓中，而是隐藏在行业与风格因子的协方差结构里。只有通过系统的风险模型对组合进行归因分析，才能识别并加以控制。</p></li>
+</ul>
+<p>这四大核心问题，共同决定了行业多因子体系不能简单套用股票模型的范式，而必须在因子构建、权重合成、组合优化等每一个环节，发展出与之适配的、更为精细和稳健的方法论。这个体系的本质，是追求构建一个在多变市场环境中具有强大适应性的行业配置决策系统。它必须正视小样本带来的统计脆弱性，坦然接受因子有效性的时变性，因此它比任何其他量化模型都更需要通过多维度的观察来分散风险，通过动态的权重调整来适应变化，通过系统化的风控约束来控制回撤。</p>
+</section>
+<section id="四研究前沿" class="level2">
+<h2 class="anchored" data-anchor-id="四研究前沿">四、研究前沿</h2>
+<p>站在2026年的时间节点，板块轮动策略正处在一场由人工智能和大数据驱动的范式革命前夜。传统的量化因子正在变得日益拥挤和失效，而新的阿尔法来源正指向对海量、异构、非结构化数据的深度挖掘。</p>
+<section id="ai驱动的因子挖掘" class="level3">
+<h3 class="anchored" data-anchor-id="ai驱动的因子挖掘"><strong>1.AI驱动的因子挖掘</strong></h3>
+<p>未来的量化轮动模型将不再局限于少数静态的、人工定义的因子。AI技术，将被广泛的应用于自动化的<strong>因子挖掘（Factor Mining）</strong>。模型可以从海量的基础数据（如高频交易数据、财报细节、宏观经济变量）中，自动学习和发现能够预测行业收益的复杂模式和新型因。</p>
+</section>
+<section id="大语言模型llm解锁非结构化数据的价值" class="level3">
+<h3 class="anchored" data-anchor-id="大语言模型llm解锁非结构化数据的价值"><strong>2.大语言模型（LLM）：解锁非结构化数据的价值</strong></h3>
+<p>过去，量化投资主要处理的是结构化的数字信息。然而，市场中80%以上的信息以非结构化文本的形式存在，如新闻报道、公司公告、券商研报、社交媒体讨论、财报附注（MD&amp;A）等。这些文本蕴含了大量关于行业景气度、竞争格局、技术趋势和市场情绪的领先信息。大语言模型（LLM）的出现，为系统化地处理和理解这些非结构化数据提供了前所未有的强大工具 。</p>
+</section>
+<section id="多模态" class="level3">
+<h3 class="anchored" data-anchor-id="多模态"><strong>3.多模态</strong></h3>
+<p>展望未来，多模态大语言模型（Multimodal LLMs）将把数据处理的维度从文本扩展到图像、音频和视频，为行业分析带来更丰富的视角。</p>
+<ul>
+<li><p><strong>音频数据：</strong> 分析上市公司高管在业绩电话会议中的<strong>语音语调</strong>、语速变化、停顿犹豫等声学特征，以辅助判断其言论的可信度和真实情绪 [[75]][[76]]。</p></li>
+<li><p><strong>图像数据：</strong> 利用<strong>卫星图像</strong>监测港口吞吐量、工厂开工率、停车场车辆密度等，以高频、客观地跟踪特定行业的真实经济活动。</p></li>
+<li><p><strong>视频数据：</strong> 分析产品发布会的视频，评估观众反应和媒体热度。</p></li>
+</ul>
+<p>通过融合这些多模态信息，AI将能够构建一个对行业基本面更全面、更立体、更及时的认知，从而生成更精准、更具前瞻性的轮动信号。</p>
+</section>
+<section id="前沿的技术流程" class="level3">
+<h3 class="anchored" data-anchor-id="前沿的技术流程"><strong>4.前沿的技术流程</strong></h3>
+<p>我们大胆的展望，一个最前沿的工作流程可能如下：</p>
+<ol type="1">
+<li><p><strong>多源数据实时采集：</strong> 实时抓取全球范围内的财经新闻、监管机构文件、上市公司发布的业绩公告、分析师电话会议的文字实录，以及主流社交媒体上关于特定行业和公司的讨论。</p></li>
+<li><p><strong>信息提取与量化：</strong> 使用经过金融领域数据微调的专用大语言模型，对采集到的海量文本进行处理：</p>
+<ul>
+<li><strong>事件抽取：</strong> 识别并分类关键事件，如新产品发布、重大合同签订、高管变动、并购重组、政策变化等。</li>
+<li><strong>情绪分析：</strong> 对文本中表达的情绪（乐观、悲观、中性）进行精准打分，并区分是针对公司、行业还是宏观经济。</li>
+<li><strong>关系挖掘：</strong> 从文本中挖掘和构建产业链上下游关系、公司间的竞争合作关系，形成动态的行业知识图谱。</li>
+<li><strong>财报深度解析：</strong> LLM可以超越简单的财务比率，深入解读财报的管理层讨论与分析（MD&amp;A）部分，识别管理层的语调、关注点变化和对未来的前瞻性指引，并将其量化为信号。</li>
+</ul></li>
+<li><p><strong>另类因子生成：</strong> 将上述提取的量化信息聚合成一系列高频的“另类因子”，例如“行业新闻情绪因子”、“产业链景气传导因子”、“管理层信心因子”、“技术创新热度因子”等。</p></li>
+<li><p><strong>多因子融合与信号生成：</strong> 将这些由LLM生成的另类因子，与传统的量价、估值、质量等因子一同输入到一个更上层的机器学习模型（如梯度提升树或神经网络）中。该模型会学习如何融合不同来源的信息，动态调整各类因子的权重，最终输出对未来一段时间每个行业的预期超额收益排名或评分。</p></li>
+</ol>
+</section>
+</section>
+<section id="五总结和结论" class="level2">
+<h2 class="anchored" data-anchor-id="五总结和结论"><strong>五、总结和结论</strong></h2>
+<p>本节，我们从经典的“自上而下”宏观情景模型和“自下而上”行业景气模型出发，系统梳理了板块轮动的理论基础和实践路径。随着量化投资的不断发展，板块轮动策略日益系统化、模型化。从传统的因子回归到前沿的机器学习和强化学习，量化工具为我们提供了更强大、更客观的决策支持。</p>
+<p>展望未来，人工智能，特别是大语言模型和多模态技术，正以前所未有的方式解锁非结构化和另类数据的巨大价值。未来的行业轮动策略将不再仅仅是历史数据的挖掘，而是一种基于多维信息实时感知的“认知构建”。能够率先驾驭这场技术变革的投资者，将有望在日益复杂的市场竞争中，获得持续的认知优势和超额收益。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第4章 行业轮动 第3节 宏观模型.html" class="pagination-link" aria-label="第4章 行业轮动 第3节 宏观模型">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第4章 行业轮动 第3节 宏观模型</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
