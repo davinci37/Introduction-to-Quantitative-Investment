@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第6章 商品CTA 第3节 海龟策略 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第6章 商品CTA 第2节 商品期货的数据处理.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第6章 商品CTA 第3节 海龟策略.html">第6章 商品CTA 第3节 海龟策略</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一策略起源与历史背景" id="toc-一策略起源与历史背景" class="nav-link" data-scroll-target="#一策略起源与历史背景">一、策略起源与历史背景</a></li>
+  <li><a href="#二基础理论与核心哲学" id="toc-二基础理论与核心哲学" class="nav-link" data-scroll-target="#二基础理论与核心哲学">二、基础理论与核心哲学</a>
+  <ul class="collapse">
+  <li><a href="#趋势跟踪市场运动的本质认知" id="toc-趋势跟踪市场运动的本质认知" class="nav-link" data-scroll-target="#趋势跟踪市场运动的本质认知">1.趋势跟踪：市场运动的本质认知</a></li>
+  <li><a href="#系统化交易消除人性的弱点" id="toc-系统化交易消除人性的弱点" class="nav-link" data-scroll-target="#系统化交易消除人性的弱点">2.系统化交易：消除人性的弱点</a></li>
+  <li><a href="#风险管理生存的第一要务" id="toc-风险管理生存的第一要务" class="nav-link" data-scroll-target="#风险管理生存的第一要务">3.风险管理：生存的第一要务</a></li>
+  <li><a href="#概率思维与正期望值" id="toc-概率思维与正期望值" class="nav-link" data-scroll-target="#概率思维与正期望值">4.概率思维与正期望值</a></li>
+  <li><a href="#可复制性与可学习性" id="toc-可复制性与可学习性" class="nav-link" data-scroll-target="#可复制性与可学习性">5.可复制性与可学习性</a></li>
+  </ul></li>
+  <li><a href="#三市场选择" id="toc-三市场选择" class="nav-link" data-scroll-target="#三市场选择">三、市场选择</a>
+  <ul class="collapse">
+  <li><a href="#流动性优先" id="toc-流动性优先" class="nav-link" data-scroll-target="#流动性优先">1.流动性优先</a></li>
+  <li><a href="#趋势性特征筛选" id="toc-趋势性特征筛选" class="nav-link" data-scroll-target="#趋势性特征筛选">2.趋势性特征筛选</a></li>
+  <li><a href="#多市场分散投资" id="toc-多市场分散投资" class="nav-link" data-scroll-target="#多市场分散投资">3.多市场分散投资</a></li>
+  <li><a href="#市场选择的动态调整" id="toc-市场选择的动态调整" class="nav-link" data-scroll-target="#市场选择的动态调整">4.市场选择的动态调整</a></li>
+  </ul></li>
+  <li><a href="#四入市策略与信号系统" id="toc-四入市策略与信号系统" class="nav-link" data-scroll-target="#四入市策略与信号系统">四、入市策略与信号系统</a>
+  <ul class="collapse">
+  <li><a href="#突破系统的核心逻辑" id="toc-突破系统的核心逻辑" class="nav-link" data-scroll-target="#突破系统的核心逻辑">1.突破系统的核心逻辑</a></li>
+  <li><a href="#短期突破系统20日通道" id="toc-短期突破系统20日通道" class="nav-link" data-scroll-target="#短期突破系统20日通道">2.短期突破系统：20日通道</a></li>
+  <li><a href="#长期突破系统55日通道" id="toc-长期突破系统55日通道" class="nav-link" data-scroll-target="#长期突破系统55日通道">3.长期突破系统：55日通道</a></li>
+  <li><a href="#突破过滤与信号确认" id="toc-突破过滤与信号确认" class="nav-link" data-scroll-target="#突破过滤与信号确认">4.突破过滤与信号确认</a></li>
+  <li><a href="#信号系统的局限性与假突破" id="toc-信号系统的局限性与假突破" class="nav-link" data-scroll-target="#信号系统的局限性与假突破">5.信号系统的局限性与假突破</a></li>
+  </ul></li>
+  <li><a href="#五仓位管理与风险控制" id="toc-五仓位管理与风险控制" class="nav-link" data-scroll-target="#五仓位管理与风险控制">五、仓位管理与风险控制</a>
+  <ul class="collapse">
+  <li><a href="#波动性调整的核心理念" id="toc-波动性调整的核心理念" class="nav-link" data-scroll-target="#波动性调整的核心理念">1.波动性调整的核心理念</a></li>
+  <li><a href="#atr的计算与应用" id="toc-atr的计算与应用" class="nav-link" data-scroll-target="#atr的计算与应用">2.ATR的计算与应用</a></li>
+  <li><a href="#波动性调整后的头寸单位" id="toc-波动性调整后的头寸单位" class="nav-link" data-scroll-target="#波动性调整后的头寸单位">3.波动性调整后的头寸单位</a></li>
+  <li><a href="#风险预算的多层控制" id="toc-风险预算的多层控制" class="nav-link" data-scroll-target="#风险预算的多层控制">4.风险预算的多层控制</a></li>
+  <li><a href="#动态调整与连续亏损处理" id="toc-动态调整与连续亏损处理" class="nav-link" data-scroll-target="#动态调整与连续亏损处理">5.动态调整与连续亏损处理</a></li>
+  </ul></li>
+  <li><a href="#六加仓策略与趋势跟随的艺术" id="toc-六加仓策略与趋势跟随的艺术" class="nav-link" data-scroll-target="#六加仓策略与趋势跟随的艺术">六、加仓策略与趋势跟随的艺术</a>
+  <ul class="collapse">
+  <li><a href="#金字塔加仓原则" id="toc-金字塔加仓原则" class="nav-link" data-scroll-target="#金字塔加仓原则">1.金字塔加仓原则</a></li>
+  <li><a href="#加仓的具体执行规则" id="toc-加仓的具体执行规则" class="nav-link" data-scroll-target="#加仓的具体执行规则">2.加仓的具体执行规则</a></li>
+  <li><a href="#加仓与风险控制的平衡" id="toc-加仓与风险控制的平衡" class="nav-link" data-scroll-target="#加仓与风险控制的平衡">3.加仓与风险控制的平衡</a></li>
+  <li><a href="#趋势跟随的艺术" id="toc-趋势跟随的艺术" class="nav-link" data-scroll-target="#趋势跟随的艺术">4.趋势跟随的艺术</a></li>
+  </ul></li>
+  <li><a href="#七止损与退出机制" id="toc-七止损与退出机制" class="nav-link" data-scroll-target="#七止损与退出机制">七、止损与退出机制</a>
+  <ul class="collapse">
+  <li><a href="#止损生存的第一道防线" id="toc-止损生存的第一道防线" class="nav-link" data-scroll-target="#止损生存的第一道防线">1.止损：生存的第一道防线</a></li>
+  <li><a href="#止损的动态调整" id="toc-止损的动态调整" class="nav-link" data-scroll-target="#止损的动态调整">2.止损的动态调整</a></li>
+  <li><a href="#突破退出系统" id="toc-突破退出系统" class="nav-link" data-scroll-target="#突破退出系统">3.突破退出系统</a></li>
+  <li><a href="#跟踪止损与利润锁定" id="toc-跟踪止损与利润锁定" class="nav-link" data-scroll-target="#跟踪止损与利润锁定">4.跟踪止损与利润锁定</a></li>
+  <li><a href="#其他退出机制" id="toc-其他退出机制" class="nav-link" data-scroll-target="#其他退出机制">5.其他退出机制</a></li>
+  </ul></li>
+  <li><a href="#八心理纪律与执行的艺术" id="toc-八心理纪律与执行的艺术" class="nav-link" data-scroll-target="#八心理纪律与执行的艺术">八、心理纪律与执行的艺术</a>
+  <ul class="collapse">
+  <li><a href="#海龟实验对交易心理的启示" id="toc-海龟实验对交易心理的启示" class="nav-link" data-scroll-target="#海龟实验对交易心理的启示">1.海龟实验对交易心理的启示</a></li>
+  <li><a href="#克服人性弱点" id="toc-克服人性弱点" class="nav-link" data-scroll-target="#克服人性弱点">2.克服人性弱点</a></li>
+  <li><a href="#概率思维" id="toc-概率思维" class="nav-link" data-scroll-target="#概率思维">3.概率思维</a></li>
+  <li><a href="#知行合一" id="toc-知行合一" class="nav-link" data-scroll-target="#知行合一">4.知行合一</a></li>
+  </ul></li>
+  <li><a href="#九局限性和策略风险" id="toc-九局限性和策略风险" class="nav-link" data-scroll-target="#九局限性和策略风险">九、局限性和策略风险</a>
+  <ul class="collapse">
+  <li><a href="#震荡市场的困境" id="toc-震荡市场的困境" class="nav-link" data-scroll-target="#震荡市场的困境">1.震荡市场的困境</a></li>
+  <li><a href="#参数依赖与适应性挑战" id="toc-参数依赖与适应性挑战" class="nav-link" data-scroll-target="#参数依赖与适应性挑战">2.参数依赖与适应性挑战</a></li>
+  <li><a href="#高资金需求与流动性风险" id="toc-高资金需求与流动性风险" class="nav-link" data-scroll-target="#高资金需求与流动性风险">3.高资金需求与流动性风险</a></li>
+  <li><a href="#心理压力与人性冲突" id="toc-心理压力与人性冲突" class="nav-link" data-scroll-target="#心理压力与人性冲突">4.心理压力与人性冲突</a></li>
+  <li><a href="#竞争加剧与市场效率提升" id="toc-竞争加剧与市场效率提升" class="nav-link" data-scroll-target="#竞争加剧与市场效率提升">5.竞争加剧与市场效率提升</a></li>
+  <li><a href="#黑天鹅事件与尾部风险" id="toc-黑天鹅事件与尾部风险" class="nav-link" data-scroll-target="#黑天鹅事件与尾部风险">6.黑天鹅事件与尾部风险</a></li>
+  </ul></li>
+  <li><a href="#十策略优化和改进" id="toc-十策略优化和改进" class="nav-link" data-scroll-target="#十策略优化和改进">十、策略优化和改进</a>
+  <ul class="collapse">
+  <li><a href="#程序化交易" id="toc-程序化交易" class="nav-link" data-scroll-target="#程序化交易">1.程序化交易</a></li>
+  <li><a href="#多市场与跨资产应用" id="toc-多市场与跨资产应用" class="nav-link" data-scroll-target="#多市场与跨资产应用">2.多市场与跨资产应用</a></li>
+  <li><a href="#参数优化" id="toc-参数优化" class="nav-link" data-scroll-target="#参数优化">3.参数优化</a></li>
+  <li><a href="#策略组合" id="toc-策略组合" class="nav-link" data-scroll-target="#策略组合">4.策略组合</a></li>
+  <li><a href="#人工智能与机器学习的融合" id="toc-人工智能与机器学习的融合" class="nav-link" data-scroll-target="#人工智能与机器学习的融合">5.人工智能与机器学习的融合</a></li>
+  </ul></li>
+  <li><a href="#十一深度思考与启示" id="toc-十一深度思考与启示" class="nav-link" data-scroll-target="#十一深度思考与启示">十一、深度思考与启示</a>
+  <ul class="collapse">
+  <li><a href="#简单与复杂的辩证统一" id="toc-简单与复杂的辩证统一" class="nav-link" data-scroll-target="#简单与复杂的辩证统一">1.简单与复杂的辩证统一</a></li>
+  <li><a href="#规则与判断的边界" id="toc-规则与判断的边界" class="nav-link" data-scroll-target="#规则与判断的边界">2.规则与判断的边界</a></li>
+  <li><a href="#策略与执行的权衡" id="toc-策略与执行的权衡" class="nav-link" data-scroll-target="#策略与执行的权衡">3.策略与执行的权衡</a></li>
+  <li><a href="#风险与收益的博弈" id="toc-风险与收益的博弈" class="nav-link" data-scroll-target="#风险与收益的博弈">4.风险与收益的博弈</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第6章 商品CTA 第3节 海龟策略</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p>海龟交易策略作为最具传奇色彩的期货量交易策略，其影响力跨越了半个世纪，至今仍是趋势跟踪策略的经典范本。</p>
+<p>本节我们将系统全面的剖析了海龟策略的理论基础、核心逻辑与实战细节。我们将详细阐述了市场选择标准、入市信号系统、仓位管理与风险控制体系、加仓策略与退出机制等关键要素，并深入探讨了心理纪律与执行艺术的内在价值。最后，我们将为读者提炼出海归策略对当代量化投资的最深度思考与启示。</p>
+</section>
+<section id="一策略起源与历史背景" class="level2">
+<h2 class="anchored" data-anchor-id="一策略起源与历史背景">一、策略起源与历史背景</h2>
+<p>海龟交易策略的起源堪称金融史上最引人入胜的实验之一。</p>
+<p>20世纪80年代初，芝加哥期货市场的传奇人物理查德·丹尼斯与他的合作伙伴威廉·埃克哈特之间产生了一场深刻的哲学辩论。丹尼斯坚信，伟大的交易员是可以通过后天训练培养的，就像在新加坡培育海龟一样；而埃克哈特则持相反观点，认为杰出的交易能力是一种与生俱来的天赋，无法通过教育获得。</p>
+<p>这场争论最终演变为一个大胆的实证实验。1983年左右，丹尼斯在《华尔街日报》等权威媒体上刊登广告，公开招募愿意接受交易培训的学员。令人惊讶的是，他并没有寻找具有金融背景或高学历的专业人士，而是从各行各业中挑选了约13名背景各异、多数毫无交易经验的普通人，这些人后来被称为”海龟”。</p>
+<p>丹尼斯对这群”海龟”进行了为期两周左右的集中培训，系统传授了他多年积累的交易理念、方法和规则。培训内容涵盖了期货市场的基本概念、趋势跟踪的核心思想、具体的入市与退出规则、以及严格的风险管理原则。培训结束后，丹尼斯给每位学员提供了100万美元的真实资金账户，让他们在期货市场上进行实盘交易。</p>
+<p>实验的结果超出了所有人的预期。在接下来的几年里，这批”海龟”交易员创造了惊人的业绩。据记载，许多学员在两年内实现了年化收益率80%以上的惊人回报。其中，柯蒂斯·费思成为最成功的代表之一，他不仅在当时取得了卓越的交易成绩，后来撰写了《海龟交易法则》一书，详细揭示了这一传奇策略的细节。</p>
+<p>海龟实验的成功具有多重历史意义。</p>
+<ul>
+<li><p>首先，它从根本上挑战了”交易天赋论”的传统观念，证明了系统化、规则化的交易方法是可以通过学习获得的。这一发现对整个交易行业产生了革命性的影响，开启了量化交易和系统化投资的新纪元。</p></li>
+<li><p>其次，海龟策略成为了技术分析和趋势跟踪交易的教科书级案例。其核心原则包括：明确的入场信号、严格的仓位管理、科学的风险控制以及冷静的执行纪律，至今仍是许多量化交易系统的基础框架。在当今的商品期货、股票市场，甚至数字货币和加密资产领域，海龟策略的各种变体仍在广泛应用。</p></li>
+<li><p>第三，海龟实验揭示了交易成功的核心要素并非神秘的天赋，而是可以量化和复制的规则体系。这一认识推动了投资管理行业从艺术向科学的转变，为后来的量化基金和算法交易奠定了思想基础。</p></li>
+</ul>
+</section>
+<section id="二基础理论与核心哲学" class="level2">
+<h2 class="anchored" data-anchor-id="二基础理论与核心哲学">二、基础理论与核心哲学</h2>
+<section id="趋势跟踪市场运动的本质认知" class="level3">
+<h3 class="anchored" data-anchor-id="趋势跟踪市场运动的本质认知">1.趋势跟踪：市场运动的本质认知</h3>
+<p>海龟策略的理论基石是对市场价格行为本质的深刻认知：趋势的存在性。该策略秉持一个核心信念：<strong>市场并非完全随机，价格运动具有持续性和趋势性，即市场会在相当长的时间内沿着某个方向持续运动。</strong></p>
+<p>这一认识论基础具有深刻的哲学内涵。海龟策略并不试图预测市场将走向何方，而是承认市场趋势的客观存在，并通过系统化的方法识别并跟随这些趋势。这种”不预测、只跟随”的哲学立场，从根本上区别于传统的基本面分析或主观交易方法。</p>
+<p>趋势跟踪的有效性建立在人类行为的规律性之上。市场参与者群体的心理特征：恐惧、贪婪、从众心理，会在特定条件下形成自我强化的价格运动，从而产生可识别的趋势。海龟策略正是利用这一市场特征，通过机械化的规则捕捉趋势带来的利润。</p>
+</section>
+<section id="系统化交易消除人性的弱点" class="level3">
+<h3 class="anchored" data-anchor-id="系统化交易消除人性的弱点">2.系统化交易：消除人性的弱点</h3>
+<p>海龟策略的第二个核心哲学是对系统化交易的坚定信仰。该策略认为，交易失败的主要原因并非方法错误，而是人性弱点导致的执行偏差。恐惧、贪婪、犹豫、后悔，这些情绪因素会严重干扰交易决策，导致即使拥有优秀策略也难以获得稳定收益。</p>
+<p>因此，海龟策略将交易过程完全规则化、程序化。从市场选择、入市信号、仓位确定，到加仓时机、退出条件，每一个环节都有明确的、可量化的标准。交易者不需要，也不应该做出任何主观判断，只需像机器一样严格执行规则即可。</p>
+<p>这种系统化方法的深层逻辑在于承认人类认知的局限性。在复杂多变的市场环境中，直觉和判断往往会导致错误决策，而经过历史数据验证的规则系统能够提供更可靠的决策依据。</p>
+<p>丹尼斯的海龟实验正是对这一哲学的成功验证：那些没有交易经验的普通人，只要严格遵循规则，就能够取得超越专业交易员的业绩。</p>
+</section>
+<section id="风险管理生存的第一要务" class="level3">
+<h3 class="anchored" data-anchor-id="风险管理生存的第一要务">3.风险管理：生存的第一要务</h3>
+<p>海龟策略对风险管理的重视程度，在整个交易策略领域都是罕见的。其核心哲学认为，交易的首要目标不是追求利润最大化，而是确保资本安全和长期生存。只有活下来，才有可能抓住未来的机会。</p>
+<p>这一哲学体现在多个层面：</p>
+<ul>
+<li><p>首先，每笔交易的风险敞口被严格限制在账户总资金的一定比例内（通常为1%-2%），确保任何单笔交易或任何短期不利情况都不会威胁到账户的整体安全。</p></li>
+<li><p>其次，仓位规模与市场波动性动态挂钩，在波动剧烈时自动降低仓位，在市场平稳时适当增加仓位，从而保持风险敞口的恒定。</p></li>
+<li><p>第三，通过止损机制严格限制每笔交易的最大亏损，防止小亏损演变为大灾难。</p></li>
+</ul>
+<p>更深层次地说，海龟策略的风险管理哲学体现了一种概率思维。它承认任何单笔交易的成败都是不确定的，但通过科学的风险控制，可以确保一系列交易后，整体期望值为正。这种思维将交易从”赌一把”的博弈，提升为概率优势下长期执行的生意。</p>
+</section>
+<section id="概率思维与正期望值" class="level3">
+<h3 class="anchored" data-anchor-id="概率思维与正期望值">4.概率思维与正期望值</h3>
+<p>海龟策略的另一核心哲学是概率思维。该策略深刻认识到，任何交易方法都不可能百分之百准确，关键在于建立一个具有正期望值的交易系统，并通过长期、一致的执行，让概率优势得以体现。</p>
+<p>趋势跟踪策略的典型特征是”低胜率、高盈亏比”。海龟策略可能只有30%-40%的交易是盈利的，但每次盈利交易的收益可能数倍于亏损交易的损失。这种”截断亏损、让利润奔跑”的机制，确保了整体的正期望值。</p>
+<p>这一哲学要求交易者接受两个事实：第一，大多数交易将是亏损的，这是策略运行的正常成本；第二，真正的利润来自少数几次大趋势，需要耐心等待和坚持。这种认知对于维持交易纪律至关重要，也是许多未能成功应用海龟策略的交易者所缺乏的关键理解。</p>
+</section>
+<section id="可复制性与可学习性" class="level3">
+<h3 class="anchored" data-anchor-id="可复制性与可学习性">5.可复制性与可学习性</h3>
+<p>海龟策略的最后一个核心哲学是其对可复制性与可学习性的坚持。丹尼斯发起海龟实验的初衷，就是要证明交易成功是可以教授、可以学习的。这一信念贯穿于策略设计的每一个细节。</p>
+<p>海龟策略的所有规则都是明确、具体、可量化的，没有任何模糊或主观判断的空间。这种设计使得策略可以被精确复制，也使得交易者的执行可以被客观评估。从另一个角度看，正是这种可复制性保证了策略的有效性。如果策略依赖主观判断，那么不同的人会得出不同的结论，策略的可信度和可执行性都会大打折扣。</p>
+</section>
+</section>
+<section id="三市场选择" class="level2">
+<h2 class="anchored" data-anchor-id="三市场选择">三、市场选择</h2>
+<section id="流动性优先" class="level3">
+<h3 class="anchored" data-anchor-id="流动性优先">1.流动性优先</h3>
+<p>海龟策略在市场选择上奉行流动性优先的原则。流动性是一个市场最关键的特征之一，它决定了交易者能否以合理的价格、在合理的时间内完成交易。对于采用趋势跟踪策略的大资金账户而言，流动性尤其重要。</p>
+<p>海龟策略倾向于选择那些交易活跃、成交量大的市场。这样的市场有几个优势：</p>
+<ul>
+<li><p>进出场滑点较小，能够以接近预期价格成交；</p></li>
+<li><p>市场深度足够，不会因为单笔大额交易而显著影响价格；</p></li>
+<li><p>价格发现功能良好，能够真实反映市场供需关系，技术信号更可靠[。</p></li>
+</ul>
+<p>相反，那些流动性差的市场会带来严重的执行成本。在流动性不足的市场中，大额买入可能推高价格，导致实际成交均价远高于预期；大额卖出则可能砸低价格，导致实际成交均价远低于预期。这种滑点成本会显著侵蚀策略利润，甚至将一个理论上盈利的策略转变为亏损。</p>
+</section>
+<section id="趋势性特征筛选" class="level3">
+<h3 class="anchored" data-anchor-id="趋势性特征筛选">2.趋势性特征筛选</h3>
+<p>除了流动性，海龟策略还强调市场的趋势性特征。一个市场可能流动性很好，但如果价格长期横盘震荡、缺乏明显趋势，那么趋势跟踪策略同样难以发挥作用。</p>
+<p>理想的市场应该具有较好的趋势形成能力，即价格运动具有持续性，能够在相当长的时间内朝一个方向运动。不同市场在不同时期的趋势特征可能差异很大，需要交易者根据历史数据进行评估和筛选。</p>
+<p>从实践角度看，商品期货市场往往是海龟策略的理想选择。大宗商品价格受供需关系驱动，往往能够形成较长时间的趋势。此外，外汇市场、债券期货市场、以及近年来兴起的数字货币市场，也被证明具有一定的趋势特征。</p>
+</section>
+<section id="多市场分散投资" class="level3">
+<h3 class="anchored" data-anchor-id="多市场分散投资">3.多市场分散投资</h3>
+<p>海龟策略高度重视多市场分散投资。将资金分散到多个相关性较低的市场，是降低整体风险、平滑业绩曲线的重要手段。当某些市场处于震荡状态时，其他市场可能正在形成趋势；当某些品种表现不佳时，其他品种可能正在创造利润。</p>
+<p>多市场投资的核心思想是：虽然无法预测哪个市场会在何时形成趋势，但只要参与足够多的市场，总会有一些市场出现趋势，从而弥补其他市场的损失，并为整体账户创造利润。这种”广撒网”的策略，实际上是对趋势出现概率的赌注。</p>
+<p>在实践中，海龟策略通常会在十几个甚至几十个市场同时进行监控和交易。这些市场涵盖了农产品、金属、能源、金融等多个板块，形成了一个分散化的投资组合。这种分散不仅体现在市场数量上，还体现在市场间的低相关性上。如果选择的市场高度相关，那么分散的意义将大打折扣。</p>
+</section>
+<section id="市场选择的动态调整" class="level3">
+<h3 class="anchored" data-anchor-id="市场选择的动态调整">4.市场选择的动态调整</h3>
+<p>值得注意的是，市场特征并非一成不变。一个曾经流动性好、趋势性强的市场，可能因为各种原因而变得流动性下降或趋势性减弱。因此，海龟策略在市场选择上也保持一定的动态调整机制。</p>
+<p>交易者需要定期评估各市场的流动性水平和趋势性特征，根据评估结果调整在各市场的资金分配。对于那些流动性严重下降或长期缺乏趋势的市场，可能需要减少配置甚至暂时退出；对于新兴的高流动性市场，则需要纳入监控范围。这种动态调整确保了策略能够适应市场的演变。</p>
+</section>
+</section>
+<section id="四入市策略与信号系统" class="level2">
+<h2 class="anchored" data-anchor-id="四入市策略与信号系统">四、入市策略与信号系统</h2>
+<section id="突破系统的核心逻辑" class="level3">
+<h3 class="anchored" data-anchor-id="突破系统的核心逻辑">1.突破系统的核心逻辑</h3>
+<p>海龟策略的入市信号系统建立在价格突破的核心逻辑之上。突破策略是最经典、最直观的趋势识别方法之一：当价格突破某一时间段的最高点时，意味着上涨动能强劲，趋势可能形成；当价格突破某一时间段的最低点时，意味着下跌动能强劲，可能形成下跌趋势。</p>
+<p><strong>突破系统</strong>的哲学基础在于：市场不会无缘无故地创出新高或新低。价格突破历史高点，意味着买方力量压倒了所有在此价位之前卖出的卖方；价格突破历史低点，意味着卖方力量压倒了所有在此价位之前买入的买方。这种力量的转变往往具有持续性，从而形成趋势。</p>
+<p>海龟策略采用两个主要的突破系统：<strong>短期系统和长期系统</strong>。短期系统基于20日突破，长期系统基于55日突破。这两个系统的并存，体现了策略对趋势周期多样性的认知：有些趋势持续时间较短，需要较短周期的系统来捕捉；有些趋势持续时间较长，长周期系统能够更好地过滤噪音、把握大势。</p>
+</section>
+<section id="短期突破系统20日通道" class="level3">
+<h3 class="anchored" data-anchor-id="短期突破系统20日通道">2.短期突破系统：20日通道</h3>
+<p>短期系统使用20日价格突破作为入市信号。具体规则是：当价格突破过去20个交易日的最高价时，建立多头头寸；当价格突破过去20个交易日的最低价时，建立空头头寸。这一系统旨在捕捉中短期趋势，对市场变化反应较为灵敏。</p>
+<p>20日周期的选择具有深刻的统计学意义。20个交易日大约对应一个自然月的时间，代表了中期市场参与者的行为周期。这一周期足以过滤日内噪音和短期波动，又不会因为太长而错过趋势的早期阶段。在许多市场中，20日突破往往标志着短期趋势的确立。</p>
+<p>短期系统的优势在于能够较早地捕捉趋势，在趋势行情中获得较好的入场价格。其劣势在于假突破较多。价格突破20日高点后很快又回落的情况时有发生。这些假突破会造成一定的交易成本，但海龟策略通过严格的止损和风险管理来控制这种成本。</p>
+</section>
+<section id="长期突破系统55日通道" class="level3">
+<h3 class="anchored" data-anchor-id="长期突破系统55日通道">3.长期突破系统：55日通道</h3>
+<p>长期系统使用55日价格突破作为入市信号。规则与短期系统类似：当价格突破过去55个交易日的最高价时建立多头；当价格突破过去55个交易日的最低价时建立空头。这一系统旨在捕捉长期趋势，对市场变化反应较为稳健。</p>
+<p>55日周期大约对应11个交易周，代表了更长期市场参与者的行为周期。这一周期能够有效过滤短期噪音，只对较为显著的趋势变化做出反应。长期系统的优势在于假突破较少，信号更加可靠；劣势在于对趋势的反应较慢，入场价格相对不利。</p>
+<p>从策略设计的角度看，长期系统与短期系统的结合，形成了一个互补的趋势捕捉框架。当市场出现强劲的短期趋势时，短期系统能够快速进场；当市场形成缓慢但持久的长期趋势时，长期系统能够稳健地把握。两个系统的并存，增加了策略对市场状态的适应性。</p>
+</section>
+<section id="突破过滤与信号确认" class="level3">
+<h3 class="anchored" data-anchor-id="突破过滤与信号确认">4.突破过滤与信号确认</h3>
+<p>海龟策略的入市系统并非简单地在价格突破时机械执行，还包含一些过滤条件和确认机制。这些机制旨在提高信号质量，减少假突破带来的损失。</p>
+<p>一个重要的过滤机制是关于跳空的处理。当市场出现开盘跳空并直接穿越突破价位时，海龟策略建议在开盘时立即建立头寸，而不是等待收盘确认。这一规则反映了策略对趋势动能的重视：跳空本身就是趋势强劲的信号，应当果断进场。</p>
+<p>另一个重要的考虑是突破的确认方式。虽然经典的突破系统使用收盘价确认，但海龟策略倾向于在盘中突破发生时就进场，而不是等待收盘。这一设计意味着策略愿意承担一定的日内反转风险，以换取更好的入场价格。在趋势行情中，等待收盘确认可能导致错过几十个点的利润空间。</p>
+</section>
+<section id="信号系统的局限性与假突破" class="level3">
+<h3 class="anchored" data-anchor-id="信号系统的局限性与假突破">5.信号系统的局限性与假突破</h3>
+<p>任何突破系统都无法避免假突破的问题：价格突破后很快又回到原有区间，导致交易亏损。海龟策略对此有清醒的认识，并通过几个层面来处理这一问题。</p>
+<ul>
+<li><p>首先，策略接受假突破作为正常成本。趋势跟踪策略的本质是”支付小成本以换取大趋势”，假突破的亏损就是发现趋势的成本。只要成功捕捉到真正的大趋势，少数几次大盈利完全可以覆盖多次小亏损。</p></li>
+<li><p>其次，策略通过严格的止损来限制假突破的损失。一旦价格突破后没有延续趋势，而是反向运动，止损机制将及时斩仓出局，确保损失控制在可接受范围内。</p></li>
+<li><p>第三，策略的多系统设计（短期系统与长期系统并存）在一定程度上缓解了假突破问题。长期系统的假突破频率较低，虽然反应较慢，但信号质量更高。交易者可以根据市场状态和个人偏好，调整在不同系统间的资金分配。</p></li>
+</ul>
+</section>
+</section>
+<section id="五仓位管理与风险控制" class="level2">
+<h2 class="anchored" data-anchor-id="五仓位管理与风险控制">五、仓位管理与风险控制</h2>
+<section id="波动性调整的核心理念" class="level3">
+<h3 class="anchored" data-anchor-id="波动性调整的核心理念">1.波动性调整的核心理念</h3>
+<p>海龟策略的仓位管理系统是其最独特、最精妙的组成部分之一，体现了对风险本质的深刻理解。该系统以市场波动性为核心变量，动态调整每笔交易的仓位大小，确保无论市场波动大小，每笔交易承担的风险金额保持恒定。</p>
+<p>这一设计的逻辑极其深刻。在波动剧烈的市场中，价格的日内波动可能很大，如果采用固定仓位，那么每笔交易的风险敞口会急剧放大。反之，在波动平缓的市场中，固定仓位意味着风险敞口过小，无法充分利用资金。通过根据波动性调整仓位，策略能够在不同市场环境下保持风险的一致性。</p>
+</section>
+<section id="atr的计算与应用" class="level3">
+<h3 class="anchored" data-anchor-id="atr的计算与应用">2.ATR的计算与应用</h3>
+<p>海龟策略使用<strong>平均真实波幅（Average True Range，简称ATR）</strong>来量化市场波动性，并将其称为”N值”。</p>
+<p>N值的计算考虑了当日最高价与最低价的差、当日最高价与前一日收盘价的差、当日最低价与前一日收盘价的差，取这三者中的最大值作为当日的真实波幅，然后通过指数移动平均方法计算N值。</p>
+<p>具体的计算公式为： N=(19×前一日N值+当日真实波幅)/20。</p>
+<p>这一公式本质上是一个20日指数移动平均，赋予近期数据更高的权重，同时保持足够的平滑性。</p>
+<p>N值代表了市场的典型波动水平。当N值上升时，说明市场波动加剧；当N值下降时，说明市场趋于平稳。海龟策略使用N值来度量价格运动，而非传统的货币金额或百分比。例如，“价格上涨1个N”意味着价格从买入点上涨了一个ATR的距离。</p>
+</section>
+<section id="波动性调整后的头寸单位" class="level3">
+<h3 class="anchored" data-anchor-id="波动性调整后的头寸单位">3.波动性调整后的头寸单位</h3>
+<p>基于N值，海龟策略引入了“头寸单位”的概念。一个头寸单位代表了在给定账户规模和风险承受能力下，应该持有的合约数量。</p>
+<p>核心公式为： 头寸单位=账户净值的1%÷(N×每点价值)。</p>
+<p>这一公式的含义是：假设价格向不利方向运动1个N的距离（即一个ATR），账户将损失其净值的1%。通过这种方式，策略确保了每笔交易的风险敞口与账户规模成固定比例，同时与市场波动性挂钩。</p>
+<p>举例说明：假设某交易者的账户净值为100万元，决定每笔交易的风险敞口为净值的1%（即1万元）。某期货合约的当前N值为1000，每点价值为10元/手。那么，头寸单位=10000÷(1000×10)=1手。</p>
+<p>如果价格向不利方向运动1个N（即1000元），每手合约损失1000×10=10000元，恰好等于账户净值的1%。</p>
+</section>
+<section id="风险预算的多层控制" class="level3">
+<h3 class="anchored" data-anchor-id="风险预算的多层控制">4.风险预算的多层控制</h3>
+<p>除了基于N值的单位头寸计算，海龟策略还设置了多层风险控制机制，防止单一市场或单一方向的风险过度集中。</p>
+<ul>
+<li><p>第一层控制：是单一头寸风险限制。每个头寸的最大风险通常设定为账户净值的1%-2%。这一限制确保任何单笔交易的损失都不会对账户造成致命打击。如果使用2N作为止损距离，那么初始头寸的风险敞口约为账户净值的2%（1个N的风险敞口为1%）。</p></li>
+<li><p>第二层控制：是单市场风险限制。海龟策略规定，在任何一个市场中，所有头寸的总风险敞口不得超过账户净值的一定比例（如10%）。这一限制防止单一市场的不利变动造成过大损失。</p></li>
+<li><p>第三层控制：是单方向风险限制。如果多个市场高度相关（例如都是商品期货或股指），那么同一方向的总风险敞口也应受到限制（如所有多头头寸的总风险不超过账户净值的10%）。这一限制防止系统性风险：当市场出现同向大幅波动时，账户不会遭受毁灭性打击。</p></li>
+<li><p>第四层控制：是总体风险限制。账户所有头寸的总风险敞口不应超过账户净值的一定比例（如20%）。这一限制确保账户始终保留足够的缓冲，应对极端市场情况。</p></li>
+</ul>
+</section>
+<section id="动态调整与连续亏损处理" class="level3">
+<h3 class="anchored" data-anchor-id="动态调整与连续亏损处理">5.动态调整与连续亏损处理</h3>
+<p>海龟策略还包含一套动态调整机制，以应对账户权益的变化，特别是连续亏损时期。当账户遭遇连续亏损、权益缩水时，策略会相应减少仓位，降低风险敞口，直到账户恢复盈利。</p>
+<p>这一机制的具体做法是：根据账户当前的实际权益，而非初始权益，来计算头寸单位。例如，初始账户为100万元，当账户权益下降到80万元时，新的头寸计算将基于80万元而非100万元。这意味着每笔交易的风险金额将减少20%，从而帮助账户度过困难时期。</p>
+<p>这种动态调整的价值在于防止账户在逆境中加速崩溃。如果没有这种机制，交易者可能在连续亏损后仍维持原有仓位，导致风险敞口相对于缩小的账户权益越来越大，最终可能在一个不利行情中爆仓。动态减仓虽然限制了恢复速度，但大大提高了生存概率。</p>
+</section>
+</section>
+<section id="六加仓策略与趋势跟随的艺术" class="level2">
+<h2 class="anchored" data-anchor-id="六加仓策略与趋势跟随的艺术">六、加仓策略与趋势跟随的艺术</h2>
+<section id="金字塔加仓原则" class="level3">
+<h3 class="anchored" data-anchor-id="金字塔加仓原则">1.金字塔加仓原则</h3>
+<p>海龟策略的加仓系统是其实现大额盈利的关键机制之一。不同于一次性建仓的策略，海龟策略采用分批加仓的方式，在趋势确认后逐步增加头寸，形成所谓的”金字塔”结构。</p>
+<p>金字塔加仓的核心原则是：每次加仓的规模等于或小于前一次。例如，初始建仓1个单位，第一次加仓1个单位，第二次加仓1个单位，第三次加仓0.5个单位，形成4:3:2:1或类似的比例结构。这种设计确保了平均成本不会过分接近当前价格，从而在价格正常回调时不会被轻易震荡出局。</p>
+<p>加仓的时机选择同样关键。海龟策略规定，价格必须向有利方向运动一定距离（通常为0.5N或1N）后才能加仓。这意味着加仓不是基于主观判断或预测，而是基于已经发生的趋势运动。只有趋势确实在发展，才增加头寸；如果趋势没有延续，就不加仓。</p>
+</section>
+<section id="加仓的具体执行规则" class="level3">
+<h3 class="anchored" data-anchor-id="加仓的具体执行规则">2.加仓的具体执行规则</h3>
+<p>海龟策略的加仓执行非常规范化。初始建仓后，价格每向有利方向运动0.5N（某些变体为1N），就加仓一个单位，最多加仓3-4次，最终形成总规模为4-5个单位的头寸。</p>
+<p>以多头为例：假设初始建仓价格为100，N值为2。初始建仓后，当价格上涨到101（即上涨0.5N），进行第一次加仓；当价格上涨到102（即上涨1N），进行第二次加仓；当价格上涨到103（即上涨1.5N），进行第三次加仓。至此，头寸达到最大规模，不再加仓。</p>
+<p>这种加仓机制的本质是”用盈利加仓”。随着趋势发展，已有头寸产生浮盈，此时加仓是用浮盈来承担新头寸的风险。如果趋势继续，加仓的头寸将贡献额外利润；如果趋势反转，加仓的头寸可能亏损，但总体损失仍控制在可接受范围内。</p>
+</section>
+<section id="加仓与风险控制的平衡" class="level3">
+<h3 class="anchored" data-anchor-id="加仓与风险控制的平衡">3.加仓与风险控制的平衡</h3>
+<p>加仓虽然能够放大盈利，但也增加了风险敞口。海龟策略通过多层机制来平衡加仓与风险控制。</p>
+<ul>
+<li><p>首先，加仓的节奏控制。价格每运动0.5N或1N才加仓一次，这确保了加仓不会过于激进。如果趋势不够强劲，价格达不到加仓条件，策略就不会加仓，从而避免在震荡市中频繁加仓导致的损失。</p></li>
+<li><p>其次，止损的动态调整。每次加仓后，之前头寸的止损点会上移。例如，初始建仓的止损为2N（即下跌2N时平仓），加仓后，之前头寸的止损可能调整为最新入场价减去2N。这种”移动止损”确保了即使在加仓后价格反转，整体头寸也不会产生重大亏损。</p></li>
+<li><p>第三，头寸上限控制。即使趋势强劲，加仓也会在达到最大单位数后停止。这防止了过度加仓导致的风险集中。通过设定最大头寸单位数（如4个单位），策略确保了任何单一交易的风险敞口始终在控制范围内。</p></li>
+</ul>
+</section>
+<section id="趋势跟随的艺术" class="level3">
+<h3 class="anchored" data-anchor-id="趋势跟随的艺术">4.趋势跟随的艺术</h3>
+<p>加仓策略的成功执行，需要交易者在耐心与果断之间取得微妙平衡。趋势跟踪的精髓在于：在趋势初期果断进场，在趋势发展过程中耐心持有并适度加仓，在趋势结束时果断离场。</p>
+<p>这要求：一方面，交易者需要有足够的耐心，等待趋势信号的出现，不因市场平静而急于进场；另一方面，一旦趋势信号出现，交易者需要果断行动，不因犹豫而错过最佳入场点。</p>
+<p>加仓环节同样如此。交易者需要有耐心等待价格运动到加仓条件，而不是主观判断”趋势很强”就提前加仓；但当价格达到加仓条件时，必须果断执行加仓，而不是担心”价格已经太高”而犹豫不决。</p>
+</section>
+</section>
+<section id="七止损与退出机制" class="level2">
+<h2 class="anchored" data-anchor-id="七止损与退出机制">七、止损与退出机制</h2>
+<section id="止损生存的第一道防线" class="level3">
+<h3 class="anchored" data-anchor-id="止损生存的第一道防线">1.止损：生存的第一道防线</h3>
+<p>海龟策略将止损视为交易系统中最重要的组成部分之一。没有止损的交易就像没有刹车的汽车——也许能开得很快，但一旦遇到危险就无法控制。策略明确规定：止损是强制性的，不存在”观望一下”或”再等等”的选择。</p>
+<p>止损的设置同样基于N值。初始头寸的止损距离通常设为2N，即价格向不利方向运动2N的距离。例如，多头入场价格为100，N值为2，则止损价格设为96（100-2×2=96）。如果价格跌破96，必须无条件平仓。</p>
+<p>这种基于N值的止损设置体现了波动性调整的思想。在波动剧烈的市场中，N值较大，止损距离相应较宽，避免被正常波动止损出局；在波动平缓的市场中，N值较小，止损距离相应较窄，减少潜在损失。</p>
+</section>
+<section id="止损的动态调整" class="level3">
+<h3 class="anchored" data-anchor-id="止损的动态调整">2.止损的动态调整</h3>
+<p>随着头寸的变化，止损也需要动态调整。加仓后，止损策略变得更加复杂，因为不同价位的头寸有不同的成本基础。</p>
+<p>一种常见的做法是将所有头寸视为一个整体，以最新入场价为基准设置止损。例如，初始入场价100，第一加仓价101，第二加仓价102，第三加仓价103。此时，整体止损可设为103-2N=99。如果价格跌破99，所有头寸全部平仓。这种方法的优点是简单明确，缺点是初始头寸可能承受较大回撤。</p>
+<p>另一种做法是为每批头寸设置独立止损。初始头寸的止损为100-2N=96，第一加仓的止损为101-2N=97，以此类推。当价格跌破某个止损价位时，只平掉对应批次的头寸。这种方法更加精细，但执行起来更加复杂。</p>
+<p>无论采用哪种方法，止损调整的总体方向是一致的：随着价格向有利方向运动，止损点逐步上移（对多头而言）或下移（对空头而言），锁定已实现利润，控制未实现利润的回撤。</p>
+</section>
+<section id="突破退出系统" class="level3">
+<h3 class="anchored" data-anchor-id="突破退出系统">3.突破退出系统</h3>
+<p>除了基于价格的止损机制，海龟策略还采用基于信号的退出系统。这与入市系统形成对称：入市是基于价格突破，退出同样是基于价格突破，只是方向相反。</p>
+<p>对于短期系统20日突破入市，退出信号是10日反向突破。以多头为例，当价格跌破过去10个交易日的最低价时，平掉所有多头头寸。对于长期系统55日突破入市，退出信号是20日反向突破。</p>
+<p>这种退出系统的逻辑是：10日或20日反向突破标志着趋势动能的衰竭或反转。既然趋势可能已经结束，就应该果断离场。这种退出方式可能在趋势震荡时导致频繁进出，但能够确保在真正的大趋势中持到最后，实现利润最大化[。</p>
+</section>
+<section id="跟踪止损与利润锁定" class="level3">
+<h3 class="anchored" data-anchor-id="跟踪止损与利润锁定">4.跟踪止损与利润锁定</h3>
+<p>跟踪止损是海龟策略保护利润的重要手段。随着价格向有利方向运动，止损点逐步上移（多头）或下移（空头），形成一条”跟踪”价格的保护线。当价格回调触及跟踪止损线时，自动平仓离场，锁定已有利润。</p>
+<p>跟踪止损的设置通常基于N值。例如，可以设定跟踪止损为价格峰值回撤2N。假设多头入场后，价格上涨到108，期间N值保持在2。那么跟踪止损初始为108-2×2=104。如果价格继续上涨到110，跟踪止损上移到110-4=106。如果价格从110回调到106，触发止损，平仓离场，锁定6个点的利润。</p>
+<p>跟踪止损与突破退出系统可以结合使用。有些交易者会在突破退出系统触发前，先通过跟踪止损锁定部分利润；也有些交易者会等到突破退出信号出现才平仓。两种方法各有优劣，前者更加保守，后者更加激进。</p>
+</section>
+<section id="其他退出机制" class="level3">
+<h3 class="anchored" data-anchor-id="其他退出机制">5.其他退出机制</h3>
+<p>除了上述退出机制，海龟策略的一些变体还引入了时间退出机制。如果一笔交易在相当长的时间内（如60个交易日）都没有盈利，那么无论是否触及止损，都应平仓离场。这种做法的逻辑是：资金是有时间成本的，长期持有的无效头寸会占用资金和机会成本。</p>
+<p>此外，还有基于市场结构的退出机制。例如，当市场出现明显的反转形态（如头肩顶、双顶等），或者关键的技术支撑/阻力位被突破时，提前平仓离场。不过，这类退出机制带有一定主观判断色彩，与海龟策略的纯粹机械化原则有所冲突。</p>
+</section>
+</section>
+<section id="八心理纪律与执行的艺术" class="level2">
+<h2 class="anchored" data-anchor-id="八心理纪律与执行的艺术">八、心理纪律与执行的艺术</h2>
+<section id="海龟实验对交易心理的启示" class="level3">
+<h3 class="anchored" data-anchor-id="海龟实验对交易心理的启示">1.海龟实验对交易心理的启示</h3>
+<p>海龟实验最重要的发现之一是：交易成功的关键不仅在于策略本身，更在于执行者的心理素质和纪律性。丹尼斯教授给所有海龟的是完全相同的交易规则，但他们的业绩表现却差异巨大。这说明，同样的策略在不同人手中会产出截然不同的结果，差异源于心理和执行。</p>
+<p>那些严格执行规则的海龟取得了辉煌业绩，而那些试图凭直觉偏离规则的海龟表现则大相径庭。这一发现深刻揭示了交易的本质：交易不是智力竞赛，而是纪律和执行的考验。能否在连续亏损后继续坚持规则？能否在利润回撤时保持冷静？能否在市场噪音中坚守策略？这些心理因素决定了策略能否发挥其应有价值。</p>
+</section>
+<section id="克服人性弱点" class="level3">
+<h3 class="anchored" data-anchor-id="克服人性弱点">2.克服人性弱点</h3>
+<p>海龟策略的执行面临两大心理挑战：恐惧和贪婪。这两种情绪会以各种形式干扰交易决策，导致规则偏离和业绩下滑。</p>
+<p>恐惧表现为多种形式：在连续亏损后不敢进场，错过潜在的盈利机会；在价格回调时恐慌性平仓，过早结束本来盈利的头寸；在突破信号出现时犹豫不决，等待”确认”而错过最佳入场点。这些行为模式都源于对损失的恐惧，对不确定性的焦虑[。</p>
+<p>贪婪同样表现为多种形式：在盈利头寸上过度加仓，违反风险控制规则；在价格大幅上涨后拒绝获利了结，期待更大的利润；在不该交易的市场或时机强行交易，试图”抓住每一个机会”。这些行为模式都源于对利润的过度渴求，对”错过机会”的恐惧。</p>
+<p>海龟策略通过明确的规则来对抗这些情绪。规则告诉交易者：什么时候进场，什么时候加仓，什么时候离场。只要严格遵守规则，情绪因素就会被最小化。</p>
+</section>
+<section id="概率思维" class="level3">
+<h3 class="anchored" data-anchor-id="概率思维">3.概率思维</h3>
+<p>成功的海龟交易者都具有一个共同特质：深刻的概率思维。他们理解，任何单笔交易的结果都是不确定的，没有人能够精确预测下一笔交易是盈是亏。但他们同样理解，一系列交易后，正期望值的策略会产生正的总体结果。</p>
+<p>这种概率思维使他们能够平静地接受连续亏损。他们知道，趋势跟踪策略的胜率往往只有30%-40%，连续5笔、10笔甚至更多笔亏损是完全正常的事情。只要坚持执行策略，最终会捕捉到大趋势，覆盖所有损失并产生可观利润。</p>
+<p>概率思维的另一面是接受”不完美”。趋势跟踪策略永远不会在最低点买入，也不会在最高点卖出。它总是要”放弃”趋势的头部和尾部，只吃中间最确定的部分。很多交易者无法接受这种不完美，试图抄底逃顶，结果反而错失整个趋势。成功的海龟交易者理解，追求完美是交易的敌人，接受不完美才能获得完美结果。</p>
+</section>
+<section id="知行合一" class="level3">
+<h3 class="anchored" data-anchor-id="知行合一">4.知行合一</h3>
+<p>知道规则与执行规则是两回事。很多交易者完全理解海龟策略的规则，却无法在实际交易中严格执行。这种”知行不一”是交易失败的主要原因之一。执行的艺术在于将认知转化为行动。这需要几个条件：</p>
+<ul>
+<li><p>第一，对策略有充分的信心，这种信心来源于深入理解和数据验证；</p></li>
+<li><p>第二，对市场有正确的预期，知道策略会有怎样的业绩分布，对回撤和亏损有心理准备；</p></li>
+<li><p>第三，有良好的交易环境和流程，减少干扰和冲动交易的机会；</p></li>
+<li><p>第四，有持续的自我监控和反馈机制，及时发现和纠正执行偏差。</p></li>
+</ul>
+<p>海龟策略培养一种”冷血”的执行能力。在信号出现时，不思考、不判断、不犹豫，立即执行。在连续亏损时，不怀疑、不恐惧、不放弃，继续执行。在大幅盈利时，不骄傲、不贪婪、不提前离场，按规则执行。这种近乎机械的执行，是将策略转化为利润的关键。</p>
+</section>
+</section>
+<section id="九局限性和策略风险" class="level2">
+<h2 class="anchored" data-anchor-id="九局限性和策略风险">九、局限性和策略风险</h2>
+<section id="震荡市场的困境" class="level3">
+<h3 class="anchored" data-anchor-id="震荡市场的困境">1.震荡市场的困境</h3>
+<p>海龟策略面临的最大挑战是在震荡市场中的表现。当市场缺乏明显趋势，价格在区间内反复波动时，突破策略会频繁发出错误信号，导致连续止损和累计亏损。震荡市场中，价格突破前期高点后往往回落，突破前期低点后往往反弹。海龟策略在突破时进场，随后很快触发止损，然后市场再次反向突破，策略再次进场……如此循环往复，形成”来回打脸”的局面。一段时间下来，可能产生十几次小亏损，而捕捉不到任何趋势。这种震荡期可能持续数月甚至数年。在这段时间里，交易者需要忍受持续的回撤和心理压力。很多海龟策略的使用者正是在震荡期对策略失去信心，最终放弃策略，结果错过随后的趋势行情。</p>
+</section>
+<section id="参数依赖与适应性挑战" class="level3">
+<h3 class="anchored" data-anchor-id="参数依赖与适应性挑战">2.参数依赖与适应性挑战</h3>
+<p>海龟策略的参数设置来源于对历史数据的分析和经验总结。但这些参数并非放之四海而皆准，不同市场、不同时期可能需要不同的参数设置。如果使用较短周期，能够更早捕捉趋势，但假突破和震荡期损失会增加；如果使用较长周期，假突破减少，但趋势入场较晚，利润空间压缩。类似地，加仓间距的选择也影响策略表现：间距太小导致加仓过快、风险集中；间距太大导致加仓过慢、错过趋势。市场环境在不断变化：波动性、流动性、参与者结构、相关性结构等都在演变。一套在1980年代有效的参数，可能在2020年代效果大打折扣。如何在参数稳定性和市场适应性之间取得平衡，是海龟策略面临的持续挑战。</p>
+</section>
+<section id="高资金需求与流动性风险" class="level3">
+<h3 class="anchored" data-anchor-id="高资金需求与流动性风险">3.高资金需求与流动性风险</h3>
+<p>海龟策略需要较大的资金规模才能有效实施。多市场分散投资需要同时持有多个头寸，每个头寸都需要满足最小合约规模要求。如果资金过小，就无法实现充分的分散，风险敞口过于集中。</p>
+<p>此外，海龟策略在趋势行情中需要逐步加仓，头寸规模可能变得相当大。如果市场流动性不足，大规模头寸的进出会显著影响价格，产生滑点成本，侵蚀策略利润。在极端情况下，可能无法及时平仓，导致灾难性损失。流动性风险在市场危机时尤为突出。当市场出现恐慌性抛售或流动性枯竭时，即使价格已经触及止损线，也可能无法以合理价格成交，实际损失可能远超预期。</p>
+</section>
+<section id="心理压力与人性冲突" class="level3">
+<h3 class="anchored" data-anchor-id="心理压力与人性冲突">4.心理压力与人性冲突</h3>
+<p>虽然海龟策略强调机械化执行，但实际执行中的人性挑战不容忽视。策略的低胜率、高回撤特征，对交易者的心理承受能力提出极高要求。</p>
+<p>想象一下：连续10次、20次交易亏损，账户回撤30%、40%，而且不知道回撤何时结束。这种情况下，有多少人能够坚持执行策略？大多数人在连续亏损后会怀疑策略、怀疑自己，最终偏离或放弃策略。而往往就在放弃后，大趋势出现，策略本可以弥补所有损失并创造利润。</p>
+<p>海龟策略要求交易者完全信任系统，不因短期结果而改变行为。但在人类心理中，存在“近因效应”，过度重视近期结果。要克服这种偏见，需要极高的自律和强大的信念系统。</p>
+</section>
+<section id="竞争加剧与市场效率提升" class="level3">
+<h3 class="anchored" data-anchor-id="竞争加剧与市场效率提升">5.竞争加剧与市场效率提升</h3>
+<p>自海龟策略诞生以来，趋势跟踪策略已被广泛研究和应用。越来越多的资金涌入这一领域，导致策略的”拥挤度”增加。当大量资金同时追逐相同的突破信号时，可能会出现”抢跑”和”踩踏”等现象，降低策略效果。</p>
+<p>随着信息技术的发展，市场对信息的反应更加迅速，趋势可能形成得更快、结束得也更快。这对传统海龟策略提出了挑战。在实践中，明显感觉到近年来趋势跟踪策略的盈利能力下降，可能与策略拥挤和市场效率提升有关。</p>
+</section>
+<section id="黑天鹅事件与尾部风险" class="level3">
+<h3 class="anchored" data-anchor-id="黑天鹅事件与尾部风险">6.黑天鹅事件与尾部风险</h3>
+<p>期货市场的趋势策略在平稳环境中能有效捕捉价格动能，但黑天鹅事件与尾部风险会对其构成严峻挑战。这类极端行情往往伴随流动性瞬间枯竭，导致趋势跟踪头寸无法在止损点成交，账面亏损迅速放大；同时，危机中多品种相关性会急剧飙升，原本分散化的商品组合可能同步暴跌，使对冲失效；更危险的是，当大量趋势策略因同质化信号被迫集中平仓时，可能引发“止损踩踏”，进一步加剧市场波动，形成负反馈循环。虽然这类尾部事件发生概率极低，但一旦触发，其破坏力足以抹平长期积累的利润，因此成熟的趋势交易者必须通过仓位管理、期权保护或动态止损等预案来构建生存防线。</p>
+</section>
+</section>
+<section id="十策略优化和改进" class="level2">
+<h2 class="anchored" data-anchor-id="十策略优化和改进">十、策略优化和改进</h2>
+<section id="程序化交易" class="level3">
+<h3 class="anchored" data-anchor-id="程序化交易">1.程序化交易</h3>
+<p>随着计算机技术的发展，海龟策略已从手工执行进化为程序化自动交易。程序化交易消除了人为情绪干扰，确保规则得到100%的执行，大大提高了策略的可操作性和可靠性。</p>
+<p>现代量化交易平台都提供了海龟策略或其变体的实现模板。交易者可以方便地进行策略回测、参数优化和实盘交易，大大降低了使用门槛。程序化交易还使得高频版本的海龟策略成为可能。原始海龟策略是基于日线数据的，但现代程序化交易可以将突破和止损逻辑应用到小时线、分钟线甚至更短周期，捕捉更短期的趋势。不过，高频版本也面临更高的交易成本和更激烈的竞争。</p>
+</section>
+<section id="多市场与跨资产应用" class="level3">
+<h3 class="anchored" data-anchor-id="多市场与跨资产应用">2.多市场与跨资产应用</h3>
+<p>海龟策略最初主要应用于商品期货市场，但现代应用已扩展到股票、债券、外汇、数字货币等多种资产类别。通过在不同资产类别（商品、股票、债券、外汇）之间分散投资，可以进一步降低策略的回撤和波动性，提升风险调整后收益。</p>
+<p>在数字货币市场，海龟策略获得了新的应用空间。加密货币市场波动大、趋势性强，非常适合趋势跟踪策略。同时，该市场24小时交易、流动性分布不均等特点，也对策略提出了新的挑战。</p>
+</section>
+<section id="参数优化" class="level3">
+<h3 class="anchored" data-anchor-id="参数优化">3.参数优化</h3>
+<p>原始海龟策略使用固定的参数，但现代研究尝试对这些参数进行优化或自适应调整。一种方法是引入动态波动率过滤。当市场波动率过低时，可能意味着趋势不明朗，策略减少交易或暂时停用；当市场波动率适中时，趋势可能形成，策略正常执行；当市场波动率过高时，可能是趋势末期或剧烈反转，策略增加止损距离或降低仓位。</p>
+<p>另一种方法是使用机器学习优化参数。通过历史数据训练模型，让机器学习在不同市场环境下选择最优参数。这种方法可以适应市场环境的变化，但也存在过度拟合的风险。</p>
+<p>第三种方法是相关性分析和投资组合优化。现代海龟策略不再简单地平均分配资金到各市场，而是根据市场间的相关性、波动性、趋势性等因素，动态调整各市场的权重，构建最优投资组合。</p>
+</section>
+<section id="策略组合" class="level3">
+<h3 class="anchored" data-anchor-id="策略组合">4.策略组合</h3>
+<p>单一策略在任何市场环境下都难以持续有效，因此现代应用倾向于将海龟策略与其他策略组合使用。一种常见的组合是将趋势跟踪策略与均值回归策略组合。趋势策略在趋势市场赚钱，均值回归策略在震荡市场赚钱，两者结合可以平滑业绩曲线，降低回撤。</p>
+</section>
+<section id="人工智能与机器学习的融合" class="level3">
+<h3 class="anchored" data-anchor-id="人工智能与机器学习的融合">5.人工智能与机器学习的融合</h3>
+<p>近年来，人工智能和机器学习技术开始与海龟策略融合。这些技术可以在多个层面增强传统策略。</p>
+<ul>
+<li><p>在信号层面，机器学习模型可以用于判断突破信号的有效性。传统海龟策略对所有突破信号一视同仁，但机器学习模型可以根据历史特征预测哪些突破更可能成功，从而提高信号质量。</p></li>
+<li><p>在仓位管理层面，可以使用强化学习算法学习最优的仓位调整策略，根据市场状态动态调整仓位大小和止损距离，实现更优的风险收益比。</p></li>
+<li><p>在市场选择层面，可以使用机器学习模型识别哪些市场当前适合趋势跟踪，哪些市场更适合均值回归，从而实现更智能的市场选择和资金配置。</p></li>
+</ul>
+</section>
+</section>
+<section id="十一深度思考与启示" class="level2">
+<h2 class="anchored" data-anchor-id="十一深度思考与启示">十一、深度思考与启示</h2>
+<section id="简单与复杂的辩证统一" class="level3">
+<h3 class="anchored" data-anchor-id="简单与复杂的辩证统一">1.简单与复杂的辩证统一</h3>
+<p>海龟策略给我们的第一个启示是关于简单与复杂的辩证关系。表面上，海龟策略的规则非常简单：突破进场、跟踪止损、金字塔加仓，任何人都可以在几分钟内理解这些规则。但深入理解会发现，这些简单规则背后蕴含着深刻的市场哲学和风险逻辑。</p>
+<p>简单的规则往往更加稳健。复杂策略可能包含大量参数和条件，虽然能够完美拟合历史数据，但面对未来不确定的市场时可能表现糟糕。海龟策略的简单规则恰恰避免了过度拟合，具有更强的适应性。</p>
+<p>简单规则也更容易执行。复杂的策略需要复杂的判断，增加了出错的可能。简单的规则可以转化为简单的行为习惯，降低执行难度，提高一致性。</p>
+<p>但这并不意味着简单就是好。海龟策略的简单是建立在深刻理解之上的简单，而非肤浅的简单。真正理解策略背后的原理，才能在执行中保持信心和定力。</p>
+</section>
+<section id="规则与判断的边界" class="level3">
+<h3 class="anchored" data-anchor-id="规则与判断的边界">2.规则与判断的边界</h3>
+<p>海龟策略引发了一个深刻问题：交易中哪些部分应该规则化，哪些部分应该保留判断？</p>
+<p>海龟策略选择了极端的规则化：几乎完全排除主观判断。这种选择是否最优？</p>
+<p>规则化的优势是明确、一致、可验证。所有交易者使用相同规则会得出相同结论，业绩差异只来源于执行，不来源于判断。这大大简化了问题，也使得策略可以传授和学习。</p>
+<p>但规则化的劣势是缺乏灵活性。市场环境千变万化，任何固定规则都无法完美适应所有情况。保留一定判断空间，可能使策略更好地适应市场变化。问题是，判断力如何培养？如何保证判断的质量？判断是否会成为情绪的借口？</p>
+<p>海龟策略选择了完全规则化，这在丹尼斯的实验背景下是正确的选择。他要证明交易是可以学习的，规则化是实现这一目标的最佳路径。</p>
+<p>但对于今天的交易者，可能需要在规则和判断之间找到平衡：核心交易决策坚持规则化，但在参数调整、市场选择、风险预算分配等方面保留一定的判断空间。</p>
+</section>
+<section id="策略与执行的权衡" class="level3">
+<h3 class="anchored" data-anchor-id="策略与执行的权衡">3.策略与执行的权衡</h3>
+<p>海龟策略深刻揭示了策略与执行的关系。一个策略的成功，30%取决于策略本身，70%取决于执行。再好的策略，如果执行不力，也会失败；再普通的策略，如果严格执行，也可能成功。</p>
+<p>这引出了一个重要问题：在投资研究中，我们投入大量精力开发新策略、优化参数，却往往忽视了执行力的培养。事实上，如果将同样的精力投入到执行训练、心理建设、流程优化上，可能获得更大的业绩提升。</p>
+<p>海龟实验的成功在很大程度上是因为它不仅教授了策略，还创造了执行环境。学员们被置于一个高度纪律化的环境中，有明确的规则、明确的期望、明确的反馈机制。这种环境设计本身就促进了执行。</p>
+</section>
+<section id="风险与收益的博弈" class="level3">
+<h3 class="anchored" data-anchor-id="风险与收益的博弈">4.风险与收益的博弈</h3>
+<p>海龟策略的设计体现了风险与收益的永恒博弈。高收益从来不是免费的午餐，它总是伴随着高风险、高回撤、高心理压力。海龟策略在趋势市场的高收益背后，是在震荡市场回撤、长期亏损期、以及极端的心理考验。</p>
+<p>这种权衡可以理解为一种”交换”：海龟策略用震荡期的亏损交换趋势期的利润，用心理压力交换超额收益，用低胜率交换高盈亏比。理解这种交换的本质，才能接受策略的局限性，才能在困难时期坚持下去。</p>
+<p>更深层的思考是：什么是最优的风险收益权衡？不同投资者有不同的风险偏好、时间周期、资金约束，最优策略也应该因人而异。海龟策略提供了一种可能的风险收益权衡方案，但并非唯一方案。投资者应该根据自己的情况，调整或选择适合自己的策略。</p>
+<p>总之，海龟策略不仅是一套交易方法，更是一种投资哲学和人生态度。它教会我们：在不确定的世界中，规则比直觉更可靠；在风险与收益之间，平衡比贪婪更重要；在短期与长期之间，坚持比投机更智慧。无论市场如何演变，这些原则都将穿越时间，指引着每一代交易者在波动中前行。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="pagination-link" aria-label="第6章 商品CTA 第2节 商品期货的数据处理">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第6章 商品CTA 第2节 商品期货的数据处理</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
