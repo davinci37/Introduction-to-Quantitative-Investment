@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第7章 资产配置 第4节 Black-Litterman 模型 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第7章 资产配置 第3节 普林格六周期.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第7章 资产配置 第4节 Black-Litterman 模型.html">第7章 资产配置 第4节 Black-Litterman 模型</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一理论基础与核心思想" id="toc-一理论基础与核心思想" class="nav-link active" data-scroll-target="#一理论基础与核心思想">一、理论基础与核心思想</a>
+  <ul class="collapse">
+  <li><a href="#mvo模型的局限性" id="toc-mvo模型的局限性" class="nav-link" data-scroll-target="#mvo模型的局限性">1.MVO模型的局限性</a></li>
+  <li><a href="#bl模型的核心框架" id="toc-bl模型的核心框架" class="nav-link" data-scroll-target="#bl模型的核心框架">2.BL模型的核心框架</a></li>
+  </ul></li>
+  <li><a href="#二bl模型完整推导过程" id="toc-二bl模型完整推导过程" class="nav-link" data-scroll-target="#二bl模型完整推导过程">二、BL模型完整推导过程</a>
+  <ul class="collapse">
+  <li><a href="#模型核心假设" id="toc-模型核心假设" class="nav-link" data-scroll-target="#模型核心假设">1.模型核心假设</a></li>
+  <li><a href="#步骤1资产预期收益的先验估计" id="toc-步骤1资产预期收益的先验估计" class="nav-link" data-scroll-target="#步骤1资产预期收益的先验估计">2.步骤1：资产预期收益的先验估计</a></li>
+  <li><a href="#步骤2投资者主观观点的矩阵构建" id="toc-步骤2投资者主观观点的矩阵构建" class="nav-link" data-scroll-target="#步骤2投资者主观观点的矩阵构建">3.步骤2：投资者主观观点的矩阵构建</a></li>
+  <li><a href="#步骤3贝叶斯定理下的收益后验分布推导" id="toc-步骤3贝叶斯定理下的收益后验分布推导" class="nav-link" data-scroll-target="#步骤3贝叶斯定理下的收益后验分布推导">4.步骤3：贝叶斯定理下的收益后验分布推导</a></li>
+  <li><a href="#用于mvo优化的总协方差矩阵" id="toc-用于mvo优化的总协方差矩阵" class="nav-link" data-scroll-target="#用于mvo优化的总协方差矩阵">4.3.用于MVO优化的总协方差矩阵</a></li>
+  <li><a href="#步骤4后验分布代入mvo模型求解最优配置" id="toc-步骤4后验分布代入mvo模型求解最优配置" class="nav-link" data-scroll-target="#步骤4后验分布代入mvo模型求解最优配置">5.步骤4：后验分布代入MVO模型求解最优配置</a></li>
+  <li><a href="#模型参数的设定" id="toc-模型参数的设定" class="nav-link" data-scroll-target="#模型参数的设定">6.模型参数的设定</a></li>
+  <li><a href="#结论" id="toc-结论" class="nav-link" data-scroll-target="#结论">7.结论</a></li>
+  </ul></li>
+  <li><a href="#三择时信号的实践" id="toc-三择时信号的实践" class="nav-link" data-scroll-target="#三择时信号的实践">三、择时信号的实践</a>
+  <ul class="collapse">
+  <li><a href="#前置基础资产择信号的生成" id="toc-前置基础资产择信号的生成" class="nav-link" data-scroll-target="#前置基础资产择信号的生成">1.前置基础：资产择信号的生成</a></li>
+  <li><a href="#核心步骤ols回归映射" id="toc-核心步骤ols回归映射" class="nav-link" data-scroll-target="#核心步骤ols回归映射">2.核心步骤：OLS回归映射</a></li>
+  <li><a href="#bl模型主观观点矩阵的构建" id="toc-bl模型主观观点矩阵的构建" class="nav-link" data-scroll-target="#bl模型主观观点矩阵的构建">3.BL模型主观观点矩阵的构建</a></li>
+  </ul></li>
+  <li><a href="#四案例一bl模型的r语言实现" id="toc-四案例一bl模型的r语言实现" class="nav-link" data-scroll-target="#四案例一bl模型的r语言实现">四、案例一：BL模型的R语言实现</a>
+  <ul class="collapse">
+  <li><a href="#准备输入数据" id="toc-准备输入数据" class="nav-link" data-scroll-target="#准备输入数据">1.准备输入数据</a></li>
+  <li><a href="#计算市场隐含均衡收益" id="toc-计算市场隐含均衡收益" class="nav-link" data-scroll-target="#计算市场隐含均衡收益">2.计算市场隐含均衡收益</a></li>
+  <li><a href="#设定投资者观点" id="toc-设定投资者观点" class="nav-link" data-scroll-target="#设定投资者观点">3.设定投资者观点</a></li>
+  <li><a href="#计算后验收益-black-litterman后验收益的公式为" id="toc-计算后验收益-black-litterman后验收益的公式为" class="nav-link" data-scroll-target="#计算后验收益-black-litterman后验收益的公式为">4.计算后验收益 Black-Litterman后验收益的公式为：</a></li>
+  <li><a href="#组合优化" id="toc-组合优化" class="nav-link" data-scroll-target="#组合优化">5.组合优化</a></li>
+  </ul></li>
+  <li><a href="#五案例二portfolioanalytics包-black.litterman函数" id="toc-五案例二portfolioanalytics包-black.litterman函数" class="nav-link" data-scroll-target="#五案例二portfolioanalytics包-black.litterman函数">五、案例二：<span class="math inline">\(PortfolioAnalytics\)</span>包 <span class="math inline">\(black.litterman\)</span>函数</a>
+  <ul class="collapse">
+  <li><a href="#函数调用" id="toc-函数调用" class="nav-link" data-scroll-target="#函数调用">1.函数调用</a></li>
+  <li><a href="#与传统公式的区别" id="toc-与传统公式的区别" class="nav-link" data-scroll-target="#与传统公式的区别">2.与传统公式的区别</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第7章 资产配置 第4节 Black-Litterman 模型</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一理论基础与核心思想" class="level2">
+<h2 class="anchored" data-anchor-id="一理论基础与核心思想">一、理论基础与核心思想</h2>
+<p>Black-Litterman 模型（B L模型）由高盛公司的Fischer Black和Robert Litterman于上世纪90年代初提出。其根本目的在于解决现代投资组合理论的马科维茨（Markowitz）均值-方差模型（ MVO模型）在实际应用中遇到的诸多难题。</p>
+<section id="mvo模型的局限性" class="level3">
+<h3 class="anchored" data-anchor-id="mvo模型的局限性">1.MVO模型的局限性</h3>
+<p>MVO模型构建了一个在给定风险水平下最大化收益，或在给定收益水平下最小化风险的数学框架，奠定了量化投资的基石。然而，其在实践中暴露了几个核心问题：</p>
+<ul>
+<li><p>输入参数的敏感性：MVO的输出即最优投资组合权重，对输入的预期收益率向量极为敏感。预期收益的微小变动可能导致投资组合权重发生剧烈变化，产生不稳定的、难以执行的资产配置方案。</p></li>
+<li><p>极端权重与“角落解”‍：由于模型完全依赖输入数据，当某些资产的预期收益率稍高或与其他资产相关性较低时，模型倾向于分配极高的权重，甚至100%的权重，而完全忽略其他资产。这在现实中往往是不现实的，因为它忽略了模型本身的不确定性和参数的估计误差。</p></li>
+<li><p>预期收益估计的困难：准确预测未来资产收益率是金融领域最具挑战性的任务之一。使用历史平均收益作为未来预期收益的代理变量，其有效性备受争议，因为历史不完全代表未来。</p></li>
+</ul>
+<p>正是为了克服这些缺陷，Black-Litterman模型应运而生。它并未全盘否定MVO框架，而是通过一种创新的方式来生成更稳健、更符合直觉的预期收益率向量，从而作为MVO模型的优化输入。</p>
+</section>
+<section id="bl模型的核心框架" class="level3">
+<h3 class="anchored" data-anchor-id="bl模型的核心框架">2.BL模型的核心框架</h3>
+<p>BL模型最核心的创新在于引入了贝叶斯统计学的思想。它将资产的预期收益率不视为一个确定的数值，而是一个服从某种概率分布的随机变量。整个模型可以被理解为一个信息融合的过程，融合了两种不同来源的信息：</p>
+<ul>
+<li><p>先验分布（Prior Distribution）：这代表了在获得任何个人观点之前，我们对资产预期收益的初始信念。BL模型巧妙地提出，这种初始信念不应是凭空猜测的，而应来源于市场的整体均衡状态。它假设，当前全球市场的资产配置（由各资产的市值权重决定）本身就是所有市场参与者集体智慧的体现，是“最优”的。通过逆向工程（Reverse Optimization），可以从市场均衡权重中推导出市场隐含的均衡预期收益率，以此作为先验分布的均值。</p></li>
+<li><p>投资者观点（Investor’s Views）：这代表了投资者或基金经理基于其专业研究和判断所形成的、关于部分资产未来表现的主观预测。这些观点是模型中融入“新信息”的渠道。模型允许这些观点是灵活的，可以是关于某个资产绝对收益的预测，例如“苹果公司股票未来一年将上涨10%”；也可以是关于资产间相对表现的预测，例如“美国国债的表现将超过德国国债2%”。每个观点都伴随着一个不确定性水平，即投资者对自己的观点有多大的信心。</p></li>
+<li><p>后验分布（Posterior Distribution）：这是模型最终的输出。通过贝叶斯定理，模型将先验的市场均衡信息与投资者主观观点信息进行数学上的结合，得到一个新的、更新后的预期收益率分布，即后验分布。这个后验分布的均值，即“Black-Litterman 预期收益率”，就是我们最终用于输入到均值-方差优化器中，以计算最终投资组合权重的结果。</p></li>
+</ul>
+<p>这个过程的直观理解是：我们从一个中性的、被市场普遍接受的基准（先验）开始，然后根据我们自己的、有一定置信度的专业判断（观点），对这个基准进行合理的调整，最终得到一个既包含了市场智慧又体现了个人洞见的、更加稳健的预期收益（后验）。</p>
+</section>
+</section>
+<section id="二bl模型完整推导过程" class="level2">
+<h2 class="anchored" data-anchor-id="二bl模型完整推导过程">二、BL模型完整推导过程</h2>
+<p>BL模型核心是通过贝叶斯定理将市场均衡收益的先验分布与投资者主观观点的条件分布融合，得到资产预期收益的后验分布，最终将后验分布代入均值-方差（MVO）模型求解最优资产配置权重，核心逻辑为：<strong>先验分布+主观观点→后验分布→MVO优化</strong>。以下结合报告内容，分四步完成完整推导，并补充模型关键假设与参数设定。</p>
+<section id="模型核心假设" class="level3">
+<h3 class="anchored" data-anchor-id="模型核心假设">1.模型核心假设</h3>
+<ul>
+<li><p>资产收益率服从多元正态分布，即<span class="math inline">\(R\sim N(\mu,\Sigma)\)</span>，其中<span class="math inline">\(\mu\)</span>为资产预期收益率向量，<span class="math inline">\(\Sigma\)</span>为资产收益率的协方差矩阵；</p></li>
+<li><p>市场处于均衡状态，所有投资者均持有市场组合，满足资本资产定价模型（CAPM）；</p></li>
+<li><p>投资者主观观点相互独立，观点误差也服从正态分布；</p></li>
+<li><p>收益先验分布的协方差与资产收益率协方差成比例，即<span class="math inline">\(\Sigma_{\Pi}=\tau\Sigma\)</span>（<span class="math inline">\(\tau\)</span>为主观观点权重系数）。</p></li>
+</ul>
+</section>
+<section id="步骤1资产预期收益的先验估计" class="level3">
+<h3 class="anchored" data-anchor-id="步骤1资产预期收益的先验估计">2.步骤1：资产预期收益的先验估计</h3>
+<p>先验收益是无投资者主观观点的市场均衡收益，通过逆向优化从市场均衡条件推导，核心是结合CAPM和投资者效用最大化原理。</p>
+<section id="基于capm的市场均衡收益" class="level4">
+<h4 class="anchored" data-anchor-id="基于capm的市场均衡收益">2.1.基于CAPM的市场均衡收益</h4>
+<p>市场均衡下，单个资产的预期收益率满足CAPM公式： <span class="math display">\[E[R]=r_f+\beta_m\left(E\left[R_m\right]-r_f\right) \tag{1}\]</span></p>
+<p>其中：<span class="math inline">\(r_f\)</span>为无风险收益率，<span class="math inline">\(\beta_{i,m}\)</span>为资产<span class="math inline">\(i\)</span>的市场Beta，<span class="math inline">\(E[R_m]\)</span>为市场组合的预期收益率。</p>
+<p>该式反映市场对风险资产的定价共识，是无观点的收益基准。</p>
+</section>
+<section id="基于效用最大化的逆向优化" class="level4">
+<h4 class="anchored" data-anchor-id="基于效用最大化的逆向优化">2.2.基于效用最大化的逆向优化</h4>
+<p>假设市场投资者的效用函数为均值-方差效用函数，追求“收益最大化、风险最小化”： <span class="math display">\[U_m=w_m^T \Pi-\frac{\lambda}{2} w_m^T \Sigma w_m \tag{2}\]</span></p>
+<p>其中： <span class="math inline">\(w_m\)</span>：市场均衡下的资产配置权重向量； <span class="math inline">\(\Pi\)</span>：资产超额收益率向量（<span class="math inline">\(E[R]-r_f\)</span>）； <span class="math inline">\(\lambda\)</span>：市场风险厌恶系数（越大表示投资者越厌恶风险）； <span class="math inline">\(\Sigma\)</span>：资产收益率的协方差矩阵。</p>
+</section>
+<section id="求解均衡超额收益率-pi" class="level4">
+<h4 class="anchored" data-anchor-id="求解均衡超额收益率-pi">2.3.求解均衡超额收益率 <span class="math inline">\(\Pi\)</span></h4>
+<p>市场均衡时，效用函数达到最大化，对<span class="math inline">\(w_m\)</span>求一阶偏导并令其等于0（极值条件）： <span class="math display">\[\frac{d U_m}{d w_m}=\Pi - \lambda \Sigma w_m = 0 \tag{3}\]</span> 整理得核心逆向优化公式（BL模型先验收益的关键）： <span class="math display">\[\Pi = \lambda \Sigma w_m \tag{4}\]</span></p>
+</section>
+<section id="风险厌恶系数lambda的标定" class="level4">
+<h4 class="anchored" data-anchor-id="风险厌恶系数lambda的标定">2.4.风险厌恶系数<span class="math inline">\(\lambda\)</span>的标定</h4>
+<p>结合市场组合的风险与收益，对式(4)两边同时左乘<span class="math inline">\(w_m^T\)</span>，且市场组合的方差<span class="math inline">\(\sigma_m^2=w_m^T \Sigma w_m\)</span>，代入得： <span class="math display">\[w_m^T \Pi = \lambda \sigma_m^2 \tag{5}\]</span></p>
+<p>而<span class="math inline">\(w_m^T\Pi=E[R_m]-r_f\)</span>（市场组合的超额收益），因此风险厌恶系数可表示为： <span class="math display">\[\lambda = \frac{E(R_m)-r_f}{\sigma_m^2} \tag{6}\]</span></p>
+<p>结论：已知<span class="math inline">\(\lambda\)</span>、<span class="math inline">\(\Sigma\)</span>、<span class="math inline">\(w_m\)</span>中任意两个，即可通过式(4)求解第三个，得到市场均衡的超额收益率<span class="math inline">\(\Pi\)</span>，即先验收益核心。</p>
+</section>
+<section id="先验收益的概率分布" class="level4">
+<h4 class="anchored" data-anchor-id="先验收益的概率分布">2.5.先验收益的概率分布</h4>
+<p>由于无法精准预测未来收益率，<span class="math inline">\(\mu\)</span>（实际预期收益）是关于<span class="math inline">\(\Pi\)</span>（均衡收益）的随机变量，结合模型假设<span class="math inline">\(\Sigma_{\Pi}=\tau\Sigma\)</span>，最终得到资产超额收益率的先验分布： <span class="math display">\[P(A) \sim N\left(\Pi, \tau \Sigma\right) \tag{7}\]</span></p>
+<p>其中：<span class="math inline">\(\tau\)</span>为主观观点权重系数，越小表示先验分布的波动性越低，市场均衡收益的参考性越强。</p>
+</section>
+</section>
+<section id="步骤2投资者主观观点的矩阵构建" class="level3">
+<h3 class="anchored" data-anchor-id="步骤2投资者主观观点的矩阵构建">3.步骤2：投资者主观观点的矩阵构建</h3>
+<p>BL模型的核心优势是兼容主观观点，需将投资者对资产收益的判断转化为三个矩阵，并定义观点的概率分布。</p>
+<section id="主观观点的矩阵表示" class="level4">
+<h4 class="anchored" data-anchor-id="主观观点的矩阵表示">3.1.主观观点的矩阵表示</h4>
+<p>假设投资者对<span class="math inline">\(n\)</span>个资产提出<span class="math inline">\(k\)</span>个主观观点，观点的数学表达为： <span class="math display">\[P \times \mu = Q + \varepsilon \tag{8}\]</span></p>
+<p>其中： <span class="math inline">\(P\)</span>：<span class="math inline">\(k \times n\)</span>的资产观点矩阵，每行代表一个观点，元素表征该观点中各资产的权重（如“资产1的收益率比资产2高2%”，则行向量为<span class="math inline">\([1,-1,0,...,0]\)</span>）；</p>
+<p><span class="math inline">\(Q\)</span>：<span class="math inline">\(k\times1\)</span>的观点收益矩阵，每行代表对应观点的预期收益率（如上述例子中<span class="math inline">\(Q=[2\%]\)</span>）；</p>
+<p><span class="math inline">\(\varepsilon\)</span>：<span class="math inline">\(k\times1\)</span>的观点误差向量，服从正态分布<span class="math inline">\(\varepsilon \sim N(0, \Omega)\)</span>，代表观点的不确定性。</p>
+</section>
+<section id="关键矩阵定义" class="level4">
+<h4 class="anchored" data-anchor-id="关键矩阵定义">3.2.关键矩阵定义</h4>
+<p>观点误差协方差矩阵<span class="math inline">\(\Omega\)</span>：<span class="math inline">\(k \times k\)</span>的对角阵，对角线元素为各观点误差的方差，方差越小表示投资者对该观点的信心越高；其逆矩阵<span class="math inline">\(\Omega^{-1}\)</span>直接表征观点的置信度；</p>
+<p>若投资者对每个资产单独提出观点（最常用形式），<span class="math inline">\(P\)</span>为单位对角阵（<span class="math inline">\(P=diag(1,1,...,1)\)</span>），此时观点为“资产<span class="math inline">\(i\)</span>的预期收益率为<span class="math inline">\(Q_i\)</span>”。</p>
+</section>
+<section id="主观观点的条件分布" class="level4">
+<h4 class="anchored" data-anchor-id="主观观点的条件分布">3.3.主观观点的条件分布</h4>
+<p>在已知先验收益分布的前提下，投资者主观观点服从条件正态分布： <span class="math display">\[P(B | A) \sim N(Q, \Omega) \tag{9}\]</span></p>
+<p>映射到资产收益率空间，观点的分布可表示为： <span class="math display">\[P(B | A) \sim N\left(P^{-1} Q,\left[P^T \Omega^{-1} P\right]^{-1}\right) \tag{10}\]</span></p>
+</section>
+</section>
+<section id="步骤3贝叶斯定理下的收益后验分布推导" class="level3">
+<h3 class="anchored" data-anchor-id="步骤3贝叶斯定理下的收益后验分布推导">4.步骤3：贝叶斯定理下的收益后验分布推导</h3>
+<p>BL模型的核心是通过贝叶斯定理融合先验分布（市场均衡）和条件分布（主观观点），得到后验分布（融合后的资产预期收益），后验分布是最终用于资产配置的收益依据。</p>
+<section id="贝叶斯定理基本形式" class="level4">
+<h4 class="anchored" data-anchor-id="贝叶斯定理基本形式">4.1.贝叶斯定理基本形式</h4>
+<p>贝叶斯定理描述“新信息对先验概率的更新”，数学公式为： <span class="math display">\[P(A | B)=\frac{P(B | A) \times P(A)}{P(B)} \tag{11}\]</span> 其中： <span class="math inline">\(P(A)\)</span>：先验概率（市场均衡收益的分布，式7）；</p>
+<p><span class="math inline">\(P(B|A)\)</span>：似然度（先验分布下主观观点的条件分布，式9）；</p>
+<p><span class="math inline">\(P(B)\)</span>：边缘概率（无市场信息时主观观点的概率，为常数，不影响分布形态）；</p>
+<p><span class="math inline">\(P(A|B)\)</span>：后验概率（融合主观观点后的资产收益分布，核心求解目标）。</p>
+<p>需要指出的是，在贝叶斯推断中，当我们只关心后验分布的均值、协方差时，可以直接忽略<span class="math inline">\(P(B)\)</span>，因为它是一个与μ无关的常数，不影响后验分布的参数形式。这种处理在贝叶斯线性模型的推导中非常常见。</p>
+</section>
+<section id="后验分布的均值与协方差" class="level4">
+<h4 class="anchored" data-anchor-id="后验分布的均值与协方差">4.2.后验分布的均值与协方差</h4>
+<p>结合资产收益率的正态分布假设，贝叶斯融合后的后验预期收益率均值<span class="math inline">\(\hat{\Pi}\)</span>和后验协方差矩阵<span class="math inline">\(\hat{\Sigma}_{\Pi}\)</span>均为闭式解，是BL模型的核心公式：</p>
+<p>后验预期收益率均值（融合观点后的预期收益） <span class="math display">\[\hat{\Pi}=\left[\Pi(\tau \Sigma)^{-1}+P^T \Omega^{-1} Q\right]\left[(\tau \Sigma)^{-1}+P^T \Omega^{-1} P\right]^{-1} \tag{12}\]</span></p>
+<p>含义：后验收益是市场均衡收益和投资者主观观点收益的加权平均，权重由先验分布的置信度（<span class="math inline">\((\tau\Sigma)^{-1}\)</span>）和主观观点的置信度（<span class="math inline">\(P^T\Omega^{-1}P\)</span>）决定。</p>
+<p>后验收益的协方差矩阵 <span class="math display">\[\hat{\Sigma}_{\Pi}=\left[(\tau \Sigma)^{-1}+P^T \Omega^{-1} P\right]^{-1} \tag{13}\]</span></p>
+<p>含义：后验协方差反映融合后收益的不确定性，其值小于先验协方差<span class="math inline">\(\tau\Sigma\)</span>，说明主观观点的引入降低了收益的预测不确定性。</p>
+</section>
+</section>
+<section id="用于mvo优化的总协方差矩阵" class="level3">
+<h3 class="anchored" data-anchor-id="用于mvo优化的总协方差矩阵">4.3.用于MVO优化的总协方差矩阵</h3>
+<p>需要特别注意的是，<span class="math inline">\(\hat{\Sigma}_{\Pi}\)</span>是后验收益均值的协方差，而非资产收益率的总协方差。结合模型假设，最终代入MVO模型的资产收益率总协方差矩阵<span class="math inline">\(\hat{\Sigma}_R\)</span>为： <span class="math display">\[\hat{\Sigma}_R = \Sigma + \hat{\Sigma}_{\Pi} = \Sigma + \left[(\tau \Sigma)^{-1}+P^T \Omega^{-1} P\right]^{-1} \tag{14}\]</span></p>
+</section>
+<section id="步骤4后验分布代入mvo模型求解最优配置" class="level3">
+<h3 class="anchored" data-anchor-id="步骤4后验分布代入mvo模型求解最优配置">5.步骤4：后验分布代入MVO模型求解最优配置</h3>
+<p>将贝叶斯融合后的后验收益均值<span class="math inline">\(\hat{\Pi}\)</span>和总协方差矩阵<span class="math inline">\(\hat{\Sigma}_R\)</span>代入经典均值-方差模型，求解最优资产配置权重<span class="math inline">\(w\)</span>，实现“风险约束下的收益最大化”。</p>
+<p>目标函数为投资者效用最大化，同时加入权重和为1、单资产权重非负的实际约束（可根据需求添加换手率、权重上限等约束）： <span class="math display">\[\begin{gathered} \max _{w} w^T \hat{\Pi}-\frac{\lambda}{2} w^T \hat{\Sigma}_R w \\ \text{s.t.} \quad \sum_{i=1}^{n} w_{i}=1,\quad 0 \leq w_{i} \leq 1 \quad (i=1,2, ..., n) \end{gathered} \tag{15}\]</span></p>
+<p>其中：<span class="math inline">\(w=(w_1,w_2,...,w_n)^T\)</span>为资产配置权重向量，<span class="math inline">\(\lambda\)</span>为投资者风险厌恶系数（与步骤1中市场风险厌恶系数一致，或根据投资者偏好调整）。</p>
+<p>当无单资产权重非负约束（即允许卖空）时，优化问题有闭式解，对目标函数求导并令其为0，得： <span class="math display">\[w^* = \frac{1}{\lambda} \hat{\Sigma}_R^{-1} \hat{\Pi} \tag{16}\]</span></p>
+<p>含义：最优权重与后验收益均值正相关，与风险厌恶系数、后验协方差矩阵负相关，符合“高收益、低风险、低风险厌恶→高配仓”的直觉。</p>
+<p>当存在权重非负、换手率上限、单资产权重上限（如公募基金的大类资产比例约束）时，闭式解不再成立，需通过数值优化方法（如二次规划、梯度下降）求解最优权重，这也是实际应用中更为常见的方式。</p>
+</section>
+<section id="模型参数的设定" class="level3">
+<h3 class="anchored" data-anchor-id="模型参数的设定">6.模型参数的设定</h3>
+<p>BL模型的效果高度依赖参数合理性，报告中结合A股市场实际设定了核心参数，补充如下：</p>
+<ul>
+<li><p>风险厌恶系数<span class="math inline">\(\lambda\)</span>：如果要求严格控制最大回撤，设定<span class="math inline">\(\lambda=60\)</span>；若对波动容忍度高，可设<span class="math inline">\(\lambda=30\)</span> 以追求更高收益；</p></li>
+<li><p>主观观点权重系数<span class="math inline">\(\tau\)</span>：沿用Walters(2009)设定，与历史数据长度<span class="math inline">\(T\)</span>、资产个数<span class="math inline">\(n\)</span>相关，<span class="math inline">\(\tau=\frac{1}{T-n}\)</span>；</p></li>
+<li><p>观点误差协方差<span class="math inline">\(\Omega\)</span>：沿用He和Litterman(1999)设定，<span class="math inline">\(\Omega=diag\left(P(\tau\Sigma)P^T\right)\)</span>，与先验协方差成比例；</p></li>
+<li><p>主观观点<span class="math inline">\(P,Q\)</span>：通过资产择时模型+OLS回归生成，如债券/黄金/A股择时信号的复合值，经滚动12期OLS回归得到收益率预测，作为<span class="math inline">\(Q\)</span>；单资产观点下<span class="math inline">\(P\)</span>为单位对角阵。</p></li>
+</ul>
+</section>
+<section id="结论" class="level3">
+<h3 class="anchored" data-anchor-id="结论">7.结论</h3>
+<ul>
+<li><p>BL模型的本质是贝叶斯推断，通过市场均衡收益定“基准”，通过主观观点做“修正”，解决了传统MVO模型“参数敏感、脱离实际”的痛点；</p></li>
+<li><p>后验收益均值<span class="math inline">\(\hat{\Pi}\)</span>是先验与主观观点的加权平均，权重由双方的置信度决定，主观观点信心越高，对后验收益的影响越大；</p></li>
+<li><p>最优配置权重的核心是将后验分布代入MVO，带实际约束的数值解是机构资产配置的实际应用形式；</p></li>
+<li><p>模型效果的关键是主观观点的准确性和参数的合理性，报告中通过资产择时模型和回归分析提升了主观观点的有效性。</p></li>
+</ul>
+</section>
+</section>
+<section id="三择时信号的实践" class="level2">
+<h2 class="anchored" data-anchor-id="三择时信号的实践">三、择时信号的实践</h2>
+<p>在BL模型中，核心是把债券、黄金、A股的择时信号转化为可量化的收益率预测值，作为BL模型主观观点的核心输入<span class="math inline">\(Q\)</span>。具体操作分步骤，采用OLS最小二乘法回归构建映射关系，以下是详尽的操作流程、公式设定、参数选择和实操细节：</p>
+<section id="前置基础资产择信号的生成" class="level3">
+<h3 class="anchored" data-anchor-id="前置基础资产择信号的生成">1.前置基础：资产择信号的生成</h3>
+<p>在构建收益率映射前，已针对债券、黄金、A股分别完成了多维度择时指标设计→单指标信号生成→复合信号合成的全流程，这是回归建模的输入基础，核心结果为：</p>
+<ul>
+<li><p>对每个资产标的，通过其专属择时维度设计若干细分指标，并为每个指标设定0-1二值信号规则，越接近1表示择时看多信号越强，越接近0表示看空；</p></li>
+<li><p>将每个资产标的的所有细分指标0-1信号做算数平均值，得到该标的在每个时间点t的复合择时信号<span class="math inline">\(Signal_{i,t}\)</span>；</p></li>
+<li><p>为匹配BL模型调仓频率的实操需求，择时信号与收益率预测均采用月度频率，即所有信号和收益率均为月度数据。</p></li>
+</ul>
+</section>
+<section id="核心步骤ols回归映射" class="level3">
+<h3 class="anchored" data-anchor-id="核心步骤ols回归映射">2.核心步骤：OLS回归映射</h3>
+<p>对每个资产标的，通过滚动时间窗口的OLS最小二乘法构建滞后1期的复合择时信号对当期资产收益率的回归模型，实现“信号→收益率”的定量映射，再代入最新信号完成下期收益率预测，分模型构建、参数设定、收益率预测三步完成，全程滚动更新以保证模型的时效性和稳定性。</p>
+<section id="模型构建" class="level4">
+<h4 class="anchored" data-anchor-id="模型构建">2.1.模型构建</h4>
+<p>在任意月度时间t，对单个资产<span class="math inline">\(i\)</span>，构建一元线性回归模型，核心是将资产的当期收益率作为被解释变量，资产的上期复合择时信号作为核心解释变量，同时加入截距项，回归方程为： <span class="math display">\[Return_{i,t}=\alpha_i+\beta_i \cdot Signal_{i,t-1}+\varepsilon\]</span></p>
+<p>其中： <span class="math inline">\(Return_{i,t}\)</span>：被解释变量资产，<span class="math inline">\(i\)</span>在第t个月的实际月度收益率；</p>
+<p><span class="math inline">\(\alpha_i\)</span>：截距项模型基础收益，代表无择时信号时资产的基础收益率水平；</p>
+<p><span class="math inline">\(\beta_i\)</span>：斜率系数择时信号的收益率弹性，代表信号每变动0.1，收益率的变动幅度；</p>
+<p><span class="math inline">\(Signal_{i,t-1}\)</span>：解释变量资产<span class="math inline">\(i\)</span>在第t-1个月的复合择时信号，滞后1期，避免未来信息泄露；</p>
+<p><span class="math inline">\(\varepsilon\)</span>：残差项模型拟合误差，服从均值为0的正态分布，代表信号无法解释的收益率波动。</p>
+</section>
+<section id="滚动窗口回归" class="level4">
+<h4 class="anchored" data-anchor-id="滚动窗口回归">2.2.滚动窗口回归</h4>
+<p>模型的系数<span class="math inline">\(\alpha_i\)</span>、<span class="math inline">\(\beta_i\)</span>并非固定值，而是通过滚动时间窗口的OLS最小二乘法持续更新，保证系数能适配市场环境变化，报告中明确了两个核心参数：</p>
+<ul>
+<li><p>滚动窗口长度：12期（1年），即每次估计系数时，仅采用最新的12个月度连续样本（如t=2025年12月时，用2024年12月~2025年11月的12组样本）；</p></li>
+<li><p>估计方法：OLS最小二乘法，求解最优的截距项估计值<span class="math inline">\(\hat{\alpha}_i\)</span>和斜率系数估计值<span class="math inline">\(\hat{\beta}_i\)</span>。</p></li>
+</ul>
+</section>
+<section id="收益率预测" class="level4">
+<h4 class="anchored" data-anchor-id="收益率预测">2.3.收益率预测</h4>
+<p>完成滚动OLS的系数估计后，代入资产i在当前时间t的最新复合择时信号<span class="math inline">\(Signal_{i,t}\)</span>，即可预测该资产在下一个时间t+1月的收益率，预测公式为： <span class="math display">\[\hat{Return}_{i,t+1}=\hat{\alpha}_i+\hat{\beta}_i \cdot Signal_{i,t}\]</span></p>
+<p>其中： <span class="math inline">\(\hat{\alpha}_i\)</span>、<span class="math inline">\(\hat{\beta}_i\)</span>：通过最新12期滚动OLS得到的系数估计值；</p>
+<p><span class="math inline">\(Signal_{i,t}\)</span>：资产i在当前t月已公布的最新复合择时信号；</p>
+<p><span class="math inline">\(\hat{Return}_{i,t+1}\)</span>：资产i在t+1月的收益率预测值，作为BL模型中该资产主观观点收益矩阵<span class="math inline">\(Q\)</span>的核心输入。</p>
+</section>
+<section id="其他资产的收益率预测" class="level4">
+<h4 class="anchored" data-anchor-id="其他资产的收益率预测">2.4.其他资产的收益率预测</h4>
+<p>针对货币基金等非核心资产，报告未设计专属择时模型，而是通过历史收益率的衰减加权平均方法预测收益率，公式为： <span class="math display">\[\hat{Return}_{j,t+1}=\sum_{T=1}^{t} \frac{T}{\sum_{T=1}^{t} T} \cdot Return_{j,T}\]</span> 其中： 资产<span class="math inline">\(j\)</span>：货币基金等非择时建模资产；</p>
+<p><span class="math inline">\(Return_{j,T}\)</span>：资产<span class="math inline">\(j\)</span>在第T期的历史实际收益率；</p>
+<p>权重：<span class="math inline">\(\frac{T}{\sum_{T=1}^{t}T}\)</span>，即时间越晚的历史收益率，权重越大（衰减加权，最新数据的预测价值更高）；</p>
+<p><span class="math inline">\(\hat{Return}_{j,t+1}\)</span>：资产<span class="math inline">\(j\)</span>在<span class="math inline">\(t+1\)</span>期的收益率预测值。</p>
+<p>这类资产的择时难度高，或收益率波动极低（如货币基金），无需通过复杂择时信号建模，采用衰减加权平均既能利用历史数据，又能赋予最新数据更高权重，兼顾简单性和有效性。</p>
+</section>
+</section>
+<section id="bl模型主观观点矩阵的构建" class="level3">
+<h3 class="anchored" data-anchor-id="bl模型主观观点矩阵的构建">3.BL模型主观观点矩阵的构建</h3>
+<p>完成所有资产的收益率预测后，将预测值转化为BL模型所需的主观观点矩阵（<span class="math inline">\(P\)</span>、<span class="math inline">\(Q\)</span>、<span class="math inline">\(\Omega\)</span>），这是择时信号→收益率预测→BL模型主观观点的最终落地，核心设定为：</p>
+<ul>
+<li><p>资产观点矩阵<span class="math inline">\(P\)</span>：</p>
+<p>对角阵，<span class="math inline">\(P=diag(1,1,...,1)\)</span>，</p>
+<p>表示投资者对每个资产单独提出收益率观点，观点间相互独立；</p></li>
+<li><p>观点收益矩阵<span class="math inline">\(Q\)</span>：列向量，</p>
+<p><span class="math inline">\(Q=(\hat{Return}_{1,t+1},\hat{Return}_{2,t+1},...,\hat{Return}_{n,t+1})^T\)</span>，</p>
+<p>即所有资产的t+1期收益率预测值直接作为<span class="math inline">\(Q\)</span>的元素；</p></li>
+<li><p>观点误差协方差矩阵<span class="math inline">\(\Omega\)</span>：</p>
+<p><span class="math inline">\(\Omega=diag\left(P(\tau\Sigma)P^T\right)\)</span>，</p>
+<p>与资产收益先验协方差<span class="math inline">\(\tau\Sigma\)</span>成比例，保证观点误差的合理性。</p></li>
+</ul>
+<p>4.总结</p>
+<p>整个“择时信号→收益率预测”的过程，本质是把定性的择时观点转化为定量的收益率数值，并通过滚动OLS回归保证这种转化的有效性、动态性和实操性，最终为BL模型提供高质量的主观观点输入<span class="math inline">\(Q\)</span>。这一过程均围绕BL模型的实操性和主观观点的稳定性设计，是BL模型实践的核心环节之一。</p>
+</section>
+</section>
+<section id="四案例一bl模型的r语言实现" class="level2">
+<h2 class="anchored" data-anchor-id="四案例一bl模型的r语言实现">四、案例一：BL模型的R语言实现</h2>
+<section id="准备输入数据" class="level3">
+<h3 class="anchored" data-anchor-id="准备输入数据">1.准备输入数据</h3>
+<ul>
+<li><p>资产的历史收益率数据（用于计算协方差矩阵）。</p></li>
+<li><p>市场组合的市值权重（或等权替代）。</p></li>
+<li><p>无风险利率（可选，用于计算超额收益）。</p></li>
+<li><p>投资者的观点：每个观点可以表示为绝对收益（如“资产A未来收益为5%”）或相对收益（如“资产A比资产B高3%”），以及观点的置信度（用方差或权重表示）。</p></li>
+</ul>
+</section>
+<section id="计算市场隐含均衡收益" class="level3">
+<h3 class="anchored" data-anchor-id="计算市场隐含均衡收益">2.计算市场隐含均衡收益</h3>
+<p>根据CAPM理论，市场组合的均衡超额收益可以通过以下公式反推：</p>
+<p><span class="math inline">\(\Pi=\lambda \Sigma w_{mkt}\)</span></p>
+<p>其中： <span class="math inline">\(\Pi\)</span>：隐含超额收益向量（相对于无风险利率）。</p>
+<p><span class="math inline">\(\lambda\)</span>：市场风险厌恶系数，可估计为</p>
+<p><span class="math inline">\(\lambda=(R_m-R_f)/\sigma_m^2\)</span>，</p>
+<p>其中<span class="math inline">\(R_m-R_f\)</span>是市场超额收益，<span class="math inline">\(\sigma_m^2\)</span>是市场方差。</p>
+<p><span class="math inline">\(\Sigma\)</span>：资产收益的协方差矩阵。</p>
+<p><span class="math inline">\(w_{mkt}\)</span>：市场组合权重，可使用等权或自定义权重。</p>
+</section>
+<section id="设定投资者观点" class="level3">
+<h3 class="anchored" data-anchor-id="设定投资者观点">3.设定投资者观点</h3>
+<p>每个观点由以下元素构成：</p>
+<ul>
+<li><p>观点矩阵<span class="math inline">\(P\)</span>：每个观点对应一行，长度为资产数量。</p>
+<p>对于绝对观点（如资产i收益为x），该行在i处为1，其余为0；对于相对观点（如资产i比资产j高y），该行在i处为1，j处为-1，其余为0。</p></li>
+<li><p>观点收益向量<span class="math inline">\(Q\)</span>：每个观点对应的收益值（绝对或相对）。</p></li>
+<li><p>观点误差矩阵<span class="math inline">\(\Omega\)</span>：对角矩阵，对角线元素为每个观点收益的方差。</p>
+<p>通常设定为<span class="math inline">\(\Omega=\tau P \Sigma P^T\)</span>，其中<span class="math inline">\(\tau\)</span>是标量（一般取0.025~0.05），表示观点相对于先验的不确定性。</p></li>
+</ul>
+</section>
+<section id="计算后验收益-black-litterman后验收益的公式为" class="level3">
+<h3 class="anchored" data-anchor-id="计算后验收益-black-litterman后验收益的公式为">4.计算后验收益 Black-Litterman后验收益的公式为：</h3>
+<p><span class="math inline">\(E[R]=[(\tau\Sigma)^{-1}+P^T\Omega^{-1}P]^{-1}[(\tau\Sigma)^{-1}\Pi+P^T\Omega^{-1}Q]\)</span></p>
+<p>其中<span class="math inline">\(\tau\)</span>是控制先验协方差缩放的参数。</p>
+<p>后验协方差矩阵为：</p>
+<p><span class="math inline">\(\Sigma_{p}=\Sigma+[(\tau\Sigma)^{-1}+P^T\Omega^{-1}P]^{-1}\)</span></p>
+</section>
+<section id="组合优化" class="level3">
+<h3 class="anchored" data-anchor-id="组合优化">5.组合优化</h3>
+<p>得到后验收益<span class="math inline">\(E[R]\)</span>和后验协方差<span class="math inline">\(\Sigma_p\)</span>后，使用均值-方差优化求解最优权重，例如最大化夏普比率或给定目标收益下最小化风险。</p>
+<p>下面是一个完整的R示例，演示如何手动实现BL模型。我们将使用<span class="math inline">\(quadprog\)</span>包进行二次规划求解。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 一般设定</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">encoding =</span> <span class="st">"GBK"</span>, <span class="at">scipen =</span> <span class="dv">10</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置随机种子</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 模拟数据</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>n_assets <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>assets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>, <span class="st">"E"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 模拟生成十年共120个月的收益率数据，假设每个资产年化收益率10%，计算每月收益。</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fl">0.1</span><span class="sc">/</span><span class="dv">252</span><span class="sc">*</span><span class="dv">21</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ret <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(<span class="dv">120</span> <span class="sc">*</span> n_assets, <span class="at">mean =</span> r, <span class="at">sd =</span> r<span class="sc">*</span><span class="dv">2</span>), <span class="at">ncol =</span> n_assets)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(ret) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算历史协方差矩阵</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>Sigma <span class="ot">&lt;-</span> <span class="fu">cov</span>(ret)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 市场组合权重</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>w_mkt <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span> <span class="sc">/</span> n_assets, n_assets)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(w_mkt) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 市场超额收益，取历史平均</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>R_m <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">rowMeans</span>(ret))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 市场组合方差</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>var_m <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">t</span>(w_mkt) <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> w_mkt)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># 风险厌恶系数 lambda = 市场超额收益 / 市场方差</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> R_m <span class="sc">/</span> var_m</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 隐含均衡收益 Pi</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Pi <span class="ot">&lt;-</span> lambda <span class="sc">*</span> (Sigma <span class="sc">%*%</span> w_mkt)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>Pi <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(Pi)</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Pi) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 投资者观点</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> n_assets)</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(P) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="co"># 观点1：资产A绝对收益为1.2%</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>P[<span class="dv">1</span>, <span class="st">"A"</span>] <span class="ot">&lt;-</span> <span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="co"># 观点2：资产B比资产C高0.8%）</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>P[<span class="dv">2</span>, <span class="st">"B"</span>] <span class="ot">&lt;-</span> <span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>P[<span class="dv">2</span>, <span class="st">"C"</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co"># 观点收益</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>Q <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.012</span>, <span class="fl">0.008</span>)   </span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="co"># 观点不确定性参数 tau</span></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co"># 观点误差协方差矩阵，假设观点独立，生成对角矩阵</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> tau <span class="sc">*</span> P <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(P)</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="fu">diag</span>(Omega))</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算后验收益与后验协方差</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="co"># 先验协方差矩阵的逆</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>tauSigma_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(tau <span class="sc">*</span> Sigma)</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co"># 后验协方差矩阵</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>Sigma_post <span class="ot">&lt;-</span> <span class="fu">solve</span>(tauSigma_inv <span class="sc">+</span> <span class="fu">t</span>(P) <span class="sc">%*%</span> <span class="fu">solve</span>(Omega) <span class="sc">%*%</span> P)</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a><span class="co"># 后验收益向量</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>E_post <span class="ot">&lt;-</span> Sigma_post <span class="sc">%*%</span> (tauSigma_inv <span class="sc">%*%</span> Pi <span class="sc">+</span> <span class="fu">t</span>(P) <span class="sc">%*%</span> <span class="fu">solve</span>(Omega) <span class="sc">%*%</span> Q)</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>E_post <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(E_post)</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(E_post) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co"># Sigma_post后验估计的收益率均值的协方差矩阵，计算预期收益率的协方差均值：</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>Sigma_post_R <span class="ot">&lt;-</span> Sigma <span class="sc">+</span> Sigma_post</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出结果</span></span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(E_post, <span class="dv">8</span>))</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(Sigma_post_R, <span class="dv">8</span>))</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载 quadprog 用于优化</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quadprog)</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="co"># 风险厌恶系数</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>risk_aversion <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="co"># 二次规划目标，最小化：-w'μ + 0.5 * risk_aversion * w'Σ w</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>Dmat <span class="ot">&lt;-</span> risk_aversion <span class="sc">*</span> Sigma_post</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>dvec <span class="ot">&lt;-</span> E_post</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="co"># 下界约束：w_i &gt;= 0</span></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> n_assets</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>A_lower <span class="ot">&lt;-</span> <span class="fu">diag</span>(n)   <span class="co"># 每列对应一个变量</span></span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>b_lower <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>, n)</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="co"># 上界约束：w_i &lt;= 0.5  →  -w_i &gt;= -0.5</span></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>A_upper <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">diag</span>(n)   <span class="co"># 每列对应一个变量</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>b_upper <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="fl">0.5</span>, n)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a><span class="co"># 合并所有不等式约束</span></span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>Amat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, A_lower, A_upper)</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>bvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, b_lower, b_upper)</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="co"># 等式约束</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>meq <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解</span></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>qp_sol <span class="ot">&lt;-</span> <span class="fu">solve.QP</span>(<span class="at">Dmat =</span> Dmat, <span class="at">dvec =</span> dvec, <span class="at">Amat =</span> Amat, <span class="at">bvec =</span> bvec, <span class="at">meq =</span> meq)</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>w_opt <span class="ot">&lt;-</span> qp_sol<span class="sc">$</span>solution</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(w_opt) <span class="ot">&lt;-</span> assets</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(w_opt, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="五案例二portfolioanalytics包-black.litterman函数" class="level2">
+<h2 class="anchored" data-anchor-id="五案例二portfolioanalytics包-black.litterman函数">五、案例二：<span class="math inline">\(PortfolioAnalytics\)</span>包 <span class="math inline">\(black.litterman\)</span>函数</h2>
+<section id="函数调用" class="level3">
+<h3 class="anchored" data-anchor-id="函数调用">1.函数调用</h3>
+<p><span class="math inline">\(PortfolioAnalytics\)</span>包中的<span class="math inline">\(black.litterman\)</span>函数用于实现Black-Litterman资产配置模型。</p>
+<p>该函数的核心参数包括：</p>
+<p><span class="math inline">\(R\)</span>：矩阵/数据框资产的历史收益率数据，用于计算先验分布的协方差矩阵（若未提供）。</p>
+<p><span class="math inline">\(P\)</span>：矩阵(KxN)选择矩阵。<span class="math inline">\(K\)</span>代表观点数量，<span class="math inline">\(N\)</span>代表资产数量。它将投资者的观点与具体的资产对应起来。</p>
+<p><span class="math inline">\(Mu\)</span>：向量先验收益的均值。若不指定，函数默认使用<span class="math inline">\(R\)</span>的样本均值作为先验。</p>
+<p><span class="math inline">\(Sigma\)</span>：矩阵先验收益的协方差矩阵。若不指定，函数默认使用<span class="math inline">\(R\)</span>的样本协方差矩阵。</p>
+<p><span class="math inline">\(Views\)</span>：向量观点向量。长度为<span class="math inline">\(K\)</span>，表示投资者对特定资产（或资产组合）的预期收益。</p>
+<p>函数执行后返回一个包含两个元素的列表：</p>
+<p><span class="math inline">\(BLMu\)</span>:后验期望收益向量，即经过观点调整后的新预期收益。</p>
+<p><span class="math inline">\(BLSigma\)</span>:后验协方差矩阵，反映纳入观点后收益估计的不确定性变化。</p>
+<p>R代码示例如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载包</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PortfolioAnalytics)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用函数计算</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>E_post_check <span class="ot">&lt;-</span> <span class="fu">black.litterman</span>(ret, P, <span class="at">Views =</span> Q, <span class="at">Mu =</span> <span class="cn">NULL</span>, <span class="at">Sigma =</span> <span class="cn">NULL</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(E_post_check<span class="sc">$</span>BLMu[,<span class="dv">1</span>], <span class="dv">8</span>))</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(E_post_check<span class="sc">$</span>BLSigma, <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="与传统公式的区别" class="level3">
+<h3 class="anchored" data-anchor-id="与传统公式的区别">2.与传统公式的区别</h3>
+<p>运行代码可以发现，<span class="math inline">\(PortfolioAnalytics\)</span>包中的<span class="math inline">\(black.litterman\)</span>函数与前文中的计算公式细节有一定区别。</p>
+<p>案例一遵循He &amp; Litterman (1999)的原始版本，而<span class="math inline">\(PortfolioAnalytics\)</span>包采用的是Attilio Meucci在《Risk and Asset Allocation》中重新整理后的计算方法。两者在数学上是等价的，但它们计算略有不同。</p>
+<section id="先验收益prior" class="level4">
+<h4 class="anchored" data-anchor-id="先验收益prior">2.1.先验收益(Prior)</h4>
+<p>PortfolioAnalytics包默认直接使用历史样本均值(<span class="math inline">\(colMeans(R)\)</span>)。</p>
+<p>传统公式则使用通过反向优化推导出的市场隐含均衡收益(<span class="math inline">\(Π=λΣw_mkt\)</span>)。</p>
+<p>PortfolioAnalytics包将先验简化为历史数据，而传统模型认为历史均值误差大，均衡收益更稳定。</p>
+</section>
+<section id="观点置信度ω" class="level4">
+<h4 class="anchored" data-anchor-id="观点置信度ω">2.2.观点置信度(Ω)</h4>
+<p>PortfolioAnalytics包默认计算<span class="math inline">\(Omega=tcrossprod(P\ \%*\%\ Sigma,P)\)</span>，即<span class="math inline">\(P%*%Sigma%*%t(P)\)</span>。这种计算方法将观点不确定性直接与先验协方差<span class="math inline">\(Sigma\)</span>和<span class="math inline">\(P\)</span>矩阵挂钩。</p>
+<p>传统公式则需要用户明确指定参数τ，用于计算<span class="math inline">\(Ω=τ*P*Σ*Pᵀ\)</span>；且假设观点独立，需要将Ω转变为对角矩阵。PortfolioAnalytics包的自动设定简化了输入，这种简化使用户无法独立表达对某个观点的绝对信心。</p>
+</section>
+<section id="后验估计的收益率的协方差矩阵blsigma" class="level4">
+<h4 class="anchored" data-anchor-id="后验估计的收益率的协方差矩阵blsigma">2.3.后验估计的收益率的协方差矩阵<span class="math inline">\(BLSigma\)</span></h4>
+<p>PortfolioAnalytics包计算后验协方差采用的是Meucci形式：<span class="math inline">\(PosetSigma=Σ-Σ*Pᵀ(PΣPᵀ+Ω)⁻¹*P*Σ\)</span>。其逻辑是先验协方差减去观点带来的信息量，得到后验协方差。</p>
+<p>而在传统公式中：<span class="math inline">\(PosetSigma=Σ+[(τΣ)⁻¹+PᵀΩ⁻¹P]⁻¹\)</span>。</p>
+<p>逻辑是将资产收益本身的波动(Σ)与对收益均值估计的不确定性相加。</p>
+<p>两种形式等价，但包公式在编程实现上更紧凑，且输出的是条件协方差。从贝叶斯视角看，它是对资产收益率分布的整体估计，综合考虑了收益率自身的波动和均值估计的误差。因此，它更常用于最终的组合优化。</p>
+</section>
+<section id="关键参数tau" class="level4">
+<h4 class="anchored" data-anchor-id="关键参数tau">2.4.关键参数<span class="math inline">\(tau\)</span></h4>
+<p>在标准的Black-Litterman模型中，通常有一个参数<span class="math inline">\(τ\)</span>（tau）来控制先验与观点的权重。</p>
+<p><span class="math inline">\(PortfolioAnalytics\)</span>包中的<span class="math inline">\(black.litterman\)</span>函数在默认计算<span class="math inline">\(Omega\)</span>时并没有显式使用<span class="math inline">\(τ\)</span>参数。</p>
+<p>缺少τ参数意味着无法调节先验收益估计的不确定性。</p>
+<p>通过上面的对比，可以看到<span class="math inline">\(PortfolioAnalytics\)</span>包提供的是一个大幅简化的Black-Litterman模型实现：</p>
+<ul>
+<li><p>先验的简化：它跳过了BL模型“从市场组合反向推导均衡收益”，直接使用了历史均值。这在量化分析中通常不被推荐，因为历史均值被认为是糟糕的先验估计。</p></li>
+<li><p>观点的简化：它将观点的置信度<span class="math inline">\(Ω\)</span>与历史协方差<span class="math inline">\(Σ\)</span>强制绑定，而不是允许用户根据自己对预测的信心独立设定。 3）参数的简化：它完全忽略了对后验分布影响巨大的<span class="math inline">\(τ\)</span>参数。 该函数的实现直接引用Meucci的框架，但它与金融从业者通常理解的、由高盛推广的“经典”BL模型存在差异。</p></li>
+</ul>
+<p>需要指出的是，函数在设计上给用户预留了了可选项。</p>
+<p>通过 <span class="math inline">\(black.litterman(ret, P, Views = Q, Mu = Pi, Sigma = Sigma)\)</span> 这种方式，你可以传入自己计算好的任何先验收益向量<span class="math inline">\(Π\)</span>和协方差矩阵<span class="math inline">\(Σ\)</span>，从而纠正它的默认行为。</p>
+<p>最后，可以通过以下代码，在案例一代码的基础上。手动实现Meucci算法的BL模型：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Omega <span class="ot">&lt;-</span> P <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(P)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>BLSigma <span class="ot">&lt;-</span> Sigma <span class="sc">-</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(P) <span class="sc">%*%</span> <span class="fu">solve</span>(P <span class="sc">%*%</span> Sigma <span class="sc">%*%</span> <span class="fu">t</span>(P) <span class="sc">+</span> Omega) <span class="sc">%*%</span> (P <span class="sc">%*%</span> Sigma)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(BLSigma, <span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第7章 资产配置 第3节 普林格六周期.html" class="pagination-link" aria-label="第7章 资产配置 第3节 普林格六周期">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第7章 资产配置 第3节 普林格六周期</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
