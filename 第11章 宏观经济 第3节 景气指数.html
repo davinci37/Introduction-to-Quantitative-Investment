@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第11章 宏观经济 第3节 景气指数 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第1节 R语言入门.html" rel="next">
+<link href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第11章 宏观经济 第3节 景气指数.html">第11章 宏观经济 第3节 景气指数</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一景气指数基本概念" id="toc-一景气指数基本概念" class="nav-link" data-scroll-target="#一景气指数基本概念">一、景气指数基本概念</a>
+  <ul class="collapse">
+  <li><a href="#景气指数定义" id="toc-景气指数定义" class="nav-link" data-scroll-target="#景气指数定义">1.景气指数定义</a></li>
+  <li><a href="#景气指数与经济周期理论" id="toc-景气指数与经济周期理论" class="nav-link" data-scroll-target="#景气指数与经济周期理论">2.景气指数与经济周期理论</a></li>
+  <li><a href="#景气指数应用场景" id="toc-景气指数应用场景" class="nav-link" data-scroll-target="#景气指数应用场景">3.景气指数应用场景</a></li>
+  </ul></li>
+  <li><a href="#二景气指数编制方法" id="toc-二景气指数编制方法" class="nav-link" data-scroll-target="#二景气指数编制方法">二、景气指数编制方法</a>
+  <ul class="collapse">
+  <li><a href="#扩散指数法di" id="toc-扩散指数法di" class="nav-link" data-scroll-target="#扩散指数法di">1.扩散指数法（DI）</a></li>
+  <li><a href="#合成指数法ci" id="toc-合成指数法ci" class="nav-link" data-scroll-target="#合成指数法ci">2.合成指数法（CI）</a></li>
+  <li><a href="#主成分分析法" id="toc-主成分分析法" class="nav-link" data-scroll-target="#主成分分析法">3.主成分分析法</a></li>
+  <li><a href="#s-w型景气指数法" id="toc-s-w型景气指数法" class="nav-link" data-scroll-target="#s-w型景气指数法">4.S-W型景气指数法</a></li>
+  <li><a href="#方法组合与混合架构" id="toc-方法组合与混合架构" class="nav-link" data-scroll-target="#方法组合与混合架构">5.方法组合与混合架构</a></li>
+  </ul></li>
+  <li><a href="#三各方法的比较与选择" id="toc-三各方法的比较与选择" class="nav-link" data-scroll-target="#三各方法的比较与选择">三、各方法的比较与选择</a>
+  <ul class="collapse">
+  <li><a href="#扩散指数法的适用场景" id="toc-扩散指数法的适用场景" class="nav-link" data-scroll-target="#扩散指数法的适用场景">1.扩散指数法的适用场景</a></li>
+  <li><a href="#合成指数法的适用场景" id="toc-合成指数法的适用场景" class="nav-link" data-scroll-target="#合成指数法的适用场景">2.合成指数法的适用场景</a></li>
+  <li><a href="#主成分分析法的适用场景" id="toc-主成分分析法的适用场景" class="nav-link" data-scroll-target="#主成分分析法的适用场景">3.主成分分析法的适用场景</a></li>
+  <li><a href="#s-w型景气指数法的适用场景" id="toc-s-w型景气指数法的适用场景" class="nav-link" data-scroll-target="#s-w型景气指数法的适用场景">4.S-W型景气指数法的适用场景</a></li>
+  <li><a href="#方法选择" id="toc-方法选择" class="nav-link" data-scroll-target="#方法选择">5.方法选择</a></li>
+  </ul></li>
+  <li><a href="#四景气指数的指标选取" id="toc-四景气指数的指标选取" class="nav-link" data-scroll-target="#四景气指数的指标选取">四、景气指数的指标选取</a>
+  <ul class="collapse">
+  <li><a href="#景气指标的分类" id="toc-景气指标的分类" class="nav-link" data-scroll-target="#景气指标的分类">1.景气指标的分类</a></li>
+  <li><a href="#景气指标的选取原则" id="toc-景气指标的选取原则" class="nav-link" data-scroll-target="#景气指标的选取原则">2.景气指标的选取原则</a></li>
+  <li><a href="#景气指标的选取方法" id="toc-景气指标的选取方法" class="nav-link" data-scroll-target="#景气指标的选取方法">3.景气指标的选取方法</a></li>
+  <li><a href="#指标选取中的常见问题" id="toc-指标选取中的常见问题" class="nav-link" data-scroll-target="#指标选取中的常见问题">4.指标选取中的常见问题</a></li>
+  </ul></li>
+  <li><a href="#五问题挑战和前沿方法" id="toc-五问题挑战和前沿方法" class="nav-link" data-scroll-target="#五问题挑战和前沿方法">五、问题、挑战和前沿方法</a>
+  <ul class="collapse">
+  <li><a href="#非平稳与结构突变" id="toc-非平稳与结构突变" class="nav-link" data-scroll-target="#非平稳与结构突变">1.非平稳与结构突变</a></li>
+  <li><a href="#参数自适应" id="toc-参数自适应" class="nav-link" data-scroll-target="#参数自适应">2.参数自适应</a></li>
+  <li><a href="#其它问题和挑战" id="toc-其它问题和挑战" class="nav-link" data-scroll-target="#其它问题和挑战">3.其它问题和挑战</a></li>
+  <li><a href="#国内场景下的特殊处理" id="toc-国内场景下的特殊处理" class="nav-link" data-scroll-target="#国内场景下的特殊处理">4.国内场景下的特殊处理</a></li>
+  <li><a href="#技术前沿" id="toc-技术前沿" class="nav-link" data-scroll-target="#技术前沿">5.技术前沿</a></li>
+  </ul></li>
+  <li><a href="#六实践案例中国经济综合领先指数的编制" id="toc-六实践案例中国经济综合领先指数的编制" class="nav-link" data-scroll-target="#六实践案例中国经济综合领先指数的编制">六、实践案例：中国经济综合领先指数的编制</a>
+  <ul class="collapse">
+  <li><a href="#案例背景与目标" id="toc-案例背景与目标" class="nav-link" data-scroll-target="#案例背景与目标">1.案例背景与目标</a></li>
+  <li><a href="#数据与变量设定" id="toc-数据与变量设定" class="nav-link" data-scroll-target="#数据与变量设定">2.数据与变量设定</a></li>
+  <li><a href="#数据预处理" id="toc-数据预处理" class="nav-link" data-scroll-target="#数据预处理">3.数据预处理</a></li>
+  <li><a href="#拐点识别" id="toc-拐点识别" class="nav-link" data-scroll-target="#拐点识别">4.拐点识别</a></li>
+  <li><a href="#拐点匹配" id="toc-拐点匹配" class="nav-link" data-scroll-target="#拐点匹配">5.拐点匹配</a></li>
+  <li><a href="#领先性评价与筛选" id="toc-领先性评价与筛选" class="nav-link" data-scroll-target="#领先性评价与筛选">6.领先性评价与筛选</a></li>
+  <li><a href="#指数合成" id="toc-指数合成" class="nav-link" data-scroll-target="#指数合成">7.指数合成</a></li>
+  <li><a href="#风险提示" id="toc-风险提示" class="nav-link" data-scroll-target="#风险提示">8.风险提示</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第11章 宏观经济 第3节 景气指数</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p><strong>景气</strong>，是经济景气的简称，指经济总体运行发展态势和活跃程度。经济活动具有显著的周期性扩张与收缩特征，经济景气周期波动理论是研究产业景气周期波动的理论基础。</p>
+<p><strong>景气指数</strong>是量化反映经济总体运行态势、活跃程度、及周期波动的核心经济指标，其编制是经济周期理论、统计方法、与计量模型相结合的系统工程。</p>
+<p>目前国内外主流方法包括扩散指数法（DI）、合成指数法（CI）、主成分分析法（PCA）和S-W型景气指数法。四种方法在技术逻辑、编制步骤、适用范围上各有侧重：DI法侧重判断景气方向与转折点，CI法兼顾转折预测与波动强度量化，PCA法通过降维解决多指标信息重叠问题，S-W法则基于状态空间模型和卡尔曼滤波推断不可观测的共同驱动因素。</p>
+<p>在实践中，景气指数编制质量高度依赖于科学的指标选取体系，尤其是先行、一致、滞后三类指标的识别、维护与权重设定。比较常用的方法是合成指数法和扩散指数法。通常以合成指数法为核心，并经过X-11季节调整、增长率序列构建、K-L信息量、时差相关分析、协整检验和专家分析等步骤，形成先行、一致、滞后指数。</p>
+<p>本文将从概念、编制方法、适用范围、指标体系、日常实践等方面，对景气指数进行系统详细的介绍。</p>
+</section>
+<section id="一景气指数基本概念" class="level2">
+<h2 class="anchored" data-anchor-id="一景气指数基本概念">一、景气指数基本概念</h2>
+<section id="景气指数定义" class="level3">
+<h3 class="anchored" data-anchor-id="景气指数定义">1.景气指数定义</h3>
+<p>景气指数，又称经济景气指数、经济周期指数或景气综合指数，是用以量化反映经济总体运行态势、活跃程度及周期波动的指标体系。它并不是单一统计指标，而是通过对一组具有代表性的经济指标进行筛选、预处理、加权和合成，得到一个能够刻画经济扩张与收缩、繁荣与衰退、升温与降温的综合信号。</p>
+<p>景气指数的核心任务，是回答三个问题：当前经济处于周期什么位置？未来经济可能向哪个方向变化？经济变化的强度和扩散范围有多大？</p>
+<p>从功能上看，景气指数至少具有五方面作用。</p>
+<ul>
+<li><p>监测，即通过一致指标实时反映当前经济景气状态。</p></li>
+<li><p>预测，即通过先行指标提前捕捉经济周期的拐点。</p></li>
+<li><p>验证，即通过滞后指标确认经济转折是否成立。</p></li>
+<li><p>预警，即通过预警指数和信号系统判断经济是否过热、偏热、正常、偏冷或过冷。</p></li>
+<li><p>决策支持，即为宏观调控、企业投资、资产配置和行业分析提供量化依据。</p></li>
+</ul>
+</section>
+<section id="景气指数与经济周期理论" class="level3">
+<h3 class="anchored" data-anchor-id="景气指数与经济周期理论">2.景气指数与经济周期理论</h3>
+<p>景气指数的理论基础是经济周期理论。20世纪以来，对于经济周期统计的研究不断发展和进步，逐渐形成以转折点识别、扩散分析、合成分析为核心的景气监测方法。</p>
+<p>经济周期理论对景气指数编制的启示主要有三点。</p>
+<ul>
+<li><p>第一，经济波动具有阶段性，因此需要识别峰、谷、扩张、收缩等状态。</p></li>
+<li><p>第二，经济波动具有扩散性，即不同部门、不同指标不会同时同幅变化，因此需要观察扩张或收缩在多少指标中扩散。</p></li>
+<li><p>第三，经济波动具有时滞结构，即一些指标领先、一些指标同步、一些指标滞后，因此需要构建先行、一致、滞后指标体系。</p></li>
+</ul>
+<p>正是这些理论认识，催生了扩散指数法、合成指数法、主成分分析法和S-W型景气指数法等不同技术路线。</p>
+</section>
+<section id="景气指数应用场景" class="level3">
+<h3 class="anchored" data-anchor-id="景气指数应用场景">3.景气指数应用场景</h3>
+<section id="宏观调控" class="level4">
+<h4 class="anchored" data-anchor-id="宏观调控">3.1.宏观调控</h4>
+<p>景气指数是宏观调控的重要参考。一致指数用于判断当前经济形势，先行指数用于预判未来走势，滞后指数用于验证政策效果。预警指数和信号灯系统可帮助决策者识别经济过热或过冷风险，快速把握经济状态。</p>
+</section>
+<section id="行业与企业" class="level4">
+<h4 class="anchored" data-anchor-id="行业与企业">3.2.行业与企业</h4>
+<p>行业景气指数帮助企业判断行业周期。例如，国房景气指数、工业景气指数、石化行业景气指数等，通常采用合成指数法或扩散指数法。企业可结合行业景气指数安排生产、库存、投资和招聘。</p>
+<p>采购经理人指数（PMI）则是最典型的扩散指数应用，通过问卷调研企业采购经理对生产、新订单、库存、就业、供应商配送等的判断，计算扩散指数，50%为荣枯线。</p>
+</section>
+<section id="资产配置" class="level4">
+<h4 class="anchored" data-anchor-id="资产配置">3.3.资产配置</h4>
+<p>景气指数的先行成分在资产配置中具有很高的应用价值。逻辑是，先行指数领先于经济周期，可用于判断股票、债券、商品等大类资产的周期位置。例如，当先行指数见顶回落时，可能预示经济增速放缓，债券配置价值上升；当先行指数触底回升时，可能预示经济复苏，股票和周期品配置价值上升。</p>
+<p>当然，资产价格还受流动性、政策、估值、风险偏好等因素影响，景气指数只是参考之一。</p>
+</section>
+</section>
+</section>
+<section id="二景气指数编制方法" class="level2">
+<h2 class="anchored" data-anchor-id="二景气指数编制方法">二、景气指数编制方法</h2>
+<section id="扩散指数法di" class="level3">
+<h3 class="anchored" data-anchor-id="扩散指数法di">1.扩散指数法（DI）</h3>
+<p>扩散指数法是基于经济周期扩张与收缩状态特征，通过测算扩张指标占比判断经济景气方向的基础方法。其核心是反映经济波动的“扩散程度”，而非波动幅度。</p>
+<p><strong>基本思想</strong>：<br>
+经济运行分为扩张和收缩。如果半数以上指标处于扩张状态，则经济总体偏景气；如果半数以上指标处于收缩状态，则经济总体偏不景气。</p>
+<p><strong>编制步骤</strong>：</p>
+<ol type="1">
+<li><p>指标预处理。计算各指标月度环比变化，消除季节变动和不规则变动影响，让指标序列稳定反映经济循环波动。这一步的意义在于，许多经济指标受季节因素、工作日因素、异常事件影响，直接比较原始值会误判景气方向。</p></li>
+<li><p>指标状态赋值。将各指标当月环比变化与基准对比，扩张则赋值1，收缩赋值0，基本持平赋值0.5。这种赋值方式将连续型或离散型指标转化为扩张、收缩、持平三种状态。</p>
+<ul>
+<li>当月值大，为扩张，记为 1；</li>
+<li>当月值小，为收缩，记为 0；</li>
+<li>基本相等，记为 0.5。</li>
+</ul></li>
+<li><p>统计扩张指标数。将所有指标的赋值相加，得到某一时点的扩张指标数量。赋值之和越大，说明扩张面越广。</p></li>
+<li><p>计算扩散指数。以扩张指标数除以全部指标数并乘以100%，得到扩散指数DI。数学上可表示为：</p>
+<p>DI = 扩张指标数 / 全部指标数 × 100%。</p></li>
+</ol>
+<p><strong>判断标准</strong>：</p>
+<ul>
+<li>DI &gt; 50%：半数以上指标上升，经济处于景气状态；</li>
+<li>DI &lt; 50%：半数以上指标下降，经济处于不景气状态；</li>
+<li>DI = 50%：扩张与收缩力量大体相当，经济处于转折敏感区。</li>
+</ul>
+<p>扩散指数法的优势是逻辑简单、计算便捷、直观易懂，能清晰反映经济波动在各指标间的扩散速度和范围；缺陷是无法反映经济波动的振幅大小，因此通常需要与合成指数法结合使用。</p>
+</section>
+<section id="合成指数法ci" class="level3">
+<h3 class="anchored" data-anchor-id="合成指数法ci">2.合成指数法（CI）</h3>
+<p>合成指数法又称景气综合指数法，是在扩散指数法基础上的优化。它通过对多指标变化率进行加权合成，既可以预测经济周期波动的转折点，又能反映波动的强弱程度，弥补了扩散指数法只重方向、不重幅度的不足。</p>
+<p>目前，美国国家经济研究局（NBER）、美国商务部、日本经济企划厅、经合组织（OECD）等机构均有各自的编制体系，其中，美国商务部的方法应用最广。</p>
+<p><strong>基本思想</strong>：<br>
+从各种宏观经济活动中选取对景气波动敏感的指标，合成各指标变化率，监测经济景气变动的强弱。CI 不仅可预测经济周期波动转折点，还能反映波动变化的强弱程度，弥补扩散指数不足。</p>
+<section id="美国商务部合成指数编制方法" class="level4">
+<h4 class="anchored" data-anchor-id="美国商务部合成指数编制方法"><strong>2.1.美国商务部合成指数编制方法</strong></h4>
+<p><strong>步骤1：</strong>计算指标变化率，并标准化。对先行、一致、滞后三类指标组分别计算“变化率”。若指标含零值或负值，或为比率序列，则取一阶差分。</p>
+<p>令<span class="math inline">\(Y_{ij}(t)\)</span>为第j指标组的第 i个指标。其中 j=1,2,3 分别代表先行、一致、滞后指标组。变化率的常见计算形式为：</p>
+<p><span class="math inline">\(C_{ij}(t)=\frac{Y_{ij}(t)-Y_{ij}(t-1)}{Y_{ij}(t)+Y_{ij}(t-1)}\times 200\)</span></p>
+<p>当<span class="math inline">\(Y\_{ij}(t)\)</span>中有零或负值，或指标为比率序列时，取一阶差分：</p>
+<p><span class="math inline">\(C_{ij}(t)=Y_{ij}(t)-Y_{ij}(t-1)\)</span></p>
+<p>为避免单一指标波动幅度过大主导指数，通过计算标准化因子，将各指标变化率标准化，使平均绝对值等于1。标准化因子计算：</p>
+<p><span class="math inline">\(A_{ij}=\sum_{t=2}^{n}\frac{|C_{ij}(t)|}{n-1}\)</span></p>
+<p>标准化的变化率为：</p>
+<p><span class="math inline">\(S_{ij}(t)=\frac{C_{ij}(t)}{A_{ij}}\)</span></p>
+<p><strong>步骤2：</strong>计算各指标组标准化平均变化率。对标准化后的指标变化率按权重计算加权平均变化率。</p>
+<p>令<span class="math inline">\(R_j(t)\)</span>, j=1,2,3 分别表示先行、一致、滞后指标组的平均变化率:</p>
+<p><span class="math inline">\(R_j(t)=\frac{\sum_{i=1}^{k_j}S_j(t)*w_{ji}}{\sum_{i=1}^{k_j}w_{ji}}\)</span></p>
+<p>其中<span class="math inline">\(w_{ji}\)</span>为第j组第i个指标的权重。</p>
+<p>再通过指数标准化因子，将先行、滞后指标组的平均变化率与一致指标组对齐，得到标准化平均变化率。目的在于：使三类指数具有可比趋势，避免因指标组构成不同导致趋势偏离。由<span class="math inline">\(R_1(t)\)</span>计算指数标准化因子：</p>
+<p><span class="math inline">\(F_j=\frac{\frac{1}{n-1}\sum_{t=2}^{n}|R_j(t)|}{\frac{1}{n-2}\sum_{t=2}^{n-1}|R_1(t)|}\)</span></p>
+<p>计算标准化的平均变化率：</p>
+<p><span class="math inline">\(V_j(t)=R_j(t)/F_j\)</span></p>
+<p><strong>步骤3：</strong>计算初始合成指数。设定初始值<span class="math inline">\(I_j(1)\)</span>为100，通过标准化平均变化率的迭代公式计算各时点初始合成指数。计算公式为：</p>
+<p><span class="math inline">\(I_j(t)=I_j(t-1)\times \frac{200+V_j(t)}{200-V_j(t)}\)</span></p>
+<p>该公式使指数能够根据平均变化率连续更新，等价于：</p>
+<p><span class="math inline">\(V(t)=200 * \frac{I(t)-I(t-1)}{I(t)+I(t-1)}\)</span></p>
+<p><strong>步骤4：</strong>趋势调整并计算合成指数。在初始合成指数的基础上，对先行、一致、滞后三组的标准化平均变化率<span class="math inline">\(V_j(t)\)</span> 进行趋势调整，使三个指标组得到的合成指数趋势与所采用的目标序列的趋势平均值一致。调整后的标准化平均变化率为<span class="math inline">\(V'\_j(t)\)</span>，令$I’_j(1)=100$，则调整后合成指数为：</p>
+<p><span class="math inline">\(I'_j(t)=I'_j(t-1)\times \frac{200+V'_j(t)}{200-V'_j(t)}\)</span></p>
+<p>趋势调整的目的是让先行、一致、滞后指数在长期趋势上保持协调，便于比较转折点和波动幅度。</p>
+<p><strong>步骤5：</strong>计算以基准年份为100的最终合成指数CI。</p>
+<p><span class="math inline">\(CI_j(t)=\frac{I'_j(t)}{\bar I'_j}\times 100\)</span></p>
+<p>其中<span class="math inline">\(\bar I'\_j\)</span>是 <span class="math inline">\(I'\_j(t)\)</span> 在基准年份的平均值。</p>
+<p>基准化的做法使不同时期、不同指标组的指数可以统一比较。</p>
+<p>实践中的景气指数并非简单套用上述方法和公式，而是在增长率循环框架下，结合季节调整、指标筛选、专家判断和协整检验等步骤，对原公式进行一定的优化。</p>
+</section>
+<section id="oecd合成指数编制方法" class="level4">
+<h4 class="anchored" data-anchor-id="oecd合成指数编制方法">2.2.OECD合成指数编制方法</h4>
+<p>OECD合成方法与前述方法略有不同。设指标组中各变量为 <span class="math inline">\(C_j(t),(j=1,\dots,m)，\)</span>m$为指标个数；基准指标为 <span class="math inline">\(X(t)\)</span>。</p>
+<p><strong>步骤1：</strong>计算各指标的平均绝对偏差</p>
+<p><span class="math inline">\(SD_j=\frac{\sum_{t=1}^{T}|C_j(t)-\bar{C_j}|}{T}\)</span></p>
+<p>其中 <span class="math inline">\(\bar{C_j}\)</span>是第 <span class="math inline">\(j\)</span>个指标的均值，<span class="math inline">\(T\)</span>是样本期间的数据个数。</p>
+<p><strong>步骤2：</strong>计算标准化序列，并合成</p>
+<p>先对每个指标进行标准化：</p>
+<p><span class="math inline">\(Z_j(t)=\frac{C_j(t)-\bar{C_j}}{SD_j}\)</span></p>
+<p>再对 (m) 个标准化序列取等权平均，得到初始合成序列：</p>
+<p><span class="math inline">\(S(t)=\frac{1}{m}\sum_{j=1}^{m}Z_j(t)\)</span></p>
+<p>这一步将各指标的周期振幅统一到同一尺度，避免振幅大的指标主导合成结果。</p>
+<p>实践中，可在经验权重附近作小幅参数优化，将等权平均改为加权平均，以得到满足不同投资需求的景气指数。</p>
+<p><strong>步骤3：</strong>计算振幅调整因子 <span class="math inline">\(k\)</span> 和均值调整因子 <span class="math inline">\(d\)</span>，目的是通过幅度调整使合成指数与基准指数可比：</p>
+<p><strong>振幅调整因子：</strong></p>
+<p><span class="math inline">\(k=\frac{\sum_{t=1}^{T}|X(t)-\bar{X}|}{\sum_{t=1}^{T}|S(t)-\bar{S}|}\)</span></p>
+<p>其中<span class="math inline">\(X(t)\)</span>是基准指标， <span class="math inline">\(\bar{X}\)</span>是 <span class="math inline">\(X(t)\)</span>的均值，<span class="math inline">\(\bar{S}\)</span>是 <span class="math inline">\(S(t)\)</span>的均值。</p>
+<p><strong>均值调整因子：</strong></p>
+<p><span class="math inline">\(d=\bar{X}-k\bar{S}\)</span></p>
+<p><strong>步骤4：</strong>计算增长循环的合成指数：</p>
+<p><span class="math inline">\(CI(t)=kS(t)+d\)</span></p>
+<p>验证均值对齐：</p>
+<p><span class="math inline">\(\overline{CI}=k\bar{S}+d=k\bar{S}+(\bar{X}-k\bar{S})=\bar{X}\)</span></p>
+<p>合成指数的均值与基准指标完全一致，振幅也通过 <span class="math inline">\(k\)</span> 调整到与基准指标可比。</p>
+<p>另外，OECD方法中标准化步骤后通常会将序列加 100 转换为指数形式，使长期均值围绕 100 波动，便于识别扩张（&gt;100 且上升）与收缩（&lt;100 且下降）阶段。</p>
+<p>合成指数法的优势是既能判断景气转折点，又能反映波动强弱，可量化分析经济景气的变化程度和速度。其缺陷是，在判断景气转折点时，无法显示经济各部门之间的波及、渗透程度；权重设定虽有规则，但仍存在一定的主观调整空间。</p>
+</section>
+</section>
+<section id="主成分分析法" class="level3">
+<h3 class="anchored" data-anchor-id="主成分分析法">3.主成分分析法</h3>
+<p>主成分分析法是基于“降维”思想的多元统计方法。核心是解决多指标间的信息重叠问题，将众多原始指标转化为少数几个互不相关的综合指标，即主成分，并以主成分的方差贡献率为权重合成景气指数。</p>
+<p>主成分分析法的编制步骤明确，权重赋值客观，无人工主观干预，具体分为五步。</p>
+<ol type="1">
+<li><p>确定主成分个数。计算所有原始指标的主成分及方差贡献率，选取累计方差贡献率≥80%的前m个主成分，确保综合指标保留原始指标的绝大部分信息。</p></li>
+<li><p>计算主成分权重。以各主成分的<strong>方差贡献率</strong>作为其权重。方差贡献率越高，代表该主成分对原始信息的解释能力越强。</p></li>
+<li><p>计算主成分系数得分。通过原始指标与主成分系数的线性组合，得到每个主成分的得分值。</p></li>
+<li><p>计算初始景气指数。对m个主成分，按权重进行线性加权，得到初始景气值。</p></li>
+<li><p>数据调整得到最终指数。将当期初始景气值与上期对比并乘以100，得到最终的景气指数，实现对经济景气波动的量化反映。</p></li>
+</ol>
+<p>主成分分析法的核心优势是消除了指标间的多重共线性，减少了指标选择的工作量，且权重由数据特征客观决定，避免了人为赋值的偏差。其缺陷是主成分的经济含义具有一定模糊性，无法像原始指标那样直观解释；降维过程也会损失少量边缘信息。因此，PCA更适合指标体系包含大量连续型指标、且指标间存在明显信息重叠的场景，如科技创新景气指数、区域经济景气指数等。</p>
+</section>
+<section id="s-w型景气指数法" class="level3">
+<h3 class="anchored" data-anchor-id="s-w型景气指数法">4.S-W型景气指数法</h3>
+<p>S-W型景气指数法由美国学者斯托克和沃森（Stock &amp; Watson）于1988年提出，是基于状态空间模型和卡尔曼滤波的新型景气指数方法。</p>
+<p>该方法与传统方法的核心区别在于，它认为经济景气的核心是一个不可观测的共同驱动因素，该因素是各经济指标波动的底层逻辑。编制的核心是通过计量模型推断这一不可观测变量，理论严谨性和模型化程度更高。</p>
+<p>S-W型景气指数法的编制通常分为四步。</p>
+<ol type="1">
+<li><p>卡尔曼滤波估计参数分布。将经济指标处理为消除趋势和季节变动的平稳序列，构建状态空间模型的观测方程和迁移方程。在给定参数和延迟次数的前提下，通过卡尔曼滤波反复计算状态变量的分布，得到各时点的参数估计值。</p></li>
+<li><p>确定模型初值。若指标序列为平稳序列，通过矩阵运算直接计算初始状态变量和协方差矩阵；若序列非平稳或存在异常值，将指标按时间反序排列后，通过卡尔曼滤波迭代得到初值。</p></li>
+<li><p>参数极大似然估计。构建对数似然函数，在满足“扰动项方差非负、状态变量平稳”的约束条件下，通过极大似然法估计模型的未知参数，确定状态空间模型的最终形式。</p></li>
+<li><p>最优估计量求解与指数推断。通过泰勒展开对似然函数进行一阶近似，构建迭代公式求解参数的最优估计量，再结合AIC、BIC准则确定模型的延迟次数，最终通过卡尔曼滤波推断出不可观测的共同驱动因素，即S-W型景气指数。</p></li>
+</ol>
+<p>S-W型景气指数法是目前技术较先进的景气编制方法，有完善的理论基础和严密的数学模型支持，能捕捉经济景气的核心驱动因素，预测精度较高。但其对数据质量和计量建模能力要求极高，需严格剔除趋势、季节等因素，模型构建和计算复杂，且不可观测变量的经济解释力无法直接检验，目前尚未完全取代合成指数法，仍处于持续开发和试点应用阶段。</p>
+<p>值得注意的是，S-W型方法与主成分分析法有理论联系。标准PCA通常基于固定窗口的协方差矩阵，假设因子平稳或近似平稳，提取的因子可能缺乏动态自相关模式；因此需要扩展状态空间模型，引入卡尔曼滤波来捕捉动态变化。在存在结构突变或非平稳时间序列时，标准PCA和传统方法可能表现不佳或滞后，而卡尔曼滤波因动态线性模型特征，能够实时适应变化环境，无需数据严格平稳，特别适用于金融危机、政策突变等结构性突变情形。</p>
+</section>
+<section id="方法组合与混合架构" class="level3">
+<h3 class="anchored" data-anchor-id="方法组合与混合架构">5.方法组合与混合架构</h3>
+<p>在实践中，更常见的做法是将多种方法组合使用。例如，将扩散指数法与合成指数法组合使用。扩散指数法负责定性判断经济波动的方向及转折位置，解决“是否转向”问题；合成指数法负责定量分析经济变动的速度或强度，解决“变化强度”问题。通过DI的转折信号，如穿越50线，来确定合成指数所处周期的阶段，如波峰、波谷或上升、下降趋势，从而实现对趋势转折的预判和对波动强度的量化。这种组合应用能够提高预警准确率。</p>
+<p>此外，PCA与卡尔曼滤波也存在结合空间。有研究结合了PCA和卡尔曼滤波，利用状态空间模型提取主成分，以克服单一方法的局限。这为景气指数编制提供了重要启示。未来理想的景气指数可能不再是单一方法，而是“扩散指数+合成指数+动态因子+状态空间”的混合架构。</p>
+</section>
+</section>
+<section id="三各方法的比较与选择" class="level2">
+<h2 class="anchored" data-anchor-id="三各方法的比较与选择">三、各方法的比较与选择</h2>
+<section id="扩散指数法的适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="扩散指数法的适用场景">1.扩散指数法的适用场景</h3>
+<p>扩散指数法最适合以调研问卷为基础的景气指数编制，如采购经理人指数（PMI）、企业信心指数等。这类指数的底层数据往往具有定性或离散特征，如“上升”“持平”“下降”“乐观”“一般”“悲观”，扩散指数法的赋值逻辑天然适配。</p>
+<p>此外，当分析目标仅是判断经济景气方向、扩张或收缩以及转折点时，DI也是基础工具。</p>
+<p>该方法优势是计算简单、直观易懂，能清晰反映经济波动在各指标间的扩散速度和范围；缺陷是无法反映经济波动的幅度，需与其他方法结合使用。</p>
+</section>
+<section id="合成指数法的适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="合成指数法的适用场景">2.合成指数法的适用场景</h3>
+<p>合成指数法适用于以连续型宏观经济数据为基础的行业或宏观景气指数编制，如工业景气指数等，是目前国内外主流的景气编制方法，被广泛应用于有重大影响力的官方和机构景气指数。也是我个人通常采用的合成指数方法。</p>
+<p>该方法优势是既能判断景气转折点，又能反映波动强弱，可量化分析经济景气的变化程度和速度；缺陷是在判断景气转折点时，无法显示经济各部门之间的波及、渗透程度，权重设定虽有规则但仍存在一定的主观调整空间。</p>
+</section>
+<section id="主成分分析法的适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="主成分分析法的适用场景">3.主成分分析法的适用场景</h3>
+<p>主成分分析法适用于指标体系包含大量连续型指标、且指标间存在明显信息重叠的景气指数编制，适合需要对多指标进行“浓缩简化”的场景。</p>
+<p>该方法优势是客观消除指标间的相关影响，权重由数据特征决定，无人工主观干预，能在保留绝大部分信息的前提下简化分析；缺陷是主成分的经济含义具有一定模糊性，无法像原始指标那样直观解释，且降维过程会损失少量边缘信息。</p>
+</section>
+<section id="s-w型景气指数法的适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="s-w型景气指数法的适用场景">4.S-W型景气指数法的适用场景</h3>
+<p>S-W型景气指数法适用于对景气指数理论严谨性和预测精度要求高的宏观经济监测，适合专业研究机构、央行等部门用于经济周期的深度分析和预测。</p>
+<p>该方法优势是有完善的理论基础和严密的数学模型支持，能捕捉经济景气的核心驱动因素，预测精度更高；缺陷是对指标和数据要求严苛，需严格剔除趋势、季节等因素，模型构建和计算复杂，且不可观测变量的经济解释力无法直接检验，目前尚未完全取代合成指数法。</p>
+<p><strong>方法比较汇总</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>核心逻辑</th>
+<th>关键步骤</th>
+<th>优势</th>
+<th>局限</th>
+<th>典型适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>扩散指数法（DI）</td>
+<td>测算扩张指标占比，判断景气方向</td>
+<td>预处理、赋值、统计扩张数、计算DI</td>
+<td>简单直观，反映扩散速度和范围</td>
+<td>不反映波动幅度</td>
+<td>PMI、企业信心指数等，以有定性或离散数据为基础</td>
+</tr>
+<tr class="even">
+<td>合成指数法（CI）</td>
+<td>加权合成多指标变化率，兼顾方向与强度</td>
+<td>变化率标准化、平均变化率、初始指数、趋势调整、基准化</td>
+<td>判断转折且反映强弱，应用广泛</td>
+<td>不显示部门波及程度，权重有主观空间</td>
+<td>工业景气指数、宏观景气指数等，以连续型宏观经济数据为基础</td>
+</tr>
+<tr class="odd">
+<td>主成分分析法（PCA）</td>
+<td>降维提取主成分，以方差贡献率为权重</td>
+<td>确定主成分数、权重、得分、初始指数、调整</td>
+<td>消除多重共线性，权重客观</td>
+<td>主成分经济含义模糊，损失边缘信息</td>
+<td>数据指标间存在明显信息重叠</td>
+</tr>
+<tr class="even">
+<td>S-W型景气指数法</td>
+<td>状态空间模型推断不可观测共同因子</td>
+<td>卡尔曼滤波、初值、极大似然、最优估计</td>
+<td>理论严谨，预测精度高</td>
+<td>数据要求高，建模复杂，解释力难检验</td>
+<td>学术和专业机构，对理论严谨性和预测精度要求高</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="方法选择" class="level3">
+<h3 class="anchored" data-anchor-id="方法选择">5.方法选择</h3>
+<p>在实际应用中，方法选择应遵循以下准则：</p>
+<ul>
+<li><p>分析目标决定方法。若仅需判断方向，DI即可；若需量化强度，CI更合适；若需降维，PCA更优；若需推断潜在因子，S-W型更合适。</p></li>
+<li><p>数据特征决定方法。定性、离散数据适合DI；连续、宏观数据适合CI；高维、重叠数据适合PCA；平稳化后数据适合S-W型。</p></li>
+<li><p>可解释性决定方法。官方发布指数通常需要较高可解释性，CI和DI更易被接受；研究型指数可接受PCA和S-W型的模型复杂性。</p></li>
+<li><p>时效性决定方法。DI和CI计算相对快捷，适合月度更新；S-W型模型估计复杂，更新频率可能受限。</p></li>
+<li><p>资源能力决定方法。S-W型要求较高计量建模能力，PCA要求数据质量较高，CI要求权重和季节调整经验。</p></li>
+</ul>
+</section>
+</section>
+<section id="四景气指数的指标选取" class="level2">
+<h2 class="anchored" data-anchor-id="四景气指数的指标选取">四、景气指数的指标选取</h2>
+<p>景气指数的编制质量不仅依赖于编制方法，更取决于指标的科学性和代表性。科学的指标选取是景气指数能够真实反映经济景气波动的前提。指标选取的核心是围绕“经济周期波动”构建先行、一致、滞后三类指标体系，同时遵循明确的选取原则和方法。</p>
+<section id="景气指标的分类" class="level3">
+<h3 class="anchored" data-anchor-id="景气指标的分类">1.景气指标的分类</h3>
+<p>根据指标波动与经济周期基准转折点的时差关系，将景气指标分为三类，三类指标相互配合，可实现对经济景气的“预测—监测—验证”全流程分析。</p>
+<ul>
+<li><p>先行指标：在经济周期高峰或低谷前超前出现拐点的指标，超前时间一般≥3个月且相对稳定，核心作用是预测经济景气的转折。常见例子包括建筑开工面积、新招工人数、中小企业景气预期等。此外，还包括：合同订单、国债利率差、物流指标、社会收入指标、社会需求指标等一系列领先于经济周期波动的指标。</p></li>
+<li><p>同步指标：拐点出现时间与经济周期基准转折点基本一致，时差≤3个月，核心作用是实时监测当前经济景气状态。常见例子包括GDP、工业增加值、社会消费品零售总额等核心宏观指标。此外，还包括：各GDP构成项、就业、社会商品销售、全社会用电量、新增贷款等一系列反映经济周期现状的指标。</p></li>
+<li><p>滞后指标：拐点出现时间滞后于经济周期基准转折点，滞后时间≥3个月且相对稳定，核心作用是验证经济景气的转折是否成立。常见例子包括企业资产负债率、居民储蓄存款余额、物价指数等。此外，还包括：库存、工业产成品、居民消费价格、工业生产者出厂价格等一系列滞后于经济周期波动的指标。</p></li>
+</ul>
+<p>三类指标的关系可以概括为：先行指标负责预警，一致指标负责监测，滞后指标负责验证。三类指标相互配合，形成完整的景气监测闭环。</p>
+</section>
+<section id="景气指标的选取原则" class="level3">
+<h3 class="anchored" data-anchor-id="景气指标的选取原则">2.景气指标的选取原则</h3>
+<p>为确保指标能真实、敏感反映经济景气波动，构建指标初选池时需遵循五大原则，避免指标体系冗余、信息失真。</p>
+<ul>
+<li><p>经济重要性：指标具有明确的经济意义，能代表行业或宏观经济活动的某一核心方面，避免纳入无实质意义的指标导致信息重叠。例如，GDP、工业增加值、社会消费品零售总额、固定资产投资、进出口等都具有明确经济含义。</p></li>
+<li><p>统计充分性：数据完整、可靠，优先选用月度或季度高频数据，且数据区间长、覆盖面大、样本量充足。统计充分性决定了指标能否稳定用于历史比较和模型估计。</p></li>
+<li><p>获得及时性：数据能及时定期统计并公布，一般在每月或每季后1—2个月内可获取，保证景气指数的时效性。若指标公布滞后过长，即使经济意义重要，也难以用于实时监测。</p></li>
+<li><p>时差对应性：指标的峰、谷拐点与经济周期基准转折点有稳定的超前、一致或滞后关系，避免指标波动与经济周期脱节。时差关系可通过时差相关分析、K-L信息量、峰谷对应法等方法检验。</p></li>
+<li><p>反映敏感性：指标能敏感捕捉经济波动的细微变化，对经济景气的扩张或收缩有明显的响应特征。敏感性不足的指标可能平滑过度，无法及时反映转折。</p></li>
+</ul>
+</section>
+<section id="景气指标的选取方法" class="level3">
+<h3 class="anchored" data-anchor-id="景气指标的选取方法">3.景气指标的选取方法</h3>
+<ul>
+<li><p><strong>基准指标</strong>的选择：基准指标是判断其他指标时差关系的参照，是构建景气指标体系的核心。常用选择方法有：</p>
+<ul>
+<li><p>直接选用GDP、CPI等能综合反映经济景气的核心指标；</p></li>
+<li><p>将多个同步反映经济景气的指标合成一个指数作为基准；</p></li>
+<li><p>根据专家意见或评分法确定基准指标；</p></li>
+<li><p>通过经济循环年表法确定基准指标。</p></li>
+</ul>
+<p>基准指标的选择直接影响到后续先行、一致、滞后指标的划分。</p></li>
+<li><p><strong>候选指标</strong>的筛选：从海量经济指标中筛选出符合要求的景气指标，常用方法有：<strong>时差相关分析、序列图示法、K-L信息量法、聚类分析、峰谷对应法、和评分系统</strong>等。</p>
+<p>这些方法从统计相关性、波动一致性等角度，量化判断候选指标与基准指标的时差关系和匹配程度，最终确定三类景气指标的具体构成。</p>
+<p>实践中，利用K-L信息量、时差相关分析等方法识别表现较好的指标。此外，需要通过图形对比、专家分析、协整检验最终确定底层指标。</p></li>
+<li><p><strong>指标库的维护与更新：</strong>一般而言，宏观经济景气指数按月更新，指标成分及其权重也要遵循特定的动态调整规则，例如每三个月或半年更新指标成分及其权重。</p></li>
+</ul>
+</section>
+<section id="指标选取中的常见问题" class="level3">
+<h3 class="anchored" data-anchor-id="指标选取中的常见问题">4.指标选取中的常见问题</h3>
+<p>在实际编制工作中，指标选取经常面临以下问题：</p>
+<ul>
+<li><p>指标老化。随着经济结构变化，一些传统指标对经济周期的敏感性下降，例如部分重工业指标在服务业占比上升后代表性减弱。</p></li>
+<li><p>数据断点。统计口径调整、行业分类变化、企业样本变化可能导致时间序列不可比。</p></li>
+<li><p>季节波动与不规则波动。许多指标受春节、气候、政策脉冲影响，若不进行季节调整，会干扰周期判断。</p></li>
+<li><p>指标间信息重叠。例如工业增加值、用电量、货运量可能高度相关，若全部纳入且等权处理，会放大某一维度影响。</p></li>
+<li><p>先行性不稳定。某些指标在某一时期领先，在另一时期可能同步甚至滞后，需要滚动检验。</p></li>
+<li><p>权重设定主观性。合成指数法中权重设定虽有规则，但仍可能存在主观调整空间。</p></li>
+</ul>
+<p>这些问题要求景气指数编制不是一次性的，而是持续维护、检验和修正的过程。</p>
+</section>
+</section>
+<section id="五问题挑战和前沿方法" class="level2">
+<h2 class="anchored" data-anchor-id="五问题挑战和前沿方法">五、问题、挑战和前沿方法</h2>
+<section id="非平稳与结构突变" class="level3">
+<h3 class="anchored" data-anchor-id="非平稳与结构突变">1.非平稳与结构突变</h3>
+<p>传统景气指数方法通常建立在时间序列经季节调整与差分后近似平稳、或经济结构在样本期内相对稳定的假设之上。然而，现实经济运行中频繁出现金融危机、政策突变、疫情冲击、贸易摩擦和技术革命等结构性突变，这些冲击可能导致经济变量的均值、方差、协整关系、或因子结构发生改变，从而削弱景气指数的预测精度。因此，非平稳性与结构突变是景气指数编制中不可忽视的方法论问题。</p>
+<p>在此背景下，卡尔曼滤波（Kalman Filter，KF）受到极大重视。作为一种动态线性模型，卡尔曼滤波能够通过状态空间框架实时适应环境变化，它不要求数据严格平稳，适用于处理结构性突变和非平稳时间序列，并可在平滑波动的同时捕捉趋势。</p>
+<p>相比之下，标准主成分分析和SW法通常假设因子平稳，或依赖固定窗口协方差矩阵，在结构突变下可能表现不佳或滞后。当存在强序列相关和截面相关时，PCA的估计与预测质量可能恶化。PCA曲线也可能比卡尔曼滤波波动更剧烈。在去噪和趋势提取方面，卡尔曼滤波更加稳健，在变量数量适中时能产生有效的最小均方误差估计。</p>
+<p>若经济处于结构突变期，依赖固定窗口协方差矩阵的PCA景气指数可能滞后或失真。S-W型景气指数虽然基于状态空间模型，但若模型参数不随结构变化调整，也可能出现预测误差。</p>
+<p>相比之下，卡尔曼滤波及其扩展形式更适合实时监测和动态更新。并且，混合方法可能优于单一方法，例如：结合PCA和卡尔曼滤波，利用状态空间模型提取主成分，以克服单一方法局限。</p>
+</section>
+<section id="参数自适应" class="level3">
+<h3 class="anchored" data-anchor-id="参数自适应">2.参数自适应</h3>
+<p>参数自适应优化是另一个重要的方向。卡尔曼滤波通过不断调整卡尔曼增益来更新状态估计，本身具有一定自适应能力，无需预先设定固定窗口参数。自适应卡尔曼滤波还可以动态调整观测噪声协方差矩阵，以处理异常值或非高斯噪声。在更复杂的应用中，有研究将PSO粒子群优化与LSTM等模型超参数优化相结合，并配合自适应卡尔曼滤波提高精度。</p>
+<p>相比之下，SW型方法基于协方差矩阵的特征值和特征向量，通常不直接提供参数自适应机制，而更多依赖差分等数据预处理来确保平稳性；标准PCA提取的因子也缺乏动态自相关模式，因此需要扩展状态空间模型，引入卡尔曼滤波以捕捉动态变化。若要使SW型景气指数在结构突变下保持稳健，需在状态空间模型中引入时变参数、马尔可夫区制转换、或自适应噪声协方差等机制。</p>
+</section>
+<section id="其它问题和挑战" class="level3">
+<h3 class="anchored" data-anchor-id="其它问题和挑战">3.其它问题和挑战</h3>
+<p>除了以上两点，景气指数的编制方法仍面临诸多特殊的问题和挑战：</p>
+<ul>
+<li><p>混频数据。宏观经济指标频率不一，月度、季度、年度数据并存，如何融合是难点；</p></li>
+<li><p>大数据噪声。高频大数据虽然及时，但噪声大、口径不稳定、历史短；</p></li>
+<li><p>指标库维护。先行、一致、滞后关系可能变化，指标库需要定期重估；</p></li>
+<li><p>模型可解释性。机器学习等前沿复杂模型虽然可以提升预测精度，但“黑箱”可能影响其使用。政策制定者和市场参与者需要理解指数变化来源，应加强因子和模型的经济含义解释。</p></li>
+<li><p>国际比较。各国统计体系、指标定义、季节调整方法不同，景气指数国际可比性有限。</p></li>
+</ul>
+</section>
+<section id="国内场景下的特殊处理" class="level3">
+<h3 class="anchored" data-anchor-id="国内场景下的特殊处理">4.国内场景下的特殊处理</h3>
+<p>在当前的国内场景下，景气指数编制还需考虑特殊制度与结构特征：</p>
+<ul>
+<li><p>政府宏观调控作用较强，政策变量对经济周期影响显著，指标体系中应纳入财政、货币和产业政策代理变量；</p></li>
+<li><p>经济结构快速变化，服务业、数字经济和绿色经济占比上升，传统工业指标代表性下降；</p></li>
+<li><p>春节移动假日、统计口径调整和数据修订较频繁，对季节调整和口径衔接要求较高；</p></li>
+<li><p>各区域差异大，全国统一指标库未必适合所有地区；</p></li>
+<li><p>大数据资源丰富，税收、电力、物流、金融和平台数据可用于补充传统统计，人民银行系统内的纳税活跃度指数、县域普惠金融高质量发展指数、和经济热度指数等即为有益探索。</p></li>
+</ul>
+</section>
+<section id="技术前沿" class="level3">
+<h3 class="anchored" data-anchor-id="技术前沿">5.技术前沿</h3>
+<p>为应对以上问题，景气指数编制技术正在向着多个前沿探索，简单可概括为：动态权重、实时更新、异常值稳健、模型可解释与混合架构等方面。</p>
+<ul>
+<li><p>从简单描述到模型化推断：现有方法普遍侧重统计描述，未来景气指数将更多采用状态空间、动态因子、混频因子模型。PCA+KF、动态因子+状态空间、机器学习+传统方法，等混合架构可能成为未来主流。但需要注意，政策制定者和市场参与者仍需理解指数变化来源，应加强因子经济含义解释。</p></li>
+<li><p>从静态权重到动态自适应。传统合成指数权重相对固定，未来可引入卡尔曼滤波、自适应噪声协方差、时变权重、状态依赖权重、或卡尔曼增益式动态更新，使权重和参数动态调整，使指数对结构变化更敏感。</p></li>
+<li><p>从低频到高频：混频数据采样、nowcasting、周度日度指标将提升时效性。利用卡尔曼滤波、动态因子模型和混频数据模型，实现月度、周度甚至日度景气监测。</p></li>
+</ul>
+</section>
+</section>
+<section id="六实践案例中国经济综合领先指数的编制" class="level2">
+<h2 class="anchored" data-anchor-id="六实践案例中国经济综合领先指数的编制">六、实践案例：中国经济综合领先指数的编制</h2>
+<p>本案例整理自广发证券周飞鹏等《中国经济综合领先指数：方法与实践》（2022年6月1日），仅保留与“领先指数编制”直接相关的方法与实证，作为本节的实践案例。案例不构成投资建议。</p>
+<section id="案例背景与目标" class="level3">
+<h3 class="anchored" data-anchor-id="案例背景与目标">1.案例背景与目标</h3>
+<p>资产配置的核心问题之一，是判断经济周期所处阶段，并据此决定股债等大类资产的配置比例。经济变量种类繁多，涵盖投资、消费、出口、财政、PMI、货币、信用、利率等。若能从这些变量中筛选出<strong>稳定领先于整体经济</strong>的先行变量，并合成为综合领先指数，就可以提前识别经济拐点，为资产配置提供先机。</p>
+<p>传统研究常用回归法判断指标的领先期数，但存在明显缺陷：</p>
+<ul>
+<li>回归使用时序上所有时点的信息，而经济指标间的领先滞后关系往往在<strong>拐点处</strong>体现最为明显；</li>
+<li>非拐点时段常出现领先滞后的反复，导致全样本平均信息与朴素预期不符；</li>
+<li>人工判断拐点缺乏纪律性，难以回溯、难以跟踪。</li>
+</ul>
+<p>本案例以<strong>工业增加值当月同比</strong>为基准变量，从宏观/中观候选变量中筛选先行变量，合成为可跟踪的<strong>中国经济综合领先指数</strong>。</p>
+<p>本案例采用两种方法构建<strong>综合领先指数</strong>：</p>
+<ul>
+<li><p><strong>全历史合成</strong>：使用全部历史数据，指数各时点取值由最近一次模型计算得到，含未来信息，不可回溯。优点是滞后低、更符合后视视角，回溯效果通常更好；缺点是直接回测会产生未来函数偏差。它主要用于研究经济变量间的领先滞后逻辑、展示理想效果、初步筛选候选先行变量。</p></li>
+<li><p><strong>滚动合成</strong>：每期仅使用当前时点前的历史数据，每次计算不改变往期结果，无未来信息，可回溯、可回测。缺点是数据及时性略低，回溯效果弱于全历史合成；优点是贴近真实决策环境，能评估样本外表现。它主要用于构建可跟踪、可交易的领先指数，并进行资产配置回测。</p></li>
+</ul>
+<p>本案例<strong>完整步骤概括如下：</strong></p>
+<ol type="1">
+<li>确定基准变量：工业增加值当月同比；</li>
+<li>建立候选变量池：覆盖投资、消费、出口、财政、PMI、货币、信用、利率；</li>
+<li>数据预处理：
+<ul>
+<li>滚动合成：前值填充 + HMA平滑 + X13季调；</li>
+<li>全历史合成：线性插值 + EMD + X13季调；</li>
+</ul></li>
+<li>拐点识别：算法化B-B规则，参数 (K,M,N,X,Y) 按指标校准；</li>
+<li>拐点匹配：前后窗口内找最近同性质拐点，正反向匹配择优，保证唯一性；</li>
+<li>领先性评价：匹配数量、平均领先长度、领先期标准差、反转占比、均值/标准差；</li>
+<li>筛选先行变量：统计显著 + 经济含义；</li>
+<li>指数合成：OECD法（可加权），备选主成分分析；</li>
+<li>滚动更新：每月月底数据发布后重新计算，不修正历史；</li>
+<li>输出：领先指数序列、拐点、领先统计，用于后续周期划分与资产配置研究。</li>
+</ol>
+</section>
+<section id="数据与变量设定" class="level3">
+<h3 class="anchored" data-anchor-id="数据与变量设定">2.数据与变量设定</h3>
+<section id="基准变量" class="level4">
+<h4 class="anchored" data-anchor-id="基准变量">2.1 基准变量</h4>
+<p>选用<strong>工业增加值当月同比</strong>作为宏观经济运行状态的代理变量，也是判断其他变量是否领先的基准。原因在于：工业增加值覆盖工业部门产出，频率为月度，发布相对及时，与整体经济周期关联紧密。</p>
+</section>
+<section id="候选变量池" class="level4">
+<h4 class="anchored" data-anchor-id="候选变量池">2.2 候选变量池</h4>
+<p>候选变量覆盖以下大类：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>大类</th>
+<th>典型变量</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>投资</td>
+<td>固定资产投资完成额、制造业投资、房地产开发投资、基建投资</td>
+</tr>
+<tr class="even">
+<td>消费</td>
+<td>社会消费品零售总额</td>
+</tr>
+<tr class="odd">
+<td>进出口</td>
+<td>进口金额、出口金额</td>
+</tr>
+<tr class="even">
+<td>财政</td>
+<td>公共财政支出</td>
+</tr>
+<tr class="odd">
+<td>PMI</td>
+<td>中采制造业PMI</td>
+</tr>
+<tr class="even">
+<td>货币</td>
+<td>M2同比、存款准备金率</td>
+</tr>
+<tr class="odd">
+<td>信用</td>
+<td>社会融资规模、金融机构各项贷款余额、新增人民币贷款</td>
+</tr>
+<tr class="even">
+<td>利率</td>
+<td>中债国债到期收益率、R007</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="数据预处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据预处理">3.数据预处理</h3>
+<section id="缺失值处理" class="level4">
+<h4 class="anchored" data-anchor-id="缺失值处理">3.1.缺失值处理</h4>
+<p>中间缺失：采用线性插值：设<span class="math inline">\(x_t\)</span>缺失，最近有效点为<span class="math inline">\(x_{t-i}\)</span>与<span class="math inline">\(x_{t+j}\)</span>，则</p>
+<p><span class="math inline">\(x_t = x_{t-i}+\frac{x_{t+j}-x_{t-i}}{(t+j)-(t-i)} \times i\)</span></p>
+<p>末端缺失：采用<strong>前值填充</strong>，即使用最近的历史值填充缺失，避免使用未来信息。</p>
+</section>
+<section id="去趋势" class="level4">
+<h4 class="anchored" data-anchor-id="去趋势">3.2.去趋势</h4>
+<p>经济数据的时序信息一般包括趋势、周期波动、季节性和不规则扰动。我们期望提取其中的周期波动。</p>
+<ul>
+<li>对量类指标，先取<strong>同比</strong>，去除趋势和部分季节性；</li>
+<li>同比后仍可能存在的趋势项，通过后续“平滑”处理去除。</li>
+</ul>
+</section>
+<section id="季节调整" class="level4">
+<h4 class="anchored" data-anchor-id="季节调整">3.3.季节调整</h4>
+<p>即使是同比数据，也会受重要节日影响而存在季节性波动。在中国，春节是影响最大的节日。采用 <strong>X13-ARIMA-SEATS</strong> 模型去除春节效应。</p>
+</section>
+<section id="平滑与信号提取" class="level4">
+<h4 class="anchored" data-anchor-id="平滑与信号提取">3.4.平滑与信号提取</h4>
+<p>平滑的目的是进一步过滤趋势项、提取波动项，同时去除噪音。根据合成方式，采用不同方法。</p>
+<ul>
+<li><p><strong>全历史合成，采用EMD法。</strong></p>
+<p>经验模态分解（EMD）是一种自适应信号时频处理方法，适用于非平稳信号。EMD将复杂信号分解为若干本征模函数（IMF）与趋势项：</p>
+<p><span class="math inline">\(X(t)=\sum_{i=1}^{n} IMF_i(t)+ r_n(t)\)</span></p>
+<p>其中 <span class="math inline">\(IMF_i(t)\)</span> 为第 <span class="math inline">\(i\)</span> 层分解的模函数，<span class="math inline">\(r_n(t)\)</span> 为底层趋势。</p>
+<p><strong>分解层数的确定</strong>：以工业增加值同比序列三层EMD分解的信噪比作为阈值</p>
+<p><span class="math inline">\(ratio\_{S/N}=\frac{\sum_{i=1,2,3}IMF_i}{X-\sum_{i=1,2,3}IMF_i}\)</span></p>
+<p>对各经济指标序列逐层EMD分解，每层计算信噪比，直至信噪比小于阈值时停止。</p></li>
+<li><p><strong>滚动合成，采用HMA法。</strong></p>
+<p>赫尔移动平均（HMA）由Alan Hull提出，较传统移动平均法能有效减少信号滞后，同时提高均线平滑程度。计算步骤：</p>
+<ol type="1">
+<li><p>计算窗口为 <span class="math inline">\(T/2\)</span> 的加权移动平均，结果乘以2，若 <span class="math inline">\(T/2\)</span> 非整数则取整；</p></li>
+<li><p>计算窗口为 <span class="math inline">\(T\)</span> 的加权移动平均；</p></li>
+<li><p>以第1步结果减去第2步结果，对差值计算窗口为<span class="math inline">\(\sqrt{T}\)</span>的加权移动平均，若 <span class="math inline">\(\sqrt{T}\)</span> 非整数则取整。</p></li>
+</ol>
+<p>表达式为：</p>
+<p><span class="math inline">\(\operatorname{HMA}(y,n)=\operatorname{WMA}\left(2\cdot \operatorname{WMA}(y,\lfloor n/2\rfloor)-\operatorname{WMA}(y,n),\ \lfloor \sqrt{n}\rfloor\right)\)</span></p>
+<p>其中，<span class="math inline">\(y\)</span>：输入序列，比如价格序列；<span class="math inline">\(n\)</span>：HMA 周期；<span class="math inline">\(\operatorname{WMA}(\text{序列}, \text{周期})\)</span>：加权移动平均；<span class="math inline">\(\lfloor \cdot \rfloor\)</span>：向下取整。WMA为加权移动平均，对当前时点到此前 (T-1) 期内的数据依次赋予线性递减权重。案例中使用<strong>12期HMA</strong>平滑工业增加值同比。</p></li>
+</ul>
+</section>
+</section>
+<section id="拐点识别" class="level3">
+<h3 class="anchored" data-anchor-id="拐点识别">4.拐点识别</h3>
+<p>采用 <strong>Bry-Boschan判定规则</strong>（1971，简称B-B规则）的算法化版本。<strong>B-B规则</strong>本质是一种极值筛选理念，将局部极值点筛选过滤为全局拐点。</p>
+<p><strong>B-B规则</strong>包括：</p>
+<ol type="1">
+<li>波峰波谷必须交替出现；</li>
+<li>相邻波峰、波谷之间至少间隔M个月；</li>
+<li>波峰与波峰、波谷与波谷之间至少间隔N个月；</li>
+<li>序列头尾X个月识别的拐点无效；序列头尾Y个月识别出的峰/谷若不是Y个月内最大/小值，则该极值无效。</li>
+</ol>
+<p>其中，参数 (K,M,N,X,Y) 需视经济指标的具体情况确定。报告未披露统一数值，实操中应根据数据频率、波动特征与历史拐点分布进行校准。</p>
+<p>算法步骤如下：</p>
+<ol type="1">
+<li><strong>识别局部极值点</strong>：前后K期内的最大/小值；</li>
+<li><strong>遍历筛选</strong>：判断每个极值点在相邻两个极值点之间是否为最大/小值，不满足则删除；</li>
+<li><strong>检查交替</strong>：若存在相邻的峰或谷，删除高度较低/较高的峰/谷；若高度一致，删除后出现的峰或谷；</li>
+<li><strong>检查峰峰、谷谷距离</strong>：若不满足最短时限，删除高度较低/较高的峰/谷；</li>
+<li><strong>重复第2—4步</strong>；</li>
+<li><strong>检查峰谷间隔</strong>：若不满足最短时限，删除偏离均值较小的极值点；</li>
+<li><strong>重复第3—4步</strong>，保留下的极值点即为全局拐点。</li>
+</ol>
+</section>
+<section id="拐点匹配" class="level3">
+<h3 class="anchored" data-anchor-id="拐点匹配">5.拐点匹配</h3>
+<p>将基准序列 (benchmark，B) 与待匹配序列 (X) 的每一轮周期进行对应，在此基础上观察相位差，确认领先滞后关系。</p>
+<p>算法步骤：</p>
+<ol type="1">
+<li>对于基准序列 (B) 中拐点对应时间的前 (M) 个月至后 (N) 个月内，判断序列 (X) 是否存在相对应的同性质极值点；</li>
+<li>对于 (B) 中的每一个拐点 (b)，在对应时间的前 (M) 个月至后 (N) 个月内寻找 (X) 中匹配的最近拐点。若有匹配拐点，进入第3步；若无，标记为“缺失”；</li>
+<li>判断与 (b) 匹配的拐点 (x) 之前是否已有匹配拐点。若没有，标记 (b) 与 (x) 匹配；若已存在，则根据匹配时间间隔判断是否保留；</li>
+<li>遍历完成后，判断所有拐点匹配结果是否存在交叉对应的情况；</li>
+<li>检查 (X) 序列的所有拐点，将无匹配的拐点标记为“多余拐点”。</li>
+</ol>
+<p>除上述步骤外，还需考虑不同类型极值点间的匹配，以满足普遍存在的<strong>反向领先滞后关系</strong>，即：某指标的峰/谷领先于另一指标的谷/峰。</p>
+<p>实践中可同时考虑正向匹配和反向匹配两种做法，并比较两种情况领先期的稳定性、考虑变量间的经济联系，对匹配结果择优保存。</p>
+</section>
+<section id="领先性评价与筛选" class="level3">
+<h3 class="anchored" data-anchor-id="领先性评价与筛选">6.领先性评价与筛选</h3>
+<p>衡量领先效果的统计量包括：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>指标</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>拐点匹配数量</td>
+<td>两个序列成功匹配的拐点对数</td>
+</tr>
+<tr class="even">
+<td>平均领先长度</td>
+<td>匹配拐点的平均领先月数</td>
+</tr>
+<tr class="odd">
+<td>领先期标准差</td>
+<td>领先长度的波动程度</td>
+</tr>
+<tr class="even">
+<td>平均领先长度/标准差</td>
+<td>领先稳定性的标准化度量，越大越稳定</td>
+</tr>
+<tr class="odd">
+<td>反转次数占比</td>
+<td>由领先转为滞后的比例，越低越好</td>
+</tr>
+</tbody>
+</table>
+<p>综合考察上述统计量，并评估指标的<strong>经济意义</strong>，最终筛选出先行变量。统计显著但经济逻辑不成立的变量应剔除。</p>
+<p>全历史合成方式下，筛选出的先行变量包括：汽车产量、钢材产量、社融人民币贷款、商品房销售面积、M2、金融机构各项贷款余额等。</p>
+<p>滚动合成方式下，筛选出的部分先行变量如下：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>变量</th>
+<th style="text-align: right;">拐点匹配数量</th>
+<th style="text-align: right;">平均领先长度</th>
+<th style="text-align: right;">领先期标准差</th>
+<th style="text-align: right;">反转次数占比</th>
+<th style="text-align: right;">平均领先长度/标准差</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>M2:同比</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3.80</td>
+<td style="text-align: right;">4.24</td>
+<td style="text-align: right;">0.22</td>
+<td style="text-align: right;">0.90</td>
+</tr>
+<tr class="even">
+<td>金融机构贷款余额:同比</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3.11</td>
+<td style="text-align: right;">4.43</td>
+<td style="text-align: right;">0.25</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="odd">
+<td>钢材产量:当月同比</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">4.00</td>
+<td style="text-align: right;">4.17</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">0.96</td>
+</tr>
+<tr class="even">
+<td>生铁产量:当月同比</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">5.22</td>
+<td style="text-align: right;">3.67</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.42</td>
+</tr>
+<tr class="odd">
+<td>商品房销售面积:累计同比</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">4.10</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+<tr class="even">
+<td>中债国债到期收益率:6个月</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5.88</td>
+<td style="text-align: right;">6.08</td>
+<td style="text-align: right;">0.29</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+<tr class="odd">
+<td>中采制造业PMI</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.50</td>
+<td style="text-align: right;">3.98</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.13</td>
+</tr>
+<tr class="even">
+<td>沪深300月收益率</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5.63</td>
+<td style="text-align: right;">2.26</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">2.48</td>
+</tr>
+<tr class="odd">
+<td>社融人民币贷款:同比</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7.13</td>
+<td style="text-align: right;">5.46</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">1.30</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="指数合成" class="level3">
+<h3 class="anchored" data-anchor-id="指数合成">7.指数合成</h3>
+<p>将前文筛选出的先行变量进行指数合成。合成方法采用前文中介绍的OECD指数合成法。实现要点如下：</p>
+<ul>
+<li><strong>节点划分</strong>：以2014年12月31日为样本内/外分界；</li>
+<li><strong>数据预处理</strong>：前值填充缺失 + HMA平滑；</li>
+<li><strong>滚动规则</strong>：自2015年1月起，当前时点指数合成仅使用此时点前的历史数据；</li>
+<li><strong>不修正历史</strong>：每次计算不改变往期结果，保证可回溯性。</li>
+</ul>
+<p>滚动合成方式下，重新筛选先行变量并构建指数，指数构建区间为2004年3月—2022年4月。滚动合成方式下，2004年3月至2022年4月，领先指数相对工业增加值匹配8个拐点，平均领先3.6个月，领先期标准差3.3，均值/标准差1.1。</p>
+<p>全历史合成方式下，2001年至2022年初，领先指数相对工业增加值匹配13个拐点，平均领先4.1个月，领先期标准差3.1，均值/标准差1.3。</p>
+<p>整体上看，滚动合成指数领先效果较稳定，且可回溯、可跟踪，适合作为实际投资研究中的宏观领先指标。</p>
+</section>
+<section id="风险提示" class="level3">
+<h3 class="anchored" data-anchor-id="风险提示">8.风险提示</h3>
+<ul>
+<li><p>模型基于历史数据统计、建模和测算，政策与市场环境变化可能导致规律失效。</p></li>
+<li><p>全历史合成含未来信息，不可直接用于回测；滚动合成虽可回溯，但数据及时性可能略低。</p></li>
+<li><p>以工业增加值作为经济景气代理变量，未来可能不再完全合理；地产、基建、汽车等传统经济作用可能部分交棒新经济。</p></li>
+<li><p>本案例仅从量化角度分析，不代表宏观经济观点。</p></li>
+<li><p>历史规律不代表未来，模型需持续跟踪与更新。本案例不构成投资建议。</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="pagination-link" aria-label="第10章 投资系统和投资工程 第3节 系统化的绝对收益">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第1节 R语言入门.html" class="pagination-link" aria-label="第16章 R 第1节 R语言入门">
+        <span class="nav-page-text">第16章 R 第1节 R语言入门</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
