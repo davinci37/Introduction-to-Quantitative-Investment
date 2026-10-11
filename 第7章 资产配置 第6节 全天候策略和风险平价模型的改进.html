@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第7章 资产配置 第6节 全天候策略和风险平价模型的改进 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#第一部分资产择时和风险平价增强" id="toc-第一部分资产择时和风险平价增强" class="nav-link active" data-scroll-target="#第一部分资产择时和风险平价增强">第一部分、资产择时和风险平价增强</a>
+  <ul class="collapse">
+  <li><a href="#前言" id="toc-前言" class="nav-link" data-scroll-target="#前言">前言</a></li>
+  <li><a href="#一经典风险平价策略的局限性" id="toc-一经典风险平价策略的局限性" class="nav-link" data-scroll-target="#一经典风险平价策略的局限性">一、经典风险平价策略的局限性</a>
+  <ul class="collapse">
+  <li><a href="#风险平价是风险配置而非收益配置" id="toc-风险平价是风险配置而非收益配置" class="nav-link" data-scroll-target="#风险平价是风险配置而非收益配置">1.风险平价是“风险配置”而非“收益配置”</a></li>
+  <li><a href="#协方差矩阵的后视镜困境" id="toc-协方差矩阵的后视镜困境" class="nav-link" data-scroll-target="#协方差矩阵的后视镜困境">2.协方差矩阵的“后视镜”困境</a></li>
+  <li><a href="#对低波动资产的过度依赖" id="toc-对低波动资产的过度依赖" class="nav-link" data-scroll-target="#对低波动资产的过度依赖">3.对低波动资产的过度依赖</a></li>
+  </ul></li>
+  <li><a href="#二宏观择时注入前瞻洞察" id="toc-二宏观择时注入前瞻洞察" class="nav-link" data-scroll-target="#二宏观择时注入前瞻洞察">二、宏观择时，注入前瞻洞察</a>
+  <ul class="collapse">
+  <li><a href="#从静态均衡到动态适应" id="toc-从静态均衡到动态适应" class="nav-link" data-scroll-target="#从静态均衡到动态适应">1.从静态均衡到动态适应</a></li>
+  <li><a href="#构建宏观择时框架" id="toc-构建宏观择时框架" class="nav-link" data-scroll-target="#构建宏观择时框架">2.构建宏观择时框架</a></li>
+  </ul></li>
+  <li><a href="#三核心资产的宏观择时信号" id="toc-三核心资产的宏观择时信号" class="nav-link" data-scroll-target="#三核心资产的宏观择时信号">三、核心资产的宏观择时信号</a>
+  <ul class="collapse">
+  <li><a href="#股票" id="toc-股票" class="nav-link" data-scroll-target="#股票">1.股票</a></li>
+  <li><a href="#债券" id="toc-债券" class="nav-link" data-scroll-target="#债券">2.债券</a></li>
+  <li><a href="#黄金" id="toc-黄金" class="nav-link" data-scroll-target="#黄金">3.黄金</a></li>
+  <li><a href="#原油" id="toc-原油" class="nav-link" data-scroll-target="#原油">4.原油</a></li>
+  </ul></li>
+  <li><a href="#四增强型风险平价策略的组合构建与优化" id="toc-四增强型风险平价策略的组合构建与优化" class="nav-link" data-scroll-target="#四增强型风险平价策略的组合构建与优化">四、增强型风险平价策略的组合构建与优化</a>
+  <ul class="collapse">
+  <li><a href="#从择时信号到风险预算的映射" id="toc-从择时信号到风险预算的映射" class="nav-link" data-scroll-target="#从择时信号到风险预算的映射">1.从择时信号到风险预算的映射</a></li>
+  <li><a href="#优化目标在动态风险预算下实现广义风险平价" id="toc-优化目标在动态风险预算下实现广义风险平价" class="nav-link" data-scroll-target="#优化目标在动态风险预算下实现广义风险平价">2.优化目标：在动态风险预算下实现广义风险平价</a></li>
+  <li><a href="#关键约束跟踪误差的控制" id="toc-关键约束跟踪误差的控制" class="nav-link" data-scroll-target="#关键约束跟踪误差的控制">3.关键约束：跟踪误差的控制</a></li>
+  </ul></li>
+  <li><a href="#五结论与总结" id="toc-五结论与总结" class="nav-link" data-scroll-target="#五结论与总结">五、结论与总结</a>
+  <ul class="collapse">
+  <li><a href="#策略总结" id="toc-策略总结" class="nav-link" data-scroll-target="#策略总结">1.策略总结</a></li>
+  <li><a href="#挑战与局限" id="toc-挑战与局限" class="nav-link" data-scroll-target="#挑战与局限">2.挑战与局限</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#第二部分宏观状态择时和风险平价增强" id="toc-第二部分宏观状态择时和风险平价增强" class="nav-link" data-scroll-target="#第二部分宏观状态择时和风险平价增强">第二部分、宏观状态择时和风险平价增强</a>
+  <ul class="collapse">
+  <li><a href="#前言-1" id="toc-前言-1" class="nav-link" data-scroll-target="#前言-1">前言</a></li>
+  <li><a href="#一经典风险平价与桥水四象限框架" id="toc-一经典风险平价与桥水四象限框架" class="nav-link" data-scroll-target="#一经典风险平价与桥水四象限框架">一、经典风险平价与桥水四象限框架</a></li>
+  <li><a href="#二宏观择时指标体系" id="toc-二宏观择时指标体系" class="nav-link" data-scroll-target="#二宏观择时指标体系">二、宏观择时指标体系</a>
+  <ul class="collapse">
+  <li><a href="#量化宏观状态定义因变量y" id="toc-量化宏观状态定义因变量y" class="nav-link" data-scroll-target="#量化宏观状态定义因变量y">1.量化宏观状态：定义因变量Y</a></li>
+  <li><a href="#筛选预测因子构建自变量x" id="toc-筛选预测因子构建自变量x" class="nav-link" data-scroll-target="#筛选预测因子构建自变量x">2.筛选预测因子：构建自变量X</a></li>
+  <li><a href="#数据预处理与特征工程" id="toc-数据预处理与特征工程" class="nav-link" data-scroll-target="#数据预处理与特征工程">3.数据预处理与特征工程</a></li>
+  </ul></li>
+  <li><a href="#三宏观择时模型" id="toc-三宏观择时模型" class="nav-link" data-scroll-target="#三宏观择时模型">三、宏观择时模型</a></li>
+  <li><a href="#四动态资产配置" id="toc-四动态资产配置" class="nav-link" data-scroll-target="#四动态资产配置">四、动态资产配置</a>
+  <ul class="collapse">
+  <li><a href="#从概率到动态风险预算" id="toc-从概率到动态风险预算" class="nav-link" data-scroll-target="#从概率到动态风险预算">1.从概率到动态风险预算</a></li>
+  <li><a href="#跟踪误差约束" id="toc-跟踪误差约束" class="nav-link" data-scroll-target="#跟踪误差约束">2.跟踪误差约束</a></li>
+  <li><a href="#组合优化求解" id="toc-组合优化求解" class="nav-link" data-scroll-target="#组合优化求解">3.组合优化求解</a></li>
+  <li><a href="#五结论与总结-1" id="toc-五结论与总结-1" class="nav-link" data-scroll-target="#五结论与总结-1">五、结论与总结</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#第三部分层次风险平价模型" id="toc-第三部分层次风险平价模型" class="nav-link" data-scroll-target="#第三部分层次风险平价模型">第三部分、层次风险平价模型</a>
+  <ul class="collapse">
+  <li><a href="#前言-2" id="toc-前言-2" class="nav-link" data-scroll-target="#前言-2">前言</a></li>
+  <li><a href="#一传统资产配置模型的困境与hrp的诞生" id="toc-一传统资产配置模型的困境与hrp的诞生" class="nav-link" data-scroll-target="#一传统资产配置模型的困境与hrp的诞生">一、传统资产配置模型的困境与HRP的诞生</a>
+  <ul class="collapse">
+  <li><a href="#均值-方差模型精准的幻象" id="toc-均值-方差模型精准的幻象" class="nav-link" data-scroll-target="#均值-方差模型精准的幻象">1.均值-方差模型：精准的幻象</a></li>
+  <li><a href="#经典风险平价貌合神离的分散化" id="toc-经典风险平价貌合神离的分散化" class="nav-link" data-scroll-target="#经典风险平价貌合神离的分散化">2.经典风险平价：貌合神离的分散化</a></li>
+  <li><a href="#hrp模型" id="toc-hrp模型" class="nav-link" data-scroll-target="#hrp模型">3.HRP模型</a></li>
+  </ul></li>
+  <li><a href="#二hrp模型的算法流程" id="toc-二hrp模型的算法流程" class="nav-link" data-scroll-target="#二hrp模型的算法流程">二、HRP模型的算法流程</a>
+  <ul class="collapse">
+  <li><a href="#步骤一构建距离矩阵" id="toc-步骤一构建距离矩阵" class="nav-link" data-scroll-target="#步骤一构建距离矩阵">1.步骤一：构建距离矩阵</a></li>
+  <li><a href="#步骤二自下而上建构层次聚类谱系" id="toc-步骤二自下而上建构层次聚类谱系" class="nav-link" data-scroll-target="#步骤二自下而上建构层次聚类谱系">2.步骤二：自下而上建构层次聚类谱系</a></li>
+  <li><a href="#步骤三协方差矩阵的拟对角化" id="toc-步骤三协方差矩阵的拟对角化" class="nav-link" data-scroll-target="#步骤三协方差矩阵的拟对角化">3.步骤三：协方差矩阵的拟对角化</a></li>
+  <li><a href="#步骤四递归二分风险分配" id="toc-步骤四递归二分风险分配" class="nav-link" data-scroll-target="#步骤四递归二分风险分配">4.步骤四：递归二分风险分配</a></li>
+  </ul></li>
+  <li><a href="#三hrp模型-vs.-erc模型对比" id="toc-三hrp模型-vs.-erc模型对比" class="nav-link" data-scroll-target="#三hrp模型-vs.-erc模型对比">三、HRP模型 vs.&nbsp;ERC模型对比</a></li>
+  <li><a href="#四hrp模型的优势局限和改良" id="toc-四hrp模型的优势局限和改良" class="nav-link" data-scroll-target="#四hrp模型的优势局限和改良">四、HRP模型的优势、局限和改良</a>
+  <ul class="collapse">
+  <li><a href="#hrp的优势" id="toc-hrp的优势" class="nav-link" data-scroll-target="#hrp的优势">1.HRP的优势</a></li>
+  <li><a href="#hrp的局限性" id="toc-hrp的局限性" class="nav-link" data-scroll-target="#hrp的局限性">2.HRP的局限性</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="第一部分资产择时和风险平价增强" class="level1">
+<h1>第一部分、资产择时和风险平价增强</h1>
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>经典风险平价（ Risk Parity, RP）策略通过在不同资产间实现风险贡献的均衡，构建了具备优异风险分散效果的投资组合。然而，其“四平八稳”的特性也导致了其在特定市场环境下，尤其是股票牛市中的表现相对平庸。本文第一部分，我们将介绍一种基于资产择时的增强方法：将前瞻性的宏观资产择时框架与经典的风险平价模型相结合，构建一个“增强型风险平价”（Enhanced Risk Parity, ERP）策略。</p>
+<p>该策略的核心在于，首先为各大类资产（股票、债券、黄金、原油）构建基于宏观经济基本面（如经济增长、通货膨胀、估值水平等）的量化择时信号。随后，将这些择时信号转化为对各资产的动态“风险预算”调整。在新的风险预算指导下，通过最优化求解，确定资产的具体配置权重，使得各资产的实际风险贡献与动态调整后的风险预算相匹配。为确保策略的主动性在可控范围内，我们引入了对经典风险平价组合的跟踪误差约束。</p>
+<p>研究和实践表明，通过系统性地超配或低配处于有利或不利宏观环境下的资产，增强型风险平价策略有望在保持风险平价核心分散化优势的基础上，显著提升组合的长期回报，尤其是在趋势性市场中捕捉更多的上行收益，从而实现对经典策略的有效增强。</p>
+</section>
+<section id="一经典风险平价策略的局限性" class="level2">
+<h2 class="anchored" data-anchor-id="一经典风险平价策略的局限性">一、经典风险平价策略的局限性</h2>
+<section id="风险平价是风险配置而非收益配置" class="level3">
+<h3 class="anchored" data-anchor-id="风险平价是风险配置而非收益配置">1.风险平价是“风险配置”而非“收益配置”</h3>
+<p>风险平价策略的本质是基于风险的资产配置，其数学表达为求解使各资产边际风险贡献相等的权重向量。这一框架的优雅之处在于它规避了预期收益预测这一最困难的工作。但代价同样明显：在权益资产表现突出的牛市中，系统性低配导致策略收益显著落后于市场。实证研究表明，风险平价组合在牛市期间表现较弱，导致长期回报率仅略高于纯债策略。</p>
+</section>
+<section id="协方差矩阵的后视镜困境" class="level3">
+<h3 class="anchored" data-anchor-id="协方差矩阵的后视镜困境">2.协方差矩阵的“后视镜”困境</h3>
+<p>经典风险平价高度依赖历史协方差矩阵的估计。当宏观经济制度发生结构性转变时，历史相关性往往失效。2022年美股与美债相关性由负转正，便是典型案例。债券不仅未能对冲股票风险，反而因利率上升而与股票同步下跌。在这种环境下，基于历史数据的风险平价策略在风险分散层面几乎失效。</p>
+</section>
+<section id="对低波动资产的过度依赖" class="level3">
+<h3 class="anchored" data-anchor-id="对低波动资产的过度依赖">3.对低波动资产的过度依赖</h3>
+<p>风险平价天然偏好低波动资产（债券），在杠杆约束下这一偏好会被进一步放大。研究表明，原始全天候风险平价对低波动资产，尤其是债券的依赖程度较高，虽然在长期内收益稳健且回撤较小，但收益弹性不足。在低利率乃至零利率环境下，债券的未来预期收益被严重压缩，风险平价策略面临“低波低收”的本土化困境。在利率持续快速上行的环境中，债券价格的下跌会给组合带来显著的负面影响，若此时股市也因紧缩政策而承压，则可能出现“股债双杀”的极端情况，削弱其分散化效果。</p>
+<p>因此，一个明确的优化方向是：能否在保留风险平价核心的分散化思想的同时，为其注入一种“择时”的能力，使其能够在宏观环境对某类资产极其有利时，主动的适度超配，而在不利时主动减配，从而在不显著增加组合风险的前提下，提升策略的整体回报？</p>
+</section>
+</section>
+<section id="二宏观择时注入前瞻洞察" class="level2">
+<h2 class="anchored" data-anchor-id="二宏观择时注入前瞻洞察">二、宏观择时，注入前瞻洞察</h2>
+<section id="从静态均衡到动态适应" class="level3">
+<h3 class="anchored" data-anchor-id="从静态均衡到动态适应">1.从静态均衡到动态适应</h3>
+<p>经典风险平价追求的是一种基于历史风险数据的“静态均衡”；宏观择时则试图引入一种基于宏观经济基本面预期的“动态适应”能力。其核心逻辑在于，不同的大类资产在不同的宏观经济周期中，其表现会呈现出显著的、有规律的差异。通过量化模型识别当前所处的宏观环境，并判断该环境对各类资产的利弊，我们可以对资产配置进行前瞻性的、系统性的调整。</p>
+<p>基于宏观的择时根植于深刻的经济逻辑。它是一种宏观动量的体现，即相信由宏观基本面驱动的资产价格趋势会持续一段时间。策略的目标，就是顺应这些由宏观基本面定义的“趋势”，提升投资的效率。</p>
+</section>
+<section id="构建宏观择时框架" class="level3">
+<h3 class="anchored" data-anchor-id="构建宏观择时框架">2.构建宏观择时框架</h3>
+<p>一个常见的量化宏观择时框架通常包含以下三个步骤：</p>
+<ol type="1">
+<li><p>因子选择与量化：识别影响各类资产价格的核心宏观驱动因素，并为每个因素找到可量化、高频、可靠的代理指标（Proxy）。例如，用采购经理人指数（PMI）来刻画经济增长的动能，用居民消费价格指数（CPI）来衡量通胀水平。</p></li>
+<li><p>信号合成与打分：将多个维度的宏观指标加工、处理，并最终合成为一个清晰、可执行的择时信号。常见的做法是，对每个指标进行标准化处理（如计算其在历史分位数中的位置），然后根据其对资产的预期影响方向赋予相应权重，最终加总成一个综合得分。这个得分直观地反映了当前宏观环境对该资产的“友好程度”。例如，可以生成一个取值为看多+1、中性0、看空-1的汇总信号。</p></li>
+<li><p>策略转化与执行：将生成的择时信号转化为具体的投资决策。在我们的增强型风险平价策略中，这一步并非简单地根据信号进行“全仓买入”或“空仓”，而是将其作为调整资产“风险预算”的依据，这将在后文中详细论述。</p></li>
+</ol>
+<p>通过这一框架，我们可以为投资组合中的每一个核心资产类别构建一套专属的、基于宏观基本面的配置信号。</p>
+</section>
+</section>
+<section id="三核心资产的宏观择时信号" class="level2">
+<h2 class="anchored" data-anchor-id="三核心资产的宏观择时信号">三、核心资产的宏观择时信号</h2>
+<p>接下来，我们将以美国市场为例，详细阐述如何为股票、债券、黄金、原油这四类核心资产，构建量化的宏观择时信号。我们将遵循前文提出的框架，为每一类资产从其最核心的驱动逻辑出发，选择量化指标，并最终形成综合判断。</p>
+<section id="股票" class="level3">
+<h3 class="anchored" data-anchor-id="股票">1.股票</h3>
+<p>股票的长期价值来源于企业盈利的持续增长，而企业盈利与宏观经济景气度息息相关。因此，对股票的择时主要围绕经济增长、通货膨胀和估值这三个维度展开。</p>
+<section id="经济增长growth" class="level4">
+<h4 class="anchored" data-anchor-id="经济增长growth">1.1.经济增长（Growth）：</h4>
+<ul>
+<li><p>逻辑：强劲的经济增长意味着企业销售收入增加，盈利预期改善，从而推高股价。经济衰退则反之。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>制造业采购经理人指数（PMI）：这是一个领先指标，PMI高于50的荣枯线且趋势向上，通常预示着经济扩张，利好股市。我们可以构建一个信号，例如，当PMI月度读数及其3个月移动平均线均高于50时，信号为+1；均低于50时为-1；其他情况为0。</p></li>
+<li><p>OECD综合领先指标（CLI）：该指标旨在预测经济周期的转折点，其趋势性变化对股市有很强的指引作用。当CLI连续三个月环比上升时，视为积极信号。</p></li>
+<li><p>新增非农就业人数（美国市场）或工业增加值同比（中国市场）：这些是反映经济实质活力的同步或略微滞后的指标，可以用来确认经济趋势。</p></li>
+</ul></li>
+<li><p>信号合成：将上述多个指标进行标准化打分并加权，形成最终的经济增长信号。例如，PMI信号权重40%，CLI信号权重40%，就业/工业增加值信号权重20%。</p></li>
+</ul>
+</section>
+<section id="通货膨胀inflation" class="level4">
+<h4 class="anchored" data-anchor-id="通货膨胀inflation">1.2.通货膨胀（Inflation）：</h4>
+<ul>
+<li><p>逻辑：通胀对股市的影响并非线性。温和且稳定的通胀对企业盈利和估值都有利。然而，过高的通胀会侵蚀企业利润、引发央行紧缩政策、压低估值；而通货紧缩则反映了总需求的疲软，同样不利于股市。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>核心CPI同比增速：剔除食品和能源价格后，更能反映核心通胀压力。我们可以设定一个“舒适区”，例如1.5%-3.0%。当核心CPI位于此区间且走势平稳时，信号为+1；当其远高于上轨且加速上行，或低于下轨进入通缩区域时，信号为-1。</p></li>
+<li><p>生产者价格指数（PPI）与CPI的剪刀差：PPI代表上游成本，CPI代表下游价格。当PPI增速远高于CPI增速时，意味着企业成本压力大但难以转嫁给消费者，利润空间受挤压，是负面信号。</p></li>
+</ul></li>
+<li><p>信号合成：结合核心CPI的水平与趋势，以及PPI-CPI剪刀差，形成通胀环境对股市友好度的综合评分。</p></li>
+</ul>
+</section>
+<section id="估值valuation" class="level4">
+<h4 class="anchored" data-anchor-id="估值valuation">1.3.估值（Valuation）</h4>
+<ul>
+<li><p>逻辑：估值是投资的“安全边际”。在极低的估值水平买入，即使宏观环境短期不利，长期来看下行风险也有限，且潜在回报率高。反之，在极高的估值水平，市场对利好消息已充分定价，对利空消息则异常敏感。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>股权风险溢价（Equity Risk Premium,ERP）：这是最为核心的估值指标之一。ERP=股票指数的盈利收益率（1/PE）- 无风险利率（如十年期国债收益率）。ERP衡量了投资股票相对于无风险资产所能获得的超额回报补偿。当ERP处于历史高位（例如80%分位数以上）时，意味着股票极具吸引力，是强烈的看多信号(+1)；反之，当ERP处于历史低位（例如20%分位数以下）时，则为看空信号(-1)。</p></li>
+<li><p>席勒市盈率（CAPE / Shiller PE）：采用过去十年经通胀调整后的平均盈利作为分母，平滑了经济周期的影响，能更好地衡量市场的长期估值水平。</p></li>
+</ul></li>
+<li><p>信号合成：以ERP为核心，结合CAPE的长期视角，形成对当前股市估值水平的综合判断。</p></li>
+</ul>
+<p>最终，股票择时总信号=w1<em>增长信号+w2</em>通胀信号+w3*估值信号。其中，权重<span class="math inline">\(w\)</span>可根据长期回归分析或信息比率，甚至等权或主观等方法确定。</p>
+</section>
+</section>
+<section id="债券" class="level3">
+<h3 class="anchored" data-anchor-id="债券">2.债券</h3>
+<p>国债（尤其是发达国家国债）的核心价值在于其避险属性和对利率变化的敏感性。其择时逻辑主要围绕通货膨胀、经济增长（衰退预期）和避险需求。</p>
+<section id="通货膨胀inflation-1" class="level4">
+<h4 class="anchored" data-anchor-id="通货膨胀inflation-1">2.1.通货膨胀（Inflation）：</h4>
+<ul>
+<li><p>逻辑：这是对债券最直接的利空。通胀会侵蚀债券固定票息的实际购买力，并促使央行加息，从而导致债券价格下跌。因此，低通胀或通缩环境是债券的“最佳朋友”。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>CPI同比增速及预期：CPI数据低于预期或持续下行，利好债券，信号为+1。反之，持续超预期的通胀数据则为-1信号。</p></li>
+<li><p>5年期/10年期盈亏平衡通胀率（BreakevenInflationRate）：从通胀保值债券（TIPS）和普通国债的收益率之差中提取，直接反映了市场对未来通胀的预期。该指标的下行趋势是强烈的利好信号。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="经济增长recession" class="level4">
+<h4 class="anchored" data-anchor-id="经济增长recession">2.2.经济增长（Recession）：</h4>
+<ul>
+<li><p>逻辑：经济衰退或增长显著放缓时，企业盈利下降，通胀压力减弱，央行通常会采取降息等宽松货币政策以刺激经济。利率下行直接推高债券价格。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>PMI指数：PMI跌破50并持续下行，是经济衰退的强烈预警，利好债券。</p></li>
+<li><p>收益率曲线斜率（10年期-2年期国债收益率）：收益率曲线趋平甚至倒挂，是历史上非常可靠的经济衰退先行指标。当利差持续收窄或变为负值时，是超配债券的强烈信号(+1)。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="避险需求safe-haven" class="level4">
+<h4 class="anchored" data-anchor-id="避险需求safe-haven">2.3.避险需求（Safe-Haven）：</h4>
+<ul>
+<li><p>逻辑：在全球金融市场动荡、地缘政治风险加剧或发生系统性危机时，投资者会抛售风险资产，涌入被视为“安全港”的优质主权债券（如美国国债）。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>VIX指数（恐慌指数）：VIX飙升通常伴随着股市大跌和避险情绪升温，是利好国债的信号。可以设定一个阈值，如VIX突破30，则触发+1信号。</p></li>
+<li><p>信用利差（高收益债收益率-国债收益率）：信用利差急剧扩大，表明市场对企业违约的担忧加剧，避险情绪浓厚，资金从信用债流向利率债。</p></li>
+</ul></li>
+</ul>
+<p>最终债券择时总信号由上述三个维度的信号加权合成，通常通胀和经济增长信号的权重会更高。</p>
+</section>
+</section>
+<section id="黄金" class="level3">
+<h3 class="anchored" data-anchor-id="黄金">3.黄金</h3>
+<p>黄金具有商品、货币和避险资产的三重属性。其择时逻辑更为复杂，主要围绕抗通胀、避险需求和美元信用。</p>
+<section id="抗通胀inflation-hedge" class="level4">
+<h4 class="anchored" data-anchor-id="抗通胀inflation-hedge">3.1.抗通胀（Inflation Hedge）：</h4>
+<ul>
+<li><p>逻辑：在恶性通胀或长期货币超发导致纸币贬值的背景下，黄金作为一种实物贵金属，被视为价值储存的可靠工具。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>高位且失控的CPI：当CPI同比增速超过某个阈值（如5%）并持续攀升，市场对央行控制通胀的能力产生怀疑时，黄金的抗通胀需求会凸显。</p></li>
+<li><p>广义货币供应量（M2）增速：长期过高的M2增速，可能引发对未来货币购买力下降的担忧，从而支撑金价。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="避险需求safe-haven-1" class="level4">
+<h4 class="anchored" data-anchor-id="避险需求safe-haven-1">3.2.避险需求（Safe-Haven）：</h4>
+<ul>
+<li><p>逻辑：黄金是终极的避险资产，其避险功能超越了主权债券，因为它不附带任何主权的信用风险。在地缘政治危机、战争、主权债务危机等极端事件中，黄金的需求会激增。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>地缘政治风险指数（GPR Index）：该指数通过量化全球主流媒体中与地缘政治风险相关词汇的出现频率来构建。GPR指数的飙升是看多黄金的明确信号。</p></li>
+<li><p>VIX指数：与债券类似，VIX的飙升也反映了市场恐慌，利好黄金。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="美元信用重估" class="level4">
+<h4 class="anchored" data-anchor-id="美元信用重估">3.3.美元信用重估：</h4>
+<ul>
+<li><p>逻辑：这是驱动金价最核心、最稳定的宏观变量。黄金本身不产生利息，因此持有黄金的机会成本就是持有生息资产（如美元债券）所能获得的实际收益。当实际利率（名义利率-通胀预期）下降甚至为负时，持有黄金的机会成本极低，黄金的吸引力大增。反之，当实际利率上升时，黄金的吸引力下降。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>美国10年期通胀保值债券（TIPS）收益率：这是衡量美元实际利率最直接、最纯粹的指标。</p></li>
+<li><p>TIPS收益率的趋势是判断金价中期走势的“金标准”。TIPS收益率持续下行或处于深度负值区间，是做多黄金的最强信号(+1)。</p></li>
+</ul></li>
+</ul>
+<p>最终黄金择时总信号将以实际利率信号为核心（例如50%权重），辅以避险和抗通胀信号（各25%权重）进行合成。</p>
+</section>
+</section>
+<section id="原油" class="level3">
+<h3 class="anchored" data-anchor-id="原油">4.原油</h3>
+<p>原油是工业的血液，其价格主要由全球经济总需求、供给端的博弈以及地缘政治风险共同决定。其择时逻辑围绕经济增长需求、通胀属性和地缘政治。</p>
+<section id="经济增长需求demand" class="level4">
+<h4 class="anchored" data-anchor-id="经济增长需求demand">4.1.经济增长需求（Demand）：</h4>
+<ul>
+<li><p>逻辑：全球经济，特别是制造业的景气度直接决定了对原油的需求。经济强劲复苏和扩张周期是原油价格上涨的核心驱动力。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>全球制造业PMI（特别是中国和美国）：全球制造业PMI的强劲扩张（显著高于50）预示着工业活动活跃，原油需求旺盛。</p></li>
+<li><p>新兴市场经济增长预期：国际货币基金组织（IMF）或世界银行等机构发布的对新兴市场（特别是中国、印度）的GDP增长预测，是判断原油长期需求的重要参考。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="抗通胀inflationbeta" class="level4">
+<h4 class="anchored" data-anchor-id="抗通胀inflationbeta">4.2.抗通胀（InflationBeta）：</h4>
+<ul>
+<li><p>逻辑：原油本身就是通胀的重要组成部分。在通胀上行周期，大宗商品价格普遍上涨，原油作为其中的龙头，往往表现突出。它既是通胀的因，也是通胀的果。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>CRB商品指数趋势：CRB指数代表了一揽子商品的价格走势。当CRB指数形成明确的上升趋势时，通常意味着整个商品市场进入牛市，对原油构成利好。</p></li>
+<li><p>通胀预期指标：如前述的盈亏平衡通胀率，其上行趋势也支持油价。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="地缘政治geopolitics与供给信号" class="level4">
+<h4 class="anchored" data-anchor-id="地缘政治geopolitics与供给信号">4.3.地缘政治（Geopolitics）与供给信号：</h4>
+<ul>
+<li><p>逻辑：原油的供给端高度集中于政治不稳定的中东等地区。因此，地缘政治冲突、主要产油国的政策变动（如OPEC+的产量决策）都会对油价产生剧烈影响。</p></li>
+<li><p>量化指标：</p>
+<ul>
+<li><p>中东地区地缘政治风险指数：可以构建一个区域性的GPR指数，专门衡量中东地区的紧张局势。</p></li>
+<li><p>美国原油库存数据（EIA报告）：周度库存数据的变化直接反映了短期供需的紧张程度。库存超预期下降是利多信号。</p></li>
+<li><p>OPEC+产量配额与实际产量数据：跟踪OPEC+的会议决议和各成员国的履约情况。</p></li>
+</ul></li>
+</ul>
+<p>最终原油择时总信号需要综合评估需求端（经济增长）和供给端（地缘政治、库存）的情况。通常在需求强劲且供给受扰动时，是油价最强的上涨环境。</p>
+<p>此外，金油比（黄金价格/原油价格）也是一个重要的辅助判断指标。金油比的极端高位往往预示着经济危机或避险情绪达到顶峰，此时原油价格被极度低估，未来可能出现均值回归，反之亦然。</p>
+</section>
+</section>
+</section>
+<section id="四增强型风险平价策略的组合构建与优化" class="level2">
+<h2 class="anchored" data-anchor-id="四增强型风险平价策略的组合构建与优化">四、增强型风险平价策略的组合构建与优化</h2>
+<p>构建了各类资产的宏观择时信号之后，接下来的核心步骤是如何将这些信号融入风险平价框架，以实现“增强”的目标。简单的方法是可以根据信号进行权重倾斜，但这可能会破坏风险平价的初衷。一般会采用一种更为稳健的方法：通过择时信号动态调整各资产的风险预算，并在此约束下进行组合优化。</p>
+<section id="从择时信号到风险预算的映射" class="level3">
+<h3 class="anchored" data-anchor-id="从择时信号到风险预算的映射">1.从择时信号到风险预算的映射</h3>
+<p>在经典风险平价中，我们隐含的假设是所有资产的风险预算是均等的。现在，我们将这个固定的预算变为一个由宏观择时信号驱动的动态变量。通过以下步骤实现：</p>
+<ol type="1">
+<li><p>设定基准风险预算（Base Risk Budget）：首先，确定一个中性的、长期的风险预算分配。在没有强烈宏观信号的情况下，我们回归到经典风险平价，即四类资产（股票、债券、黄金、原油）的基准风险预算各为<span class="math inline">\(B_base=[25%,25%,25%,25%]\)</span>。</p></li>
+<li><p>计算量化择时信号：前文中，为各类资产合成的择时总信号（例如，范围在-1到+1之间的整数）记为：</p>
+<p><span class="math inline">\(S=[S_{stock},S_{bond},S_{gold},S_{oil}]\)</span>。</p></li>
+<li><p>计算倾斜因子（Tilt Factor）：定义一个倾斜因子函数<span class="math inline">\(f(S_i)\)</span>，它将择时信号转化为风险预算的调整幅度。可以采用简单的线性函数：</p>
+<p><span class="math inline">\(f(S_i)=1+α*S_i\)</span></p>
+<p>其中，<span class="math inline">\(α\)</span>是一个超参数，代表我们对择时信号的“信心”或策略的“积极性”。</p>
+<p>例如，取<span class="math inline">\(α=0.5\)</span>：当信号为0时，倾斜因子为<span class="math inline">\(1.0\)</span>，即保持基准不变； 当信号为+1时，倾斜因子为<span class="math inline">\(1+0.5*1=1.5\)</span>； 当信号为-1时，倾斜因子为<span class="math inline">\(1-0.5*1=0.5\)</span>；</p></li>
+<li><p>计算未归一化的目标风险预算（Unnormalized Target Budget）：将基准预算与倾斜因子相乘：</p>
+<p><span class="math inline">\(B_unnormalized_i=B_base_i * f(S_i)\)</span></p></li>
+<li><p>归一化，得到最终目标风险预算（Final Target Budget）：对未归一化的预算进行归一化，使其总和为100%：</p>
+<p><span class="math inline">\(B_target_i=B_unnormalized_i/Σ(B_unnormalized_j)\)</span></p></li>
+</ol>
+<p>举例说明：</p>
+<p>假设当前宏观择时信号为：股票+1（强力看多），债券-1（温和看空），黄金+1（温和看多），原油0（中性）。</p>
+<p>基准风险预算为：[25%,25%,25%,25%]。</p>
+<p>倾斜因子为：[1.5,0.5,1.5,1.0]。</p>
+<p>未归一化的目标预算为：[25%*1.5, 25%*0.5, 25%*1.5, 25%*1.0] = [37.5%, 12.5%, 37.5%, 25.0%]。</p>
+<p>总和为：37.5+12.5+37.5+25.0=112.5%。</p>
+<p>归一化后的最终目标风险预算为：[33.33%, 11.11%, 33.33%, 22.22%]。</p>
+<p>这个<span class="math inline">\(B_{target}\)</span>就是我们接下来进行组合优化的“新目标”。它清晰地指示了，在当前宏观环境下，我们希望股票贡献最多的风险，而债券贡献最少的风险。这一过程系统性地将宏观洞察转化为了风险配置的指引。</p>
+</section>
+<section id="优化目标在动态风险预算下实现广义风险平价" class="level3">
+<h3 class="anchored" data-anchor-id="优化目标在动态风险预算下实现广义风险平价">2.优化目标：在动态风险预算下实现广义风险平价</h3>
+<p>我们的优化目标不再是让所有资产的风险贡献（TCR）相等，而是让每个资产的风险贡献与其动态目标风险预算<span class="math inline">\(B_{target_i}\)</span>成比例。换句话说，我们希望第<span class="math inline">\(i\)</span>个资产的风险贡献占组合总风险<span class="math inline">\(σ_p\)</span>的比例，正好等于其目标风险预算<span class="math inline">\(B_{target_i}\)</span>。</p>
+<p><span class="math inline">\(TCR_i/σ_p=B_{target_i}\)</span> <span class="math inline">\(w_i*MCR_i=B_{target_iσ_p}\)</span></p>
+<p>这是一个广义的风险平价问题，也称为“风险预算”（Risk Budgeting）问题。其优化求解的目标函数可以设定为最小化各资产实际风险贡献与目标风险贡献之间的平方差：</p>
+<p>Minimize:<span class="math inline">\(Σ[TCR_i-B_target_iσ_p]^2\)</span></p>
+<p>这是一个复杂的非凸优化问题，同样需要通过数值优化算法来寻找最优的权重向量<span class="math inline">\(w\)</span>。</p>
+</section>
+<section id="关键约束跟踪误差的控制" class="level3">
+<h3 class="anchored" data-anchor-id="关键约束跟踪误差的控制">3.关键约束：跟踪误差的控制</h3>
+<p>为了防止我们的增强策略因激进的择时判断而过度偏离经典风险平价的稳健特性，引入跟踪误差（Tracking Error, TE）约束至关重要。跟踪误差衡量的是增强组合相对于基准组合的偏离风险。</p>
+<ol type="1">
+<li><p>定义基准组合：在每个调仓期，我们首先计算出经典风险平价组合的权重<span class="math inline">\(w_b\)</span>，即风险预算为[25,2,25,25]时的解。</p></li>
+<li><p>设定目标跟踪误差水平：我们需要预先设定一个可接受的年化跟踪误差上限<span class="math inline">\(σ_{TE\_target}\)</span>。这个值的选择反映了投资者的风险偏好。一个较低的水平（如2%-3%）意味着策略风格更接近经典RP，而一个较高的水平（如4%-6%）则赋予择时模型更大的发挥空间。</p></li>
+<li><p>构建数学约束：在上述优化求解过程中，加入一个二次约束：</p>
+<p>Subject to: <span class="math inline">\((w-w_b)^T*Σ*(w-w_b)&lt;=(σ_{TE\_target})^2\)</span></p></li>
+</ol>
+<p>这个公式的左边计算的是增强组合<span class="math inline">\(w\)</span>相对于基准组合<span class="math inline">\(w_b\)</span>的主动收益的方差，约束其不超过我们设定的目标跟踪误差的平方。</p>
+<p>最终的完整优化模型如下：</p>
+<p>求解资产权重向量：<span class="math inline">\(w=[w_{stock},w_{bond},w_{gold},w_{oil}]\)</span></p>
+<p>目标函数： <span class="math inline">\(Minimize: Σ[(w_i(Σw)_i/sqrt(w^TΣw))-B_{target\_i}*sqrt(w^TΣw)]^2\)</span></p>
+<p>约束条件：</p>
+<p>权重和为1：<span class="math inline">\(Σw_i=1\)</span></p>
+<p>权重非负：<span class="math inline">\(w_i&gt;=0\)</span>(对于多头策略)</p>
+<p>跟踪误差约束：<span class="math inline">\((w-w_b)^TΣ(w-w_b)&lt;=(σ_{TE\_target})^2\)</span></p>
+<p>通过求解这个带有跟踪误差约束的风险预算优化模型，我们就能得到最终的资产配置权重。这个权重<span class="math inline">\(w\)</span>既体现了我们对宏观环境的前瞻性判断（通过<span class="math inline">\(B_{target}\)</span>），又保持了风险贡献的相对均衡（通过优化目标），同时确保了其主动风险暴露在一个可控的范围内（通过TE约束）。</p>
+</section>
+</section>
+<section id="五结论与总结" class="level2">
+<h2 class="anchored" data-anchor-id="五结论与总结">五、结论与总结</h2>
+<section id="策略总结" class="level3">
+<h3 class="anchored" data-anchor-id="策略总结">1.策略总结</h3>
+<p>本文，我们详细阐述了构建一个通过宏观资产择时增强的风险平价策略（ERP）的完整理论框架与量化实现路径。该策略的核心逻辑可以概括为：</p>
+<ul>
+<li><p>保留核心，引入增强：以经典风险平价（CRP）的风险均衡思想为防守核心，确保组合底层的高度分散化和稳健性。</p></li>
+<li><p>宏观驱动，前瞻择时：引入基于经济增长、通货膨胀、估值等多维度的宏观择时框架作为进攻引擎，为组合注入前瞻性的、基于基本面的阿尔法来源。</p></li>
+<li><p>风险预算，动态调整：通过将择时信号映射为对各资产风险预算的动态调整，而非直接的权重调整，实现了宏观观点与风险管理的精巧结合。</p></li>
+<li><p>约束优化，风险可控：在求解最优权重的过程中，引入对CRP基准的跟踪误差约束，确保策略的主动风险暴露在预设的可控范围内。</p></li>
+</ul>
+<p>模拟回测与情景分析表明，该ERP策略有望在不显著牺牲风险控制的前提下，实现对经典风险平价策略的有效增强，获得更高的长期回报和更优的风险调整后收益，尤其是在宏观趋势明确的市场环境中，其优势更为凸显。</p>
+</section>
+<section id="挑战与局限" class="level3">
+<h3 class="anchored" data-anchor-id="挑战与局限">2.挑战与局限</h3>
+<p>作为量化投资专家，我们必须清醒地认识到任何模型和策略都非完美，ERP策略同样面临挑战与局限：</p>
+<ul>
+<li><p>模型风险（Model Risk）：宏观经济变量与资产价格之间的关系并非一成不变，过去有效的关系在未来可能减弱甚至反转。模型依赖于历史数据中提炼出的规律，对未知的结构性变化可能无法及时反应。</p></li>
+<li><p>数据滞后与噪音：宏观经济数据通常存在发布滞后性，且时常被修正。这可能导致择时信号的产生晚于市场的实际反应。此外，短期市场噪音也可能对基于月度数据的模型产生干扰。</p></li>
+<li><p>交易成本与容量限制：相较于CRP，ERP策略的调仓更为频繁，会产生更高的交易成本和冲击成本，这在实际运作中会侵蚀部分超额收益。对于大规模资金，某些资产（如部分商品期货）的流动性也可能成为限制。</p></li>
+<li><p>黑天鹅”事件：模型是基于对“常态”和“可预见异态”（如经济衰退）的建模。对于无法被宏观指标所捕捉的、突发的“黑天鹅”事件（如恐怖袭击、颠覆性技术突变），模型可能失效。</p></li>
+<li><p>参数敏感性：策略的表现对一些关键参数（如择时信号的倾斜因子<span class="math inline">\(α\)</span>、目标跟踪误差水平<span class="math inline">\(σ_{TE}\)</span>）的设定较为敏感，需要大量的研究和测试来确定最优参数，且最优参数也可能随市场环境而变化。</p></li>
+</ul>
+<p>综上所述，融合宏观择时的增强型风险平价策略，代表了资产配置领域从静态均衡向动态适应演进的重要方向。它并非对风险平价的颠覆，而是一次深刻的进化。通过纪律严明的量化框架，将人类对宏观经济的深刻洞察与计算机的精准优化能力相结合，我们有望构建出更智能、更强大、更能穿越牛熊的下一代资产配置解决方案。</p>
+</section>
+</section>
+</section>
+<section id="第二部分宏观状态择时和风险平价增强" class="level1">
+<h1>第二部分、宏观状态择时和风险平价增强</h1>
+<section id="前言-1" class="level2">
+<h2 class="anchored" data-anchor-id="前言-1">前言</h2>
+<p>还有一种对经典风险平价策略的增强方法，是对“经济状态”进行择时。具体而言，先将宏观经济环境解构为桥水著名的“四象限”状态，即由经济增长和通货膨胀两个核心变量的预期差所定义。随后，我们构建一个量化择时模型，利用一系列领先的宏观经济指标（如PMI、利率、信贷等）作为输入，预测未来一段时间内最可能出现的“宏观经济象限”。</p>
+<p>模型的预测结果即各个象限的发生概率，被转化为对各大类资产（如股票、债券、黄金、原油）的动态“风险预算”调整，系统性地超配那些在预期宏观环境下大概率表现优异的资产。同样，为了确保这种主动偏离的可控性，我们引入了对经典风险平价组合的跟踪误差（Tracking Error）约束。最后，在新的动态风险预算和跟踪误差约束下，通过最优化求解，确定资产的具体配置权重。</p>
+</section>
+<section id="一经典风险平价与桥水四象限框架" class="level2">
+<h2 class="anchored" data-anchor-id="一经典风险平价与桥水四象限框架">一、经典风险平价与桥水四象限框架</h2>
+<p>桥水基金创始人瑞·达利欧（Ray Dalio）提出的“全天候”策略，是风险平价理念最著名和最成功的商业化实践。该策略的出发点是，资产价格的长期驱动力主要源于宏观经济环境的变化，特别是经济增长和通货膨胀这两个核心变量。基于此，桥水将所有可能的宏观经济环境划分为四个象限。这种划分不是为了预测未来，而是为了确保无论未来进入哪个象限，组合中总有部分资产能够表现良好，从而实现穿越周期的稳健回报。</p>
+<p>需要注意的是，在经典策略中，驱动资产价格变动的并非经济增长或通胀的绝对水平，而是其实际状态与市场预期之间的差异，即“意外”或“惊喜”。</p>
+<ul>
+<li><p>象限一：高增长，高通胀 环境特征：经济过热，需求旺盛推动物价全面上涨。</p>
+<p>优势资产：大宗商品（如原油、工业金属）、通胀保值债券（TIPS）、新兴市场股票。这些资产能有效对冲通胀风险。</p></li>
+<li><p>象限二：高增长，低通胀 环境特征：增长稳健且通胀温和，是风险资产的“蜜月期”。</p>
+<p>优势资产：股票、公司信用债。企业盈利增长强劲，而融资成本保持在低位。</p></li>
+<li><p>象限三：低增长，高通胀 环境特征：“滞胀”，经济停滞与高通胀并存，对股债双杀，是最具挑战性的环境。</p>
+<p>优势资产：黄金、大宗商品、通胀保值债券（TIPS）。黄金作为避险资产和通胀对冲工具的价值凸显。</p></li>
+<li><p>象限四：低增长，低通胀 环境特征：经济衰退或通缩，需求疲软，市场避险情绪高涨。</p>
+<p>优势资产：名义政府债券（特别是长期国债）、黄金。央行通常会降息以刺激经济，利好债券价格。</p></li>
+</ul>
+<p>在经典的全天候策略中，每个象限被分配了25%的等量风险预算。通过优化过程，计算出能实现这一风险分配目标的资产权重。这就是全天候策略“被动”和“稳健”的来源。而我们的增强型策略，正是要打破这25%的静态分配，代之以基于宏观预测的动态分配。</p>
+</section>
+<section id="二宏观择时指标体系" class="level2">
+<h2 class="anchored" data-anchor-id="二宏观择时指标体系">二、宏观择时指标体系</h2>
+<p>增强型策略的第一步，也是最关键的一步，是构建一个能够有效预测未来宏观经济象限的指标体系。这包括定义我们的预测目标（因变量Y）和筛选有效的预测因子（自变量X）。</p>
+<section id="量化宏观状态定义因变量y" class="level3">
+<h3 class="anchored" data-anchor-id="量化宏观状态定义因变量y">1.量化宏观状态：定义因变量Y</h3>
+<p>如前所述，宏观象限由增长和通胀的“预期差”决定。因此，量化宏观状态的核心在于量化这个“预期差”。在实践中，我们可以通过以下步骤来构建历史上的宏观状态序列：</p>
+<ol type="1">
+<li><p>选取代理指标：</p>
+<ul>
+<li><p>经济增长：由于GDP数据频率过低，我们通常使用月度发布的、与经济活动高度相关的指标作为代理，例如ISM制造业PMI或非农就业人数变化。</p></li>
+<li><p>通货膨胀：通常使用月度发布的核心消费者价格指数（核心CPI）同比增幅作为代理。</p></li>
+</ul></li>
+<li><p>获取市场预期数据： 这是至关重要的一步。我们需要获取在经济数据发布前，市场形成的一致预期值。这些数据可以通过专业的金融数据服务商获取，如彭博（Bloomberg）、路透社（Reuters）或万得（Wind）等提供的经济学家调查数据。这些平台会汇总数十位经济学家的预测值，并提供中位数或均值作为市场一致预期。</p></li>
+<li><p>计算“经济意外指数”（Economic Surprise Index）： 对于每个数据发布日，我们可以计算一个标准化的“意外值”。一个常用的计算方法是：</p>
+<p><span class="math inline">\(\text{Surprise}=\frac{\text{Actual} - \text{Forecast}}{\sigma_{\text{Forecast}}}\)</span></p>
+<p>其中，<code>Actual</code>是指标的实际公布值，<code>Forecast</code>是市场一致预期值，<span class="math inline">\(\sigma_{\text{Forecast}}\)</span>是参与调查的经济学家预测值的标准差。用标准差进行标准化，可以衡量“意外”的程度，一个标准差以外的意外通常被认为是显著的。</p></li>
+<li><p>划分历史象限： 在每个月末，我们根据当月发布的关键增长指标（如PMI）和通胀指标（如CPI）的意外指数的正负，将该月归类到四个宏观象限中的一个。例如：</p>
+<ul>
+<li><p>若PMI意外指数&gt;0，且CPI意外指数&gt;0，则该月状态为象限1。</p></li>
+<li><p>若PMI意外指数&gt;0，且CPI意外指数&lt;0，则该月状态为象限2。</p></li>
+<li><p>以此类推。</p></li>
+</ul></li>
+</ol>
+<p>通过以上步骤，我们就构建了一个历史的、月度的、取值为{1,2,3,4}的宏观状态时间序列。这个序列就是我们后续择时模型需要预测的因变量Y。</p>
+</section>
+<section id="筛选预测因子构建自变量x" class="level3">
+<h3 class="anchored" data-anchor-id="筛选预测因子构建自变量x">2.筛选预测因子：构建自变量X</h3>
+<p>我们的目标是寻找能够在信息可用性，即数据发布时间上领先于PMI和CPI实际公布日的宏观经济和金融市场指标，用以预测下个月的宏观状态。这些指标可以分为以下几类：</p>
+<ul>
+<li><p>经济景气度与增长动能指标：</p>
+<ul>
+<li><p>PMI内部细项：PMI指数本身是领先指标，其内部细项，如新订单指数、产出指数和供应商配送时间等，提供了更丰富的经济活动细节，其变化趋势往往领先于PMI综合指数。</p></li>
+<li><p>消费者信心指数：如密歇根大学消费者信心指数，反映了消费者对未来经济、收入和消费意愿的看法，是预测未来零售销售和经济活动的重要先行指标。</p></li>
+<li><p>建筑许可/新屋开工：房地产市场的先行指标，对经济周期高度敏感。</p></li>
+</ul></li>
+<li><p>通胀压力指标：</p>
+<ul>
+<li><p>PMI价格指数：制造业PMI中的投入品价格指数和产出品价格指数是预测PPI和CPI的优秀领先指标。</p></li>
+<li><p>大宗商品价格指数：如CRB商品指数或WTI原油价格的月度变化，直接反映了上游成本压力。</p></li>
+<li><p>通胀预期指标：基于市场的通胀预期，如5年期/10年期盈亏平衡通胀率（Breakeven Inflation Rate），它直接反映了债券市场投资者对未来通胀的看法。</p></li>
+</ul></li>
+<li><p>金融与货币条件指标：</p>
+<ul>
+<li><p>利率与收益率曲线：美联储联邦基金利率代表了货币政策的基调。10年期与2年期国债收益率之差（10Y-2Y Spread）是预测经济衰退的经典指标。收益率曲线趋平或倒挂，通常预示着未来增长放缓。</p></li>
+<li><p>信用利差（Credit Spread）：如高收益公司债与国债的利差，利差扩大意味着市场风险偏好下降，信贷条件收紧，是经济下行的预警信号。</p></li>
+<li><p>广义货币供应量（M2）增速：反映了实体经济中的流动性状况，其增速变化对未来的通胀和经济活动有一定指示意义。</p></li>
+<li><p>金融条件指数（Financial Conditions Index）：由高盛或芝加哥联储等机构编制的综合性指数，整合了利率、汇率、股价、利差等多个变量，全面衡量金融市场的松紧程度。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="数据预处理与特征工程" class="level3">
+<h3 class="anchored" data-anchor-id="数据预处理与特征工程">3.数据预处理与特征工程</h3>
+<p>为了提升模型的预测能力和稳定性，原始的宏观数据需要经过一系列处理：</p>
+<ul>
+<li><p>处理时间滞后：确保在任何一个时间点进行预测时，只使用当时已经公布的数据，严格避免“未来函数”或“前视偏差”。</p></li>
+<li><p>季节性调整：对存在明显季节性效应的指标（如零售销售）进行季节性调整。</p></li>
+<li><p>数据变换与平滑：相比于指标的绝对水平，其变化率（如3个月动量）、趋势（如与12个月移动平均的偏离度）通常包含更强的预测信号。使用移动平均可以平滑数据中的短期噪音。</p></li>
+<li><p>标准化：将所有指标都转换为Z-Score（即减去均值、除以标准差），使得不同量纲的指标具有可比性，便于模型处理。</p></li>
+<li><p>降维：如果预测因子过多，可能存在多重共线性问题，并增加模型过拟合的风险。可以采用主成分分析（PCA）等方法，将高度相关的指标合成为少数几个综合因子，如“增长因子”、“通胀因子”、“金融条件因子”。</p></li>
+</ul>
+<p>经过上述处理，我们就构建了一套完整的、可用于模型训练的自变量（特征矩阵X）和因变量（目标向量Y）。</p>
+</section>
+</section>
+<section id="三宏观择时模型" class="level2">
+<h2 class="anchored" data-anchor-id="三宏观择时模型">三、宏观择时模型</h2>
+<p>拥有了特征和目标数据后，下一步是选择并训练一个分类模型，来预测未来一个月最可能出现的宏观象限。</p>
+<p>宏观经济数据以其低信噪比而著称，这意味着真实的预测信号往往被大量的噪音所淹没。在模型选择上，过度复杂的模型虽然在样本内拟合效果可能很好，但极易发生过拟合，即实际应用中，预测效果不佳。</p>
+<p>因此，模型选择应遵循“奥卡姆剃刀”原则：如无必要，勿增实体。我们应该从简单、可解释性强的模型开始，逐步尝试更复杂的模型，并通过严格的样本外测试来评估其增量价值。以下是一些在宏观择时任务中常用的候选模型：</p>
+<ul>
+<li><p>逻辑回归（Logistic Regression）：</p>
+<ul>
+<li><p>原理：作为一种经典的广义线性模型，逻辑回归通过一个线性函数和Sigmoid函数，来估计每个类别的发生概率。</p></li>
+<li><p>优点：模型简单，计算速度快，结果具有良好的可解释性，我们可以直接观察每个宏观指标的回归系数，来判断其对预测结果的正负向影响。由于其线性假设，它天然地不容易过拟合，在处理高噪音数据时表现稳健。它是构建宏观择时模型的绝佳基准。首选使用。</p></li>
+<li><p>缺点：无法捕捉变量之间复杂的非线性关系和交互效应。</p></li>
+</ul></li>
+<li><p>支持向量机（Support Vector Machine,SVM）：</p>
+<ul>
+<li><p>原理：SVM通过寻找一个能最大化不同类别样本间距的“超平面”来进行分类。通过引入“核函数”，如高斯核RBF，SVM可以有效地处理非线性问题。</p></li>
+<li><p>优点：理论基础扎实，泛化能力强，尤其在小样本、高维度问题上表现出色，对过拟合有一定的抑制作用。</p></li>
+<li><p>缺点：对参数选择（如惩罚系数C和核函数参数gamma）较为敏感，模型的可解释性较差，计算复杂度较高。谨慎使用。</p></li>
+</ul></li>
+<li><p>树模型（Random Forest, Gradient Boosting）：</p>
+<ul>
+<li><p>原理：以决策树为基本单元，通过集成学习（Bagging或Boosting）构建强大的分类器。随机森林（Random Forest）通过构建多棵独立的决策树并投票来决定最终结果；梯度提升决策树（GBDT, XGBoost）则通过迭代地训练新的树来修正前一棵树的错误。</p></li>
+<li><p>优点：能够自动捕捉复杂的非线性和交互效应，对数据预处理的要求较低（如无需标准化），并且可以输出特征重要性排序，为我们理解哪些指标最关键提供了依据。</p></li>
+<li><p>缺点：单棵决策树容易过拟合，虽然集成学习有所缓解，但在噪音大的宏观数据上仍需警惕。模型的可解释性介于线性和黑箱模型之间。谨慎使用。</p></li>
+</ul></li>
+<li><p>神经网络（Neural Networks, NN）：</p>
+<ul>
+<li><p>原理：模仿人脑神经元的连接方式，通过多层非线性变换来学习数据中的复杂模式。</p></li>
+<li><p>优点：理论上可以拟合任何复杂的函数，是所有模型中拟合能力的上限。</p></li>
+<li><p>缺点：是典型的“数据饥渴”模型，在宏观经济这种样本量相对有限的场景下，极易陷入过拟合的陷阱。模型“黑箱”难以解释，训练过程复杂且耗时。尽量避免使用。</p></li>
+</ul></li>
+</ul>
+<p>宏观数据是时间序列，一般采用步进式（Walk-Forward）或滚动窗口（Rolling Window）的方法进行回测和训练。例如，在预测2010年1月的宏观状态时，我们只能使用截至2009年12月的数据来训练模型；在预测2010年2月时，再将训练数据扩展至2010年1月。这种方法可以最真实地模拟实际投资决策过程，避免前视偏差。</p>
+<p>对于SVM、树模型和神经网络，还需要通过时间序列交叉验证（Time-Series Cross-Validation）来寻找最优的超参数组合，即参数调优。</p>
+<p>无论选择哪种模型，其最终输出都应是未来一个月进入四个宏观象限的概率，例如：</p>
+<p><span class="math inline">\({P(Q1)=0.4;\ P(Q2)=0.3;\  P(Q3)=0.1;\ P(Q4)=0.2}\)</span>。</p>
+<p>这个概率分布是我们将宏观观点融入资产配置的桥梁。</p>
+</section>
+<section id="四动态资产配置" class="level2">
+<h2 class="anchored" data-anchor-id="四动态资产配置">四、动态资产配置</h2>
+<p>获得了对未来宏观状态的概率预测后，我们进入增强型策略的执行阶段：将这些概率转化为具体的资产权重。这一过程涉及风险预算的动态调整和带约束的组合优化。</p>
+<section id="从概率到动态风险预算" class="level3">
+<h3 class="anchored" data-anchor-id="从概率到动态风险预算">1.从概率到动态风险预算</h3>
+<p>这是策略增强的核心环节。经典全天候策略给予四个象限各25%的恒定风险预算。现在，我们将根据模型的预测概率，对这个预算进行动态调整。其中：</p>
+<p>基准风险预算：<span class="math inline">\(RB_{base}=[25\%, 25\%, 25\%, 25\%]\)</span></p>
+<p>模型预测概率：<span class="math inline">\(P_{model}=[P_1, P_2, P_3, P_4]\)</span></p>
+<p>中性概率：<span class="math inline">\(P_{neutral}=[25\%, 25\%, 25\%, 25\%]\)</span></p>
+<p>我们可以设计一个映射函数，将预测概率转化为动态风险预算<span class="math inline">\(RB_{dynamic}\)</span>。一个简单而有效的规则是线性倾斜：</p>
+<p><span class="math inline">\(RB_{dynamic,i}=RB_{base,i}+k\times(P_{model,i}-P_{neutral,i})\)</span></p>
+<p>其中： <span class="math inline">\(RB_{dynamic,i}\)</span>是象限<span class="math inline">\(i\)</span>的新风险预算。</p>
+<p><span class="math inline">\(k\)</span>是一个“主动性”系数（或称“信号强度”系数），取值范围通常在0到1之间。它控制了我们对模型预测的依赖程度。<span class="math inline">\(k=0\)</span>意味着完全不采纳模型观点，退化为经典RP策略；<span class="math inline">\(k=1\)</span>则意味着较为激进地根据模型概率调整预算。这个系数可以根据历史回测表现和投资者的风险偏好来设定。</p>
+<p>例如，假设模型预测<span class="math inline">\(P_{model}=[40\%,30\%,10\%,20\%]\)</span>，我们设定<span class="math inline">\(k=0.5\)</span>。那么：</p>
+<p><span class="math inline">\(RB_{dynamic,1}=25\%+0.5\times(40\%-25\%)=32.5\%\)</span></p>
+<p><span class="math inline">\(RB_{dynamic,2}=25\%+0.5\times(30\%-25\%)=27.5\%\)</span></p>
+<p><span class="math inline">\(RB_{dynamic,3}=25\%+0.5\times(10\%-25\%)=17.5\%\)</span></p>
+<p><span class="math inline">\(RB_{dynamic,4}=25\%+0.5\times(20\%-25\%)=22.5\%\)</span></p>
+<p>最后，我们需要将这四个象限的风险预算映射到具体的大类资产上。假设我们的资产池包括股票、国债、黄金、原油。我们可以根据这些资产在各象限的历史表现，设定一个映射矩阵。</p>
+<p>例如，认为： 股票主要受益于象限二。 国债主要受益于象限四。 黄金、原油（代表大宗商品）主要受益于象限一和三。 根据这个映射关系和各资产自身的波动率，我们可以将象限风险预算进一步分解为各大类资产的目标风险预算（Target Risk Contribution）。</p>
+</section>
+<section id="跟踪误差约束" class="level3">
+<h3 class="anchored" data-anchor-id="跟踪误差约束">2.跟踪误差约束</h3>
+<p>引入宏观择时必然会产生主动风险，即组合的表现会偏离经典的风险平价策略。为了将这种偏离控制在可接受的范围内，防止模型判断失误时造成过大的损失，我们必须引入跟踪误差（TrackingError, TE）约束。</p>
+<p>基准组合（Benchmark）：跟踪误差约束是相对于一个基准来计算的。在我们的ERP策略中，最合适的基准就是经典的、采用等风险贡献（25%）的全天候/风险平价投资组合。这个基准组合的权重（记为<span class="math inline">\(\omega_{RP}\)</span>）本身也是通过一次优化，求解各资产风险贡献相等得到的。</p>
+<p>约束的设定：跟踪误差约束通常以年化标准差的形式设定。其数学表达为：</p>
+<p><span class="math inline">\(\sqrt{(\omega-\omega_{RP})'\Sigma(\omega-\omega_{RP})}\le TE_{max}\)</span></p>
+<p>其中，<span class="math inline">\(\omega\)</span>是我们待优化的ERP组合权重，<span class="math inline">\(\Sigma\)</span>是资产的协方差矩阵，<span class="math inline">\(TE_{max}\)</span>是我们允许的最大年化跟踪误差。</p>
+<p>常见约束范围：<span class="math inline">\(TE_{max}\)</span>的选择决定了策略的主动程度。一个较为保守的增强策略可能会将TE设在2%-3%；而一个更积极的策略可能会放宽到5%甚至8%。这个参数需要通过回测来评估其对收益和风险的影响。</p>
+</section>
+<section id="组合优化求解" class="level3">
+<h3 class="anchored" data-anchor-id="组合优化求解">3.组合优化求解</h3>
+<p>现在，我们拥有了构建最终组合的所有要素：各大类资产的目标风险预算、经典RP组合的权重、以及跟踪误差约束。在每个调仓期（例如每月），我们都需要求解以下带约束的优化问题：</p>
+<p>目标函数：最小化实际风险贡献与目标风险预算之间的差距。</p>
+<p><span class="math inline">\(\min_{\omega}\sum_{j=1}^{N}\left(\frac{\omega_j(\Sigma\omega)_j}{\sqrt{\omega'\Sigma\omega}}-RB_{target,j}\right)^2\)</span></p>
+<p>其中，<span class="math inline">\(N\)</span>是资产数量，<span class="math inline">\(\omega_j\)</span>是资产j的权重，<span class="math inline">\(RB_{target,j}\)</span>是我们根据宏观预测得到的资产j的目标风险预算。</p>
+<p>约束条件：</p>
+<p>1.跟踪误差约束：<span class="math inline">\(\sqrt{(\omega-\omega_{RP})'\Sigma(\omega-\omega_{RP})}\le TE_{max}\)</span></p>
+<p>2.权重和为一：<span class="math inline">\(\sum_{j=1}^{N}\omega_j=1\)</span></p>
+<p>3.非负约束（可选）：<span class="math inline">\(\omega_j\ge0\)</span>（禁止卖空）</p>
+<p>4.其他约束（可选）：单一资产/资产类别的最大最小权重限制。</p>
+<p>这个优化问题的求解需要依赖专业的数值优化器。求解得到的最优权重<span class="math inline">\(\omega^*\)</span>，就是我们在该调仓期需要执行的最终资产配置方案。</p>
+</section>
+<section id="五结论与总结-1" class="level3">
+<h3 class="anchored" data-anchor-id="五结论与总结-1">五、结论与总结</h3>
+<p>相比于经典的风险平价策略，ERP策略有望在以下几个方面实现显著提升：</p>
+<ul>
+<li><p>更高的年化回报：通过在有利的宏观环境下主动增加对相应优势资产的风险暴露，ERP策略能够更有效地捕捉市场上涨的Beta。例如，在持续的“金发女孩”经济（象限二）中，ERP会超配股票，从而在牛市中获得比经典RP策略高得多的回报。回测显示，类似的增强型全天候策略可以将年化收益率从5%-6%的水平提升至10%-12%甚至更高。</p></li>
+<li><p>更高的夏普比率：业绩的提升并非仅仅通过承担更高风险换来的。由于宏观择时提供了信息优势，使得策略能够在大概率正确的方向上承担风险，而在不利环境下减少风险暴露，因此风险调整后的收益（夏普比率）通常会有更大幅度的改善。</p></li>
+<li><p>可控的最大回撤：跟踪误差约束的存在，确保了ERP策略不会无限度地偏离其稳健的风险平价“锚”。因此，尽管策略的主动性增加了，其最大回撤通常能被控制在与经典RP策略相当甚至更低的水平。在某些市场危机中，如果宏观模型能提前预测到“衰退”或“滞胀”环境，ERP策略甚至可能通过减配股票、超配债券和黄金而表现出更强的防御性。</p></li>
+</ul>
+<p>但在实践中，ERP策略也面临着挑战和风险：</p>
+<ul>
+<li><p>模型风险：这是最大的风险来源。宏观择时模型可能在某些时期失效，做出错误的判断。如果模型持续误判，ERP的表现可能会落后于简单的经典RP策略。这也是为什么跟踪误差约束至关重要。</p></li>
+<li><p>参数敏感性：策略表现对关键参数（如主动性系数k、跟踪误差上限T）的选择较为敏感。这些参数需要通过严谨的回测和分析来确定，并且可能需要根据市场环境的变化进行动态调整。</p></li>
+<li><p>数据挖掘风险：在构建宏观择时模型的过程中，如果过度拟合历史数据，可能会发现一些在历史上看起来有效但在未来无效的“伪关系”。因此，强调模型的经济学逻辑、采用严格的样本外测试是至关重要的。</p></li>
+<li><p>黑天鹅事件：任何基于历史数据的模型都难以预测前所未有的“黑天鹅”事件（如全球大流行病、地缘政治突发冲突）。在这些事件冲击下，宏观变量之间的历史关系可能暂时失效。</p></li>
+</ul>
+<p>本文详细阐述的增强型风险平价（ERP）策略，弥补经典风险平价（全天候）策略的不足。它并非对风险平价理念的颠覆，而是科学谨慎的策略升级。策略的核心在于，通过构建严谨的量化宏观择时模型，将前瞻性的、基于基本面的主动观点，系统性地融入到风险平价的框架中。模型输出的宏观状态概率被转化为动态的风险预算调整，引导投资组合主动地、适度地超配那些处于有利宏观环境下的资产。</p>
+<p>而跟踪误差约束则扮演了“安全绳”的角色，它确保了策略的主动探索不会偏离风险平价这一稳固的基石太远，从而在追求更高回报的同时，保留了原策略强大的风险分散和抵御极端风险的核心优势。</p>
+<p>最终，通过预测、调整、约束和优化的闭环流程，增强型风险平价策略旨在实现一个在现代量化投资中至关重要的目标：在保持组合稳健性的基础上，系统性地提升长期风险调整后收益，为投资者创造更具吸引力的回报曲线。这不仅是对经典策略的有效增强，也代表了被动分散化与主动管理相结合的演进方向。</p>
+</section>
+</section>
+</section>
+<section id="第三部分层次风险平价模型" class="level1">
+<h1>第三部分、层次风险平价模型</h1>
+<section id="前言-2" class="level2">
+<h2 class="anchored" data-anchor-id="前言-2">前言</h2>
+<p>自Marcos Lópezde Prado于2016年提出以来，<strong>层次风险平价（Hierarchical Risk Parity, HRP）模型</strong>已从一个创新的学术概念，演变为全球机构投资者资产配置工具箱中的核心组成部分。截至2026年，在经历了过去十年、多次是市场结构性动荡的考验后，HRP的稳健性与实战价值得到了广泛验证。本文第三部分，我们将系统性的解构HRP模型的理论基础、核心算法、实战优劣，为专业投资者提供一份全面、深入的参考指南。</p>
+</section>
+<section id="一传统资产配置模型的困境与hrp的诞生" class="level2">
+<h2 class="anchored" data-anchor-id="一传统资产配置模型的困境与hrp的诞生">一、传统资产配置模型的困境与HRP的诞生</h2>
+<p>HRP的出现，源于对现有范式缺陷的深刻洞察与颠覆性解决，为了根治传统资产配置模型在真实投资世界中“水土不服”的两大顽疾。</p>
+<section id="均值-方差模型精准的幻象" class="level3">
+<h3 class="anchored" data-anchor-id="均值-方差模型精准的幻象">1.均值-方差模型：精准的幻象</h3>
+<p>均值-方差模型（Mean-Variance Optimization, MVO），无疑是现代投资组合理论的基石。然而，其在学术上的完美，却在实战中步履维艰。MVO模型的两大输入。预期收益率和协方差矩阵，恰恰是其最脆弱的阿喀琉斯之踵。</p>
+<p>一方面，金融市场充满了“噪声”，对资产未来收益的预测是投资领域最具挑战性的任务。MVO模型对预期收益率的微小变动极其敏感。实践中，哪怕预测误差仅有千分之一，也可能导致投资组合的权重发生天翻地覆的变化，这种“权重漂移”使得MVO模型在现实中几乎无法稳定应用。</p>
+<p>另一方面，MVO模型还面临着协方差矩阵的“维度灾难”与“病态”问题。当资产数量（N）增多时，协方差矩阵的尺寸以N²级别增长，其估计误差也会被急剧放大。</p>
+<p>更致命的是，当资产数量接近或超过历史数据的长度时，协方差矩阵会变得“奇异”（Singular）或“病态”（Ill-conditioned）。在这种情况下，对协方差矩阵求逆，任何微小的噪声都会被无限放大。这直接导致MVO模型输出的权重往往极端集中于少数几个“看似”不相关的资产上，而这些资产在真实市场压力下可能同时崩溃，从而导致组合的实际风险远远超出预期，实战效果不佳。</p>
+</section>
+<section id="经典风险平价貌合神离的分散化" class="level3">
+<h3 class="anchored" data-anchor-id="经典风险平价貌合神离的分散化">2.经典风险平价：貌合神离的分散化</h3>
+<p>为了规避对预期收益率的预测，风险平价（Risk Parity）模型应运而生。其核心思想是构建一个组合，使得每个单项资产对组合<strong>总风险的贡献（Risk Contribution）</strong>完全相等。这一思想在“不预测”的道路上迈出了重要一步，但其标准形式，<strong>等风险贡献（ERC）</strong>，存在一个与生俱来的、深刻的逻辑漏洞。</p>
+<p>一方面，RP模型无视资产内在关联，导致“假分散”。ERC模型在分配风险时，将每一项资产都视为一个独立的、原子化的风险单元。它完全忽略了资产之间根深蒂固的经济联系和相关性结构。</p>
+<p>以A股市场为例，工商银行、建设银行、中国平安虽然是三家不同的公司，但在宏观经济周期、利率政策、金融监管等共同因子的驱动下，它们的股价走势高度相关。ERC模型会天真地给予这三者各自一份独立的风险预算，试图让它们“风险均等”。</p>
+<p>然而，当金融板块遭遇系统性利空时，这三者会一同下跌，风险根本没有被有效分散，反而在同一个“篮子”里重复押注。这是一种典型的“假分散”，投资组合看似持有很多只股票，但其风险敞口却高度集中于某个或某几个因子上。</p>
+<p>另一方面，RP模型依然受困于全局协方差矩阵求逆。尽管ERC模型放弃了收益率预测，但其在求解权重时，依然需要依赖全局协方差矩阵的逆。这意味着，当资产池扩大时，ERC同样面临着与MVO类似的数值不稳定问题。资产数量越多，协方差矩阵越容易病态，计算出的风险贡献和权重就越不可靠。</p>
+</section>
+<section id="hrp模型" class="level3">
+<h3 class="anchored" data-anchor-id="hrp模型">3.HRP模型</h3>
+<p>Marcos Lópezde Prado 正是洞察到上述模型的根本缺陷，提出了HRP模型。HRP模型的革命性在于，它彻底改变了对“风险”和“分散化”的认知范式。HRP认为，真正的分散化，不是在大量不加区分的资产间平均分配风险，而是在识别出资产的内在层级结构后，在真正独立的“风险簇”之间进行风险平衡。</p>
+<p>HRP模型的核心思路可以通俗地理解为以下过程：</p>
+<ol type="1">
+<li><p>识别“距离关系”：HRP不会将所有资产一视同仁，而是利用机器学习的层次聚类算法，分析资产收益率的相关性，将那些“距离相近”、走势相关的资产“打包”成一个“簇”，例如同一行业内的股票，或不同国家的政府债券。</p></li>
+<li><p>“拆分”权重：HRP将每个资产簇视为一个整体的“风险簇”。风险预算首先在这些大的“风险簇”之间进行分配。</p></li>
+<li><p>逐层向下“拆分”权重：在一个“风险簇”获得总的风险预算后，再根据其内部成员的结构和波动性，将风险预算逐层向下细分，直至分配到每一个资产。</p></li>
+</ol>
+<p>整个过程，HRP巧妙地规避了两个最大的“坑”：全程无需预测收益率，全程无需对全局协方差矩阵求逆。它仅仅依靠资产的相关性和波动率这两种相对稳健的二阶矩信息，通过一种结构化的“拆分”策略，实现了更稳健、更符合经济直觉的资产配置。</p>
+</section>
+</section>
+<section id="二hrp模型的算法流程" class="level2">
+<h2 class="anchored" data-anchor-id="二hrp模型的算法流程">二、HRP模型的算法流程</h2>
+<p>HRP模型的实现过程逻辑清晰，固定分为四个紧密衔接的步骤。下面，我们将逐一深入剖析其背后的数学原理与实现细节。</p>
+<section id="步骤一构建距离矩阵" class="level3">
+<h3 class="anchored" data-anchor-id="步骤一构建距离矩阵">1.步骤一：构建距离矩阵</h3>
+<p>资产配置的第一步是度量资产间的关系。HRP的起点是所有待选资产的收益率时间序列数据。</p>
+<p>计算相关矩阵（Correlation Matrix）：首先，我们计算出每两项资产之间的皮尔逊相关系数（Pearson Correlation Coefficient），形成一个N×N的相关矩阵<span class="math inline">\(ρ\)</span>。矩阵中<span class="math inline">\(ρ_{ij}\)</span>的值介于-1和+1之间，表示资产i和资产j之间线性关系的强度和方向。</p>
+<p>将相关性转化为距离（Distance）：聚类算法通常处理的是“距离”而非“相关性”。我们需要将相关性度量转化为一个合适的距离度量<span class="math inline">\(d\)</span>。Lópezde Prado 提出的标准转换公式为：</p>
+<p><span class="math inline">\(d_{ij}=sqrt(0.5*(1-ρ_{ij}))\)</span></p>
+<p>这个公式具有非常巧妙的特性：</p>
+<ul>
+<li><p>归一化：当<span class="math inline">\(ρ_{ij}=1\)</span>(完全正相关)时，<span class="math inline">\(d_{ij}=0\)</span>，表示两个资产在几何空间中距离为零，应该被聚在一起。</p></li>
+<li><p>最大距离：当<span class="math inline">\(ρ_{ij}=-1\)</span>(完全负相关)时，<span class="math inline">\(d_{ij}=1\)</span>，表示距离最大。</p></li>
+<li><p>无相关：当<span class="math inline">\(ρ_{ij}=0\)</span>(不相关)时，<span class="math inline">\(d_{ij}=sqrt(0.5)≈0.707\)</span>。</p></li>
+</ul>
+<p>满足距离度量的数学公理：转换后的<span class="math inline">\(d\)</span>矩阵满足非负性、同一性、对称性和三角不等式，是一个严格意义上的距离矩阵，可以直接用于后续的聚类算法。</p>
+<p>经过这一步，将资产间的线性关系映射到一个几何空间中，为识别资产的“亲疏远近”提供了量化依据。</p>
+</section>
+<section id="步骤二自下而上建构层次聚类谱系" class="level3">
+<h3 class="anchored" data-anchor-id="步骤二自下而上建构层次聚类谱系">2.步骤二：自下而上建构层次聚类谱系</h3>
+<p>有了距离矩阵，HRP采用凝聚式层次聚类（Agglomerative Hierarchical Clustering）算法来构建资产的层级结构。该算法是一个自下而上的聚合过程。</p>
+<ul>
+<li><p>初始化：将每个单独的资产视为一个独立的簇。</p></li>
+<li><p>迭代合并：在每一步，算法会找到当前所有簇中距离最近的两个簇，并将它们合并成一个新的、更大的簇。这个过程不断重复。</p></li>
+<li><p>终止：直到所有资产被合并成一个唯一的、包含所有资产的根簇，迭代停止。</p></li>
+</ul>
+<p>这个过程的输出结果是一棵“谱系树”（Dendrogram），它以树状图的形式直观地展示了资产是如何从个体一步步聚合成行业、大类，最终形成一个完整的投资宇宙。</p>
+<p>如何定义两个“簇”之间的距离，是聚类过程中的核心，这由“链接方法”（Linkage Method）决定。不同的链接方法会产生不同形态的聚类树。</p>
+<ul>
+<li><p>Ward方差最小法（Ward’s Variance Minimization Method）：这是实战中首选且通常效果最优的方法。其合并准则是，选择合并后能使得所有簇内总方差增幅最小的两个簇。Ward法倾向于生成大小相对均匀、结构紧凑的球形簇，非常适合用于识别金融市场中具有共同风险因子的资产组，其生成的聚类树通常最为均衡和稳健。</p></li>
+<li><p>单链接法（Single Linkage）：定义簇间距离为两个簇中最近的两个样本点之间的距离。这种方法对噪声和异常值非常敏感，容易产生“链式效应”，即生成一些细长的、不均衡的簇，可能无法准确反映市场的真实板块结构。</p></li>
+<li><p>平均链接法（Average Linkage）：定义簇间距离为两个簇中所有样本点两两之间距离的平均值。这是一种介于单链接和全链接（Complete Linkage）之间的折中方案，稳健性优于单链接，但对于不同形状和密度的簇，其表现不如Ward法稳定。</p></li>
+</ul>
+<p>在HRP的实践中，选择Ward法通常是构建一个高质量、有意义的资产层级结构的最可靠起点。</p>
+</section>
+<section id="步骤三协方差矩阵的拟对角化" class="level3">
+<h3 class="anchored" data-anchor-id="步骤三协方差矩阵的拟对角化">3.步骤三：协方差矩阵的拟对角化</h3>
+<p>这是HRP模型中承上启下、至关重要的一步，也是其区别于其他模型、实现结构化风险分配的精髓所在。</p>
+<ul>
+<li><p>获取排序索引：上一步生成的聚类树<span class="math inline">\(linkage\)</span>矩阵，其叶子节点的排列顺序，蕴含了资产的层级亲疏关系。我们通过一个简单的遍历算法，可以从这棵树中提取出一个新的资产排序<span class="math inline">\(sort_{order}\)</span>。在这个新排序下，原本在相关矩阵中分散的、高度相关的资产，现在被排列在了一起。</p></li>
+<li><p>重排协方差矩阵：根据这个新的排序索<span class="math inline">\(sort_order\)</span>，我们对原始的协方差矩阵<span class="math inline">\(Σ\)</span>的行和列进行重新排列，得到一个新的、拟对角化（Quasi-Diagonalized）的协方差矩阵<span class="math inline">\(Σ\)</span>。</p>
+<p><span class="math inline">\(Σ*=P·Σ·P^T\)</span></p>
+<p>其中<span class="math inline">\(P\)</span>是一个置换矩阵（Permutation Matrix），它代表了<span class="math inline">\(sort_order\)</span>所定义的行/列交换操作。</p></li>
+</ul>
+<p>“拟对角化”的深刻含义是，一个理想的对角矩阵，其所有非对角线元素都为零，意味着所有资产都不相关。在拟对角化后的<span class="math inline">\(Σ\)</span>中，虽然非对角线元素不为零，但较大的值（代表高协方差/高相关性）都被集中到了主对角线周围，形成了一个个“块”（Blocks）。每个块内部的资产高度相关，而块与块之间的资产相关性则较低。</p>
+<p>这一步的战略目的，是将复杂的、交织在一起的全局相关性结构，转化为一个近似分块对角的形式。这使得后续的风险分配可以沿着这些天然的“断裂带”进行切割，确保风险是在真正独立的资产簇之间进行分散，而不是在高度相关的资产内部进行无效的微调。</p>
+</section>
+<section id="步骤四递归二分风险分配" class="level3">
+<h3 class="anchored" data-anchor-id="步骤四递归二分风险分配">4.步骤四：递归二分风险分配</h3>
+<p>这是HRP算法的最后一步，也是权重计算的核心。它采用了一种优雅的“分而治之”（Divideand Conquer）的递归策略，自上而下地分配风险预算。整个过程从排序后的资产列表，即拟对角化协方差矩阵<span class="math inline">\(Σ\)</span>所对应的资产顺序，的根节点开始。单轮递归二分的具体逻辑如下：</p>
+<ol type="1">
+<li><p>切分（Bisection）：将当前的资产列表（或簇）<span class="math inline">\(L\)</span>从中间（按资产数量）一分为二，得到左子集<span class="math inline">\(L_1\)</span>和右子集<span class="math inline">\(L_2\)</span>。由于资产已经过拟对角化排序，这次切分很大概率上是将两个相对独立的资产簇分开了。</p></li>
+<li><p>簇内风险平价（Intra-Cluster Parity）：对左右两个子集<span class="math inline">\(L_1\)</span>和<span class="math inline">\(L_2\)</span>分别进行逆方差加权（Inverse-Variance Weighting），得到各自子集内部的资产权重<span class="math inline">\(w_1\)</span>和<span class="math inline">\(w_2\)</span>。对于一个子集，其内部资产<span class="math inline">\(i\)</span>的权重为：</p>
+<p><span class="math inline">\(w_i=(1/σ_i²)/Σ(1/σ_j²)\)</span></p>
+<p>这可以看作是一种最简单的、在簇内部实现的风险平价。</p></li>
+<li><p>计算子集总方差（Cluster Variance）：利用子集内部的权重<span class="math inline">\(w_1\)</span>,<span class="math inline">\(w_2\)</span>和对应的协方差子矩阵，计算出左右两个子集合并后的整体方差<span class="math inline">\(V_1\)</span>和<span class="math inline">\(V_2\)</span>。</p>
+<p><span class="math inline">\(V_1=w_1^T·Cov(L_1)·w_1\)</span></p>
+<p><span class="math inline">\(V_2=w_2^T·Cov(L_2)·w_2\)</span></p></li>
+<li><p>计算簇间分配因子（Splitting Factor）：这是风险在簇之间分配的关键。HRP采用逆方差的原则来分配两个子集的总权重。波动率（方差）更低的子集，将获得更高的权重分配。分配因子<span class="math inline">\(α\)</span>的计算公式为：</p>
+<p><span class="math inline">\(α=V_2/(V_1+V_2)\)</span></p>
+<p>因此，左子集<span class="math inline">\(L_1\)</span>获得的总权重比例为<span class="math inline">\(α\)</span>，右子集<span class="math inline">\(L_2\)</span>获得的总权重比例为<span class="math inline">\(1-α\)</span>。这里存在一个微妙的交叉分配：左子集的权重由右子集的方差决定，反之亦然。这确保了风险在两个子集间的平衡。</p></li>
+<li><p>更新与递归（Update&amp;Recurse）：将左子集<span class="math inline">\(L_1\)</span>内部的所有资产权重乘以<span class="math inline">\(α\)</span>，右子集<span class="math inline">\(L_2\)</span>内部的所有资产权重乘以<span class="math inline">\(1-α\)</span>。然后，算法将分别对<span class="math inline">\(L_1\)</span>和<span class="math inline">\(L_2\)</span>重复上述1-4步的二分过程。</p></li>
+</ol>
+<p>这个递归过程持续进行，直到每个子集只包含一个单独的资产为止。此时，该资产的权重就是其最终权重。将所有资产的权重收集起来并归一化，就得到了最终的HRP投资组合权重。</p>
+<p>递归二分的颠覆性优势在于，整个权重计算过程完全没有进行任何矩阵求逆运算。所有的计算都局限在子集内部的方差计算和简单的标量运算上，这从根本上规避了MVO和ERC在高维情况下因协方差矩阵病态而崩溃的风险。算法的计算复杂度也远低于传统的二次规划优化，表现出极高的数值稳定性和计算效率。</p>
+</section>
+</section>
+<section id="三hrp模型-vs.-erc模型对比" class="level2">
+<h2 class="anchored" data-anchor-id="三hrp模型-vs.-erc模型对比">三、HRP模型 vs.&nbsp;ERC模型对比</h2>
+<p>为了更深刻地理解HRP的革新价值，我们将其与传统的等风险贡献（ERC）模型进行一次全方位的对比。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">对比维度</th>
+<th style="text-align: left;">传统等风险贡献（ERC）</th>
+<th style="text-align: left;">层次风险平价（HRP）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">风险划分基本单元</td>
+<td style="text-align: left;">单个独立资产。模型强制要求每只股票、每份债券对组合总风险的贡献都完全相等。</td>
+<td style="text-align: left;">聚类簇→个股的分层结构。风险首先在大的、独立的资产簇之间进行平衡，然后再逐层下放到子簇和个股。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">对协方差矩阵的处理</td>
+<td style="text-align: left;">全局协方差矩阵求逆。需要对整个资产池的协方差矩阵进行（隐式或显式的）求逆运算，当资产数量增多时，数值稳定性急剧下降。</td>
+<td style="text-align: left;">局部方差计算，无全局求逆。仅在递归的子集中计算局部方差，完全避免了全局矩阵求逆，在高维场景下极其稳健。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">对相关性的利用</td>
+<td style="text-align: left;">完全忽略资产的聚类结构。它无法区分“相似的风险”和“独立的风险”，导致高度相关的资产（如多只银行股）会重复占用风险额度，造成“假分散”。</td>
+<td style="text-align: left;">主动识别并利用相关性结构。通过层次聚类，将同质化风险打包成一个单元，确保风险预算是在真正不同的风险源（资产簇）之间进行分配，实现“真分散”。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">权重集中度</td>
+<td style="text-align: left;">理论上分散，但实践中常因数值问题或资产特性，向少数低波动率资产（如长期国债）过度倾斜，导致组合的风险收益特征单一化。</td>
+<td style="text-align: left;">权重分布通常更为均衡和稳健。由于风险在簇间和簇内两级分配，避免了单因子驱动下的极端权重。一个高波动的成长股簇，虽然整体权重较低，但簇内依然可以有资产获得配置。</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">样本外表现</td>
+<td style="text-align: left;">对市场风格和相关性结构的突变非常敏感。当市场进入新的宏观状态时，协方差矩阵发生变化，权重可能发生剧烈跳变，导致高昂的交易成本和不稳定的回撤。</td>
+<td style="text-align: left;">资产的层级聚类结构通常具有一定的延续性和稳定性。即使市场短期波动，大的行业板块划分不会轻易改变。因此，HRP的调仓通常更平滑，在市场转折期的适应性更强，回撤控制能力更佳。</td>
+</tr>
+</tbody>
+</table>
+<p>举一个实际的例子，假设我们的资产池中包含A股的银行、保险、券商三大金融板块，以及消费、医药、科技等板块。</p>
+<p>ERC模型的做法： 它会试图让工商银行、中国平安、中信证券、贵州茅台、恒瑞医药、中芯国际等所有股票对组合的风险贡献都相等。在熊市中，当金融板块整体承压时，银行、保险、券商三者会集体下跌，ERC模型所构建的“风险等分”失效，因为这些风险源本就不是独立的。</p>
+<p>HRP模型的做法：</p>
+<ol type="1">
+<li><p>聚类：HRP会首先识别出银行、保险、券商之间的高度相关性，将它们聚类成一个大的“大金融”簇。</p></li>
+<li><p>簇间分配：HRP会在“大金融”簇、“消费”簇、“医药”簇、“科技”簇之间分配风险预算。比如，它会给整个“大金融”簇分配一份总的风险额度。</p></li>
+<li><p>簇内分配：在“大金融”簇获得的这份总额度内，再根据银行、保险、券商各自的波动率和内部相关性，进行二次分配。</p></li>
+</ol>
+<p>通过这种方式，HRP从结构上就限制了对单一系统性因子（如金融周期）的过度暴露，即使金融板块整体表现不佳，其对整个投资组合的冲击也被一个明确的“簇间的风险分配”所控制，实现更深刻、更有效的风险管理。</p>
+</section>
+<section id="四hrp模型的优势局限和改良" class="level2">
+<h2 class="anchored" data-anchor-id="四hrp模型的优势局限和改良">四、HRP模型的优势、局限和改良</h2>
+<section id="hrp的优势" class="level3">
+<h3 class="anchored" data-anchor-id="hrp的优势">1.HRP的优势</h3>
+<ul>
+<li><p>极强的鲁棒性与非预测性：这是HRP最吸引人的特质。它不依赖于对资产未来收益率的任何预测——这是所有金融预测中误差最大、最不可靠的变量。它仅使用波动率和相关性这两种相对稳定、更容易从历史数据中估计的二阶矩信息。这使得HRP模型的结果更加客观和可重复。</p></li>
+<li><p>从根源上规避矩阵求逆灾难：HRP通过其独特的递归二分算法，彻底绕开了对全局协方差矩阵求逆的依赖。这解决了MVO和ERC模型在高维（即资产数量众多）情况下的核心痛点。对于包含数百甚至数千种资产（如全球ETF、公募基金池）的投资组合，HRP依然能够稳定运行并给出合理的权重，而传统模型此时早已因数值问题而崩溃。</p></li>
+<li><p>实现了真正的结构化风险分散：HRP是第一个将资产的内在经济联系（通过聚类体现）内生性地融入到权重分配过程中的模型。它分散的不再是单纯的资产数量，而是背后独立的、由数据驱动识别出的风险因子簇。这更符合真实世界的运作规律，即市场是由不同的板块、行业和风格因子驱动的。</p></li>
+<li><p>天然满足多头约束：HRP的递归二分和逆方差加权过程，保证了其输出的所有资产权重均为正数。这意味着它天然就是一个纯多头（Long-Only）的配置模型，无需像MVO那样额外施加复杂的非负权重约束，从而简化了优化过程。</p></li>
+<li><p>卓越的计算效率：分治递归算法的计算复杂度通常低于求解一个大规模的二次规划问题。这使得HRP在进行大规模回测、高频调仓或对计算资源有严格限制的场景中，具有明显的效率优势。</p></li>
+</ul>
+</section>
+<section id="hrp的局限性" class="level3">
+<h3 class="anchored" data-anchor-id="hrp的局限性">2.HRP的局限性</h3>
+<ul>
+<li><p>高度依赖聚类质量：HRP的基石是层次聚类。如果聚类步骤出了问题，那么后续的所有分配都将是“建立在沙滩上的城堡”。聚类的质量受到距离度量公式和链接方法选择的显著影响。</p>
+<p>例如，在充满噪声的行情中，若误用单链接法，可能导致聚类树被严重扭曲，无法反映真实的经济结构，从而使HRP的优势丧失。</p></li>
+<li><p>对结构性突变的滞后性：HRP基于历史数据（通常是过去一段时间的收益率）来构建相关性矩阵和聚类树。如果市场发生剧烈的、非连续的结构性变化（例如，突发的行业颠覆性政策、地缘政治冲突导致全球供应链重构等），那么基于旧有关系建立的聚类树可能会在短时间内失效。</p>
+<p>HRP需要一定时间的数据积累才能“学习”到新的市场结构，因此存在一定的滞后性。实践中，这要求使用者必须定期（例如每季度、每月）滚动重跑整个HRP流程，以更新聚类结构。</p></li>
+<li><p>纯粹的风险导向，收益中性：HRP是一个彻底的“风险管家”，其目标是实现风险的均衡分配，但它本身不包含任何主动寻求超额收益（Alpha）的机制。</p>
+<p>如果一个资产或资产簇未来有极高的增长潜力，但其历史波动率也很高，HRP会天然地低配它。这使得纯粹的HRP组合在长期的牛市中，其收益弹性可能弱于那些更偏向进攻性的策略。</p></li>
+<li><p>逆方差分配的保守偏好：在簇间和簇内分配权重时，HRP都遵循了“逆方差”的原则，即低波动率的资产和资产簇获得更高权重。这是一种内生的保守倾向，使得组合天然偏好防御性、低波动的资产（如债券、高股息股票）。</p>
+<p>对于追求高成长、能承受更高风险的投资者来说，纯HRP组合可能会显得过于保守。它更适合作为稳健型资金（如固收+、养老金、保险资金）的核心配置策略。</p></li>
+</ul>
+<p>3.模型改良</p>
+<ul>
+<li><p><strong>HERC（Hierarchical Equal Risk Contribution）：</strong>这是对HRP最直接、也是目前在机构中应用最广泛的改进。HERC保留了HRP的聚类和拟对角化步骤，但在递归二分的第四步，将简单的逆方差簇间分配，替换为在簇层面实现的严格的等风险贡献（ERC）。也就是说，HERC追求的是让每个大的资产簇对组合的总风险贡献完全相等。这比HRP的逆方差分配更精确地贯彻了“风险平价”的思想，通常能带来更极致的风险均衡。</p></li>
+<li><p><strong>HRP+因子增强（Factor-Enhanced HRP）：</strong>为了解决HRP收益中性的问题，研究者将因子投资思想与HRP相结合。在HRP完成了聚类和结构识别后，并不完全按照HRP的逆方差规则分配簇间权重。而是对每个资产簇，根据额外的因子（如动量、价值、质量、低波、景气度等）进行打分。得分高的簇（例如，处于强势动量中的科技股簇）将在原有HRP权重的基础上获得一个“增强”系数，从而提升其权重配置。这种混合方法试图在保持HRP稳健风险框架的同时，注入Alpha来源，实现风险和收益的更好结合。</p></li>
+<li><p><strong>鲁棒协方差预处理HRP（Robust Covariance HRP）：</strong>此方向的改进着眼于HRP的数据输入端。原始的样本协方差矩阵对历史异常值非常敏感。为了提高HRI的稳定性，可以在计算协方差矩阵的环节，引入更鲁棒的估计方法，例如：</p>
+<p>Ledoit-Wolf压缩估计（Shrinkage）：将样本协方差矩阵向一个更结构化的目标矩阵（如等相关矩阵）进行“压缩”，以降低估计误差。</p>
+<p>指数加权移动平均（EWMA）：给予近期数据更高的权重，使协方差矩阵能更快地反应市场近期的变化。 高斯核平滑等：利用非参数方法对协方差矩阵进行平滑处理，去除噪声。</p></li>
+<li><p><strong>主观层级HRP（Subjective/Expert-Driven HRP）：</strong>在某些场景下，投资者可能拥有超越历史数据的先验知识。主观层级HRP允许分析师不使用算法自动聚类，而是根据宏观经济逻辑、行业分类标准（如GICS）或自定义的投资策略，人工设定资产的层级结构。</p>
+<p>例如，可以先将资产分为“股票/债券/商品/现金”四大类，再在“股票”内部按“发达市场/新兴市场”划分，再往下按“行业”划分。然后，HRP的递归二分算法将在这个预设的树形结构上进行权重分配。这非常适合自上而下的宏观配置策略。</p></li>
+</ul>
+<p>Python代码实现</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入必要库</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.cluster.hierarchy <span class="im">as</span> sch</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤0: 准备数据</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设returns是一个行为日期，列为资产的收益率DataFrame</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># returns = pd.read_csv("asset_return.csv", index_col=0)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 计算协方差矩阵和相关矩阵</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>cov, corr <span class="op">=</span> returns.cov(), returns.corr()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤1: 由相关矩阵生成距离矩阵</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>dist <span class="op">=</span> np.sqrt((<span class="dv">1</span> <span class="op">-</span> corr) <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤2: 层次聚类</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用scipy的linkage函数，方法选择'ward'</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>link <span class="op">=</span> sch.linkage(dist, <span class="st">'ward'</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤3: 拟对角化排序</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 这个函数通过遍历聚类树来获得最优的叶子节点排序</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_quasi_diag(link):</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    link <span class="op">=</span> link.astype(<span class="bu">int</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    sort_ix <span class="op">=</span> pd.Series([link[<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>], link[<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>]])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    num_items <span class="op">=</span> link[<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>]</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> sort_ix.<span class="bu">max</span>() <span class="op">&gt;=</span> num_items:</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        sort_ix.index <span class="op">=</span> <span class="bu">range</span>(<span class="bu">len</span>(sort_ix))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        replace_ix <span class="op">=</span> sort_ix[sort_ix <span class="op">&gt;=</span> num_items]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        to_replace <span class="op">=</span> link[replace_ix <span class="op">-</span> num_items]</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        sort_ix <span class="op">=</span> sort_ix.drop(replace_ix.index)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        sort_ix <span class="op">=</span> pd.concat([sort_ix, pd.Series(to_replace[:, <span class="dv">0</span>]), pd.Series(to_replace[:, <span class="dv">1</span>])], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> sort_ix.tolist()</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>sort_order_indices <span class="op">=</span> get_quasi_diag(link)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>asset_names <span class="op">=</span> returns.columns</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>sorted_asset_names <span class="op">=</span> asset_names[sort_order_indices].tolist()</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 重排协方差矩阵</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>sorted_cov <span class="op">=</span> cov.loc[sorted_asset_names, sorted_asset_names]</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 步骤4: 递归二分权重求解</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recursive_bisection(cov, sort_order):</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(sort_order) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.Series(<span class="fl">1.</span>, index<span class="op">=</span>sort_order)</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 找到切分点</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    mid <span class="op">=</span> <span class="bu">len</span>(sort_order) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    left_assets <span class="op">=</span> sort_order[:mid]</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    right_assets <span class="op">=</span> sort_order[mid:]</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 提取左右子协方差矩阵</span></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    cov_left <span class="op">=</span> cov.loc[left_assets, left_assets]</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    cov_right <span class="op">=</span> cov.loc[right_assets, right_assets]</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 对子集进行逆方差加权 (这里简化为子集内部的HRP)</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 或者如原文，计算子组合方差</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>    w_left_sub <span class="op">=</span> <span class="fl">1.</span> <span class="op">/</span> np.diag(cov_left)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    w_left_sub <span class="op">/=</span> np.<span class="bu">sum</span>(w_left_sub)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    var_left <span class="op">=</span> w_left_sub.T <span class="op">@</span> cov_left.values <span class="op">@</span> w_left_sub</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>    w_right_sub <span class="op">=</span> <span class="fl">1.</span> <span class="op">/</span> np.diag(cov_right)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>    w_right_sub <span class="op">/=</span> np.<span class="bu">sum</span>(w_right_sub)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>    var_right <span class="op">=</span> w_right_sub.T <span class="op">@</span> cov_right.values <span class="op">@</span> w_right_sub</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算分配因子alpha</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> var_left <span class="op">/</span> (var_left <span class="op">+</span> var_right) <span class="co"># 分给左边的权重</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 递归调用</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>    w_left <span class="op">=</span> recursive_bisection(cov, left_assets) <span class="op">*</span> alpha</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>    w_right <span class="op">=</span> recursive_bisection(cov, right_assets) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> alpha)</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.concat([w_left, w_right])</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取最终权重</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>final_weights <span class="op">=</span> recursive_bisection(cov, sorted_asset_names)</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(final_weights.sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>工程化实践建议：</p>
+<p>在生产环境中，强烈建议使用经过良好测试和优化的开源库。截至2026年，PyPortfolioOpt、skfolio、riskfolio-lib 以及专门的 pyhrp 库都提供了HRP及其多种变体（如HERC）的成熟实现。这些库处理了更多边缘情况，并提供了更丰富的接口和分析工具。</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="pagination-link" aria-label="第7章 资产配置 第5节 全天候策略和风险平价模型">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
