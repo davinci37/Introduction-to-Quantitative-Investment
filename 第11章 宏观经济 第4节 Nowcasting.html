@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第11章 宏观经济 第4节 Nowcasting – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第1节 R语言入门.html" rel="next">
+<link href="./第11章 宏观经济 第3节 景气指数.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第11章 宏观经济 第4节 Nowcasting.html">第11章 宏观经济 第4节 Nowcasting</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第4节 Nowcasting.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第11章 宏观经济 第4节 Nowcasting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#引言" id="toc-引言" class="nav-link active" data-scroll-target="#引言">引言</a></li>
+  <li><a href="#一问题提出" id="toc-一问题提出" class="nav-link" data-scroll-target="#一问题提出">一、问题提出</a></li>
+  <li><a href="#二nowcasting的思想原理与模型" id="toc-二nowcasting的思想原理与模型" class="nav-link" data-scroll-target="#二nowcasting的思想原理与模型">二、Nowcasting的思想、原理与模型</a>
+  <ul class="collapse">
+  <li><a href="#核心思想信息冲击的实时消化" id="toc-核心思想信息冲击的实时消化" class="nav-link" data-scroll-target="#核心思想信息冲击的实时消化">1.核心思想：信息冲击的实时消化</a></li>
+  <li><a href="#技术原理混频建模的基本框架" id="toc-技术原理混频建模的基本框架" class="nav-link" data-scroll-target="#技术原理混频建模的基本框架">2.技术原理：混频建模的基本框架</a></li>
+  <li><a href="#主要模型分类" id="toc-主要模型分类" class="nav-link" data-scroll-target="#主要模型分类">3.主要模型分类</a></li>
+  </ul></li>
+  <li><a href="#三桥接方程模型" id="toc-三桥接方程模型" class="nav-link" data-scroll-target="#三桥接方程模型">三、桥接方程模型</a>
+  <ul class="collapse">
+  <li><a href="#基本结构与估计逻辑" id="toc-基本结构与估计逻辑" class="nav-link" data-scroll-target="#基本结构与估计逻辑">1.基本结构与估计逻辑</a></li>
+  <li><a href="#关键参数选择与数据对齐机制" id="toc-关键参数选择与数据对齐机制" class="nav-link" data-scroll-target="#关键参数选择与数据对齐机制">2.关键参数选择与数据对齐机制</a></li>
+  <li><a href="#应用场景与实证表现" id="toc-应用场景与实证表现" class="nav-link" data-scroll-target="#应用场景与实证表现">3.应用场景与实证表现</a></li>
+  <li><a href="#主要不足和局限性" id="toc-主要不足和局限性" class="nav-link" data-scroll-target="#主要不足和局限性">4.主要不足和局限性</a></li>
+  </ul></li>
+  <li><a href="#四midas回归模型" id="toc-四midas回归模型" class="nav-link" data-scroll-target="#四midas回归模型">四、MIDAS回归模型</a>
+  <ul class="collapse">
+  <li><a href="#理论基础与数学设定" id="toc-理论基础与数学设定" class="nav-link" data-scroll-target="#理论基础与数学设定">1.理论基础与数学设定</a></li>
+  <li><a href="#权重函数与参数识别" id="toc-权重函数与参数识别" class="nav-link" data-scroll-target="#权重函数与参数识别">2.权重函数与参数识别</a></li>
+  <li><a href="#约束型与非约束型midas" id="toc-约束型与非约束型midas" class="nav-link" data-scroll-target="#约束型与非约束型midas">3.约束型与非约束型MIDAS</a></li>
+  <li><a href="#应用场景与实证表现-1" id="toc-应用场景与实证表现-1" class="nav-link" data-scroll-target="#应用场景与实证表现-1">4.应用场景与实证表现</a></li>
+  <li><a href="#主要不足和局限性-1" id="toc-主要不足和局限性-1" class="nav-link" data-scroll-target="#主要不足和局限性-1">5.主要不足和局限性</a></li>
+  </ul></li>
+  <li><a href="#五动态因子模型" id="toc-五动态因子模型" class="nav-link" data-scroll-target="#五动态因子模型">五、动态因子模型</a>
+  <ul class="collapse">
+  <li><a href="#理论基础与模型设定" id="toc-理论基础与模型设定" class="nav-link" data-scroll-target="#理论基础与模型设定">1 理论基础与模型设定</a></li>
+  <li><a href="#因子估计em算法与卡尔曼滤波的融合" id="toc-因子估计em算法与卡尔曼滤波的融合" class="nav-link" data-scroll-target="#因子估计em算法与卡尔曼滤波的融合">2.因子估计：EM算法与卡尔曼滤波的融合</a></li>
+  <li><a href="#因子结构设计从单因子到分组因子" id="toc-因子结构设计从单因子到分组因子" class="nav-link" data-scroll-target="#因子结构设计从单因子到分组因子">3.因子结构设计：从单因子到分组因子</a></li>
+  <li><a href="#新闻分解dfm最独特的分析功能" id="toc-新闻分解dfm最独特的分析功能" class="nav-link" data-scroll-target="#新闻分解dfm最独特的分析功能">4.新闻分解：DFM最独特的分析功能</a></li>
+  <li><a href="#实证表现与机构应用" id="toc-实证表现与机构应用" class="nav-link" data-scroll-target="#实证表现与机构应用">5 实证表现与机构应用</a></li>
+  <li><a href="#主要不足和局限性-2" id="toc-主要不足和局限性-2" class="nav-link" data-scroll-target="#主要不足和局限性-2">6.主要不足和局限性</a></li>
+  </ul></li>
+  <li><a href="#六机器学习在nowcasting中的应用" id="toc-六机器学习在nowcasting中的应用" class="nav-link" data-scroll-target="#六机器学习在nowcasting中的应用">六、机器学习在Nowcasting中的应用</a>
+  <ul class="collapse">
+  <li><a href="#正则化线性模型" id="toc-正则化线性模型" class="nav-link" data-scroll-target="#正则化线性模型">1.正则化线性模型</a></li>
+  <li><a href="#树集成方法" id="toc-树集成方法" class="nav-link" data-scroll-target="#树集成方法">2.树集成方法</a></li>
+  <li><a href="#神经网络与深度学习方法" id="toc-神经网络与深度学习方法" class="nav-link" data-scroll-target="#神经网络与深度学习方法">3.神经网络与深度学习方法</a></li>
+  <li><a href="#主要优势和不足" id="toc-主要优势和不足" class="nav-link" data-scroll-target="#主要优势和不足">4.主要优势和不足</a></li>
+  </ul></li>
+  <li><a href="#六总结和结论" id="toc-六总结和结论" class="nav-link" data-scroll-target="#六总结和结论">六、总结和结论</a></li>
+  <li><a href="#七实践案例" id="toc-七实践案例" class="nav-link" data-scroll-target="#七实践案例">七、实践案例</a>
+  <ul class="collapse">
+  <li><a href="#案例目标" id="toc-案例目标" class="nav-link" data-scroll-target="#案例目标">1.案例目标</a></li>
+  <li><a href="#指标池构建" id="toc-指标池构建" class="nav-link" data-scroll-target="#指标池构建">2.指标池构建</a></li>
+  <li><a href="#数据预处理" id="toc-数据预处理" class="nav-link" data-scroll-target="#数据预处理">3.数据预处理</a></li>
+  <li><a href="#指标筛选" id="toc-指标筛选" class="nav-link" data-scroll-target="#指标筛选">4.指标筛选</a></li>
+  <li><a href="#dfm-模型设定" id="toc-dfm-模型设定" class="nav-link" data-scroll-target="#dfm-模型设定">5.DFM 模型设定</a></li>
+  <li><a href="#训练与预测设置" id="toc-训练与预测设置" class="nav-link" data-scroll-target="#训练与预测设置">6.训练与预测设置</a></li>
+  <li><a href="#模型评估" id="toc-模型评估" class="nav-link" data-scroll-target="#模型评估">7.模型评估</a></li>
+  <li><a href="#即时预测与news分解" id="toc-即时预测与news分解" class="nav-link" data-scroll-target="#即时预测与news分解">8.即时预测与News分解</a></li>
+  <li><a href="#从预测到配置" id="toc-从预测到配置" class="nav-link" data-scroll-target="#从预测到配置">9.从预测到配置</a></li>
+  <li><a href="#风险提示" id="toc-风险提示" class="nav-link" data-scroll-target="#风险提示">10.风险提示</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第11章 宏观经济 第4节 Nowcasting</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言" class="level2">
+<h2 class="anchored" data-anchor-id="引言">引言</h2>
+<p><strong>Nowcasting（即时预测，实时预测）</strong>是一种宏观经济计量和预测方法。对于宏观经济的 Nowcasting 就是利用高频的、实时发布的宏观指标，对尚未公布的低频指标，进行当前状态的评估与预测。</p>
+<p>传统宏观经济指标（如季度 GDP等）更新频率较低，且存在滞后性。而大量月度、周度、甚至日度的指标以更高频率陆续面世，这构成了对当前经济运行状况进行<strong>“即时预报”</strong>的信息基础。Nowcasting 技术通过纳入高频经济指标（如月度披露的工业增加值、贸易差额等），实时反映经济现状，填补低频指标的空窗期，为政策制定和投资决策提供及时支持。</p>
+<p>本节，我们将系统梳理Nowcasting的思想来源、核心原理与主要模型，并重点介绍桥接方程模型、MIDAS回归模型和动态因子模型三条技术路线的理论基础、估计框架、方法演进及应用实践。</p>
+</section>
+<section id="一问题提出" class="level2">
+<h2 class="anchored" data-anchor-id="一问题提出">一、问题提出</h2>
+<p>宏观经济决策高度依赖对当前经济运行状态的及时判断，然而最具代表性、最全面的宏观经济指标，国内生产总值（GDP），通常以季度频率统计，且首次预估数据往往在参考季度结束约30天后才由统计部门发布。这种时滞意味着，政策制定者在相当长的时间内缺乏对当前季度经济增速的直接观测。</p>
+<p>与此同时，工业产出、就业、消费者信心、零售额、采购经理人指数（PMI）等大量指标以月度甚至周度频率陆续发布，且不同指标的发布时刻相互错开，形成了典型的“非同步数据发布”或“锯齿边缘”问题。</p>
+<p>如何有效利用这些高频、非同步到达的信息流，对尚未公布的季度GDP做出准确实时判断，便构成了宏观经济Nowcasting的核心议题。</p>
+<p>“Nowcasting”一词由“now”与“forecasting”拼合而成，最早由Giannone、Reichlin与Small（2008）在其开创性论文《Nowcasting: The Real-Time Informational Content of Macroeconomic Data》中系统提出和定义。</p>
+<p>与传统经济预测不同，Nowcasting 的预测对象并非未来几个季度，而是“当前季度”乃至“刚刚发生的季度”，其预测任务在时间维度上处于“回溯”与“临近预测”之间。技术层面上，Nowcasting面临的核心挑战主要有三：</p>
+<ul>
+<li><p>第一，混频数据处理，自变量（月度）与因变量（季度）天然存在频率不对齐；</p></li>
+<li><p>第二，锯齿边缘问题，各指标发布时刻不同，在任一给定日期，数据矩阵总是呈现出阶梯状缺失的形态；</p></li>
+<li><p>第三，维度扩展，现代宏观经济监测涉及数十至上百个指标，如何在信息利用与参数维数之间取得平衡，是一个重要的计量经济学问题。</p></li>
+</ul>
+<p>问世以来，Nowcasting 技术经历了迅猛发展，该领域已形成以混频数据建模为核心，以桥接方程、MIDAS回归、和动态因子模型为三大主流技术路线的清晰研究格局。</p>
+</section>
+<section id="二nowcasting的思想原理与模型" class="level2">
+<h2 class="anchored" data-anchor-id="二nowcasting的思想原理与模型">二、Nowcasting的思想、原理与模型</h2>
+<section id="核心思想信息冲击的实时消化" class="level3">
+<h3 class="anchored" data-anchor-id="核心思想信息冲击的实时消化">1.核心思想：信息冲击的实时消化</h3>
+<p>Nowcasting的哲学基础在于一个朴素的认知：宏观经济数据并非同时产生并同时发布，而是以不同频率、不同延迟陆续呈现。当工业产出数据于当月第40天发布时，其对当前季度GDP的“信号价值”便嵌入了一个不完整的信息集中。</p>
+<p>政策制定者和市场参与者关心的核心问题是：在这样一个信息零碎、不同步抵达的数据环境中，如何以最优的方式综合所有已到达的信号，形成对目标变量的“当前最优判断”？</p>
+<p>对此，Giannone、Reichlin与Small（2008）提出了一个至今影响深远的概念框架：将每个新数据的发布视为一次“信息冲击”，而Nowcasting模型的核心功能便是量化这一冲击对目标变量预测值的边际修正量，即为“新闻分解”。</p>
+<p>这种框架不仅能够更新预测值本身，更能够揭示“究竟是哪个数据发布、以多大的幅度”改变了经济前景的判断。例如，当非农就业数据发布后，DFM模型可以自动计算出该数据对GDP Nowcast的上调或下修贡献了多少个百分点，从而为市场解读和货币政策沟通提供高度透明的技术支撑。</p>
+</section>
+<section id="技术原理混频建模的基本框架" class="level3">
+<h3 class="anchored" data-anchor-id="技术原理混频建模的基本框架">2.技术原理：混频建模的基本框架</h3>
+<p>从计量经济学角度来看，Nowcasting的本质是混频数据建模问题。设目标变量为季度GDP增长率 <span class="math inline">\(y_t\)</span>，其中<span class="math inline">\(t\)</span> 表示季度，可利用的月度指标向量为 <span class="math inline">\(\{x_{t,m}\}\)</span>，其中 <span class="math inline">\(m=1,2,3\)</span> 标记季度内的月份。在任一实时日期，低频观测 <span class="math inline">\(y_t\)</span> 尚未公布，而部分高频观测 <span class="math inline">\(x_{t,m}\)</span> 已可获得，其余仍为缺失。Nowcasting 任务可表述为：</p>
+<p><span class="math inline">\(\hat{y}_{t|v} = E(y_t \mid \Omega_v)\)</span></p>
+<p>其中，<span class="math inline">\(\Omega_v\)</span> 为在日期 <span class="math inline">\(v\)</span> 时可供使用的全部信息集合，该集合因指标发布时刻的不同而呈“锯齿状”分布。</p>
+<p>各种类型的 Nowcasting 模型，如桥接方程、MIDAS回归和动态因子模型，本质上是上述条件期望问题的不同求解路径，它们在如何处理混频不定对齐、如何施加参数约束、如何利用变量间的横截面信息等问题上迥然不同，但也有一个共同的目标：在信息尚未完备的条件下，提供尽可能接近真实值的实时估计。</p>
+</section>
+<section id="主要模型分类" class="level3">
+<h3 class="anchored" data-anchor-id="主要模型分类">3.主要模型分类</h3>
+<p>目前，业界和学界主要有以下几类主流方法，它们的建模策略和信息利用方式的不同，各有侧重，且在实际应用中常常互为补充。</p>
+<section id="桥接方程" class="level4">
+<h4 class="anchored" data-anchor-id="桥接方程">3.1. 桥接方程</h4>
+<p>桥接方程（Bridge Equations）是一种架构精巧、逻辑清晰的模型。其基本思想是为每一个高频指标（如月度汽车销量、PMI等）构建一个独立的方程。这些方程就像一座座“桥”，将高频数据的短期信息“桥接”到对低频目标变量（如季度GDP）的预测上来。</p>
+<p>桥接方程模型采用“两步走”的间接策略。该方法首先对月度高频指标在季度剩余月份进行预测补齐，再将补齐的高频指标按季度聚合后代入对GDP的回归方程进行预测。</p>
+<p>桥接模型结构简单、可解释性强，在各国央行和国际机构中广泛使用。</p>
+</section>
+<section id="midas回归模型" class="level4">
+<h4 class="anchored" data-anchor-id="midas回归模型">3.2. MIDAS回归模型</h4>
+<p>MIDAS回归模型（Mixed Data Sampling Regressions） 由Ghysels等（2004, 2007）提出，核心思想是通过多项式权重函数对高频变量的滞后项施加参数约束，从而直接建立高频解释变量与低频被解释变量之间的回归关系，无需时间聚合。</p>
+<p>MIDAS框架具有良好的参数节俭性，且可由NLS或OLS直接估计。MIDAS因其简洁高效的核心理念，成为处理“混频数据”最自然的起点。它通过一个参数化的权重函数，为那些发布频率更高（如周度、日度）的“领先”数据分配权重，来直接预测低频的目标变量（如季度GDP）。</p>
+<p>学术研究在其基础上发展出多种灵活变体。例如，贝叶斯MIDAS能更稳健地处理高维数据。在实践中，该方法已被成熟应用，例如投资中的现时预测系统和英国央行使用的SC-MIDAS（Staggered-Combination MIDAS）方法，展现了出色的预测性能。</p>
+</section>
+<section id="动态因子模型" class="level4">
+<h4 class="anchored" data-anchor-id="动态因子模型">3.3. 动态因子模型</h4>
+<p>动态因子模型（Dynamic Factor Model, DFM） 由Giannone等（2008）引入Nowcasting领域，构成纽约联储官方Nowcasting框架的技术内核。</p>
+<p>DFM则是从海量宏观指标中“降维”的典范。鉴于任何单一指标都难以反映整体经济全貌，DFM的核心思想就是从成百上千个时间序列中，提取出少数几个共同的、不可观测的动态因子，这些因子被认为驱动了宏观经济的整体波动。该模型首先用状态空间法从数十个混频指标中提取少量不可观测的公共因子，随后以因子为中介变量预测GDP增长率。</p>
+<p>DFM依托卡尔曼滤波与EM算法，天然适配锯齿边缘数据环境，且具有完整的“新闻分解”功能，是当前央行Nowcasting实践中的主流选择。通过将这些因子纳入模型，就能在考虑不同数据发布延迟的情况下，对GDP等核心指标进行实时预测。</p>
+<p>为了提升准确性和解释力，学术前沿也发展出多种高级形式，如纽约联储提出的基于GDP支出法成分的“成分动态因子模型”。</p>
+</section>
+<section id="机器学习方法" class="level4">
+<h4 class="anchored" data-anchor-id="机器学习方法">3.4. 机器学习方法</h4>
+<p>近年的研究显示，机器学习方法在Nowcasting领域展现出惊人潜力，在特定场景下甚至超越传统计量模型。这主要归功于其强大的非线性拟合能力和处理“高维诅咒”的优越性。其中，LASSO回归在研究中表现尤为突出；在高维数据下，LASSO和Elastic Net（弹性网络）的综合表现最佳。</p>
+<p>多家国家央行（瑞士、葡萄牙等）的研究对比了多种机器学习与传统方法，证明机器学习方法模型有潜力提供更快更准的预测。以下是几种典型ML方法的适用性总结：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">算法类别</th>
+<th style="text-align: left;">代表方法</th>
+<th style="text-align: left;">主要特点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">正则化回归</td>
+<td style="text-align: left;">LASSO, Ridge, Elastic Net</td>
+<td style="text-align: left;">通过惩罚项自动筛选重要变量、防止过拟合，在高维场景下尤为稳健</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">集成学习</td>
+<td style="text-align: left;">Random Forest, Gradient Boosting</td>
+<td style="text-align: left;">通过组合多个弱学习器来降低方差和偏差，预测精度高，对非线性关系捕捉能力强</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">神经网络</td>
+<td style="text-align: left;">RNN, LSTM, SVR</td>
+<td style="text-align: left;">能捕捉复杂的时间依赖模式，但通常需要更多数据和调参</td>
+</tr>
+</tbody>
+</table>
+<p>简单概括，桥接方程以高频指标预测补齐再到GDP回归的两步间接策略实现混频预测，MIDAS回归通过多项式加权直接建立高低频变量间的单方程映射，动态因子模型则通过状态空间内的卡尔曼滤波和EM算法从高维混频数据中提取潜因子以完成系统性预测。后文，我们进一步辨析各方法之间的技术差异与适用边界。</p>
+</section>
+</section>
+</section>
+<section id="三桥接方程模型" class="level2">
+<h2 class="anchored" data-anchor-id="三桥接方程模型">三、桥接方程模型</h2>
+<section id="基本结构与估计逻辑" class="level3">
+<h3 class="anchored" data-anchor-id="基本结构与估计逻辑">1.基本结构与估计逻辑</h3>
+<p>桥接模型（Bridge Model）是最早被用于Nowcasting实践的一类方法，其名称源于“在高频指标与低频目标变量之间架设桥梁”的直观思路。模型结构由以下两个子步骤组成。</p>
+<p><strong>第一步：高频指标的预测补齐。</strong></p>
+<p>设季度GDP的参考周期为第 <span class="math inline">\(t\)</span> 季度，该季度包含3个月（<span class="math inline">\(m=1,2,3\)</span>）。在实时场景下，该季度可能仅有前1-2个月的月度指标数据可用，剩余月份的数据尚未发布。</p>
+<p>桥接模型使用单变量时间序列（如ARIMA）或小型多元模型对缺失月份的高频指标进行预测，从而补齐整个季度的月度观测序列。</p>
+<p><strong>第二步：聚合与回归。</strong></p>
+<p>将补齐后的月度指标按季度平均或求和的方式聚合为季度频率变量 <span class="math inline">\(\tilde{X}_t\)</span>，随后代入对GDP的标准回归方程：</p>
+<p><span class="math inline">\(y_t = \alpha + \beta \tilde{X}_t + \varepsilon_t\)</span></p>
+<p>更为精细的设定可引入目标变量的自回归项和多个高频预测变量：</p>
+<p><span class="math inline">\(y_t = \alpha + \sum_{p=1}^{P} \phi_p y_{t-p} + \sum_{k=1}^{K} \beta_k \tilde{X}_{k,t} + \varepsilon_t\)</span></p>
+</section>
+<section id="关键参数选择与数据对齐机制" class="level3">
+<h3 class="anchored" data-anchor-id="关键参数选择与数据对齐机制">2.关键参数选择与数据对齐机制</h3>
+<p>桥接模型面临的核心技术决策包含三个方面。</p>
+<ul>
+<li><p>聚合方式的选择：将月度数据转为季度频率可采用“季度内平均值”“季度内末值”或“季度内总和”等不同规则，对GDP（流量变量）而言通常取季度内平均值，而对通胀率等比率变量则更多采用季度内末值。</p></li>
+<li><p>缺失补齐方法的选择：从简单的随机游走模型到ARIMA，再到含经济结构的多元预测方程，补齐方法的精度直接影响桥接模型的最终预测质量。</p></li>
+<li><p>变量选取问题：由于桥接方程本质上为单方程回归模型，可容纳的预测变量数量有限，通常需借助逐步回归或经济逻辑进行筛选。</p></li>
+</ul>
+</section>
+<section id="应用场景与实证表现" class="level3">
+<h3 class="anchored" data-anchor-id="应用场景与实证表现">3.应用场景与实证表现</h3>
+<p>桥接模型因结构简单透明而广泛实际应用于各国央行的短期预测工作中。在实际经济监测场景中，桥接方程与因子模型、贝叶斯向量自回归方法被组合应用，以综合不同的信息优势。</p>
+<p>实证研究结果显示，桥接模型在指标数量有限、数据平稳的环境中仍具有一定的优势。国际货币基金组织（IMF）在对中国实际GDP Nowcasting的研究中，也评估了桥接模型与变量选择相结合后的表现，发现该组合方法在信号清晰时，可提供接近于机器学习方法的可靠估计。</p>
+</section>
+<section id="主要不足和局限性" class="level3">
+<h3 class="anchored" data-anchor-id="主要不足和局限性">4.主要不足和局限性</h3>
+<p>桥接模型的主要缺陷在于结构上缺乏对混频信息的充分利用。</p>
+<ul>
+<li><p>首先，对缺失月份指标的预测补齐本质上引入了额外的不确定性，尤其在数据剧烈波动时，补齐误差可能显著放大最终预测误差；</p></li>
+<li><p>其次，将月度指标先聚合再回归，不可避免地损失了月内时序信息，两个完全不同的月内轨迹可能产生相同的季度平均值，但对应的GDP增长路径却可能截然不同；</p></li>
+<li><p>再次，桥接方程难以有效处理高维变量场景，当可用指标数量增至数十个时，模型将面临严重的参数膨胀问题。这些局限推动了MIDAS回归和DFM等更先进的混频建模方法的兴起。</p></li>
+</ul>
+</section>
+</section>
+<section id="四midas回归模型" class="level2">
+<h2 class="anchored" data-anchor-id="四midas回归模型">四、MIDAS回归模型</h2>
+<section id="理论基础与数学设定" class="level3">
+<h3 class="anchored" data-anchor-id="理论基础与数学设定">1.理论基础与数学设定</h3>
+<p>MIDAS（Mixed Data Sampling）回归框架由Ghysels、Santa-Clara与Valkanov于2004年提出，其核心创新在于以直接而参数节俭的方式处理混频数据建模问题。与桥接模型的时间聚合策略不同，MIDAS回归将高频解释变量的滞后值直接映射到低频被解释变量上，并通过多项式权重函数对高频滞后项进行压缩，有效控制参数膨胀。</p>
+<p>单变量MIDAS回归的基本形式为：</p>
+<p><span class="math inline">\(y_t = \beta_0 + \beta_1 B\!\left(L^{1/m}; \theta\right) x_{t}^{(m)} + \varepsilon_t\)</span></p>
+<p>其中，<span class="math inline">\(y_t\)</span> 为低频被解释变量（如季度GDP）， <span class="math inline">\(x_t^{(m)}\)</span> 为高频解释变量（如月度工业产出）， <span class="math inline">\(L^{1/m}\)</span> 为高频滞后算子， <span class="math inline">\(B(L^{1/m}; \theta)\)</span> 为滞后多项式，其系数由低维参数向量 <span class="math inline">\(\theta\)</span> 决定：</p>
+<p><span class="math inline">\(B\!\left(L^{1/m}; \boldsymbol{\theta}\right) = \sum_{k=0}^{K-1} w(k;\boldsymbol{\theta}) L^{k/m}\)</span></p>
+<p>上述公式通过参数化权重函数 <span class="math inline">\(w(k;\boldsymbol{\theta})\)</span> 实现了关键的降维效果：当高低频差为<span class="math inline">\(m\)</span>倍（如季度与月度差3倍）且滞后期数为<span class="math inline">\(K\)</span>时，若不施加任何约束，需估计的参数数量将随<span class="math inline">\(K\)</span>线性增长，而通过低维参数向量<span class="math inline">\(\boldsymbol{\theta}\)</span>（通常仅含2—3个参数）来参数化所有权重，可将待估计参数压缩到极低水平，避免了单方程方法中因参数过多而导致的估计失效问题。</p>
+</section>
+<section id="权重函数与参数识别" class="level3">
+<h3 class="anchored" data-anchor-id="权重函数与参数识别">2.权重函数与参数识别</h3>
+<p>MIDAS框架的灵活性集中体现在权重函数 <span class="math inline">\(w(k;\boldsymbol{\theta})\)</span> 的选择上。两种最经典的权重函数参数化为：</p>
+<p>指数Almon多项式： <span class="math inline">\(w(k;\boldsymbol{\theta}) = \frac{\exp(\theta_1 k + \theta_2 k^2 + \cdots + \theta_J k^J)}{\sum_{j=1}^{K} \exp(\theta_1 j + \theta_2 j^2 + \cdots + \theta_J j^J)}\)</span></p>
+<p>Beta多项式： <span class="math inline">\(w(k;\boldsymbol{\theta}) = \frac{(k/K)^{\theta_1 - 1} (1 - k/K)^{\theta_2 - 1}}{\sum_{j=1}^{K} (j/K)^{\theta_1 - 1} (1 - j/K)^{\theta_2 - 1}}\)</span></p>
+<p>两种权重函数的共同优势在于：仅用极少数参数（通常2—3个）即可刻画出一族丰富的衰减或驼峰型权重曲线，从而灵活捕捉不同经济指标随时间衰减的信息价值模式。指数Almon多项式因其光滑可微特性，便于数值优化求解；Beta多项式则因定义域在[0,1]上的形状灵活性，可生成U型、倒U型、单调衰减型等多种滞后分布形态。</p>
+</section>
+<section id="约束型与非约束型midas" class="level3">
+<h3 class="anchored" data-anchor-id="约束型与非约束型midas">3.约束型与非约束型MIDAS</h3>
+<p>上述通过非线性参数化对高频滞后项权重施加约束的设定，被称为“约束型MIDAS”（Restricted MIDAS）。其优势在于参数极度节俭，缺点是NLS估计需以数值优化方式求解，计算负担较大，且存在局部最优问题。</p>
+<p>Foroni、Marcellino与Schumacher（2015）提出了“非约束型MIDAS”（Unrestricted MIDAS, U-MIDAS）：在频率差不大（如季度对月度）的情形下，直接放弃多项式约束，使用普通最小二乘法（OLS）估计每一个滞后项的独立系数。U-MIDAS简化了估计过程，尤其适用于样本量充足的高频预测场景，但变量数一旦增加，参数膨胀问题便重新浮现。</p>
+</section>
+<section id="应用场景与实证表现-1" class="level3">
+<h3 class="anchored" data-anchor-id="应用场景与实证表现-1">4.应用场景与实证表现</h3>
+<p>MIDAS回归自创立以来，最初主要应用于金融波动率预测，其后快速扩展至宏观经济预测领域。Clements与Galvão（2008, 2009）率先将MIDAS用于利用月度指标Nowcasting美国GDP增长，此后大量实证文献将其应用于不同国家和场景。</p>
+<p>Schumacher（2016）系统比较了MIDAS回归与桥接方程两种单方程Nowcasting方法，识别出三处关键区别：MIDAS为直接多步Nowcasting工具，直接将高频变量映射到季度GDP，而桥接方程采用间接迭代预测路径；MIDAS的权重基于多项式函数灵活确定，而桥接方程的权重部分由时间聚合规则固定；MIDAS允许利用当前季度内的领先信息，桥接方程则通常不包含。</p>
+<p>在最近的进展中，Ballarin等（2023）对美国GDP增长的广泛预测练习中证实，MIDAS模型在处理有限数量的混频变量时表现优异，但当维度剧烈上升时可能面临维数灾难。IMF对中国GDP Nowcasting的研究（2025）评估了包含MIDAS、U-MIDAS在内的多种模型，发现MIDAS在变量数适中时的预测精度与DFM相当，但在高维情形下需要借助变量预选或机器学习正则化手段方可维持竞争力。</p>
+</section>
+<section id="主要不足和局限性-1" class="level3">
+<h3 class="anchored" data-anchor-id="主要不足和局限性-1">5.主要不足和局限性</h3>
+<p>MIDAS回归的优势与局限性均十分鲜明。其优势在于：模型设定简洁，可解释性强，参数极度节俭，在小变量、单方程Nowcasting场景下具有出色的预测表现和估计稳定性。</p>
+<p>其局限同样突出：</p>
+<ul>
+<li><p>首先，在变量维度高达数十至上百的宏观大数据场景下，单方程MIDAS难以有效容纳全部信息；</p></li>
+<li><p>其次，MIDAS不具备天然的状态空间结构，难以像DFM那样优雅地处理锯齿边缘问题和新闻分解需求；</p></li>
+<li><p>再次，标准MIDAS假设参数时序不变，而现实经济运行往往呈现时变性特征，尽管存在TVP-MIDAS等扩展方案，但其实施复杂度显著上升。</p></li>
+</ul>
+<p>因此，MIDAS更适用于学术实证研究和少量核心指标的Nowcasting任务，而不适合构建如纽约联储所运营的大规模实时Nowcasting系统。</p>
+</section>
+</section>
+<section id="五动态因子模型" class="level2">
+<h2 class="anchored" data-anchor-id="五动态因子模型">五、动态因子模型</h2>
+<section id="理论基础与模型设定" class="level3">
+<h3 class="anchored" data-anchor-id="理论基础与模型设定">1 理论基础与模型设定</h3>
+<p>动态因子模型（Dynamic Factor Model, DFM）是当前央行Nowcasting实践中最核心、最广泛采用的方法论框架。其理论基础可追溯至Geweke（1977）与Sargent和Sims（1977）关于隐含因子驱动经济周期波动的原创性工作。Giannone、Reichlin与Small（2008）在其经典论文中首次将DFM系统性地引入Nowcasting领域，奠定了现代央行GDP即时预测的技术框架。</p>
+<p>DFM的核心思想基于一个深刻的宏观经济观察：虽然经济指标种类繁多、领域各异，但几乎所有宏观变量，产出、就业、消费、投资、价格，在商业周期中都呈现出高度的共同波动特征。这一“共动性”提示存在极少数的不可观测公共因子，它们是驱动宏观经济波动的根本力量。</p>
+<p>以这一观察为基础，DFM提出如下模型设定：设 <span class="math inline">\(x_t\)</span> 为<span class="math inline">\(n\)</span>维可观测宏观变量向量（包含月度指标和季度GDP），<span class="math inline">\(f_t\)</span> 为<span class="math inline">\(r\)</span>维不可观测公共因子（<span class="math inline">\(r \ll n\)</span>）。测量方程为：</p>
+<p><span class="math inline">\(x_t = \Lambda f_t + \xi_t, \quad \xi_t \sim N(0, \Sigma_\xi)\)</span></p>
+<p>其中， <span class="math inline">\(\Lambda\)</span> 为因子载荷矩阵，刻画了各可观测变量在不同公共因子上的暴露程度， <span class="math inline">\(\xi_t\)</span> 为特质误差项，捕获各变量独立于共同因子的特异性波动。</p>
+<p>状态转移方程则描述因子的动态演化过程：</p>
+<p><span class="math inline">\(f_t = A_1 f_{t-1} + A_2 f_{t-2} + \cdots + A_p f_{t-p} + \eta_t, \quad \eta_t \sim N(0, \Sigma_\eta)\)</span></p>
+<p>这一状态空间结构是DFM处理混频数据与锯齿边缘问题的根本机制所在：不同频率、不同发布时刻的观测变量被统一纳入测量方程，缺失的观测值在卡尔曼滤波过程中被自然地视为“非观测”并自动通过状态推断填补，无需任何外生的插值或预测补齐步骤。</p>
+<p>在状态空间形式下，整套模型可用卡尔曼滤波和极大似然（或EM算法）高效估计。卡尔曼滤波在每一时步执行两大操作：</p>
+<ul>
+<li><p>预测步骤，基于上一期的状态估计和因子VAR动态，预测当前期的因子及观测值；</p></li>
+<li><p>更新步骤，当某一指标的新数据到达时，用实际观测值校正预测，更新状态估计及方差。</p></li>
+</ul>
+<p>这一递归结构天然适配Nowcasting的实时数据更新场景：每当一个新的月度数据发布，滤波器只需执行一次更新步骤，GDP的Nowcast便会自动修正，无需重估整个模型。</p>
+</section>
+<section id="因子估计em算法与卡尔曼滤波的融合" class="level3">
+<h3 class="anchored" data-anchor-id="因子估计em算法与卡尔曼滤波的融合">2.因子估计：EM算法与卡尔曼滤波的融合</h3>
+<p>当数据集包含大量混频序列时，直接对状态空间模型进行全信息极大似然估计在计算上往往不可行，尤其是当某些序列为季度频率而其他为月度频率时，状态向量维度较高。Doz、Giannone与Reichlin（2012）发展了基于EM算法（期望最大化算法）的两步估计策略，成为DFM实证应用的标准估计框架。</p>
+<p>EM算法的核心逻辑为迭代交替：</p>
+<ul>
+<li><p>首先，给出因子和参数的初始估计，通常以标准化数据的主成分作为初始因子；</p></li>
+<li><p>E步（期望步）利用卡尔曼平滑在上述参数下推断因子序列；</p></li>
+<li><p>M步（最大化步）以推断出的因子为基础更新参数估计，如载荷矩阵和VAR系数；</p></li>
+<li><p>反复交替直至收敛。</p></li>
+</ul>
+<p>这一过程通过将因子状态估计与参数估计分解为计算上相对轻量的两个子问题，使得对包含数十至上百个混频指标的大规模DFM模型的估计变得切实可行。</p>
+</section>
+<section id="因子结构设计从单因子到分组因子" class="level3">
+<h3 class="anchored" data-anchor-id="因子结构设计从单因子到分组因子">3.因子结构设计：从单因子到分组因子</h3>
+<p>规范的DFM Nowcasting实践中，因子结构的设计是影响模型性能的关键维度。纽约联储Nowcasting模型采用分组因子结构：设定一个“全局因子”负载于所有序列之上，同时引入若干“类别专属因子”分别捕获特定指标子集的协同变动。在其当前最新版本中，除全局因子外，同时设有“软指标因子”（负载调查数据）、“劳动力市场因子”（负载就业相关序列）和“名义因子”（负载价格与名义变量），并且在COVID-19疫情期间临时引入专门因子以捕捉疫情冲击造成的异常联动效应。</p>
+<p>这种分组因子设计的双重优势在于：全局因子捕捉跨类别经济变量的共同驱动力，类别专属因子则提炼局部协动信息，两者结合既避免了单因子模型的信息压缩过度，又防止了因子间负载高度重叠导致的识别困难。</p>
+</section>
+<section id="新闻分解dfm最独特的分析功能" class="level3">
+<h3 class="anchored" data-anchor-id="新闻分解dfm最独特的分析功能">4.新闻分解：DFM最独特的分析功能</h3>
+<p>DFM区别于MIDAS和桥接模型的最独特功能在于“新闻分解”。在该框架中，数据发布的经济意义可被精准量化。</p>
+<p>具体而言，在卡尔曼滤波的预测步骤中，模型会对每个尚未发布数据的指标生成一个预测值；当该指标的数据实际发布时，实际值与预测值之差被定义为“新闻”。由于每个变量通过因子载荷与GDP相关联，这一新闻便可通过卡尔曼增益矩阵被映射为对GDP预测的边际修正：</p>
+<p><span class="math inline">\(\Delta \hat{y}_{t|v} = \kappa_{j} \times \text{news}_j\)</span></p>
+<p>其中，<span class="math inline">\(\kappa_j\)</span> 为指标 <span class="math inline">\(j\)</span> 的卡尔曼增益权重。</p>
+<p>这一透明的归因机制在货币政策沟通和经济数据解读中具有极高的实用价值：它可以明确回答“本次非农数据将GDP Nowcast上修了多少个百分点”，“CPI数据发布后，GDP预测为何被下调”等实际问题。</p>
+</section>
+<section id="实证表现与机构应用" class="level3">
+<h3 class="anchored" data-anchor-id="实证表现与机构应用">5 实证表现与机构应用</h3>
+<p>DFM在各国央行和国际机构的应用已相当成熟和广泛。纽约联邦储备银行于2016年4月正式推出基于DFM的纽约联储员工（Staff）Nowcast，此后实现每周五定期发布。该模型在2021年9月因COVID-19极端波动期间暂时停止发布后，于2023年9月升级重启。新版本引入了随机波动率、异常值调整和更丰富因子动态结构，以增强对大冲击的稳健处理能力。纽约联储已将MATLAB代码开源至GitHub，为学术界和业界提供了可复现、可定制的完整Nowcasting框架。</p>
+<p>在全球范围的实证研究中，DFM被反复验证为多种Nowcasting方法中最为稳健的选择。Radovan与Masten（2025）对斯洛文尼亚GDP增长的研究覆盖桥接方程、MIDAS、MF-VAR、DFM和MF-3PRF共五类模型，明确结论为DFM在各类信息集中均表现最优；当样本扩展至COVID-19时期后，DFM的优势进一步巩固。</p>
+<p>Kim等（2024）在韩国GDP Nowcasting研究中将DFM与神经控制微分方程（NCDE）相结合，表明DFM提取的公共因子在后续深度学习阶段的预测价值远高于原始指标的直接输入。一项港口物流数据实时Nowcasting应用中（2025）同样证实，状态空间DFM与EM-Kalman估计的组合能够在有效处理锯齿边缘问题的同时准确生成GDP即时预测。</p>
+</section>
+<section id="主要不足和局限性-2" class="level3">
+<h3 class="anchored" data-anchor-id="主要不足和局限性-2">6.主要不足和局限性</h3>
+<p>尽管DFM作为央行Nowcasting的标配框架具有诸多优势，其局限同样不容忽视。</p>
+<ul>
+<li><p>其一，因子解释性是长期以来的痛点：因子由算法从高维数据中无监督提取，难以直接赋予经济含义，尽管分组结构可缓解此问题，但对货币政策沟通而言，仍不及单方程MIDAS那般直观透明。</p></li>
+<li><p>其二，线性假设的限制：标准DFM的测量方程和状态转移方程均为线性设定，难以捕捉经济衰退期或金融危机中的非线性结构突变，这也是纽约联储在COVID期间暂停Nowcast发布并随后引入随机波动率和异常值调整的重要背景。</p></li>
+<li><p>其三，估计方法的选择对结果具有不可忽视的影响：EM算法对初始值敏感，且在大规模模型中的收敛性可能脆弱。</p></li>
+</ul>
+<p>近年来，贝叶斯DFM和多因子模型扩展已成为活跃研究方向，结合机器学习的非线性混合模型亦正在成为重要的前沿探索方向。</p>
+</section>
+</section>
+<section id="六机器学习在nowcasting中的应用" class="level2">
+<h2 class="anchored" data-anchor-id="六机器学习在nowcasting中的应用">六、机器学习在Nowcasting中的应用</h2>
+<p>随着计算能力的提升和替代数据（卫星影像、社交舆论、网络搜索指数等）的涌现，机器学习（Machine Learning, ML）方法近年来被密集引入宏观经济Nowcasting领域，成为继桥接方程、MIDAS回归和动态因子模型之后的又一活跃技术前沿。</p>
+<p>与前述结构化模型不同，机器学习方法通常不做严格的数据生成过程假设，而是依靠数据驱动的算法策略，在偏差与方差之间自动寻求最优权衡，从而直面Nowcasting的两大核心挑战：高维变量泛滥与非对称、非线性动态。</p>
+<section id="正则化线性模型" class="level3">
+<h3 class="anchored" data-anchor-id="正则化线性模型">1.正则化线性模型</h3>
+<p>LASSO（Least Absolute Shrinkage and Selection Operator）和弹性网络（Elastic Net）等正则化技术是最早被系统地用于Nowcasting的机器学习方法之一。其基本思路是在标准线性回归的损失函数中附加惩罚项，使得大量不具增量预测能力的变量系数被自动压缩至零，实现变量选择与参数估计的一体化求解。</p>
+<p>将数十甚至上百个月度指标的当期及滞后值同时纳入模型后，正则化算法可从中自动筛选出最具预测能力的一小部分变量，从而有效克服传统单方程方法面临的维度灾难。</p>
+<p>IMF（2025）在对中国实际GDP的Nowcasting研究中，将弹性网络与桥接方程、MIDAS及DFM进行了系统对比，发现当备选指标池高度膨胀且信噪比较低时，正则化方法展现出尤为稳健的实时预测表现。</p>
+</section>
+<section id="树集成方法" class="level3">
+<h3 class="anchored" data-anchor-id="树集成方法">2.树集成方法</h3>
+<p>以随机森林（Random Forest）和梯度提升树（如XGBoost、LightGBM）为代表的树集成模型，因其天然具备捕获非线性交互效应、容忍缺失值和异常值的特性，在Nowcasting中得到了广泛应用。</p>
+<p>这些方法通过构建并组合大量弱决策树来逼近复杂的预测函数，无需预先设定变量间的关系形式。在混频场景下，可直接将不同频率的指标对齐为面板格式输入模型，而无需像MIDAS那样显式构造权重多项式。</p>
+<p>多个中央银行的内部评估显示，XGBoost在实时数据环境中的预测精度有时可与DFM相持平甚至略优，但其性能优势往往伴随着可解释性的大幅损失，树模型难以像DFM那样输出新闻分解等透明归因结果。</p>
+</section>
+<section id="神经网络与深度学习方法" class="level3">
+<h3 class="anchored" data-anchor-id="神经网络与深度学习方法">3.神经网络与深度学习方法</h3>
+<p>人工神经网络（ANN）及深度学习架构为捕捉跨时间、跨变量的高度复杂非线性动态提供了强大工具。Ballarin等（2023）将储层计算（Reservoir Computing）引入混频宏观预测，仅需训练输出层即可逼近DFM的预测精度，大幅降低了计算成本。</p>
+<p>Kim等（2024）则提出将神经控制微分方程（Neural Controlled Differential Equations, NCDE）与DFM相结合的混合模型：以DFM从高维指标中提取潜因子，再用NCDE灵活建模因子间的连续时间非线性动态，在韩国GDP Nowcast中获得了优于纯线性DFM的结果。此类深度学习方法能够捕捉经济周期非对称性、突变及状态依赖效应，但其“黑箱”属性对政策沟通和因果追溯构成了实际限制。</p>
+</section>
+<section id="主要优势和不足" class="level3">
+<h3 class="anchored" data-anchor-id="主要优势和不足">4.主要优势和不足</h3>
+<p>机器学习方法的突出优势在于：能够以数据驱动的方式处理超高维度特征空间；自动捕获非线性与交互效应；对离群值和结构变化的鲁棒性优于纯线性假定。</p>
+<p>然而在Nowcasting的核心应用场景中，它们仍面临显著局限。</p>
+<ul>
+<li><p>其一，绝大多数ML模型聚焦于点预测，难以像状态空间DFM那样一次性输出完整的预测分布与不确定性度量。</p></li>
+<li><p>其二，ML缺乏内嵌的新闻分解机制，无法以经济学可解释的语言回答“某个数据发布究竟将GDP预测修正了多少”这一政策沟通中的关键问题。</p></li>
+<li><p>其三，复杂模型在海量参数驱动下对小样本宏观数据高度敏感，过拟合风险尤需谨慎管理。</p></li>
+</ul>
+<p>因此，当前的最佳实践倾向于将ML模型定位为传统计量模型的补充而非替代，例如以DFM提取的因子作为树模型或神经网络的输入特征，或将LASSO筛选后的变量交付MIDAS回归进行结构化建模，从而在经济理论、统计特性与预测精度之间取得更优的平衡。</p>
+</section>
+</section>
+<section id="六总结和结论" class="level2">
+<h2 class="anchored" data-anchor-id="六总结和结论">六、总结和结论</h2>
+<p>本文围绕宏观经济Nowcasting领域，对桥接方程模型、MIDAS回归模型、动态因子模型以及新兴的机器学习方法这四条主要技术路线进行了系统性介绍与比较。四类方法分别代表了由简至繁、由直接至间接、由局部至系统、由模型驱动至数据驱动的四种混频建模策略。</p>
+<p>桥接方程模型是实践中最简捷的起点，其两步走策略在数据维度低、波动平缓的环境下能够给出足够可靠的结果，是各国央行短期分析的常用工具。然而，其时间聚合对月内信息的损失和缺失补齐的额外误差构成了固有的性能上限。</p>
+<p>MIDAS回归通过多项式参数化直接建立高低频变量间的映射，省去时间聚合步骤，在参数节俭性方面做到了单方程模型的极致。其局限在于维度扩展困难，且天然不具备状态空间结构来优雅处理实时数据陆续发布和新闻冲击分解等Nowcasting核心需求。</p>
+<p>动态因子模型是本领域最具系统性和功能完备性的前沿框架。它以状态空间内的潜因子结构统一容纳混频、锯齿边缘和高维度等多个技术难题，并提供了新闻分解这一央行级Nowcasting不可替代的分析功能。DFM已被纽约联储等国际领先机构作为官方Nowcasting框架大规模部署，其在学界和业界的实证表现亦反复证实了其稳健性。</p>
+<p>三种模型的适用范围形成了清晰的梯度：对变量设计简单的预测任务，MIDAS回归以其结构简洁、解释清晰而更为适宜；当需要跟踪数百个宏观指标、每周滚动更新、展示每个数据发布对预测的边际影响时，DFM则是唯一能够胜任的方案；桥接模型处于两者之间，适合快速原型搭建和指标维度受制的实际预测环境。在实际应用中，择哪种方法，取决于你的数据规模、问题复杂度以及你对模型可解释性的要求。</p>
+<p>上述方法不能割裂对待，研究前沿越来越倾向于模型的融合。实践中，研究者常会组合多种模型的技术融合来提升稳健性。例如，Factor-MIDAS 模型结合了DFM降维和MIDAS处理混频的能力，既能应对海量数据，又能灵活处理不同频率的指标。</p>
+</section>
+<section id="七实践案例" class="level2">
+<h2 class="anchored" data-anchor-id="七实践案例">七、实践案例</h2>
+<p>以下基于中信建投研究报告《中观景气研究：多维增强的盈利预测框架——以周期行业为例》整理。</p>
+<p>为便于落地，我将其重构为一个<strong>以煤炭行业营业收入 TTM 同比即时预测为主线</strong>的 DFM 模型实践案例。文中数据、模型设定、流程均来自报告；仅对案例做结构上重组。本文不构成投资建议，历史回测不代表未来。</p>
+<section id="案例目标" class="level3">
+<h3 class="anchored" data-anchor-id="案例目标">1.案例目标</h3>
+<p>盈利是产业景气传导到股价的中间变量。但财报是季度披露、还有滞后；等财报出来，景气变化可能已经被市场反应了。很多宏观和中观数据是月度甚至周频更新的，能更早反映供需、价格、库存变化，所以要用即时预测，提前估算季度盈利，及时判断景气拐点，用于行业择时和轮动。</p>
+<p>案例的核心逻辑是：<strong>产业景气 → 盈利变化 → 行业配置。</strong>不直接预测股价，而是把盈利预测作为中间目标，因为财务指标能集中反映需求、价格、销量、成本等综合影响，并具备跨行业可比性。</p>
+<p>选取煤炭行业作为案例，原因在于，煤炭是典型周期行业，顺周期特征明显；产业链指标丰富，供给、需求、价格、库存、运输、宏观数据较全。 报告在产业链分析和 News 分解中均以煤炭行业为例。</p>
+<p>采用 TTM 同比增速作为景气代理变量，包括：ROE_TTM 同比；净利润_TTM 同比；营业收入_TTM 同比；毛利润_TTM 同比。</p>
+</section>
+<section id="指标池构建" class="level3">
+<h3 class="anchored" data-anchor-id="指标池构建">2.指标池构建</h3>
+<p>报告先通过产业链定性梳理，构建煤炭行业指标池。这一步的关键是：<strong>先保证指标与行业基本面逻辑一致，再进入定量筛选</strong>。共 123 个指标，覆盖以下维度：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>维度</th>
+<th>代表性指标</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>供给</td>
+<td>原煤、动力煤、炼焦煤、无烟煤产量；煤炭进口金额、均价、数量</td>
+</tr>
+<tr class="even">
+<td>需求</td>
+<td>火力发电量、钢材产量、水泥产量、化工产品价格指数</td>
+</tr>
+<tr class="odd">
+<td>运输/港口</td>
+<td>港口吞吐量、调入量；大秦线煤炭运量、重点港口煤炭运量</td>
+</tr>
+<tr class="even">
+<td>价格</td>
+<td>环渤海动力煤 Q5500 综合平均价格指数、秦皇岛动力煤 Q5500 平仓价、出口均价、出厂价、主要港口平均价</td>
+</tr>
+<tr class="odd">
+<td>库存</td>
+<td>黄骅港、秦皇岛港、曹妃甸港、京唐港场存量；重点电厂煤炭库存量、样本钢厂焦炭可用天数</td>
+</tr>
+<tr class="even">
+<td>宏观</td>
+<td>制造业 PMI 及分项、工业增加值同比、PPI、PPIRM</td>
+</tr>
+<tr class="odd">
+<td>其他</td>
+<td>采矿业、煤炭开采和洗选业固定资产投资；规上工业企业营收、成本、利润、存货、亏损企业数等</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="数据预处理" class="level3">
+<h3 class="anchored" data-anchor-id="数据预处理">3.数据预处理</h3>
+<p>报告对指标做了统一预处理：</p>
+<ul>
+<li><strong>频率对齐</strong>：统一采样至月度频率。高频流量指标先计算滚动一个月均值，再采样至月度。</li>
+<li><strong>缺失值处理</strong>：
+<ul>
+<li>序列内部缺失：线性插值；</li>
+<li>尾部缺失：保留，由后续状态空间模型估计。</li>
+</ul></li>
+<li><strong>春节效应调整</strong>：对受春节扰动大的流量指标，按历年 1、2 月实际工作日或开工天数，用比例因子法折算至可比天数口径。</li>
+<li><strong>异常值处理</strong>：IQR 去极值。</li>
+<li><strong>同比或同比差分</strong>：计算同比，缓解季节效应并提升平稳性，适合景气建模。</li>
+</ul>
+</section>
+<section id="指标筛选" class="level3">
+<h3 class="anchored" data-anchor-id="指标筛选">4.指标筛选</h3>
+<p>每年 <strong>4 月、8 月、10 月末</strong>，即一季报、中报、三季报披露截止后，基于最新可得数据重新评分和筛选指标，并更新模型。其余月份沿用最近一期结果。报告使用两个指标用于变量指标筛选：</p>
+<ul>
+<li><strong>单变量回归 R²</strong>：衡量指标对景气代理的解释能力；</li>
+<li><strong>t 检验</strong>：控制目标变量滞后项后，衡量候选指标的增量预测信息：</li>
+</ul>
+<p><span class="math inline">\(y_t = \alpha + \beta_1 x_{i,t} + \phi_1 y_{t-1} + \epsilon\_t\)</span></p>
+<p>按<span class="math inline">\(\beta\_i\)</span>的 t 统计量绝对值排序，越大说明增量预测信息越强。</p>
+<p>在指标筛选中，按综合得分排序依次选入指标。新增指标与已入选指标相关系数不得超过 0.95，超过则视为信息冗余，跳过并按得分顺序递补；同时剔除 ADF 检验 P 值大于 0.1 的非平稳指标。按最终得分选取 <strong>10 或 20 个指标</strong>，具体数量由超参数调优确定。</p>
+<p>选够指标后训练 DFM，并检验预测稳定性。若模型发散，则将 ADF 阈值从 0.1 收紧至 0.05，重新筛选指标并重新训练；若仍然发散，则放弃本期更新，回退到上一期运行稳定的模型，以避免趋势性指标或短期数据扰动导致预测结果异常。</p>
+</section>
+<section id="dfm-模型设定" class="level3">
+<h3 class="anchored" data-anchor-id="dfm-模型设定">5.DFM 模型设定</h3>
+<p>报告中对比了三类模型：DFM、 Factor-Bridge、Factor-MIDAS。结果显示 <strong>DFM 表现最优</strong>，因为它在统一框架下联合刻画了中观指标与财务目标的共同动态信息，而两阶段回归模型提升有限。</p>
+<p>DFM 的基本结构为：</p>
+<p><span class="math inline">\(X_t = \Lambda F_t + \epsilon_t\)</span></p>
+<p><span class="math inline">\(F_t = A_1 F_{t-1} + \cdots + A_p F_{t-p} + \nu_t\)</span></p>
+<p>其中：<span class="math inline">\(X_t\)</span>：月度中观指标向量；<span class="math inline">\(F_t\)</span>：不可观测公共因子；<span class="math inline">\(\Lambda\)</span>：因子载荷矩阵；<span class="math inline">\(\epsilon\_t\)</span>：观测误差；<span class="math inline">\(A_1,\dots,A_p\)</span>：公共因子动态演化参数；<span class="math inline">\(\nu\_t\)</span>：状态扰动项。</p>
+<p>DFM 模型设定含义：虽然中观指标很多、口径不同，但它们共享同一轮行业景气波动。DFM 用少数公共因子压缩高维信息，同时保留时间动态结构。</p>
+<p>财务指标是季度披露，但 TTM 同比覆盖最近 12 个月信息。报告参考加拿大央行思路，将 TTM 同比建模为 12 个不可观测月度同比贡献项的聚合：</p>
+<p><span class="math inline">\(y_t^{TTM} \approx \frac{1}{12}\sum_{j=0}^{11} y_{t-j}^{M} + e_t,\quad t\in \mathcal{T}_Q={3,6,9,\dots}\)</span></p>
+<p>进一步令月度潜在增长由公共因子驱动：</p>
+<p><span class="math inline">\(y_t^M = \lambda' F_t + u_t\)</span></p>
+<p>则观测方程可写为：</p>
+<p><span class="math inline">\(y_t^{TTM} \approx \frac{1}{12}\lambda'(F_t + F_{t-1} + \cdots + F_{t-11}) + \eta_t\)</span></p>
+<p>这使模型可以在月度频率上更新，同时对季度 TTM 财务目标进行即时预测。</p>
+</section>
+<section id="训练与预测设置" class="level3">
+<h3 class="anchored" data-anchor-id="训练与预测设置">6.训练与预测设置</h3>
+<ul>
+<li>2010—2014 年：少量数据用于超参数调优；</li>
+<li>自 2015 年起：滚动预测输出各期结果；</li>
+<li>默认采用扩展窗口训练，即每个时点使用全量历史数据，提高参数估计稳定性；</li>
+<li>若结构变化导致扩展窗口受历史模式拖累，引入滚动窗口短期模型：
+<ul>
+<li>连续 3 个季度长期模型 MSE 高于短期模型，则认为结构变化，引入短期模型，并按历史 MSE 加权组合；</li>
+<li>连续 3 个季度短期模型 MSE 高于长期模型，则退出短期模型。</li>
+</ul></li>
+<li>每月末模型预测流程如下：
+<ol type="1">
+<li>更新当期可得中观数据；</li>
+<li>用 DFM 状态空间形式处理尾部缺失；</li>
+<li>提取公共景气因子；</li>
+<li>映射到季度财务景气代理变量；</li>
+<li>输出尚未披露财务变量的即时预测；</li>
+<li>形成月频行业景气度预测序列。</li>
+</ol></li>
+</ul>
+</section>
+<section id="模型评估" class="level3">
+<h3 class="anchored" data-anchor-id="模型评估">7.模型评估</h3>
+<p>报告结果显示，煤炭行业 DFM 表现整体良好。营收、毛利、ROE 预测效果更好；净利润预测难度最高，原因是受费用、税收、资产减值、投资收益、基数效应等干扰。</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>财务代理</th>
+<th style="text-align: right;">R²</th>
+<th style="text-align: right;">标准化 MSE</th>
+<th style="text-align: right;">绝对方向准确率</th>
+<th style="text-align: right;">边际方向准确率</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ROE 同比</td>
+<td style="text-align: right;">94.4%</td>
+<td style="text-align: right;">6.9%</td>
+<td style="text-align: right;">95.6%</td>
+<td style="text-align: right;">70.5%</td>
+</tr>
+<tr class="even">
+<td>营收同比</td>
+<td style="text-align: right;">85.6%</td>
+<td style="text-align: right;">14.9%</td>
+<td style="text-align: right;">93.3%</td>
+<td style="text-align: right;">72.7%</td>
+</tr>
+<tr class="odd">
+<td>净利同比</td>
+<td style="text-align: right;">56.2%</td>
+<td style="text-align: right;">61.9%</td>
+<td style="text-align: right;">75.6%</td>
+<td style="text-align: right;">65.9%</td>
+</tr>
+<tr class="even">
+<td>毛利同比</td>
+<td style="text-align: right;">87.3%</td>
+<td style="text-align: right;">14.0%</td>
+<td style="text-align: right;">95.6%</td>
+<td style="text-align: right;">79.5%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="即时预测与news分解" class="level3">
+<h3 class="anchored" data-anchor-id="即时预测与news分解">8.即时预测与News分解</h3>
+<p>根据报告模型预测，2026 年 5 月末，煤炭行业营业收入预测值为 <strong>-6.76%</strong>，较 4 月末的 <strong>-7.14%</strong> 调整 <strong>+0.38%</strong>。2026 年 5 月末煤炭行业四项景气度指数均呈现<strong>绝对水平偏低、边际趋势向上。</strong>表明行业景气可能处于筑底修复阶段，但各指数仍处于 0 以下，尚未完全走出底部。</p>
+<p>DFM 采用卡尔曼滤波框架，给出了News 分解，可追溯各指标历史贡献。其价值在于：识别哪些新数据超出模型原有预期，以及这些“超预期”信息如何修正最终预测。报告给出贡献前十的指标及新增信息：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 61%">
+<col style="width: 13%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>指标</th>
+<th style="text-align: right;">调整贡献</th>
+<th style="text-align: right;">前值</th>
+<th style="text-align: right;">新值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>中国:PPI:黑色金属冶炼及压延加工业:当月同比</td>
+<td style="text-align: right;">-0.58%</td>
+<td style="text-align: right;">-2.50</td>
+<td style="text-align: right;">-1.10</td>
+</tr>
+<tr class="even">
+<td>中国:制造业 PMI</td>
+<td style="text-align: right;">-0.32%</td>
+<td style="text-align: right;">50.30</td>
+<td style="text-align: right;">50.00</td>
+</tr>
+<tr class="odd">
+<td>中国化工产品价格指数</td>
+<td style="text-align: right;">+0.28%</td>
+<td style="text-align: right;">4916.00</td>
+<td style="text-align: right;">4916.00</td>
+</tr>
+<tr class="even">
+<td>中国:PPI:当月同比</td>
+<td style="text-align: right;">+0.27%</td>
+<td style="text-align: right;">0.50</td>
+<td style="text-align: right;">2.80</td>
+</tr>
+<tr class="odd">
+<td>期货结算价(活跃合约):焦炭</td>
+<td style="text-align: right;">+0.24%</td>
+<td style="text-align: right;">1901.00</td>
+<td style="text-align: right;">1901.00</td>
+</tr>
+<tr class="even">
+<td>中国:PPIRM:燃料、动力类</td>
+<td style="text-align: right;">+0.21%</td>
+<td style="text-align: right;">96.20</td>
+<td style="text-align: right;">104.40</td>
+</tr>
+<tr class="odd">
+<td>海运煤炭运价指数 OCFI:综合</td>
+<td style="text-align: right;">+0.11%</td>
+<td style="text-align: right;">1282.86</td>
+<td style="text-align: right;">1282.86</td>
+</tr>
+<tr class="even">
+<td>中国:制造业 PMI:主要原材料购进价格</td>
+<td style="text-align: right;">+0.09%</td>
+<td style="text-align: right;">63.70</td>
+<td style="text-align: right;">60.50</td>
+</tr>
+<tr class="odd">
+<td>中国:万寨港:平仓价:无烟洗小块</td>
+<td style="text-align: right;">+0.08%</td>
+<td style="text-align: right;">1270.00</td>
+<td style="text-align: right;">1270.00</td>
+</tr>
+<tr class="even">
+<td>衍生:制造业 PMI:生产、原材料库存</td>
+<td style="text-align: right;">-0.05%</td>
+<td style="text-align: right;">3.70</td>
+<td style="text-align: right;">2.20</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="从预测到配置" class="level3">
+<h3 class="anchored" data-anchor-id="从预测到配置">9.从预测到配置</h3>
+<p>基于 DFM 预测结果，报告构建 4 类算子、共 16 个景气因子：</p>
+<ul>
+<li><p><strong>orig</strong>：当月景气度原始值，刻画绝对水平；</p></li>
+<li><p><strong>qoq</strong>：相较上季度末差分，衡量季度边际变化；</p></li>
+<li><p><strong>diff3</strong>：相较三个月前差分，刻画短期变化；</p></li>
+<li><p><strong>mtv9</strong>：过去 9 个月均值/标准差，衡量稳健水平。</p></li>
+</ul>
+<p>回测结果：</p>
+<ul>
+<li><p>16 个因子中，6 个在行业指数择时中平均超额为正；</p></li>
+<li><p>12 个因子在行业超额指数择时中平均超额为正；</p></li>
+<li><p>ROE_qoq 表现突出，行业指数择时平均超额年化 2.91%，6 个行业有 4 个正超额；</p></li>
+</ul>
+<p>多行业轮动：</p>
+<p>选取 6 个分层效果较好的因子等权合成；每月配置综合因子排名前两位行业；截至 2026 年 5 月，年化收益 <strong>15.12%</strong>，夏普 <strong>0.67</strong>；相对行业等权基准超额年化 <strong>7.12%</strong>。</p>
+</section>
+<section id="风险提示" class="level3">
+<h3 class="anchored" data-anchor-id="风险提示">10.风险提示</h3>
+<p>报告所有结果基于历史统计，未来可能因风格切换导致因子失效；模型存在随机性，初始化、样本区间、参数选择都会影响结果；计算资源不足可能导致欠拟合；模型存在统计误差，不保证未来有效，对投资不构成任何建议。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第11章 宏观经济 第3节 景气指数.html" class="pagination-link" aria-label="第11章 宏观经济 第3节 景气指数">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第11章 宏观经济 第3节 景气指数</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第1节 R语言入门.html" class="pagination-link" aria-label="第16章 R 第1节 R语言入门">
+        <span class="nav-page-text">第16章 R 第1节 R语言入门</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
