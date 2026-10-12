@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第7章 资产配置 第7节 宏观因子模型 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" rel="next">
+<link href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第7章 资产配置 第7节 宏观因子模型.html">第7章 资产配置 第7节 宏观因子模型</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第7节 宏观因子模型.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第7章 资产配置 第7节 宏观因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第4节 Nowcasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第4节 Nowcasting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#前言" id="toc-前言" class="nav-link active" data-scroll-target="#前言">前言</a></li>
+  <li><a href="#一理论基础" id="toc-一理论基础" class="nav-link" data-scroll-target="#一理论基础">一、理论基础</a></li>
+  <li><a href="#二宏观因子体系" id="toc-二宏观因子体系" class="nav-link" data-scroll-target="#二宏观因子体系">二、宏观因子体系</a>
+  <ul class="collapse">
+  <li><a href="#经济增长growth" id="toc-经济增长growth" class="nav-link" data-scroll-target="#经济增长growth">1.经济增长（Growth）</a></li>
+  <li><a href="#通货膨胀inflation" id="toc-通货膨胀inflation" class="nav-link" data-scroll-target="#通货膨胀inflation">2.通货膨胀（Inflation）</a></li>
+  <li><a href="#货币政策与流动性monetary-policy-liquidity" id="toc-货币政策与流动性monetary-policy-liquidity" class="nav-link" data-scroll-target="#货币政策与流动性monetary-policy-liquidity">3.货币政策与流动性（Monetary Policy &amp; Liquidity）</a></li>
+  <li><a href="#信用credit" id="toc-信用credit" class="nav-link" data-scroll-target="#信用credit">4.信用（Credit）</a></li>
+  <li><a href="#风险偏好与市场情绪risk-appetite-sentiment" id="toc-风险偏好与市场情绪risk-appetite-sentiment" class="nav-link" data-scroll-target="#风险偏好与市场情绪risk-appetite-sentiment">5.风险偏好与市场情绪（Risk Appetite &amp; Sentiment）</a></li>
+  <li><a href="#新兴市场风险emerging-market-risk" id="toc-新兴市场风险emerging-market-risk" class="nav-link" data-scroll-target="#新兴市场风险emerging-market-risk">6.新兴市场风险（Emerging Market Risk）</a></li>
+  </ul></li>
+  <li><a href="#三宏观因子计算方法一直接利用宏观经济数据" id="toc-三宏观因子计算方法一直接利用宏观经济数据" class="nav-link" data-scroll-target="#三宏观因子计算方法一直接利用宏观经济数据">三、宏观因子计算方法一：直接利用宏观经济数据</a>
+  <ul class="collapse">
+  <li><a href="#因子选择与指标体系" id="toc-因子选择与指标体系" class="nav-link" data-scroll-target="#因子选择与指标体系">1.因子选择与指标体系</a></li>
+  <li><a href="#因子构建" id="toc-因子构建" class="nav-link" data-scroll-target="#因子构建">2.因子构建</a></li>
+  <li><a href="#优点与局限性" id="toc-优点与局限性" class="nav-link" data-scroll-target="#优点与局限性">3.优点与局限性</a></li>
+  </ul></li>
+  <li><a href="#四宏观因子计算方法二市场隐含因子法" id="toc-四宏观因子计算方法二市场隐含因子法" class="nav-link" data-scroll-target="#四宏观因子计算方法二市场隐含因子法">四、宏观因子计算方法二：市场隐含因子法</a>
+  <ul class="collapse">
+  <li><a href="#资产池的选择" id="toc-资产池的选择" class="nav-link" data-scroll-target="#资产池的选择">1.资产池的选择</a></li>
+  <li><a href="#提取主成分" id="toc-提取主成分" class="nav-link" data-scroll-target="#提取主成分">2.提取主成分</a></li>
+  <li><a href="#优点与局限性-1" id="toc-优点与局限性-1" class="nav-link" data-scroll-target="#优点与局限性-1">3.优点与局限性</a></li>
+  <li><a href="#五宏观因子计算方法三因子模拟法" id="toc-五宏观因子计算方法三因子模拟法" class="nav-link" data-scroll-target="#五宏观因子计算方法三因子模拟法">五、宏观因子计算方法三：因子模拟法</a></li>
+  <li><a href="#定义目标宏观因子" id="toc-定义目标宏观因子" class="nav-link" data-scroll-target="#定义目标宏观因子">1.定义目标宏观因子</a></li>
+  <li><a href="#选择基础资产池" id="toc-选择基础资产池" class="nav-link" data-scroll-target="#选择基础资产池">2.选择基础资产池</a></li>
+  <li><a href="#构建模拟组合" id="toc-构建模拟组合" class="nav-link" data-scroll-target="#构建模拟组合">3.构建模拟组合</a></li>
+  <li><a href="#优点与局限性-2" id="toc-优点与局限性-2" class="nav-link" data-scroll-target="#优点与局限性-2">4.优点与局限性</a></li>
+  </ul></li>
+  <li><a href="#六宏观因子模型应用于资产配置实施流程" id="toc-六宏观因子模型应用于资产配置实施流程" class="nav-link" data-scroll-target="#六宏观因子模型应用于资产配置实施流程">六、宏观因子模型应用于资产配置实施流程</a>
+  <ul class="collapse">
+  <li><a href="#步骤一形成宏观观点设定因子暴露目标" id="toc-步骤一形成宏观观点设定因子暴露目标" class="nav-link" data-scroll-target="#步骤一形成宏观观点设定因子暴露目标">1.步骤一：形成宏观观点，设定因子暴露目标</a></li>
+  <li><a href="#步骤二计算资产层面的因子暴露" id="toc-步骤二计算资产层面的因子暴露" class="nav-link" data-scroll-target="#步骤二计算资产层面的因子暴露">2.步骤二：计算资产层面的因子暴露</a></li>
+  <li><a href="#步骤三组合优化求解资产权重" id="toc-步骤三组合优化求解资产权重" class="nav-link" data-scroll-target="#步骤三组合优化求解资产权重">3.步骤三：组合优化，求解资产权重</a></li>
+  <li><a href="#步骤四执行交易与动态再平衡rebalancing" id="toc-步骤四执行交易与动态再平衡rebalancing" class="nav-link" data-scroll-target="#步骤四执行交易与动态再平衡rebalancing">4.步骤四：执行交易与动态再平衡（Rebalancing）</a></li>
+  <li><a href="#步骤五业绩归因与风险管理" id="toc-步骤五业绩归因与风险管理" class="nav-link" data-scroll-target="#步骤五业绩归因与风险管理">5.步骤五：业绩归因与风险管理</a></li>
+  <li><a href="#七结论与展望" id="toc-七结论与展望" class="nav-link" data-scroll-target="#七结论与展望">七、结论与展望</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第7章 资产配置 第7节 宏观因子模型</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="前言" class="level2">
+<h2 class="anchored" data-anchor-id="前言">前言</h2>
+<p>本节，我们将系统的介绍宏观因子模型（Macroeconomic Factor Model）的理论基础、构建方法与实践应用。</p>
+<p>宏观因子模型代表了现代量化投资思想的精髓，它将资产配置的视角从传统的、界限日益模糊的“资产类别”标签，深化到底层的、驱动万物的“共同风险因子”层面。这一范式的转变，为投资者提供了一个更深刻、更系统、更具逻辑性和穿透力的投资框架。该方法论的核心，是从纷繁复杂的资产价格表象中，识别并分离出驱动其风险与收益的根本性、系统性的宏观经济因子，将投资组合的构建与管理从“配置资产”转向“配置宏观风险因子”。</p>
+<p>本节我们将系统性地梳理宏观因子模型与基于宏观因子的资产配置策略的核心知识体系。我们将从宏观因子模型的理论基石出发，深入探讨其与现代投资组合理论、套利定价理论及宏观经济学的内在联系。之后，我们将详细介绍业界与学界公认的主流宏观因子体系，并阐述如何定义和度量这些关键因子。</p>
+<p>我们将重点探讨构建宏观因子的三大技术路径：直接利用宏观经济数据、市场隐含因子法、以及当前主流的因子模拟组合法（Factor Mimicking Method），并详细拆解其技术细节、优势和劣势。</p>
+<p>在此基础上，我们将以量化投资的视角，分步详解构建一个稳健、有效的宏观因子模型所需的完整流程，包括因子筛选、数据处理、模型估计与验证等关键技术环节。</p>
+<p>最后，我们将聚焦于实践应用，详细阐述如何将宏观因子模型落地为具体的资产配置策略，涵盖目标设定、组合优化、动态再平衡及风险管理等全过程。我们将完整呈现一个基于宏观因子模型的资产配置实施流程，并结合实证研究发现，展望其未来发展。我们力求在呈现经典理论与方法的同时，融入前沿思考，为投资者理解和实践宏观因子策略提供一份严谨、全面且具操作性的专业指南。</p>
+</section>
+<section id="一理论基础" class="level2">
+<h2 class="anchored" data-anchor-id="一理论基础">一、理论基础</h2>
+<p>现代投资组合理论的起点是哈里·马科维茨（Harry Markowitz）的均值-方差分析，它教导我们通过分散化来构建有效边界。在此基础上，威廉·夏普（William Sharpe）等人发展的资本资产定价模型（CAPM），首次为“风险”给出了一个可度量的定义，即系统性风险，并用“市场Beta”来衡量。CAPM认为，任何资产的预期收益，都由无风险利率和对其无法分散的系统性市场风险的补偿所决定。然而，大量的实证研究表明，CAPM在解释现实世界的资产收益时存在显著的局限性。单一的“市场因子”远不足以捕捉所有影响资产定价的系统性风险，这自然而然地催生了多因子模型（Multi-Factor Models）的发展。</p>
+<p>史蒂芬·罗斯（Stephen Ross）于1976年提出的套利定价理论（Arbitrage Pricing Theory, APT）是宏观因子模型最为坚实的理论支柱。APT的逻辑更为宽泛和稳健。它基于“无套利”的基本假设，认为在一个有效市场中，不存在无风险的套利机会。由此推论，任何资产的预期收益率都应该由一系列共同的、系统性的风险因子线性决定。如果一个资产的收益偏离了这个由多因子决定的水平，套利行为将迅速纠正这种偏离。该理论的伟大之处在于，它并未预先指明这些因子具体是什么，只说明了它们的存在性，从而为后续的因子探索工作打开了大门，为风险的多元化衡量提供了严谨的理论框架。</p>
+<p>APT理论认为，资产的预期收益率并非由单一的市场风险决定，而是由一系列共同的、系统性的风险因子线性驱动。宏观因子模型正是这一理论的具体化和深化，它明确指出，这些驱动所有资产价格联动的系统性风险，其根源在于宏观经济环境的变化。在这个框架下，股票、债券、商品、货币等不同资产类别，不再被视为孤立的投资单元，而是被看作是一系列底层宏观因子风险的“暴露组合”。例如，一只股票的收益，可能同时受到经济增长因子、通胀因子和利率因子的共同影响。一支长期国债，则主要暴露于利率因子和通胀因子风险。因此，真正的风险分散，并非简单地持有不同名称的资产，而是要确保投资组合在底层的宏观风险因子上是真正分散的。</p>
+<p>这种从“资产”到“因子”的视角转变，带来了三大核心优势：</p>
+<ul>
+<li><p>更深刻的因果解释：它揭示了资产价格波动的根本驱动力，使得投资决策从对资产价格本身的追逐，转变为对宏观经济基本面变化的预判和应对。这为投资组合管理提供了清晰的逻辑支柱和叙事框架。</p></li>
+<li><p>更有效的风险管理：当市场发生系统性冲击，如2008年金融危机或2020年新冠疫情，不同资产类别可能出现意想不到的同涨同跌，传统的资产分散化会阶段性失效。而因子视角则能清晰地识别出，这种齐跌的背后是某一个或几个宏观因子在起主导作用，如风险偏好因子急剧恶化。通过管理组合在核心因子上的暴露，可以实现更稳健的风险控制。</p></li>
+<li><p>更灵活的策略构建：投资者可以根据对未来宏观环境的判断，主动地调整组合对特定宏观因子的敞口，从而系统性地表达自己的投资观点，即“因子择时”或“因子倾斜”。例如，若预期未来经济将进入复苏周期，可以主动增加对“经济增长”因子的暴露。</p></li>
+</ul>
+<p>综上，宏观因子模型不仅是一种数学工具，更是一种先进的投资哲学。它要求投资者穿透资产类别的表象，直达驱动收益的本源，从而在纷繁复杂的市场中，建立起一个稳定、透明且富有洞察力的分析与决策框架。</p>
+</section>
+<section id="二宏观因子体系" class="level2">
+<h2 class="anchored" data-anchor-id="二宏观因子体系">二、宏观因子体系</h2>
+<p>构建一个有效的宏观因子模型，首要任务是建立一个全面且具有良好解释力的宏观因子体系。这个体系并非一成不变，不同机构根据其投资哲学和目标市场会有所差异，但其核心目标是捕捉那些对大类资产价格具有普遍、持续影响的系统性宏观力量。通常一个完备的宏观因子体系力求捕捉以下几个关键维度的经济活动：</p>
+<section id="经济增长growth" class="level3">
+<h3 class="anchored" data-anchor-id="经济增长growth">1.经济增长（Growth）</h3>
+<p>定义与内涵：经济增长因子反映了实体经济的景气程度、产出水平以及对未来的盈利预期。它是决定企业盈利能力和居民收入的最核心变量，从而深刻影响着风险资产的定价。</p>
+<p>传导机制：当经济增长强劲或预期向好时，企业盈利预测上调，投资者对未来的现金流更有信心，风险偏好提升，这通常会推动股票、高收益债和工业金属等顺周期资产价格上涨。反之，当经济步入衰退或增长放缓时，企业盈利下滑，避险情绪升温，资金会流向国债、黄金等避险资产，导致风险资产价格下跌。</p>
+<p>代理变量：由于GDP数据季度发布，频率过低，量化模型通常会使用一系列更高频的经济指标作为其代理变量（Proxy）。</p>
+<p>常见的代理指标包括：采购经理人指数（PMI，涵盖制造业和服务业）、工业增加值、社会消费品零售总额、固定资产投资完成额、企业利润数据等。通过对这些指标进行综合，可以构建一个更及时的增长因子。</p>
+</section>
+<section id="通货膨胀inflation" class="level3">
+<h3 class="anchored" data-anchor-id="通货膨胀inflation">2.通货膨胀（Inflation）</h3>
+<p>定义与内涵：通货膨胀因子衡量的是一般物价水平的变动趋势。它直接影响货币的购买力、企业成本、消费者行为以及央行的政策走向。在资产定价中，需要区分“预期通胀”和“超预期通胀”，后者通常是引发市场波动的关键。</p>
+<p>传导机制：通胀会侵蚀未来现金流的实际价值，因此对固定收益类资产，尤其是长久期国债，的定价至关重要。超预期的通胀上升，意味着未来票息和本金的实际价值下降，同时可能引发央行收紧货币政策的预期，导致债券价格下跌。</p>
+<p>对于股票，通胀的影响更为复杂：温和的通胀可能伴随着经济增长，利于企业盈利；但恶性通胀成本上升快于售价，会侵蚀企业利润率，并推高贴现率，从而压制股票估值。通胀保值债券（TIPS）、大宗商品，尤其是黄金和能源，通常被视为对冲通胀风险的有效工具。</p>
+<p>代理变量：核心的代理指标包括居民消费价格指数（CPI）和生产者价格指数（PPI）。原油（如布伦特、WTI）、工业金属（如铜、铝）、农产品等大宗商品的价格是通胀的重要组成部分和领先信号。</p>
+<p>此外，为了捕捉市场对未来通胀的预期，模型还会引入通胀预期指标，如基于TIPS与名义国债收益率之差计算出的“盈亏平衡通胀率”（Breakeven Inflation Rate）。另外一些专业的经济预测调查提供的通胀预测值也是重要参考。</p>
+</section>
+<section id="货币政策与流动性monetary-policy-liquidity" class="level3">
+<h3 class="anchored" data-anchor-id="货币政策与流动性monetary-policy-liquidity">3.货币政策与流动性（Monetary Policy &amp; Liquidity）</h3>
+<p>定义与内涵：该因子捕捉了中央银行的政策立场鹰派或鸽派，以及整个金融体系的资金充裕程度。央行的利率决策、资产负债表规模宽松/紧缩、以及广义货币供应量（M2）等，共同决定了市场的“水龙头”是开是关。</p>
+<p>传导机制：货币政策通过影响无风险利率和流动性溢价，直接作用于所有资产的估值贴现率。降息或实施量化宽松，会降低资金成本，提升市场流动性，从而倾向于推高股票、房地产等风险资产的估值，同时，收益率下降利好债券价格。反之，加息或缩表则会收紧金融条件，对各类资产估值构成压力。因此，该因子是连接宏观经济与金融市场的核心枢纽。</p>
+<p>代理变量：短期政策利率（如联邦基金利率、央行逆回购利率）、长短期国债利差（收益率曲线斜率，反映对未来政策和经济的预期）、央行资产负债表规模、广义货币供应量（M2）同比增速、以及一些衡量银行间市场流动性的指标（如TED利差、FRA-OIS利差）都是常用的代理变量。</p>
+<p>政策利率：中央银行设定的基准利率，如美联储的联邦基金利率（FFR）、中国人民银行的公开市场操作利率（OMO）和中期借贷便利利率（MLF）。</p>
+<p>货币市场利率：反映银行间短期资金成本的利率，如Shibor、SOFR、Repo利率等，它们能更敏感地反映市场流动性的松紧。</p>
+<p>债券市场利率：不同期限的国债收益率是整个金融市场无风险利率的基准。10年期国债收益率通常被视为全球资产定价之“锚”。</p>
+<p>收益率曲线的形态（如2年期与10年期国采收益率之差，即斜率）则包含了对未来经济增长和货币政策的预期。曲线趋平或倒挂，往往被视为经济衰退的预警信号。</p>
+<p>央行资产负债表规模：在量化宽松（QE）和量化紧缩（QT）成为常规工具的今天，央行资产负债表的扩张或收缩，直接代表了基础货币的投放或回收，是衡量货币政策立场的重要指标。</p>
+</section>
+<section id="信用credit" class="level3">
+<h3 class="anchored" data-anchor-id="信用credit">4.信用（Credit）</h3>
+<p>信用因子衡量的是经济体中违约风险的高低以及信贷市场的融资环境。它反映了市场对风险的偏好程度。当信用环境宽松、违约风险低时，投资者愿意为风险更高的资产支付溢价，信用利差收窄；反之，在“避险模式”（Risk-off）下，投资者涌向高质量资产，信用利多差走阔。</p>
+<p>度量的代理指标包括：</p>
+<p>信用利差（Credit Spread）：这是衡量信用风险最核心、最直接的指标。它是指同期限的企业债券（或其它含信用风险的债券）收益率与无风险的国债收益率之间的差额。例如，高收益债（High-YieldBond）利差、投资级（Investment Grade）债券利差等。</p>
+<p>信贷脉冲（Credit Impulse）：衡量新增信贷占GDP的比例的变化，反映了信贷扩张的加速度，是实体经济获得融资支持力度的有效指标。</p>
+<p>银行信贷数据：商业银行的总资产增速、新增贷款规模、票据融资情况等，可以从信贷供给端反映信用环境的变化。</p>
+<p>金融状况指数（Financial Conditions Index, FCI）：一些机构会编制FCI，综合考虑利率、信用利差、股价、汇率等多个变量，形成一个对整体金融环境松紧程度的综合度量。</p>
+</section>
+<section id="风险偏好与市场情绪risk-appetite-sentiment" class="level3">
+<h3 class="anchored" data-anchor-id="风险偏好与市场情绪risk-appetite-sentiment">5.风险偏好与市场情绪（Risk Appetite &amp; Sentiment）</h3>
+<p>定义与内涵：这是一个偏向于行为金融学的因子，旨在量化市场参与者作为一个整体对于承担风险的意愿。它独立于经济基本面，有时甚至会主导短期市场走势。在“Risk-on”模式下，投资者情绪乐观，愿意追逐高风险高收益的资产；而在“Risk-off”模式下，投资者恐慌避险，涌向最安全的资产。</p>
+<p>传导机制：当风险偏好高涨时，资金会从避险资产（如美元、日元、美国国债）流向风险资产（如股票、新兴市场资产、高收益债、大宗商品），导致前者价格下跌，后者价格上涨。反之，当黑天鹅事件发生或不确定性急剧上升时，会触发强烈的“Risk-off”浪潮，资产价格走势完全逆转。</p>
+<p>代理变量：该因子通常由一系列市场价格指标合成。最著名的代理变量是VIX指数（“恐慌指数”）。</p>
+<p>其他常用的指标还包括：高收益债与国债的信用利差（Credit Spread）、新兴市场货币相对于避险货币（如美元、日元）的汇率、看跌/看涨期权比率（Put-Call Ratio）、以及各类投资者情绪调查指数。</p>
+</section>
+<section id="新兴市场风险emerging-market-risk" class="level3">
+<h3 class="anchored" data-anchor-id="新兴市场风险emerging-market-risk">6.新兴市场风险（Emerging Market Risk）</h3>
+<p>定义与内涵：对于全球资产配置而言，这是一个至关重要的因子。它特指与投资于新兴市场经济体相关的系统性风险，这些风险源于其独特的政治、经济和金融结构。新兴市场通常面临更高的经济周期波动、不稳定的政策环境、脆弱的国际收支以及货币大幅贬值的风险。</p>
+<p>传导机制：全球宏观环境的变化（尤其是美联储货币政策和美元走势）对新兴市场具有巨大的外溢效应。当全球流动性收紧、美元走强时，资本倾向于从新兴市场流出，对其货币、股市和债市造成“三杀”局面。此外，地缘政治风险、大宗商品价格波动，尤其对于资源出口型新兴经济体，也是重要的传导渠道。</p>
+<p>代理变量：量化新兴市场风险因子通常需要综合多个维度。一些研究机构会通过统计方法，在剔除掉新兴市场资产与全球股市、大宗商品等其他宏观因子的相关性后，提取出纯粹的新兴市场暴露（pure EM exposure）。常用的代理变量包括以下几个方面：</p>
+<p>汇率风险：使用一篮子新兴市场货币的汇率波动率（FX Volatility）或其相对于美元的即期汇率指数。一些更精细的模型会考察实际有效汇率与购买力平价（PPP）的偏离度，作为货币估值风险的衡量。</p>
+<p>宏观基本面风险：构建一个包含多个宏观指标的综合评分，例如经常账户赤字/GDP、外汇储备充足率、短期外债水平、通胀稳定性、财政赤字等。</p>
+<p>主权信用风险：以J.P.Morgan新兴市场债券指数（EMBI）的利差（EMBI Spread）为代表，衡量新兴市场主权债相对于美国国债的风险溢价。</p>
+<p>增长、通胀、货币政策、风险偏好、新兴市场风险等这个五因子共同构成了一个相对完备的分析框架，能够解释全球大类资产价格变动的主要部分。在实践中，投资者将基于这个体系，通过下述的技术路径，将这些抽象的宏观概念转化为可度量、可跟踪、可投资的量化因子。</p>
+</section>
+</section>
+<section id="三宏观因子计算方法一直接利用宏观经济数据" class="level2">
+<h2 class="anchored" data-anchor-id="三宏观因子计算方法一直接利用宏观经济数据">三、宏观因子计算方法一：直接利用宏观经济数据</h2>
+<p>这是构建宏观因子模型最早期、最经典且最直观的方法。其核心思想是直接采用由政府统计部门或权威机构发布的宏观经济指标作为因子本身。</p>
+<section id="因子选择与指标体系" class="level3">
+<h3 class="anchored" data-anchor-id="因子选择与指标体系">1.因子选择与指标体系</h3>
+<p>在该路径下，因子选择与前述的宏观因子体系紧密对应。研究者会为每一个宏观维度精心挑选最具代表性的官方经济数据。例如：</p>
+<p>增长因子：直接使用实际GDP同比/环比增速、全国规模以上工业增加值同比、制造业PMI指数等。</p>
+<p>通胀因子：直接使用CPI同比、PPI同比、核心CPI同比等。 流动性因子：直接使用M2同比增速、社会融资规模存量同比增速等。</p>
+<p>利率因子：直接使用央行基准利率、1年期或10年期国债到期收益率等。 选择指标时，需要考虑其经济重要性、数据的可靠性、历史序列的长度以及与资产价格的历史相关性。</p>
+</section>
+<section id="因子构建" class="level3">
+<h3 class="anchored" data-anchor-id="因子构建">2.因子构建</h3>
+<p>获得原始数据，需要进行一系列专业的处理，以增强因子的有效性，包括： 数据频率对齐：宏观数据发布频率不一，而资产价格是高频的。</p>
+<p>为了进行回归分析，通常需要将高频的资产收益率数据聚合到与宏观数据匹配的低频（如月度），或者采用混合数据抽样（MIDAS）等更复杂的计量方法来处理不同频率的数据。</p>
+<p>季节性调整：许多经济数据存在明显的季节性特征，如春节或圣诞节对消费数据的影响，必须进行季节性调整，以剔除这些固定模式的干扰，揭示真实的经济趋势。</p>
+<p>构建“意外”因子：市场价格通常已经反映了对未来经济数据的普遍预期。真正驱动资产价格变动的，是已公布数据与预期之间的差值，即“宏观意外”（Macro Surprise）。因子构建方法是：</p>
+<p><span class="math inline">\(因子值=公布值-市场预期值\)</span>。</p>
+<p>例如，构建“通胀意外因子”，就是用实际公布的CPI减去市场预期的CPI。计算需要获取彭博、万得等数据终端提供的经济学家预测数据。</p>
+<p>标准化处理：不同指标的量纲和波动性差异巨大，直接使用会产生偏误。因此，通常需要对每个因子时间序列进行标准化处理，使其成为一个均值为0、标准差为1的序列，便于后续的比较和建模。</p>
+</section>
+<section id="优点与局限性" class="level3">
+<h3 class="anchored" data-anchor-id="优点与局限性">3.优点与局限性</h3>
+<p>优点：</p>
+<p>逻辑清晰，解释性强：这种方法的因子直接对应宏观经济理论中的核心变量，其经济含义一目了然，非常直观，便于投资者理解和形成投资逻辑。例如，将组合收益归因于“GDP增长超预期”，这是一个非常有力的解释。</p>
+<p>数据权威，来源可靠：使用的是官方发布的宏观经济数据，具有权威性，不易受到市场短期噪音的干扰。</p>
+<p>局限性：</p>
+<p>滞后性严重：这是该方法最致命的缺陷。宏观数据从统计、处理到发布，存在显著的时间延迟。例如，一个季度的GDP数据可能要在该季度结束后一个月甚至更久才公布。而金融市场是高度前瞻性的，早已对这些信息进行了消化和交易。当数据公布时，其包含的信息价值已经大打折扣。</p>
+<p>频率过低：大部分核心宏观数据是月度或季度发布的，远低于投资决策和风险管理所需的高频数据。用月度数据指导每日的交易和风险监控，显然力不从心。</p>
+<p>数据修订问题：宏观经济数据，尤其是GDP等重要指标，经常会被统计机构在事后进行多次修订。这导致基于初始公布值建立的模型可能在未来变得不准确。</p>
+<p>噪音较大：单一的宏观指标可能包含较多噪音，或受到短期特殊事件的扰动，未必能准确反映潜在的宏观经济状态。</p>
+<p>由于上述严重的局限性，纯粹依赖直接宏观数据的模型在当代高频、高效的金融市场中已较少被直接用于实时的投资组合管理，但它仍然是宏观经济研究和长期资产配置战略制定的重要基础，并且为后续更先进的技术路径提供了“锚”，即定义了我们最终想要捕捉的宏观风险的目标。</p>
+</section>
+</section>
+<section id="四宏观因子计算方法二市场隐含因子法" class="level2">
+<h2 class="anchored" data-anchor-id="四宏观因子计算方法二市场隐含因子法">四、宏观因子计算方法二：市场隐含因子法</h2>
+<p>为了克服宏观经济数据的低频和滞后问题，研究者转向了金融市场本身。其核心逻辑是：高效的市场中，各类资产的实时交易价格已经包含了所有市场参与者对当前及未来宏观环境的集体智慧和预期。</p>
+<p>因此，我们可以反其道而行之，不再从宏观数据出发去预测资产价格，而是从资产价格的联动模式中，反推出市场所“隐含”的，共同的宏观风险因子。</p>
+<p>这种方法最常使用的统计工具是主成分分析（Principal Component Analysis, PCA）。</p>
+<section id="资产池的选择" class="level3">
+<h3 class="anchored" data-anchor-id="资产池的选择">1.资产池的选择</h3>
+<p>该方法的成功与否，高度依赖于初始资产池的选择。资产池必须足够广泛和多样化，才能全面地反映宏观经济的各个维度。一个理想的资产池应包括：</p>
+<ul>
+<li><p>全球股票：不同国家和地区的股指，如标普500、欧洲斯托克50、日经225、MSCI新兴市场指数，以及不同行业/风格的股票指数等。</p></li>
+<li><p>全球政府债券：不同期限的各国国债，如美国、德国、日本的2年、10年、30年期国债等。</p></li>
+<li><p>信用债：投资级公司债和高收益公司债，其利差反映了信用风险和经济景气度。</p></li>
+<li><p>大宗商品：能源（原油）、工业金属（铜）、贵金属（黄金）等。</p></li>
+<li><p>货币：全球主要的货币对，如USD/EUR、USD/JPY，以及与商品和新兴市场相关的货币对，如USD/AUD、USD/MXN。</p></li>
+<li><p>另类资产：如房地产投资信托（REITs）、通胀保值债券（TIPS）等。</p></li>
+</ul>
+<p>通过选择这样的大范围资产，我们可以确保输入的数据包含了关于全球增长、通胀、利率、风险偏好、地缘政治等多维度的信息。</p>
+</section>
+<section id="提取主成分" class="level3">
+<h3 class="anchored" data-anchor-id="提取主成分">2.提取主成分</h3>
+<p>提取主成分的数学过程如下：</p>
+<ol type="1">
+<li><p>数据准备：获取资产池中所有资产的日度或周度收益率序列，构建一个<span class="math inline">\(T*N\)</span>的收益率矩阵<span class="math inline">\(R\)</span>，T为时间序列长度，N为资产数量。</p></li>
+<li><p>计算协方差矩阵：计算该收益率矩阵的<span class="math inline">\(N*N\)</span>协方差矩阵<span class="math inline">\(Σ\)</span>。这个矩阵描述了所有资产之间收益率的联动关系。</p></li>
+<li><p>特征值分解：对协方差矩阵<span class="math inline">\(Σ\)</span>进行特征值分解。PCA的目标是找到一组新的、正交的变量，即“主成分”（Principal Components, PCs），它们是原始资产收益率的线性组合。第一个主成分<span class="math inline">\(PC1\)</span>被构造成能够解释原始数据中最大方差的方向，第二个主成分<span class="math inline">\(PC2\)</span>在与<span class="math inline">\(PC1\)</span>正交的前提下解释尽可能多的剩余方差，以此类推。</p></li>
+<li><p>因子确定：通常，前3至5个主成分就能解释资产池总方差的绝大部分。这些主成分就被视为市场隐含的、驱动所有资产联动的共同“因子”。</p>
+<p>研究发现，第一个主成分通常与全球股票市场的整体涨跌高度相关，可以解释为“全球市场风险”或“风险偏好”因子。第二个主成分可能与债券和股票的负相关走势有关，可解释为“利率”或“增长-通胀”因子。</p></li>
+</ol>
+</section>
+<section id="优点与局限性-1" class="level3">
+<h3 class="anchored" data-anchor-id="优点与局限性-1">3.优点与局限性</h3>
+<p>优点：</p>
+<p>高频、实时：由于因子直接从高频的资产价格中提取，它们是每日更新的，能够即时捕捉市场预期的变化，完全克服了宏观数据的滞后性问题。</p>
+<p>客观、数据驱动：提取过程是纯粹的统计降维，不依赖于任何先验的经济理论或主观判断，避免了模型设定偏误。</p>
+<p>捕捉未知风险：PCA可能发现一些传统宏观框架未能识别的、新的共同风险源。</p>
+<p>局限性：</p>
+<p>经济含义模糊：这是该方法最大的挑战。PCA提取出的主成分是纯粹的数学和统计构造，它们本身并没有天然的、清晰的经济学标签。<span class="math inline">\(PC1\)</span>，<span class="math inline">\(PC2\)</span>等只是代号。</p>
+<p>解释的主观性：为了让这些统计因子变得可用，研究者必须在事后对其进行“经济学解释”。这通常通过计算每个主成分与各类宏观经济指标或特定资产的相关性来完成。</p>
+<p>例如，如果发现<span class="math inline">\(PC1\)</span>与全球股指和VIX指数高度相关，就将其命名为“风险偏好因子”。这个过程充满了主观性，且可能不稳定，一个主成分在不同时期的主要驱动力可能会发生变化。</p>
+<p>稳定性问题：主成分的构成，即其在原始资产上的权重，可能会随着样本期的改变而发生变化，这给模型的长期应用带来了挑战。</p>
+<p>尽管存在解释性的困难，市场隐含因子法因其时效性，在风险管理领域，尤其是计算投资组合的风险价值VaR，和一些高频交易策略中仍有广泛应用。它提供了一个关于“市场当前在交易什么主题”的量化视角。</p>
+</section>
+<section id="五宏观因子计算方法三因子模拟法" class="level3">
+<h3 class="anchored" data-anchor-id="五宏观因子计算方法三因子模拟法">五、宏观因子计算方法三：因子模拟法</h3>
+<p>因子模拟法（Factor Mimicking Method，FMM），或称因子模拟组合法（Factor Mimicking Portfolio, FMP），是当前机构投资者构建宏观因子模型最主流、最精细化的技术路径。它巧妙地结合了前两种方法的优点：既有路径一的清晰经济逻辑，又实现了路径二的高频可投资性。</p>
+<p>其核心思想是：对于一个我们关心但不可直接交易的宏观因子，如路径一中的通胀因子，我们能否通过构建一个由可交易资产组成的投资组合，使其收益率走势能够最大程度地“模拟”或“复制”这个宏观因子的动态变化？如果可以，这个可投资的“模拟组合”本身，就成为了该宏观因子的化身。</p>
+</section>
+<section id="定义目标宏观因子" class="level3">
+<h3 class="anchored" data-anchor-id="定义目标宏观因子">1.定义目标宏观因子</h3>
+<p>这一步回归到路径一的思路。首先，我们需要明确定义我们想要模拟的宏观因子。对于每个目标因子，我们都需要指定一个或一组对应的低频宏观经济变量为锚定变量，用于后续的回归分析。这通常是一个经过处理的宏观经济时间序列。例如：</p>
+<ul>
+<li><p>目标增长因子：可以是经过标准化处理的制造业PMI月度变化序列。</p></li>
+<li><p>目标通胀因子：可以是CPI同比，也可以是CPI同比的“超预期”部分，即实际值减预期值。</p></li>
+<li><p>目标货币政策因子：可以选择联邦基金利率期货（Fed Funds Futures），这是一种在芝加哥商品交易所（CME）交易的、以美国联邦基金利率（即银行间隔夜拆借利率）为标的物的金融衍生品合约，反映的未来利率路径的变化。</p></li>
+</ul>
+<p>上述这些“目标因子”是构建模拟组合的目标和基准。</p>
+</section>
+<section id="选择基础资产池" class="level3">
+<h3 class="anchored" data-anchor-id="选择基础资产池">2.选择基础资产池</h3>
+<p>与路径二类似，我们需要一个广泛的、用于构建FMP的基础资产池。这个资产池应该足够广泛和多样化，以确保能够捕捉到不同宏观风险的定价信息。理想的资产池应包括：</p>
+<ul>
+<li><p>全球股票：不同国家、不同行业（周期性vs.防御性）、不同风格（价值vs.成长）的股票指数。</p></li>
+<li><p>政府债券：不同国家、不同期限的名义国债和通胀挂钩债券（TIPS）。</p></li>
+<li><p>信用债券：投资级公司债、高收益公司债。</p></li>
+<li><p>大宗商品：工业金属（铜、铝）、贵金属（黄金、白银）、能源（原油）、农产品。 外汇：主要货币对（如G10货币），特别是商品货币和避险货币。</p></li>
+<li><p>房地产：上市交易的房地产投资信托基金（REITs）。</p></li>
+</ul>
+<p>资产池越丰富，FMP捕捉目标因子信息的能力就越强，同时剔除其他无关风险（即“因子污染”）的可能性也越大。</p>
+<p>与路径二不同，这里的选择更具针对性：资产池中的资产应该在理论上和经验上都对我们的“目标宏观因子”敏感。例如：</p>
+<ul>
+<li><p>模拟“增长”因子：资产池应包含全球股指、周期性行业股票、工业金属、澳元等商品货币。</p></li>
+<li><p>模拟“通胀”因子：资产池应包含通胀保值债券（TIPS）、黄金、能源、食品等大宗商品、以及对通胀敏感的公用事业股票。</p></li>
+<li><p>模拟“利率”因子：资产池应包含不同久期的国债、利率互换、以及对利率敏感的银行和房地产股票。</p></li>
+</ul>
+</section>
+<section id="构建模拟组合" class="level3">
+<h3 class="anchored" data-anchor-id="构建模拟组合">3.构建模拟组合</h3>
+<p>这是FMP方法的技术核心，其目标是找到一组最优的资产权重<span class="math inline">\(w\)</span>，使得由基础资产构成的模拟组合的收益率<span class="math inline">\(R_p=w'*R_assets\)</span>能够最好地追踪目标宏观因子<span class="math inline">\(F_target\)</span>。实现这一目标的常用方法是回归分析。</p>
+<p>构建模拟组合在数学上可以被看作是一个投影问题，即把不可交易的因子<span class="math inline">\(F_target\)</span>投影到由基础资产收益率张成的空间上。实践中，主要通过以下两种回归框架实现：</p>
+<section id="时间序列回归法time-series-regression" class="level4">
+<h4 class="anchored" data-anchor-id="时间序列回归法time-series-regression">3.1.时间序列回归法(Time-Series Regression)</h4>
+<p>这是最直接的方法。我们让目标宏观因子<span class="math inline">\(F_target\)</span>在每一个时间点<span class="math inline">\(t\)</span>，对同时期的<span class="math inline">\(N\)</span>个基础资产的收益率<span class="math inline">\(R_i,t\)</span>进行多元回归：</p>
+<p><span class="math inline">\(F_{target,t}=α+β_1*R_{1,t}+β_2*R_{2,t}+...+β_N*R_{N,t}+ε_t\)</span></p>
+<p>回归系数的意义：在这个回归方程中，得到的回归系数向量<span class="math inline">\(β=(β_1,β_2,...,β_N)\)</span>就是我们想要的模拟组合的权重。</p>
+<p>这个组合<span class="math inline">\(β'*R_{assets}\)</span>的收益率，在统计意义上是与目标因子<span class="math inline">\(F_{target}\)</span>相关性最高、追踪误差<span class="math inline">\(ε_t\)</span>最小的线性组合。 该方法简单直观。但问题在于：当基础资产数量<span class="math inline">\(N\)</span>很大时，回归可能存在多重共线性问题，导致权重估计不稳定。</p>
+</section>
+<section id="横截面回归法cross-sectional-regression" class="level4">
+<h4 class="anchored" data-anchor-id="横截面回归法cross-sectional-regression">3.2.横截面回归法(Cross-Sectional Regression)</h4>
+<p>这是一个更常用、更稳健的两步法，借鉴了<strong>Fama-MacBeth回归</strong>的思想：</p>
+<p><strong>第一步：</strong>估计因子暴露（Betas） 对于每一个基础资产<span class="math inline">\(i\)</span>，我们先用其收益率<span class="math inline">\(R_{i,t}\)</span>对目标宏观因子<span class="math inline">\(F_{target,t}\)</span>，以及其他需要控制的因子，进行时间序列回归，估计出每个资产对该因子的敏感度，即因子暴露<span class="math inline">\(b_i\)</span>：</p>
+<p><span class="math inline">\(R_{i,t}=a_i+b_i*F_{target,t}+...(其他控制因子)...+e_{i,t}\)</span></p>
+<p>这一步为我们识别出了哪些资产是对因子敏感的“高beta资产”，哪些是“低beta资产”。</p>
+<p><strong>第二步：</strong>构建模拟组合收益率 在每个时间点<span class="math inline">\(t\)</span>，我们对所有<span class="math inline">\(N\)</span>个资产，用它们的当期收益率<span class="math inline">\(R_i,t\)</span>，对它们在第一步中得到的因子暴露<span class="math inline">\(b_i\)</span>进行横截面回归：</p>
+<p><span class="math inline">\(R_{i,t}=γ_{0,t}+γ_{1,t}*b_i+u_{i,t}\)</span></p>
+<p>这个回归的直观含义是：在<span class="math inline">\(t\)</span>时刻，因子暴露<span class="math inline">\(b_i\)</span>每高一个单位，资产的超额收益<span class="math inline">\(R_i,t\)</span>会高出多少？这个问题的答案就是回归系数<span class="math inline">\(γ_{1,t}\)</span>。因此，<span class="math inline">\(γ_{1,t}\)</span>的经济学含义就是在<span class="math inline">\(t\)</span>时刻，因子暴露为1的投资组合所能获得的收益。这个<span class="math inline">\(γ_1,t\)</span>的时间序列，就构成了我们最终想要的因子模拟组合的收益率序列。</p>
+<p>在执行上述第二步的横截面回归时，具体使用哪种最小二乘法，对结果的准确性和有效性至关重要：</p>
+<p><strong>普通最小二乘法(Ordinary Least Squares，OLS)：</strong>这是最基础的方法，它假设回归的残差项<span class="math inline">\(u_i,t\)</span>是独立同分布的，即不存在异方差和自相关。在许多金融应用中，这个假设过于理想化，常常被违背。</p>
+<p><strong>加权最小二乘法(Weighted Least Squares，WLS)：</strong>当残差存在异方差性，即不同资产的残差方差不同时，OLS不再是最优的估计量。WLS通过给不同观测值赋予不同的权重来修正这个问题。权重通常是其残差方差的倒数，残差方差较小的资产被赋予更高的权重，因为它提供了更精确的信息。</p>
+<p><strong>广义最小二乘法(Generalized Least Squares，GLS)：</strong>GLS是处理更复杂情况的通用方法。当残差不仅存在异方差性，还存在截面相关性时，即资产<span class="math inline">\(i\)</span>的残差<span class="math inline">\(u_{i,t}\)</span>与资产<span class="math inline">\(j\)</span>的残差<span class="math inline">\(u_j,t\)</span>相关。GLS通过一个权重矩阵来进行估计，该矩阵是残差的协方差矩阵的逆<span class="math inline">\(Ω⁻¹\)</span>，可以得到更有效的估计结果。在金融实践中，资产的特质收益率，即残差项往往是相关的，因此GLS是理论上更优越的选择。</p>
+<p>实践中，选择哪种方法取决于对残差特性的检验。通常会先进行OLS回归，然后对残差进行怀特检验等来判断是否存在异方差性。如果存在，应优先考虑使用WLS或GLS。GLS虽然理论最优，但准确估计庞大的残差协方差矩阵<span class="math inline">\(Ω\)</span>本身就是一个挑战，因此在资产数量非常大时，可能会采用一些对<span class="math inline">\(Ω\)</span>结构做出简化的方法。</p>
+</section>
+</section>
+<section id="优点与局限性-2" class="level3">
+<h3 class="anchored" data-anchor-id="优点与局限性-2">4.优点与局限性</h3>
+<p>因子模拟法的出现，正是为了精准地解决“宏观变量法”的几大痛点：</p>
+<ul>
+<li><p>解决低频和滞后问题：FMP由可每日交易的资产构成，其净值可以以日度甚至更高频率进行计算和跟踪，完美匹配了金融交易的需求]。</p></li>
+<li><p>解决“意外”度量难题：无需再用统计模型去估计宏观数据的预期值和意外值。FMP的日度收益率本身就可以被视为市场对该宏观因子“意外”的实时反应。</p></li>
+<li><p>实现宏观风险的“可交易化”：“增长”或“通胀”本身是抽象概念，无法直接买卖。但通过FMP，我们可以获得一个与“增长”因子高度相关的投资组合。</p>
+<p>投资者如果想增加对增长风险的暴露，可以直接买入这个FMP；如果想对冲增长下行的风险，可以卖出（或做空）这个FMP。这极大地增强了宏观因子在投资实践中的可操作性。</p></li>
+<li><p>打通宏观风险与大类资产的联系：FMP的构建过程，本身就揭示了哪些资产对特定的宏观风险最为敏感，从而为跨资产配置提供了清晰的路线图。</p></li>
+</ul>
+<p>优点：</p>
+<ul>
+<li><p>可投资性：这是FMP方法最大的优势。它将一个抽象的宏观概念转化为了一个由真实资产构成的、可交易、可回测、可跟踪的投资组合。这意味着因子本身可以被直接纳入资产配置优化框架。</p></li>
+<li><p>高频性与逻辑性的结合：它保留了目标宏观因子的清晰经济逻辑，同时通过金融资产的模拟，赋予了因子高频的特性。</p></li>
+<li><p>应用广泛：得到的因子模拟组合收益率序列，不仅可以用于构建投资组合，还可以用于对现有基金或策略进行业绩归因，分析其收益究竟是来自alpha还是承担了某种宏观因子风险。</p></li>
+</ul>
+<p>局限性：</p>
+<ul>
+<li><p>模型依赖性强与稳健性问题：FMP的构建高度依赖于所选择的基础资产池、回归模型或优化算法。不同的模型设定可能产生差异巨大的FMP，其有效性可能随时间而变化。如果资产与因子之间的历史关系在未来发生结构性变化，模型的有效性就会下降。</p></li>
+<li><p>测量误差与因子污染：真实的、驱动经济的宏观因子是不可观测的，我们用作“锚”的低频宏观变量（如GDP）本身只是真实因子的一个带噪音的测量。这会导致FMP在定价能力上可能不如直接使用（理论上完美的）真实宏观变量。模拟组合的收益率与目标宏观因子之间不可能完美匹配，始终存在模拟误差。这种误差的大小取决于基础资产池的选择以及资产与因子之间关系的稳定性。</p></li>
+<li><p>因子污染：构建的FMP很难做到对目标因子（如“通胀”）有100%纯粹的暴露，往往会混入对其他因子（如“增长”）的暴露。例如，做多大宗商品来模拟通胀，但大宗商品价格同时也受到全球增长预期的强烈影响。如何构建“纯净”的因子是该方法的一大挑战[。</p></li>
+<li><p>解释性相对较弱：与直接使用CPI、GDP相比，一个由几十种资产多空组合构成的FMP的经济学直观性有所下降。解释其为何上涨或下跌，需要追溯到底层资产权重的复杂变动。</p></li>
+</ul>
+<p>一些研究对FMP在资产定价检验中的有效性提出了质疑，认为其结果可能受到构建过程中的噪音或方法论缺陷的影响，而非真正捕捉到了宏观风险溢价。尽管存在这些挑战，因子模拟法凭借其卓越的综合性能，已成为业界和学界构建和应用宏观因子模型的黄金标准。</p>
+</section>
+</section>
+<section id="六宏观因子模型应用于资产配置实施流程" class="level2">
+<h2 class="anchored" data-anchor-id="六宏观因子模型应用于资产配置实施流程">六、宏观因子模型应用于资产配置实施流程</h2>
+<p>拥有了一套高质量的宏观因子，我们就可以将其应用于实际的资产配置流程中。这是一个将宏观洞见系统性地转化为投资组合决策的闭环过程。</p>
+<section id="步骤一形成宏观观点设定因子暴露目标" class="level3">
+<h3 class="anchored" data-anchor-id="步骤一形成宏观观点设定因子暴露目标">1.步骤一：形成宏观观点，设定因子暴露目标</h3>
+<p>宏观因子配置策略可以是纯被动的（如因子风险平价），也可以是主动的。在主动管理框架下，流程的第一步是形成对未来宏观经济环境的判断，并将其转化为对投资组合因子暴露的明确要求。</p>
+<p>投资经理需要综合运用经济学理论、量化模型预测和市场信息，对未来一段时间（如未来3-6个月）的核心宏观因子（增长、通胀等）的可能走向形成观点。</p>
+<p>首先，我们会有一个定性观点“我们认为未来6-12个月，全球经济将从衰退中温和复苏，但通胀压力依然存在。”</p>
+<p>而后，将上述定性观点转化为对宏观因子未来表现的预期：预期“增长”因子将有正回报；预期“通胀”因子也将有正回报；预期“央行将维持紧缩政策”，因此“利率”因子为负回报。</p>
+<p>最后，基于这些观点，为投资组合设定理想的因子暴露（Factor Exposure）目标。例如，相对于战略基准，我们会：超配（Overweight）“增长”因子暴露；超配“通胀”因子暴露；低配（Underweight）“利率”因子暴露。对“风险偏好”因子和“新兴市场风险”因子保持中性暴露。</p>
+<p>更精细的做法是进行风险预算。即确定组合的总风险水平，然后将这个总风险预算分配到各个宏观因子上。例如，决定将组合60%的风险预算分配给增长因子，30%分配给通胀因子，10%用于承担信用风险。这使得投资组合的风险结构与投资者的核心观点完全匹配。</p>
+<p>这一步是将主观的宏观判断与量化模型连接起来的关键桥梁。一些更为复杂的模型，如将宏观因子观点融入 Black-Litterman 框架，可以更系统地处理这种结合。</p>
+</section>
+<section id="步骤二计算资产层面的因子暴露" class="level3">
+<h3 class="anchored" data-anchor-id="步骤二计算资产层面的因子暴露">2.步骤二：计算资产层面的因子暴露</h3>
+<p>为了实现组合层面的因子暴露目标，我们首先需要知道投资池中每一个备选资产在这些因子上的暴露是多少。这通过对每个资产的历史收益率序列向我们已经构建好的所有宏观因子（FMPs）进行多元回归来完成：</p>
+<p><span class="math inline">\(R_{asset,t}=α_{asset}+β_{growth}*F_{growth,t}+β_{inflation}*F_{inflation,t}+...+ε_{asset,t}\)</span></p>
+<p>这个回归得到的系数向量 <span class="math inline">\(β=(β_growth,β_ inflation,...)\)</span>就是该资产的“因子暴露向量”。它量化地描述了该资产的风险收益特征。</p>
+<p>例如，一个铜矿公司的股票，可能会得到很高的<span class="math inline">\(β_growth\)</span>，表明其强顺周期性；负的<span class="math inline">\(β_interest_rate\)</span>，表明其对加息敏感；如果其业务主要在新兴市场，则会由较高的<span class="math inline">\(β_EM_risk\)</span>。通过对所有股票、债券、商品等资产都进行这样的回归，我们就得到了一个完整的“资产-因子暴露”矩阵。</p>
+<p>需要提醒的是，在进行回归之前，需先考虑因子是否需要进行正交化处理。如果宏观因子之间的相关性过大，可能会导致回归模型出现多重共线性问题进而影响回归结果。</p>
+<p>通常可以通过计算因子之间的相关系数与方差膨胀系数（VIF）进行检验。方差膨胀系数可以检验因子之间是否存在多重共线性，一般VIF小于5认为因子之间不存在多重共线性问题。</p>
+<p>实际应用时，部分研究使用逐步回归或Lasso回归的方式进行计算，或者结合经验提前将某些因子的回归系数设置为0，以使资产只对其核心解释变量具有暴露值。同时也可以结合滚动回归方法及时捕捉资产与因子关系的变化情况。</p>
+</section>
+<section id="步骤三组合优化求解资产权重" class="level3">
+<h3 class="anchored" data-anchor-id="步骤三组合优化求解资产权重">3.步骤三：组合优化，求解资产权重</h3>
+<p>这是将目标转化为实际持仓的核心量化步骤。我们的目标是，寻找到一组最优的资产权重<span class="math inline">\(w=(w_1,w_2,...,w_N)\)</span>，使得最终形成的投资组合<span class="math inline">\(P\)</span>的因子暴露<span class="math inline">\(β_P=w'*β_assets\)</span>尽可能地接近我们在步骤一中设定的目标因子暴露<span class="math inline">\(β_target\)</span>。</p>
+<p>这是一个带约束的优化问题。典型的优化器设定如下：</p>
+<p>目标函数：</p>
+<p><span class="math inline">\(Minimize(β_P-β_{target})'*Q*(β_P-β_{target})\)</span></p>
+<p>即最小化实际因子暴露与目标暴露之间的加权平方误差。其中，<span class="math inline">\(Q\)</span>是一个权重矩阵，可以对我们更关心的因子的匹配度赋予更高权重。</p>
+<p>约束条件：</p>
+<p>预算约束：<span class="math inline">\(Σw_i=1\)</span>，权重之和为1。</p>
+<p>个股/资产权重约束：<span class="math inline">\(w_{i,min}&lt;=w_i&lt;=w_{i,max}\)</span>，例如，禁止做空，或限制单一资产的最大权重。</p>
+<p>行业/国家/风格中性约束：可能要求组合在某些非宏观因子（如行业因子）上的暴露保持中性，以确保收益主要来自我们主动管理的宏观因子。</p>
+<p>风险约束：组合的总波动率、最大回撤，或相对于基准的跟踪误差（Tracking Error）不能超过某个阈值。</p>
+<p>通过求解这个优化问题，我们就能得到一组具体的、可执行的资产权重。</p>
+</section>
+<section id="步骤四执行交易与动态再平衡rebalancing" class="level3">
+<h3 class="anchored" data-anchor-id="步骤四执行交易与动态再平衡rebalancing">4.步骤四：执行交易与动态再平衡（Rebalancing）</h3>
+<p>优化器给出的目标权重与当前组合的实际权重之间的差异，即需要执行的交易清单。交易执行团队会根据市场流动性、交易成本等因素，完成建仓或调仓。</p>
+<p>宏观环境和市场状况是持续变化的，因此投资组合需要动态再平衡。再平衡的触发机制通常有两种：</p>
+<ul>
+<li><p>基于时间：定期（如每月或每季度）重新审视宏观观点，并重新执行步骤一到三的整个流程。</p></li>
+<li><p>基于事件/阈值：当宏观观点发生重大变化（如央行意外转向）、或组合的实际因子暴露因市场波动而偏离目标超过一定阈值时，触发再平衡。</p></li>
+</ul>
+</section>
+<section id="步骤五业绩归因与风险管理" class="level3">
+<h3 class="anchored" data-anchor-id="步骤五业绩归因与风险管理">5.步骤五：业绩归因与风险管理</h3>
+<p>业绩归因（Performance Attribution）‍：传统的业绩归因仅仅将收益分解到资产类别，如股票贡献了多少，债券贡献了多少。而基于宏观因子模型的归因则深刻得多。它可以将组合的总收益（或超额收益）精确地分解到每个宏观因子的贡献上：</p>
+<p><span class="math inline">\(TotalReturn≈Σ(β_{factor_i}*F_{factor_i})+α\)</span></p>
+<p>这能清晰地回答：这次盈利是因为我们对“增长”因子的正确押注，还是因为我们成功规避了“通胀”风险？这种归因有助于评估投资决策的质量，区分是靠运气，即承担了恰好上涨的风险因子，还是真的具备产生Alpha的能力。</p>
+<p>风险管理（Risk Management）：同样地，组合的总风险（如波动率）也可以被分解到各个宏观因子上，即计算每个因子对总风险的贡献度。这使得风险经理可以清晰地看到组合最大的风险来源是什么。如果发现“新兴市场风险”因子的风险贡献过高，超出了风险预算，就需要采取措施降低对该因子的暴露，从而实现更精细化的风险控制。</p>
+<p>通过上述这五个步骤的循环往复，宏观因子模型为资产配置提供了一个完整的操作闭环，实现了从宏观研究到组合实践的无缝对接。</p>
+</section>
+<section id="七结论与展望" class="level3">
+<h3 class="anchored" data-anchor-id="七结论与展望">七、结论与展望</h3>
+<p>宏观因子模型，与基于宏观因子模型的资产配置策略，是现代量化投资思想演进的必然结果。它标志着投资范式从对“资产”的朴素认知，跃迁至对“共同风险因子”的深刻洞察。这一转变的价值是根本性的：</p>
+<ul>
+<li><p>提供了统一的分析语言：无论是股票、债券还是大宗商品，都可以被放在同一个因子框架下进行分析和比较，极大地提升了跨资产类别配置的逻辑一致性和效率。</p></li>
+<li><p>实现了真正的风险分散：通过在驱动所有资产的底层风险因子层面进行分散，可以构建出在不同宏观情景下都表现更为稳健的投资组合，有效对抗传统资产分散化在危机中失效的问题。</p></li>
+<li><p>系统化了宏观观点：它为如何将宏观经济研究的洞见，转化为纪律严明、可回测、可归因的投资决策，提供了一条清晰的技术路径。</p></li>
+</ul>
+<p>研究和实践表明，将宏观因子视角融入传统资产配置模型，能够显著提升模型的表现，其各项效果普遍优于传统的均值-方差模型或标准的BL模型，同时能更好地控制波动率和最大回撤。这证明了捕捉宏观动态对于提升投资绩效的关键作用。</p>
+<p>综上，宏观因子模为身处复杂多变的全球宏观环境中的投资者，提供了一幅洞察市场本质的“地图”和一套驾驭风险的“罗盘”。本文所呈现的宏观因子模型并非一个终极版本，而是一个不断演进和完善的强大框架。掌握并善用这一工具，将是在未来持续战胜市场，获取稳健投资回报的关键所在。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="pagination-link" aria-label="第7章 资产配置 第6节 全天候策略和风险平价模型的改进">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="pagination-link" aria-label="第9章 风险控制 第1节 历史重大风险危机回顾">
+        <span class="nav-page-text">第9章 风险控制 第1节 历史重大风险危机回顾</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
