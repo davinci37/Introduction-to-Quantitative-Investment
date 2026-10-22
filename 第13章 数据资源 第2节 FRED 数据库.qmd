@@ -1,0 +1,355 @@
+# 第13章 数据资源 第2节 FRED {.unnumbered}
+
+## 一、FRED 数据库概述
+
+FRED（Federal Reserve Economic Data，联邦储备经济数据）是由**圣路易斯联邦储备银行（Federal Reserve Bank of St. Louis）研究部**创建并维护的免费在线经济数据库。它本质上是一个**数据聚合器**，将来自众多政府机构、国际组织和私人机构的数据汇集到统一平台，并提供从查找到分析、从可视化到程序化下载的一整套工具。
+
+### 1.数据规模与覆盖范围
+
+FRED 的数据体量随时间持续扩张。根据近年的官方资料，它已收录**超过 825,000 条时间序列**，来源超过 **100 个**，涵盖美国政府机构（如美国经济分析局、劳工统计局、人口普查局）、国际组织以及 Zillow 等私营数据提供方。数据频率覆盖**年度、季度、月度、周度和日度**。
+
+其核心覆盖领域包括：
+
+-   **宏观经济**：GDP、通胀、就业与失业率、货币供应。
+-   **金融与利率**：联邦基金利率、国债收益率、汇率、收益率曲线。
+-   **区域与行业数据**：各州就业、房价指数、制造业活动等。
+-   **国际比较数据**：来自 OECD 等来源的跨国指标。
+
+### 2.历史沿革与定位
+
+FRED 的起源可以追溯到圣路易斯联储长期以来的数据公开传统。1991 年，它作为互联网普及前的**电子公告板系统（BBS）** 上线，最初仅提供约 30 条数据序列。此后逐步扩展：2006 年推出 **ALFRED**（归档版）和图表功能；2009 年发布 **API**；2011 年推出 **Excel 插件**和移动端应用。如今，FRED 每年服务全球数百万用户，其中超过三分之一来自美国以外。
+
+### 3.主要功能与访问方式
+
+FRED 的价值不仅在于“有数据”，更在于它提供了将数据转化为分析的一系列工具。
+
+**网页端与可视化** 在 FRED 网站上，你可以直接搜索序列、绘制多序列对比图、进行单位变换（如从水平值转为同比百分比），并生成可分享的图表或仪表板（Dashboard）。**GeoFRED** 进一步支持以地图形式呈现州、县、都市区等地理层级的经济数据。
+
+**程序化访问（API）** FRED 提供 RESTful API，需注册获取免费密钥。API 支持检索序列元数据、观测值、分类、发布信息和来源，并允许通过 `realtime_start` / `realtime_end` 参数访问 ALFRED 的历史版本数据。主要 Python 封装库包括 **`fredapi`** 和 **`pyfredapi`**，R 语言则有 **`fredr`**。
+
+**Excel 插件**则允许用户在表格中直接拉取并刷新 FRED 数据，适合不写代码的常规分析场景。
+
+### 4.ALFRED 数据库
+
+**ALFRED**（ArchivaL Federal Reserve Economic Data）是 FRED 的关键补充，于 2006 年上线。二者的核心区别在于：
+
+|   | FRED | ALFRED |
+|------------------------|------------------------|------------------------|
+| **数据版本** | **当前（最新修订后）** 的数值 | **历史“实时”版本（vintage）**，保留数据首次发布时的原貌及后续修订轨迹 |
+| **典型用途** | 了解经济指标的当前状态 | **避免前视偏差**，还原决策者在特定历史时点实际掌握的信息 |
+
+这一功能对于**政策评估与实证研究**尤为重要：如果研究 2008 年金融危机期间的货币政策反应，使用 FRED 的“修订后 GDP”会引入当时决策者不可能拥有的信息，而 ALFRED 可以精确还原当时的数据环境。
+
+### 5.与其他主要经济数据库的对比
+
+与全球性数据库相比，FRED 的独特之处不在于“最大”，而在于**深度、工具链与更新历史**的结合。
+
+-   **世界银行（World Bank）** ：优势在于**全球覆盖广度**（200+ 国家的发展指标），但多为年度数据，且不提供逐次修订的历史档案。
+-   **FRED**：数据总量并非最大（约 80 余万条序列），但**聚焦于美国宏观与金融数据的深度**，频率更细（日度/周度），且 ALFRED 为每条序列保留了完整的修订记录。一份行业指南将其概括为：“**美国和 international 宏观数据，每条序列均附完整修订历史**”。
+-   **OECD / IMF**：分别在成员国结构性数据和国际金融统计方面有专长，但与 FRED 的定位重叠度较低，更多是互补关系。
+
+因此，如果你的分析对象是**美国宏观经济、利率与金融市场**，并需要处理数据修订或进行高频跟踪，FRED 通常是首选；若需要广泛比较各国的长期发展指标，则世界银行或 OECD 的数据覆盖更为全面。
+
+### 6.总结
+
+FRED 的核心价值可以概括为三点：**免费且权威的聚合数据**、**从可视化到 API 的完整分析工具链**，以及**通过 ALFRED 实现的“时间旅行”能力**——让你不仅能看见数据“现在是什么样”，也能看见它在历史上“曾经是什么样”。这三者的结合，使其成为宏观经济研究与金融分析中最常被调用的基础设施之一。
+
+## 二、FRED 数据库主要内容
+
+FRED的核心内容是一个庞大且高度组织化的经济时间序列集合。它的“主要内容”可以从**数据来源**、**主题分类**、**核心序列**和**地理覆盖**四个层面来理解。
+
+### 1.数据来源
+
+FRED本身不生产大部分数据，而是一个**数据聚合平台**，其价值很大程度上源于来源的广度与权威性。它汇集了来自**超过100个**公共和私人机构的**逾82.5万条**时间序列。
+
+主要来源包括：
+
+-   **美国联邦政府机构**：这是最核心的来源，包括**经济分析局（BEA）**（负责GDP、个人收入等）、**劳工统计局（BLS）**（负责CPI、失业率、非农就业等）、**人口普查局**（负责零售、住房等）以及**国会预算办公室（CBO）**等。
+-   **美联储系统**：包括**联邦储备委员会**（Board of Governors）发布的利率、货币供应量等数据，以及**联邦公开市场委员会（FOMC）**的相关决议数据。
+-   **国际组织与外国央行**：包括**世界银行、国际货币基金组织（IMF）、欧盟统计局（Eurostat）**，以及**英格兰银行、日本央行、欧洲央行**等多国中央银行。
+-   **私人部门与行业组织**：例如房地产数据来自**Zillow**和**全美房地产经纪人协会（NAR）**，股市数据可能来自**标普（S&P）**，还有**全美经济研究局（NBER）**等研究机构。
+
+这种聚合模式让研究者可以在同一平台上交叉分析来自不同发布机构的数据。
+
+### 2.主题分类
+
+为了管理海量序列，FRED提供了多种分类和导航方式。最直接的是**主题类别（Category）**，FRED的根类别下通常包含**8个顶层分支**：
+
+1.  **货币、银行与金融（Money, Banking & Finance）**：这是FRED最传统的核心领域，涵盖货币供应量、银行信贷、利率结构、金融条件等。
+2.  **人口、就业与劳动力市场（Population, Employment & Labor Markets）**：包括失业率、非农就业、劳动参与率、工资增长、人口结构等。
+3.  **国民账户（National Accounts）**：以GDP为核心，涵盖其支出法各组成部分（消费、投资、政府支出、净出口）、收入法构成以及国民收入与产出账户（NIPA）的完整框架。
+4.  **生产与商业活动（Production & Business Activity）**：包括工业生产指数、产能利用率、企业库存、订单、零售销售等。
+5.  **价格（Prices）**：涵盖消费者价格指数（CPI）、生产者价格指数（PPI）、个人消费支出（PCE）价格指数、GDP平减指数以及进出口价格等各类通胀指标。
+6.  **国际数据（International Data）**：专门汇集来自其他国家、地区和超国家机构的数据，便于进行跨国比较。
+7.  **美国区域数据（U.S. Regional Data）**：聚焦美国国内的地理层级数据（详见下文）。
+8.  **学术与其他数据**：包括来自NBER等研究机构的历史序列或特定学术数据集。
+
+除了层级化的“类别”，FRED还提供了**标签（Tags）**系统进行更细粒度的筛选，标签维度包括**概念、地理、频率、来源、发布、季节调整**等。例如，一个序列可以同时被标记为“月度”、“季调”、“BLS来源”和“CPI概念”。用户也可以按**数据发布（Release）** 来浏览，直接查看与某个官方报告（如就业形势报告）相关的所有序列。
+
+### 3.代表性核心序列一览
+
+FRED收录了宏观经济分析中最常被引用的指标。以下是一些具有代表性的序列及其FRED代码示例：
+
+| 领域 | 代表性指标 | 常见FRED代码示例 |
+|:-----------------------|:-----------------------|:-----------------------|
+| **总产出** | 实际国内生产总值（Real GDP） | `GDPC1` |
+| **劳动力市场** | 失业率（Unemployment Rate） | `UNRATE` |
+|  | 非农就业人数（Total Nonfarm Payrolls） | `PAYEMS` |
+| **通货膨胀** | 消费者价格指数（CPI） | `CPIAUCSL` |
+|  | 核心个人消费支出价格指数（Core PCE） | `PCEPILFE` |
+| **货币政策** | 联邦基金有效利率（Effective Federal Funds Rate） | `FEDFUNDS` 或 `DFF` |
+| **金融市场** | 10年期国债收益率 | `DGS10` |
+| **消费与收入** | 实际个人消费支出（Real PCE） | `PCEC96` |
+
+这些序列是构建宏观经济仪表板或进行实证研究时最常调用的基础数据。
+
+### 4.地理覆盖
+
+FRED的地理数据并非只有“美国”和“国际”两个模糊的层级，而是细化到了多个行政与统计单元。
+
+-   **国际层面**：覆盖众多主权国家，数据主要来自世界银行、IMF、OECD等国际组织的标准化统计。
+-   **美国区域层面**：这是FRED区域数据的重点，支持**9种地图类型**，包括**州（States）、县（Counties）、都市统计区（MSA）、人口普查区（Census Regions/Divisions）、联邦储备区（Federal Reserve Districts）** 等。这意味着研究者可以获取到县级失业率、都市区房价指数、各州GDP等精细数据。**GeoFRED**工具就是专门用于将这些区域数据以地图形式进行可视化分析的。
+
+### 5.总结
+
+FRED的主要内容可概括为一个 **“多源聚合、主题纵深、地理细化”** 的时间序列生态系统。它既包含了从GDP、通胀到就业等**宏观核心支柱**的权威序列，也通过精细的**区域数据**和**国际数据**支持结构性分析。其价值不仅在于序列的数量，更在于通过**类别、标签、发布**等多重维度建立的导航体系，使研究者能够从数万条序列中高效地定位到分析所需的那一条。
+
+## 三、FRED 数据库使用方法
+
+FRED 的使用方法可以按照从**网页端交互**到**程序化自动化**的递进顺序来掌握。
+
+### 1.网页端
+
+这是最直接的使用方式，适合探索性浏览和一次性提取。
+
+#### 1.1.定位数据序列
+
+FRED 提供了多种查找路径，可以按需组合使用。
+
+路径一：关键词搜索。**关键词搜索**是最快的方式。在首页搜索框中输入指标名称（如 “unemployment rate”），系统会给出建议序列，点击即可进入序列页面。如果你已经知道序列代码（如 `UNRATE`），直接输入代码也能精确定位。
+
+1.  访问FRED官网：[https://fred.stlouisfed.org](https://fred.stlouisfed.org）.)。
+
+2.  在顶部搜索框中输入关键词（如unemployment、GDP、CPI）。
+
+3.  从搜索结果中选择目标数据系列。
+
+路径二：浏览结构。除了搜索，还可以通过浏览结构来发现数据：
+
+-   按来源（Source） ：数据来自哪个机构（如 BLS、BEA），适合于“我知道要找某机构发布的数据”的场景。
+
+-   按发布（Release） ：围绕某一份定期报告（如“就业形势报告”）浏览其包含的所有序列。
+
+-   按类别（Category） ：按主题浏览，首页类别页面会显示每个主题下有多少条序列。
+
+-   按标签（Tags） ：用概念、频率、季节调整等标签交叉筛选，适合需要精确限定条件时使用。
+
+路径三：ID直达：
+
+FRED中的每个数据序列都有唯一的SeriesID，可直接通过URL访问，例如：
+
+<https://fred.stlouisfed.org/series/UNRATE> → 美国失业率
+
+<https://fred.stlouisfed.org/series/GDP> → 美国GDP
+
+<https://fred.stlouisfed.org/series/DGS10> → 10年期美国国债收益率
+
+### 1.2.编辑图表
+
+进入序列页面后，核心操作集中在图表上方的 **“EDIT GRAPH”** 按钮。
+
+你可以通过 “EDIT LINE” 对图表进行编辑和变换（Transform） ：在 “Units” 下拉菜单中，可以将原始水平值改为同比变化率、环比变化、指数等；在 “Frequency” 下拉菜单中，可以进行频率聚合，例如把月度数据降为季度或年度数据。这些变换在网页端即时完成，无需先下载原始数据再处理。
+
+你可以通过 “ADD LINE” 标签页向同一张图中添加更多序列，进行跨指标对比。
+
+图表的时间范围也可以快速切换：图表上方有 “1Y / 5Y / 10Y / Max” 按钮，点击即可调整观察窗口。
+
+#### 1.3.数据导出
+
+从图表导出是最直接的单序列导出方式：点击图表上方的 **“Download”** 按钮，选择 CSV 或 Excel 格式即可。
+
+如果需要**同时导出多条序列**，则需要使用 **Data Lists（数据列表）** 功能。登录免费账户后，在序列页面的 “Account Tools” 中选择 “Add to Data List”，将多条序列汇入同一个列表，然后整体下载。需要注意一个限制：**同一个 Data List 中的序列必须具有相同的频率**（例如不能把月度序列和日度序列混在同一个列表中直接导出）。
+
+图表和 Data List 也都可以**保存到你的 FRED 账户**中。保存图表时可以选择“始终从某个起始日期展示到最新值”，这样当源数据更新时，图表会自动纳入新观测值。
+
+### 2.Excel 插件
+
+如果你熟悉 FRED 序列代码，并且工作流主要在 Excel 中完成，**FRED Add-in** 是效率最高的方式。
+
+安装入口在 Excel 的 **“插入” → “获取加载项”** 中搜索 FRED 并添加，支持 Excel 2019 及以上版本（Windows 和 Mac）。
+
+安装后，在表格中按约定格式填入序列代码和参数（如起始日期），点击 **“Get FRED Data”**，数据即被拉入工作表。插件同样支持**频率聚合、单位变换和自定义日期范围**，并且可以在数据更新后刷新获取最新值。
+
+### 3.Python 程序化调用
+
+FRED数据库支持 Python 与 R 两种语言调用 API。两者的底层逻辑一致：都是向 FRED 的 RESTful 接口发送带参数的 HTTP 请求。Python 生态以 `fredapi` 为最常用的轻量级入口，`pyfredapi` 作为功能更完整的替代；R 生态以 `fredr` 为标准选择，辅以 `alfred` 包处理历史 vintage 数据。
+
+#### 3.1.安装与 API Key 配置
+
+`fredapi` 的安装方式为 `pip install fredapi`。使用前需要先在 FRED 网站免费申请 API Key。Key 的配置有两种方式。最简单的是在实例化 `Fred` 对象时直接传入：
+
+``` python
+from fredapi import Fred
+fred = Fred(api_key='你的API密钥')
+```
+
+另一种推荐做法是将 Key 设置为环境变量 `FRED_API_KEY`，`Fred()` 实例化时无需再传参，`pyfredapi` 同样支持从环境变量自动读取。在 Linux/macOS 上可以在 `~/.bashrc` 或 `~/.zshrc` 中加入 `export FRED_API_KEY="your_api_key"`。
+
+#### 3.2.获取序列数据
+
+`get_series()` 是 `fredapi` 最核心的函数，返回一个以日期为索引的 pandas Series。基本调用方式如下：
+
+``` python
+unrate = fred.get_series('UNRATE')
+```
+
+该方法接受多个关键参数，覆盖了网页端图表编辑中的大部分变换能力：
+
+| 参数 | 作用 | 示例值 |
+|:-----------------------|:-----------------------|:-----------------------|
+| `observation_start` / `observation_end` | 限定观测日期范围 | `'2020-01-01'` |
+| `frequency` | 将数据聚合到更低频率 | `'q'`（季度）、`'a'`（年度） |
+| `aggregation_method` | 配合 `frequency` 使用，指定聚合方式 | `'avg'`、`'sum'`、`'eop'` |
+| `units` | 数据变换 | `'pch'`（百分比变化）、`'pc1'`（同比百分比变化）、`'chg'`（差分） |
+
+例如，获取失业率的季度平均值并转换为同比变化：
+
+``` python
+unrate_yoy_q = fred.get_series(
+    'UNRATE', 
+    frequency='q', 
+    aggregation_method='avg',
+    units='pc1'
+)
+```
+
+`units` 的可选值包括 `lin`（水平值）、`chg`（差分）、`ch1`（同比差分）、`pch`（环比百分比变化）、`pc1`（同比百分比变化）、`pca`（复合年化变化率）、`cch` / `cca`（连续复利变化）以及 `log`（自然对数），与 R 端 `fredr` 的参数完全对应。
+
+`pyfredapi` 的对应函数是 `pf.get_series(series_id, **kwargs)`，同样接受上述参数，返回 pandas DataFrame（默认）或 JSON，并支持通过 `return_format` 指定格式。
+
+#### 3.3.搜索序列与获取元数据
+
+`fredapi` 提供 `search()` 用于按关键词查找序列，`get_series_info()` 用于获取序列的元数据（标题、频率、单位、季节调整方式等）：
+
+``` python
+results = fred.search('unemployment rate state')
+info = fred.get_series_info('UNRATE')
+print(info['title'])  # Unemployment Rate
+```
+
+`pyfredapi` 在这方面的组织更为结构化：`pf.get_series_info(series_id)` 返回一个 `SeriesInfo` Pydantic 对象，字段以属性方式访问（如 `.title`、`.frequency`），同时各 FRED 端点被映射为独立模块（`series`、`category`、`release`、`tags` 等），适合需要系统性遍历多个端点的项目。
+
+#### 3.4.`realtime_start` / `realtime_end`
+
+这是 Python 端最容易被忽略但最重要的能力。`get_series()` 同样接受 `realtime_start` 和 `realtime_end`，将请求“锚定”到历史某一时点，从而获取当时可见的数据版本（即 vintage）：
+
+``` python
+# 站在 2019-01-01 看 GDPC1 当时的最新数据
+gdp_as_known = fred.get_series(
+    'GDPC1', 
+    realtime_start='2019-01-01', 
+    realtime_end='2019-01-01'
+)
+```
+
+`fredapi` 还提供 `get_series_vintage_dates(series_id)`，返回该序列所有发生过修订或新发布的日期列表，帮助你确定应该用哪些 `realtime_start` 进行提取。
+
+`pyfredapi` 在 ALFRED 方面提供了更专门的函数：`get_series_asof_date(series_id, date)` 直接封装了“截止某日已知的最新数据”这一语义；`get_series_all_releases(series_id)` 则一次性返回该序列**所有 release 版本**的观测值，适合需要对比多次修订轨迹的场景。
+
+### 4.R 程序化调用
+
+#### 4.1.安装与认证
+
+`fredr` 在 CRAN 上可用，安装命令为 `install.packages("fredr")`。认证同样需要一个免费的 FRED API Key。
+
+推荐的做法是将 Key 写入 `.Renviron` 文件。可以调用 `usethis::edit_r_environ()` 打开该文件，加入一行 `FRED_API_KEY=你的密钥`，保存后**重启 R** 使环境变量生效。另一种方式是在当前会话中临时设置：`fredr_set_key("你的密钥")`，但这只在当前会话有效，不适合脚本的可复现运行。
+
+#### 4.2.核心函数 `fredr()`
+
+`fredr()` 是 `fredr_series_observations()` 的别名，返回一个 **tibble**，默认包含五列：`date`、`series_id`、`value`、`realtime_start`、`realtime_end`。基本调用如下：
+
+``` r
+library(fredr)
+
+fredr(
+  series_id = "UNRATE",
+  observation_start = as.Date("1990-01-01"),
+  observation_end = as.Date("2000-01-01")
+)
+```
+
+`fredr()` 的参数体系完整对应 FRED API 的系列观测端点，主要参数包括：
+
+| 参数 | 说明 |
+|:-----------------------------------|:-----------------------------------|
+| `frequency` | 聚合频率：`"d"` 日、`"w"` 周、`"m"` 月、`"q"` 季、`"a"` 年等 |
+| `aggregation_method` | 聚合方式：`"avg"`、`"sum"`、`"eop"` |
+| `units` | 变换方式，取值与 Python 端一致（`"lin"`、`"pch"`、`"pc1"`、`"chg"` 等） |
+| `observation_start` / `observation_end` | 观测日期范围 |
+| `realtime_start` / `realtime_end` | 实时期间（ALFRED） |
+| `vintage_dates` | 直接指定一组 vintage 日期，批量下载多个历史版本 |
+| `sort_order` | `"asc"` 或 `"desc"` |
+| `limit` / `offset` | 分页控制，默认上限 100,000 |
+
+频率聚合的用法示例：
+
+``` r
+fredr(
+  series_id = "UNRATE",
+  observation_start = as.Date("1990-01-01"),
+  observation_end = as.Date("2000-01-01"),
+  frequency = "q",
+  units = "chg"
+)
+```
+
+#### 4.3.搜索序列
+
+`fredr` 提供 `fredr_series_search_text()` 用于按文本搜索序列，与 `fredapi.search()` 对应。搜索结果返回包含序列 ID、标题、频率、单位等元数据的 tibble，可以作为后续 `fredr()` 调用的输入来源。
+
+#### 4.4.历史数据和ALFRED
+
+`fredr()` 本身已经内置了 `realtime_start` / `realtime_end` 和 `vintage_dates` 参数，可以直接在同一个函数中完成 vintage 数据提取，无需额外包。
+
+如果分析工作流以 ALFRED 为中心，专门的 **`alfred`** 包提供了更直接的封装。安装后，`get_alfred_series()` 的核心参数包括 `series_id`、`observation_start` / `observation_end` 和 `realtime_start` / `realtime_end`，返回结果中包含 `realtime_period` 列，便于按 vintage 分组筛选。
+
+此函数可从 ALFRED 数据库（<https://alfred.stlouisfed.org）> 拉取时间序列，并提供下载不同数据版本（vintages）以进行实时分析的功能。
+
+``` r
+get_alfred_series(
+  series_id,
+  series_name = NULL,
+  observation_start = NULL,
+  observation_end = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL,
+  api_key = NULL
+)
+```
+
+| 参数 | 说明 |
+|------------------------------------|------------------------------------|
+| `series_id` | FRED 时间序列 ID。 |
+| `series_name` | 为输出中的序列列指定名称。默认值：`series_id`。 |
+| `observation_start` | 第一个观测值的日期，格式为 `"yyyy-mm-dd"`。默认值：可用的最早观测值。 |
+| `observation_end` | 最后一个观测值的日期，格式为 `"yyyy-mm-dd"`。默认值：可用的最新观测值。 |
+| `realtime_start` | 第一个实时期间（数据版本 vintage）的日期，格式为 `"yyyy-mm-dd"`。默认值：可用的最早数据版本日期。 |
+| `realtime_end` | 最后一个实时期间（数据版本 vintage）的日期，格式为 `"yyyy-mm-dd"`。默认值：可用的最新数据版本日期。 |
+| `api_key` | 你可以提供自己通过 <https://fredaccount.stlouisfed.org/login/secure/> 获取的 API key，以便运行大批量请求。否则可能会遇到 API 的查询次数限制。 |
+
+``` r
+library(alfred)
+
+get_alfred_series(
+  series_id = "GDPC1",
+  series_name = "my_gdp",
+  observation_start = "2018-01-01",
+  observation_end = "2019-01-01",
+  realtime_start = "2018-01-01",
+  realtime_end = "2020-01-01"
+)
+```
+
+`alfred` 包的优势在于其设计目标就是“下载不同**数据快照**进行实时分析”，对于需要系统性地构建 vintage 面板的研究场景，比直接在 `fredr()` 中逐个指定 `realtime_start` 更为顺手。
+
+此外，经典的金融量化分析工具包 quantmod 内置了极简的FRED数据获取方法。使用getSymbols("UNRATE",src="FRED") 即可直接获取美国失业率等经济序列，返回一个xts时间序列对象。最大的优点是无需注册API密钥，开箱即用，非常适合快速查看数据或进行简单的技术分析。不过它的功能仅限于获取序列的观测值，不支持搜索、元数据查询或服务器端变换。
