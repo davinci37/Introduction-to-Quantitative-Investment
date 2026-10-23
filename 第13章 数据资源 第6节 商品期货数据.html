@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第13章 数据资源 第6节 商品期货数据 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第13章 数据资源 第8节 财经网站.html" rel="next">
+<link href="./第13章 数据资源 第4节 巨潮资讯.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第13章 数据资源 第6节 商品期货数据.html">第13章 数据资源 第6节 商品期货数据</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第7节 宏观因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第7节 宏观因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第4节 Nowcasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第4节 Nowcasting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第5节 周期理论.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第5节 周期理论</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第6节 宏观预期差.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第6节 宏观预期差</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第1节 股票市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第1节 股票市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第3节 商品期货市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第3节 商品期货市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第1节 行情数据.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第1节 行情数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第2节 FRED 数据库.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第2节 FRED</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第3节 EDGAR 系统.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第3节 EDGAR 系统</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第4节 巨潮资讯.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第4节 巨潮资讯</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第6节 商品期货数据.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第13章 数据资源 第6节 商品期货数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第8节 财经网站.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第6节 财经网站</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一cftc美国商品期货交易委员会" id="toc-一cftc美国商品期货交易委员会" class="nav-link active" data-scroll-target="#一cftc美国商品期货交易委员会">一、<strong>CFTC（</strong>美国商品期货交易委员会<strong>）</strong></a>
+  <ul class="collapse">
+  <li><a href="#历史沿革" id="toc-历史沿革" class="nav-link" data-scroll-target="#历史沿革">1.历史沿革</a></li>
+  <li><a href="#组织结构两党制下的五人委员会" id="toc-组织结构两党制下的五人委员会" class="nav-link" data-scroll-target="#组织结构两党制下的五人委员会">2.组织结构：两党制下的五人委员会</a></li>
+  <li><a href="#监管范围" id="toc-监管范围" class="nav-link" data-scroll-target="#监管范围">3.监管范围</a></li>
+  <li><a href="#核心职能与执法手段" id="toc-核心职能与执法手段" class="nav-link" data-scroll-target="#核心职能与执法手段">4.核心职能与执法手段</a></li>
+  <li><a href="#关键区分cftc-与-sec-的分工" id="toc-关键区分cftc-与-sec-的分工" class="nav-link" data-scroll-target="#关键区分cftc-与-sec-的分工">5.关键区分：CFTC 与 SEC 的分工</a></li>
+  </ul></li>
+  <li><a href="#二cftc网站上的数据资源" id="toc-二cftc网站上的数据资源" class="nav-link" data-scroll-target="#二cftc网站上的数据资源">二、CFTC网站上的数据资源</a>
+  <ul class="collapse">
+  <li><a href="#核心公开数据报告" id="toc-核心公开数据报告" class="nav-link" data-scroll-target="#核心公开数据报告">1.核心公开数据报告</a></li>
+  <li><a href="#专业监管数据与底层数据源" id="toc-专业监管数据与底层数据源" class="nav-link" data-scroll-target="#专业监管数据与底层数据源">2.专业监管数据与底层数据源</a></li>
+  <li><a href="#数据访问与利用方式" id="toc-数据访问与利用方式" class="nav-link" data-scroll-target="#数据访问与利用方式">3.数据访问与利用方式</a></li>
+  </ul></li>
+  <li><a href="#三持仓报告" id="toc-三持仓报告" class="nav-link" data-scroll-target="#三持仓报告">三、持仓报告</a>
+  <ul class="collapse">
+  <li><a href="#历史与定位" id="toc-历史与定位" class="nav-link" data-scroll-target="#历史与定位">1.历史与定位</a></li>
+  <li><a href="#四大报告类型" id="toc-四大报告类型" class="nav-link" data-scroll-target="#四大报告类型">2.四大报告类型</a></li>
+  <li><a href="#数据机制" id="toc-数据机制" class="nav-link" data-scroll-target="#数据机制">3.数据机制</a></li>
+  <li><a href="#如何解读" id="toc-如何解读" class="nav-link" data-scroll-target="#如何解读">4.如何解读</a></li>
+  <li><a href="#优势和局限性" id="toc-优势和局限性" class="nav-link" data-scroll-target="#优势和局限性">5.优势和局限性</a></li>
+  </ul></li>
+  <li><a href="#四如何获取" id="toc-四如何获取" class="nav-link" data-scroll-target="#四如何获取">四、如何获取</a>
+  <ul class="collapse">
+  <li><a href="#官网手动筛选与下载" id="toc-官网手动筛选与下载" class="nav-link" data-scroll-target="#官网手动筛选与下载">1.官网手动筛选与下载</a></li>
+  <li><a href="#路径二api编程获取" id="toc-路径二api编程获取" class="nav-link" data-scroll-target="#路径二api编程获取">2.路径二：API编程获取</a></li>
+  <li><a href="#现成工具与封装库" id="toc-现成工具与封装库" class="nav-link" data-scroll-target="#现成工具与封装库">3.现成工具与封装库</a></li>
+  </ul></li>
+  <li><a href="#五国内期货交易所官网" id="toc-五国内期货交易所官网" class="nav-link" data-scroll-target="#五国内期货交易所官网">五、国内期货交易所官网</a>
+  <ul class="collapse">
+  <li><a href="#官网公开数据" id="toc-官网公开数据" class="nav-link" data-scroll-target="#官网公开数据">1.官网公开数据</a></li>
+  <li><a href="#会员与商业数据接口" id="toc-会员与商业数据接口" class="nav-link" data-scroll-target="#会员与商业数据接口">2.会员与商业数据接口</a></li>
+  <li><a href="#量化社区的第三方封装" id="toc-量化社区的第三方封装" class="nav-link" data-scroll-target="#量化社区的第三方封装">3.量化社区的第三方封装</a></li>
+  <li><a href="#实践路径与选择建议" id="toc-实践路径与选择建议" class="nav-link" data-scroll-target="#实践路径与选择建议">4.实践路径与选择建议</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第13章 数据资源 第6节 商品期货数据</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一cftc美国商品期货交易委员会" class="level2">
+<h2 class="anchored" data-anchor-id="一cftc美国商品期货交易委员会">一、<strong>CFTC（</strong>美国商品期货交易委员会<strong>）</strong></h2>
+<p>美国商品期货交易委员会（Commodity Futures Trading Commission, <strong>CFTC</strong>）是美国的联邦独立监管机构，主要负责监管美国的衍生品市场，包括期货、期权和掉期（Swaps）交易。其核心使命是在促进衍生品市场诚信、韧性与活力的同时，保护市场参与者与公众免受欺诈、操纵和滥用行为的侵害。</p>
+<section id="历史沿革" class="level3">
+<h3 class="anchored" data-anchor-id="历史沿革">1.历史沿革</h3>
+<p>CFTC的地位是随着金融市场演变而逐步确立和扩张的。</p>
+<ul>
+<li><strong>起源与独立（1974年）</strong>：其前身是美国农业部下属的<strong>商品交易管理局</strong>，仅监管农产品期货。1974年，国会通过《商品期货交易委员会法案》，创建CFTC作为独立机构，并将其管辖权历史性地扩展至<strong>所有商品</strong>的期货交易。</li>
+<li><strong>持续扩张：</strong>国会此后多次重新授权并扩大其职权（如1978、1982、1986、1992、2000年）。2000年《商品期货现代化法案》为场外（OTC）衍生品提供了法律确定性，并明确了CFTC对零售外汇交易的管辖权。</li>
+<li><strong>2008年危机后的核心重塑（2010年）</strong>：2008年金融危机暴露了场外掉期市场的巨大风险。2010年《多德-弗兰克法案》彻底改变了CFTC的监管格局，将规模庞大的掉期市场纳入其监管框架，要求标准化掉期进行中央清算和实时报告，并赋予其对掉期交易商等主要参与者的全面监管权。</li>
+</ul>
+</section>
+<section id="组织结构两党制下的五人委员会" class="level3">
+<h3 class="anchored" data-anchor-id="组织结构两党制下的五人委员会">2.组织结构：两党制下的五人委员会</h3>
+<p>CFTC采用委员会制，以确保决策的独立性与两党平衡。</p>
+<ul>
+<li><strong>委员会构成</strong>：由<strong>五名委员</strong>组成，其中一人担任主席。委员由总统提名并经参议院确认，且<strong>来自同一政党的委员不得超过三名</strong>，这一设计旨在防止政治力量过度集中。</li>
+<li><strong>主要职能部门</strong>：委员会下设多个核心运营部门，各司其职：
+<ul>
+<li><strong>市场监督部</strong>：负责日常市场监督、审查合约与交易所规则，并监测市场风险。</li>
+<li><strong>清算与风险部</strong>：监控清算所和中介机构的财务与运营稳健性，保护客户资金。</li>
+<li><strong>执法部</strong>：负责调查并起诉违反《商品交易法》和委员会规则的行为。</li>
+<li><strong>数据部</strong>：通过增强数据分析能力，支持市场监督与执法工作。</li>
+</ul></li>
+</ul>
+</section>
+<section id="监管范围" class="level3">
+<h3 class="anchored" data-anchor-id="监管范围">3.监管范围</h3>
+<p>CFTC的监管对象极为广泛，且随着金融创新不断演变。</p>
+<p><strong>主要监管产品与市场</strong></p>
+<ul>
+<li><p><strong>期货与期权</strong>：所有在指定合约市场（DCM）交易的期货和期权合约，标的资产涵盖农产品、能源、金属，以及金融指标（如股指、利率、外汇）。如今，金融类合约已占据交易量的约80%。</p></li>
+<li><p><strong>掉期（Swaps）</strong>：自2010年起，几乎所有掉期交易（除证券类掉期外）均受其监管，包括能源、农产品、利率等掉期。</p></li>
+<li><p><strong>零售外汇</strong>：对面向零售客户的场外外汇交易拥有反欺诈和监管权。</p></li>
+</ul>
+<p><strong>监管的实体与中介</strong></p>
+<ul>
+<li><p><strong>交易场所</strong>：指定合约市场（DCM，如芝商所CME）和掉期执行设施（SEF）。</p></li>
+<li><p><strong>中介机构</strong>：期货佣金商（FCM）、商品池运营商（CPO）、商品交易顾问（CTA）等，均需注册并接受监管。</p></li>
+<li><p><strong>清算机构</strong>：负责衍生品交易清算的清算所。</p></li>
+</ul>
+<p><strong>加密货币与数字资产（前沿领域）</strong> CFTC在此领域的角色日益关键但存在边界。CFTC将<strong>比特币和以太坊</strong>视为商品，并对其<strong>衍生品</strong>（期货、期权、掉期）拥有明确监管权。 对于加密资产的<strong>现货</strong>交易，CFTC的权限主要局限于依据《商品交易法》的反欺诈条款进行执法，<strong>缺乏全面的现货市场监管授权</strong>，该领域主要由各州或SEC（若被认定为证券）覆盖。2026年，CFTC批准了注册交易所推出<strong>比特币永续合约</strong>，标志着将加密领域流动性最高的产品之一纳入美国监管框架的尝试。</p>
+</section>
+<section id="核心职能与执法手段" class="level3">
+<h3 class="anchored" data-anchor-id="核心职能与执法手段">4.核心职能与执法手段</h3>
+<p>CFTC通过“监管”与“执法”双轮驱动来履行使命。</p>
+<ul>
+<li><strong>规则制定与市场监督</strong>：制定衍生品市场的交易规则，并运用数据分析工具持续监控市场，以识别异常交易和潜在风险。</li>
+<li><strong>强有力的执法行动</strong>：执法是其核心职能，针对欺诈、市场操纵等行为，可采取的处罚措施包括：
+<ul>
+<li><strong>民事罚款</strong>：可高达数百万美元（如对某对冲基金经理处以<strong>220万美元</strong>罚款的案例）。</li>
+<li><strong>追缴与赔偿</strong>：责令返还非法所得并赔偿受害者（如在庞氏骗局案中，要求被告支付超过<strong>2.28亿美元</strong>的赔偿）。</li>
+<li><strong>交易与注册禁令</strong>：禁止违规者进入市场或注册为受监管实体。</li>
+<li><strong>平行刑事追诉</strong>：常与司法部合作，违规者可能同时面临刑事监禁。</li>
+</ul></li>
+</ul>
+</section>
+<section id="关键区分cftc-与-sec-的分工" class="level3">
+<h3 class="anchored" data-anchor-id="关键区分cftc-与-sec-的分工">5.关键区分：CFTC 与 SEC 的分工</h3>
+<p>理解CFTC，常需与<strong>美国证券交易委员会（SEC）</strong>进行对比。两者的核心分工在于监管对象的不同：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">维度</th>
+<th style="text-align: left;"><strong>CFTC</strong></th>
+<th style="text-align: left;"><strong>SEC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>核心使命</strong></td>
+<td style="text-align: left;">管理<strong>风险</strong>，确保衍生品市场为对冲和价格发现服务</td>
+<td style="text-align: left;">促进<strong>资本形成</strong>，保护<strong>证券</strong>投资者</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>监管市场</strong></td>
+<td style="text-align: left;"><strong>衍生品</strong>市场（期货、期权、大部分掉期）</td>
+<td style="text-align: left;"><strong>证券</strong>发行与交易市场（股票、债券、证券类期权与掉期）</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>监管逻辑</strong></td>
+<td style="text-align: left;">关注合约的<strong>衍生性</strong>及其市场功能</td>
+<td style="text-align: left;">关注工具的<strong>证券性</strong>（如是否构成投资合同）</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>重叠与模糊地带</strong></td>
+<td style="text-align: left;">监管商品和期货期权</td>
+<td style="text-align: left;">监管股票、指数期权</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>数字资产</strong></td>
+<td style="text-align: left;">视比特币、以太坊为<strong>商品</strong>，监管其衍生品</td>
+<td style="text-align: left;">视多数代币为<strong>证券</strong>，监管其发行与交易（根据豪威测试）</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="二cftc网站上的数据资源" class="level2">
+<h2 class="anchored" data-anchor-id="二cftc网站上的数据资源">二、CFTC网站上的数据资源</h2>
+<p>CFTC网站（Commitments of Traders | CFTC）上的数据资源体系庞大且开放，其核心逻辑是<strong>将监管过程中收集的数据，经过加工后以多种形式向公众回馈</strong>，以履行其“数据驱动监管”和“开放数据”的承诺。这些资源大致可分为<strong>面向公众的定期报告</strong>、<strong>更底层的专业数据集</strong>，以及<strong>灵活的数据获取工具</strong>三个层面。</p>
+<section id="核心公开数据报告" class="level3">
+<h3 class="anchored" data-anchor-id="核心公开数据报告">1.核心公开数据报告</h3>
+<p>这是CFTC数据资源中最广为人知的部分，主要是一些按固定周期发布的摘要性报告，为市场提供了透明度。</p>
+<ul>
+<li><p><strong>持仓报告 (Commitments of Traders, COT)</strong>：这是CFTC的旗舰数据产品。它每周五发布（数据截至周二收盘），明细展示各类交易者（如商业性、非商业性）在不同市场的多头、空头及价差持仓情况。COT报告本身包含多个子报告，以适应不同的分析需求：</p>
+<ul>
+<li><strong>Legacy (传统报告)</strong>：最经典的分类，主要区分商业头寸和非商业头寸。</li>
+<li><strong>Disaggregated (分类报告)</strong>：对生产商、掉期交易商、管理基金等类别进行更细的划分。</li>
+<li><strong>Traders in Financial Futures (TFF)</strong>：专门针对金融期货（如股指、利率、外汇）的交易者分类。</li>
+<li><strong>Supplemental (补充报告)</strong>：针对部分特定市场的额外披露。</li>
+</ul></li>
+<li><p><strong>周度掉期报告 (Weekly Swaps Report)</strong>：自2010年多德-弗兰克法案后，CFTC开始发布此报告，旨在揭开庞大场外掉期市场的面纱。报告每周一发布，提供利率和信用掉期市场的总名义敞口，并按货币、期限、交易对手类型和清算状态进行细分。此外，还衍生出<strong>实体净名义报告 (Entity-Netted Notionals, ENNs)</strong>，约每季度发布，用于衡量交易对手间的风险敞口。</p></li>
+<li><p><strong>银行参与报告 (Bank Participation Report)</strong>：月度报告，汇总银行在各类金融和非金融商品期货中的大型交易者头寸，用于观察银行机构在衍生品市场的参与深度。</p></li>
+<li><p><strong>FCM财务数据 (Financial Data for FCMs)</strong>：月度报告，提供期货佣金商 (FCM) 和零售外汇交易商 (RFED) 的关键财务信息，是评估中介机构稳健性的重要窗口。</p></li>
+<li><p><strong>其他专项报告</strong>：包括<strong>棉花待定价报告 (Cotton On-Call)</strong>（周度）、<strong>清算保证金报告 (Cleared Margin Reports)</strong>（月度，提供衍生品清算组织DCO的初始保证金数据）等。</p></li>
+</ul>
+</section>
+<section id="专业监管数据与底层数据源" class="level3">
+<h3 class="anchored" data-anchor-id="专业监管数据与底层数据源">2.专业监管数据与底层数据源</h3>
+<p>除了上述摘要报告，CFTC的网站也提供了更底层、更专业的数据入口，这些是生成上述报告的基础，也服务于更专业的分析和监管需求。</p>
+<ul>
+<li><p><strong>大型交易者报告计划 (Large Trader Reporting Program)</strong>：这是CFTC市场 surveillance 的基石。根据相关规定，清算成员、FCM等必须每日向CFTC报告超过特定水平的交易者头寸。虽然单个交易者的<strong>身份和精确头寸是保密的</strong>，但该系统的汇总数据是COT等公开报告的主要来源。其衍生数据产品如<strong>净头寸变化数据 (Net Position Changes Data)</strong> 曾对公众开放，提供了特定历史时期内大型交易者的日均净头寸变化。</p></li>
+<li><p><strong>多元化的数据馈送 (Data Feeds)</strong>：CFTC内部每日处理海量数据，一份资料将其归纳为<strong>九大类别</strong>，这些数据源构成了CFTC监管的“数据骨干”：</p>
+<ol type="1">
+<li><strong>日内交易/事件数据</strong>：期货交易所的所有交易及报告至掉期数据仓库(SDR)的所有事件。</li>
+<li><strong>时间与销售数据 (Time &amp; Sales)</strong>：期货成交时订单簿顶部的数据。</li>
+<li><strong>头寸数据</strong>：期货和期权的日终多空头寸，或掉期的名义金额。</li>
+<li><strong>市场数据</strong>：结算价、未平仓合约、成交量等实时或日终数据。</li>
+<li><strong>保证金与抵押品数据</strong>：初始保证金、维持保证金、变动保证金等。</li>
+<li><strong>估值与压力测试数据</strong>：用于对头寸进行估值或压力测试结果的数据。</li>
+<li><strong>财务报表/资本化数据</strong>：来自财务报告提交的数据。</li>
+<li><strong>组织与产品数据</strong>：关于机构与产品规格的参考数据。</li>
+<li><strong>执法数据</strong>：调查和案件档案。</li>
+</ol></li>
+<li><p><strong>执法与纪律数据 (Enforcement &amp; Disciplinary Data)</strong>：CFTC提供<strong>纪律处分历史 (Disciplinary History)</strong> 的公开查询，可按被告姓名、案卷号等检索赔偿制裁和行政制裁记录。此外，其<strong>预算与绩效报告</strong>中也会详细披露每年的执法案件数量、获得的经济救济金额等定量数据。例如，报告曾提及在FY2024财年追回了超过<strong>171亿美元</strong>的货币救济。</p></li>
+</ul>
+</section>
+<section id="数据访问与利用方式" class="level3">
+<h3 class="anchored" data-anchor-id="数据访问与利用方式">3.数据访问与利用方式</h3>
+<p>CFTC不仅提供数据，还提供了不同层次的技术手段来获取和利用这些数据。</p>
+<ul>
+<li><p><strong>公共报告环境 (Public Reporting Environment, PRE)</strong>：这是访问COT数据的现代化核心平台。它提供了一个交互式界面，允许用户通过下拉菜单<strong>筛选</strong>报告日期、资产类别（农业、金融、自然资源）和具体合约市场，<strong>自定义</strong>数据查询。用户可以将筛选后的结果直接<strong>导出</strong>为CSV、Excel等格式，极大地提升了个性化数据获取的效率。传统的COT报告格式与PRE的数据同源，不存在差异。</p></li>
+<li><p><strong>应用程序编程接口 (API)</strong>：对于需要批量或自动化获取数据的开发者、量化分析师和机构，PRE提供了API接口。通过API，用户可以<strong>程序化地</strong>检索、筛选和下载COT数据，实现与自有分析系统的无缝集成。该API基于Socrata (SODA) 平台构建，是CFTC开放数据战略的关键组成部分。</p></li>
+<li><p><strong>历史归档与多元格式</strong>：CFTC网站保留了可追溯多年的历史数据。除了在PRE中按需查询，还提供<strong>按年份打包的压缩历史文件</strong>（如 disaggregated 格式自2009年起的年度数据），便于进行长周期回溯测试。数据下载格式丰富，包括<strong>CSV、XML、RSS、RDF、TSV</strong>等，满足不同软件环境的需求。</p></li>
+<li><p><strong>开放数据与AI战略</strong>：CFTC的开放数据实践与《证据法案》(Evidence Act) 保持一致，并设有<strong>首席数据官 (CDO)</strong> 和<strong>首席人工智能官 (CAIO)</strong> 职位，显示出其将数据作为战略资产，并探索AI在监管中负责任应用的制度性努力。</p></li>
+</ul>
+</section>
+</section>
+<section id="三持仓报告" class="level2">
+<h2 class="anchored" data-anchor-id="三持仓报告">三、持仓报告</h2>
+<p>持仓报告（Commitments of Traders, COT）是CFTC透明度最高的核心产品之一。它的本质是一份<strong>每周更新的“仓位地图”</strong>：告诉你截至本周二，期货市场里各类大型参与者分别持有多头、空头各多少，以及这些头寸在过去一周发生了什么变化。它不预测价格，但能揭示“谁在做什么”，以及当前的仓位是否已经变得拥挤或极端。</p>
+<section id="历史与定位" class="level3">
+<h3 class="anchored" data-anchor-id="历史与定位">1.历史与定位</h3>
+<p>COT的渊源可追溯至1924年美国农业部发布的年度套保与投机报告。1962年6月30日，CFTC的前身机构开始每月发布覆盖13种农产品的COT数据。此后数十年间，其频率和时效经历了持续提速：1990年改为半月刊，1992年改为双周刊，2000年起正式转为周刊；发布时滞也从最初的一个月以上，逐步压缩至“截至日后的第六个工作日”（1990年），再到“截至日后的第三个工作日”（1992年至今）。</p>
+<p>1995年起，COT数据开始在CFTC官网<strong>免费向公众开放</strong>，使其从专业订阅品转变为全球性的公共数据基础设施。</p>
+</section>
+<section id="四大报告类型" class="level3">
+<h3 class="anchored" data-anchor-id="四大报告类型">2.四大报告类型</h3>
+<p>COT并非单一报告，而是基于CFTC收集的大型交易者头寸数据，按不同分类逻辑切分出的<strong>四个并行报告</strong>。理解COT的关键，在于先弄清楚哪个报告适用于哪种市场、回答的是哪类问题。</p>
+<p><strong>报告入选门槛</strong>：只有当某个市场中，持仓达到或超过CFTC设定报告水平的交易者<strong>不少于20个</strong>时，该市场才会出现在COT中。若大型交易者数量降至20以下，该市场会从当周报告中暂时消失。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">报告类型</th>
+<th style="text-align: left;">适用市场</th>
+<th style="text-align: left;">核心分类逻辑</th>
+<th style="text-align: left;">主要用途</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Legacy（传统）</strong></td>
+<td style="text-align: left;">几乎所有期货市场（基础版）</td>
+<td style="text-align: left;">商业 vs.&nbsp;非商业 vs.&nbsp;非报告</td>
+<td style="text-align: left;">最广为人知的情绪基准，尤其适合外汇、股指等</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Disaggregated（分类）</strong></td>
+<td style="text-align: left;"><strong>实物商品</strong>（农产品、能源、金属）</td>
+<td style="text-align: left;">将原“商业”拆分为生产商/贸易商与掉期商，投机拆分为管理基金</td>
+<td style="text-align: left;">更精细地观察实物商品中套保与投机力量的对比</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>TFF（金融期货交易者）</strong></td>
+<td style="text-align: left;"><strong>金融期货</strong>（股指、利率、外汇）</td>
+<td style="text-align: left;">按“卖方式”vs.“买方式”功能划分</td>
+<td style="text-align: left;">专门解读金融期货的机构行为结构</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Supplemental（补充）</strong></td>
+<td style="text-align: left;"><strong>13种特定农产品</strong></td>
+<td style="text-align: left;">在Legacy基础上单独列出<strong>指数交易者</strong></td>
+<td style="text-align: left;">观察商品指数基金在农产品中的头寸</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Legacy</strong>：最基础、历史最长的分类。</p>
+<ul>
+<li><p><strong>商业交易者</strong>指声称以套期保值管理业务风险为主的实体（生产商、加工商、贸易商等），历史上常被视为“聪明的钱”，在极端价格附近往往站在趋势的反面；</p></li>
+<li><p><strong>非商业交易者</strong>则是大型投机者（对冲基金、CTA、CPO等），是趋势的主要推动力量；</p></li>
+<li><p><strong>非报告头寸</strong>是未达到报告门槛的小型交易者（散户），通常跟随趋势，分析价值相对有限。</p></li>
+<li><p>需要注意的是，交易者的分类基于其在<strong>Form 40</strong>中自报的“主要业务目的”，CFTC并不知晓其每一笔头寸的具体动机，因此一个被归为“商业”的交易者，其头寸中也可能包含投机成分。</p></li>
+</ul></li>
+<li><p><strong>Disaggregated</strong>：2009年推出，直接回应了2008年金融危机后对商品市场透明度的批评——原“商业”类别中混杂了掉期交易商，掩盖了真实的套保与投机图景。它将大型交易者细分为四类：<strong>生产商/贸易商/加工商/用户</strong>（真正的实物套保者）、<strong>掉期交易商</strong>（为掉期敞口进行对冲的金融机构）、<strong>管理基金</strong>（注册CTA/CPO及未注册基金，是商品市场中最具投机色彩的力量）和<strong>其他可报告</strong>（不属于前三类的专业交易者）。</p></li>
+<li><p><strong>TFF</strong>：2010年7月推出，专为金融期货设计。它不再沿用“商业/非商业”的标签，而是按市场功能划分：<strong>交易商/中介</strong>（“卖方式”，大型银行、证券和掉期交易商，扮演做市与风险中介角色）、<strong>资产管理/机构</strong>（养老金、捐赠基金、保险公司、共同基金等，偏趋势跟随和长期持有）、<strong>杠杆基金</strong>（对冲基金、CTA、自营交易商，最活跃的投机力量）和<strong>其他可报告</strong>（企业司库、央行、小型银行等，主要进行风险对冲）。同一个人或机构，在Legacy报告中可能被归为“商业”，在TFF报告中则可能落入“交易商”或“其他可报告”类别——分类逻辑不同，结论的指向也不同。</p></li>
+</ul>
+</section>
+<section id="数据机制" class="level3">
+<h3 class="anchored" data-anchor-id="数据机制">3.数据机制</h3>
+<p>COT的数据流有一个清晰的时间链条：报告公司（FCM、清算成员、交易所等）在<strong>周三上午</strong>将截至<strong>周二收盘</strong>的头寸数据提交给CFTC；CFTC在周三至周五之间进行修正与核验；最终在<strong>周五美东时间下午3:30</strong>向公众发布。因此，你在周五看到的数据，反映的是<strong>三天前的仓位状态</strong>。</p>
+<p>这个时滞是COT最常被提及的“硬伤”，但它的实际影响取决于使用方式。对于以周或月为单位的头寸趋势分析，三天时滞通常不构成实质障碍，因为大型机构的仓位调整是缓慢、渐进的，“脚印”在报告发布时往往仍然新鲜。但对于日内或数日级别的短线交易，COT几乎不具备择时价值。</p>
+</section>
+<section id="如何解读" class="level3">
+<h3 class="anchored" data-anchor-id="如何解读">4.如何解读</h3>
+<p>COT数据表本身并不难读，真正的分析工作发生在数据之外。</p>
+<p><strong>第一步是计算净持仓</strong>：净头寸 = 多头合约数 − 空头合约数。例如，非商业交易者持有黄金多头20万张、空头5万张，则净多头为15万张。这给出了某一类交易者整体的方向性偏向。</p>
+<p><strong>更有信息量的是变化的方向和幅度</strong>，而非静态数字。大型投机者的净持仓是否在持续扩大？管理基金是否在价格创新高时反而削减多头？这种<strong>仓位与价格之间的背离</strong>，往往是比净持仓绝对值更强的信号：价格在涨，但投机净多却在收缩，说明推升价格的资金基础正在松动；价格在跌，但投机净多保持稳定甚至增加，则可能意味着抛压正在被承接。</p>
+<p><strong>最具实战意义的框架，是识别“极端仓位”</strong>。当某一类交易者的净持仓达到其自身历史区间的高位或低位时，该方向上的“拥挤度”就已经很高。拥挤本身不意味着立刻反转，但它意味着<strong>一旦触发平仓，反向运动的幅度可能被放大</strong>。经典案例是2022—2023年的日元投机性空头：仓位达到数十年极端水平，基本面逻辑（美日利差）在当时是成立的，但每一次日本央行政策意外都触发了剧烈的空头回补。</p>
+<p><strong>商业头寸的极端状态同样值得关注</strong>。历史上，大型商业套保者在价格底部附近持有极端净空、在价格顶部附近持有极端净多，这一“逆势”特征使商业净持仓的极端值常被用作判断价格是否处于不可持续区域的反向参考。但这一规律并非机械有效：在趋势强烈的市场中，商业头寸可能长期处于“错误”的方向而不触发反转。</p>
+</section>
+<section id="优势和局限性" class="level3">
+<h3 class="anchored" data-anchor-id="优势和局限性">5.优势和局限性</h3>
+<p><strong>COT的强项在于“结构判断”</strong>。它回答的是：当前趋势背后，是投机资金在推动，还是套保资金在承接？仓位是否已经高度一致，以至于市场的“反身性风险”在上升？对于中长线交易者和宏观研究者而言，COT提供的是一个仓位背景板，用来校准对趋势可持续性的判断，而不是替代价格分析或基本面分析。</p>
+<p><strong>它的局限同样明确</strong>：三天时滞决定了它不是择时工具；它只告诉你谁持有多少，不告诉你为什么持有；分类基于自报的业务目的，存在一定的模糊地带（例如通过掉期渠道执行的头寸在Legacy分类中可能被归入“商业”）；此外，COT覆盖的是美国受监管期货与期权市场，并不直接反映场外现货或非美市场的仓位全貌。</p>
+<p>总结来说，COT报告的正确用法，不是把它当作“跟着大户做多/做空”的信号单，而是把它当作一张定期的仓位地形图：它让你知道市场里各路人马站在哪里、拥挤在哪个方向、以及当价格与仓位出现裂痕时，哪里可能存在脆弱性。真正的决策，仍然需要价格行为、基本面以及风险管理框架的共同参与。</p>
+</section>
+</section>
+<section id="四如何获取" class="level2">
+<h2 class="anchored" data-anchor-id="四如何获取">四、如何获取</h2>
+<p>获取COT数据的方式非常灵活，核心可以概括为三条路径：<strong>通过官网界面手动筛选下载、通过API编程获取，以及利用各类现成的封装工具</strong>。对于绝大多数分析需求，官方免费渠道已经足够，选择哪条路径主要取决于你的技术舒适度与自动化需求。</p>
+<section id="官网手动筛选与下载" class="level3">
+<h3 class="anchored" data-anchor-id="官网手动筛选与下载">1.官网手动筛选与下载</h3>
+<p>这是最直观的方式，CFTC提供了两个并行的入口，数据源完全一致，没有差异。</p>
+<p><strong>1.1.入口一：公共报告环境 (PRE)</strong></p>
+<p>这是推荐的首选方式，提供了强大的交互式筛选功能。</p>
+<ol type="1">
+<li><strong>访问平台</strong>：进入 <code>publicreporting.cftc.gov</code>。首页会列出全部<strong>七种</strong>COT报告，包括 Legacy（期货/期货期权合并）、Disaggregated（期货/合并）、TFF（期货/合并）以及 Supplemental。</li>
+<li><strong>应用筛选器</strong>：在数据网格上方，你可以组合使用多种下拉筛选器来精确定位所需数据：
+<ul>
+<li><strong>报告日期</strong>：可选择特定日期范围、单周，或“本周”、“本月”等相对时间段。</li>
+<li><strong>资产类别</strong>：先选择<strong>农业 (Agricultural)</strong>、<strong>金融 (Financial)</strong> 或<strong>自然资源 (Natural Resources)</strong> 大类，再逐级下钻至子类、具体商品名称和合约市场名称。</li>
+</ul></li>
+<li><strong>导出数据</strong>：筛选完成后，点击数据网格右上角的 <strong>“Export Data (⤓)”</strong> 按钮即可下载。支持的数据格式非常丰富，包括 <strong>CSV、Excel、XML、RSS、RDF、TSV</strong> 等。</li>
+</ol>
+<p><strong>历史数据深度</strong>：PRE的Legacy报告数据可回溯至<strong>1986年</strong>；Disaggregated、TFF和Supplemental报告则可回溯至<strong>2006年</strong>。</p>
+<p><strong>1.2.入口二：CFTC官网</strong></p>
+<p>如果你更习惯原始的报表样式，可以直接访问CFTC官网的COT板块。该页面提供与PRE同源、但以传统HTML表格形式呈现的报告，适合快速浏览或打印。此外，官网还设有<strong>“Historical Viewable”</strong>页面，可按周查阅自2005年以来的完整历史报告。</p>
+</section>
+<section id="路径二api编程获取" class="level3">
+<h3 class="anchored" data-anchor-id="路径二api编程获取">2.路径二：API编程获取</h3>
+<p>如果你需要将COT数据接入量化模型、自动交易系统或数据库，API是唯一的选择。CFTC的PRE构建在<strong>Socrata开放数据平台 (SODA)</strong> 之上，提供了一套免费、公开的API。</p>
+<ul>
+<li><strong>核心机制</strong>：每个COT报告页面都会醒目地显示对应的API端点链接，并附有使用说明。你可以通过API对报告日期、商品组、合约市场等字段进行<strong>搜索和筛选</strong>，以程序化方式获取精确的数据子集。</li>
+<li><strong>访问与限制</strong>：基础读取<strong>无需账户</strong>。不过，Socrata会对来自单一IP的请求进行限流；如果请求量较大，可以申请一个免费的<strong>应用令牌 (App Token)</strong>，将限流对象从IP转移到你的应用上，从而获得更稳定的配额。数据本身属于公共领域，CFTC仅请求在使用时注明出处。</li>
+<li><strong>原生Socrata数据集ID</strong>：如果你希望直接调用Socrata API，需要知道各报告的底层数据集ID。例如，<strong>Legacy（仅期货）</strong> 的ID是 <code>6dca-aqww</code>。其他报告的ID可在相关技术社区或通过PRE的API链接中发现。</li>
+</ul>
+</section>
+<section id="现成工具与封装库" class="level3">
+<h3 class="anchored" data-anchor-id="现成工具与封装库">3.现成工具与封装库</h3>
+<p>对于不想从零开始处理API请求和数据清洗的用户，社区提供了大量现成的封装方案。以R语言为例，</p>
+<p>在R语言中获取COT数据，主要有两种思路：一是使用封装好的<strong>CRAN或GitHub上的R包</strong>，它们简化了与CFTC官方API的交互；二是<strong>手动下载官方数据文件</strong>，再用R进行读取和处理。下面整理了几种可用的方法。</p>
+<section id="investdatar-包" class="level4">
+<h4 class="anchored" data-anchor-id="investdatar-包">3.1.investdatar 包</h4>
+<p><code>investdatar</code> 是一个功能较全面的投资数据工具包，它直接封装了CFTC公共报告环境（PRE）的Socrata API，可以精确地按报告类型、市场代码和日期范围检索数据，返回格式规范、便于分析的 <code>data.table</code>。</p>
+<p>获取COT数据的核心是 <code>get_source_data_cftc_cot()</code> 函数。其关键参数包括： * <code>report_type</code>：报告类型，可选 <code>"tff"</code>（金融期货交易者）、<code>"disaggregated"</code>（分类报告）或 <code>"legacy"</code>（传统报告）。 * <code>report_variant</code>：变体，可选 <code>"futures_only"</code>（仅期货）或 <code>"combined"</code>（期货与期权合并）。 * <code>market_codes</code>：CFTC合约市场代码（可选），用于指定特定的市场（如黄金、原油）。 * <code>from</code> / <code>to</code>：报告日期的起止范围（格式 <code>YYYY-MM-DD</code>）。</p>
+<p>一个基本的调用示例如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从CRAN安装</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"investdatar"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(investdatar)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取金融期货（TFF）的仅期货数据，限定在特定日期范围内</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>tff_data <span class="ot">&lt;-</span> <span class="fu">get_source_data_cftc_cot</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">report_type =</span> <span class="st">"tff"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">report_variant =</span> <span class="st">"futures_only"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="st">"2024-01-01"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">to =</span> <span class="st">"2024-06-30"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>该包还提供了批量同步功能。你可以先通过 <code>get_cftc_cot_registry()</code> 查看默认的报告注册表，然后使用 <code>sync_all_cftc_cot_registry_data()</code> 一次性将所有注册的报告同步到本地，后续再通过 <code>get_local_cftc_cot()</code> 从本地路径快速读取。</p>
+</section>
+<section id="fmpcloudr-包" class="level4">
+<h4 class="anchored" data-anchor-id="fmpcloudr-包">3.2.<code>fmpcloudr</code> 包</h4>
+<p><code>fmpcloudr</code> 包通过Financial Modeling Prep (FMP) 的API来获取COT数据。FMP 是一家金融数据平台公司，成立于 2016 年，总部位于加拿大多伦多。它将自己定位为 Investing.com 等平台的低成本替代方案，主要服务于对成本敏感但又需要可靠数据的金融科技公司和独立开发者。它通过技术手段，将原本昂贵、分散的专业金融数据，以更低的成本和更灵活的方式（主要是 API）提供给广泛的用户。</p>
+<p>FMP API 方法需要一个FMP的API密钥（有免费套餐，但存在调用限制）。其核心函数是 <code>fmpc_cots_data()</code>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"fmpcloudr"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fmpcloudr)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 首先必须设置有效的FMP API令牌</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">fmpc_set_token</span>(<span class="st">'YOUR_FMP_API_KEY'</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取所有COT数据，可指定日期范围（此参数仅在 cots_sym = "all" 时生效）</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>all_cots <span class="ot">&lt;-</span> <span class="fu">fmpc_cots_data</span>(<span class="at">cots_sym =</span> <span class="st">"all"</span>, <span class="at">startDate =</span> <span class="st">"2024-01-01"</span>, <span class="at">endDate =</span> <span class="st">"2024-06-30"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 或者获取特定品种（例如ES，标普500期货）的全部历史数据</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>es_cots <span class="ot">&lt;-</span> <span class="fu">fmpc_cots_data</span>(<span class="at">cots_sym =</span> <span class="st">"ES"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>需要注意的是，当 <code>cots_sym</code> 指定为特定代码而非 <code>"all"</code> 时，函数会拉取该品种的全部历史数据，<code>startDate</code> 和 <code>endDate</code> 参数将不再生效。</p>
+<p>此外，GitHub上的 <code>alphar</code> 项目中的 <code>get_cot_data</code> 函数，展示了如何不依赖专用R包，直接通过 <code>httr</code> 包调用FMP API来获取数据。这为需要高度自定义请求或希望了解底层机制的开发者提供了很好的参考模板。其核心逻辑是构造包含API密钥的URL，然后使用 <code>httr::GET()</code> 发送请求并解析JSON响应。示例代码显示，该方法同样是面向Financial Modeling Prep的API，而不是CFTC的官方数据源。</p>
+</section>
+<section id="手动下载" class="level4">
+<h4 class="anchored" data-anchor-id="手动下载">3.3.手动下载</h4>
+<p>如果你希望完全掌控数据获取过程，或者避免任何对第三方API的依赖，可以直接从CFTC官网下载数据文件，再用R读取。CFTC提供历史数据的ZIP压缩包（如 <code>CFTC_COT.zip</code>），下载解压后，可以使用 <code>vroom</code>、<code>data.table::fread</code> 或 <code>readr::read_csv</code> 等高性能函数来读取。</p>
+<p>这是一种在Stack Overflow上被讨论过的经典方式，基本流程如下：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义下载URL和目标文件</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://www.cftc.gov/files/dea/history/deacot2024.zip"</span> <span class="co"># 示例URL，请以官网实际链接为准</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>temp_zip <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".zip"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 下载并解压</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(url, temp_zip, <span class="at">mode =</span> <span class="st">"wb"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">unzip</span>(temp_zip, <span class="at">exdir =</span> <span class="st">"cftc_cot_data"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 读取解压后的文本文件（使用vroom包以获得高速读取）</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vroom)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>cot_data <span class="ot">&lt;-</span> <span class="fu">vroom</span>(<span class="st">"cftc_cot_data/CommodityFutures.txt"</span>) <span class="co"># 文件名请以实际解压内容为准</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="httrjsonlite-包" class="level4">
+<h4 class="anchored" data-anchor-id="httrjsonlite-包">3.4.httr+jsonlite 包</h4>
+<p>用 <code>httr</code> 直接对接 CFTC 的 Socrata API 获取 COT 数据，核心是<strong>构造带 SoQL 参数的 GET 请求</strong>，并处理好<strong>分页</strong>与<strong>数字字段的类型转换</strong>。</p>
+<p>CFTC 的 Socrata API 是 CFTC 将其公开数据（包括 COT 报告）<strong>托管在第三方开放数据平台 Socrata 之上</strong>，由该平台提供的标准化编程接口。用 <code>httr</code> 调用的 <code>publicreporting.cftc.gov/resource/6dca-aqww.json</code>，本质上就是向 Socrata 平台请求特定数据集。</p>
+<p><strong>数据集 ID 与端点格式</strong>。CFTC 的 COT 报告按类型和变体拆分为多个独立的 Socrata 数据集，每个数据集有自己的 ID。最常用的 Legacy 报告对应关系如下：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">报告</th>
+<th style="text-align: left;">变体</th>
+<th style="text-align: left;">数据集 ID</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Legacy</td>
+<td style="text-align: left;">Futures Only</td>
+<td style="text-align: left;"><code>6dca-aqww</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Legacy</td>
+<td style="text-align: left;">Combined</td>
+<td style="text-align: left;"><code>jun7-fc8e</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Disaggregated</td>
+<td style="text-align: left;">Futures Only</td>
+<td style="text-align: left;"><code>72hh-3qpy</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Disaggregated</td>
+<td style="text-align: left;">Combined</td>
+<td style="text-align: left;"><code>kh3c-gbw2</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TFF</td>
+<td style="text-align: left;">Futures Only</td>
+<td style="text-align: left;"><code>gpe5-46if</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TFF</td>
+<td style="text-align: left;">Combined</td>
+<td style="text-align: left;"><code>yw9f-hn96</code></td>
+</tr>
+</tbody>
+</table>
+<p>端点统一为 <a href="https://publicreporting.cftc.gov/resource/%7Bid%7D.json"><code>https://publicreporting.cftc.gov/resource/{id}.json</code></a>。</p>
+<p><strong>SoQL 参数</strong>。Socrata 的查询语言 SoQL 通过 URL 查询参数传递，常用的有 <code>$where</code>（过滤）、<code>$order</code>（排序）、<code>$select</code>（选列）、<code>$limit</code>（每页行数，默认 1000，最大 50000）和 <code>$offset</code>（分页偏移）。<code>$where</code> 中字符串使用<strong>单引号</strong>，日期字段 <code>report_date_as_yyyy_mm_dd</code> 的格式为 <code>YYYY-MM-DD</code>，多值匹配使用 <code>in('a','b')</code>。</p>
+<p>下面是“构造请求 → 分页拉取 → 解析 JSON → 类型清洗”的完整流程。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 数据集端点：Legacy 报告，Futures Only 变体</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://publicreporting.cftc.gov/resource/6dca-aqww.json"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 构造查询参数（SoQL）</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#    这里取黄金 088691 和 WTI 原油 067651，2024 年以来的数据</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">$where</span><span class="st">`</span>  <span class="ot">=</span> <span class="st">"cftc_contract_market_code in('088691','067651') AND report_date_as_yyyy_mm_dd &gt;= '2024-01-01'"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">$order</span><span class="st">`</span>  <span class="ot">=</span> <span class="st">"report_date_as_yyyy_mm_dd"</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">$limit</span><span class="st">`</span>  <span class="ot">=</span> <span class="dv">50000</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 发送请求</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url, <span class="at">query =</span> params, <span class="fu">timeout</span>(<span class="dv">60</span>))</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">stop_for_status</span>(resp)   <span class="co"># 状态码非 2xx 直接报错</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 解析 JSON 为数据框</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>cot <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">content</span>(resp, <span class="at">as =</span> <span class="st">"text"</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">simplifyDataFrame =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Socrata 返回的数值列是字符串，需要转换</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>cot<span class="sc">$</span>report_date_as_yyyy_mm_dd <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(cot<span class="sc">$</span>report_date_as_yyyy_mm_dd)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>cot<span class="sc">$</span>noncomm_positions_long_all  <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cot<span class="sc">$</span>noncomm_positions_long_all)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>cot<span class="sc">$</span>noncomm_positions_short_all <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(cot<span class="sc">$</span>noncomm_positions_short_all)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. 计算非商业净持仓并查看</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>cot <span class="sc">%&gt;%</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">net_noncomm =</span> noncomm_positions_long_all<span class="sc">-</span>noncomm_positions_short_all) <span class="sc">%&gt;%</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(commodity_name, report_date_as_yyyy_mm_dd, net_noncomm) <span class="sc">%&gt;%</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(commodity_name, report_date_as_yyyy_mm_dd) <span class="sc">%&gt;%</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>注意：Socrata 平台对匿名请求的限流是<strong>按来源 IP 地址</strong>进行的。你的请求可能因为短时间内发起次数过多，或者你所在的网络环境（如公司、学校或云服务器的 IP 段）被平台的风控系统判定为“高风险”，从而直接返回 403，而不是标准的 429（Too Many Requests）。</p>
+<p>官方提供的标准解决方案是，申请并添加 App Token。App Token 的作用是将限流对象从“你的 IP 地址”转移到“你的应用”上，从而获得独立的、更宽松的配额。获取步骤如下：</p>
+<p>1. 访问 Socrata 的免费注册页面创建账户：</p>
+<p><a href="https://evergreen.data.socrata.com/signup"><code>https://evergreen.data.socrata.com/signup</code></a>。</p>
+<p>2. 登录后，前往 CFTC PRE 的开发者设置页面生成你的专属 Token：</p>
+<p><a href="https://publicreporting.cftc.gov/profile/edit/developer_settings"><code>https://publicreporting.cftc.gov/profile/edit/developer_settings</code></a>。</p>
+<p>3.拿到 Token 后，在 <code>httr</code> 请求中通过 <code>add_headers</code> 传入即可：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 假设你的 token 保存在变量 MY_TOKEN 中</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(url, <span class="at">query =</span> params, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">add_headers</span>(<span class="st">`</span><span class="at">X-App-Token</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"你的_APP_TOKEN_字符串"</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">timeout</span>(<span class="dv">60</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>如果 App Token 也无法解决（例如 IP 被彻底封禁），可以考虑绕过 API，改用<strong>直接下载官方数据文件</strong>的方式。CFTC 官网提供了历史数据的 ZIP 压缩包，这种方式完全独立于 Socrata API，不受其限流策略影响。下载后，再用 R 读取本地文件进行分析。</p>
+</section>
+</section>
+</section>
+<section id="五国内期货交易所官网" class="level2">
+<h2 class="anchored" data-anchor-id="五国内期货交易所官网">五、国内期货交易所官网</h2>
+<p>国内期货交易所官网也提供有很多公开数据。以上海期货交易所（SHFE）为例：其数据生态可以清晰地分为两条轨道：<strong>一条是官网直接面向公众的免费、结构化历史数据与统计信息，适合构建日线级别的量化研究基础；另一条是面向会员与商业机构的高频、深度数据接口，需要相应的权限或商业协议才能接入。</strong></p>
+<section id="官网公开数据" class="level3">
+<h3 class="anchored" data-anchor-id="官网公开数据">1.官网公开数据</h3>
+<p>SHFE官网是一个相当实用的数据源，尤其适合需要低频行情数据和基本面统计数据的量化策略。</p>
+<p>上海期货交易所（SHFE）的官网主站是 <strong><code>www.shfe.com.cn</code></strong>。后文提到各类数据没有一个统一的下载中心，都分布在官网 <strong>“数据”</strong> 或 <strong>“市场数据”</strong> 导航栏下的几个独立子页面里。</p>
+<section id="历史行情数据" class="level4">
+<h4 class="anchored" data-anchor-id="历史行情数据">1.1.历史行情数据</h4>
+<p><strong>历</strong>史数据批量下载是最直接的入口。在官网的 <code>Historical Data</code> 页面，交易所按年份提供了期货和期权历史数据的打包下载，可回溯至2012年。这意味着你可以一次性获取多年的日线级合约行情，格式为结构化的表格文件，直接用于回测或因子计算，无需逐日爬取。</p>
+<p><strong>网址</strong>：<a href="https://www.shfe.com.cn./eng/reports/StatisticalData/Annualdata/HistoricalData/"><code>https://www.shfe.com.cn./eng/reports/StatisticalData/Annualdata/HistoricalData/</code></a></p>
+<p><strong>用途</strong>：一次性获取多年的日线级合约行情，适合回测和因子计算的基础数据搭建。</p>
+</section>
+<section id="日周月度统计数据" class="level4">
+<h4 class="anchored" data-anchor-id="日周月度统计数据">1.2.日、周、月度统计数据</h4>
+<p>日、周、月度统计数据则提供了更高维度的市场切片。<code>日周数据</code>页面并不仅仅包含每日行情，还整合了多类对量化分析有价值的信息：</p>
+<ul>
+<li><p>每日结算参数：对于计算保证金占用、展期成本至关重要。</p></li>
+<li><p>仓单日报：反映实物交割压力与库存变化，是商品基本面量化的重要因子来源。</p></li>
+<li><p>日交易排名：披露活跃合约前20名会员的成交量与持仓量，可用于构建持仓集中度或会员行为类因子。</p></li>
+</ul>
+<p><strong>网址</strong>：<a href="https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/"><code>https://www.shfe.com.cn/reports/tradedata/dailyandweeklydata/</code></a></p>
+<p><strong>核心子板块</strong>：</p>
+<ul>
+<li><strong>日交易排名</strong>：活跃合约前20名会员的成交量与持仓量，可用于构建持仓集中度、会员行为类因子。</li>
+<li><strong>每日结算参数</strong>：计算保证金占用和展期成本的关键。</li>
+<li><strong>仓单日报</strong>：反映实物交割压力与库存变化，是重要的基本面量化因子。</li>
+<li>此外还包括 <strong>日交易快讯</strong>、<strong>交易综述</strong>、<strong>每周行情</strong>、<strong>库存周报</strong> 等。</li>
+</ul>
+</section>
+<section id="月度统计数据" class="level4">
+<h4 class="anchored" data-anchor-id="月度统计数据">1.3.月度统计数据</h4>
+<p>月度数据页面则提供了月均结算价、月度参考价等统计量。这些数据由交易所直接发布，权威性最高，且官网通常提供TXT或Excel的导出按钮，便于批量处理。</p>
+<ul>
+<li><strong>网址</strong>：<a href="https://www.shfe.com.cn/reports/tradedata/monthlyandyearlydata/"><code>https://www.shfe.com.cn/reports/tradedata/monthlyandyearlydata/</code></a></li>
+<li><strong>核心数据</strong>：包括 <strong>月均结算价</strong>、<strong>月度参考价</strong>、<strong>每月行情</strong> 以及 <strong>年度统计数据</strong> 等，页面通常提供 <strong>TXT</strong> 和 <strong>Excel</strong> 的导出按钮，便于批量处理。</li>
+</ul>
+<p>此外，官网还设有专门的<code>数据下载</code>栏目，集中提供各类统计报表和参数文件，可以作为公开数据的补充入口。</p>
+<p>访问这些页面时，最可靠的方式是直接通过官网顶部 <strong>“数据”</strong> 或 <strong>“市场数据”</strong> 导航栏进入。你只需在页面上选好日期和品种，浏览器地址栏显示的URL就是该次查询的准确地址，之后在R中用 <code>httr</code> 请求这个动态生成的URL即可。</p>
+</section>
+</section>
+<section id="会员与商业数据接口" class="level3">
+<h3 class="anchored" data-anchor-id="会员与商业数据接口">2.会员与商业数据接口</h3>
+<p>当策略需要<strong>Tick级、分钟级、五档盘口</strong>或<strong>实时结算文件</strong>时，公开数据便不再够用，需要进入交易所的会员或商业数据体系。<strong>会员服务API</strong>是交易所为具备交易或结算资格的会员单位提供的技术接口。它不面向公众，而是一套用于<strong>结算文件查询与下载、业务数据交互</strong>的专用系统。<strong>非会员无法直接调用这套接口。</strong></p>
+</section>
+<section id="量化社区的第三方封装" class="level3">
+<h3 class="anchored" data-anchor-id="量化社区的第三方封装">3.量化社区的第三方封装</h3>
+<p>官网数据的批量获取、格式清洗和持续更新需要大量的工程投入。量化社区已经发展出多个成熟的开源或商业封装，可以直接通过代码拉取SHFE数据，绕开手工下载的繁琐。</p>
+<ul>
+<li><p><strong>AkShare（开源，Python）</strong> 是免费方案中覆盖面较广的选择。它直接封装了上期所官网的公开数据接口，例如 <code>futures_shfe_warehouse_receipt()</code> 可以获取<strong>仓单日报</strong>，<code>get_futures_daily()</code> 则能按日期范围拉取日线行情。数据格式规整，适合快速搭建研究管道。</p></li>
+<li><p><strong>Tushare（积分制，Python）</strong> 提供 <code>fut_daily</code>（期货日线）和 <code>ft_mins</code>（期货分钟历史）等接口，SHFE是其主要覆盖的交易所之一。它的优势在于数据经过统一清洗，字段规范，但分钟级或更细粒度的数据可能需要相应的积分权限。</p></li>
+<li><p><strong>tqsdk（天勤量化，免费版+专业版）</strong> 提供了层次分明的免费额度。<strong>免费版</strong>即可获取<strong>最近1年的分钟线</strong>以及<strong>任意历史区间的日线</strong>数据（自2021年起）。如果需要更早期的分钟线或Tick数据，则需升级至专业版。其历史行情服务返回<strong>CSV流式数据</strong>，可直接被 <code>pandas.read_csv</code> 读取，对R用户也可以通过导出CSV再读取的方式衔接。</p></li>
+<li><p><strong>RQData（米筐，商业）</strong> 是机构级选择，通过 <code>vnpy_rqdata</code> 等接口与VeighNa等量化框架深度集成，覆盖SHFE的K线和Tick数据，数据质量与稳定性较高，但需要付费订阅。</p></li>
+</ul>
+</section>
+<section id="实践路径与选择建议" class="level3">
+<h3 class="anchored" data-anchor-id="实践路径与选择建议">4.实践路径与选择建议</h3>
+<p>对于大多数量化研究场景，务实的路径是：<strong>以官网公开数据为“真值来源”，以开源封装为“效率工具”</strong>。</p>
+<p>如果策略主要基于<strong>日线频率</strong>，可以直接从SHFE官网的 <code>Historical Data</code> 页面<strong>批量下载</strong>多年的期货与期权数据，这是最干净、最权威的起点。同时，定期从<code>日周数据</code>页面获取<strong>仓单日报</strong>和<strong>会员持仓排名</strong>，可以低成本地引入基本面与情绪因子。</p>
+<p>如果希望将数据获取<strong>自动化并嵌入Python/R管道</strong>，<strong>AkShare</strong> 的 <code>get_futures_daily</code> 和 <code>futures_shfe_warehouse_receipt</code> 是免费方案中与官网数据对应最直接的选择；若需要分钟线回测，<strong>TqSdk免费版</strong>提供了1年的分钟窗口，足以支撑策略原型的快速验证。当策略进入对数据连续性、深度或实时性有严格要求的阶段时，再评估<strong>RQData</strong>或交易所授权行情商的商业接入方案。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第13章 数据资源 第4节 巨潮资讯.html" class="pagination-link" aria-label="第13章 数据资源 第4节 巨潮资讯">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第13章 数据资源 第4节 巨潮资讯</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第13章 数据资源 第8节 财经网站.html" class="pagination-link" aria-label="第13章 数据资源 第6节 财经网站">
+        <span class="nav-page-text">第13章 数据资源 第6节 财经网站</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

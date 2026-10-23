@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第13章 数据资源 第1节 行情数据 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第13章 数据资源 第2节 FRED 数据库.html" rel="next">
+<link href="./第12章 全球资本市场 第3节 商品期货市场.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第13章 数据资源 第1节 行情数据.html">第13章 数据资源 第1节 行情数据</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第7节 宏观因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第7节 宏观因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第4节 Nowcasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第4节 Nowcasting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第5节 周期理论.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第5节 周期理论</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第6节 宏观预期差.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第6节 宏观预期差</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第1节 股票市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第1节 股票市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第3节 商品期货市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第3节 商品期货市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第1节 行情数据.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第13章 数据资源 第1节 行情数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第2节 FRED 数据库.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第2节 FRED</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第3节 EDGAR 系统.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第3节 EDGAR 系统</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第4节 巨潮资讯.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第4节 巨潮资讯</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第6节 商品期货数据.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第6节 商品期货数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第8节 财经网站.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第6节 财经网站</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一概述" id="toc-一概述" class="nav-link active" data-scroll-target="#一概述">一、概述</a>
+  <ul class="collapse">
+  <li><a href="#免费开源库" id="toc-免费开源库" class="nav-link" data-scroll-target="#免费开源库">1.免费开源库</a></li>
+  <li><a href="#商业-api" id="toc-商业-api" class="nav-link" data-scroll-target="#商业-api">2.商业 API</a></li>
+  <li><a href="#专业金融终端" id="toc-专业金融终端" class="nav-link" data-scroll-target="#专业金融终端">3.专业金融终端</a></li>
+  <li><a href="#二akshare" id="toc-二akshare" class="nav-link" data-scroll-target="#二akshare">二、AkShare</a></li>
+  <li><a href="#功能定位与核心特征" id="toc-功能定位与核心特征" class="nav-link" data-scroll-target="#功能定位与核心特征">1.功能定位与核心特征</a></li>
+  <li><a href="#安装与环境配置" id="toc-安装与环境配置" class="nav-link" data-scroll-target="#安装与环境配置">2.安装与环境配置</a></li>
+  <li><a href="#核心用法按场景组织" id="toc-核心用法按场景组织" class="nav-link" data-scroll-target="#核心用法按场景组织">3.核心用法：按场景组织</a></li>
+  <li><a href="#稳定性限流与常见报错" id="toc-稳定性限流与常见报错" class="nav-link" data-scroll-target="#稳定性限流与常见报错">4.稳定性、限流与常见报错</a></li>
+  <li><a href="#r-语言交互" id="toc-r-语言交互" class="nav-link" data-scroll-target="#r-语言交互">5. R 语言交互</a></li>
+  </ul></li>
+  <li><a href="#三tushare" id="toc-三tushare" class="nav-link" data-scroll-target="#三tushare">三、Tushare</a>
+  <ul class="collapse">
+  <li><a href="#定位与演进" id="toc-定位与演进" class="nav-link" data-scroll-target="#定位与演进">1.定位与演进</a></li>
+  <li><a href="#数据体系" id="toc-数据体系" class="nav-link" data-scroll-target="#数据体系">2.数据体系</a></li>
+  <li><a href="#调用方式" id="toc-调用方式" class="nav-link" data-scroll-target="#调用方式">3.调用方式</a></li>
+  <li><a href="#积分与权限体系" id="toc-积分与权限体系" class="nav-link" data-scroll-target="#积分与权限体系">4.积分与权限体系</a></li>
+  <li><a href="#优势与局限" id="toc-优势与局限" class="nav-link" data-scroll-target="#优势与局限">5.优势与局限</a></li>
+  </ul></li>
+  <li><a href="#四结语" id="toc-四结语" class="nav-link" data-scroll-target="#四结语">四、结语</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第13章 数据资源 第1节 行情数据</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一概述" class="level2">
+<h2 class="anchored" data-anchor-id="一概述">一、概述</h2>
+<p>获取中美及全球股票行情数据，按接入方式与使用成本，通常分为<strong>免费开源库</strong>、<strong>商业 API</strong> 和<strong>专业金融终端</strong>三个层级。三者的核心差异不在于“能不能拿到数据”，而在于<strong>数据稳定性、实时性、授权合规性与使用场景</strong>。</p>
+<section id="免费开源库" class="level3">
+<h3 class="anchored" data-anchor-id="免费开源库">1.免费开源库</h3>
+<p>免费开源库的最大优势是零成本、即装即用，但普遍存在稳定性依赖上游网站、实时性不足、商用授权模糊等隐性代价。适合个人用户学习和兴趣开发。从Python库入手门槛最低，能快速满足大部分基础需求。</p>
+<section id="yfinance" class="level4">
+<h4 class="anchored" data-anchor-id="yfinance">1.1. yfinance</h4>
+<p><code>yfinance</code>是获取美股及全球主要市场数据最便捷的工具之一，它封装了Yahoo Finance的公开接口。无需API Key，安装后即可通过<code>pip install yfinance</code>使用。</p>
+<ul>
+<li><strong>核心优势</strong>：支持美股（如<code>AAPL</code>）、港股（如<code>0700.HK</code>）、全球指数（如<code>^GSPC</code>代表标普500）及ETF等资产的日线级历史OHLCV数据。</li>
+<li><strong>使用注意</strong>：数据可能存在<strong>15-20分钟延迟</strong>；由于依赖Yahoo Finance的网页接口，其稳定性并非100%，可能因对方策略调整而中断。</li>
+</ul>
+</section>
+<section id="akshare" class="level4">
+<h4 class="anchored" data-anchor-id="akshare">1.2. AKShare</h4>
+<p><code>AKShare</code>是中文开源社区的明星项目，基于网页抓取整合了海量数据源，完全免费且无需注册。它覆盖A股、港股、美股、期货、基金等广泛品类，尤其对A股市场的支持非常细致。</p>
+<ul>
+<li><strong>核心优势</strong>：数据覆盖面极广，是探索A股及多市场数据的利器。</li>
+<li><strong>使用注意</strong>：由于其“爬虫”性质，接口的稳定性依赖于上游网页结构，一旦源网站改版，接口可能暂时失效。</li>
+</ul>
+</section>
+<section id="tushare-pro" class="level4">
+<h4 class="anchored" data-anchor-id="tushare-pro">1.3. Tushare Pro</h4>
+<p><code>Tushare Pro</code>采用Data-as-a-Service模式，返回字段类型强类型化的标准化DataFrame，尤其适合直接对接Pandas进行严谨的A股量化回测和基本面分析。</p>
+<ul>
+<li><strong>核心优势</strong>：数据经过专业清洗，处理了复权、停牌、财报日期对齐等棘手问题，数据质量和API稳定性较高。</li>
+<li><strong>使用注意</strong>：采用<strong>积分制</strong>，基础功能免费，但获取更高级数据（如分钟线、港股美股）需要充值或满足特定条件。其核心优势集中在A股，港美股数据需独立申请，个人门槛较高。</li>
+</ul>
+</section>
+<section id="alpha-vantage" class="level4">
+<h4 class="anchored" data-anchor-id="alpha-vantage">1.4. Alpha Vantage</h4>
+<p>Alpha Vantage 是一个面向开发者的<strong>金融数据API服务商</strong>，属于典型的入门级金融DaaS：把股票、ETF、外汇、加密货币、大宗商品、基本面、技术指标和新闻情绪等数据封装成REST API，供程序直接调用。</p>
+<ul>
+<li><strong>核心优势</strong>：接入简单，使用REST API，支持JSON/CSV，有Python客户端。覆盖较广，股票/ETF的盘中、日线、周线、月线历史数据，以及外汇、加密、商品、宏观和技术指标。</li>
+<li><strong>使用注意</strong>：免费层很紧张，25次/天、5次/分钟，只适合接口测试和极低频原型。付费起步约$49.99/月起，主要解除调用频率限制。 延迟约5-10秒，没有Tick/盘口深度，不适合高频或实盘交易。</li>
+</ul>
+<p>同样仅适合学习、教学、个人兴趣和策略原型验证；不适合机构级深度基本面研究、大量标的持续监控或低延迟实盘系统。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>工具</th>
+<th>主要覆盖市场</th>
+<th>核心特点与局限</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>yfinance</strong></td>
+<td>美股、全球指数、港股、加密货币</td>
+<td>完全免费、无需注册，一行代码即可拉取历史数据，上手门槛最低；但依赖 Yahoo Finance 后端，国内访问不稳定，A股覆盖弱，且曾因上游校验升级出现全线故障</td>
+</tr>
+<tr class="even">
+<td><strong>AkShare</strong></td>
+<td>A股、港股、美股、期货、宏观等</td>
+<td>国内开源社区最流行的聚合库，覆盖面极广、无需 Token；本质是网页抓取聚合，稳定性受源站改版影响，实时延迟较高，不宜直接用于生产环境</td>
+</tr>
+<tr class="odd">
+<td><strong>Tushare / Tushare Pro</strong></td>
+<td>A股为主，部分港股、美股</td>
+<td>国内量化圈认知度最高，返回标准 DataFrame，字段规范、质量较稳；免费版有积分限制，高级财务与实时数据需积分或付费，曾有停运先例，长期依赖需评估风险</td>
+</tr>
+<tr class="even">
+<td><strong>BaoStock</strong></td>
+<td>A股（专注）</td>
+<td>完全免费、无需积分，日线与复权因子处理稳定，适合A股历史回测；但仅支持A股，无实时行情，数据更新偏慢</td>
+</tr>
+<tr class="odd">
+<td><strong>Alpha Vantage</strong></td>
+<td>全球股票、外汇、加密货币</td>
+<td>提供免费 API Key，文档清晰，内置 50+ 技术指标，实时性在免费层中较好；免费额度非常有限（如每日 500 次），国内访问速度可能偏慢</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="商业-api" class="level3">
+<h3 class="anchored" data-anchor-id="商业-api">2.商业 API</h3>
+<p>商业 API 在稳定性、接口规范和授权清晰度上明显优于免费库，但价格与实时权限、商用许可紧密挂钩，需要仔细评估个人需求和付出的费用。</p>
+<ul>
+<li><p><strong>国内/跨市场常用</strong></p>
+<ul>
+<li><p><strong>TickDB</strong>：覆盖 A股、港股、美股、外汇、指数等，REST + WebSocket，基础版约 <strong>$99/月</strong>（50 个订阅、60 次/分），商业展示与再分发需单独确认授权。</p></li>
+<li><p><strong>Tushare Pro（付费积分）</strong>：严格来说是“免费+积分”模式的延伸，付费积分可解锁更丰富的 A 股财务与另类数据，但实时能力仍偏弱。</p></li>
+</ul></li>
+<li><p><strong>国际主流</strong></p>
+<ul>
+<li><p><strong>Twelve Data</strong>：全球多资产目录，美股实时源默认覆盖约美国总成交活动的 5%，不等同于完整合并行情；Grow 套餐 $29/月起，但 WebSocket 仍为试用，Pro $99/月起才含较完整的实时推送额度。</p></li>
+<li><p><strong>ODHD</strong>：全球历史与延迟数据性价比突出，EOD 套餐 <strong>$19.99/月</strong>，含 WebSocket 的 EOD+Intraday 套餐 <strong>$29.99/月</strong>；美股实时源为 Cboe EDGX，不能外推为全市场实时。</p></li>
+<li><p><strong>Polygon</strong>：国际专业级，美股为主，REST + WebSocket，适合对数据粒度、订单簿深度有要求的量化场景，定价高于入门级商业 API。</p></li>
+<li><p><strong>LSEG（Refinitiv）Data API</strong>：机构级全球数据，API 按数据集单独授权，公开起价约 <strong>$25,000/年</strong>，适合有明确合规与全球深度数据需求的机构。</p></li>
+<li><p><strong>FactSet API</strong>：机构级基本面与行情，通常在 Workstation 订阅基础上叠加，API/Feeds 年费约 <strong>$30,000–$100,000+</strong>，门槛较高。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="专业金融终端" class="level3">
+<h3 class="anchored" data-anchor-id="专业金融终端">3.专业金融终端</h3>
+<p>专业终端不是“数据接口”，而是将行情、基本面、研报、新闻、计算工具整合在一个桌面/云端工作流中的系统，核心价值在于工作流整合与机构合规，而非单纯的行情获取。本节不展开介绍。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>终端</th>
+<th>定位与市场格局</th>
+<th>大致成本参考</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Bloomberg Terminal</strong></td>
+<td>全球机构投研与交易的事实标准，覆盖全球全资产类别，即时通讯与生态壁垒极强</td>
+<td>单席位约 <strong>$30,000–$32,000/年</strong>，多席位合同可略低</td>
+</tr>
+<tr class="even">
+<td><strong>Wind（万得）</strong></td>
+<td>中国市场绝对主导，国内机构标配，A股/港股/债券/基金/宏观覆盖最全</td>
+<td>基础端约 <strong>3.98万元/年/账号</strong>，大中华终端约 <strong>6.8万元/年/账号</strong>；机构合同常见更高配置</td>
+</tr>
+<tr class="odd">
+<td><strong>东方财富 Choice</strong></td>
+<td>Wind 的高性价比替代，覆盖 A股/港股/美股，提供 Excel 插件与 Python 接口（EMQuantAPI），适合中小机构与个人研究者做数据拉取与分析</td>
+<td>显著低于 Wind，具体按模块与账号数询价</td>
+</tr>
+<tr class="even">
+<td><strong>同花顺 iFinD</strong></td>
+<td>主打智能化与 AI 方向，B端功能较全；面向学生和个人有轻量“青春版”入口，可作为低成本接触专业终端数据的途径</td>
+<td>B端按模块/账号计费；青春版门槛较低</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="二akshare" class="level3">
+<h3 class="anchored" data-anchor-id="二akshare">二、AkShare</h3>
+<p>AkShare 在国内量化与数据科学圈层中知名度很高，核心价值在于<strong>用一行代码，从公开财经网站获取相对权威的原始数据</strong>。它本质上是一个<strong>数据采集聚合工具</strong>，而非像 Wind 或 Bloomberg 那样提供经过深度清洗与合规授权的数据源。理解这一点，是合理使用 AkShare 的前提。</p>
+</section>
+<section id="功能定位与核心特征" class="level3">
+<h3 class="anchored" data-anchor-id="功能定位与核心特征">1.功能定位与核心特征</h3>
+<p>AkShare 的目标是覆盖股票、期货、期权、基金、外汇、债券、指数、加密货币等全品类，采集基本面、实时与历史行情及衍生数据。它的设计哲学是<strong>还原原始数据</strong>，便于研究者进行多源交叉验证，而非直接提供加工后的“结论”。</p>
+<p>它的优势与代价都非常鲜明：</p>
+<ul>
+<li><strong>优势</strong>：完全免费，无需 API Key；接口命名统一，返回标准 <code>pandas.DataFrame</code>；文档极其详尽，每个接口都附带可复制的示例代码。对于非 Python 用户，官方还提供了 <strong>AKTools</strong>，可将 AkShare 封装为 HTTP API 服务。</li>
+<li><strong>代价</strong>：数据来自网页抓取，<strong>稳定性完全取决于上游网站</strong>。目标页面改版、增加反爬校验或限制频率，都可能直接导致接口失效或报错。官方文档中明确声明，数据<strong>仅用于学术研究</strong>，商业使用需自行评估风险。</li>
+</ul>
+</section>
+<section id="安装与环境配置" class="level3">
+<h3 class="anchored" data-anchor-id="安装与环境配置">2.安装与环境配置</h3>
+<p>AkShare 对 Python 版本有一定要求，新版本通常需要 <strong>Python 3.11 及以上</strong>（推荐 3.13.x），并依赖较新版本的 <code>pandas</code>。</p>
+<p>常规安装：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install akshare <span class="at">--upgrade</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>国内网络环境下，直接从 PyPI 下载可能较慢，建议使用国内镜像源：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install akshare <span class="at">-i</span> http://mirrors.aliyun.com/pypi/simple/ <span class="at">--trusted-host</span><span class="op">=</span>mirrors.aliyun.com <span class="at">--upgrade</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>或使用清华源：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install akshare <span class="at">--default-index</span> https://pypi.tuna.tsinghua.edu.cn/simple <span class="at">--upgrade</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>安装后建议做一次简单验证：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> akshare <span class="im">as</span> ak</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ak.__version__)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="核心用法按场景组织" class="level3">
+<h3 class="anchored" data-anchor-id="核心用法按场景组织">3.核心用法：按场景组织</h3>
+<p>AkShare 的接口数量庞大（仅股票相关接口就超过 90 个）。有效的方式是按<strong>使用场景</strong>来定位接口，并养成随时查阅官方文档的习惯。</p>
+<section id="a股实时与历史行情" class="level4">
+<h4 class="anchored" data-anchor-id="a股实时与历史行情">3.1.A股实时与历史行情</h4>
+<p>获取全市场 A 股实时快照，最常用的是东方财富源接口：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> akshare <span class="im">as</span> ak</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 全市场 A 股实时行情（字段包括：代码、名称、最新价、涨跌幅、成交量、成交额等）</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df_spot <span class="op">=</span> ak.stock_zh_a_spot_em()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_spot.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>获取单只股票的历史日线（支持前复权 <code>qfq</code> / 后复权 <code>hfq</code> / 不复权 <code>""</code>）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_hist <span class="op">=</span> ak.stock_zh_a_hist(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    symbol<span class="op">=</span><span class="st">"000001"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    period<span class="op">=</span><span class="st">"daily"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    start_date<span class="op">=</span><span class="st">"20240101"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    end_date<span class="op">=</span><span class="st">"20241231"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    adjust<span class="op">=</span><span class="st">"qfq"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_hist.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>关键提醒：<code>stock_zh_a_hist</code> 这类历史接口在高频、并发调用时，极易触发东方财富的限流机制，表现为 <code>RemoteDisconnected</code> 或 IP 被临时封禁。一个更稳妥的生产级策略是：用实时接口按日增量拉取最新数据，在本地维护历史数据库，而不是每次回测都重新拉取全量历史。</p>
+</section>
+<section id="港股与美股" class="level4">
+<h4 class="anchored" data-anchor-id="港股与美股">3.2.港股与美股</h4>
+<p>港股实时行情使用 <code>stock_hk_spot_em()</code>；美股实时行情使用 <code>stock_us_spot()</code>。</p>
+<p>需要注意的是，这些接口同样依赖对应的上游数据源，实时性属于“快照”级别，不适用于对延迟敏感的交易场景。</p>
+</section>
+<section id="宏观经济指标" class="level4">
+<h4 class="anchored" data-anchor-id="宏观经济指标">3.3.宏观经济指标</h4>
+<p>AkShare 也聚合了国内主要宏观数据，接口命名直观：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ak.macro_china_gdp()   <span class="co"># GDP</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ak.macro_china_cpi()   <span class="co"># CPI</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ak.macro_china_pmi()   <span class="co"># PMI</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="基本面与衍生数据" class="level4">
+<h4 class="anchored" data-anchor-id="基本面与衍生数据">3.4.基本面与衍生数据</h4>
+<p>基本面与衍生数据方面，有 <code>stock_fundamental</code>（基本面）、<code>stock_valuation</code>（估值，如 PE/PB）、<code>stock_profit_em</code>（盈利）等接口。这些数据适合做初步筛选和因子挖掘，但若用于严谨的财务分析，建议与原始财报或更稳定的数据源交叉核验。</p>
+</section>
+</section>
+<section id="稳定性限流与常见报错" class="level3">
+<h3 class="anchored" data-anchor-id="稳定性限流与常见报错">4.稳定性、限流与常见报错</h3>
+<p>稳定性问题是使用 AkShare 必须正视的环节。绝大多数报错并非 AkShare 代码本身的问题，而是上游网站的限制或网络环境所致。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>现象</th>
+<th>典型原因</th>
+<th>应对思路</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>RemoteDisconnected</code> / 连接超时</td>
+<td>请求频率过高，IP 被上游临时限制</td>
+<td>降低调用频率；切换网络（如切换为手机热点）；等待数小时后再试</td>
+</tr>
+<tr class="even">
+<td><code>AttributeError: module 'akshare' has no attribute 'xxx'</code></td>
+<td>Python 版本过低；AkShare 未升级；接口已重命名或移除</td>
+<td>升级 Python 至 3.11+；<code>pip install akshare --upgrade</code>；核对官方文档中的最新接口名</td>
+</tr>
+<tr class="odd">
+<td><code>ReadTimeout</code></td>
+<td>网络不稳定或目标网站响应慢</td>
+<td>重新运行；更换 IP/代理；降低并发</td>
+</tr>
+<tr class="even">
+<td>数据返回错位或字段异常</td>
+<td>网络波动导致解析错乱；<code>pandas</code> 版本兼容问题</td>
+<td>升级 <code>pandas</code> 至较新版本；多运行几次排除偶发网络问题</td>
+</tr>
+<tr class="odd">
+<td>Linux 下 <code>execjs</code> 报错</td>
+<td>缺少 JavaScript 运行环境</td>
+<td>安装 <code>nodejs</code></td>
+</tr>
+</tbody>
+</table>
+<p>总之，AkShare 最合适的定位是：<strong>研究、教学、原型验证、低频回测与个人探索</strong>。它以零成本提供了极宽的覆盖面，让你能够快速把想法跑通。如果你需要的是<strong>稳定、可商用、且授权清晰的数据管道</strong>，AkShare 不应作为生产系统的唯一数据源。</p>
+</section>
+<section id="r-语言交互" class="level3">
+<h3 class="anchored" data-anchor-id="r-语言交互">5. R 语言交互</h3>
+<p>AkShare 本身是一个 Python 库，<strong>R 无法直接“安装”或原生加载它</strong>。在 R 中使用 AkShare 有两条路径：用 <code>reticulate</code> 包在 R 进程内桥接 Python，或者用 AKTools 把 AkShare 封装成 HTTP 服务，R 再发请求取数。下面直接给可用方案和代码。</p>
+<section id="方案一借助reticulate" class="level4">
+<h4 class="anchored" data-anchor-id="方案一借助reticulate">5.1. 方案一：借助<code>reticulate</code></h4>
+<p>这是最直接的方式，R 会话中会“虚拟”出一个 Python 环境，然后把 AkShare 的函数当成 R 对象来调用。</p>
+<p>作为前置条件，你的系统里必须有一个<strong>安装了 AkShare 的 Python 环境</strong>，并且 R 能找到它。建议用 Conda 专门建一个环境，避免路径混乱：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 在终端中执行</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> r-akshare python=3.11</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate r-akshare</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install akshare</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R 端配置与调用</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装并加载 reticulate</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reticulate"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 关键一步：显式指定装有 akshare 的 Python 环境</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式 A：用 Conda 环境名（推荐）</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">use_condaenv</span>(<span class="st">"r-akshare"</span>, <span class="at">required =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 方式 B：直接指定 Python 解释器的绝对路径</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># use_python("/path/to/your/python", required = TRUE)</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 导入 akshare 模块，写法类似 Python 的 import akshare as ak</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ak <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"akshare"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用 AkShare 接口，把 Python 的 . 换成 R 的 $</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 以 A 股历史行情为例</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> ak<span class="sc">$</span><span class="fu">stock_zh_a_hist</span>(</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">symbol =</span> <span class="st">"000001"</span>,</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">period =</span> <span class="st">"daily"</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_date =</span> <span class="st">"20240101"</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_date =</span> <span class="st">"20241231"</span>,</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"qfq"</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回值本质上是 pandas DataFrame，在 R 中通常可以直接当 data.frame 用</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>核心陷阱</strong>：如果你只写 <code>library(reticulate)</code> 而不 <code>use_condaenv()</code> 或 <code>use_python()</code>，R 会去用它找到的默认 Python，那个环境里极大概率没有装 AkShare，于是报错 <code>ModuleNotFoundError: No module named 'akshare'</code>。<strong>显式指定环境是成功的前提。</strong></p>
+</section>
+<section id="方案二aktools" class="level4">
+<h4 class="anchored" data-anchor-id="方案二aktools">5.2.方案二：AKTools</h4>
+<p>如果你不想在 R 里管理 Python 环境，或者团队里有多语言混用的情况，AKTools 是更干净的架构：它是一层 HTTP 网关，启动一次服务后，R 只需要发普通的 GET/POST 请求。</p>
+<p>第一步，在终端/Python 中，启动 AKTools 服务</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pip install aktools</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>python <span class="op">-</span>m aktools</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>默认服务地址是 <a href="http://127.0.0.1:8080"><code>http://127.0.0.1:8080</code></a>。启动后，AkShare 的每个函数都会映射为一个 API 端点，例如 <code>stock_zh_a_hist</code> 对应 <code>/api/public/stock_zh_a_hist</code>。</p>
+<p>第二步，R 端请求数据：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCurl)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 构造请求，参数名和 AkShare 函数参数保持一致</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">getForm</span>(</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">uri =</span> <span class="st">"http://127.0.0.1:8080/api/public/stock_zh_a_hist"</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">symbol =</span> <span class="st">"000001"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">period =</span> <span class="st">"daily"</span>,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">start_date =</span> <span class="st">"20240101"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">end_date =</span> <span class="st">"20241231"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">adjust =</span> <span class="st">"qfq"</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">.encoding =</span> <span class="st">"utf-8"</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回的是 JSON 字符串，解析为 R 的 data.frame</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(temp)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>这是 AKTools 官方 Demo 中直接给出的 R 示例写法。如果你更习惯 <code>httr</code>，也可以用 <code>httr::GET()</code> 配合 <code>query</code> 参数，逻辑完全一样。</p>
+<p>AKTools 的本质是，引入了一个需要单独维护和启动的服务进程。如果该服务没开，R 端就会连接失败。适合作为长期运行的数据微服务，而非临时一次性脚本。</p>
+<p>如果你只是<strong>在自己的 R 脚本里快速用 AkShare 取数</strong>，走 <code>reticulate</code> 方案，把 Python 环境一次性配好，后面就只剩 <code>ak$函数名()</code> 这一层语法转换。如果你希望<strong>把数据获取从 R 脚本中彻底解耦</strong>，或者团队里 Python/R 混用，AKTools 的 HTTP 方案架构上更干净，代价是多维护一个服务进程。</p>
+</section>
+</section>
+</section>
+<section id="三tushare" class="level2">
+<h2 class="anchored" data-anchor-id="三tushare">三、Tushare</h2>
+<p>Tushare 在国内量化与金融研究领域是一个绕不开的名字。它的核心演变，是从一个早期的开源聚合库，升级为 <strong>Tushare Pro</strong>：一个以标准化 API、Token 鉴权和<strong>积分制</strong>为核心的数据服务平台。理解 Tushare，关键不在于记住几百个接口，而在于理解它的<strong>定位、权限规则和最佳适用场景</strong>。</p>
+<section id="定位与演进" class="level3">
+<h3 class="anchored" data-anchor-id="定位与演进">1.定位与演进</h3>
+<p>早期的 Tushare 是一个完全免费的 Python 库，通过聚合公开网页数据来提供行情。随着用户量增长，这种模式在稳定性和维护成本上难以为继。</p>
+<p><strong>Tushare Pro 是当前的主流形态</strong>，它转型为一个由社区自主生产数据、通过服务器提供 API 服务的平台。用户必须注册获取 <strong>Token</strong> 才能调用，这带来了更规范的数据结构和稳定性，但也引入了<strong>积分/付费</strong>的准入门槛。目前新用户应直接从 Pro 开始，其 Python 包 <code>tushare</code> 本身已内置对接 Pro 的功能。</p>
+<p>Tushare 官方将其定位为 <strong>“高性能、低成本的一站式金融数据底座”</strong>，并已扩展出 Skill（自然语言取数）、MCP（供 AI 工具直接调用）等通道，以适配 AI 投研场景。平台宣称拥有 <strong>300+ 标准化接口</strong>，覆盖 A股、港股、美股、基金、期货、期权、债券、外汇及宏观数据。</p>
+</section>
+<section id="数据体系" class="level3">
+<h3 class="anchored" data-anchor-id="数据体系">2.数据体系</h3>
+<p>Tushare 的数据覆盖可以清晰地分为三个层次，其中<strong>A股财务与特色因子</strong>是其最核心的竞争力。</p>
+<ul>
+<li><p><strong>市场交易数据</strong> 覆盖股票（日/周/月线、分钟线、复权行情）、指数、ETF、期货、期权等。统一使用 <code>ts_code</code>（如 <code>000001.SZ</code>）和 <code>trade_date</code>（<code>YYYYMMDD</code>）作为标准标识，降低了多源整合的成本。</p></li>
+<li><p><strong>基本面与特色数据</strong> 这是 Tushare 区别于 AkShare 等聚合工具的关键。它提供<strong>利润表、资产负债表、现金流量表</strong>及衍生指标（ROE、毛利率等），并包含<strong>业绩预告、业绩快报、分红、增发、龙虎榜、机构持仓、一致预期</strong>等深度财务与事件数据。此外，平台还提供自研的<strong>特色因子库</strong>（如每日筹码、券商金股等），服务于多因子选股场景。</p></li>
+<li><p><strong>宏观经济数据</strong> 内置 GDP、CPI、PPI、PMI、利率、汇率等关键指标，支持自上而下的策略分析。</p></li>
+</ul>
+</section>
+<section id="调用方式" class="level3">
+<h3 class="anchored" data-anchor-id="调用方式">3.调用方式</h3>
+<p>Tushare 原生以 Python 为核心，同时官方也维护了 R 包，方便 R 用户直接接入。</p>
+<section id="python" class="level4">
+<h4 class="anchored" data-anchor-id="python">3.1.Python</h4>
+<p>所有调用围绕一个 <code>pro</code> 对象展开，返回标准的 <strong>pandas DataFrame</strong>。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tushare <span class="im">as</span> ts</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 用你的 Token 初始化接口</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>pro <span class="op">=</span> ts.pro_api(<span class="st">'你的TOKEN'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取个股日线行情</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pro.daily(ts_code<span class="op">=</span><span class="st">'000001.SZ'</span>, start_date<span class="op">=</span><span class="st">'20240101'</span>, end_date<span class="op">=</span><span class="st">'20241231'</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取财务指标</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>df_fina <span class="op">=</span> pro.fina_indicator(ts_code<span class="op">=</span><span class="st">'000001.SZ'</span>, start_date<span class="op">=</span><span class="st">'20240101'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>对于行情数据，官方推荐使用统一的 <code>pro_bar()</code> 接口，它可以直接处理<strong>前复权、后复权</strong>，并内置均线计算等参数，比单独拼接行情和复权因子更便捷。</p>
+</section>
+<section id="r-包" class="level4">
+<h4 class="anchored" data-anchor-id="r-包">3.2.R 包</h4>
+<p>Tushare 的 R 包已发布在 CRAN 上，核心逻辑是将 Python 的 <code>pro.query</code> 封装为一个可调用的 <code>api</code> 函数对象。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">'Tushare'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Tushare)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取接口对象</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>api <span class="ot">&lt;-</span> Tushare<span class="sc">::</span><span class="fu">pro_api</span>(<span class="at">token =</span> <span class="st">'你的TOKEN'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用接口：第一个参数是接口名，后续传入对应参数</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">api</span>(<span class="at">api_name =</span> <span class="st">'daily'</span>, <span class="at">ts_code =</span> <span class="st">'000001.SZ'</span>, </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">start_date =</span> <span class="st">'20240101'</span>, <span class="at">end_date =</span> <span class="st">'20241231'</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用 pro_bar 接口（支持复权与均线）</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>bar <span class="ot">&lt;-</span> Tushare<span class="sc">::</span><span class="fu">pro_bar</span>(<span class="at">token =</span> <span class="st">'你的TOKEN'</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>df_adj <span class="ot">&lt;-</span> <span class="fu">bar</span>(<span class="at">ts_code =</span> <span class="st">'000001.SZ'</span>, <span class="at">start_date =</span> <span class="st">'20240101'</span>, <span class="at">adj =</span> <span class="st">'hfq'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>R 包依赖 <code>httr</code>、<code>tidyverse</code>、<code>forecast</code>、<code>data.table</code>，安装时会自动处理。</p>
+</section>
+</section>
+<section id="积分与权限体系" class="level3">
+<h3 class="anchored" data-anchor-id="积分与权限体系">4.积分与权限体系</h3>
+<p>这是使用 Tushare 最需要提前理解的部分。它的权限分为两类：</p>
+<ul>
+<li><p><strong>积分制接口：</strong>凭积分门槛解锁，积分决定你能访问哪些数据以及调用频次。基础日线数据在 <strong>120 积分</strong>即可调用（免费额度通常对应约 50次/分钟、8000次/日）。随着积分提升，频次和可访问的数据范围逐步扩大。<strong>5000 积分以上</strong>可解锁大部分常规数据且频次较高；<strong>10000 积分以上</strong>则涉及特色因子等深度数据。</p></li>
+<li><p><strong>独立付费权限</strong>：<strong>与积分无关，需单独购买。</strong>高频或实时类数据不纳入积分体系，需要单独开通。例如：</p>
+<p><strong>历史分钟数据</strong>（1/5/15/30/60分钟）：<strong>2000元/年</strong>；</p>
+<p><strong>实时分钟数据</strong>：<strong>1000元/月</strong>；</p>
+<p><strong>实时日线（当日盘中快照）</strong> ：<strong>200元/月</strong>，每分钟 50 次，每次可提取全市场。</p></li>
+</ul>
+<p>这意味着：<strong>免费或低积分账户可以完成日频历史回测和基础财务分析，但若涉及分钟级研究、盘中实时信号或深度特色因子，则需要明确的预算规划。</strong></p>
+</section>
+<section id="优势与局限" class="level3">
+<h3 class="anchored" data-anchor-id="优势与局限">5.优势与局限</h3>
+<section id="核心优势" class="level4">
+<h4 class="anchored" data-anchor-id="核心优势">5.1.核心优势</h4>
+<p><strong>A股财务与因子数据最全、最规范</strong>。在个人可负担的范围内，Tushare 的财务数据完整度和标准化程度显著优于网页抓取型工具，是多因子研究的务实选择。数据由平台自主生产并经过质检，接口返回稳定的 DataFrame，降低了清洗成本。相比 Wind 等终端，其成本门槛低得多，基础功能对个人研究者友好。</p>
+</section>
+<section id="局限性" class="level4">
+<h4 class="anchored" data-anchor-id="局限性">5.2.局限性</h4>
+<p><strong>它不是实时交易系统。</strong>Tushare 的定位是<strong>盘后数据底座</strong>，免费/基础权限下的行情存在延迟（常见描述为分钟级或更久），接口返回的是快照而非 Level-2 逐笔推送。如果在实盘策略的主线程中同步调用 <code>pro_bar</code>，一次网络波动就可能阻塞整个交易流程。</p>
+<p><strong>积分制是一把双刃剑。</strong>它保证了服务的可持续性，但也意味着“低成本”是有边界的。随着需求向高频、实时或深度特色数据延伸，成本会逐步上升，甚至可能接近部分商业 API 的入门价位。</p>
+<p><strong>与 AkShare 的定位差异清晰</strong>：AkShare 胜在<strong>免费、覆盖面广</strong>（含加密、海外），但数据依赖源网站、稳定性需自行验证；Tushare 胜在<strong>A股财务数据的规范性与稳定性</strong>，但广度和“零成本”程度不及 AkShare。二者不是替代关系，完全可以<strong>组合使用</strong>：用 AkShare 做广度探索与交叉验证，用 Tushare 作为 A股基本面与日频因子数据的稳定来源。</p>
+</section>
+<section id="使用方法建议" class="level4">
+<h4 class="anchored" data-anchor-id="使用方法建议">5.3.使用方法建议</h4>
+<p><strong>正确的使用架构</strong>是：在盘后通过定时任务，将 Tushare 的日线、财务、因子数据批量拉取并<strong>落地到本地数据库</strong>（如 DuckDB），研究与回测直接读取本地数据；实盘系统的实时行情另接专业行情源。这样既利用了 Tushare 在数据规范上的优势，又规避了其在实时性和接口稳定性上的短板。</p>
+</section>
+</section>
+</section>
+<section id="四结语" class="level2">
+<h2 class="anchored" data-anchor-id="四结语">四、结语</h2>
+<p>事实上，前面提到的许多基础行情、财务与宏观数据，并不必然依赖商业 API 或专业终端。交易所官网、监管机构网站、上市公司公告、国家统计部门以及部分公开数据平台，均可免费获取相当数量的原始数据，且来源权威、可追溯。不过，公开渠道的数据往往分散在不同站点，格式、字段和更新频率不统一，实时性与调用便利性也有限，使用时还需遵守各网站的访问条款与授权要求。因此，公开资源更适合作为低成本研究、交叉验证和补充数据源，而非无条件替代商业数据服务。</p>
+<p>基于这一考虑，本章的重点是，将系统介绍一些常用的公开数据资源及其获取方式，帮助读者在控制成本的同时，建立更透明、可复核的数据链路。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第12章 全球资本市场 第3节 商品期货市场.html" class="pagination-link" aria-label="第12章 全球资本市场 第3节 商品期货市场">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第12章 全球资本市场 第3节 商品期货市场</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第13章 数据资源 第2节 FRED 数据库.html" class="pagination-link" aria-label="第13章 数据资源 第2节 FRED">
+        <span class="nav-page-text">第13章 数据资源 第2节 FRED</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

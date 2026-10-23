@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第13章 数据资源 第6节 财经网站 – 量化投资导论</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./第16章 R 第1节 R语言入门.html" rel="next">
+<link href="./第13章 数据资源 第6节 商品期货数据.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fd0503e23dce65854c81c5baaade3bdf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./第13章 数据资源 第8节 财经网站.html">第13章 数据资源 第6节 财经网站</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">量化投资导论</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">《量化投资导论》</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第0章 前言2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言2</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第2节 理论模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第2节 理论模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第3节 两个范式.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第3节 两个范式</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第4节 策略研发.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第4节 策略研发</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第6节 统计方法和模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第6节 统计方法和模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第7节 模型的选择.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第7节 模型的选择</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第8节 风险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第8节 风险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第1章 基础知识 第9节 编程语言.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第1章 基础知识 第9节 编程语言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第1节 股票多因子模型一般流程.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第1节 股票多因子模型一般流程</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第2节 量价因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第2节 量价因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第3节 基本面因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第3节 基本面因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第4节 高频数据低频化因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第4节 高频数据低频化因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第5节 其它因子.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第5节 其它因子</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第6节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第6节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第7节 基于理论和经验的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第7节 基于理论和经验的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第8节 基于数据和模型的因子合成.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第8节 基于数据和模型的因子合成</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第9节 因子正交和因子筛选.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第9节 因子正交和因子筛选</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第10节 风险管理和组合优化.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第10节 风险管理和组合优化</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第11节 银行、券商、保险.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第11节 银行、券商、保险</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第2章 因子选股 第12节 逆向“排雷”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第2章 因子选股 第12节 逆向“排雷”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第1节 量化择时概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第1节 量化择时概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第2节 技术指标和技术分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第2节 技术指标和技术分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第3节 宏观经济.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第3节 宏观经济</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第4节 投资者情绪.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第4节 投资者情绪</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第5节 期权和期货指标.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第5节 期权和期货指标</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第6节 左侧择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第6节 左侧择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第7节 周期效应和日历效应.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第7节 周期效应和日历效应</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第8节 多因子择时模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第8节 多因子择时模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第9节 风格择时（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第9节 风格择时（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第3章 择时 第10节 风格择时（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第3章 择时 第10节 风格择时（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第2节 行业择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第2节 行业择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第3节 宏观模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第3节 宏观模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第4节 行业多因子模型（1）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第4节 行业多因子模型（1）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第4章 行业轮动 第5节 行业多因子模型（2）.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第4章 行业轮动 第5节 行业多因子模型（2）</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第1节 商品期货市场概况.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第1节 商品期货市场概况</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第2节 商品期货的数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第2节 商品期货的数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第3节 海龟策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第3节 海龟策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第4节 基本面量化和择时.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第4节 基本面量化和择时</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第5节 套利策略.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第5节 套利策略</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第6章 商品CTA 第6节 商品多因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第6章 商品CTA 第6节 商品多因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第1节 概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第1节 概述</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第2节 美林时钟.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第2节 美林时钟</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第3节 普林格六周期.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第3节 普林格六周期</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第4节 Black-Litterman 模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第4节 Black-Litterman 模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第5节 全天候策略和风险平价模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第5节 全天候策略和风险平价模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第6节 全天候策略和风险平价模型的改进.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第6节 全天候策略和风险平价模型的改进</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第7章 资产配置 第7节 宏观因子模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第7章 资产配置 第7节 宏观因子模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第1节 历史重大风险危机回顾.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第1节 历史重大风险危机回顾</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第2节 多因子风险模型的构建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第2节 多因子风险模型的构建</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第3节 多因子风险模型的因子体系.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第3节 多因子风险模型的因子体系</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第4节 多因子风险模型的应用.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第4节 多因子风险模型的应用</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第9章 风险控制 第5节 风险模型的局限性及其应对.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第9章 风险控制 第5节 风险模型的局限性及其应对</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第1节 投资的“工程化”.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第1节 投资的“工程化”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第2节 系统化的指数增强.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第2节 系统化的指数增强</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第10章 投资系统和投资工程 第3节 系统化的绝对收益.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第10章 投资系统和投资工程 第3节 系统化的绝对收益</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第1节 宏观研究框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第1节 宏观研究框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第2节 全球四大央行货币政策框架.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第2节 全球四大央行货币政策框架</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第3节 景气指数.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第3节 景气指数</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第4节 Nowcasting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第4节 Nowcasting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第5节 周期理论.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第5节 周期理论</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第11章 宏观经济 第6节 宏观预期差.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第11章 宏观经济 第6节 宏观预期差</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第1节 股票市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第1节 股票市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第12章 全球资本市场 第3节 商品期货市场.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第12章 全球资本市场 第3节 商品期货市场</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第1节 行情数据.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第1节 行情数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第2节 FRED 数据库.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第2节 FRED</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第3节 EDGAR 系统.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第3节 EDGAR 系统</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第4节 巨潮资讯.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第4节 巨潮资讯</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第6节 商品期货数据.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第13章 数据资源 第6节 商品期货数据</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第13章 数据资源 第8节 财经网站.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">第13章 数据资源 第6节 财经网站</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第1节 R语言入门.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第1节 R语言入门</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第2节 数据处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第2节 数据处理</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第3节 一般统计分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第3节 一般统计分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第4节 时间序列分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第4节 时间序列分析</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第5节 金融计算.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第5节 金融计算</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第6节 线性模型.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第6节 线性模型</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第7节 机器学习.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第7节 机器学习</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第8节 torch for R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第8节 torch for R</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第9节 其它计量分析工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第9节 其它计量分析工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第10节 优化算法.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第10节 优化算法</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第11节 提升计算效率 .html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第11节 提升计算效率</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第12节 数据读写和存储.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第12节 数据读写和存储</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第13节 网络爬虫.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第13节 网络爬虫</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第14节 与大模型交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第14节 与大模型交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第15节 R与Python交互.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第15节 R与Python交互</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第16节 其它常用工具包.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第16节 其它常用工具包</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./第16章 R 第17节 其它重要问题.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">第16章 R 第17节 其它重要问题</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#一英为财情" id="toc-一英为财情" class="nav-link active" data-scroll-target="#一英为财情">一、英为财情</a>
+  <ul class="collapse">
+  <li><a href="#全球市场的一站式门户" id="toc-全球市场的一站式门户" class="nav-link" data-scroll-target="#全球市场的一站式门户">1.全球市场的“一站式”门户</a></li>
+  <li><a href="#发展历程与市场地位" id="toc-发展历程与市场地位" class="nav-link" data-scroll-target="#发展历程与市场地位">2.发展历程与市场地位</a></li>
+  <li><a href="#核心功能与产品矩阵" id="toc-核心功能与产品矩阵" class="nav-link" data-scroll-target="#核心功能与产品矩阵">3.核心功能与产品矩阵</a></li>
+  <li><a href="#中文版与本地化" id="toc-中文版与本地化" class="nav-link" data-scroll-target="#中文版与本地化">4.中文版与本地化</a></li>
+  <li><a href="#用户评价" id="toc-用户评价" class="nav-link" data-scroll-target="#用户评价">5.用户评价</a></li>
+  <li><a href="#总结" id="toc-总结" class="nav-link" data-scroll-target="#总结">6.总结</a></li>
+  </ul></li>
+  <li><a href="#二雅虎财经" id="toc-二雅虎财经" class="nav-link" data-scroll-target="#二雅虎财经">二、雅虎财经</a>
+  <ul class="collapse">
+  <li><a href="#平台概览" id="toc-平台概览" class="nav-link" data-scroll-target="#平台概览">1.平台概览</a></li>
+  <li><a href="#发展历程" id="toc-发展历程" class="nav-link" data-scroll-target="#发展历程">2.发展历程</a></li>
+  <li><a href="#核心功能与产品矩阵-1" id="toc-核心功能与产品矩阵-1" class="nav-link" data-scroll-target="#核心功能与产品矩阵-1">3.核心功能与产品矩阵</a></li>
+  <li><a href="#python-数据api" id="toc-python-数据api" class="nav-link" data-scroll-target="#python-数据api">4.Python 数据API</a></li>
+  <li><a href="#r-数据api" id="toc-r-数据api" class="nav-link" data-scroll-target="#r-数据api">5.R 数据API</a></li>
+  <li><a href="#总结-1" id="toc-总结-1" class="nav-link" data-scroll-target="#总结-1">6.总结</a></li>
+  </ul></li>
+  <li><a href="#三新浪财经" id="toc-三新浪财经" class="nav-link" data-scroll-target="#三新浪财经">三、新浪财经</a>
+  <ul class="collapse">
+  <li><a href="#发展历程与规模" id="toc-发展历程与规模" class="nav-link" data-scroll-target="#发展历程与规模">1.发展历程与规模</a></li>
+  <li><a href="#核心能力" id="toc-核心能力" class="nav-link" data-scroll-target="#核心能力">2.核心能力</a></li>
+  <li><a href="#网站内容体系" id="toc-网站内容体系" class="nav-link" data-scroll-target="#网站内容体系">3.网站内容体系</a></li>
+  <li><a href="#总结-2" id="toc-总结-2" class="nav-link" data-scroll-target="#总结-2">4.总结</a></li>
+  </ul></li>
+  <li><a href="#四财联社" id="toc-四财联社" class="nav-link" data-scroll-target="#四财联社">四、财联社</a>
+  <ul class="collapse">
+  <li><a href="#背景与定位" id="toc-背景与定位" class="nav-link" data-scroll-target="#背景与定位">1.背景与定位</a></li>
+  <li><a href="#核心功能电报驱动的产品矩阵" id="toc-核心功能电报驱动的产品矩阵" class="nav-link" data-scroll-target="#核心功能电报驱动的产品矩阵">2.核心功能：“电报”驱动的产品矩阵</a></li>
+  <li><a href="#技术内核和影响力" id="toc-技术内核和影响力" class="nav-link" data-scroll-target="#技术内核和影响力">3.技术内核和影响力</a></li>
+  <li><a href="#数据资源" id="toc-数据资源" class="nav-link" data-scroll-target="#数据资源">4.数据资源</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第13章 数据资源 第6节 财经网站</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="一英为财情" class="level2">
+<h2 class="anchored" data-anchor-id="一英为财情">一、英为财情</h2>
+<p>英为财情（Investing.com）是全球头部的财经信息平台之一，其核心定位是<strong>为个人投资者和交易者提供“机构级”的全球市场数据与工具</strong>，并以免费模式大幅降低了专业金融信息的获取门槛。</p>
+<section id="全球市场的一站式门户" class="level3">
+<h3 class="anchored" data-anchor-id="全球市场的一站式门户">1.全球市场的“一站式”门户</h3>
+<p>英为财情是Investing.com的中文品牌，其核心价值在于打破了地域和信息壁垒，让用户通过一个平台即可追踪全球资产动向。</p>
+<ul>
+<li><strong>覆盖广度</strong>：平台支持<strong>33种语言</strong>，覆盖<strong>250家交易所</strong>，提供超过<strong>18万只</strong>金融交易品种的行情数据。资产类别涵盖股票、指数、外汇、大宗商品、加密货币、债券、ETF、期货和期权等几乎所有主流品种。</li>
+<li><strong>用户规模</strong>：官方数据显示，其每月为全球<strong>5000万名</strong>投资者提供服务，应用累计下载量达<strong>1.3亿次</strong>，并拥有<strong>30万</strong>活跃付费订阅用户。</li>
+</ul>
+</section>
+<section id="发展历程与市场地位" class="level3">
+<h3 class="anchored" data-anchor-id="发展历程与市场地位">2.发展历程与市场地位</h3>
+<p>英为财情并非横空出世，其发展轨迹伴随着一次关键的战略升级。</p>
+<ul>
+<li><strong>起源与更名</strong>：平台前身是成立于<strong>2007年</strong>的Forexpros.com，早期以外汇信息见长。<strong>2012年12月</strong>，公司以<strong>245万美元</strong>收购了Investing.com这一域名，成为当年全球第二大域名交易，并随后完成品牌重塑。</li>
+<li><strong>流量跃升</strong>：更名带来了显著的品牌效应。其月浏览量从2013年的<strong>5000万次</strong>，增长至2016年的<strong>4亿次</strong>，目前已超过<strong>10亿次每月</strong>。</li>
+<li><strong>市场排名</strong>：根据SimilarWeb和Alexa等第三方机构的数据，Investing.com长期稳居<strong>全球前3大财经网站</strong>之列，与彭博（Bloomberg）、路透（Reuters）等共同被视为行业的重要参与者。</li>
+</ul>
+</section>
+<section id="核心功能与产品矩阵" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能与产品矩阵">3.核心功能与产品矩阵</h3>
+<p>英为财情不仅提供数据，更围绕投资决策的全流程构建了工具生态。</p>
+<ul>
+<li><p><strong>行情与数据</strong> 提供全球<strong>70多家交易所</strong>超<strong>10万种</strong>金融品种的实时报价与历史数据。其技术分析汇总功能，会基于移动平均线、各类技术指标，通过算法给出“买入/卖出”等参考信号。</p></li>
+<li><p><strong>财经日历</strong> 这是其口碑极佳的王牌功能，覆盖全球重要经济事件，提供数据的前值、预期值和实际值对比，更新及时且维度全面，被许多用户视为跟踪宏观动态的首选工具。</p></li>
+<li><p><strong>投资组合与提醒</strong> 用户可以建立多个自选列表和持仓组合，系统会据此计算每日盈亏。同时，可针对任一品种、财经事件或分析文章设置个性化提醒，不错过关键变动。</p></li>
+<li><p><strong>专业金融工具</strong> 内置一系列实用工具，包括<strong>美联储利率观测器</strong>（基于联邦基金期货价格预测加息概率）、<strong>股票筛选器</strong>、<strong>货币换算器</strong>以及<strong>财报日历</strong>等。</p></li>
+<li><p><strong>InvestingPro（付费订阅）</strong> 这是其面向专业需求的高阶服务，核心卖点是将“机构级”工具平民化。功能包括<strong>AI智能选股（ProPicks AI）</strong>、<strong>公允价值评估</strong>、<strong>AI金融研究对话助手</strong>以及<strong>Vision AI图表分析</strong>等。</p></li>
+</ul>
+</section>
+<section id="中文版与本地化" class="level3">
+<h3 class="anchored" data-anchor-id="中文版与本地化">4.中文版与本地化</h3>
+<p>英为财情对中国市场的投入较为深入，并非简单的界面翻译。</p>
+<ul>
+<li><strong>进入中国</strong>：平台于<strong>2017年底</strong>正式进入中国市场，并启用“英为财情”作为中文品牌，在深圳设立办公室。</li>
+<li><strong>内容合作</strong>：其原创中文内容被<strong>新浪财经、腾讯财经、网易财经、东方财富、雪球</strong>等国内主流财经平台广泛采用，形成了较强的本土影响力。</li>
+<li><strong>中文App</strong>：中文版App于<strong>2018年</strong>上线，针对中国用户的使用习惯进行了优化，提供全中文的行情、资讯和工具服务。</li>
+</ul>
+</section>
+<section id="用户评价" class="level3">
+<h3 class="anchored" data-anchor-id="用户评价">5.用户评价</h3>
+<p>用户评价呈现出明显的两极分化，这与其免费+订阅的商业模式密切相关。</p>
+<ul>
+<li><p><strong>受到认可的优势</strong></p>
+<ul>
+<li><p><strong>数据广度与免费性</strong>：用户普遍认可其<strong>免费层级（Free Tier）非常强大</strong>，能以零成本获取广泛的全球市场数据，是了解海外市场的便捷入口。</p></li>
+<li><p><strong>工具实用性强</strong>：财经日历、投资组合跟踪等工具被认为是高效且不可或缺的日常辅助。</p></li>
+</ul></li>
+<li><p><strong>主要的争议与短板</strong></p>
+<ul>
+<li><p><strong>付费服务性价比存疑</strong>：部分用户认为<strong>InvestingPro</strong>的付费内容“名不副实”，AI信号有时会误导，且与免费功能的差异化不够显著。</p></li>
+<li><p><strong>取消订阅流程复杂</strong>：有评论指责其利用“<strong>暗黑模式（Dark Patterns）</strong>”增加取消订阅的难度，例如不在平台内提供直接取消的入口，而需要用户绕道Google Play等第三方渠道操作。</p></li>
+<li><p><strong>广告与稳定性问题</strong>：免费版用户可能受到<strong>弹窗广告</strong>的打扰。</p></li>
+<li><p>部分用户反馈App偶尔会出现<strong>崩溃</strong>，或个别品种数据更新不及时的情况。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="总结" class="level3">
+<h3 class="anchored" data-anchor-id="总结">6.总结</h3>
+<p>英为财情（Investing.com）的核心价值在于提供了一个<strong>广度惊人且免费可用的全球市场数据入口</strong>。对于需要跨市场追踪资产、关注全球宏观事件的投资者而言，它是一个效率很高的工具。不过，如果你考虑升级到付费订阅，建议先充分利用其免费功能，并在试用期内仔细评估InvestingPro的实际价值，同时留意订阅条款和取消政策。</p>
+</section>
+</section>
+<section id="二雅虎财经" class="level2">
+<h2 class="anchored" data-anchor-id="二雅虎财经">二、雅虎财经</h2>
+<p>与英为财情（Investing.com）以“广度”和免费工具见长的路径不同，<strong>雅虎财经（Yahoo Finance）的核心优势在于其作为老牌财经媒体的深厚根基、原生流量入口地位，以及近年向专业级研究平台（AlphaSpace）的积极转型</strong>。它更像一个以内容和数据为底座，正在努力补齐专业工具短板的综合性平台。</p>
+<section id="平台概览" class="level3">
+<h3 class="anchored" data-anchor-id="平台概览">1.平台概览</h3>
+<p>雅虎财经的用户规模是其最显著的特征之一，这得益于它作为雅虎门户核心资产的历史地位。</p>
+<ul>
+<li><strong>用户规模</strong>：平台拥有超过<strong>1.5亿</strong>的全球月度活跃用户，其中仅美国市场就有约<strong>9000万</strong>月活用户。</li>
+<li><strong>市场地位</strong>：根据Similarweb数据，雅虎财经在美国财经出版商中<strong>排名第五</strong>，长期位居最受欢迎的金融新闻与研究网站之列。Comscore曾将其评为<strong>排名第一</strong>的金融新闻与研究网站，并保持该地位至2024年。</li>
+<li><strong>用户画像</strong>：用户群体偏向男性（<strong>63.69%</strong>），年龄最大的群体集中在<strong>45-54岁</strong>，这正是进行严肃投资与交易的核心年龄段。</li>
+</ul>
+</section>
+<section id="发展历程" class="level3">
+<h3 class="anchored" data-anchor-id="发展历程">2.发展历程</h3>
+<p>雅虎财经的命运与雅虎公司的起伏紧密相连，其所有权在近年发生了关键变更。</p>
+<ul>
+<li><strong>早期奠基（1997-2010年代）</strong>：雅虎财经于<strong>1997年1月19日</strong>上线。2001年推出实时股票报价订阅服务，2005年扩展至交易所数据，2006年改版引入交互式图表，逐步奠定了其作为综合性财经信息网站的基础。</li>
+<li><strong>视频化转型</strong>：平台在<strong>2017年</strong>开始提供实时视频内容，并在2018年增加了更多视频节目，强化了其媒体属性。</li>
+<li><strong>所有权变更（2021年至今）</strong>：2021年，<strong>阿波罗全球管理公司（Apollo Global Management）</strong>以<strong>50亿美元</strong>收购了雅虎（包括雅虎财经、AOL等），此后雅虎财经的战略更加聚焦于其数据与金融业务。目前，雅虎财经由雅虎公司所有，而雅虎的母公司是阿波罗全球管理公司。</li>
+</ul>
+</section>
+<section id="核心功能与产品矩阵-1" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能与产品矩阵-1">3.核心功能与产品矩阵</h3>
+<p>雅虎财经的功能体系围绕“<strong>免费基础服务 + 付费专业工具</strong>”构建，其免费层级的功能对于普通投资者已相当全面。</p>
+<ul>
+<li><p><strong>免费核心数据与工具</strong>：这是其吸引海量用户的基石，覆盖了投资研究的基本需求。</p>
+<ul>
+<li><p><strong>行情与筛选</strong>：提供全球主要市场的股票、指数、商品、货币等报价，以及交互式图表和股票筛选器（Screeners）。</p></li>
+<li><p><strong>投资组合追踪</strong>：用户可以手动创建投资组合，并与<strong>超过100家美国券商账户同步</strong>，实现统一的实时盈亏追踪和业绩基准比较。</p></li>
+<li><p><strong>基本面数据</strong>：提供多年的历史财务数据、<strong>ESG（环境、社会及治理）评级</strong>以及主要股东信息。</p></li>
+<li><p><strong>市场概览</strong>：包括世界指数、最活跃股票、涨跌幅排行等。</p></li>
+</ul></li>
+<li><p><strong>强大的财经新闻与内容</strong>：作为老牌媒体资产，内容是雅虎财经的基因。平台不仅聚合了来自众多合作伙伴的新闻，还拥有自己的记者团队制作原创报道。其内容形式已从文字扩展至<strong>实时视频和播客</strong>，为用户提供多纬度的信息输入。</p></li>
+<li><p><strong>lphaSpace（付费专业平台）</strong>：这是雅虎财经近年来最重要的产品升级，旨在回应“为普通投资者打造专业级工具”的需求。AlphaSpace于<strong>2026年5月</strong>推出，是一个<strong>完全可定制的投资研究仪表盘</strong>，其核心特点包括：</p>
+<ul>
+<li><p><strong>一体化工作流</strong>：将数据、高级图表、基本面、新闻、视频和投资组合整合在单一界面，用户无需在多个标签页间切换。</p></li>
+<li><p><strong>AI助手（Yahoo Scout）</strong>：AI能力被嵌入工作流，可以总结关键动态、帮助构建或修改工作流，并直接回答问题。</p></li>
+<li><p><strong>持久化设计</strong>：用户的自定义仪表盘、工作流和视图在每次登录后都会保留，无需重建研究环境。</p></li>
+</ul></li>
+<li><p><strong>付费订阅体系与商业模式</strong>：雅虎财经采用<strong>免费增值（Freemium）</strong>模式，基础服务免费并以广告盈利，付费订阅则提供更深度的工具和内容。</p>
+<ul>
+<li><p>订阅层级：付费计划通常分为多个层级（如Silver、Gold），价格范围大致在每月7.95美元至39.95美元之间，主要区别在于是否包含AlphaSpace、实时期权数据等高级功能。</p></li>
+<li><p>研究增值：付费层级还提供如每日交易思路（基于用户搜索历史）、来自Morningstar和Argus等第三方机构的分析师报告等策展内容。</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="python-数据api" class="level3">
+<h3 class="anchored" data-anchor-id="python-数据api">4.Python 数据API</h3>
+<p>雅虎财经官方的历史数据API早已停用。当前量化社区实际依赖的，是开源Python库 <strong><code>yfinance</code></strong>,一个非官方工具，通过模拟请求从雅虎财经公开页面和端点抓取数据，以“免账号、免API Key、返回pandas DataFrame”的方式，成为个人量化研究者最常用的免费数据入口。截至2026年，<code>yfinance</code>已迭代至<strong>1.6.0</strong>版本，功能边界较早期有实质扩展：</p>
+<p><strong>历史行情与基本面。</strong> <code>Ticker.history()</code> 返回包含OHLCV、分红和拆股列的DataFrame，默认自动复权（<code>auto_adjust=True</code>），也可通过 <code>auto_adjust=False</code> 获取未复权价格用于与券商记录交叉核对。<code>yf.download()</code> 支持多标的批量下载，返回MultiIndex结构，<code>data["Close"]</code> 可直接得到宽表格式的收盘价矩阵，这是多数回测库期望的输入形状。</p>
+<p><strong>实时流与筛选器。</strong> <code>WebSocket</code> 和 <code>AsyncWebSocket</code> 类提供实时报价流，适合个人项目在不购买商业行情源的情况下获取准实时数据；<code>Screener</code> 和 <code>EquityQuery</code> 对象允许在Python内构建结构化的选股查询，无需跳出编程环境。不过需要注意，实时流反映的是雅虎报价源的延迟和交易时段，盘前盘后的tick间隔可能显著拉长，不应在逻辑中硬编码低延迟假设。</p>
+<p><strong>使用条款的约束。</strong> <code>yfinance</code> 明确声明其使用雅虎公开API，<strong>仅限个人用途</strong>，与雅虎官方无关联或背书。商业用途需要在编写代码之前解决授权问题。</p>
+</section>
+<section id="r-数据api" class="level3">
+<h3 class="anchored" data-anchor-id="r-数据api">5.R 数据API</h3>
+<p>与Python的<code>yfinance</code>对应，R生态中有<code>quantmod</code>、<code>tidyquant</code>、<code>yfR</code>等包负责抓取雅虎财经数据。R中获取雅虎财经数据的三个主要入口</p>
+<section id="quantmod" class="level4">
+<h4 class="anchored" data-anchor-id="quantmod"><strong>5.1. <code>quantmod</code></strong></h4>
+<p><code>quantmod</code>的<code>getSymbols()</code>长期是R中获取雅虎财经数据的默认方式：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">getSymbols</span>(<span class="st">"AAPL"</span>, <span class="at">src =</span> <span class="st">"yahoo"</span>, <span class="at">from =</span> <span class="st">"2020-01-01"</span>, <span class="at">to =</span> <span class="st">"2026-10-01"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回xts对象，含AAPL.Open/High/Low/Close/Volume/Adjusted</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>默认返回的<code>AAPL.Adjusted</code>是复权后的收盘价，<code>AAPL.Close</code>是未复权收盘价。两者混用是复权口径错误的常见来源。雅虎财经更改Cookie/crumb校验规则后，<code>quantmod</code>的<code>src="yahoo"</code>曾频繁出现<code>HTTP error 401</code>或无法导入的情况，其稳定性取决于包作者对上游变化的跟进速度。<strong>它仍可用，但不应被视为有契约保障的生产级接口。</strong></p>
+</section>
+<section id="tidyquant" class="level4">
+<h4 class="anchored" data-anchor-id="tidyquant"><strong>5.2. <code>tidyquant</code></strong></h4>
+<p><code>tidyquant</code>的<code>tq_get()</code>提供更符合tidyverse习惯的返回格式：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>prices <span class="ot">&lt;-</span> <span class="fu">tq_get</span>(<span class="fu">c</span>(<span class="st">"AAPL"</span>, <span class="st">"MSFT"</span>), <span class="at">get =</span> <span class="st">"stock.prices"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">from =</span> <span class="st">"2020-01-01"</span>, <span class="at">to =</span> <span class="st">"2026-10-01"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回tibble：symbol, date, open, high, low, close, adjusted, volume</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>其<code>get = "stock.prices"</code>底层仍依赖<code>quantmod</code>的雅虎源，因此<strong>接口脆弱性会向上传导</strong>。<code>tidyquant</code>的价值在于将取数、整理、分组计算统一在tidyverse管道中，适合因子初筛和探索性分析，但不改变数据源本身的可靠性边界。</p>
+</section>
+<section id="yfr" class="level4">
+<h4 class="anchored" data-anchor-id="yfr"><strong>5.3. <code>yfR</code></strong></h4>
+<p><code>yfR</code>是专门针对雅虎财经数据下载维护的包，对Yahoo的接口变化跟进更直接，返回格式也更适合批量处理：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(yfR)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">yf_get</span>(<span class="at">tickers =</span> <span class="fu">c</span>(<span class="st">"AAPL"</span>, <span class="st">"MSFT"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">first_date =</span> <span class="st">"2020-01-01"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">last_date  =</span> <span class="st">"2026-10-01"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 返回数据框，含 ticker, ref_date, price_open/high/low/close,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># price_adjusted, volume 等列</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>yf_get()</code>支持多标的批量下载、自动处理复权列，并内置了缓存和重试机制。在2025年雅虎接口变动后，<code>yfR</code>是R社区中相对更活跃的应对方案。</p>
+<p>但需注意：<strong>它仍然是网页/非官方端点抓取，不是雅虎官方API，使用条款同样限定个人用途。</strong></p>
+<p>在R的量化技术栈中，雅虎财经的角色与Python侧一致：<strong>一个免费、便捷但非契约化的原始数据入口</strong>。<code>yfR</code>、<code>tidyquant</code>、<code>quantmod</code>让R用户能以较低摩擦拿到日频美股数据，用于学习和初步探索；但<strong>数据质量、接口脆弱性和覆盖缺失等问题</strong>不会因为换了语言或包而消失。与系统化量化策略所需的工程可靠性之间，边界依然清晰。因此，一个务实的态度仍然是：<strong>用雅虎财经起步，但不要在它上面建造你最终需要信任的东西。</strong></p>
+</section>
+</section>
+<section id="总结-1" class="level3">
+<h3 class="anchored" data-anchor-id="总结-1">6.总结</h3>
+<p>雅虎财经是一个<strong>凭借历史流量红利和媒体基因，提供着极其便利的免费金融数据入口，并正通过AlphaSpace向专业研究领域坚定转型的平台</strong>。它的独特价值在于“<strong>发现</strong>”：当你需要快速了解一个陌生的股票或市场动态时，它几乎是最快、最顺手的起点。</p>
+<p>然而，如果你追求的是数据的绝对精确、无广告的纯净体验，或是深度量化分析工具，那么它的免费版可能存在局限，而付费版（尤其是AlphaSpace）的价值则需要你进行审慎评估。它更适合作为投资研究流程中的<strong>信息聚合与初步筛查环节</strong>，而非唯一的决策终端。</p>
+</section>
+</section>
+<section id="三新浪财经" class="level2">
+<h2 class="anchored" data-anchor-id="三新浪财经">三、新浪财经</h2>
+<p>新浪财经是中国资深的财经资讯与金融服务平台，依托其深厚的媒体基因和门户网站背景，在财经信息领域长期占据领先地位。它的核心定位是“打破信息不对称”，并正从传统的资讯门户向“资讯+交易+数据+AI”的综合服务平台演进。</p>
+<section id="发展历程与规模" class="level3">
+<h3 class="anchored" data-anchor-id="发展历程与规模">1.发展历程与规模</h3>
+<p>新浪财经的发展与中国互联网的浪潮紧密相连，其关键节点勾勒出一条清晰的演进路径：</p>
+<ul>
+<li><p>创立与上市 (1999-2000年)：新浪财经于1999年8月创建。2000年4月，新浪作为第一家赴美上市的中国互联网公司登陆纳斯达克，其首创的VIE架构也成为此后中国互联网公司出海的主流模式。</p></li>
+<li><p>门户时代的领先者 (2000年代-2010年代)：凭借门户网站的巨大流量，新浪财经迅速成长为全球华人的首选财经门户，在财经类网站中一度占据超过三分之一的市场份额，确立了其网络财经资讯的领先品牌地位。</p></li>
+<li><p>移动化与社交化 (2010年代)：顺应移动互联网趋势，新浪财经推出APP，贯彻“移动为先”战略。同时，依托微博平台，其官方微博矩阵构建了强大的社交媒体传播力，截至2024年7月，已锁定超9000万精准财经粉丝。</p></li>
+<li><p>智能化转型 (2020年代至今)：面对AI浪潮，新浪财经全面发力。2023年成为百度“文心一言”首批生态合作伙伴，2025年推出喜娜AI助手，并在2026年正式上线自主研发的财经垂类大模型 “芝麻AI” ，标志着其向智能投资决策平台的关键转型。</p></li>
+</ul>
+<p>用户规模方面，平台月浏览量逾90亿人次，覆盖中国2.2亿股民。内容供给上，拥有16000余家财经创作者入驻，日均生产超2万条财经内容。覆盖人群中，对企业高管和政府经济决策部门的覆盖率曾超过90%。</p>
+<p>在移动端，新浪财经APP是头部证券类应用之一。2025年，中国证券类APP月活突破1.66亿，新浪财经稳居前三位置。App Store评分约4.7分（基于4483条评价），用户基础扎实。</p>
+</section>
+<section id="核心能力" class="level3">
+<h3 class="anchored" data-anchor-id="核心能力">2.核心能力</h3>
+<section id="资讯与解读" class="level4">
+<h4 class="anchored" data-anchor-id="资讯与解读">2.1.资讯与解读</h4>
+<p>资讯是新浪财经最深厚的护城河。在第三方实测中，其资讯表现被概括为“快、准、深”。对重大事件推送速度较同类平台快5—10秒。但更关键的差异在于解读深度。平台不仅推送原文，还通过AI自动拆解对不同板块的影响，用红绿色标注利好与风险领域，并将打新规则变化单独制成图文卡片。这种“资讯+解读+落地建议”的模式，显著降低了普通投资者理解复杂政策的门槛。</p>
+<p>AI能力是其近年重点投入的方向。喜娜AI助手已上线AI摘要和个股公告AI解读功能，可将5000字年报浓缩为300字核心摘要，并用红绿双色标识风险点与机会点。2026年，新浪财经自主研发的财经垂类大模型“芝麻AI”通过北京市生成式AI服务备案，官方强调其“低幻觉率”优势，定位是投资者的“第二大脑”。与雅虎财经Yahoo Scout的定位相似，这些AI工具优化的是人工研究的效率，而非量化策略的自动化生成。</p>
+</section>
+<section id="行情覆盖与速度" class="level4">
+<h4 class="anchored" data-anchor-id="行情覆盖与速度">2.2.行情覆盖与速度</h4>
+<p>新浪财经的行情能力在中文财经平台中处于第一梯队。其“环球行情”系统已实现与ICE、香港交易所、沪深京交易所的极速直连，行情刷新速度达毫秒级，官方数据为0.03秒级。平台独家接入纳斯达克Level-2数据流，提供美股10档盘口深度，这一功能在万得股票专业版中需额外付费才能获取。覆盖范围包括40余个金融市场的证券、期货及外汇数据，并汇聚富时罗素、MSCI等全球主流指数。</p>
+</section>
+<section id="社区与社交" class="level4">
+<h4 class="anchored" data-anchor-id="社区与社交">2.3.社区与社交</h4>
+<p>这是新浪财经区别于英为财情和雅虎财经的独特资产。微博财经已成为财经领域极具影响力的社交传播阵地，通过“自有账号矩阵+财经大V协同”的模式，构建了覆盖60余个核心账号、总粉丝量超1.1亿的财经矩阵，并与粉丝量超10亿的协同账号网络形成共振。</p>
+<p>APP内的社区功能在2025年持续升级，上线了股票、基金专属讨论吧，由专业社区管理员筛选加精内容。投资社区以大类资产为聚合维度，设有指数吧、贵金属吧、原油吧等垂直讨论区。这种“资讯触达→社区讨论→观点验证”的闭环，是纯工具型平台难以复制的。用户可以在看到一条政策解读后，立即在社区中观察市场情绪的实际反应。</p>
+</section>
+</section>
+<section id="网站内容体系" class="level3">
+<h3 class="anchored" data-anchor-id="网站内容体系">3.网站内容体系</h3>
+<p>新浪财经网站的内容体系远不止一个新闻门户，它围绕“<strong>资讯、数据、交易、服务</strong>”四大支柱，构建了一个多层次、立体化的金融信息服务平台。其内容可以大致分为以下几个板块：</p>
+<section id="资讯内容" class="level4">
+<h4 class="anchored" data-anchor-id="资讯内容">3.1.资讯内容</h4>
+<p>这是新浪财经的基石，内容形态从以秒计的碎片化信息，一直延伸到有深度的专业分析。</p>
+<ul>
+<li><strong>7x24小时快讯</strong>：网站首页最醒目的位置通常是<strong>7x24快讯</strong>滚动播报，内容涵盖全球市场异动、资金流向、主力合约涨跌等，更新频率极高，旨在第一时间捕捉市场脉搏。</li>
+<li><strong>分类新闻频道</strong>：网站按领域划分了丰富的垂直频道，早期架构就包含了<strong>国内、国际、产经、管理、消费、经济学人、人物、商学院</strong>等高端新闻栏目，以及<strong>股票、理财、外汇、期货、银行、保险、债券、信托</strong>等投资类栏目。首页也通过“<strong>热点</strong>”主信息流和“国内、国际、证券、公司、产经、金融、外汇”等标签进行分类展示，方便用户快速定位兴趣领域。</li>
+<li><strong>深度与评论专栏</strong>：这是新浪财经内容深度的体现，汇集了众多知名经济学家、行业领袖和资深分析师的独家观点。
+<ul>
+<li><strong>《灼见》</strong>：一档主打的深度财经对话栏目，通过与专家、企业高管的对话，挖掘产业前景与企业价值。</li>
+<li><strong>财经大V频道</strong>：联合水皮等财经领域知名人士，以“<strong>独家专栏</strong>”和“<strong>私享观点</strong>”的形式，分享有价值的独家信息。</li>
+<li><strong>专栏作家库</strong>：拥有一个庞大的智库，涵盖了如黑石副董事长、邓普顿新兴市场团队执行主席、世界银行前行长等海内外知名人士，提供多元化的专业解读。</li>
+</ul></li>
+</ul>
+</section>
+<section id="行情与数据" class="level4">
+<h4 class="anchored" data-anchor-id="行情与数据">3.2.行情与数据</h4>
+<p>行情数据是财经网站的基础设施，新浪财经在这方面强调“全”和“快”。</p>
+<ul>
+<li><strong>全市场覆盖</strong>：行情中心提供<strong>沪深、香港、美国、外汇、期货、基金</strong>等市场的实时数据，并覆盖全球<strong>40余个</strong>金融市场。其“环球行情”系统与ICE、港交所、沪深京交易所等实现了极速直连。</li>
+<li><strong>关键数据产品</strong>：
+<ul>
+<li><strong>资金流向</strong>：实时追踪大盘、个股、板块的资金轨迹，以及北向资金流向，用于洞察主力动向。</li>
+<li><strong>指数地图</strong>：一目了然地展示全球主要市场实时行情，并对比各类资产收益率。</li>
+<li><strong>龙虎榜</strong>：提供个股的龙虎榜数据，展示机构席位动向。</li>
+</ul></li>
+</ul>
+</section>
+<section id="投资工具从看到用的决策辅助" class="level4">
+<h4 class="anchored" data-anchor-id="投资工具从看到用的决策辅助">3.3.投资工具：从“看”到“用”的决策辅助</h4>
+<p>网站提供了多种工具，试图帮助用户将信息转化为决策或行动。</p>
+<ul>
+<li><strong>自选股系统</strong>：支持将多市场品种加入自选，具备<strong>浮窗盯盘、分时预览、多股对比、分组管理和股价提醒</strong>等丰富功能，是用户管理关注标的的核心工具。</li>
+<li><strong>智能预警</strong>：可对全市场重要财经信息、股票异动、重大公告及核心指数进行个性化预警设置。</li>
+<li><strong>模拟交易</strong>：提供A股、港股、美股、期货等市场的模拟交易练习场和比赛，供用户在无风险环境中练习。</li>
+<li><strong>交易入口</strong>：网站行情中心整合了<strong>七十多家券商</strong>的网上交易入口，方便用户从看行情直接跳转到交易环节。APP端也联合头部券商提供了线上开户通道。</li>
+</ul>
+</section>
+<section id="社区与互动" class="level4">
+<h4 class="anchored" data-anchor-id="社区与互动">3.4.社区与互动</h4>
+<p>新浪财经通过社区功能增强用户粘性，形成了“资讯+讨论”的生态。</p>
+<ul>
+<li><strong>专属讨论吧</strong>：上线了<strong>股票、基金专属讨论吧</strong>，由专业社区管理员筛选并加精优质内容，促进深度交流。</li>
+<li><strong>模拟交易与比赛</strong>：模拟交易功能本身也带有竞技和社交属性，用户可以参与比赛，与投资高手在线切磋。</li>
+</ul>
+</section>
+<section id="视频与直播" class="level4">
+<h4 class="anchored" data-anchor-id="视频与直播">3.5.视频与直播</h4>
+<p>视频内容是其资讯体系的重要补充，尤其体现在实时市场解读和大型活动报道上。</p>
+<ul>
+<li><strong>《股市播报》</strong>：一档每日两档的股市视频直播节目（上午9:15-10:05，下午15:30-16:05），邀请券商分析师<strong>实时解盘</strong>并回答网友问题。</li>
+<li><strong>大型活动直播</strong>：对“中美投资人酒会”、“可持续全球领导者大会”等重要财经会议进行视频直播。</li>
+</ul>
+</section>
+<section id="特色服务" class="level4">
+<h4 class="anchored" data-anchor-id="特色服务">3.6.特色服务</h4>
+<p>网站还包含一些具有独立品牌影响力的特色服务板块。</p>
+<ul>
+<li><strong>黑猫投诉</strong>：一个消费者服务平台，虽然独立运营，但与新浪财经品牌紧密关联，是其服务生态的一部分。</li>
+<li><strong>新浪股民维权平台</strong>：专注于投资者权益保护，提供维权信息与律师资源对接。</li>
+<li><strong>ESG评级中心</strong>：作为国内较早建立ESG频道的媒体平台，免费提供多家主流机构的ESG评级数据查询。</li>
+</ul>
+</section>
+</section>
+<section id="总结-2" class="level3">
+<h3 class="anchored" data-anchor-id="总结-2">4.总结</h3>
+<p>总的来说，新浪财经网站的内容是一个<strong>以海量、快速的资讯为入口，以全面的行情数据为支撑，以多种投资工具和互动社区为延伸，并辅以深度专栏和视频直播来构建专业壁垒的复合型内容体系</strong>。它既服务于需要快速获取市场动态的交易者，也试图满足希望深入理解市场逻辑的投资者，并通过社区和工具将他们留在自己的生态内。</p>
+</section>
+</section>
+<section id="四财联社" class="level2">
+<h2 class="anchored" data-anchor-id="四财联社">四、财联社</h2>
+<p>财联社（cls.cn）并非一个简单的财经新闻网站，而是一个以<strong>“速度”</strong>为核心壁垒、深度嵌入中国资本市场交易场景的<strong>金融信息服务基础设施</strong>。它由上海报业集团主管主办，定位是“机构和私募都在使用的A股24小时电报”。</p>
+<section id="背景与定位" class="level3">
+<h3 class="anchored" data-anchor-id="背景与定位">1.背景与定位</h3>
+<p>财联社的运营主体成立于2013年，并于2017年与界面新闻完成合并，形成了如今的“界面·财联社”架构。它拥有互联网新闻信息采编发布、金融信息服务和高新技术企业三大资质，这使其区别于一般的资讯平台，具备了官方认可的金融数据服务能力。</p>
+<p>其战略定位清晰：以<strong>“媒体+资讯+数据+服务+交易”</strong>为业务模式，目标是成为“中国自己的路透彭博”。目前，它已实现持续规模化盈利，连续三年净利润率超过10%，触达近2亿投资人群。</p>
+</section>
+<section id="核心功能电报驱动的产品矩阵" class="level3">
+<h3 class="anchored" data-anchor-id="核心功能电报驱动的产品矩阵">2.核心功能：“电报”驱动的产品矩阵</h3>
+<p>财联社的产品体系围绕“快”字构建，并根据用户深度分层。</p>
+<p>面向大众的免费“快讯层” 其最核心的免费功能是“7×24小时电报”，这是财联社的招牌。它以秒级速度推送宏观政策、公司突发公告等关键信息。多家第三方评测和用户反馈均指出，在重大事件上，财联社的推送速度常比多数竞品快3-5分钟，部分场景下甚至能快1分40秒以上，是短线交易者捕捉机会的核心工具。此外，平台还提供“话题”、“看盘”等栏目，以及语音播报功能。</p>
+<p>面向专业投资者的付费“深度层”（VIP体系） 免费电报追求“快”和“事实”，而VIP体系则解决“信息过载”后的“解码”与“决策”问题。其VIP板块整合了11款核心栏目，形成系统化的投研框架。代表性产品包括： * 《盘中宝》与《风口研报》：聚焦盘中机会与行业深度逻辑。 * 《电报解读》：将原始快讯转化为可直接支撑决策的投研工具。 * 《狙击龙虎榜》与《九点特供》：分别服务于短线资金追踪和盘前策略准备。 这些产品依托其记者独家首发信息和星矿大数据支持，旨在为付费用户提供超越新闻本身的分析价值。</p>
+</section>
+<section id="技术内核和影响力" class="level3">
+<h3 class="anchored" data-anchor-id="技术内核和影响力">3.技术内核和影响力</h3>
+<p>财联社的技术投入是其从“媒体”向“信息服务商”转型的关键支撑。</p>
+<ul>
+<li><p><strong>星矿数据平台</strong>：自2019年起自建，截至2024年已累积<strong>1亿多条标准数据</strong>和<strong>4000多万条非标数据</strong>，形成了“题材主题库”、“个股异动库”等特色数据库，为其资讯和分析提供底层数据燃料。</p></li>
+<li><p><strong>财跃大模型</strong>：2024年，财联社与阶跃星辰合资推出<strong>千亿参数多模态金融大模型</strong>，并已落地应用。面向机构的“财跃F1”聚焦智能投顾与投研，已与国泰海通等券商达成合作；面向个人的“AI小财神”则提供AI数据挖掘和热点解读，并跑通了付费模式。</p></li>
+</ul>
+<p>财联社的核心受众是<strong>A股市场的活跃投资者</strong>，尤其是对信息时效性有极高要求的机构投资者、私募和资深个人交易者。其影响力体现在：</p>
+<ul>
+<li><p><strong>信源地位</strong>：它是彭博、路透、华尔街日报等国际媒体获取中国市场信息的信源之一。</p></li>
+<li><p><strong>行业渗透</strong>：服务覆盖超过<strong>150家金融机构</strong>，并对国内主要券商实现全覆盖。</p></li>
+<li><p><strong>监管关注</strong>：它是证监会证券信息服务系统收录量最多的新媒体，部分核心报道曾被证监会官方账号转发。</p></li>
+</ul>
+</section>
+<section id="数据资源" class="level3">
+<h3 class="anchored" data-anchor-id="数据资源">4.数据资源</h3>
+<p>对于量化策略开发者而言，财联社体系内可供调用的核心资产可以拆解为三个层次：</p>
+<section id="实时快讯" class="level4">
+<h4 class="anchored" data-anchor-id="实时快讯">4.1.实时快讯</h4>
+<p>“财联社电报”在A股盘中信息流中占据主力位置，其速度在行业内被广泛认可——突发负面公告的推送可比部分竞品快约1分40秒，重大事件常能在1分钟内更新。自主研发的智能信息检索系统每天从超过三万个信源采集信息，信息传输以毫秒级速度同步至金融机构客户端；引入AI大模型后，发布速度从原来的1—3分钟提升至10—30秒。</p>
+</section>
+<section id="结构化标签与情感评分" class="level4">
+<h4 class="anchored" data-anchor-id="结构化标签与情感评分">4.2.结构化标签与情感评分</h4>
+<p>原始快讯本身不能直接进入因子管道。财联社及围绕其数据构建的第三方工具，提供了多层级的结构化输出：</p>
+<ul>
+<li><strong>关联标的</strong>：每条电报附带A股股票代码标签；</li>
+<li><strong>情感极性</strong>：输出利好/利空/中性分类及数值评分（如[-1, 1]区间）；</li>
+<li><strong>事件类型</strong>：业绩预增、重大合同、政策扶持等催化剂的自动归类；</li>
+<li><strong>热度/优先级</strong>：阅读量、新闻等级（红标/普通）等辅助维度。</li>
+</ul>
+<p>这些字段的意义在于<strong>大幅压缩数据清洗成本</strong>。量化团队无需从零构建NLP管道，即可获得可用的粗粒度标签，将精力集中于因子逻辑与组合构建。</p>
+</section>
+<section id="多模事件驱动量化平台" class="level4">
+<h4 class="anchored" data-anchor-id="多模事件驱动量化平台">4.3.多模事件驱动量化平台</h4>
+<p>2023年，财联社与星环科技联合发布“多模事件驱动量化平台”（后升级为TransChaos），这是其量化应用价值的集中体现。平台的核心能力链路是：<strong>可信数据源收集 → 智能标注 → 知识抽取 → 自动标签 → 标准化输出 → 知识图谱构建 → 量化因子生成</strong>。</p>
+<p>具体产品模块包括<strong>新闻驱动、政策图谱、公告舆情、风控合规、灾害预警</strong>等8个方向，并已形成<strong>事件因子、情绪因子</strong>等可回测的因子输出。平台配套了大语言模型能力，可辅助进行事件推理与历史复盘，降低研究员理解行业、政策与宏观事件的门槛。</p>
+<p>据披露，该平台已获得某头部百亿量化私募认可，并向多家私募及证券行业头部机构提供实测。</p>
+<p>总之，财联社本质上是一个为<strong>交易时效性</strong>而优化的金融信息工具，而非追求全面深度的财经杂志。它的价值高低，取决于使用者自身的信息处理能力和投资决策框架。</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./第13章 数据资源 第6节 商品期货数据.html" class="pagination-link" aria-label="第13章 数据资源 第6节 商品期货数据">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">第13章 数据资源 第6节 商品期货数据</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./第16章 R 第1节 R语言入门.html" class="pagination-link" aria-label="第16章 R 第1节 R语言入门">
+        <span class="nav-page-text">第16章 R 第1节 R语言入门</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
