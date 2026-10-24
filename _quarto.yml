@@ -114,6 +114,8 @@ book:
     - 第16章 R 第16节 其它常用工具包.qmd
     - 第16章 R 第17节 其它重要问题.qmd
 
+    - 第21章 参考书籍和文献 第一节 参考书籍.qmd
+
 bibliography: references.bib
 
 format:
