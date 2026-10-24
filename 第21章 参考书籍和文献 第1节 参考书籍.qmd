@@ -1,4 +1,4 @@
-# 第21章 参考书籍和文献 第一节 参考书籍  {.unnumbered}
+# 第21章 参考书籍和文献 第1节 参考书籍  {.unnumbered}
 
 
 本书各章涉及的工具、方法与领域各不相同。本书正文受篇幅所限，只能点到为止。本章后文，我把各章背后值得继续自学的书单集中列出。读者如果需要深入某一方面知识，只需要找到对应的书籍自行学习即可，不必按书单顺序阅读。
@@ -42,7 +42,7 @@ data.table 包官方入门 vignette。介绍这一高性能数据操作包的核
 ---
 
 
-### 二、torch / 深度学习
+### 二、torch 和深度学习
 
 
 **8. 《Deep Learning and Scientific Computing with R torch》**
@@ -56,7 +56,7 @@ Sigrid Keydana 著，Chapman & Hall/CRC 2023 年出版。介绍 R 的 torch 包�
 ---
 
 
-### 三、LLM
+### 三、大模型
 
 
 **10. 《Build a Large Language Model (From Scratch)》**
@@ -66,7 +66,7 @@ Sebastian Raschka 著，Manning 2025 年出版。不依赖任何现有 LLM 库�
 ---
 
 
-### 四、爬虫
+### 四、网络抓取和文本挖掘
 
 
 **11. 《基于 R 语言的自动数据收集：网络抓取和文本挖掘实用指南》**
