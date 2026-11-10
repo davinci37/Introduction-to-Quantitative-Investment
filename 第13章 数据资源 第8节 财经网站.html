@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-d5b4e69c7e37b49c6591bcc5116dd748.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fd33a4952e9ae2782db733e1f7710525.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-180847a877b30f2d91325072d88dd97f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -766,6 +766,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#技术内核和影响力" id="toc-技术内核和影响力" class="nav-link" data-scroll-target="#技术内核和影响力">3.技术内核和影响力</a></li>
   <li><a href="#数据资源" id="toc-数据资源" class="nav-link" data-scroll-target="#数据资源">4.数据资源</a></li>
   </ul></li>
+  <li><a href="#五finnhub" id="toc-五finnhub" class="nav-link" data-scroll-target="#五finnhub">五、Finnhub</a>
+  <ul class="collapse">
+  <li><a href="#数据覆盖与核心功能" id="toc-数据覆盖与核心功能" class="nav-link" data-scroll-target="#数据覆盖与核心功能">1.数据覆盖与核心功能</a></li>
+  <li><a href="#定价与限制" id="toc-定价与限制" class="nav-link" data-scroll-target="#定价与限制">2.定价与限制</a></li>
+  <li><a href="#技术特征" id="toc-技术特征" class="nav-link" data-scroll-target="#技术特征">3.技术特征</a></li>
+  <li><a href="#适用场景" id="toc-适用场景" class="nav-link" data-scroll-target="#适用场景">4.适用场景</a></li>
+  <li><a href="#r-调用-finnhub-api" id="toc-r-调用-finnhub-api" class="nav-link" data-scroll-target="#r-调用-finnhub-api">5.R 调用 Finnhub API</a></li>
+  <li><a href="#python-中调用-finnhub-api" id="toc-python-中调用-finnhub-api" class="nav-link" data-scroll-target="#python-中调用-finnhub-api">6.Python 中调用 Finnhub API</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1102,6 +1111,240 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>具体产品模块包括<strong>新闻驱动、政策图谱、公告舆情、风控合规、灾害预警</strong>等8个方向，并已形成<strong>事件因子、情绪因子</strong>等可回测的因子输出。平台配套了大语言模型能力，可辅助进行事件推理与历史复盘，降低研究员理解行业、政策与宏观事件的门槛。</p>
 <p>据披露，该平台已获得某头部百亿量化私募认可，并向多家私募及证券行业头部机构提供实测。</p>
 <p>总之，财联社本质上是一个为<strong>交易时效性</strong>而优化的金融信息工具，而非追求全面深度的财经杂志。它的价值高低，取决于使用者自身的信息处理能力和投资决策框架。</p>
+</section>
+</section>
+</section>
+<section id="五finnhub" class="level2">
+<h2 class="anchored" data-anchor-id="五finnhub">五、Finnhub</h2>
+<p>Finnhub 是一个<strong>面向开发者的金融数据 API 平台</strong>，核心定位是以较低门槛提供实时行情、基本面数据与另类数据，让个人开发者、量化研究者和金融科技原型团队能以 API 方式将市场数据集成到自己的应用或策略中。它的自我描述是“democratizing financial data”（让金融数据民主化）。</p>
+<section id="数据覆盖与核心功能" class="level3">
+<h3 class="anchored" data-anchor-id="数据覆盖与核心功能">1.数据覆盖与核心功能</h3>
+<p>Finnhub 的数据面较宽，并非只做行情报价。</p>
+<p><strong>行情数据</strong>：覆盖美股实时报价、外汇（约 10 家经纪商）和加密货币（15+ 交易所），支持 REST 轮询与 WebSocket 流式推送。免费层即可获得 1 分钟分辨率的实时报价。不过外汇和国际股票存在延迟：LSE 股票延迟 15 分钟，多数其他国际市场为日终数据。</p>
+<p><strong>基本面与公司数据</strong>：包括公司档案、高管信息、财务报表（利润表、资产负债表、现金流）、关键比率、分红历史、同行对比、营收拆分等。付费层可获取<strong>30 年以上的财务报表</strong>和 20 年以上的分析师预期数据。</p>
+<p><strong>分析师与预期数据</strong>：推荐趋势、目标价、评级上调/下调，以及从营收、EPS 到 EBITDA、自由现金流的一系列前瞻性预期。</p>
+<p><strong>财报与监管文件</strong>：财报日历、电话会议记录、SEC 文件检索、IPO 日历。</p>
+<p><strong>另类数据（Finnhub 的差异化优势）</strong>：ESG 评分、供应链、专利、游说、<strong>国会交易</strong>、内部人交易、新闻情绪等。在与同类平台的对比中，Finnhub 在另类数据和非美股票覆盖上明显领先。</p>
+<p><strong>ETF / 共同基金</strong>：基金概况、持仓（当前与历史）、国家/行业敞口、资产配置。</p>
+<p>此外，Finnhub 还提供了一个<strong>托管 MCP 服务器</strong>（<code>mcp.finnhub.io</code>），暴露约 70 个工具，可在 Claude、ChatGPT 中直接调用上述数据，无需编写代码。</p>
+</section>
+<section id="定价与限制" class="level3">
+<h3 class="anchored" data-anchor-id="定价与限制">2.定价与限制</h3>
+<p>Finnhub 采用 <strong>freemium + 按数据模块分别定价</strong>的模式，这一点对理解它的适用边界很重要。</p>
+<p><strong>免费层</strong>：$0/月，<strong>60 次 API 请求/分钟</strong>，WebSocket 限 <strong>50 个标的</strong>。包含美股实时报价、公司新闻、基础基本面、SEC 文件访问。单就请求频率而言，60/分钟在免费金融数据 API 中相当宽松（Alpha Vantage 免费层仅为 5次/分钟、25次/天）。适合个人研究、学习和小规模原型。</p>
+<p><strong>付费层（Market Data 模块示例）</strong>：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>计划</th>
+<th>价格（近似）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Market Data Basic</td>
+<td><strong>$49.99/月</strong>（按季账单）</td>
+<td>行情数据入门</td>
+</tr>
+<tr class="even">
+<td>Standard</td>
+<td><strong>$129.99/月</strong>（按季账单）</td>
+<td>更高权限</td>
+</tr>
+<tr class="odd">
+<td>Professional</td>
+<td><strong>$199.99/月</strong>（按年账单）</td>
+<td>更高权限</td>
+</tr>
+<tr class="even">
+<td>All-in-One</td>
+<td><strong>$3,500/月</strong></td>
+<td>全量数据 + 企业 SLA，通过销售获取</td>
+</tr>
+</tbody>
+</table>
+<p><strong>最关键的限制：所有公开标价的自助计划（包括付费计划）均仅限个人使用</strong>。如果要在产品中向客户展示 Finnhub 数据（商业用途），需要单独联系销售签订 <strong>Enterprise 协议</strong>，价格不公开。这一点与部分竞品（如 Massive）公开商业价格的做法不同，是在商业项目中选用 Finnhub 前必须确认的事项。</p>
+</section>
+<section id="技术特征" class="level3">
+<h3 class="anchored" data-anchor-id="技术特征">3.技术特征</h3>
+<p><strong>协议</strong>：REST + 轻量 WebSocket。REST 基础 URL 为 <a href="https://finnhub.io/api/v1"><code>https://finnhub.io/api/v1</code></a>，请求需携带 API Key。WebSocket 用于实时推送，但<strong>每个 API Key 只允许一个 WebSocket 连接</strong>。</p>
+<p><strong>限流</strong>：免费层 60 请求/分钟；所有计划统一设有 <strong>30 请求/秒</strong>的硬上限，超限返回 HTTP 429。</p>
+<p><strong>数据粒度与历史</strong>：免费层的美股 OHLCV 历史 K 线<strong>不可用</strong>，会返回 403；历史 OHLC 属于付费端点。日内请求按<strong>每次一个月</strong>返回，做完整历史回填需要分页循环。Tick 数据的历史深度依计划不同，从 5 年到 30+ 年不等。</p>
+<p><strong>SDK 生态</strong>：官方及社区提供 Python、Kotlin、C++ 等语言 SDK，覆盖度较好。</p>
+</section>
+<section id="适用场景" class="level3">
+<h3 class="anchored" data-anchor-id="适用场景">4.适用场景</h3>
+<p><strong>优势</strong>：免费层请求频率慷慨；数据面宽，尤其<strong>另类数据</strong>和<strong>非美股票覆盖</strong>是相对强项；接入简单，适合快速原型；MCP 服务器降低了大模型场景的使用门槛。</p>
+<p><strong>需要注意的短板</strong>：免费层实际可用的 OHLCV 历史几乎为零，回测用途受限；有用户报告免费层实时报价的可用性存在争议；商业授权路径不透明且成本较高；数据可靠性在交易者社区中存在负面反馈。</p>
+<p><strong>适合</strong>：个人量化研究者、金融科技原型开发、需要另类数据（ESG、国会交易、供应链）的研究项目、以美股+国际股票为覆盖面的轻量级看板或策略。</p>
+<p><strong>不适合</strong>：需要可靠逐笔 Tick 的专业高频交易、需要免费历史 OHLCV 做回测、以及希望以公开价格获得商业展示授权的团队。</p>
+</section>
+<section id="r-调用-finnhub-api" class="level3">
+<h3 class="anchored" data-anchor-id="r-调用-finnhub-api">5.R 调用 Finnhub API</h3>
+<p>在R语言中调用 Finnhub API，主要有三种路径：使用社区封装包（最快捷）、直接用HTTP包调用REST API（最灵活），以及用WebSocket包接收实时流。官方并没有发布专门的R SDK，但有社区维护的封装包可供使用。</p>
+<section id="使用-finnhubr-封装包" class="level4">
+<h4 class="anchored" data-anchor-id="使用-finnhubr-封装包">5.1.使用 <code>finnhubr</code> 封装包</h4>
+<p><code>finnhubr</code> 是社区维护的R wrapper，它对常用端点做了函数封装，适合快速上手。注意：包作者明确声明该包 <strong>“USE WITH CAUTION”</strong>——没有异常处理、缺少单元测试，且Finnhub API频繁升级可能导致部分功能失效，且仅由一人维护。它更适合探索性使用，而非生产环境。</p>
+<p><strong>安装与配置：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 安装（需先从GitHub安装）</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"threadingdata/finnhubr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(finnhubr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 注册API Key（会存入当前会话的环境变量）</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set_finnhub_key</span>(<span class="st">"你的API_Key"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 确认Key已可用</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">finnhub_key</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>常用函数示例：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 公司基本资料</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">company_profile</span>(<span class="st">"AAPL"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 实时报价</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">stock_quote</span>(<span class="st">"NVDA"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 新闻情绪</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">news_sentiment</span>(<span class="st">"NVDA"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 财务报表（年度/季度/滚动）</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">income_statement</span>(<span class="st">"AAPL"</span>, <span class="at">freq =</span> <span class="st">"annual"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 公司新闻（指定时间范围）</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">company_news</span>(<span class="st">"AAPL"</span>, <span class="at">from =</span> <span class="st">"2026-01-01"</span>, <span class="at">to =</span> <span class="st">"2026-11-10"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 股票K线数据</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fu">stock_candles</span>(<span class="st">"AAPL"</span>, <span class="at">resolution =</span> <span class="st">"D"</span>, <span class="at">from =</span> ..., <span class="at">to =</span> ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>finnhubr</code> 覆盖的端点较广，包括公司资料、高管、新闻、财务报表、分红、IPO日历、分析师目标价、内部人交易等。</p>
+</section>
+<section id="直接用-httr-jsonlite-调用rest-api" class="level4">
+<h4 class="anchored" data-anchor-id="直接用-httr-jsonlite-调用rest-api">5.2.直接用 <code>httr</code> + <code>jsonlite</code> 调用REST API</h4>
+<p>不依赖封装包，直接发HTTP请求。这种方式<strong>不受包维护状态影响</strong>，且能调用API的全部端点，是更稳健的选择。</p>
+<p><strong>基础调用模式：</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(httr)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>api_key <span class="ot">&lt;-</span> <span class="st">"你的API_Key"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://finnhub.io/api/v1"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 以获取实时报价为例</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="fu">paste0</span>(base_url, <span class="st">"/quote"</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="fu">list</span>(<span class="at">symbol =</span> <span class="st">"AAPL"</span>, <span class="at">token =</span> api_key)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 检查状态并解析JSON</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">stop_for_status</span>(resp)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>quote_data <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(resp<span class="sc">$</span>content))</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(quote_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>K线数据示例</strong>（注意：免费层此端点通常返回403，K线历史属于付费端点）：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">GET</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="fu">paste0</span>(base_url, <span class="st">"/stock/candle"</span>),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="fu">list</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">symbol     =</span> <span class="st">"AAPL"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">resolution =</span> <span class="st">"D"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">from       =</span> <span class="fu">as.numeric</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2026-01-01"</span>)),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">to         =</span> <span class="fu">as.numeric</span>(<span class="fu">as.POSIXct</span>(<span class="st">"2026-11-01"</span>)),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">token      =</span> api_key</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>candles <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(<span class="fu">rawToChar</span>(resp<span class="sc">$</span>content))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>性能提示</strong>：如果JSON解析是瓶颈，可以用 <code>RcppSimdJson::fparse()</code> 替代 <code>jsonlite::fromJSON()</code>，基准测试中解析速度可快一个数量级。但网络下载时间本身无法通过R控制。</p>
+</section>
+<section id="websocket接收实时数据流" class="level4">
+<h4 class="anchored" data-anchor-id="websocket接收实时数据流">5.3.WebSocket接收实时数据流</h4>
+<p>REST是请求-响应模式，实时推送需要用 <code>websocket</code> 包连接Finnhub的流式端点。每个API Key只允许一个WebSocket连接。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(websocket)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ws <span class="ot">&lt;-</span> WebSocket<span class="sc">$</span><span class="fu">new</span>(<span class="fu">paste0</span>(<span class="st">"wss://ws.finnhub.io?token="</span>, api_key))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ws<span class="sc">$</span><span class="fu">onMessage</span>(<span class="cf">function</span>(event) {</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  msg <span class="ot">&lt;-</span> <span class="fu">fromJSON</span>(event<span class="sc">$</span>data)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (msg<span class="sc">$</span>type <span class="sc">==</span> <span class="st">"trade"</span>) {</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(msg<span class="sc">$</span>data)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 订阅标的（发送JSON订阅消息）</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ws<span class="sc">$</span><span class="fu">send</span>(<span class="st">'{"type":"subscribe","symbol":"AAPL"}'</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ws<span class="sc">$</span><span class="fu">send</span>(<span class="st">'{"type":"subscribe","symbol":"BINANCE:BTCUSDT"}'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>注意URL格式：<a href="wss://ws.finnhub.io?token=..."><code>wss://ws.finnhub.io?token=...</code></a>（有社区反馈在某些环境中需在主机名后加斜杠 <a href="wss://ws.finnhub.io/?token=..."><code>wss://ws.finnhub.io/?token=...</code></a> 才能连接）。免费层WebSocket限<strong>50个标的</strong>。</p>
+<p>无论哪种方式，API Key都建议存入<strong>环境变量</strong>（如 <code>Sys.setenv(FINNHUB_KEY = "...")</code>）而非硬编码在脚本中，避免泄露。</p>
+</section>
+</section>
+<section id="python-中调用-finnhub-api" class="level3">
+<h3 class="anchored" data-anchor-id="python-中调用-finnhub-api">6.Python 中调用 Finnhub API</h3>
+<p>在 Python 中调用 Finnhub API，主要有两种路径：使用<strong>官方 SDK</strong> 最便捷，或使用 <code>requests</code> 库<strong>直接调用 REST API</strong> 最灵活。</p>
+<section id="官方-finnhub-python-sdk" class="level4">
+<h4 class="anchored" data-anchor-id="官方-finnhub-python-sdk">6.1.官方 <code>finnhub-python</code> SDK</h4>
+<p>这是最直接、最省事的方式，官方库封装了绝大多数端点，让代码更简洁。</p>
+<p><strong>安装与配置</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install finnhub-python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>核心代码示例</strong></p>
+<p>首先初始化客户端，后续所有操作都基于这个 <code>client</code> 实例。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> finnhub</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 建议从环境变量读取API Key，避免硬编码</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># import os</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># api_key = os.getenv("FINNHUB_API_KEY")</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>api_key <span class="op">=</span> <span class="st">"你的_API_Key"</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>finnhub_client <span class="op">=</span> finnhub.Client(api_key<span class="op">=</span>api_key)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>初始化后，即可调用封装好的方法来获取各类数据：</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取实时报价</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>quote <span class="op">=</span> finnhub_client.quote(<span class="st">'AAPL'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(quote)  <span class="co"># 返回一个字典，包含当前价 'c'、涨跌幅 'dp' 等</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取公司新闻（注意日期参数用 _from 避免与Python关键字冲突）</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>news <span class="op">=</span> finnhub_client.company_news(<span class="st">'AAPL'</span>, _from<span class="op">=</span><span class="st">"2026-01-01"</span>, to<span class="op">=</span><span class="st">"2026-11-10"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(news)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取历史K线（参数：代码, 分辨率, 开始时间戳, 结束时间戳）</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>candles <span class="op">=</span> finnhub_client.stock_candles(<span class="st">'AAPL'</span>, <span class="st">'D'</span>, <span class="dv">1590988249</span>, <span class="dv">1591852249</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(candles)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 获取公司基本财务指标</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>basic_financials <span class="op">=</span> finnhub_client.company_basic_financials(<span class="st">'AAPL'</span>, <span class="st">'all'</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(basic_financials)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>官方 SDK 的返回值通常是字典格式，可以很方便地转换为 Pandas DataFrame 进行分析。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 如果返回的数据结构规整，可直接转换</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(candles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="使用-requests-直接调用-rest-api最灵活" class="level4">
+<h4 class="anchored" data-anchor-id="使用-requests-直接调用-rest-api最灵活">6.2.使用 <code>requests</code> 直接调用 REST API（最灵活）</h4>
+<p>这种方式不依赖官方 SDK，能让你完全控制请求的构建与响应的解析，不受 SDK 版本更新的影响。</p>
+<p>Finnhub REST API 的基础 URL 是 <a href="https://finnhub.io/api/v1"><code>https://finnhub.io/api/v1</code></a>，API Key 可以作为查询参数 <code>token</code> 传递。</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>API_KEY <span class="op">=</span> os.getenv(<span class="st">"FINNHUB_API_KEY"</span>, <span class="st">"你的_API_Key"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>BASE_URL <span class="op">=</span> <span class="st">"https://finnhub.io/api/v1"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_stock_quote(symbol: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""获取指定股票的实时报价"""</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>BASE_URL<span class="sc">}</span><span class="ss">/quote"</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> {</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"symbol"</span>: symbol,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"token"</span>: API_KEY</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    response.raise_for_status()  <span class="co"># 如果请求失败（4xx/5xx），会抛出异常</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> response.json()</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 调用示例</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>quote <span class="op">=</span> get_stock_quote(<span class="st">"AAPL"</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> quote:</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Finnhub 报价字段：'c'=当前价, 'd'=涨跌额, 'dp'=涨跌幅(%)</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"AAPL: $</span><span class="sc">{</span>quote[<span class="st">'c'</span>]<span class="sc">:.2f}</span><span class="ss"> (涨跌幅: </span><span class="sc">{</span>quote[<span class="st">'dp'</span>]<span class="sc">:+.2f}</span><span class="ss">%)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>API Key 也可以放在 HTTP 请求头 <code>X-Finnhub-Token</code> 中传递，这种方式比放在 URL 里更安全一些。</p>
+</section>
+<section id="关键注意事项" class="level4">
+<h4 class="anchored" data-anchor-id="关键注意事项"><strong>6.3.关键注意事项</strong></h4>
+<ul>
+<li>API Key 安全管理：切勿将 API Key 直接写在代码中。强烈建议使用环境变量来管理（如 <code>os.getenv("FINNHUB_API_KEY")</code>），尤其是在代码需要分享或上传到版本控制系统时。</li>
+<li>了解免费层速率限制：免费账户的调用频率限制为每分钟 60 次请求，所有计划都设有每秒 30 次请求的硬性上限。超限会返回 HTTP 429 状态码，在编写需要循环调用的脚本时，应加入适当的延时或使用 <code>tenacity</code> 等库进行重试处理。</li>
+</ul>
 
 
 </section>
