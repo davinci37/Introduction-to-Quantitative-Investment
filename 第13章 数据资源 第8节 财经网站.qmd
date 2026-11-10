@@ -25,7 +25,7 @@
 
 -   **行情与数据** 提供全球**70多家交易所**超**10万种**金融品种的实时报价与历史数据。其技术分析汇总功能，会基于移动平均线、各类技术指标，通过算法给出“买入/卖出”等参考信号。
 
--    **财经日历** 这是其口碑极佳的王牌功能，覆盖全球重要经济事件，提供数据的前值、预期值和实际值对比，更新及时且维度全面，被许多用户视为跟踪宏观动态的首选工具。
+-   **财经日历** 这是其口碑极佳的王牌功能，覆盖全球重要经济事件，提供数据的前值、预期值和实际值对比，更新及时且维度全面，被许多用户视为跟踪宏观动态的首选工具。
 
 -   **投资组合与提醒** 用户可以建立多个自选列表和持仓组合，系统会据此计算每日盈亏。同时，可针对任一品种、财经事件或分析文章设置个性化提醒，不错过关键变动。
 
@@ -339,3 +339,275 @@ APP内的社区功能在2025年持续升级，上线了股票、基金专属讨�
 据披露，该平台已获得某头部百亿量化私募认可，并向多家私募及证券行业头部机构提供实测。
 
 总之，财联社本质上是一个为**交易时效性**而优化的金融信息工具，而非追求全面深度的财经杂志。它的价值高低，取决于使用者自身的信息处理能力和投资决策框架。
+
+## 五、Finnhub
+
+Finnhub 是一个**面向开发者的金融数据 API 平台**，核心定位是以较低门槛提供实时行情、基本面数据与另类数据，让个人开发者、量化研究者和金融科技原型团队能以 API 方式将市场数据集成到自己的应用或策略中。它的自我描述是“democratizing financial data”（让金融数据民主化）。
+
+### 1.数据覆盖与核心功能
+
+Finnhub 的数据面较宽，并非只做行情报价。
+
+**行情数据**：覆盖美股实时报价、外汇（约 10 家经纪商）和加密货币（15+ 交易所），支持 REST 轮询与 WebSocket 流式推送。免费层即可获得 1 分钟分辨率的实时报价。不过外汇和国际股票存在延迟：LSE 股票延迟 15 分钟，多数其他国际市场为日终数据。
+
+**基本面与公司数据**：包括公司档案、高管信息、财务报表（利润表、资产负债表、现金流）、关键比率、分红历史、同行对比、营收拆分等。付费层可获取**30 年以上的财务报表**和 20 年以上的分析师预期数据。
+
+**分析师与预期数据**：推荐趋势、目标价、评级上调/下调，以及从营收、EPS 到 EBITDA、自由现金流的一系列前瞻性预期。
+
+**财报与监管文件**：财报日历、电话会议记录、SEC 文件检索、IPO 日历。
+
+**另类数据（Finnhub 的差异化优势）**：ESG 评分、供应链、专利、游说、**国会交易**、内部人交易、新闻情绪等。在与同类平台的对比中，Finnhub 在另类数据和非美股票覆盖上明显领先。
+
+**ETF / 共同基金**：基金概况、持仓（当前与历史）、国家/行业敞口、资产配置。
+
+此外，Finnhub 还提供了一个**托管 MCP 服务器**（`mcp.finnhub.io`），暴露约 70 个工具，可在 Claude、ChatGPT 中直接调用上述数据，无需编写代码。
+
+### 2.定价与限制
+
+Finnhub 采用 **freemium + 按数据模块分别定价**的模式，这一点对理解它的适用边界很重要。
+
+**免费层**：\$0/月，**60 次 API 请求/分钟**，WebSocket 限 **50 个标的**。包含美股实时报价、公司新闻、基础基本面、SEC 文件访问。单就请求频率而言，60/分钟在免费金融数据 API 中相当宽松（Alpha Vantage 免费层仅为 5次/分钟、25次/天）。适合个人研究、学习和小规模原型。
+
+**付费层（Market Data 模块示例）**：
+
+| 计划 | 价格（近似） | 说明 |
+|----|----|----|
+| Market Data Basic | **\$49.99/月**（按季账单） | 行情数据入门 |
+| Standard | **\$129.99/月**（按季账单） | 更高权限 |
+| Professional | **\$199.99/月**（按年账单） | 更高权限 |
+| All-in-One | **\$3,500/月** | 全量数据 + 企业 SLA，通过销售获取 |
+
+**最关键的限制：所有公开标价的自助计划（包括付费计划）均仅限个人使用**。如果要在产品中向客户展示 Finnhub 数据（商业用途），需要单独联系销售签订 **Enterprise 协议**，价格不公开。这一点与部分竞品（如 Massive）公开商业价格的做法不同，是在商业项目中选用 Finnhub 前必须确认的事项。
+
+### 3.技术特征
+
+**协议**：REST + 轻量 WebSocket。REST 基础 URL 为 [`https://finnhub.io/api/v1`](https://finnhub.io/api/v1)，请求需携带 API Key。WebSocket 用于实时推送，但**每个 API Key 只允许一个 WebSocket 连接**。
+
+**限流**：免费层 60 请求/分钟；所有计划统一设有 **30 请求/秒**的硬上限，超限返回 HTTP 429。
+
+**数据粒度与历史**：免费层的美股 OHLCV 历史 K 线**不可用**，会返回 403；历史 OHLC 属于付费端点。日内请求按**每次一个月**返回，做完整历史回填需要分页循环。Tick 数据的历史深度依计划不同，从 5 年到 30+ 年不等。
+
+**SDK 生态**：官方及社区提供 Python、Kotlin、C++ 等语言 SDK，覆盖度较好。
+
+### 4.适用场景
+
+**优势**：免费层请求频率慷慨；数据面宽，尤其**另类数据**和**非美股票覆盖**是相对强项；接入简单，适合快速原型；MCP 服务器降低了大模型场景的使用门槛。
+
+**需要注意的短板**：免费层实际可用的 OHLCV 历史几乎为零，回测用途受限；有用户报告免费层实时报价的可用性存在争议；商业授权路径不透明且成本较高；数据可靠性在交易者社区中存在负面反馈。
+
+**适合**：个人量化研究者、金融科技原型开发、需要另类数据（ESG、国会交易、供应链）的研究项目、以美股+国际股票为覆盖面的轻量级看板或策略。
+
+**不适合**：需要可靠逐笔 Tick 的专业高频交易、需要免费历史 OHLCV 做回测、以及希望以公开价格获得商业展示授权的团队。
+
+### 5.R 调用 Finnhub API
+
+在R语言中调用 Finnhub API，主要有三种路径：使用社区封装包（最快捷）、直接用HTTP包调用REST API（最灵活），以及用WebSocket包接收实时流。官方并没有发布专门的R SDK，但有社区维护的封装包可供使用。
+
+#### 5.1.使用 `finnhubr` 封装包
+
+`finnhubr` 是社区维护的R wrapper，它对常用端点做了函数封装，适合快速上手。注意：包作者明确声明该包 **“USE WITH CAUTION”**——没有异常处理、缺少单元测试，且Finnhub API频繁升级可能导致部分功能失效，且仅由一人维护。它更适合探索性使用，而非生产环境。
+
+**安装与配置：**
+
+``` r
+# 安装（需先从GitHub安装）
+install.packages("remotes")
+remotes::install_github("threadingdata/finnhubr")
+```
+
+``` r
+library(finnhubr)
+
+# 注册API Key（会存入当前会话的环境变量）
+set_finnhub_key("你的API_Key")
+
+# 确认Key已可用
+finnhub_key()
+```
+
+**常用函数示例：**
+
+``` r
+# 公司基本资料
+company_profile("AAPL")
+
+# 实时报价
+stock_quote("NVDA")
+
+# 新闻情绪
+news_sentiment("NVDA")
+
+# 财务报表（年度/季度/滚动）
+income_statement("AAPL", freq = "annual")
+
+# 公司新闻（指定时间范围）
+company_news("AAPL", from = "2026-01-01", to = "2026-11-10")
+
+# 股票K线数据
+stock_candles("AAPL", resolution = "D", from = ..., to = ...)
+```
+
+`finnhubr` 覆盖的端点较广，包括公司资料、高管、新闻、财务报表、分红、IPO日历、分析师目标价、内部人交易等。
+
+#### 5.2.直接用 `httr` + `jsonlite` 调用REST API
+
+不依赖封装包，直接发HTTP请求。这种方式**不受包维护状态影响**，且能调用API的全部端点，是更稳健的选择。
+
+**基础调用模式：**
+
+``` r
+library(httr)
+library(jsonlite)
+
+api_key <- "你的API_Key"
+base_url <- "https://finnhub.io/api/v1"
+
+# 以获取实时报价为例
+resp <- GET(
+  url = paste0(base_url, "/quote"),
+  query = list(symbol = "AAPL", token = api_key)
+)
+
+# 检查状态并解析JSON
+stop_for_status(resp)
+quote_data <- fromJSON(rawToChar(resp$content))
+print(quote_data)
+```
+
+**K线数据示例**（注意：免费层此端点通常返回403，K线历史属于付费端点）：
+
+``` r
+resp <- GET(
+  url = paste0(base_url, "/stock/candle"),
+  query = list(
+    symbol     = "AAPL",
+    resolution = "D",
+    from       = as.numeric(as.POSIXct("2026-01-01")),
+    to         = as.numeric(as.POSIXct("2026-11-01")),
+    token      = api_key
+  )
+)
+candles <- fromJSON(rawToChar(resp$content))
+```
+
+**性能提示**：如果JSON解析是瓶颈，可以用 `RcppSimdJson::fparse()` 替代 `jsonlite::fromJSON()`，基准测试中解析速度可快一个数量级。但网络下载时间本身无法通过R控制。
+
+#### 5.3.WebSocket接收实时数据流
+
+REST是请求-响应模式，实时推送需要用 `websocket` 包连接Finnhub的流式端点。每个API Key只允许一个WebSocket连接。
+
+``` r
+library(websocket)
+
+ws <- WebSocket$new(paste0("wss://ws.finnhub.io?token=", api_key))
+
+ws$onMessage(function(event) {
+  msg <- fromJSON(event$data)
+  if (msg$type == "trade") {
+    print(msg$data)
+  }
+})
+
+# 订阅标的（发送JSON订阅消息）
+ws$send('{"type":"subscribe","symbol":"AAPL"}')
+ws$send('{"type":"subscribe","symbol":"BINANCE:BTCUSDT"}')
+```
+
+注意URL格式：[`wss://ws.finnhub.io?token=...`](wss://ws.finnhub.io?token=...)（有社区反馈在某些环境中需在主机名后加斜杠 [`wss://ws.finnhub.io/?token=...`](wss://ws.finnhub.io/?token=...) 才能连接）。免费层WebSocket限**50个标的**。
+
+无论哪种方式，API Key都建议存入**环境变量**（如 `Sys.setenv(FINNHUB_KEY = "...")`）而非硬编码在脚本中，避免泄露。
+
+### 6.Python 中调用 Finnhub API
+
+在 Python 中调用 Finnhub API，主要有两种路径：使用**官方 SDK** 最便捷，或使用 `requests` 库**直接调用 REST API** 最灵活。
+
+#### 6.1.官方 `finnhub-python` SDK
+
+这是最直接、最省事的方式，官方库封装了绝大多数端点，让代码更简洁。
+
+**安装与配置**
+
+``` bash
+pip install finnhub-python
+```
+
+**核心代码示例**
+
+首先初始化客户端，后续所有操作都基于这个 `client` 实例。
+
+``` python
+import finnhub
+
+# 建议从环境变量读取API Key，避免硬编码
+# import os
+# api_key = os.getenv("FINNHUB_API_KEY")
+api_key = "你的_API_Key"
+
+finnhub_client = finnhub.Client(api_key=api_key)
+```
+
+初始化后，即可调用封装好的方法来获取各类数据：
+
+``` python
+# 获取实时报价
+quote = finnhub_client.quote('AAPL')
+print(quote)  # 返回一个字典，包含当前价 'c'、涨跌幅 'dp' 等
+
+# 获取公司新闻（注意日期参数用 _from 避免与Python关键字冲突）
+news = finnhub_client.company_news('AAPL', _from="2026-01-01", to="2026-11-10")
+print(news)
+
+# 获取历史K线（参数：代码, 分辨率, 开始时间戳, 结束时间戳）
+candles = finnhub_client.stock_candles('AAPL', 'D', 1590988249, 1591852249)
+print(candles)
+
+# 获取公司基本财务指标
+basic_financials = finnhub_client.company_basic_financials('AAPL', 'all')
+print(basic_financials)
+```
+
+官方 SDK 的返回值通常是字典格式，可以很方便地转换为 Pandas DataFrame 进行分析。
+
+``` python
+import pandas as pd
+# 如果返回的数据结构规整，可直接转换
+df = pd.DataFrame(candles)
+```
+
+#### 6.2.使用 `requests` 直接调用 REST API（最灵活）
+
+这种方式不依赖官方 SDK，能让你完全控制请求的构建与响应的解析，不受 SDK 版本更新的影响。
+
+Finnhub REST API 的基础 URL 是 [`https://finnhub.io/api/v1`](https://finnhub.io/api/v1)，API Key 可以作为查询参数 `token` 传递。
+
+``` python
+import requests
+import os
+
+API_KEY = os.getenv("FINNHUB_API_KEY", "你的_API_Key")
+BASE_URL = "https://finnhub.io/api/v1"
+
+def get_stock_quote(symbol: str) -> dict:
+    """获取指定股票的实时报价"""
+    url = f"{BASE_URL}/quote"
+    params = {
+        "symbol": symbol,
+        "token": API_KEY
+    }
+    response = requests.get(url, params=params)
+    response.raise_for_status()  # 如果请求失败（4xx/5xx），会抛出异常
+    return response.json()
+
+# 调用示例
+quote = get_stock_quote("AAPL")
+if quote:
+    # Finnhub 报价字段：'c'=当前价, 'd'=涨跌额, 'dp'=涨跌幅(%)
+    print(f"AAPL: ${quote['c']:.2f} (涨跌幅: {quote['dp']:+.2f}%)")
+```
+
+API Key 也可以放在 HTTP 请求头 `X-Finnhub-Token` 中传递，这种方式比放在 URL 里更安全一些。
+
+#### **6.3.关键注意事项**
+
+-   API Key 安全管理：切勿将 API Key 直接写在代码中。强烈建议使用环境变量来管理（如 `os.getenv("FINNHUB_API_KEY")`），尤其是在代码需要分享或上传到版本控制系统时。
+-   了解免费层速率限制：免费账户的调用频率限制为每分钟 60 次请求，所有计划都设有每秒 30 次请求的硬性上限。超限会返回 HTTP 429 状态码，在编写需要循环调用的脚本时，应加入适当的延时或使用 `tenacity` 等库进行重试处理。
